@@ -36,7 +36,7 @@ export default function Navbar() {
             whileHover={{ scale: 1.05 }}
             transition={{ type: 'spring', stiffness: 400, damping: 15 }}
           >
-            <Image src="/images/logo.png" alt="Smart Youth ICT" width={180} height={60} className="h-10 w-auto object-contain" priority />
+            <img src="/images/logo.png" alt="Smart Youth ICT" className="h-10 w-auto object-contain" />
           </motion.div>
         </Link>
 

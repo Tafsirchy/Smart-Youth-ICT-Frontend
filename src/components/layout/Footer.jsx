@@ -29,8 +29,8 @@ export default function Footer() {
         <div className="grid grid-cols-2 md:grid-cols-4 gap-8 mb-12">
           {/* Brand */}
           <div className="col-span-2 md:col-span-1">
-            <Link href="/" className="inline-block mb-4">
-              <Image src="/images/logo.png" alt="Smart Youth ICT" width={180} height={60} className="h-12 w-auto object-contain" />
+            <Link href="/" className="mb-4 inline-block">
+              <img src="/images/logo.png" alt="Smart Youth ICT" className="h-12 w-auto object-contain" />
             </Link>
             <p className="mt-3 text-sm leading-relaxed">
               Learn IT skills & earn from real projects. Bangladesh&apos;s most practical IT training platform.

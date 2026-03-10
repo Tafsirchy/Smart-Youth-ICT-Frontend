@@ -32,7 +32,9 @@ export default function LoginPage() {
     <div className="card w-full max-w-md p-8">
       {/* Logo / Brand */}
       <div className="text-center mb-8">
-        <span className="text-2xl font-extrabold text-gradient">SYICT</span>
+        <Link href="/" className="fixed top-8 left-8 hidden md:block z-50">
+           <img src="/images/logo.png" alt="Logo" className="h-10 w-auto object-contain drop-shadow-lg filter brightness-0 invert" />
+        </Link>
         <h1 className="text-xl font-bold text-textPrimary mt-1">Welcome back</h1>
         <p className="text-textSecondary text-sm mt-1">Sign in to your account</p>
       </div>
