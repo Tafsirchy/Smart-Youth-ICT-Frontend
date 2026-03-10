@@ -6,7 +6,7 @@ import { signOut } from 'next-auth/react';
 import {
   HiHome, HiAcademicCap, HiChartBar, HiClipboardList,
   HiBadgeCheck, HiCreditCard, HiLogout, HiCog,
-  HiUsers, HiCollection, HiAnnotation, HiUserGroup,
+  HiUsers, HiCollection, HiAnnotation, HiUserGroup, HiUserCircle, HiBriefcase, HiGift,
 } from 'react-icons/hi';
 
 const studentNav = [
@@ -16,6 +16,9 @@ const studentNav = [
   { href: '/student/assignments',  Icon: HiClipboardList, label: 'Assignments' },
   { href: '/student/certificates', Icon: HiBadgeCheck,    label: 'Certificates'},
   { href: '/student/payments',     Icon: HiCreditCard,    label: 'Payments'    },
+  { href: '/student/portfolio',    Icon: HiUserCircle,    label: 'Portfolio'   },
+  { href: '/student/affiliate',    Icon: HiGift,          label: 'Affiliate'   },
+  { href: '/freelancing',          Icon: HiBriefcase,     label: 'Projects'    },
 ];
 
 const instructorNav = [
