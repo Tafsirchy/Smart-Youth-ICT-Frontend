@@ -1,30 +1,50 @@
 import { withAuth } from 'next-auth/middleware';
-import { NextResponse } from 'next/server';
+import createIntlMiddleware from 'next-intl/middleware';
 
-export default withAuth(
-  function middleware(req) {
-    const { token } = req.nextauth;
-    const { pathname } = req.nextUrl;
+const locales = ['en', 'bn'];
+const defaultLocale = 'bn';
+const publicPages = ['/', '/login', '/register', '/about', '/contact', '/courses', '/courses/:slug*'];
 
-    // Admin-only routes
-    if (pathname.startsWith('/admin') && token?.role !== 'admin') {
-      return NextResponse.redirect(new URL('/student', req.url));
-    }
+// Handles internationalization routing
+const intlMiddleware = createIntlMiddleware({
+  locales,
+  defaultLocale,
+  localePrefix: 'as-needed' // Only prefix non-default locale (e.g., /en/login but /login for bn)
+});
 
-    // Instructor-only routes
-    if (pathname.startsWith('/instructor') && !['instructor','admin'].includes(token?.role)) {
-      return NextResponse.redirect(new URL('/student', req.url));
-    }
-
-    return NextResponse.next();
+// Auth middleware wrapper
+const authMiddleware = withAuth(
+  function onSuccess(req) {
+    // Auth passed, run intl middleware
+    return intlMiddleware(req);
   },
   {
     callbacks: {
-      authorized: ({ token }) => !!token,
+      authorized: ({ token }) => token != null
     },
-  },
+    pages: {
+      signIn: '/login'
+    }
+  }
 );
 
+export default function middleware(req) {
+  const publicPathnameRegex = RegExp(
+    `^(/(${locales.join('|')}))?(${publicPages.flatMap((p) => (p === '/' ? ['', '/'] : p)).join('|')})/?$`,
+    'i'
+  );
+  const isPublicPage = publicPathnameRegex.test(req.nextUrl.pathname);
+
+  if (isPublicPage) {
+    // Only apply i18n
+    return intlMiddleware(req);
+  } else {
+    // Apply auth and then i18n
+    return authMiddleware(req, req.nextUrl);
+  }
+}
+
 export const config = {
-  matcher: ['/student/:path*', '/instructor/:path*', '/admin/:path*'],
+  // Matches all paths except static files, api routes, and next internals
+  matcher: ['/((?!api|_next|.*\\..*).*)']
 };

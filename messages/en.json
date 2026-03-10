@@ -1,0 +1,16 @@
+{
+  "Navigation": {
+    "home": "Home",
+    "courses": "Courses",
+    "about": "About Us",
+    "contact": "Contact",
+    "success_stories": "Success Stories",
+    "login": "Login",
+    "register": "Register"
+  },
+  "Hero": {
+    "title": "Learn IT Skills",
+    "subtitle": "Build your career with expert-led courses",
+    "cta": "Enroll Now"
+  }
+}

@@ -1,6 +1,8 @@
 import '@/styles/globals.css';
 import { Inter } from 'next/font/google';
 import { Toaster } from 'react-hot-toast';
+import { NextIntlClientProvider } from 'next-intl';
+import { getMessages } from 'next-intl/server';
 import Providers from '@/providers/Providers';
 import FacebookPixel from '@/components/marketing/FacebookPixel';
 import WhatsAppButton from '@/components/marketing/WhatsAppButton';
@@ -14,22 +16,21 @@ export const metadata = {
   openGraph: { type: 'website', locale: 'bn_BD', url: process.env.NEXT_PUBLIC_APP_URL, siteName: 'Smart Youth ICT' },
 };
 
-export default function RootLayout({ children }) {
+export default async function RootLayout({ children, params: { locale } }) {
+  // Fetch messages (translations) for the current locale
+  const messages = await getMessages();
+
   return (
-    <html lang="bn">
+    <html lang={locale}>
       <body className={inter.className}>
-        {/*
-         * Providers wraps:
-         *   ① SessionProvider  — NextAuth session (useSession everywhere)
-         *   ② QueryClientProvider — TanStack Query cache (useQuery / useMutation)
-         *   ReactQueryDevtools visible in dev only
-         */}
-        <Providers>
-          <FacebookPixel />
-          {children}
-          <WhatsAppButton />
-          <Toaster position="top-right" toastOptions={{ duration: 4000 }} />
-        </Providers>
+        <NextIntlClientProvider messages={messages}>
+          <Providers>
+            <FacebookPixel />
+            {children}
+            <WhatsAppButton />
+            <Toaster position="top-right" toastOptions={{ duration: 4000 }} />
+          </Providers>
+        </NextIntlClientProvider>
       </body>
     </html>
   );
