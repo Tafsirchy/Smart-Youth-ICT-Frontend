@@ -3,11 +3,13 @@
 import React, { useState, useEffect } from 'react';
 import { notFound } from 'next/navigation';
 import Image from 'next/image';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import { IoTimeOutline, IoCheckmarkCircle, IoPlayCircleOutline } from 'react-icons/io5';
 import VideoPlayer from '@/components/courses/VideoPlayer';
 import { Button } from '@/components/ui/Button';
 import { Badge } from '@/components/ui/Badge';
+import PaymentGatewayButton from '@/components/payments/PaymentGatewayButton';
+import ManualBankModal from '@/components/payments/ManualBankModal';
 import api from '@/lib/api';
 
 export default function CourseDetailPage({ params }) {
@@ -15,6 +17,7 @@ export default function CourseDetailPage({ params }) {
   const [course, setCourse] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
+  const [showManualBank, setShowManualBank] = useState(false);
 
   useEffect(() => {
     const fetchCourse = async () => {
@@ -103,11 +106,29 @@ export default function CourseDetailPage({ params }) {
                     )}
                   </div>
                   
-                  <Button size="lg" className="h-14 w-full text-lg shadow-md font-bold" onClick={() => alert('Enrollment flow pending checkout gateway integration')}>
-                    Enroll Now
-                  </Button>
+                  {/* Payment Gateways Grid */}
+                  <div className="mt-6 flex flex-col gap-3">
+                    <PaymentGatewayButton gateway="bkash" courseId={course._id} amount={course.price} />
+                    <PaymentGatewayButton gateway="nagad" courseId={course._id} amount={course.price} />
+                    <PaymentGatewayButton gateway="stripe" courseId={course._id} amount={course.price} />
+                    
+                    <div className="my-2 flex items-center justify-center gap-2">
+                       <span className="h-[1px] w-full bg-neutral-200"></span>
+                       <span className="text-xs font-semibold uppercase text-neutral-400">OR</span>
+                       <span className="h-[1px] w-full bg-neutral-200"></span>
+                    </div>
+
+                    {/* Manual Bank Transfer sets local state to show modal instead of hitting API directly */}
+                    <Button 
+                      variant="outline" 
+                      onClick={() => setShowManualBank(true)} 
+                      className="w-full py-5 text-neutral-700 hover:bg-neutral-100 font-bold"
+                    >
+                      Manual Bank Transfer
+                    </Button>
+                  </div>
                   
-                  <p className="mt-4 text-center text-xs font-medium text-neutral-400">
+                  <p className="mt-6 text-center text-xs font-medium text-neutral-400">
                     Secure checkout. Real projects. Guaranteed learning.
                   </p>
                 </div>
@@ -115,6 +136,17 @@ export default function CourseDetailPage({ params }) {
             </div>
           </div>
         </div>
+
+        {/* Modal rendering */}
+        <AnimatePresence>
+          {showManualBank && (
+            <ManualBankModal 
+              courseId={course._id} 
+              amount={course.price} 
+              onClose={() => setShowManualBank(false)} 
+            />
+          )}
+        </AnimatePresence>
 
         {/* Course Details Grid */}
         <div className="grid grid-cols-1 gap-12 lg:grid-cols-3">
