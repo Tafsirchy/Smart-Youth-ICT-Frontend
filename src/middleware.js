@@ -3,7 +3,7 @@ import createIntlMiddleware from 'next-intl/middleware';
 
 const locales = ['en', 'bn'];
 const defaultLocale = 'bn';
-const publicPages = ['/', '/login', '/register', '/about', '/contact', '/courses', '/courses/:slug*'];
+
 
 // Handles internationalization routing
 const intlMiddleware = createIntlMiddleware({
@@ -29,8 +29,9 @@ const authMiddleware = withAuth(
 );
 
 export default function middleware(req) {
+  // Using explicit route definitions to avoid parsing issues with dynamic segments
   const publicPathnameRegex = RegExp(
-    `^(/(${locales.join('|')}))?(${publicPages.flatMap((p) => (p === '/' ? ['', '/'] : p)).join('|')})/?$`,
+    `^(/(${locales.join('|')}))?(/|/login|/register|/about|/contact|/success-stories|/courses(/.*)?|/blog(/.*)?|/auth-redirect)?/?$`,
     'i'
   );
   const isPublicPage = publicPathnameRegex.test(req.nextUrl.pathname);

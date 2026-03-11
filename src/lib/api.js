@@ -7,14 +7,35 @@ const api = axios.create({
   timeout: 15000,
 });
 
+const PUBLIC_AUTH_PATHS = new Set([
+  "/auth/register",
+  "/auth/login",
+  "/auth/google",
+  "/auth/forgot-password",
+  "/auth/reset-password",
+]);
+
 // Attach JWT from NextAuth session on every request
 api.interceptors.request.use(async (config) => {
-  const session = await getSession();
-  const accessToken =
-    session?.accessToken || session?.user?.accessToken || session?.user?.token;
-  if (accessToken) {
-    config.headers.Authorization = `Bearer ${accessToken}`;
+  const requestPath = config.url || "";
+  if (PUBLIC_AUTH_PATHS.has(requestPath)) {
+    return config;
   }
+
+  try {
+    const session = await getSession();
+    const accessToken =
+      session?.accessToken ||
+      session?.user?.accessToken ||
+      session?.user?.token;
+
+    if (accessToken) {
+      config.headers.Authorization = `Bearer ${accessToken}`;
+    }
+  } catch {
+    // If NextAuth isn't reachable yet, allow public API calls to proceed.
+  }
+
   return config;
 });
 

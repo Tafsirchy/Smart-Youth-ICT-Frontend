@@ -53,7 +53,13 @@ const providers = [
   }),
 ];
 
-if (process.env.GOOGLE_CLIENT_ID && process.env.GOOGLE_CLIENT_SECRET) {
+const hasGoogleCreds =
+  process.env.GOOGLE_CLIENT_ID &&
+  process.env.GOOGLE_CLIENT_SECRET &&
+  !process.env.GOOGLE_CLIENT_ID.startsWith("REPLACE_") &&
+  !process.env.GOOGLE_CLIENT_SECRET.startsWith("REPLACE_");
+
+if (hasGoogleCreds) {
   providers.push(
     GoogleProvider({
       clientId: process.env.GOOGLE_CLIENT_ID,
