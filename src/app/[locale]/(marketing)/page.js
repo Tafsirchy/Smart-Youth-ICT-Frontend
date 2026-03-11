@@ -4,6 +4,7 @@ import PopularCourses from '@/components/home/PopularCourses';
 import HowItWorks from '@/components/home/HowItWorks';
 import SuccessStories from '@/components/home/SuccessStories';
 import Testimonials from '@/components/home/Testimonials';
+import BlogPreview from '@/components/home/BlogPreview';
 import PaymentMethodsSection from '@/components/home/PaymentMethodsSection';
 import MessengerChat from '@/components/marketing/MessengerChat';
 
@@ -21,6 +22,7 @@ export default function HomePage() {
       <HowItWorks />
       <SuccessStories />
       <Testimonials />
+      <BlogPreview />
       <PaymentMethodsSection />
       <MessengerChat />
     </>
