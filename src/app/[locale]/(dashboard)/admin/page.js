@@ -6,7 +6,7 @@ import Link from 'next/link';
 import { useLocale } from 'next-intl';
 import api from '@/lib/api';
 import {
-  IoPersonsOutline, IoBookOutline, IoCashOutline, IoRibbonOutline,
+  IoPeopleOutline, IoBookOutline, IoCashOutline, IoRibbonOutline,
   IoTrendingUpOutline, IoArrowForwardOutline, IoCalendarOutline,
   IoCheckmarkCircle, IoTimeOutline, IoArrowUpOutline
 } from 'react-icons/io5';
@@ -16,7 +16,7 @@ const stagger = { animate: { transition: { staggerChildren: 0.09 } } };
 const card    = { initial: { opacity: 0, y: 18 }, animate: { opacity: 1, y: 0, transition: { duration: 0.4 } } };
 
 const QUICK_LINKS = [
-  { href: '/admin/students',  label: 'Students',     icon: IoPersonsOutline,   color: 'from-blue-500 to-blue-600' },
+  { href: '/admin/students',  label: 'Students',     icon: IoPeopleOutline,    color: 'from-blue-500 to-blue-600' },
   { href: '/admin/courses',   label: 'Courses',      icon: IoBookOutline,       color: 'from-violet-500 to-purple-600' },
   { href: '/admin/payments',  label: 'Payments',     icon: IoCashOutline,       color: 'from-emerald-500 to-green-600' },
   { href: '/admin/blog',      label: 'Blog',         icon: IoCalendarOutline,   color: 'from-pink-500 to-rose-500' },
@@ -41,7 +41,7 @@ export default function AdminDashboardPage() {
   }, []);
 
   const STAT_CARDS = [
-    { label: 'Total Students',   value: stats?.totalStudents  ?? stats?.enrolledCourses ?? '—', icon: IoPersonsOutline,    bg: 'bg-blue-50',    txt: 'text-blue-600',   ring: 'ring-blue-100',   trend: '+12%' },
+    { label: 'Total Students',   value: stats?.totalStudents  ?? stats?.enrolledCourses ?? '—', icon: IoPeopleOutline,     bg: 'bg-blue-50',    txt: 'text-blue-600',   ring: 'ring-blue-100',   trend: '+12%' },
     { label: 'Active Courses',   value: stats?.totalCourses   ?? '—',                           icon: IoBookOutline,        bg: 'bg-violet-50',  txt: 'text-violet-600', ring: 'ring-violet-100', trend: '+3%'  },
     { label: 'Revenue (৳)',      value: stats?.totalRevenue?.toLocaleString() ?? '—',           icon: IoCashOutline,        bg: 'bg-emerald-50', txt: 'text-emerald-600',ring: 'ring-emerald-100',trend: '+24%' },
     { label: 'Certificates',     value: stats?.certificates   ?? '—',                           icon: IoRibbonOutline,      bg: 'bg-amber-50',   txt: 'text-amber-600',  ring: 'ring-amber-100',  trend: '+8%'  },
