@@ -4,9 +4,11 @@ import { useState } from "react";
 import Link from "next/link";
 import { signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
+import { useLocale } from "next-intl";
 
 export default function LoginPage() {
   const router = useRouter();
+  const locale = useLocale();
   const [form, setForm] = useState({ email: "", password: "" });
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
@@ -22,7 +24,7 @@ export default function LoginPage() {
     });
     setLoading(false);
     if (res?.ok) {
-      router.push("/student");
+      router.push(`/${locale}/student`);
     } else {
       setError("Invalid email or password.");
     }
@@ -84,7 +86,7 @@ export default function LoginPage() {
           />
           <div className="text-right mt-1">
             <Link
-              href="/forgot-password"
+              href={`/${locale}/forgot-password`}
               className="text-xs text-brand-pink hover:underline"
             >
               Forgot password?
@@ -105,7 +107,7 @@ export default function LoginPage() {
       <p className="text-center text-sm text-textSecondary mt-6">
         Don&apos;t have an account?{" "}
         <Link
-          href="/register"
+          href={`/${locale}/register`}
           className="text-brand-pink font-semibold hover:underline"
         >
           Register

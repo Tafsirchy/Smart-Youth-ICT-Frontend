@@ -5,9 +5,11 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { authService } from "@/services/authService";
 import toast from "react-hot-toast";
+import { useLocale } from "next-intl";
 
 export default function RegisterPage() {
   const router = useRouter();
+  const locale = useLocale();
   const [form, setForm] = useState({
     name: "",
     email: "",
@@ -22,7 +24,7 @@ export default function RegisterPage() {
     try {
       await authService.register(form);
       toast.success("Registration successful! Please log in.");
-      router.push("/login");
+      router.push(`/${locale}/login`);
     } catch (err) {
       toast.error(err?.response?.data?.message || "Registration failed.");
     } finally {
@@ -104,7 +106,7 @@ export default function RegisterPage() {
       <p className="text-center text-sm text-textSecondary mt-6">
         Already have an account?{" "}
         <Link
-          href="/login"
+          href={`/${locale}/login`}
           className="text-brand-pink font-semibold hover:underline"
         >
           Sign In
