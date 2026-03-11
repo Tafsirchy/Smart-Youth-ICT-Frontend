@@ -24,7 +24,12 @@ export default function LoginPage() {
     });
     setLoading(false);
     if (res?.ok) {
-      router.push(`/${locale}/student`);
+      // Role-based redirect after login
+      const { getSession } = await import('next-auth/react');
+      const session = await getSession();
+      const role = session?.user?.role || 'student';
+      const redirectMap = { admin: 'admin', instructor: 'instructor', student: 'student' };
+      router.push(`/${locale}/${redirectMap[role] || 'student'}`);
     } else {
       setError("Invalid email or password.");
     }
