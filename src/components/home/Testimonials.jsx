@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { IoStar, IoChatbubbleQuoteOutline } from 'react-icons/io5';
+import { IoStar, IoChatbubblesOutline } from 'react-icons/io5';
 import api from '@/lib/api';
 
 const STATIC = [
@@ -72,7 +72,7 @@ export default function Testimonials() {
               transition={{ type: 'spring', stiffness: 300, damping: 20 }}
               className="card p-6 flex flex-col gap-4 relative">
               {/* Quote icon */}
-              <IoChatbubbleQuoteOutline size={28} className="absolute top-5 right-5 opacity-10 text-textPrimary" />
+              <IoChatbubblesOutline size={28} className="absolute top-5 right-5 opacity-10 text-textPrimary" />
 
               <StarRating count={rating || 5} />
 
