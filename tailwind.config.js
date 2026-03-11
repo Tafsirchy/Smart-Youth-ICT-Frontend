@@ -16,22 +16,23 @@ module.exports = {
         brand: {
           pink:       theme.colors.brand.pink,       // #FF2C6D — Primary CTA
           pinkLight:  theme.colors.brand.pinkLight,  // #FF6A95 — Hover state
-          green:      theme.colors.brand.green,      // #0F7A3D — Secondary brand
-          greenLight: theme.colors.brand.greenLight, // #22C55E — Success / badge
+          green:      theme.colors.brand.green,      // #10B981 — Secondary brand
+          greenLight: theme.colors.brand.greenLight, // #34D399 — Success / badge
+          accent:     theme.colors.brand.accent,     // #22D3EE — Accent cyan
         },
-        dark:              theme.colors.dark,              // #111827 — Navbar / sidebar
-        background:        theme.colors.background,        // #F5F7FA — Page bg
+        dark:              theme.colors.dark,              // #0F172A — Navbar / sidebar
+        background:        theme.colors.background,        // #F8FAFC — Page bg
         surface:           theme.colors.surface,           // #FFFFFF — Cards / panels
-        border:            theme.colors.border,            // #E5E7EB — Dividers / inputs
-        textPrimary:       theme.colors.textPrimary,       // #1F2937 — Headings
-        textSecondary:     theme.colors.textSecondary,     // #6B7280 — Descriptions
+        border:            theme.colors.border,            // #E2E8F0 — Dividers / inputs
+        textPrimary:       theme.colors.textPrimary,       // #0F172A — Headings
+        textSecondary:     theme.colors.textSecondary,     // #64748B — Descriptions
       },
 
       // ─── Brand Gradients (use via arbitrary-value classes) ─────────
       backgroundImage: {
-        'gradient-hero': 'linear-gradient(135deg, #FF2C6D 0%, #22C55E 100%)',
-        'gradient-cta':  'linear-gradient(135deg, #FF2C6D 0%, #0F7A3D 100%)',
-        'gradient-btn':  'linear-gradient(135deg, #FF6A95 0%, #22C55E 100%)',
+        'gradient-hero': 'linear-gradient(135deg, #FF2C6D 0%, #10B981 100%)',
+        'gradient-cta':  'linear-gradient(135deg, #FF2C6D 0%, #22D3EE 100%)',
+        'gradient-btn':  'linear-gradient(135deg, #FF6A95 0%, #10B981 100%)',
       },
 
       // ─── Typography ────────────────────────────────────────────────

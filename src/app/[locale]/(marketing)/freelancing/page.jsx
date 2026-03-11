@@ -1,67 +1,107 @@
 import React from 'react';
-import ProjectBoard from './ProjectBoard';
-import { HiOutlineLightBulb, HiOutlineBadgeCheck, HiOutlineSparkles } from 'react-icons/hi';
+import ProjectCard from '@/components/freelancing/ProjectCard';
+
+const dummyProjects = [
+  {
+    id: 1,
+    title: 'Full-Stack E-commerce Website Development',
+    company: 'TechNova Solutions',
+    category: 'Web Development',
+    budget: '$500 - $1,000',
+    duration: '1-2 Months',
+    type: 'Remote',
+    description: 'Looking for a skilled MERN stack developer to build a modern e-commerce platform with Stripe integration, product variations, and administrative dashboard.',
+  },
+  {
+    id: 2,
+    title: 'Social Media Management & Content Creation',
+    company: 'FreshBites Restaurant',
+    category: 'Digital Marketing',
+    budget: '$300 / month',
+    duration: 'Ongoing',
+    type: 'Remote / Hybrid',
+    description: 'Need a creative marketer to manage 3 social platforms, create weekly graphics, and run targeted ad campaigns to increase local foot traffic.',
+  },
+  {
+    id: 3,
+    title: 'Brand Identity & Logo Design',
+    company: 'Lumiere Photography',
+    category: 'Graphic Design',
+    budget: '$150 - $250',
+    duration: '2 Weeks',
+    type: 'Remote',
+    description: 'We need a complete brand identity revamp including a minimalist logo, color palette, typography guidelines, and business card designs.',
+  },
+  {
+    id: 4,
+    title: 'SEO Audit & Optimization',
+    company: 'Global Trade Inc.',
+    category: 'SEO',
+    budget: '$400',
+    duration: '3 Weeks',
+    type: 'Remote',
+    description: 'Comprehensive technical SEO audit, keyword research, and on-page optimization for a B2B corporate website targeting global clients.',
+  }
+];
 
 export const metadata = {
-  title: 'Freelancing & Projects | Smart Youth ICT',
-  description: 'Earn while you learn. Access real client projects and build your portfolio.',
+  title: 'Freelancing Projects | SYICT',
+  description: 'Earn while you learn. Browse active freelancing projects and internships available for SYICT students.',
 };
 
 export default function FreelancingPage() {
   return (
-    <div className="bg-neutral-50 min-h-screen pb-20">
-      {/* Hero Header */}
-      <section className="bg-gradient-to-r from-blue-900 to-emerald-900 text-white py-20 lg:py-28 relative overflow-hidden">
-        <div className="absolute inset-0 bg-black/20" />
-        <div className="container-lg relative z-10 text-center">
-          <span className="inline-block px-4 py-1.5 rounded-full bg-blue-500/20 text-blue-200 text-sm font-semibold mb-6 border border-blue-400/30 backdrop-blur-sm">
-            Earn while you learn
-          </span>
-          <h1 className="text-4xl lg:text-5xl lg:leading-tight font-extrabold mb-6">
-            Real Freelance Projects for<br />
-            Our Best Students
+    <div className="bg-neutral-50 min-h-screen">
+      {/* Hero Section */}
+      <section className="bg-neutral-900 py-20 text-center px-4 sm:px-6 lg:px-8">
+        <div className="max-w-4xl mx-auto">
+          <h1 className="text-4xl sm:text-5xl font-extrabold text-white tracking-tight mb-6">
+             Learn IT Skills <span className="text-blue-500">& Earn from Real Projects</span>
           </h1>
-          <p className="text-lg lg:text-xl text-blue-100 max-w-2xl mx-auto mb-10 leading-relaxed">
-            Don't just watch videos. Apply your skills on real client projects, build your portfolio, and earn money directly through our platform.
+          <p className="text-lg sm:text-xl text-neutral-300 mb-10 max-w-2xl mx-auto leading-relaxed">
+            Apply your newly learned skills to real-world client projects. Build your portfolio, gain experience, and start earning before you even graduate.
           </p>
-        </div>
-      </section>
-
-      {/* How it Works */}
-      <section className="py-16 bg-white border-b border-neutral-200">
-        <div className="container-lg">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold text-neutral-900">How the Project System Works</h2>
-          </div>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 text-center max-w-4xl mx-auto">
-            <div>
-              <div className="w-16 h-16 mx-auto bg-blue-50 text-blue-600 rounded-2xl flex items-center justify-center mb-4">
-                <HiOutlineLightBulb size={32} />
-              </div>
-              <h3 className="text-xl font-bold text-neutral-900 mb-2">1. Learn the Skills</h3>
-              <p className="text-neutral-500 text-sm leading-relaxed">Enroll in our courses and master the demanding skills requested by the industry.</p>
-            </div>
-            <div>
-              <div className="w-16 h-16 mx-auto bg-emerald-50 text-emerald-600 rounded-2xl flex items-center justify-center mb-4">
-                <HiOutlineBadgeCheck size={32} />
-              </div>
-              <h3 className="text-xl font-bold text-neutral-900 mb-2">2. Browse Projects</h3>
-              <p className="text-neutral-500 text-sm leading-relaxed">Access our exclusive project board and find tasks that match your newly acquired skills.</p>
-            </div>
-            <div>
-              <div className="w-16 h-16 mx-auto bg-amber-50 text-amber-600 rounded-2xl flex items-center justify-center mb-4">
-                <HiOutlineSparkles size={32} />
-              </div>
-              <h3 className="text-xl font-bold text-neutral-900 mb-2">3. Earn & Grow</h3>
-              <p className="text-neutral-500 text-sm leading-relaxed">Complete the project successfully, get paid, and add real experience to your portfolio.</p>
-            </div>
+          <div className="flex flex-col sm:flex-row justify-center gap-4">
+             <a href="#projects" className="btn-primary px-8 py-3 text-lg font-bold">
+               Browse Open Projects
+             </a>
+             <button className="bg-white/10 hover:bg-white/20 text-white border border-white/20 px-8 py-3 rounded-lg font-bold transition-all">
+               How It Works
+             </button>
           </div>
         </div>
       </section>
 
-      {/* Project Board Component */}
-      <section className="container-lg mt-8">
-        <ProjectBoard />
+      {/* Projects Grid */}
+      <section id="projects" className="py-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
+        <div className="mb-12 flex flex-col md:flex-row md:items-end justify-between gap-6">
+          <div>
+            <h2 className="text-3xl font-bold text-neutral-900 mb-2">Active Opportunities</h2>
+            <p className="text-neutral-500">Discover handpicked freelancing projects and remote internships exclusively for our students.</p>
+          </div>
+          
+          <div className="flex gap-2">
+             <select className="bg-white border border-neutral-300 text-neutral-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 shadow-sm">
+               <option>All Categories</option>
+               <option>Web Development</option>
+               <option>Digital Marketing</option>
+               <option>Graphic Design</option>
+             </select>
+          </div>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          {dummyProjects.map((project) => (
+            <ProjectCard key={project.id} project={project} />
+          ))}
+        </div>
+        
+        <div className="mt-16 text-center">
+            <p className="text-neutral-500 mb-6">Showing 4 of 24 active projects</p>
+            <button className="bg-white border border-neutral-300 text-neutral-700 hover:bg-neutral-50 font-bold py-2.5 px-6 rounded-lg transition-colors shadow-sm">
+              Load More Projects
+            </button>
+        </div>
       </section>
     </div>
   );

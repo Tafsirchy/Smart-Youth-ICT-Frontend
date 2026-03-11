@@ -22,36 +22,38 @@ const theme = {
       pink:       '#FF2C6D',
       /** Soft Pink — Hover state for buttons and links */
       pinkLight:  '#FF6A95',
-      /** Deep Green — Secondary buttons, links, instructor badges */
-      green:      '#0F7A3D',
-      /** Fresh Green — Success alerts, completion badges, progress bars */
-      greenLight: '#22C55E',
+      /** Emerald Green — Secondary buttons, links, instructor badges */
+      green:      '#10B981',
+      /** Emerald Light — Success alerts, completion badges, progress bars */
+      greenLight: '#34D399',
+      /** Cyan — Tech/accent elements */
+      accent:     '#22D3EE',
     },
 
-    /** Charcoal — Navbar, footer, dashboard sidebar background */
-    dark:          '#111827',
-    /** Soft Gray — Global page / section background */
-    background:    '#F5F7FA',
+    /** Slate 900 — Navbar, footer, dashboard sidebar background */
+    dark:          '#0F172A',
+    /** Slate 50 — Global page / section background */
+    background:    '#F8FAFC',
     /** Pure White — Card backgrounds, modals, form surfaces */
     surface:       '#FFFFFF',
-    /** Light Border — Input borders, dividers, card outlines */
-    border:        '#E5E7EB',
-    /** Dark Gray — Primary headings and body text */
-    textPrimary:   '#1F2937',
-    /** Medium Gray — Descriptions, captions, secondary labels */
-    textSecondary: '#6B7280',
+    /** Slate 200 — Input borders, dividers, card outlines */
+    border:        '#E2E8F0',
+    /** Slate 900 — Primary headings and body text */
+    textPrimary:   '#0F172A',
+    /** Slate 500 — Descriptions, captions, secondary labels */
+    textSecondary: '#64748B',
   },
 
   // ─────────────────────────────────────────────────────────────────
   // GRADIENTS
   // ─────────────────────────────────────────────────────────────────
   gradients: {
-    /** Hero banner — Pink to Green (matches logo swirl) */
-    hero: 'linear-gradient(135deg, #FF2C6D 0%, #22C55E 100%)',
-    /** CTA section — Pink to Deep Green (high contrast) */
-    cta:  'linear-gradient(135deg, #FF2C6D 0%, #0F7A3D 100%)',
+    /** Hero banner — Pink to Green */
+    hero: 'linear-gradient(135deg, #FF2C6D 0%, #10B981 100%)',
+    /** CTA section — Pink to Cyan */
+    cta:  'linear-gradient(135deg, #FF2C6D 0%, #22D3EE 100%)',
     /** Button hover overlay */
-    btn:  'linear-gradient(135deg, #FF6A95 0%, #22C55E 100%)',
+    btn:  'linear-gradient(135deg, #FF6A95 0%, #10B981 100%)',
   },
 
   // ─────────────────────────────────────────────────────────────────

@@ -28,7 +28,7 @@ export default function HeroSection() {
   return (
     <section
       className="relative overflow-hidden py-24 md:py-32 px-4"
-      style={{ background: 'var(--color-dark)' }}
+      style={{ background: 'var(--color-background)' }}
     >
       {/* Animated blob — pink */}
       <motion.div
@@ -57,7 +57,7 @@ export default function HeroSection() {
 
         {/* Headline */}
         <motion.h1
-          className="text-4xl md:text-6xl font-extrabold text-white leading-tight mb-6"
+          className="text-4xl md:text-6xl font-extrabold text-textPrimary leading-tight mb-6"
           variants={fadeUp} initial="hidden" animate="visible" custom={0.1}
         >
           Learn IT Skills &amp; <br />
@@ -66,7 +66,7 @@ export default function HeroSection() {
 
         {/* Sub-headline */}
         <motion.p
-          className="text-gray-300 text-lg md:text-xl max-w-2xl mx-auto mb-10 leading-relaxed"
+          className="text-textSecondary text-lg md:text-xl max-w-2xl mx-auto mb-10 leading-relaxed"
           variants={fadeUp} initial="hidden" animate="visible" custom={0.2}
         >
           Master Web Development, Graphic Design, Social Media Marketing &amp; AI.
@@ -105,8 +105,8 @@ export default function HeroSection() {
               animate="visible"
               custom={0.4 + i * 0.1}
             >
-              <p className="text-3xl font-extrabold text-white">{value}</p>
-              <p className="text-sm text-gray-400 mt-1">{label}</p>
+              <p className="text-3xl font-extrabold text-textPrimary">{value}</p>
+              <p className="text-sm text-textSecondary mt-1">{label}</p>
             </motion.div>
           ))}
         </div>

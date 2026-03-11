@@ -12,7 +12,7 @@ const steps = [
 
 export default function HowItWorks() {
   return (
-    <section className="section" style={{ background: 'var(--color-background)' }}>
+    <section className="section" style={{ background: 'var(--color-surface)' }}>
       <div className="container-lg px-4">
         <motion.div
           className="text-center mb-12"

@@ -20,7 +20,7 @@ const cardVariant = {
 
 export default function SuccessStories() {
   return (
-    <section className="section" style={{ background: 'var(--color-dark)' }}>
+    <section className="section" style={{ background: 'var(--color-background)' }}>
       <div className="container-lg px-4">
         <motion.div
           className="text-center mb-12"
@@ -30,8 +30,8 @@ export default function SuccessStories() {
           transition={{ duration: 0.6 }}
         >
           <span className="badge-pink mb-3">Real Results</span>
-          <h2 className="text-3xl md:text-4xl font-extrabold text-white">Student Success Stories</h2>
-          <p className="text-gray-400 mt-3">Our students are earning real income — here&apos;s proof.</p>
+          <h2 className="text-3xl md:text-4xl font-extrabold text-textPrimary">Student Success Stories</h2>
+          <p className="text-textSecondary mt-3">Our students are earning real income — here&apos;s proof.</p>
         </motion.div>
 
         <motion.div
@@ -45,9 +45,9 @@ export default function SuccessStories() {
             <motion.div
               key={id}
               variants={cardVariant}
-              className="rounded-xl p-6 border border-white/10 flex flex-col gap-4"
-              style={{ background: 'rgba(255,255,255,0.04)' }}
-              whileHover={{ borderColor: 'rgba(255,44,109,0.4)', background: 'rgba(255,44,109,0.06)' }}
+              className="rounded-xl p-6 border border-border flex flex-col gap-4"
+              style={{ background: 'var(--color-surface)' }}
+              whileHover={{ borderColor: 'var(--color-brand-pink)', boxShadow: 'var(--shadow-hover)' }}
               transition={{ duration: 0.25 }}
             >
               <div className="flex items-center gap-3">
@@ -61,12 +61,12 @@ export default function SuccessStories() {
                   {avatar}
                 </motion.div>
                 <div>
-                  <p className="text-white font-semibold">{name}</p>
-                  <p className="text-xs text-gray-400">{course}</p>
+                  <p className="text-textPrimary font-semibold">{name}</p>
+                  <p className="text-xs text-textSecondary">{course}</p>
                 </div>
                 <span className="ml-auto badge-green text-xs">{income}</span>
               </div>
-              <p className="text-sm text-gray-300 leading-relaxed italic">&ldquo;{story}&rdquo;</p>
+              <p className="text-sm text-textSecondary leading-relaxed italic">&ldquo;{story}&rdquo;</p>
             </motion.div>
           ))}
         </motion.div>

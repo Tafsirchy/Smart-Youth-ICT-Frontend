@@ -12,7 +12,7 @@ const methods = [
 
 export default function PaymentMethodsSection() {
   return (
-    <section className="section cta-gradient overflow-hidden relative">
+    <section className="section overflow-hidden relative" style={{ background: 'var(--color-dark)' }}>
       {/* Subtle shimmer blob */}
       <motion.div
         aria-hidden="true"
@@ -82,8 +82,7 @@ export default function PaymentMethodsSection() {
           <Link
             href="/courses"
             id="cta-enroll-btn"
-            className="btn bg-white font-bold text-lg px-10 py-4 rounded-xl2 inline-block"
-            style={{ color: 'var(--color-brand-pink)' }}
+            className="btn-primary font-bold text-lg px-10 py-4 rounded-xl2 inline-block"
           >
             🎓 Browse All Courses
           </Link>

@@ -23,8 +23,7 @@ export default function Navbar() {
 
   return (
     <motion.header
-      style={{ background: 'var(--color-dark)' }}
-      className="sticky top-0 z-50"
+      className="bg-white shadow-sm sticky top-0 z-50"
       initial={{ y: -64, opacity: 0 }}
       animate={{ y: 0,   opacity: 1 }}
       transition={{ duration: 0.45, ease: 'easeOut' }}
@@ -50,7 +49,7 @@ export default function Navbar() {
               transition={{ delay: 0.05 * i + 0.1 }}
             >
               <Link href={href}
-                className="px-3 py-2 rounded-lg text-sm text-gray-300 hover:text-white hover:bg-white/10 transition-all">
+                className="px-3 py-2 rounded-lg text-sm font-medium text-gray-700 hover:text-primary hover:bg-primary/5 transition-all">
                 {label}
               </Link>
             </motion.li>
@@ -73,7 +72,7 @@ export default function Navbar() {
           ) : (
             <>
               <Link href="/login" id="nav-login"
-                className="text-sm text-gray-300 hover:text-white transition-colors">
+                className="text-sm font-medium text-gray-700 hover:text-primary transition-colors">
                 Sign In
               </Link>
               <motion.div whileHover={{ scale: 1.04 }} whileTap={{ scale: 0.96 }}>
@@ -88,7 +87,7 @@ export default function Navbar() {
         {/* Mobile hamburger */}
         <motion.button
           id="nav-mobile-toggle"
-          className="md:hidden text-white p-1"
+          className="md:hidden text-gray-800 p-1"
           onClick={() => setMobileOpen(!mobileOpen)}
           aria-label="Toggle menu"
           whileTap={{ scale: 0.85 }}

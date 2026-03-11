@@ -4,8 +4,9 @@ import { Toaster } from 'react-hot-toast';
 import { NextIntlClientProvider } from 'next-intl';
 import { getMessages } from 'next-intl/server';
 import Providers from '@/providers/Providers';
-import FacebookPixel from '@/components/marketing/FacebookPixel';
-import WhatsAppButton from '@/components/marketing/WhatsAppButton';
+import FacebookPixel    from '@/components/marketing/FacebookPixel';
+import WhatsAppButton   from '@/components/marketing/WhatsAppButton';
+import GoogleAnalytics  from '@/components/marketing/GoogleAnalytics';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -25,6 +26,7 @@ export default async function RootLayout({ children, params: { locale } }) {
       <body className={inter.className}>
         <NextIntlClientProvider messages={messages}>
           <Providers>
+            <GoogleAnalytics />
             <FacebookPixel />
             {children}
             <WhatsAppButton />

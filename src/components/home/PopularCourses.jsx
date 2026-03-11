@@ -23,7 +23,7 @@ const cardVariant = {
 
 export default function PopularCourses() {
   return (
-    <section className="section" style={{ background: 'var(--color-surface)' }}>
+    <section className="section" style={{ background: 'var(--color-background)' }}>
       <div className="container-lg px-4">
         <div className="flex flex-col sm:flex-row sm:items-end justify-between mb-10 gap-4">
           <motion.div

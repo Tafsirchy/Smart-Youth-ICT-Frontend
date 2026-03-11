@@ -24,7 +24,7 @@ const footerLinks = {
 
 export default function Footer() {
   return (
-    <footer style={{ background: 'var(--color-dark)' }} className="text-gray-400 pt-16 pb-8">
+    <footer className="bg-white text-gray-600 pt-16 pb-8 border-t border-gray-100">
       <div className="container-lg px-4">
         <div className="grid grid-cols-2 md:grid-cols-4 gap-8 mb-12">
           {/* Brand */}
@@ -42,8 +42,8 @@ export default function Footer() {
                 { href: `https://wa.me/${process.env.NEXT_PUBLIC_WHATSAPP_NUMBER}`, Icon: FaWhatsapp },
                 { href: 'https://linkedin.com', Icon: FaLinkedin },
               ].map(({ href, Icon }) => (
-                <a key={href} href={href} target="_blank" rel="noreferrer"
-                  className="text-gray-400 hover:text-white transition-colors">
+                  <a key={href} href={href} target="_blank" rel="noreferrer"
+                  className="text-gray-400 hover:text-primary transition-colors">
                   <Icon size={20} />
                 </a>
               ))}
@@ -53,11 +53,11 @@ export default function Footer() {
           {/* Link columns */}
           {Object.entries(footerLinks).map(([heading, links]) => (
             <div key={heading}>
-              <h3 className="text-sm font-semibold text-white mb-4">{heading}</h3>
+              <h3 className="text-sm font-bold text-gray-900 mb-4">{heading}</h3>
               <ul className="space-y-2">
                 {links.map(({ href, label }) => (
                   <li key={href}>
-                    <Link href={href} className="text-sm hover:text-white transition-colors">{label}</Link>
+                    <Link href={href} className="text-sm text-gray-600 hover:text-primary font-medium transition-colors">{label}</Link>
                   </li>
                 ))}
               </ul>
@@ -65,7 +65,7 @@ export default function Footer() {
           ))}
         </div>
 
-        <div className="border-t border-white/10 pt-6 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs">
+        <div className="border-t border-gray-200 mt-12 pt-6 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs font-medium text-gray-500">
           <p>© {new Date().getFullYear()} Smart Youth ICT. All rights reserved.</p>
           <p>Made with ❤️ in Bangladesh 🇧🇩</p>
         </div>
