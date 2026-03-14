@@ -22,7 +22,7 @@ export default function PaymentMethodsSection() {
         transition={{ duration: 5, repeat: Infinity, ease: 'easeInOut' }}
       />
 
-      <div className="container-lg px-4 text-center relative z-10">
+      <div className="container-custom text-center relative z-10">
         <motion.div
           initial={{ opacity: 0, y: 24 }}
           whileInView={{ opacity: 1, y: 0 }}

@@ -21,7 +21,7 @@ const cardVariant = {
 export default function SuccessStories() {
   return (
     <section className="section" style={{ background: 'var(--color-background)' }}>
-      <div className="container-lg px-4">
+      <div className="container-custom relative z-10">
         <motion.div
           className="text-center mb-12"
           initial={{ opacity: 0, y: 20 }}

@@ -52,7 +52,7 @@ export default function Testimonials() {
       <div className="absolute -top-32 -right-32 w-96 h-96 rounded-full opacity-5 blur-3xl pointer-events-none"
         style={{ background: 'var(--color-brand-pink)' }} />
 
-      <div className="container-lg px-4 relative z-10">
+      <div className="container-custom relative z-10">
         {/* Header */}
         <motion.div className="text-center mb-12"
           initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.6 }}>

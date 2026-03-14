@@ -58,7 +58,7 @@ export default function Footer() {
 
   return (
     <footer style={{ background: 'linear-gradient(180deg, #0f172a 0%, #1e1b4b 100%)' }} className="text-indigo-200 pt-16 pb-8">
-      <div className="container-lg px-4">
+      <div className="container-custom">
 
         {/* Top grid */}
         <div className="grid grid-cols-2 md:grid-cols-5 gap-10 mb-14">

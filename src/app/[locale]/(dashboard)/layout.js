@@ -8,9 +8,9 @@ export default async function DashboardLayout({ children }) {
   if (!session) redirect('/login');
 
   return (
-    <div className="flex min-h-screen" style={{ background: 'var(--color-background)' }}>
+    <div className="flex h-screen overflow-hidden" style={{ background: 'var(--color-background)' }}>
       <Sidebar role={session.user.role} user={session.user} />
-      <div className="flex-1 overflow-auto">
+      <div className="flex-1 overflow-y-auto">
         <main className="p-6 md:p-8">{children}</main>
       </div>
     </div>

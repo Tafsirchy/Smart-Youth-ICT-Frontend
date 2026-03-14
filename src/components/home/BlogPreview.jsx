@@ -35,7 +35,7 @@ export default function BlogPreview() {
 
   return (
     <section className="section" style={{ background: 'var(--color-background)' }}>
-      <div className="container-lg px-4">
+      <div className="container-custom">
         {/* Header */}
         <div className="flex flex-col sm:flex-row sm:items-end justify-between mb-10 gap-4">
           <motion.div initial={{ opacity: 0, x: -20 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ duration: 0.5 }}>

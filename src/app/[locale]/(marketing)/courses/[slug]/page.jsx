@@ -66,9 +66,9 @@ export default function CourseDetailPage({ params }) {
   if (loading) {
     return (
       <div className="min-h-screen animate-pulse bg-neutral-50 px-4 py-16">
-        <div className="container-lg mx-auto space-y-8">
+        <div className="container-custom pt-32 pb-20 relative z-10">
           <div className="h-72 w-full rounded-3xl bg-neutral-200" />
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+          <div className="container-custom pt-12 pb-24 grid lg:grid-cols-3 gap-12">
             <div className="lg:col-span-2 space-y-6">
               <div className="h-40 rounded-2xl bg-neutral-200" />
               <div className="h-60 rounded-2xl bg-neutral-200" />
@@ -98,7 +98,7 @@ export default function CourseDetailPage({ params }) {
             <Image src={course.thumbnail} alt="" fill className="object-cover blur-2xl" />
           </div>
         )}
-        <div className="relative z-10 container-lg mx-auto px-4 py-16 lg:py-20">
+        <div className="relative z-10 w-11/12 mx-auto py-16 lg:py-20">
           <div className="flex flex-col lg:flex-row gap-10 items-start">
 
             {/* Left — Info */}
@@ -202,7 +202,7 @@ export default function CourseDetailPage({ params }) {
 
       {/* ── Tab Navigation ── */}
       <div className="sticky top-0 z-20 bg-[var(--color-surface)] border-b border-neutral-200 shadow-sm">
-        <div className="container-lg mx-auto px-4 flex gap-1 overflow-x-auto scrollbar-hide">
+        <div className="container-custom border-b border-indigo-100 flex items-center gap-10 overflow-x-auto scrollbar-hide">
           {TABS.map(tab => (
             <button
               key={tab}
@@ -220,7 +220,7 @@ export default function CourseDetailPage({ params }) {
       </div>
 
       {/* ── Tab Content ── */}
-      <div className="container-lg mx-auto px-4 pt-10">
+      <div className="container-custom pt-32 pb-12">
         <AnimatePresence mode="wait">
           <motion.div
             key={activeTab}

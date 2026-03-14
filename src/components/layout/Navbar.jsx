@@ -28,7 +28,7 @@ export default function Navbar() {
       animate={{ y: 0,   opacity: 1 }}
       transition={{ duration: 0.45, ease: 'easeOut' }}
     >
-      <nav className="container-lg flex items-center justify-between h-16 px-4">
+      <nav className="container-custom flex items-center justify-between py-4">
         {/* Logo */}
         <Link href="/" id="nav-logo" className="flex items-center gap-2">
           <motion.div

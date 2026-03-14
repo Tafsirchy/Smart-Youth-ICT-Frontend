@@ -60,7 +60,7 @@ export default function CoursesPage() {
     <div className="min-h-screen" style={{ background: 'var(--color-background)' }}>
 
       {/* ── Hero Banner ───────────────────────────────── */}
-      <section className="relative overflow-hidden py-20 px-4 text-center"
+      <section className="relative overflow-hidden py-20 text-center"
         style={{ background: 'linear-gradient(135deg, #0f172a 0%, #1e1b4b 60%, #312e81 100%)' }}>
         {/* Blobs */}
         <motion.div className="absolute -top-24 -left-20 w-72 h-72 rounded-full opacity-20 blur-3xl pointer-events-none"
@@ -103,7 +103,7 @@ export default function CoursesPage() {
 
       {/* ── Category Filter Tabs ─────────────────────── */}
       <section className="sticky top-0 z-20 bg-[var(--color-surface)] border-b border-neutral-200 shadow-sm">
-        <div className="container-lg mx-auto px-4 py-3 flex gap-2 overflow-x-auto scrollbar-hide">
+        <div className="container-custom py-3 flex gap-2 overflow-x-auto scrollbar-hide">
           {CATEGORIES.map(cat => (
             <button
               key={cat.id}
@@ -121,7 +121,7 @@ export default function CoursesPage() {
       </section>
 
       {/* ── Course Grid ──────────────────────────────── */}
-      <div className="container-lg mx-auto px-4 py-12">
+      <div className="container-custom py-12 md:py-16">
         {loading ? (
           <div className="grid grid-cols-1 gap-7 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
             {[...Array(8)].map((_, i) => (
