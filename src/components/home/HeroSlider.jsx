@@ -203,6 +203,14 @@ const slides = [
 export default function HeroSlider() {
   const [current, setCurrent] = useState(0);
   const [direction, setDirection] = useState(0);
+  const [imageLoaded, setImageLoaded] = useState(false);
+
+  const handleImageLoad = () => setImageLoaded(true);
+
+  // Reset imageLoaded when slide changes
+  useEffect(() => {
+    setImageLoaded(false);
+  }, [current]);
 
   const nextSlide = useCallback(() => {
     setDirection(1);
@@ -602,12 +610,16 @@ export default function HeroSlider() {
                             }}
                           />
                           <div className="absolute inset-0 flex items-center justify-center">
+                            {!imageLoaded && (
+                              <div className="absolute inset-0 bg-neutral-200 animate-pulse z-10" />
+                            )}
                             <Image
                               src={slides[current].archImage}
                               alt="Student Left"
                               width={500}
                               height={800}
-                              className="w-full h-full object-cover"
+                              className={`w-full h-full object-cover transition-opacity duration-500 ${imageLoaded ? 'opacity-100' : 'opacity-0'}`}
+                              onLoad={handleImageLoad}
                             />
                           </div>
                         </motion.div>
@@ -628,12 +640,16 @@ export default function HeroSlider() {
                             }}
                           />
                           <div className="absolute inset-0 flex items-center justify-center">
+                            {!imageLoaded && (
+                              <div className="absolute inset-0 bg-neutral-200 animate-pulse z-10" />
+                            )}
                             <Image
                               src={slides[current].image}
                               alt="Student Right"
                               width={500}
                               height={800}
-                              className="w-full h-full object-cover"
+                              className={`w-full h-full object-cover transition-opacity duration-500 ${imageLoaded ? 'opacity-100' : 'opacity-0'}`}
+                              onLoad={handleImageLoad}
                             />
                           </div>
                         </motion.div>

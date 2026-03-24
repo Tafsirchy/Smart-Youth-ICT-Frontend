@@ -66,7 +66,7 @@ const scrollReasons = [...reasons, ...reasons];
 export default function WhyChooseUs() {
   return (
     <section
-      className="relative overflow-hidden bg-[#FAF9F6] py-24 md:py-32"
+      className="section relative overflow-hidden bg-[#FAF9F6]"
       id="why-choose-us"
     >
       {/* Dynamic Artistic Background Elements */}
@@ -77,7 +77,7 @@ export default function WhyChooseUs() {
              style={{ backgroundImage: "radial-gradient(#2D5A54 1px, transparent 1px)", backgroundSize: "40px 40px" }} />
       </div>
 
-      <div className="w-11/12 mx-auto relative z-10">
+      <div className="container-custom relative z-10">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24 items-start">
           
           {/* Left Side: Sticky Signature & Text */}

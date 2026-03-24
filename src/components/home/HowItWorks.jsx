@@ -69,7 +69,7 @@ export default function HowItWorks() {
   return (
     <section 
       ref={containerRef}
-      className="relative py-24 md:py-32 overflow-hidden bg-white"
+      className="section relative overflow-hidden bg-white"
     >
       {/* Background Decorative Elements */}
       <div className="absolute inset-0 pointer-events-none overflow-hidden">
@@ -77,7 +77,7 @@ export default function HowItWorks() {
         <div className="absolute bottom-1/4 -right-20 w-80 h-80 bg-pink-50 rounded-full blur-3xl opacity-60" />
       </div>
 
-      <div className="w-11/12 mx-auto relative z-10">
+      <div className="container-custom relative z-10">
         <motion.div
           className="text-center mb-24 max-w-3xl mx-auto"
           initial={{ opacity: 0, y: 30 }}

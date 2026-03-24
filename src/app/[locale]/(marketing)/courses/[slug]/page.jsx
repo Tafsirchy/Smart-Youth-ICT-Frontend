@@ -11,6 +11,7 @@ import {
   IoPeopleOutline, IoStarOutline, IoStar, IoShieldCheckmarkOutline,
   IoRibbonOutline, IoChevronDownOutline, IoChevronUpOutline
 } from 'react-icons/io5';
+import { Skeleton } from '@/components/ui/Skeleton';
 import VideoPlayer from '@/components/courses/VideoPlayer';
 import PaymentGatewayButton from '@/components/payments/PaymentGatewayButton';
 import ManualBankModal from '@/components/payments/ManualBankModal';
@@ -65,15 +66,38 @@ export default function CourseDetailPage({ params }) {
 
   if (loading) {
     return (
-      <div className="min-h-screen animate-pulse bg-neutral-50 px-4 py-16">
-        <div className="container-custom pt-32 pb-20 relative z-10">
-          <div className="h-72 w-full rounded-3xl bg-neutral-200" />
-          <div className="container-custom pt-12 pb-24 grid lg:grid-cols-3 gap-12">
-            <div className="lg:col-span-2 space-y-6">
-              <div className="h-40 rounded-2xl bg-neutral-200" />
-              <div className="h-60 rounded-2xl bg-neutral-200" />
+      <div className="min-h-screen bg-neutral-50 px-4 py-16">
+        <div className="container-custom py-16 lg:py-20 grid lg:grid-cols-3 gap-10">
+          {/* Left - Info Skeleton */}
+          <div className="lg:col-span-2 space-y-6">
+            <Skeleton className="h-6 w-32 rounded-full" />
+            <Skeleton className="h-12 w-full md:w-3/4" />
+            <Skeleton className="h-20 w-full" />
+            <div className="flex gap-4">
+              <Skeleton className="h-6 w-24" />
+              <Skeleton className="h-6 w-24" />
+              <Skeleton className="h-6 w-32" />
             </div>
-            <div className="h-96 rounded-2xl bg-neutral-200" />
+            <div className="flex gap-2">
+              <Skeleton className="h-8 w-32 rounded-full" />
+              <Skeleton className="h-8 w-32 rounded-full" />
+            </div>
+          </div>
+          {/* Right - Card Skeleton */}
+          <div className="bg-white rounded-3xl shadow-xl overflow-hidden p-6 space-y-4 border border-neutral-100">
+            <Skeleton className="aspect-video w-full rounded-2xl" />
+            <div className="flex justify-between items-end">
+              <div className="space-y-2">
+                <Skeleton className="h-3 w-20" />
+                <Skeleton className="h-8 w-32" />
+              </div>
+              <Skeleton className="h-8 w-24 rounded-full" />
+            </div>
+            <Skeleton className="h-12 w-full rounded-xl" />
+            <div className="space-y-2">
+              <Skeleton className="h-10 w-full rounded-xl" />
+              <Skeleton className="h-10 w-full rounded-xl" />
+            </div>
           </div>
         </div>
       </div>

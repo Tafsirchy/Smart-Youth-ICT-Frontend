@@ -4,8 +4,9 @@ import { useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { useSession } from 'next-auth/react';
+import { usePathname } from 'next/navigation';
 import { HiMenu, HiX } from 'react-icons/hi';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion, AnimatePresence, useScroll, useMotionValueEvent } from 'framer-motion';
 import MobileMenu from './MobileMenu';
 
 const navLinks = [
@@ -19,14 +20,33 @@ const navLinks = [
 
 export default function Navbar() {
   const { data: session } = useSession();
+  const pathname = usePathname();
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [hidden, setHidden] = useState(false);
+  const { scrollY } = useScroll();
+
+  useMotionValueEvent(scrollY, "change", (latest) => {
+    const previous = scrollY.getPrevious();
+    // Only trigger hide/show if we have scrolled past the initial 50px
+    if (latest > 50 && latest > previous) {
+      setHidden(true); // Scrolling down
+    } else {
+      setHidden(false); // Scrolling up
+    }
+  });
+
+  const cleanPath = pathname.replace(/^\/[a-z]{2}(-[A-Z]{2})?(?=\/|$)/, '');
+  const isActive = (href) => cleanPath === href || (href !== '/' && cleanPath.startsWith(href));
 
   return (
     <motion.header
       className="bg-white shadow-sm sticky top-0 z-50"
-      initial={{ y: -64, opacity: 0 }}
-      animate={{ y: 0,   opacity: 1 }}
-      transition={{ duration: 0.45, ease: 'easeOut' }}
+      variants={{
+        visible: { y: 0 },
+        hidden: { y: "-100%" }
+      }}
+      animate={hidden ? "hidden" : "visible"}
+      transition={{ duration: 0.35, ease: 'easeInOut' }}
     >
       <nav className="container-custom flex items-center justify-between py-4">
         {/* Logo */}
@@ -49,7 +69,11 @@ export default function Navbar() {
               transition={{ delay: 0.05 * i + 0.1 }}
             >
               <Link href={href}
-                className="px-3 py-2 rounded-lg text-sm font-medium text-gray-700 hover:text-primary hover:bg-primary/5 transition-all">
+                className={`px-3 py-2 rounded-lg text-sm font-medium transition-all ${
+                  isActive(href)
+                    ? 'text-brand-green bg-brand-green/10 font-semibold'
+                    : 'text-gray-700 hover:text-brand-green hover:bg-brand-green/5'
+                }`}>
                 {label}
               </Link>
             </motion.li>

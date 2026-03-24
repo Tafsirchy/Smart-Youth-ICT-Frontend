@@ -5,6 +5,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import Link from 'next/link';
 import { useLocale } from 'next-intl';
 import CourseCard from '@/components/courses/CourseCard';
+import { CourseCardSkeleton } from '@/components/ui/Skeleton';
 import api from '@/lib/api';
 import { IoSearchOutline, IoCloseOutline, IoBookOutline } from 'react-icons/io5';
 
@@ -125,7 +126,7 @@ export default function CoursesPage() {
         {loading ? (
           <div className="grid grid-cols-1 gap-7 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
             {[...Array(8)].map((_, i) => (
-              <div key={i} className="h-80 animate-pulse rounded-2xl bg-neutral-200" />
+              <CourseCardSkeleton key={i} />
             ))}
           </div>
         ) : courses.length > 0 ? (

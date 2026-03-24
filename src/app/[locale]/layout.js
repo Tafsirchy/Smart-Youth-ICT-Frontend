@@ -7,6 +7,7 @@ import Providers from '@/providers/Providers';
 import FacebookPixel    from '@/components/marketing/FacebookPixel';
 import WhatsAppButton   from '@/components/marketing/WhatsAppButton';
 import GoogleAnalytics  from '@/components/marketing/GoogleAnalytics';
+import NextTopLoader    from 'nextjs-toploader';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -24,6 +25,7 @@ export default async function RootLayout({ children, params: { locale } }) {
   return (
     <html lang={locale}>
       <body className={inter.className}>
+        <NextTopLoader color="#10B981" height={3} showSpinner={false} easing="ease" speed={200} />
         <NextIntlClientProvider messages={messages}>
           <Providers>
             <GoogleAnalytics />

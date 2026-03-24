@@ -3,7 +3,7 @@ import TrustedBrandsStrip from "@/components/home/TrustedBrandsStrip";
 import WhyChooseUs from "@/components/home/WhyChooseUs";
 import PopularCourses from "@/components/home/PopularCourses";
 import HowItWorks from "@/components/home/HowItWorks";
-import SuccessStories from "@/components/home/SuccessStories";
+import Mentors from "@/components/home/Mentors";
 import Testimonials from "@/components/home/Testimonials";
 import BlogPreview from "@/components/home/BlogPreview";
 import PaymentMethodsSection from "@/components/home/PaymentMethodsSection";
@@ -23,7 +23,7 @@ export default function HomePage() {
       <WhyChooseUs />
       <PopularCourses />
       <HowItWorks />
-      <SuccessStories />
+      <Mentors />
       <Testimonials />
       <BlogPreview />
       <PaymentMethodsSection />

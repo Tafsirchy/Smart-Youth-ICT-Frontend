@@ -1,15 +1,23 @@
 'use client';
 
 import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 
 export default function MobileMenu({ links, session, onClose }) {
+  const pathname = usePathname();
+  const cleanPath = pathname.replace(/^\/[a-z]{2}(-[A-Z]{2})?(?=\/|$)/, '');
+  const isActive = (href) => cleanPath === href || (href !== '/' && cleanPath.startsWith(href));
   return (
     <div className="md:hidden bg-white border-t border-gray-100 px-4 pb-4">
       <ul className="flex flex-col gap-1 pt-3">
         {links.map(({ href, label }) => (
           <li key={href}>
               <Link href={href} onClick={onClose}
-              className="block px-3 py-2 rounded-lg text-sm font-medium text-gray-700 hover:text-primary hover:bg-primary/5 transition-all">
+              className={`block px-3 py-2 rounded-lg text-sm font-medium transition-all ${
+                isActive(href)
+                  ? 'text-brand-green bg-brand-green/10 font-semibold border-l-2 border-brand-green pl-4'
+                  : 'text-gray-700 hover:text-brand-green hover:bg-brand-green/5'
+              }`}>
               {label}
             </Link>
           </li>
