@@ -1,7 +1,7 @@
 'use client';
 
 import React from 'react';
-import Image from 'next/image';
+import ImageLoader from '@/components/ui/ImageLoader';
 import { HiOutlineStar, HiOutlineBookOpen, HiOutlineUsers } from 'react-icons/hi';
 import { FaFacebook, FaLinkedin, FaTwitter } from 'react-icons/fa';
 
@@ -15,7 +15,7 @@ export default function CourseInstructor({ instructor }) {
       <div className="flex flex-col sm:flex-row gap-6 sm:items-start">
         <div className="shrink-0 mx-auto sm:mx-0">
           <div className="relative h-24 w-24 sm:h-32 sm:w-32 rounded-full overflow-hidden border-4 border-blue-50">
-            <Image
+            <ImageLoader
               src={instructor.avatar || '/images/default-avatar.png'}
               alt={instructor.name || 'Instructor'}
               fill

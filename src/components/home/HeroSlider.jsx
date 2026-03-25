@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import Image from "next/image";
+import ImageLoader from "@/components/ui/ImageLoader";
 import Link from "next/link";
 import { HiArrowRight, HiArrowLeft, HiPlay } from "react-icons/hi";
 
@@ -203,15 +203,6 @@ const slides = [
 export default function HeroSlider() {
   const [current, setCurrent] = useState(0);
   const [direction, setDirection] = useState(0);
-  const [imageLoaded, setImageLoaded] = useState(false);
-
-  const handleImageLoad = () => setImageLoaded(true);
-
-  // Reset imageLoaded when slide changes
-  useEffect(() => {
-    setImageLoaded(false);
-  }, [current]);
-
   const nextSlide = useCallback(() => {
     setDirection(1);
     setCurrent((prev) => (prev === slides.length - 1 ? 0 : prev + 1));
@@ -300,7 +291,7 @@ export default function HeroSlider() {
                             key={i}
                             className="w-10 h-10 rounded-full border-2 border-white overflow-hidden shadow-sm"
                           >
-                            <Image
+                            <ImageLoader
                               src={`https://i.pravatar.cc/100?u=user${i + 5}`}
                               alt="User"
                               width={40}
@@ -520,7 +511,7 @@ export default function HeroSlider() {
 
                       {/* Center Portrait Square */}
                       <div className="absolute inset-0 bg-[#D1FAE5] shadow-inner z-10 overflow-hidden">
-                        <Image
+                        <ImageLoader
                           src={slides[current].image}
                           alt="Student"
                           width={600}
@@ -548,7 +539,7 @@ export default function HeroSlider() {
                       >
                         <div className="flex items-center gap-3 mb-3">
                           <div className="w-10 h-10 rounded-full bg-emerald-100 flex items-center justify-center text-emerald-700 font-bold text-lg overflow-hidden shrink-0">
-                            <Image
+                            <ImageLoader
                               src="https://i.pravatar.cc/150?u=abdul"
                               alt="Avatar"
                               width={40}
@@ -610,16 +601,12 @@ export default function HeroSlider() {
                             }}
                           />
                           <div className="absolute inset-0 flex items-center justify-center">
-                            {!imageLoaded && (
-                              <div className="absolute inset-0 bg-neutral-200 animate-pulse z-10" />
-                            )}
-                            <Image
+                            <ImageLoader
                               src={slides[current].archImage}
                               alt="Student Left"
                               width={500}
                               height={800}
-                              className={`w-full h-full object-cover transition-opacity duration-500 ${imageLoaded ? 'opacity-100' : 'opacity-0'}`}
-                              onLoad={handleImageLoad}
+                              className="w-full h-full object-cover"
                             />
                           </div>
                         </motion.div>
@@ -640,16 +627,12 @@ export default function HeroSlider() {
                             }}
                           />
                           <div className="absolute inset-0 flex items-center justify-center">
-                            {!imageLoaded && (
-                              <div className="absolute inset-0 bg-neutral-200 animate-pulse z-10" />
-                            )}
-                            <Image
+                            <ImageLoader
                               src={slides[current].image}
                               alt="Student Right"
                               width={500}
                               height={800}
-                              className={`w-full h-full object-cover transition-opacity duration-500 ${imageLoaded ? 'opacity-100' : 'opacity-0'}`}
-                              onLoad={handleImageLoad}
+                              className="w-full h-full object-cover"
                             />
                           </div>
                         </motion.div>

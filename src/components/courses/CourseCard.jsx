@@ -1,5 +1,5 @@
 import React from 'react';
-import Image from 'next/image';
+import ImageLoader from '@/components/ui/ImageLoader';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
 import { IoTimeOutline, IoPeopleOutline, IoStar } from 'react-icons/io5';
@@ -18,7 +18,7 @@ export default function CourseCard({ course }) {
     >
       {/* Thumbnail */}
       <Link href={`/courses/${slug}`} className="relative aspect-video w-full overflow-hidden bg-neutral-100">
-        <Image
+        <ImageLoader
           src={thumbnail || '/images/course-placeholder.jpg'}
           alt={displayTitle}
           fill
@@ -59,7 +59,7 @@ export default function CourseCard({ course }) {
           <div className="flex items-center gap-2">
             <div className="relative h-8 w-8 overflow-hidden rounded-full bg-neutral-200">
               {instructor?.avatar ? (
-                <Image src={instructor.avatar} alt={instructor.name || 'Instructor'} fill className="object-cover" />
+                <ImageLoader src={instructor.avatar} alt={instructor.name || 'Instructor'} fill className="object-cover" />
               ) : (
                 <div className="flex h-full w-full items-center justify-center bg-blue-100 text-xs font-bold text-blue-700">
                   {instructor?.name?.charAt(0) || 'I'}

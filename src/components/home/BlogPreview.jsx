@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import Link from 'next/link';
-import Image from 'next/image';
+import ImageLoader from '@/components/ui/ImageLoader';
 import { useLocale } from 'next-intl';
 import api from '@/lib/api';
 import { IoCalendarOutline, IoArrowForwardOutline, IoTimeOutline } from 'react-icons/io5';
@@ -162,7 +162,7 @@ export default function BlogPreview() {
 
                 {/* IMAGE COLUMN ─ right half, left edge softly blurred into text */}
                 <div className="hidden md:block w-1/2 relative overflow-hidden shrink-0">
-                  <Image
+                  <ImageLoader
                     src={selectedPost.thumbnail || '/images/marketing.png'}
                     alt="blog featured image"
                     fill

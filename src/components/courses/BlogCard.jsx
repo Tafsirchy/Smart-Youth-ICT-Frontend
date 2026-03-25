@@ -1,4 +1,4 @@
-import Image from 'next/image';
+import ImageLoader from '@/components/ui/ImageLoader';
 import Link   from 'next/link';
 
 /** Format date as "Mar 11, 2026" */
@@ -16,7 +16,7 @@ export default function BlogCard({ post, locale = 'en' }) {
       {/* Thumbnail */}
       <Link href={`/${locale}/blog/${slug}`} className="blog-card__thumb-link">
         {thumbnail ? (
-          <Image
+          <ImageLoader
             src={thumbnail}
             alt={title}
             width={400}
@@ -52,7 +52,7 @@ export default function BlogCard({ post, locale = 'en' }) {
         <div className="blog-card__footer">
           <div className="blog-card__author">
             {author?.avatar && (
-              <Image
+              <ImageLoader
                 src={author.avatar}
                 alt={author.name}
                 width={24}

@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import Link from 'next/link';
 import { useLocale } from 'next-intl';
+import { useParams } from 'next/navigation';
 import api from '@/lib/api';
 import {
   IoPeopleOutline, IoBookOutline, IoCashOutline, IoRibbonOutline,
@@ -26,13 +27,14 @@ const QUICK_LINKS = [
 
 export default function AdminDashboardPage() {
   const locale = useLocale();
+  const { branchId } = useParams();
   const [stats, setStats]       = useState(null);
   const [recent, setRecent]     = useState([]);
   const [loading, setLoading]   = useState(true);
 
   useEffect(() => {
     Promise.all([
-      api.get('/progress/dashboard/stats'),
+      api.get(`/branches/stats`),
       api.get('/enrollments', { params: { limit: 8, sort: '-createdAt' } }).catch(() => ({ data: { data: [] } })),
     ]).then(([sRes, eRes]) => {
       if (sRes.data?.success) setStats(sRes.data.data);
@@ -61,7 +63,7 @@ export default function AdminDashboardPage() {
             <h1 className="text-2xl md:text-3xl font-extrabold text-white mb-0.5">Admin Dashboard 🛠️</h1>
             <p className="text-indigo-200 text-sm">Platform overview — manage students, courses, payments & content.</p>
           </div>
-          <Link href={`/${locale}/courses`} target="_blank"
+          <Link href={`/${locale}/${branchId}/courses`} target="_blank"
             className="flex items-center gap-2 px-5 py-2.5 rounded-xl bg-white/15 border border-white/20 text-white text-sm font-semibold hover:bg-white/25 transition backdrop-blur-sm">
             View Site <IoArrowForwardOutline size={15} />
           </Link>
@@ -96,7 +98,7 @@ export default function AdminDashboardPage() {
         <div className="grid grid-cols-3 sm:grid-cols-6 gap-3">
           {QUICK_LINKS.map((link, i) => (
             <motion.div key={link.href} initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }} transition={{ delay: i * 0.06 }}>
-              <Link href={`/${locale}${link.href}`}
+              <Link href={`/${locale}/${branchId}${link.href}`}
                 className={`flex flex-col items-center justify-center gap-1.5 py-4 rounded-2xl bg-gradient-to-br ${link.color} text-white font-semibold text-xs shadow-md hover:scale-105 hover:shadow-lg transition-all`}>
                 <link.icon size={22} />{link.label}
               </Link>
@@ -111,7 +113,7 @@ export default function AdminDashboardPage() {
           <h2 className="font-bold text-textPrimary flex items-center gap-2">
             <IoTrendingUpOutline size={18} className="text-blue-500" /> Recent Enrollments
           </h2>
-          <Link href={`/${locale}/admin/payments`} className="text-xs font-semibold text-blue-600 hover:underline flex items-center gap-1">
+          <Link href={`/${locale}/${branchId}/admin/payments`} className="text-xs font-semibold text-blue-600 hover:underline flex items-center gap-1">
             View All <IoArrowForwardOutline size={12} />
           </Link>
         </div>

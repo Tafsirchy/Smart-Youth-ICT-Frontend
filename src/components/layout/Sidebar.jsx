@@ -1,7 +1,7 @@
 'use client';
 
 import Link from 'next/link';
-import { usePathname } from 'next/navigation';
+import { usePathname, useParams } from 'next/navigation';
 import { signOut } from 'next-auth/react';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
@@ -28,25 +28,39 @@ const instructorNav = [
   { href: '/instructor/lessons', Icon: HiAnnotation, label: 'Lessons'    },
 ];
 
-const adminNav = [
+const branchAdminNav = [
+  { href: '/admin',          Icon: HiChartBar,  label: 'Branch Overview'},
   { href: '/admin/courses',  Icon: HiCollection, label: 'Courses'   },
   { href: '/admin/students', Icon: HiUserGroup,  label: 'Students'  },
   { href: '/admin/payments', Icon: HiCreditCard, label: 'Payments'  },
-  { href: '/admin/blog',     Icon: HiAnnotation, label: 'Blog'      },
-  { href: '/admin/crm',      Icon: HiUsers,      label: 'CRM'       },
-  { href: '/admin/affiliate',Icon: HiCog,        label: 'Affiliate' },
+  { href: '/admin/staff',    Icon: HiUsers,      label: 'Staff Room'},
+  { href: '/admin/assets',   Icon: HiClipboardList, label: 'Assets' },
+  { href: '/admin/crm',      Icon: HiAnnotation, label: 'Leads/CRM' },
+];
+
+const superAdminNav = [
+  { href: '/super',             Icon: HiChartBar,  label: 'Global Stats' },
+  { href: '/super/branches',    Icon: HiHome,      label: 'All Branches' },
+  { href: '/super/curriculum',  Icon: HiAcademicCap, label: 'Master Courses'},
+  { href: '/super/finance',     Icon: HiCreditCard, label: 'Global Finance'},
+  { href: '/super/reports',     Icon: HiClipboardList, label: 'Audit Reports'},
 ];
 
 function NavItem({ href, Icon, label }) {
   const pathname = usePathname();
-  const isActive = pathname === href || (href !== '/student' && pathname.startsWith(href));
+  const { branchId } = useParams();
+  
+  // Scoped navigation path (super admin accesses global routes without branch slug)
+  const fullHref = branchId ? `/${branchId}${href}` : href;
+
+  const isActive = pathname === fullHref || (href !== '/student' && href !== '/admin' && href !== '/super' && pathname.startsWith(fullHref));
   
   return (
     <motion.div
       whileHover={{ x: 4 }}
       whileTap={{ scale: 0.98 }}
     >
-      <Link href={href} id={`sidebar-${label.toLowerCase().replace(/\s/g, '-')}`}
+      <Link href={fullHref} id={`sidebar-${label.toLowerCase().replace(/\s/g, '-')}`}
         className={`sidebar-link ${isActive ? 'active' : ''}`}>
         <Icon className={`${isActive ? 'text-pink-500' : 'text-slate-400'} transition-colors`} size={20} />
         <span>{label}</span>
@@ -56,7 +70,10 @@ function NavItem({ href, Icon, label }) {
 }
 
 export default function Sidebar({ role, user }) {
-  const navItems = role === 'admin' ? adminNav : role === 'instructor' ? instructorNav : studentNav;
+  let navItems = studentNav;
+  if (role === 'super_admin') navItems = superAdminNav;
+  else if (role === 'branch_admin' || role === 'branch_management' || role === 'admin') navItems = branchAdminNav;
+  else if (role === 'instructor') navItems = instructorNav;
 
   return (
     <aside className="sidebar w-72 h-full flex flex-col hidden lg:flex shrink-0">

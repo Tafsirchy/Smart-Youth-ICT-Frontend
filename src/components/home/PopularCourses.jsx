@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import Link from "next/link";
-import Image from "next/image";
+import ImageLoader from "@/components/ui/ImageLoader";
 import { useLocale } from "next-intl";
 import api from "@/lib/api";
 import {
@@ -148,11 +148,12 @@ export default function PopularCourses() {
                   {/* Image Container */}
                   <div className="relative h-48 overflow-hidden">
                     {course.thumbnail ? (
-                      <Image
+                      <ImageLoader
                         src={course.thumbnail}
                         alt={title}
                         fill
                         className="object-cover group-hover:scale-110 transition-transform duration-700"
+                        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                       />
                     ) : (
                       <div className="w-full h-full bg-gradient-to-br from-slate-100 to-slate-200 flex items-center justify-center">
