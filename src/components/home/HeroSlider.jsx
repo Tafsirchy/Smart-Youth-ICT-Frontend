@@ -514,9 +514,9 @@ export default function HeroSlider() {
                         <ImageLoader
                           src={slides[current].image}
                           alt="Student"
-                          width={600}
-                          height={600}
-                          className="w-full h-full object-cover object-top scale-110"
+                          fill
+                          className="w-full h-full object-cover object-center"
+                          wrapperClassName="w-full h-full"
                         />
                       </div>
 
@@ -604,9 +604,9 @@ export default function HeroSlider() {
                             <ImageLoader
                               src={slides[current].archImage}
                               alt="Student Left"
-                              width={500}
-                              height={800}
+                              fill
                               className="w-full h-full object-cover"
+                              wrapperClassName="w-full h-full"
                             />
                           </div>
                         </motion.div>
@@ -630,9 +630,9 @@ export default function HeroSlider() {
                             <ImageLoader
                               src={slides[current].image}
                               alt="Student Right"
-                              width={500}
-                              height={800}
+                              fill
                               className="w-full h-full object-cover"
+                              wrapperClassName="w-full h-full"
                             />
                           </div>
                         </motion.div>

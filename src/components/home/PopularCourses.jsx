@@ -173,7 +173,7 @@ export default function PopularCourses() {
                     <div className="absolute inset-0 bg-slate-900/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center z-10">
                       <Link
                         href={`/${locale}/courses/${course.slug}`}
-                        className="px-6 py-2.5 bg-white text-slate-900 text-xs font-black rounded-full transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300 uppercase tracking-widest"
+                        className="px-6 py-2.5 bg-green-200 text-green-900 text-xs font-black rounded-full transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300 uppercase tracking-widest"
                       >
                         Learn More
                       </Link>
