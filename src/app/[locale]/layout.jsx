@@ -8,6 +8,7 @@ import FacebookPixel    from '@/components/marketing/FacebookPixel';
 import WhatsAppButton   from '@/components/marketing/WhatsAppButton';
 import GoogleAnalytics  from '@/components/marketing/GoogleAnalytics';
 import NextTopLoader    from 'nextjs-toploader';
+import PageLoader       from '@/components/ui/PageLoader';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -24,8 +25,9 @@ export default async function RootLayout({ children, params: { locale } }) {
 
   return (
     <html lang={locale}>
-      <body className={inter.className}>
+      <body className={`${inter.className} overflow-x-hidden`}>
         <NextTopLoader color="#10B981" height={3} showSpinner={false} easing="ease" speed={200} />
+        <PageLoader />
         <NextIntlClientProvider messages={messages}>
           <Providers>
             <GoogleAnalytics />

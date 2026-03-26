@@ -672,7 +672,7 @@ export default function HeroSlider() {
       </AnimatePresence>
 
       {/* Manual Controls */}
-      <div className="absolute inset-x-4 md:inset-x-8 top-1/2 -translate-y-1/2 flex justify-between pointer-events-none z-50">
+      <div className="absolute inset-x-4 md:inset-x-8 top-1/2 -translate-y-1/2 flex justify-between pointer-events-none z-30">
         <button
           onClick={prevSlide}
           className="p-3 text-slate-800/40 cursor-pointer pointer-events-auto hover:text-[#10B981] transition-all group scale-125 md:scale-150"

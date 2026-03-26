@@ -110,7 +110,7 @@ function HolographicCard({ name, icon, desc, color }) {
 export default function PaymentMethodsSection() {
   return (
     <section 
-      className="section py-20 min-h-[700px] flex items-center overflow-hidden relative" 
+      className="section py-24 min-h-[700px] flex items-center relative overflow-hidden" 
       style={{ 
         backgroundImage: "url('/images/bg.png')",
         backgroundSize: 'cover',
@@ -120,7 +120,7 @@ export default function PaymentMethodsSection() {
     >
 
       {/* Background Animated Gradient Blobs */}
-      <div className="absolute inset-0 pointer-events-none mix-blend-screen">
+      <div className="absolute inset-0 pointer-events-none mix-blend-screen overflow-hidden">
         <motion.div
           animate={{
             scale: [1, 1.1, 1],
@@ -143,7 +143,10 @@ export default function PaymentMethodsSection() {
       <div className="absolute inset-0 opacity-5 pointer-events-none" 
            style={{ backgroundImage: 'radial-gradient(circle at 1px 1px, white 1px, transparent 0)', backgroundSize: '30px 30px' }} />
 
-      <div className="container-custom relative z-10 w-full overflow-hidden rounded-[2.5rem] border border-white/10 bg-black/40 backdrop-blur-md">
+      <div className="container-custom relative z-10 w-full">
+        {/* Card panel — shadow lives OUTSIDE overflow-hidden so it's not clipped */}
+        <div className="w-full overflow-hidden rounded-[2.5rem] border border-white/10 bg-black/40 backdrop-blur-md shadow-[0_32px_80px_rgba(0,0,0,0.5)]">
+
         <div className="flex flex-col lg:flex-row relative min-h-[500px]">
           
           {/* Left Side: Clean Background with Diagonal Cut */}
@@ -254,8 +257,9 @@ export default function PaymentMethodsSection() {
                 </div>
               ))}
             </motion.div>
-        </div>
-      </div>
+        </div>{/* end payment icons grid */}
+        </div>{/* end inner card panel */}
+      </div>{/* end container-custom */}
 
 
 

@@ -50,7 +50,6 @@ export default function ImageLoader({
           className
         )}
         onLoad={() => setIsLoaded(true)}
-        onLoadingComplete={() => setIsLoaded(true)}
         {...props}
       />
     </div>

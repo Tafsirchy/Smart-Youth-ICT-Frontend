@@ -21,6 +21,7 @@ const toSessionUser = (authData) => ({
   email: authData.user.email,
   image: authData.user.avatar || null,
   role: authData.user.role,
+  branchId: authData.user.branchId || null,
   providers: authData.user.providers || [],
   accessToken: authData.accessToken || authData.token,
 });
@@ -93,6 +94,7 @@ export const authOptions = {
       if (user) {
         token.id = user.id;
         token.role = user.role;
+        token.branchId = user.branchId;
         token.providers = user.providers || [];
         token.accessToken = user.accessToken;
         token.picture = user.image || token.picture;
@@ -108,6 +110,7 @@ export const authOptions = {
     async session({ session, token }) {
       session.user.id = token.id;
       session.user.role = token.role;
+      session.user.branchId = token.branchId;
       session.user.providers = token.providers || [];
       session.user.accessToken = token.accessToken;
       session.user.token = token.accessToken;

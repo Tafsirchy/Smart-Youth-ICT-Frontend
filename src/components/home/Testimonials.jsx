@@ -15,10 +15,10 @@ const STATIC_TEXT = [
 ];
 
 const STATIC_VIDEOS = [
-  { _id: 'v1', name: 'Tanvir Hossain', youtubeId: 'dQw4w9WgXcQ', thumbnail: 'https://img.youtube.com/vi/dQw4w9WgXcQ/maxresdefault.jpg' },
-  { _id: 'v2', name: 'Mehndi Hasan', youtubeId: 'aqz-KE-BPKQ', thumbnail: 'https://img.youtube.com/vi/aqz-KE-BPKQ/maxresdefault.jpg' },
-  { _id: 'v3', name: 'Sumit Saha', youtubeId: 'R9I85RhI7Cg', thumbnail: 'https://img.youtube.com/vi/R9I85RhI7Cg/maxresdefault.jpg' },
-  { _id: 'v4', name: 'Jhankar Mahbub', youtubeId: 'SqcY0GlETPk', thumbnail: 'https://img.youtube.com/vi/SqcY0GlETPk/maxresdefault.jpg' },
+  { _id: 'v1', name: 'Tanvir Hossain', youtubeId: 'dQw4w9WgXcQ', thumbnail: 'https://img.youtube.com/vi/dQw4w9WgXcQ/hqdefault.jpg' },
+  { _id: 'v2', name: 'Mehndi Hasan', youtubeId: 'aqz-KE-BPKQ', thumbnail: 'https://img.youtube.com/vi/aqz-KE-BPKQ/hqdefault.jpg' },
+  { _id: 'v3', name: 'Sumit Saha', youtubeId: 'R9I85RhI7Cg', thumbnail: 'https://img.youtube.com/vi/R9I85RhI7Cg/hqdefault.jpg' },
+  { _id: 'v4', name: 'Jhankar Mahbub', youtubeId: 'SqcY0GlETPk', thumbnail: 'https://img.youtube.com/vi/SqcY0GlETPk/hqdefault.jpg' },
 ];
 
 function StarRating({ count = 5 }) {

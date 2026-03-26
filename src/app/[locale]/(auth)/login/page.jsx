@@ -55,12 +55,13 @@ export default function LoginPage() {
       const { getSession } = await import("next-auth/react");
       const session = await getSession();
       const role = session?.user?.role || "student";
+      const branchId = session?.user?.branchId || "BR1"; // Fallback to BR1 if missing
       const redirectMap = {
         admin: "admin",
         instructor: "instructor",
         student: "student",
       };
-      router.push(`/${locale}/${redirectMap[role] || "student"}`);
+      router.push(`/${locale}/`);
     } else {
       setError(res?.error || "Invalid email or password. Please try again.");
     }

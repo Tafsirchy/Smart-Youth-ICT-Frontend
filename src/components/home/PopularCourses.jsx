@@ -36,7 +36,8 @@ const FALLBACK = [
     slug: "web-development",
     title: { en: "Web Development Mastery" },
     category: "Development",
-    price: 8000,
+    price: 6000,
+    originalPrice: 8000,
     duration: "6 Months",
     enrolledCount: 340,
     rating: 4.9,
@@ -48,7 +49,8 @@ const FALLBACK = [
     slug: "social-media-marketing",
     title: { en: "Digital Marketing Growth" },
     category: "Marketing",
-    price: 5000,
+    price: 3500,
+    originalPrice: 5000,
     duration: "6 Months",
     enrolledCount: 210,
     rating: 4.8,
@@ -60,7 +62,8 @@ const FALLBACK = [
     slug: "graphic-design",
     title: { en: "Visual Design & UI" },
     category: "Creative",
-    price: 5500,
+    price: 4000,
+    originalPrice: 5500,
     duration: "6 Months",
     enrolledCount: 180,
     rating: 4.8,
@@ -72,7 +75,8 @@ const FALLBACK = [
     slug: "ai-prompt-engineering",
     title: { en: "AI & Future Automation" },
     category: "Advanced AI",
-    price: 4000,
+    price: 2800,
+    originalPrice: 4000,
     duration: "6 Months",
     enrolledCount: 120,
     rating: 4.9,
@@ -89,8 +93,15 @@ export default function PopularCourses() {
     api
       .get("/courses", { params: { limit: 4 } })
       .then((res) => {
-        if (res.data?.success && res.data.data.length)
-          setCourses(res.data.data);
+        if (res.data?.success && res.data.data.length) {
+          const enriched = res.data.data.map((c) => ({
+            ...c,
+            originalPrice:
+              c.originalPrice ?? Math.round(c.price * 1.3), // fallback: show 23% discount
+          }));
+          setCourses(enriched);
+        }
+
       })
       .catch(() => {});
   }, []);
@@ -129,10 +140,9 @@ export default function PopularCourses() {
           className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8"
           variants={container}
           initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, margin: "-50px" }}
+          animate="visible"
         >
-          {courses.map((course) => {
+          {courses.map((course, index) => {
             const title =
               course.title?.en ||
               (typeof course.title === "string"
@@ -154,6 +164,7 @@ export default function PopularCourses() {
                         fill
                         className="object-cover group-hover:scale-110 transition-transform duration-700"
                         sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                        priority={index === 0}
                       />
                     ) : (
                       <div className="w-full h-full bg-gradient-to-br from-slate-100 to-slate-200 flex items-center justify-center">
@@ -197,11 +208,18 @@ export default function PopularCourses() {
                     </h3>
 
                     <div className="flex items-center justify-between mt-auto pt-4 border-t border-slate-50">
-                      <div className="flex flex-col">
-                        <span className="text-[10px] font-bold text-slate-400 uppercase tracking-tighter">
-                          Price
-                        </span>
-                        <span className="text-xl font-black text-slate-900">
+                      <div className="flex flex-col gap-0.5">
+                        {course.originalPrice && course.originalPrice > course.price && (
+                          <div className="flex items-center gap-1.5">
+                            <span className="text-[11px] font-bold text-slate-400 line-through">
+                              ৳{course.originalPrice?.toLocaleString()}
+                            </span>
+                            <span className="text-[9px] font-black text-white bg-pink-500 px-1.5 py-0.5 rounded-md uppercase tracking-wide">
+                              {Math.round((1 - course.price / course.originalPrice) * 100)}% OFF
+                            </span>
+                          </div>
+                        )}
+                        <span className="text-xl font-black text-green-600">
                           ৳{course.price?.toLocaleString()}
                         </span>
                       </div>

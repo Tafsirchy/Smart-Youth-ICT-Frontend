@@ -166,6 +166,7 @@ export default function BlogPreview() {
                     src={selectedPost.thumbnail || '/images/marketing.png'}
                     alt="blog featured image"
                     fill
+                    sizes="(max-width: 768px) 100vw, 50vw"
                     className="object-cover transition-transform duration-[1500ms] hover:scale-105"
                     priority
                   />
