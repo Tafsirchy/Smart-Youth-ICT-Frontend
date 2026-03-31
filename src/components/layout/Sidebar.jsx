@@ -78,14 +78,13 @@ export default function Sidebar({ role, user }) {
   return (
     <aside className="sidebar w-72 h-full flex flex-col hidden lg:flex shrink-0">
       {/* Brand */}
-      <div className="px-8 py-8">
-        <Link href="/" className="flex items-center gap-3">
-          <div className="w-10 h-10 rounded-xl bg-gradient-brand flex items-center justify-center shadow-lg shadow-pink-500/20">
-            <span className="text-white font-black text-xl">S</span>
-          </div>
-          <span className="text-2xl font-black tracking-tighter text-white">
-            SYICT<span className="text-pink-500">.</span>
-          </span>
+      <div className="px-8 py-8 flex justify-center">
+        <Link href="/" className="flex items-center">
+          <img 
+            src="/images/logo.png" 
+            alt="Smart Youth ICT" 
+            className="h-10 w-auto object-contain" 
+          />
         </Link>
       </div>
 
@@ -123,7 +122,7 @@ export default function Sidebar({ role, user }) {
       </div>
 
       {/* Sign out */}
-      <div className="px-4 pb-8 border-t border-white/5 pt-6">
+      <div className="px-4 pb-8 border-t border-white/5 pt-6 space-y-2">
         <button
           id="sidebar-logout"
           onClick={() => signOut({ callbackUrl: '/' })}
@@ -132,6 +131,15 @@ export default function Sidebar({ role, user }) {
           <HiLogout className="group-hover:-translate-x-1 transition-transform" size={20} />
           <span className="font-bold">Sign Out</span>
         </button>
+
+        <Link
+          href="/"
+          id="sidebar-back-home"
+          className="sidebar-link group w-full hover:bg-white/5"
+        >
+          <HiHome className="group-hover:-translate-y-0.5 transition-transform text-slate-400 group-hover:text-white" size={20} />
+          <span className="font-bold text-slate-400 group-hover:text-white">Back to Home</span>
+        </Link>
       </div>
     </aside>
   );

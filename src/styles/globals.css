@@ -196,7 +196,7 @@ a {
 
   /* — Dashboard Sidebar ─────────────────────────── */
   .sidebar {
-    background: linear-gradient(180deg, #111827 0%, #0f172a 100%);
+    background: linear-gradient(180deg, #0F172A 0%, #1E1B4B 100%);
     @apply border-r border-white/5;
     box-shadow: 4px 0 24px rgba(0, 0, 0, 0.2);
     @apply text-white;
