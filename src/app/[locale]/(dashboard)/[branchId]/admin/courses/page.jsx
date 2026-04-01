@@ -3,27 +3,26 @@
 import { useState, useEffect, useCallback } from 'react';
 import api from '@/lib/api';
 import toast from 'react-hot-toast';
+import Link from 'next/link';
+import { useParams } from 'next/navigation';
 import {
   IoBookOutline, IoSearch, IoCheckmarkCircle, IoCloseCircle,
-  IoTimeOutline, IoAddOutline, IoPencilOutline
+  IoTimeOutline, IoAddOutline, IoPencilOutline, IoTrashOutline
 } from 'react-icons/io5';
 
 export default function AdminCoursesPage() {
+  const params = useParams();
   const [courses, setCourses]   = useState([]);
   const [total, setTotal]       = useState(0);
   const [loading, setLoading]   = useState(true);
   const [search, setSearch]     = useState('');
   const [page, setPage]         = useState(1);
-  const [showModal, setShowModal] = useState(false);
-  const [form, setForm]         = useState({ title: '', description: '', price: '', category: '', thumbnail: '' });
-  const [submitting, setSubmitting] = useState(false);
   const limit = 12;
 
   const fetchCourses = useCallback(async () => {
     setLoading(true);
     try {
-      // Admin can also see unpublished courses — we fetch all with a bigger limit
-      const res = await api.get('/courses', { params: { page, limit: 100 } });
+      const res = await api.get('/courses', { params: { page, limit: 100, includeUnpublished: 'true' } });
       setCourses(res.data.data || []);
       setTotal(res.data.count || 0);
     } catch {
@@ -35,32 +34,21 @@ export default function AdminCoursesPage() {
 
   useEffect(() => { fetchCourses(); }, [fetchCourses]);
 
-  const handleCreate = async (e) => {
-    e.preventDefault();
-    setSubmitting(true);
+  const handleDelete = async (id) => {
+    if (!window.confirm("Are you sure you want to delete this course? This will hide it from users.")) return;
     try {
-      const body = {
-        ...form,
-        title: { en: form.title, bn: form.title },
-        price: Number(form.price),
-      };
-      await api.post('/courses', body);
-      toast.success('Course created successfully!');
-      setShowModal(false);
-      setForm({ title: '', description: '', price: '', category: '', thumbnail: '' });
-      fetchCourses();
+      await api.delete(`/courses/${id}`);
+      toast.success('Course deleted successfully');
+      setCourses(courses.filter(c => c._id !== id));
+      setTotal(t => t - 1);
     } catch (err) {
-      toast.error(err?.response?.data?.message || 'Failed to create course.');
-    } finally {
-      setSubmitting(false);
+      toast.error(err?.response?.data?.message || 'Failed to delete course');
     }
   };
 
   const filtered = search
     ? courses.filter(c => (c.title?.en || c.title || '').toLowerCase().includes(search.toLowerCase()))
     : courses;
-
-  const totalPages = Math.ceil(total / limit);
 
   return (
     <div>
@@ -70,12 +58,12 @@ export default function AdminCoursesPage() {
           <h1 className="text-2xl font-bold text-textPrimary">All Courses</h1>
           <p className="text-textSecondary text-sm mt-1">{total} total courses on platform</p>
         </div>
-        <button
-          onClick={() => setShowModal(true)}
+        <Link
+          href={`/${params.locale}/${params.branchId}/admin/courses/create`}
           className="flex items-center gap-2 btn-primary px-5 py-2.5 text-sm rounded-xl"
         >
           <IoAddOutline size={18} /> New Course
-        </button>
+        </Link>
       </div>
 
       {/* Search */}
@@ -93,100 +81,60 @@ export default function AdminCoursesPage() {
       {/* Course Grid */}
       {loading ? (
         <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
-          {[...Array(6)].map((_, i) => (
-            <div key={i} className="animate-pulse bg-neutral-200 rounded-2xl h-48"></div>
-          ))}
+           {[...Array(6)].map((_, i) => (
+             <div key={i} className="animate-pulse bg-white border border-neutral-100 rounded-2xl h-[280px]"></div>
+           ))}
         </div>
       ) : filtered.length === 0 ? (
-        <div className="text-center py-16 text-neutral-400">
-          <IoBookOutline size={40} className="mx-auto mb-3 opacity-30" />
-          <p>No courses found. Create one to get started.</p>
+        <div className="text-center py-16 bg-white rounded-3xl border border-neutral-100 shadow-sm mt-8">
+          <IoBookOutline size={48} className="mx-auto mb-4 text-neutral-300" />
+          <h3 className="text-xl font-bold text-neutral-700">No courses found</h3>
+          <p className="text-neutral-500 mt-2 max-w-md mx-auto">Click "New Course" above to create your first comprehensive landing page course.</p>
         </div>
       ) : (
-        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
           {filtered.map(course => (
-            <div key={course._id} className="bg-white rounded-2xl shadow-sm ring-1 ring-neutral-200 overflow-hidden hover:shadow-md transition-shadow">
+            <div key={course._id} className="bg-white rounded-2xl shadow-sm border border-neutral-200 overflow-hidden hover:shadow-md transition-shadow flex flex-col">
               {course.thumbnail ? (
-                <img src={course.thumbnail} alt={course.title?.en} className="w-full h-36 object-cover" />
+                // eslint-disable-next-line @next/next/no-img-element
+                <img src={course.thumbnail} alt={course.title?.en} className="w-full h-40 object-cover border-b" />
               ) : (
-                <div className="w-full h-36 bg-gradient-to-br from-blue-100 to-indigo-100 flex items-center justify-center">
-                  <IoBookOutline size={40} className="text-blue-300" />
+                <div className="w-full h-40 bg-neutral-100 flex items-center justify-center border-b">
+                  <IoBookOutline size={32} className="text-neutral-300" />
                 </div>
               )}
-              <div className="p-4">
-                <div className="flex items-start justify-between gap-2 mb-2">
-                  <h3 className="font-semibold text-neutral-900 text-sm leading-tight line-clamp-2">
+              <div className="p-5 flex-1 flex flex-col">
+                <div className="flex items-start justify-between gap-2 mb-3">
+                  <h3 className="font-bold text-neutral-900 text-[15px] leading-snug line-clamp-2">
                     {course.title?.en || course.title}
                   </h3>
-                  <span className={`shrink-0 text-xs px-2 py-1 rounded-full font-semibold ${
+                </div>
+                
+                <div className="flex items-center gap-2 mb-4">
+                  <span className={`shrink-0 text-[10px] px-2 py-0.5 rounded-md font-bold uppercase tracking-wider ${
                     course.isPublished ? 'bg-emerald-100 text-emerald-700' : 'bg-amber-100 text-amber-700'
                   }`}>
                     {course.isPublished ? 'Live' : 'Draft'}
                   </span>
+                  <span className="text-[11px] text-neutral-400 font-medium uppercase tracking-wider px-2 py-0.5 bg-neutral-100 rounded-md">
+                    {course.category}
+                  </span>
                 </div>
-                <p className="text-xs text-neutral-500 mb-3 capitalize">{course.category || 'Uncategorized'}</p>
-                <div className="flex items-center justify-between">
-                  <span className="font-bold text-blue-600 text-sm">৳{course.price?.toLocaleString() || '—'}</span>
+
+                <div className="mt-auto flex justify-between items-center pt-2 border-t border-neutral-100">
+                  <span className="font-extrabold text-blue-600 text-sm">৳{course.price?.toLocaleString() || '—'}</span>
                   <div className="flex gap-2">
-                    <button className="text-xs text-neutral-500 hover:text-neutral-700 flex items-center gap-1 border border-neutral-200 rounded-lg px-2.5 py-1.5 hover:bg-neutral-50">
-                      <IoPencilOutline size={13} /> Edit
+                    <button onClick={() => handleDelete(course._id)} className="text-neutral-400 hover:text-red-500 p-1.5 rounded bg-neutral-50 hover:bg-red-50 transition-colors">
+                      <IoTrashOutline size={16} />
                     </button>
+                    <Link href={`/${params.locale}/${params.branchId}/admin/courses/${course._id}/edit`} className="text-blue-600 hover:text-blue-800 p-1.5 rounded bg-blue-50 hover:bg-blue-100 transition-colors">
+                      <IoPencilOutline size={16} />
+                    </Link>
                   </div>
                 </div>
               </div>
             </div>
           ))}
-        </div>
-      )}
-
-      {/* Create Course Modal */}
-      {showModal && (
-        <div className="fixed inset-0 bg-black/40 backdrop-blur-sm z-50 flex items-center justify-center p-4">
-          <div className="bg-white rounded-2xl shadow-2xl w-full max-w-lg p-6">
-            <div className="flex justify-between items-center mb-6">
-              <h2 className="text-xl font-bold text-neutral-900">Create New Course</h2>
-              <button onClick={() => setShowModal(false)} className="text-neutral-400 hover:text-neutral-700">
-                <IoCloseCircle size={24} />
-              </button>
-            </div>
-            <form onSubmit={handleCreate} className="space-y-4">
-              <div>
-                <label className="block text-sm font-medium text-neutral-700 mb-1">Course Title (English)</label>
-                <input required className="input w-full" placeholder="e.g. Complete Web Development" value={form.title} onChange={e => setForm({...form, title: e.target.value})} />
-              </div>
-              <div className="grid grid-cols-2 gap-3">
-                <div>
-                  <label className="block text-sm font-medium text-neutral-700 mb-1">Price (৳)</label>
-                  <input required type="number" className="input w-full" placeholder="5000" value={form.price} onChange={e => setForm({...form, price: e.target.value})} />
-                </div>
-                <div>
-                  <label className="block text-sm font-medium text-neutral-700 mb-1">Category</label>
-                  <select className="input w-full" value={form.category} onChange={e => setForm({...form, category: e.target.value})}>
-                    <option value="">Select…</option>
-                    <option value="web-development">Web Development</option>
-                    <option value="graphic-design">Graphic Design</option>
-                    <option value="digital-marketing">Digital Marketing</option>
-                    <option value="video-editing">Video Editing</option>
-                    <option value="ai">AI & Automation</option>
-                  </select>
-                </div>
-              </div>
-              <div>
-                <label className="block text-sm font-medium text-neutral-700 mb-1">Description</label>
-                <textarea rows={3} className="input w-full resize-none" placeholder="Brief summary…" value={form.description} onChange={e => setForm({...form, description: e.target.value})} />
-              </div>
-              <div>
-                <label className="block text-sm font-medium text-neutral-700 mb-1">Thumbnail URL (optional)</label>
-                <input className="input w-full" placeholder="https://…" value={form.thumbnail} onChange={e => setForm({...form, thumbnail: e.target.value})} />
-              </div>
-              <div className="flex gap-3 pt-2">
-                <button type="button" onClick={() => setShowModal(false)} className="flex-1 py-2.5 rounded-xl border border-neutral-300 text-sm font-medium hover:bg-neutral-50">Cancel</button>
-                <button type="submit" disabled={submitting} className="flex-1 btn-primary py-2.5 rounded-xl text-sm font-medium disabled:opacity-50">
-                  {submitting ? 'Creating…' : 'Create Course'}
-                </button>
-              </div>
-            </form>
-          </div>
         </div>
       )}
     </div>
