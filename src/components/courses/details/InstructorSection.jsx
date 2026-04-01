@@ -1,7 +1,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import Image from 'next/image';
-import { IoLogoLinkedin, IoLogoTwitter, IoLogoGithub, IoRibbonOutline, IoPeopleOutline, IoStar } from 'react-icons/io5';
+import { IoLogoLinkedin, IoLogoTwitter, IoLogoGithub, IoRibbonOutline, IoPeopleOutline } from 'react-icons/io5';
 
 export default function InstructorSection({ course }) {
   const instructor = course?.instructor || {
@@ -51,9 +51,7 @@ export default function InstructorSection({ course }) {
           </div>
 
           <div className="flex flex-wrap items-center gap-4 text-sm font-semibold text-slate-500 mb-4 pb-4 border-b border-slate-100">
-            <span className="flex items-center gap-1.5 bg-slate-50 px-3 py-1.5 rounded-lg border border-slate-100">
-              <IoStar size={16} className="text-amber-400" /> {course?.rating || 4.8} Instructor Rating
-            </span>
+
             <span className="flex items-center gap-1.5 bg-slate-50 px-3 py-1.5 rounded-lg border border-slate-100">
               <IoPeopleOutline size={16} className="text-blue-500" /> {course?.enrolledCount || 1024}+ Students
             </span>

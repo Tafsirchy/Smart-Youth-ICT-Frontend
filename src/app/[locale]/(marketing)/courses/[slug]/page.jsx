@@ -19,7 +19,6 @@ import CourseInfoGrid from '@/components/courses/details/CourseInfoGrid';
 import DetailedCurriculum from '@/components/courses/details/DetailedCurriculum';
 import ProjectShowcase from '@/components/courses/details/ProjectShowcase';
 import InstructorSection from '@/components/courses/details/InstructorSection';
-import ReviewsGrid from '@/components/courses/details/ReviewsGrid';
 import CertificationSection from '@/components/courses/details/CertificationSection';
 import FAQAccordion from '@/components/courses/details/FAQAccordion';
 import FinalCTABanner from '@/components/courses/details/FinalCTABanner';
@@ -108,9 +107,6 @@ export default function CourseDetailPage({ params }) {
 
           {/* 6. Instructor Section */}
           <InstructorSection course={course} />
-
-          {/* 8. Student Reviews & Ratings */}
-          <ReviewsGrid course={course} />
 
           {/* 11. FAQ Section */}
           <FAQAccordion />

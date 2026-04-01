@@ -132,8 +132,47 @@ export default async function BlogPage({ params, searchParams }) {
       {/* ── Post Grid ── */}
       <div className="container-lg mx-auto px-4 py-12">
         {posts.length > 0 ? (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-7">
-            {posts.map(post => <BlogCard key={post._id} post={post} locale={locale} />)}
+          <div className="space-y-12">
+            {/* Featured Post (Only on page 1 with no search/tag) */}
+            {page === 1 && !tag && !q && posts.length >= 1 ? (
+              <Link href={`/${locale}/blog/${posts[0].slug}`} className="group block">
+                 <div className="flex flex-col md:flex-row bg-[var(--color-surface)] rounded-3xl overflow-hidden shadow-lg border border-neutral-100 hover:shadow-2xl transition-all">
+                    <div className="md:w-3/5 h-64 md:h-[400px] relative overflow-hidden bg-gradient-to-br from-blue-50 to-indigo-100">
+                       {posts[0].thumbnail 
+                         ? <Image src={posts[0].thumbnail} alt={posts[0].title} fill className="object-cover group-hover:scale-105 transition-transform duration-700" priority />
+                         : <div className="w-full h-full flex items-center justify-center"><IoBookOutline size={64} className="text-blue-200" /></div>
+                       }
+                    </div>
+                    <div className="md:w-2/5 p-8 md:p-12 flex flex-col justify-center">
+                       <span className="inline-block px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider text-white bg-blue-600 self-start mb-4 shadow-sm shadow-blue-500/30">
+                         Featured Article
+                       </span>
+                       <h2 className="text-2xl md:text-3xl font-extrabold text-textPrimary leading-tight mb-4 group-hover:text-blue-600 transition-colors">
+                         {posts[0].title?.en || posts[0].title}
+                       </h2>
+                       <p className="text-textSecondary text-base leading-relaxed mb-6 line-clamp-3">
+                         {posts[0].excerpt}
+                       </p>
+                       <div className="flex items-center gap-3 mt-auto">
+                          {posts[0].author?.avatar ? (
+                             <img src={posts[0].author.avatar} alt="Author" className="w-10 h-10 rounded-full" />
+                          ) : (
+                             <div className="w-10 h-10 rounded-full bg-indigo-100 flex items-center justify-center text-indigo-700 font-bold text-sm">SY</div>
+                          )}
+                          <div>
+                            <p className="font-bold text-sm text-textPrimary">{posts[0].author?.name || 'SYICT Team'}</p>
+                            <p className="text-xs text-textSecondary flex items-center gap-1"><IoCalendarOutline /> {new Date(posts[0].createdAt).toLocaleDateString()}</p>
+                          </div>
+                       </div>
+                    </div>
+                 </div>
+              </Link>
+            ) : null}
+
+            {/* Standard Grid */}
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-7">
+              {posts.slice(page === 1 && !tag && !q ? 1 : 0).map(post => <BlogCard key={post._id} post={post} locale={locale} />)}
+            </div>
           </div>
         ) : (
           <div className="flex flex-col items-center justify-center py-24 text-center">

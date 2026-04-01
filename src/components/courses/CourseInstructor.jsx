@@ -2,7 +2,7 @@
 
 import React from 'react';
 import ImageLoader from '@/components/ui/ImageLoader';
-import { HiOutlineStar, HiOutlineBookOpen, HiOutlineUsers } from 'react-icons/hi';
+import { HiOutlineBookOpen, HiOutlineUsers } from 'react-icons/hi';
 import { FaFacebook, FaLinkedin, FaTwitter } from 'react-icons/fa';
 
 export default function CourseInstructor({ instructor }) {
@@ -30,11 +30,7 @@ export default function CourseInstructor({ instructor }) {
           <p className="text-blue-600 font-medium text-sm mt-1">{instructor.title || 'Senior Instructor'}</p>
           
           <div className="flex flex-wrap items-center justify-center sm:justify-start gap-4 mt-4 text-sm tracking-tight text-neutral-600">
-            <div className="flex items-center gap-1.5 bg-neutral-50 px-3 py-1.5 rounded-lg border border-neutral-100">
-              <HiOutlineStar className="text-amber-500" size={18} />
-              <span className="font-bold">{instructor.rating || '4.9'}</span>
-              <span className="text-neutral-400">Rating</span>
-            </div>
+
             <div className="flex items-center gap-1.5 bg-neutral-50 px-3 py-1.5 rounded-lg border border-neutral-100">
               <HiOutlineUsers className="text-blue-500" size={18} />
               <span className="font-bold">{instructor.studentsCount || '2,400+'}</span>

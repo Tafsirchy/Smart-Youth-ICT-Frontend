@@ -2,10 +2,10 @@ import React from 'react';
 import ImageLoader from '@/components/ui/ImageLoader';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
-import { IoTimeOutline, IoPeopleOutline, IoStar } from 'react-icons/io5';
+import { IoTimeOutline, IoPeopleOutline } from 'react-icons/io5';
 
 export default function CourseCard({ course }) {
-  const { slug, title, thumbnail, price, instructor, duration = '3 Months', enrolledCount = 0, rating = 4.8 } = course;
+  const { slug, title, thumbnail, price, instructor, duration = '3 Months', enrolledCount = 0 } = course;
   
   // Use English title by default
   const displayTitle = title?.en || title || 'Untitled Course';

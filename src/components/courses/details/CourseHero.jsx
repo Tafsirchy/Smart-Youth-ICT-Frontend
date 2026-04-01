@@ -1,14 +1,64 @@
 import React from 'react';
 import Image from 'next/image';
 import { motion } from 'framer-motion';
-import { IoStar, IoStarOutline, IoPeopleOutline, IoPlayCircleOutline, IoCallOutline } from 'react-icons/io5';
+import { IoStar, IoStarOutline, IoPeopleOutline, IoPlayCircleOutline, IoCallOutline, IoDocumentTextOutline } from 'react-icons/io5';
+import jsPDF from 'jspdf';
+import 'jspdf-autotable';
+import toast from 'react-hot-toast';
 
 export default function CourseHero({ course, onEnroll }) {
   const title = course?.title?.en || course?.title || 'Course Details';
   const description = course?.description?.en || course?.description || 'Learn the most in-demand skills from industry experts and start your career today.';
-  const rating = course?.rating || 4.8;
   const enrolledCount = course?.enrolledCount || 1024;
   const instructorName = course?.instructor?.name || 'Expert Instructor';
+
+  const handleDownloadPdf = () => {
+    if (!course?.curriculum || course.curriculum.length === 0) {
+      toast.error('Curriculum syllabus is not available yet.');
+      return;
+    }
+    try {
+      const doc = new jsPDF();
+      doc.setFontSize(20);
+      doc.text(`${title} - Syllabus`, 14, 22);
+      
+      doc.setFontSize(11);
+      doc.setTextColor(100);
+      doc.text(`Duration: ${course.duration || 'N/A'}`, 14, 30);
+      
+      let startY = 40;
+
+      course.curriculum.forEach((module, index) => {
+        doc.setFontSize(14);
+        doc.setTextColor(40);
+        doc.text(`Module ${index + 1}: ${module.title}`, 14, startY);
+        
+        const tableData = module.topics.map((t, i) => [`${i + 1}`, t]);
+        
+        doc.autoTable({
+          startY: startY + 5,
+          head: [['#', 'Topic']],
+          body: tableData,
+          theme: 'striped',
+          styles: { fontSize: 10, cellPadding: 4 },
+          headStyles: { fillColor: [79, 70, 229] },
+          margin: { left: 14, right: 14 }
+        });
+        
+        startY = doc.lastAutoTable.finalY + 15;
+        if (startY > 270) {
+          doc.addPage();
+          startY = 20;
+        }
+      });
+
+      doc.save(`${course.slug}-curriculum.pdf`);
+      toast.success('Curriculum PDF downloaded successfully!');
+    } catch (err) {
+      console.error(err);
+      toast.error('Failed to generate PDF.');
+    }
+  };
 
   return (
     <section className="relative overflow-hidden bg-slate-900 pt-20 pb-28 lg:pt-28 lg:pb-36 px-4"
@@ -60,19 +110,6 @@ export default function CourseHero({ course, onEnroll }) {
             transition={{ delay: 0.3 }}
             className="flex flex-wrap items-center gap-6 text-sm font-medium text-indigo-100 mb-10"
           >
-            {/* Rating */}
-            <div className="flex items-center gap-2 bg-black/20 px-4 py-2 rounded-full border border-white/10 backdrop-blur-md">
-              <span className="text-amber-400 font-bold">{rating}</span>
-              <span className="flex items-center gap-0.5">
-                {[...Array(5)].map((_, i) => (
-                  i < Math.round(rating)
-                    ? <IoStar key={i} size={15} className="text-amber-400" />
-                    : <IoStarOutline key={i} size={15} className="text-indigo-400" />
-                ))}
-              </span>
-              <span className="text-indigo-300 text-xs">({course.reviewsCount || 120} reviews)</span>
-            </div>
-            
             {/* Students */}
             <div className="flex items-center gap-2">
               <IoPeopleOutline size={18} className="text-indigo-300" />
@@ -108,6 +145,13 @@ export default function CourseHero({ course, onEnroll }) {
               <IoCallOutline className="text-indigo-300" />
               <span>Free Consultation</span>
             </a>
+            <button 
+              onClick={handleDownloadPdf}
+              className="flex items-center justify-center gap-2 px-6 py-4 rounded-xl bg-white/10 hover:bg-white/15 border border-white/20 text-white font-semibold text-lg backdrop-blur-md transition-all"
+            >
+              <IoDocumentTextOutline className="text-indigo-300 shadow-sm" />
+              <span>Download Curriculum</span>
+            </button>
           </motion.div>
 
         </div>
