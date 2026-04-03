@@ -6,19 +6,23 @@ import { usePathname } from "next/navigation";
 
 export default function PageLoader() {
   const pathname = usePathname();
-  const [visible, setVisible] = useState(false);
-  const [fadeOut, setFadeOut] = useState(false);
 
   // Helper to check if we are on the home page (accounting for locales)
   const isHomePage = (path) => {
-    const cleanPath = path.replace(/^\/[a-z]{2}(-[A-Z]{2})?(?=\/|$)/, '') || '/';
-    return cleanPath === '/';
+    const cleanPath =
+      path.replace(/^\/[a-z]{2}(-[A-Z]{2})?(?=\/|$)/, "") || "/";
+    return cleanPath === "/";
   };
 
+  const [visible, setVisible] = useState(() => isHomePage(pathname));
+  const [fadeOut, setFadeOut] = useState(false);
+
   useEffect(() => {
-    // Only trigger the PageLoader if we are on the Home page
-    if (!isHomePage(pathname)) {
+    const shouldShowLoader = isHomePage(pathname);
+
+    if (!shouldShowLoader) {
       setVisible(false);
+      setFadeOut(false);
       return;
     }
 
@@ -80,8 +84,12 @@ export default function PageLoader() {
 
       <style jsx global>{`
         @keyframes progress {
-          from { width: 0%; }
-          to   { width: 100%; }
+          from {
+            width: 0%;
+          }
+          to {
+            width: 100%;
+          }
         }
         .animate-progress {
           animation: progress 1.5s ease-in-out forwards;

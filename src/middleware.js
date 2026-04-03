@@ -1,15 +1,14 @@
-import { withAuth } from 'next-auth/middleware';
-import createIntlMiddleware from 'next-intl/middleware';
+import { withAuth } from "next-auth/middleware";
+import createIntlMiddleware from "next-intl/middleware";
 
-const locales = ['en', 'bn'];
-const defaultLocale = 'bn';
-
+const locales = ["en", "bn"];
+const defaultLocale = "bn";
 
 // Handles internationalization routing
 const intlMiddleware = createIntlMiddleware({
   locales,
   defaultLocale,
-  localePrefix: 'as-needed' // Only prefix non-default locale (e.g., /en/login but /login for bn)
+  localePrefix: "as-needed", // Only prefix non-default locale (e.g., /en/login but /login for bn)
 });
 
 // Auth middleware wrapper
@@ -20,19 +19,19 @@ const authMiddleware = withAuth(
   },
   {
     callbacks: {
-      authorized: ({ token }) => token != null
+      authorized: ({ token }) => token != null,
     },
     pages: {
-      signIn: '/login'
-    }
-  }
+      signIn: "/login",
+    },
+  },
 );
 
 export default function middleware(req) {
   // Using explicit route definitions to avoid parsing issues with dynamic segments
   const publicPathnameRegex = RegExp(
-    `^(/(${locales.join('|')}))?(/|/login|/register|/about|/contact|/success-stories|/courses(/.*)?|/blog(/.*)?|/auth-redirect)?/?$`,
-    'i'
+    `^(/(${locales.join("|")}))?(/|/login|/register|/about(/.*)?|/contact|/success-stories|/courses(/.*)?|/blog(/.*)?|/auth-redirect)?/?$`,
+    "i",
   );
   const isPublicPage = publicPathnameRegex.test(req.nextUrl.pathname);
 
@@ -47,5 +46,5 @@ export default function middleware(req) {
 
 export const config = {
   // Matches all paths except static files, api routes, and next internals
-  matcher: ['/((?!api|_next|.*\\..*).*)']
+  matcher: ["/((?!api|_next|.*\\..*).*)"],
 };

@@ -1,13 +1,24 @@
 "use client";
 
 import { motion } from "framer-motion";
+import { usePathname } from "next/navigation";
 
 export default function RootRouteLoader() {
-  // If we are navigating to Home, we hide this loader 
-  // and let the PageLoader (Splash) handle it.
-  const isNavigatingToHome = typeof window !== "undefined" && window.__isNavigatingToHome;
+  const pathname = usePathname();
 
-  if (isNavigatingToHome) return null;
+  const isHomePage = (path) => {
+    const cleanPath =
+      path?.replace(/^\/[a-z]{2}(-[A-Z]{2})?(?=\/|$)/, "") || "/";
+    return cleanPath === "/";
+  };
+
+  // If we are navigating to Home, we hide this loader
+  // and let the PageLoader (Splash) handle it.
+  const isNavigatingToHome =
+    typeof window !== "undefined" && window.__isNavigatingToHome;
+  const shouldHideOnHome = isHomePage(pathname);
+
+  if (isNavigatingToHome || shouldHideOnHome) return null;
 
   return (
     <div className="fixed inset-0 z-[9999] flex items-center justify-center bg-[#f8fafc] overflow-hidden">
@@ -30,7 +41,12 @@ export default function RootRouteLoader() {
           y: [0, 40, 0],
           scale: [1, 1.15, 1],
         }}
-        transition={{ duration: 12, repeat: Infinity, ease: "easeInOut", delay: 1 }}
+        transition={{
+          duration: 12,
+          repeat: Infinity,
+          ease: "easeInOut",
+          delay: 1,
+        }}
       />
 
       {/* ── Central Glassmorphic Card ─────────────────── */}
@@ -47,7 +63,7 @@ export default function RootRouteLoader() {
             animate={{ scale: [1, 1.4, 1], opacity: [0.5, 0.8, 0.5] }}
             transition={{ duration: 3, repeat: Infinity }}
           />
-          
+
           {/* Main Logo Box */}
           <motion.div
             className="relative w-24 h-24 rounded-2xl bg-gradient-to-br from-white to-slate-50 flex items-center justify-center shadow-xl shadow-slate-200/50 overflow-hidden"
@@ -55,12 +71,12 @@ export default function RootRouteLoader() {
             transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
           >
             {/* Spinning gradient border accent */}
-            <motion.div 
+            <motion.div
               className="absolute inset-0 border-[3px] border-transparent border-t-pink-500/30 border-r-emerald-500/30 rounded-2xl"
               animate={{ rotate: 360 }}
               transition={{ duration: 2, repeat: Infinity, ease: "linear" }}
             />
-            
+
             <img
               src="/images/logo.png"
               alt="SYICT"
@@ -75,15 +91,19 @@ export default function RootRouteLoader() {
             <span className="text-pink-600">Smart</span>
             <span className="text-emerald-700">Youth ICT</span>
           </h2>
-          
+
           <div className="relative w-40 h-[4px] rounded-full bg-slate-200/50 overflow-hidden backdrop-blur-sm">
             <motion.div
               className="absolute inset-y-0 w-20 bg-gradient-to-r from-transparent via-emerald-500 to-transparent"
               animate={{ x: ["-100%", "200%"] }}
-              transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
+              transition={{
+                duration: 1.5,
+                repeat: Infinity,
+                ease: "easeInOut",
+              }}
             />
           </div>
-          
+
           <p className="mt-4 text-[10px] uppercase font-black tracking-[0.3em] text-slate-400">
             Getting things ready...
           </p>
