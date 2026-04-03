@@ -46,10 +46,12 @@ export default async function RootLayout({ children, params: { locale } }) {
       >
         <NextTopLoader
           color="#10B981"
-          height={3}
+          height={4}
           showSpinner={false}
-          easing="ease"
-          speed={200}
+          easing="linear"
+          speed={20}
+          crawlSpeed={10}
+          initialPosition={0.6}
         />
         <PageLoader />
         <NextIntlClientProvider messages={messages}>

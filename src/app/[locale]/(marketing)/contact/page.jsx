@@ -12,9 +12,9 @@ import {
 import { FaFacebook, FaYoutube } from 'react-icons/fa';
 
 const CONTACT_INFO = [
-  { icon: IoCallOutline,     label: 'Phone / WhatsApp', value: process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || '+880 1XXX-XXXXXX', href: `https://wa.me/${process.env.NEXT_PUBLIC_WHATSAPP_NUMBER}` },
-  { icon: IoMailOutline,     label: 'Email',             value: 'info@syict.com',         href: 'mailto:info@syict.com' },
-  { icon: IoLocationOutline, label: 'Office',            value: 'Dhaka, Bangladesh',       href: null },
+  { icon: IoCallOutline,     label: 'Phone / WhatsApp', value: '01822-335566', href: 'tel:01822-335566' },
+  { icon: IoMailOutline,     label: 'Email',             value: 'smartyouthictbd@gmail.com',         href: 'mailto:smartyouthictbd@gmail.com' },
+  { icon: IoLocationOutline, label: 'Office',            value: 'Plot 18 (Flat 5/A), Road 2, Sector 15, Uttara, Dhaka', href: null },
   { icon: IoTimeOutline,     label: 'Office Hours',      value: 'Sat–Thu, 9AM – 9PM',     href: null },
 ];
 
@@ -89,7 +89,7 @@ export default function ContactPage() {
             <div className="bg-gradient-to-br from-emerald-500 to-teal-600 rounded-2xl p-5 text-white">
               <p className="font-bold mb-1 flex items-center gap-2"><IoLogoWhatsapp size={20} /> Fast Response on WhatsApp</p>
               <p className="text-sm text-emerald-100 mb-4">Message us directly — we typically respond within 30 minutes.</p>
-              <a href={`https://wa.me/${process.env.NEXT_PUBLIC_WHATSAPP_NUMBER}`} target="_blank" rel="noreferrer"
+              <a href="https://wa.me/8801822335566" target="_blank" rel="noreferrer"
                 className="inline-flex items-center gap-2 bg-white text-emerald-700 font-bold text-sm px-5 py-2.5 rounded-xl hover:bg-emerald-50 transition">
                 <IoLogoWhatsapp size={16} /> Chat on WhatsApp
               </a>

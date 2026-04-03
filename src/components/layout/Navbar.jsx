@@ -397,13 +397,15 @@ export default function Navbar() {
                           </p>
                         </div>
                         <ul className="space-y-0.5">
-                          {col.items.map((item) => (
+                          {col.items.map((item) => {
+                            const isItemActive = cleanPath === item.href;
+                            return (
                             <li key={item.href}>
                               <Link
                                 href={item.href}
                                 className="flex flex-col gap-0.5 px-2 py-1.5 -mx-2 rounded-md hover:bg-slate-50 group/item transition-colors"
                               >
-                                <span className="text-[11px] text-slate-700 font-bold group-hover/item:text-brand-pink transition-colors leading-tight">
+                                <span className={`text-[11px] font-bold group-hover/item:text-brand-pink transition-colors leading-tight ${isItemActive ? 'text-brand-green' : 'text-slate-700'}`}>
                                   {item.label}
                                 </span>
                                 <span className="text-[9px] text-slate-400 group-hover/item:text-slate-500 transition-colors">
@@ -411,7 +413,7 @@ export default function Navbar() {
                                 </span>
                               </Link>
                             </li>
-                          ))}
+                          )})}
                         </ul>
                       </div>
                     ))}
@@ -590,13 +592,15 @@ export default function Navbar() {
                     {/* Scrollable container for items */}
                     <div className="max-h-[140px] overflow-y-auto pr-1 scrollbar-hide hover:scrollbar-default transition-all">
                       <ul className="space-y-0.5">
-                        {col.items.map((item) => (
+                        {col.items.map((item) => {
+                          const isItemActive = cleanPath === item.href;
+                          return (
                           <li key={item.href}>
                             <Link
                               href={item.href}
                               className="flex items-center justify-between gap-1 px-2 py-1 -mx-2 rounded-md hover:bg-slate-50 group transition-colors"
                             >
-                              <span className="text-[11px] text-slate-600 font-medium group-hover:text-brand-pink transition-colors leading-tight">
+                              <span className={`text-[11px] font-medium group-hover:text-brand-pink transition-colors leading-tight ${isItemActive ? 'text-brand-green' : 'text-slate-600'}`}>
                                 {item.label}
                               </span>
                               {item.badge && (
@@ -606,7 +610,7 @@ export default function Navbar() {
                               )}
                             </Link>
                           </li>
-                        ))}
+                        )})}
                       </ul>
                     </div>
                   </div>
