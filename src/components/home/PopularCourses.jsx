@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 import { motion } from "framer-motion";
 import Link from "next/link";
 import ImageLoader from "@/components/ui/ImageLoader";
@@ -13,7 +13,13 @@ import {
   IoArrowForwardOutline,
   IoBookOutline,
   IoFlashOutline,
+  IoSearchOutline,
+  IoCloseOutline,
+  IoLanguageOutline,
+  IoVideocamOutline,
+  IoChevronDownOutline
 } from "react-icons/io5";
+import CourseCard from "@/components/courses/CourseCard";
 
 const container = {
   hidden: {},
@@ -87,24 +93,86 @@ const FALLBACK = [
 
 export default function PopularCourses() {
   const locale = useLocale();
-  const [courses, setCourses] = useState(FALLBACK);
+  const [allCourses, setAllCourses] = useState(FALLBACK);
+  const [category, setCategory] = useState("all");
+  const [branch, setBranch] = useState("all");
+  const [search, setSearch] = useState("");
+  const [searchInput, setSearchInput] = useState("");
+  const [page, setPage] = useState(1);
+
+  const CATEGORY_LABELS = {
+    all: "All",
+    "web-dev": "Web Dev",
+    "graphic-design": "Graphic Design",
+    smm: "Marketing",
+    ai: "AI",
+    other: "Other",
+  };
+
+  const PAGE_SIZE = 8;
 
   useEffect(() => {
     api
-      .get("/courses", { params: { limit: 4 } })
+      .get("/courses", { params: { page: 1, limit: 1000, isPopular: "true" } })
       .then((res) => {
         if (res.data?.success && res.data.data.length) {
           const enriched = res.data.data.map((c) => ({
             ...c,
-            originalPrice:
-              c.originalPrice ?? Math.round(c.price * 1.3), // fallback: show 23% discount
+            originalPrice: c.originalPrice ?? Math.round(c.price * 1.3), // fallback: show 23% discount
           }));
-          setCourses(enriched);
+          setAllCourses(enriched);
         }
-
       })
       .catch(() => {});
   }, []);
+
+  const categories = useMemo(() => {
+    const set = new Set(allCourses.map((c) => c.category).filter(Boolean));
+    return ["all", ...Array.from(set)];
+  }, [allCourses]);
+
+  const branches = useMemo(() => {
+    const set = new Set();
+    allCourses.forEach((course) => {
+      if (course.branchId) set.add(String(course.branchId));
+      else set.add("master");
+    });
+    return ["all", ...Array.from(set)];
+  }, [allCourses]);
+
+  const filteredCourses = useMemo(() => {
+    const normalized = search.trim().toLowerCase();
+    return allCourses.filter((course) => {
+      const title =
+        course.title?.en ||
+        (typeof course.title === "string" ? course.title : "");
+      const categoryMatch = category === "all" || course.category === category;
+      const branchKey = course.branchId ? String(course.branchId) : "master";
+      const branchMatch = branch === "all" || branchKey === branch;
+      const searchMatch =
+        !normalized ||
+        title.toLowerCase().includes(normalized) ||
+        (course.category || "").toLowerCase().includes(normalized);
+      return categoryMatch && branchMatch && searchMatch;
+    });
+  }, [allCourses, category, branch, search]);
+
+  const totalPages = Math.max(1, Math.ceil(filteredCourses.length / PAGE_SIZE));
+
+  useEffect(() => {
+    setPage(1);
+  }, [category, branch, search]);
+
+  useEffect(() => {
+    if (page > totalPages) {
+      setPage(totalPages);
+    }
+  }, [page, totalPages]);
+
+  const paginatedCourses = useMemo(() => {
+    const start = (page - 1) * PAGE_SIZE;
+    return filteredCourses.slice(start, start + PAGE_SIZE);
+  }, [filteredCourses, page]);
 
   return (
     <section className="section py-24 bg-slate-50 relative overflow-hidden">
@@ -122,11 +190,11 @@ export default function PopularCourses() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
           >
-            <span className="inline-block px-4 py-1.5 rounded-full bg-slate-900 text-white text-[10px] font-black uppercase tracking-[0.3em] mb-6">
+            <span className="inline-block px-4 py-1.5 rounded-full bg-slate-900 text-white text-[10px] font-black uppercase tracking-[0.3em] mb-6 shadow-xl shadow-slate-200">
               Skill Up Daily
             </span>
-            <h2 className="text-4xl md:text-5xl font-black text-slate-900 leading-tight mb-6">
-              Most Popular <span className="text-pink-600">Career Paths</span>
+            <h2 className="text-4xl md:text-5xl font-black text-slate-900 leading-tight mb-6 tracking-tighter">
+              Most Popular <span className="text-blue-600">Career Paths</span>
             </h2>
             <p className="text-slate-500 text-lg md:text-xl font-medium">
               Join 5,000+ students already mastering the most in-demand digital
@@ -135,128 +203,153 @@ export default function PopularCourses() {
           </motion.div>
         </div>
 
-        {/* Grid */}
+        <div className="max-w-6xl mx-auto mb-16 space-y-8">
+          {/* Search Bar */}
+          <div className="relative max-w-2xl mx-auto group">
+            <IoSearchOutline
+              size={20}
+              className="absolute left-5 top-1/2 -translate-y-1/2 text-slate-400 group-focus-within:text-blue-600 transition-colors"
+            />
+            <input
+              type="text"
+              value={searchInput}
+              onChange={(e) => {
+                const value = e.target.value;
+                setSearchInput(value);
+                setSearch(value);
+              }}
+              placeholder="Search by course title or category"
+              className="w-full rounded-[2rem] border-none bg-white py-5 pl-14 pr-14 text-sm font-black text-slate-700 outline-none focus:ring-4 focus:ring-blue-100 shadow-2xl shadow-slate-100 transition-all placeholder:text-slate-300"
+            />
+            {searchInput && (
+              <button
+                onClick={() => {
+                  setSearchInput("");
+                  setSearch("");
+                }}
+                className="absolute right-5 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-700"
+                aria-label="Clear search"
+              >
+                <IoCloseOutline size={22} />
+              </button>
+            )}
+          </div>
+
+          {/* Filters Bar */}
+          <div className="flex flex-wrap items-center justify-center gap-4">
+            <div className="flex flex-wrap justify-center gap-2">
+              {categories.map((cat) => (
+                <button
+                  key={cat}
+                  onClick={() => setCategory(cat)}
+                  className={`rounded-full px-6 py-3 text-[10px] font-black uppercase tracking-[0.1em] transition-all shadow-sm ${
+                    category === cat
+                      ? "bg-slate-900 text-white shadow-xl shadow-slate-200"
+                      : "bg-white text-slate-600 hover:bg-slate-50 border border-slate-100"
+                  }`}
+                >
+                  {CATEGORY_LABELS[cat] || cat}
+                </button>
+              ))}
+            </div>
+
+            <div className="h-8 w-px bg-slate-200 mx-2 hidden md:block" />
+
+            {/* Branch Selector */}
+            <div className="relative group">
+              <IoChevronDownOutline
+                size={14}
+                className="absolute right-4 top-1/2 -translate-y-1/2 text-slate-400 pointer-events-none group-hover:text-blue-600 transition-colors"
+              />
+              <select
+                value={branch}
+                onChange={(e) => setBranch(e.target.value)}
+                className="appearance-none rounded-full pl-6 pr-10 py-3 text-[10px] font-black uppercase tracking-[0.1em] bg-white text-slate-600 border border-slate-100 shadow-sm focus:outline-none focus:ring-4 focus:ring-blue-500/10 cursor-pointer min-w-[180px] hover:border-blue-200 transition-all"
+              >
+                {branches.map((id) => (
+                  <option key={id} value={id}>
+                    {id === "all"
+                      ? "All Branches"
+                      : id === "master"
+                        ? "Master Catalog"
+                        : `📍 Branch ${id.slice(-6).toUpperCase()}`}
+                  </option>
+                ))}
+              </select>
+            </div>
+          </div>
+        </div>
+
+        {/* Courses Grid */}
         <motion.div
           className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8"
           variants={container}
           initial="hidden"
           animate="visible"
         >
-          {courses.map((course, index) => {
-            const title =
-              course.title?.en ||
-              (typeof course.title === "string"
-                ? course.title
-                : "Premium Course");
-            return (
-              <motion.div
-                key={course._id}
-                variants={cardAnim}
-                className="group relative"
-              >
-                <div className="h-full bg-white rounded-[32px] overflow-hidden border border-slate-100 shadow-sm hover:shadow-2xl transition-all duration-500 flex flex-col">
-                  {/* Image Container */}
-                  <div className="relative h-48 overflow-hidden">
-                    {course.thumbnail ? (
-                      <ImageLoader
-                        src={course.thumbnail}
-                        alt={title}
-                        fill
-                        className="object-cover group-hover:scale-110 transition-transform duration-700"
-                        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                        priority={index === 0}
-                      />
-                    ) : (
-                      <div className="w-full h-full bg-gradient-to-br from-slate-100 to-slate-200 flex items-center justify-center">
-                        <IoBookOutline size={48} className="text-slate-300" />
-                      </div>
-                    )}
-
-                    {/* Floating Badge */}
-                    <div className="absolute top-4 left-4 z-20">
-                      <span className="px-3 py-1.5 rounded-2xl bg-white/90 backdrop-blur-md text-[10px] font-black text-slate-900 shadow-sm flex items-center gap-1">
-                        <IoFlashOutline className="text-amber-500" />
-                        {course.badge || "New"}
-                      </span>
-                    </div>
-
-                    {/* Overlay reveal on hover */}
-                    <div className="absolute inset-0 bg-slate-900/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center z-10">
-                      <Link
-                        href={`/${locale}/courses/${course.slug}`}
-                        className="px-6 py-2.5 bg-green-200 text-green-900 text-xs font-black rounded-full transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300 uppercase tracking-widest"
-                      >
-                        Learn More
-                      </Link>
-                    </div>
-                  </div>
-
-                  {/* Content */}
-                  <div className="p-6 flex flex-col flex-1">
-                    <div className="flex items-center gap-2 mb-3">
-                      <span className="text-[10px] font-black text-pink-600 uppercase tracking-widest bg-pink-50 px-2 py-0.5 rounded-md">
-                        {course.category || "General"}
-                      </span>
-                      <div className="flex items-center gap-1 text-[10px] font-bold text-amber-500">
-                        <IoStar size={12} />
-                        {course.rating || 4.9}
-                      </div>
-                    </div>
-
-                    <h3 className="text-lg font-black text-slate-900 mb-4 line-clamp-2 leading-tight group-hover:text-pink-600 transition-colors">
-                      {title}
-                    </h3>
-
-                    <div className="flex items-center justify-between mt-auto pt-4 border-t border-slate-50">
-                      <div className="flex flex-col gap-0.5">
-                        {course.originalPrice && course.originalPrice > course.price && (
-                          <div className="flex items-center gap-1.5">
-                            <span className="text-[11px] font-bold text-slate-400 line-through">
-                              ৳{course.originalPrice?.toLocaleString()}
-                            </span>
-                            <span className="text-[9px] font-black text-white bg-pink-500 px-1.5 py-0.5 rounded-md uppercase tracking-wide">
-                              {Math.round((1 - course.price / course.originalPrice) * 100)}% OFF
-                            </span>
-                          </div>
-                        )}
-                        <span className="text-xl font-black text-green-600">
-                          ৳{course.price?.toLocaleString()}
-                        </span>
-                      </div>
-                      <div className="flex flex-col items-end">
-                        <span className="text-[10px] font-bold text-slate-400 uppercase tracking-tighter">
-                          Duration
-                        </span>
-                        <div className="flex items-center gap-1 text-slate-600 text-xs font-bold">
-                          <IoTimeOutline size={14} className="text-slate-400" />
-                          {course.duration || "3m"}
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-                {/* Bottom Decorative Line */}
-                <div className="absolute -bottom-1 left-8 right-8 h-1 bg-pink-600 rounded-full scale-x-0 group-hover:scale-x-100 transition-transform duration-500" />
-              </motion.div>
-            );
-          })}
+          {paginatedCourses.map((course, index) => (
+            <motion.div
+              key={course._id}
+              variants={cardAnim}
+              className="relative"
+            >
+              <CourseCard course={course} locale={locale} />
+            </motion.div>
+          ))}
         </motion.div>
+
+        {/* Empty State */}
+        {filteredCourses.length === 0 && (
+          <div className="text-center py-20 bg-white rounded-[3rem] shadow-sm border border-slate-100 mt-10">
+            <div className="inline-flex items-center justify-center w-20 h-20 rounded-full bg-slate-50 text-slate-300 mb-6">
+               <IoSearchOutline size={40} />
+            </div>
+            <h3 className="text-xl font-black text-slate-900 mb-2">No matching courses</h3>
+            <p className="text-slate-500 font-medium">
+              We couldn't find anything matching "{search}". Try another keyword?
+            </p>
+          </div>
+        )}
+
+        {/* Pagination Info */}
+        {filteredCourses.length > 0 && totalPages > 1 && (
+          <div className="mt-16 flex flex-col items-center gap-6">
+            <p className="text-[10px] font-black uppercase tracking-[0.2em] text-slate-400">
+              Page {page} of {totalPages} • {filteredCourses.length} results
+            </p>
+            <div className="flex items-center gap-3">
+              <button
+                onClick={() => setPage((p) => Math.max(1, p - 1))}
+                disabled={page === 1}
+                className="rounded-2xl border border-slate-200 bg-white px-8 py-3.5 text-[10px] font-black uppercase tracking-widest text-slate-700 disabled:opacity-40 hover:bg-slate-50 transition-all shadow-sm"
+              >
+                Previous
+              </button>
+              <button
+                onClick={() => setPage((p) => Math.min(totalPages, p + 1))}
+                disabled={page === totalPages}
+                className="rounded-2xl border border-slate-200 bg-white px-8 py-3.5 text-[10px] font-black uppercase tracking-widest text-slate-700 disabled:opacity-40 hover:bg-slate-50 transition-all shadow-sm"
+              >
+                Next
+              </button>
+            </div>
+          </div>
+        )}
 
         {/* Footer Link */}
         <motion.div
-          className="mt-16 text-center"
+          className="mt-20 text-center"
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
         >
           <Link
             href={`/${locale}/courses`}
-            className="inline-flex items-center gap-2 text-slate-900 font-black uppercase tracking-[0.2em] text-xs group"
+            className="inline-flex items-center gap-3 px-10 py-5 bg-white text-slate-900 font-black uppercase tracking-[0.2em] text-[10px] rounded-[2rem] shadow-lg shadow-slate-200 hover:shadow-xl hover:shadow-blue-200 transition-all border border-slate-100 group"
           >
-            Explore All Courses
+            Explore Master Catalog
             <IoArrowForwardOutline
-              className="group-hover:translate-x-2 transition-transform duration-300 text-pink-600"
+              className="group-hover:translate-x-2 transition-transform duration-300 text-blue-600"
               size={18}
             />
           </Link>

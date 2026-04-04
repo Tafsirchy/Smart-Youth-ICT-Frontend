@@ -12,5 +12,11 @@
     "title": "Learn IT Skills",
     "subtitle": "Build your career with expert-led courses",
     "cta": "Enroll Now"
+  },
+  "NotFound": {
+    "title": "404 - Lost in the Digital Space",
+    "description": "It seems the page you are looking for has drifted away. Don't worry, let's get you back to safety.",
+    "backToHome": "Return Home",
+    "goBack": "Go Back"
   }
 }
