@@ -7,7 +7,8 @@ import Providers from "@/providers/Providers";
 import FacebookPixel from "@/components/marketing/FacebookPixel";
 import WhatsAppButton from "@/components/marketing/WhatsAppButton";
 import GoogleAnalytics from "@/components/marketing/GoogleAnalytics";
-import NextTopLoader from "nextjs-toploader";
+import TopProgressBar from "@/components/ui/TopProgressBar";
+
 import PageLoader from "@/components/ui/PageLoader";
 
 const inter = Inter({ subsets: ["latin"] });
@@ -44,15 +45,9 @@ export default async function RootLayout({ children, params: { locale } }) {
         className={`${inter.className} overflow-x-hidden`}
         style={{ backgroundColor: "var(--color-background)" }}
       >
-        <NextTopLoader
-          color="#10B981"
-          height={4}
-          showSpinner={false}
-          easing="linear"
-          speed={20}
-          crawlSpeed={10}
-          initialPosition={0.6}
-        />
+        {/* Custom top progress bar with perf debug overlay */}
+        <TopProgressBar debugMode={process.env.NODE_ENV === 'development'} />
+
         <PageLoader />
         <NextIntlClientProvider messages={messages}>
           <Providers>

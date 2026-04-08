@@ -194,7 +194,7 @@ export default function PopularCourses() {
               Skill Up Daily
             </span>
             <h2 className="text-4xl md:text-5xl font-black text-slate-900 leading-tight mb-6 tracking-tighter">
-              Most Popular <span className="text-blue-600">Career Paths</span>
+              Our Core <span className="text-blue-600">Training Programs</span>
             </h2>
             <p className="text-slate-500 text-lg md:text-xl font-medium">
               Join 5,000+ students already mastering the most in-demand digital

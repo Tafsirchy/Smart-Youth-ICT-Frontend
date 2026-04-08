@@ -1,6 +1,10 @@
 "use client";
 
+import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
+import Link from "next/link";
+import { useLocale } from "next-intl";
+import api from "@/lib/api";
 import { 
   IoHardwareChipOutline, 
   IoColorPaletteOutline, 
@@ -8,150 +12,83 @@ import {
   IoLayersOutline,
   IoCodeWorkingOutline,
   IoVideocamOutline,
-  IoCheckmarkCircle,
+  IoCheckmarkCircle, 
   IoShieldCheckmarkOutline,
   IoStatsChartOutline,
   IoCloudUploadOutline,
   IoBugOutline,
   IoGameControllerOutline,
   IoCreateOutline,
-  IoBrushOutline
+  IoBrushOutline,
+  IoSearchOutline
 } from "react-icons/io5";
 
-const programs = [
-  {
-    title: "Full-Stack Web Engineering",
-    badge: "Most Demanded",
-    description: "From HTML to advanced cloud deployments. Master the complete MERN stack (MongoDB, Express, React, Node.js) alongside Next.js and Tailwind.",
-    tech: ["React", "Next.js", "Node", "MongoDB", "AWS"],
+const CATEGORY_STYLE_MAP = {
+  "web-dev": {
     icon: <IoHardwareChipOutline size={32} />,
     color: "from-blue-500 to-indigo-600",
     bg: "bg-blue-50",
     text: "text-blue-600",
   },
-  {
-    title: "UI/UX & Product Design",
-    badge: "Creative Tech",
-    description: "Master the psychology of user interfaces. Learn wireframing, high-fidelity prototyping, and complex design systems using Figma.",
-    tech: ["Figma", "Prototyping", "Wireframes", "User Research"],
+  "graphic-design": {
     icon: <IoColorPaletteOutline size={32} />,
     color: "from-pink-500 to-rose-600",
     bg: "bg-pink-50",
     text: "text-pink-600",
   },
-  {
-    title: "Digital Marketing Masterclass",
-    badge: "High ROI",
-    description: "Learn to run profitable campaigns across Meta, Google, and TikTok. Master technical SEO, copywriting, and data-driven marketing decisions.",
-    tech: ["Meta Ads", "Google Ads", "SEO", "Analytics"],
+  smm: {
     icon: <IoMegaphoneOutline size={32} />,
     color: "from-amber-400 to-orange-500",
     bg: "bg-amber-50",
     text: "text-amber-600",
   },
-  {
-    title: "Python & Applied AI",
-    badge: "Trending",
-    description: "Learn Python from scratch and move into data science and machine learning. Build AI wrappers and automate workflows using OpenAI APIs.",
-    tech: ["Python", "Pandas", "Scikit", "OpenAI API"],
+  ai: {
     icon: <IoCodeWorkingOutline size={32} />,
     color: "from-emerald-500 to-teal-600",
     bg: "bg-emerald-50",
     text: "text-emerald-600",
   },
-  {
-    title: "App Development (Flutter)",
-    badge: "Mobile First",
-    description: "Build natively compiled applications for mobile, web, and desktop from a single codebase using Google's UI toolkit.",
-    tech: ["Dart", "Flutter", "Firebase", "State Mgmt"],
+  other: {
     icon: <IoLayersOutline size={32} />,
-    color: "from-sky-400 to-blue-500",
-    bg: "bg-sky-50",
-    text: "text-sky-600",
-  },
-  {
-    title: "Video Editing & Animation",
-    badge: "Content Creation",
-    description: "Master Premiere Pro and After Effects. Learn the art of storytelling through motion, color grading, and dynamic transitions.",
-    tech: ["Premiere Pro", "After Effects", "DaVinci", "Coloring"],
-    icon: <IoVideocamOutline size={32} />,
-    color: "from-purple-500 to-indigo-500",
-    bg: "bg-purple-50",
-    text: "text-purple-600",
-  },
-  {
-    title: "Cyber Security & Ethical Hacking",
-    badge: "Protect & Defend",
-    description: "Learn to identify vulnerabilities, perform penetration testing, and secure network infrastructures against modern digital threats.",
-    tech: ["Kali Linux", "Metasploit", "Nmap", "Wireshark"],
-    icon: <IoShieldCheckmarkOutline size={32} />,
-    color: "from-red-500 to-rose-600",
-    bg: "bg-red-50",
-    text: "text-red-600",
-  },
-  {
-    title: "Data Science & Analytics",
-    badge: "Data Driven",
-    description: "Master the art of data storytelling. Learn to clean, analyze, and visualize complex datasets to drive business decisions.",
-    tech: ["Tableau", "SQL", "Power BI", "Statistics"],
-    icon: <IoStatsChartOutline size={32} />,
-    color: "from-teal-500 to-emerald-600",
-    bg: "bg-teal-50",
-    text: "text-teal-600",
-  },
-  {
-    title: "Cloud Computing & DevOps",
-    badge: "Scale Fast",
-    description: "Learn to deploy and manage scalable infrastructure on AWS and Azure. Master CI/CD pipelines, Docker, and Kubernetes.",
-    tech: ["AWS", "Azure", "Docker", "Kubernetes"],
-    icon: <IoCloudUploadOutline size={32} />,
-    color: "from-orange-500 to-yellow-600",
-    bg: "bg-orange-50",
-    text: "text-orange-600",
-  },
-  {
-    title: "Software Quality Assurance",
-    badge: "Quality First",
-    description: "Learn manual and automated testing. Master bug tracking, test cases, and quality control for enterprise-level software.",
-    tech: ["Selenium", "Jira", "Postman", "Cypress"],
-    icon: <IoBugOutline size={32} />,
     color: "from-slate-700 to-slate-900",
     bg: "bg-slate-100",
     text: "text-slate-800",
   },
-  {
-    title: "Game Development (Unity)",
-    badge: "Interactive Media",
-    description: "Learn to build immersive 2D and 3D games for mobile and PC. Master C#, Unity Engine, and game physics from scratch.",
-    tech: ["Unity 3D", "C#", "Level Design", "Blender"],
-    icon: <IoGameControllerOutline size={32} />,
-    color: "from-violet-500 to-purple-600",
-    bg: "bg-violet-50",
-    text: "text-violet-600",
-  },
-  {
-    title: "Content Writing & Copywriting",
-    badge: "Storytelling",
-    description: "Master the art of persuasive writing. Learn to create viral blogs, high-converting ad copies, and technical documentation.",
-    tech: ["SEO Writing", "Copywriting", "Ghostwriting", "Storytelling"],
-    icon: <IoCreateOutline size={32} />,
-    color: "from-pink-400 to-rose-500",
-    bg: "bg-pink-50",
-    text: "text-pink-600",
-  },
-  {
-    title: "Graphic Design & Branding",
-    badge: "Creative Core",
-    description: "Master Adobe Photoshop and Illustrator. Learn the principles of composition, color theory, and typography to create world-class brand identities.",
-    tech: ["Photoshop", "Illustrator", "InDesign", "Logo Design"],
-    icon: <IoBrushOutline size={32} />,
-    color: "from-fuchsia-500 to-purple-600",
-    bg: "bg-fuchsia-50",
-    text: "text-fuchsia-600",
-  }
-];
+};
+
 
 export default function SkillDevelopmentPage() {
+  const locale = useLocale();
+  const [courses, setCourses] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    api
+      .get("/courses", { params: { page: 1, limit: 100 } })
+      .then((res) => {
+        if (res.data?.success) {
+          setCourses(res.data.data);
+        }
+      })
+      .catch((err) => console.error("Failed to fetch courses", err))
+      .finally(() => setLoading(false));
+  }, []);
+
+  const programsToDisplay = courses.length > 0 
+    ? courses.map(course => {
+        const style = CATEGORY_STYLE_MAP[course.category] || CATEGORY_STYLE_MAP.other;
+        return {
+          _id: course._id,
+          slug: course.slug,
+          title: course.title?.en || course.title || "Untitled Program",
+          badge: course.tagline || (course.isPopular ? "Popular" : "New"),
+          description: course.description?.en || (typeof course.description === 'string' ? course.description : ""),
+          tech: course.outcomes?.slice(0, 4) || [],
+          ...style
+        };
+      })
+    : [];
+
   return (
     <section className="min-h-screen bg-slate-50 overflow-hidden relative">
       {/* Hero Section */}
@@ -215,45 +152,63 @@ export default function SkillDevelopmentPage() {
 
       {/* Detailed Programs Grid */}
       <div className="container-custom py-24">
-        <h2 className="text-4xl font-black text-center mb-16">Our Core Training Programs</h2>
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {programs.map((prog, i) => (
-            <motion.div
-              key={prog.title}
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-50px" }}
-              transition={{ delay: i * 0.1, duration: 0.5 }}
-              whileHover={{ y: -10 }}
-              className="bg-white rounded-[2rem] p-8 border border-slate-100 shadow-xl shadow-slate-200/40 relative overflow-hidden group flex flex-col"
-            >
-              <div className={`absolute top-0 left-0 w-full h-2 bg-gradient-to-r ${prog.color}`}></div>
-              
-              <div className="flex justify-between items-start mb-6">
-                 <div className={`w-16 h-16 rounded-2xl ${prog.bg} ${prog.text} flex items-center justify-center group-hover:scale-110 transition-transform duration-500`}>
-                   {prog.icon}
-                 </div>
-                 <span className="px-3 py-1 bg-slate-100 text-slate-600 text-[10px] font-bold uppercase tracking-widest rounded-full">
-                    {prog.badge}
-                 </span>
-              </div>
-              
-              <h3 className="text-2xl font-bold text-slate-900 mb-3">{prog.title}</h3>
-              <p className="text-slate-600 leading-relaxed mb-6 flex-1 text-sm">{prog.description}</p>
-              
-              <div className="space-y-4 border-t border-slate-100 pt-6">
-                 <p className="text-xs font-bold text-slate-400 uppercase tracking-widest">Technologies</p>
-                 <div className="flex flex-wrap gap-2">
-                    {prog.tech.map(t => (
-                       <span key={t} className="px-3 py-1.5 bg-slate-50 border border-slate-100 rounded-lg text-xs font-bold text-slate-700">
-                          {t}
-                       </span>
-                    ))}
-                 </div>
-              </div>
-            </motion.div>
-          ))}
-        </div>
+        <h2 className="text-4xl font-black text-center mb-16 underline decoration-brand-pink decoration-4 underline-offset-8">Our Core Training Programs</h2>
+        
+        {loading ? (
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {[1, 2, 3].map(i => (
+              <div key={i} className="h-[400px] bg-white rounded-[2rem] animate-pulse border border-slate-100 shadow-sm"></div>
+            ))}
+          </div>
+        ) : programsToDisplay.length > 0 ? (
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {programsToDisplay.map((prog, i) => (
+              <Link key={prog._id} href={`/${locale}/courses/${prog.slug}`}>
+                <motion.div
+                  initial={{ opacity: 0, y: 30 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true, margin: "-50px" }}
+                  transition={{ delay: i * 0.1, duration: 0.5 }}
+                  whileHover={{ y: -10 }}
+                  className="bg-white rounded-[2rem] p-8 border border-slate-100 shadow-xl shadow-slate-200/40 relative overflow-hidden group flex flex-col h-full cursor-pointer"
+                >
+                  <div className={`absolute top-0 left-0 w-full h-2 bg-gradient-to-r ${prog.color}`}></div>
+                  
+                  <div className="flex justify-between items-start mb-6">
+                     <div className={`w-16 h-16 rounded-2xl ${prog.bg} ${prog.text} flex items-center justify-center group-hover:scale-110 transition-transform duration-500`}>
+                       {prog.icon}
+                     </div>
+                     <span className="px-3 py-1 bg-slate-100 text-slate-600 text-[10px] font-bold uppercase tracking-widest rounded-full">
+                        {prog.badge}
+                     </span>
+                  </div>
+                  
+                  <h3 className="text-2xl font-bold text-slate-900 mb-3 group-hover:text-blue-600 transition-colors">{prog.title}</h3>
+                  <p className="text-slate-600 leading-relaxed mb-6 flex-1 text-sm line-clamp-3">{prog.description}</p>
+                  
+                  <div className="space-y-4 border-t border-slate-100 pt-6">
+                     <p className="text-xs font-bold text-slate-400 uppercase tracking-widest">Outcomes</p>
+                     <div className="flex flex-wrap gap-2">
+                        {prog.tech.map(t => (
+                           <span key={t} className="px-3 py-1.5 bg-slate-50 border border-slate-100 rounded-lg text-[10px] font-bold text-slate-700">
+                              {t}
+                           </span>
+                        ))}
+                     </div>
+                  </div>
+                </motion.div>
+              </Link>
+            ))}
+          </div>
+        ) : (
+          <div className="text-center py-20 bg-white rounded-[3rem] shadow-sm border border-slate-100">
+            <div className="inline-flex items-center justify-center w-20 h-20 rounded-full bg-slate-50 text-slate-300 mb-6">
+               <IoSearchOutline size={40} />
+            </div>
+            <h3 className="text-xl font-black text-slate-900 mb-2">Programs Coming Soon</h3>
+            <p className="text-slate-500 font-medium">We are currently updating our course catalog. Please check back later.</p>
+          </div>
+        )}
       </div>
 
       {/* CTA Bottom */}

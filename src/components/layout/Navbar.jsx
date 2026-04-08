@@ -1,9 +1,9 @@
 "use client";
 
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import Link from "next/link";
 import { useSession } from "next-auth/react";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { HiMenu, HiX, HiChevronDown } from "react-icons/hi";
 import {
   motion,
@@ -199,6 +199,7 @@ const navLinks = [
 export default function Navbar() {
   const { data: session } = useSession();
   const pathname = usePathname();
+  const router = useRouter();
   const [mobileOpen, setMobileOpen] = useState(false);
   const [hidden, setHidden] = useState(false);
   const { scrollY } = useScroll();
@@ -206,6 +207,7 @@ export default function Navbar() {
   // Unified Dropdown State Orchestrator
   const [activeDropdown, setActiveDropdown] = useState(null);
   const dropdownTimer = useRef(null);
+  const prefetchedRoutes = useRef(new Set());
 
   useMotionValueEvent(scrollY, "change", (latest) => {
     const previous = scrollY.getPrevious();
@@ -235,6 +237,20 @@ export default function Navbar() {
 
   const handleMouseEnter = (menu) => {
     clearTimeout(dropdownTimer.current);
+
+    if (menu === "services") {
+      prefetchRoutes([
+        "/services",
+        ...serviceColumns.flatMap((col) => col.items.map((item) => item.href)),
+      ]);
+    }
+
+    if (menu === "about") {
+      prefetchRoutes(
+        aboutColumns.flatMap((col) => col.items.map((item) => item.href)),
+      );
+    }
+
     setActiveDropdown(menu);
   };
   const handleMouseLeave = () => {
@@ -246,6 +262,25 @@ export default function Navbar() {
     { href: "/services", label: "Services" },
     ...aboutColumns.flatMap((col) => col.items),
   ];
+
+  const prefetchRoutes = (routes) => {
+    routes.forEach((href) => {
+      if (prefetchedRoutes.current.has(href)) return;
+      prefetchedRoutes.current.add(href);
+      router.prefetch(href);
+    });
+  };
+
+  useEffect(() => {
+    // Warm up the most common navigation targets so first click is faster.
+    prefetchRoutes([
+      ...navLinks.map((item) => item.href),
+      "/services",
+      "/about",
+      "/login",
+      "/register",
+    ]);
+  }, []);
 
   return (
     <motion.header
@@ -400,20 +435,23 @@ export default function Navbar() {
                           {col.items.map((item) => {
                             const isItemActive = cleanPath === item.href;
                             return (
-                            <li key={item.href}>
-                              <Link
-                                href={item.href}
-                                className="flex flex-col gap-0.5 px-2 py-1.5 -mx-2 rounded-md hover:bg-slate-50 group/item transition-colors"
-                              >
-                                <span className={`text-[11px] font-bold group-hover/item:text-brand-pink transition-colors leading-tight ${isItemActive ? 'text-brand-green' : 'text-slate-700'}`}>
-                                  {item.label}
-                                </span>
-                                <span className="text-[9px] text-slate-400 group-hover/item:text-slate-500 transition-colors">
-                                  {item.desc}
-                                </span>
-                              </Link>
-                            </li>
-                          )})}
+                              <li key={item.href}>
+                                <Link
+                                  href={item.href}
+                                  className="flex flex-col gap-0.5 px-2 py-1.5 -mx-2 rounded-md hover:bg-slate-50 group/item transition-colors"
+                                >
+                                  <span
+                                    className={`text-[11px] font-bold group-hover/item:text-brand-pink transition-colors leading-tight ${isItemActive ? "text-brand-green" : "text-slate-700"}`}
+                                  >
+                                    {item.label}
+                                  </span>
+                                  <span className="text-[9px] text-slate-400 group-hover/item:text-slate-500 transition-colors">
+                                    {item.desc}
+                                  </span>
+                                </Link>
+                              </li>
+                            );
+                          })}
                         </ul>
                       </div>
                     ))}
@@ -595,22 +633,25 @@ export default function Navbar() {
                         {col.items.map((item) => {
                           const isItemActive = cleanPath === item.href;
                           return (
-                          <li key={item.href}>
-                            <Link
-                              href={item.href}
-                              className="flex items-center justify-between gap-1 px-2 py-1 -mx-2 rounded-md hover:bg-slate-50 group transition-colors"
-                            >
-                              <span className={`text-[11px] font-medium group-hover:text-brand-pink transition-colors leading-tight ${isItemActive ? 'text-brand-green' : 'text-slate-600'}`}>
-                                {item.label}
-                              </span>
-                              {item.badge && (
-                                <span className="shrink-0 text-[7px] font-black text-white bg-gradient-to-r from-pink-500 to-rose-500 px-1 py-0.5 rounded-sm shadow-sm uppercase tracking-wider">
-                                  {item.badge}
+                            <li key={item.href}>
+                              <Link
+                                href={item.href}
+                                className="flex items-center justify-between gap-1 px-2 py-1 -mx-2 rounded-md hover:bg-slate-50 group transition-colors"
+                              >
+                                <span
+                                  className={`text-[11px] font-medium group-hover:text-brand-pink transition-colors leading-tight ${isItemActive ? "text-brand-green" : "text-slate-600"}`}
+                                >
+                                  {item.label}
                                 </span>
-                              )}
-                            </Link>
-                          </li>
-                        )})}
+                                {item.badge && (
+                                  <span className="shrink-0 text-[7px] font-black text-white bg-gradient-to-r from-pink-500 to-rose-500 px-1 py-0.5 rounded-sm shadow-sm uppercase tracking-wider">
+                                    {item.badge}
+                                  </span>
+                                )}
+                              </Link>
+                            </li>
+                          );
+                        })}
                       </ul>
                     </div>
                   </div>
