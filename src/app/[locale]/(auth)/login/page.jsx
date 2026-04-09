@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import { signIn } from "next-auth/react";
+import { signIn, getSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { useLocale } from "next-intl";
 import { motion } from "framer-motion";
@@ -52,15 +52,7 @@ export default function LoginPage() {
     });
     setLoading(false);
     if (res?.ok) {
-      const { getSession } = await import("next-auth/react");
       const session = await getSession();
-      const role = session?.user?.role || "student";
-      const branchId = session?.user?.branchId || "BR1"; // Fallback to BR1 if missing
-      const redirectMap = {
-        admin: "admin",
-        instructor: "instructor",
-        student: "student",
-      };
       router.push(`/${locale}/`);
     } else {
       setError(res?.error || "Invalid email or password. Please try again.");

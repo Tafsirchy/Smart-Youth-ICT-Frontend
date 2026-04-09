@@ -3,15 +3,15 @@
 import { useState, useEffect, useCallback } from 'react';
 import api from '@/lib/api';
 import toast from 'react-hot-toast';
-import { IoCardOutline, IoSearch, IoCheckmarkCircle, IoTimeOutline, IoCloseCircle } from 'react-icons/io5';
+import { IoCardOutline, IoSearch, IoCheckmarkCircle, IoTimeOutline, IoCloseCircle, IoEyeOutline } from 'react-icons/io5';
 
 const STATUS_COLORS = {
-  paid:    'bg-emerald-100 text-emerald-700',
+  completed: 'bg-emerald-100 text-emerald-700',
   pending: 'bg-amber-100 text-amber-700',
   failed:  'bg-red-100 text-red-700',
 };
 
-const METHOD_LABELS = { bkash: 'bKash', nagad: 'Nagad', stripe: 'Stripe / Card' };
+const METHOD_LABELS = { bkash: 'bKash', nagad: 'Nagad', stripe: 'Stripe / Card', bank: 'Manual Bank' };
 
 export default function AdminPaymentsPage() {
   const [payments, setPayments] = useState([]);
@@ -20,6 +20,9 @@ export default function AdminPaymentsPage() {
   const [search, setSearch]     = useState('');
   const [statusFilter, setStatusFilter] = useState('');
   const [page, setPage]         = useState(1);
+  const [selectedPayment, setSelectedPayment] = useState(null); // For modal
+  const [note, setNote] = useState('');
+  const [actionLoading, setActionLoading] = useState(false);
   const limit = 20;
 
   const fetchPayments = useCallback(async () => {
@@ -49,10 +52,25 @@ export default function AdminPaymentsPage() {
 
   const totalPages = Math.ceil(total / limit);
 
-  // Stats
-  const paidCount    = payments.filter(p => p.paymentStatus === 'paid').length;
-  const pendingCount = payments.filter(p => p.paymentStatus === 'pending').length;
-  const totalRevenue = payments.filter(p => p.paymentStatus === 'paid').reduce((acc, p) => acc + (p.amount || 0), 0);
+  // Stats (Using correct property 'status')
+  const paidCount    = payments.filter(p => p.status === 'completed').length;
+  const pendingCount = payments.filter(p => p.status === 'pending').length;
+  const totalRevenue = payments.filter(p => p.status === 'completed').reduce((acc, p) => acc + (p.amount || 0), 0);
+
+  const handleAction = async (paymentId, actionStatus) => {
+    setActionLoading(true);
+    try {
+      await api.put(`/payments/${paymentId}/verify`, { status: actionStatus, note });
+      toast.success(`Payment marked as ${actionStatus}`);
+      setSelectedPayment(null);
+      setNote('');
+      fetchPayments();
+    } catch {
+      toast.error('Failed to update payment status.');
+    } finally {
+      setActionLoading(false);
+    }
+  };
 
   return (
     <div>
@@ -93,7 +111,7 @@ export default function AdminPaymentsPage() {
           onChange={e => { setStatusFilter(e.target.value); setPage(1); }}
         >
           <option value="">All Status</option>
-          <option value="paid">Paid</option>
+          <option value="completed">Completed</option>
           <option value="pending">Pending</option>
           <option value="failed">Failed</option>
         </select>
@@ -112,20 +130,21 @@ export default function AdminPaymentsPage() {
                 <th className="text-left px-5 py-3 font-semibold text-neutral-600">Status</th>
                 <th className="text-left px-5 py-3 font-semibold text-neutral-600">Date</th>
                 <th className="text-left px-5 py-3 font-semibold text-neutral-600">Transaction ID</th>
+                <th className="text-left px-5 py-3 font-semibold text-neutral-600">Actions</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-neutral-100">
               {loading ? (
                 [...Array(6)].map((_, i) => (
                   <tr key={i} className="animate-pulse">
-                    {[...Array(7)].map((_, j) => (
+                    {[...Array(8)].map((_, j) => (
                       <td key={j} className="px-5 py-4"><div className="h-4 bg-neutral-200 rounded w-full"></div></td>
                     ))}
                   </tr>
                 ))
               ) : filtered.length === 0 ? (
                 <tr>
-                  <td colSpan={7} className="text-center py-12 text-neutral-400">
+                  <td colSpan={8} className="text-center py-12 text-neutral-400">
                     <IoCardOutline size={36} className="mx-auto mb-2 opacity-30" />
                     No payments found.
                   </td>
@@ -147,15 +166,25 @@ export default function AdminPaymentsPage() {
                     </td>
                     <td className="px-5 py-4 font-semibold text-neutral-900">৳{payment.amount?.toLocaleString() || '—'}</td>
                     <td className="px-5 py-4">
-                      <span className={`inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-xs font-semibold ${STATUS_COLORS[payment.paymentStatus] || 'bg-neutral-100 text-neutral-600'}`}>
-                        {payment.paymentStatus === 'paid'    && <IoCheckmarkCircle size={12} />}
-                        {payment.paymentStatus === 'pending' && <IoTimeOutline size={12} />}
-                        {payment.paymentStatus === 'failed'  && <IoCloseCircle size={12} />}
-                        {payment.paymentStatus || '—'}
+                      <span className={`inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-xs font-semibold ${STATUS_COLORS[payment.status] || 'bg-neutral-100 text-neutral-600'}`}>
+                        {payment.status === 'completed' && <IoCheckmarkCircle size={12} />}
+                        {payment.status === 'pending'   && <IoTimeOutline size={12} />}
+                        {payment.status === 'failed'    && <IoCloseCircle size={12} />}
+                        {payment.status || '—'}
                       </span>
                     </td>
                     <td className="px-5 py-4 text-neutral-500">{payment.createdAt ? new Date(payment.createdAt).toLocaleDateString() : '—'}</td>
                     <td className="px-5 py-4 text-neutral-400 text-xs font-mono">{payment.transactionId || '—'}</td>
+                    <td className="px-5 py-4">
+                      {(payment.status === 'pending') && (
+                        <button
+                          onClick={() => setSelectedPayment(payment)}
+                          className="px-3 py-1.5 bg-blue-50 text-blue-600 rounded-lg text-xs font-semibold hover:bg-blue-100 transition flex items-center gap-1"
+                        >
+                          <IoEyeOutline size={14} /> Review
+                        </button>
+                      )}
+                    </td>
                   </tr>
                 ))
               )}
@@ -174,6 +203,63 @@ export default function AdminPaymentsPage() {
           </div>
         )}
       </div>
+
+      {/* Review Modal */}
+      {selectedPayment && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-neutral-900/40 backdrop-blur-sm">
+          <div className="bg-white rounded-2xl shadow-xl w-full max-w-md overflow-hidden">
+            <div className="px-6 py-4 border-b border-neutral-100 flex items-center justify-between">
+              <h3 className="font-bold text-lg text-textPrimary">Review Payment</h3>
+              <button onClick={() => setSelectedPayment(null)} className="text-neutral-400 hover:text-neutral-600"><IoCloseCircle size={24} /></button>
+            </div>
+            <div className="p-6 space-y-4 text-sm">
+              <div className="grid grid-cols-2 gap-4">
+                <div><span className="text-neutral-500">Student:</span> <div className="font-semibold">{selectedPayment.user?.name}</div></div>
+                <div><span className="text-neutral-500">Course:</span> <div className="font-semibold">{selectedPayment.course?.title?.en || selectedPayment.course?.title}</div></div>
+                <div><span className="text-neutral-500">Amount:</span> <div className="font-semibold">৳{selectedPayment.amount}</div></div>
+                <div><span className="text-neutral-500">Method:</span> <div className="font-semibold">{METHOD_LABELS[selectedPayment.method]}</div></div>
+              </div>
+              
+              {selectedPayment.slip && (
+                <div>
+                  <span className="text-neutral-500 block mb-1">Attached Slip:</span>
+                  <a href={selectedPayment.slip} target="_blank" rel="noreferrer" className="block p-2 border border-neutral-200 rounded-lg hover:border-blue-300">
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img src={selectedPayment.slip} alt="Payment Slip" className="w-full h-32 object-contain bg-neutral-50 rounded" />
+                  </a>
+                </div>
+              )}
+
+              <div>
+                <label className="text-neutral-500 block mb-1">Admin Note (optional):</label>
+                <textarea
+                  className="input w-full min-h-[80px]"
+                  placeholder="Reason for rejection or internal notes..."
+                  value={note}
+                  onChange={e => setNote(e.target.value)}
+                />
+              </div>
+
+              <div className="flex gap-3 pt-2">
+                <button
+                  onClick={() => handleAction(selectedPayment._id, 'failed')}
+                  disabled={actionLoading}
+                  className="flex-1 px-4 py-2 bg-red-100 text-red-700 font-semibold rounded-xl hover:bg-red-200 transition-colors disabled:opacity-50"
+                >
+                  Reject
+                </button>
+                <button
+                  onClick={() => handleAction(selectedPayment._id, 'completed')}
+                  disabled={actionLoading}
+                  className="flex-1 px-4 py-2 bg-emerald-600 text-white font-semibold rounded-xl hover:bg-emerald-700 transition-colors disabled:opacity-50"
+                >
+                  Approve (Enroll)
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

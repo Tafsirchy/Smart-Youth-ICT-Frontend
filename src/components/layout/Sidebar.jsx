@@ -20,7 +20,6 @@ const studentNav = [
   { href: '/student/payments',     Icon: HiCreditCard,    label: 'Payments'    },
   { href: '/student/portfolio',    Icon: HiUserCircle,    label: 'Portfolio'   },
   { href: '/student/affiliate',    Icon: HiGift,          label: 'Affiliate'   },
-  { href: '/freelancing',          Icon: HiBriefcase,     label: 'Projects'    },
 ];
 
 const instructorNav = [
@@ -116,6 +115,7 @@ export default function Sidebar({ role, user }) {
           Support
         </div>
         <div className="space-y-1.5">
+          <NavItem href="/student/support" Icon={HiAnnotation} label="Support Hub" />
           <NavItem href="/contact" Icon={HiQuestionMarkCircle} label="Help Center" />
           <NavItem href="/settings" Icon={HiCog} label="Settings" />
         </div>

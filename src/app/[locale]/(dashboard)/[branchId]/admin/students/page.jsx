@@ -13,6 +13,9 @@ export default function AdminStudentsPage() {
   const [roleFilter, setRoleFilter] = useState('');
   const [page, setPage]         = useState(1);
   const [togglingId, setTogglingId] = useState(null);
+  const [editingUser, setEditingUser] = useState(null);
+  const [newRole, setNewRole] = useState('');
+  const [roleUpdating, setRoleUpdating] = useState(false);
   const limit = 15;
 
   const fetchUsers = useCallback(async () => {
@@ -42,6 +45,21 @@ export default function AdminStudentsPage() {
       toast.error('Failed to update user status.');
     } finally {
       setTogglingId(null);
+    }
+  };
+
+  const handleRoleUpdate = async () => {
+    if (!editingUser || !newRole) return;
+    setRoleUpdating(true);
+    try {
+      const res = await api.put(`/users/${editingUser._id}/role`, { role: newRole });
+      toast.success(res.data.message);
+      setUsers(prev => prev.map(u => u._id === editingUser._id ? { ...u, role: res.data.data.role } : u));
+      setEditingUser(null);
+    } catch (err) {
+      toast.error(err.response?.data?.message || 'Failed to update user role.');
+    } finally {
+      setRoleUpdating(false);
     }
   };
 
@@ -80,7 +98,8 @@ export default function AdminStudentsPage() {
           <option value="">All Roles</option>
           <option value="student">Student</option>
           <option value="instructor">Instructor</option>
-          <option value="admin">Admin</option>
+          <option value="branch_admin">Branch Admin</option>
+          <option value="super_admin">Super Admin</option>
         </select>
       </div>
 
@@ -129,11 +148,12 @@ export default function AdminStudentsPage() {
                     <td className="px-5 py-4 text-neutral-600">{user.phone}</td>
                     <td className="px-5 py-4">
                       <span className={`inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-xs font-semibold ${
-                        user.role === 'admin' ? 'bg-purple-100 text-purple-700'
+                        ['super_admin', 'super_management'].includes(user.role) ? 'bg-purple-100 text-purple-700'
+                        : ['branch_admin', 'branch_management'].includes(user.role) ? 'bg-blue-100 text-purple-700'
                         : user.role === 'instructor' ? 'bg-amber-100 text-amber-700'
                         : 'bg-blue-100 text-blue-700'
                       }`}>
-                        {user.role === 'admin' && <IoShieldOutline size={12} />}
+                        {user.role.includes('admin') && <IoShieldOutline size={12} />}
                         {user.role}
                       </span>
                     </td>
@@ -147,19 +167,27 @@ export default function AdminStudentsPage() {
                       </span>
                     </td>
                     <td className="px-5 py-4">
-                      {user.role !== 'admin' && (
+                      <div className="flex gap-2">
+                        {user.role !== 'super_admin' && (
+                          <button
+                            onClick={() => handleToggle(user._id, user.isActive)}
+                            disabled={togglingId === user._id}
+                            className={`text-xs font-semibold px-3 py-1.5 rounded-lg transition-colors disabled:opacity-50 ${
+                              user.isActive
+                                ? 'bg-red-50 text-red-600 hover:bg-red-100'
+                                : 'bg-emerald-50 text-emerald-600 hover:bg-emerald-100'
+                            }`}
+                          >
+                            {togglingId === user._id ? '…' : user.isActive ? 'Deactivate' : 'Activate'}
+                          </button>
+                        )}
                         <button
-                          onClick={() => handleToggle(user._id, user.isActive)}
-                          disabled={togglingId === user._id}
-                          className={`text-xs font-semibold px-3 py-1.5 rounded-lg transition-colors disabled:opacity-50 ${
-                            user.isActive
-                              ? 'bg-red-50 text-red-600 hover:bg-red-100'
-                              : 'bg-emerald-50 text-emerald-600 hover:bg-emerald-100'
-                          }`}
+                          onClick={() => { setEditingUser(user); setNewRole(user.role); }}
+                          className="text-xs font-semibold px-3 py-1.5 rounded-lg transition-colors bg-blue-50 text-blue-600 hover:bg-blue-100"
                         >
-                          {togglingId === user._id ? '…' : user.isActive ? 'Deactivate' : 'Activate'}
+                          Edit Role
                         </button>
-                      )}
+                      </div>
                     </td>
                   </tr>
                 ))
@@ -191,6 +219,50 @@ export default function AdminStudentsPage() {
           </div>
         )}
       </div>
+
+      {/* Role Edit Modal */}
+      {editingUser && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-neutral-900/40 backdrop-blur-sm">
+          <div className="bg-white rounded-2xl shadow-xl w-full max-w-sm overflow-hidden">
+            <div className="px-6 py-4 border-b border-neutral-100 flex items-center justify-between">
+              <h3 className="font-bold text-lg text-textPrimary">Edit User Role</h3>
+              <button onClick={() => setEditingUser(null)} className="text-neutral-400 hover:text-neutral-600"><IoCloseCircle size={24} /></button>
+            </div>
+            <div className="p-6 space-y-4 text-sm">
+              <div>
+                <label className="text-neutral-500 block mb-1">User:</label>
+                <div className="font-semibold">{editingUser.name}</div>
+              </div>
+              <div>
+                <label className="text-neutral-500 block mb-1">Role:</label>
+                <select className="input w-full" value={newRole} onChange={e => setNewRole(e.target.value)}>
+                  <option value="student">Student</option>
+                  <option value="instructor">Instructor</option>
+                  <option value="branch_admin">Branch Admin</option>
+                  <option value="branch_management">Branch Management</option>
+                  <option value="super_management">Super Management</option>
+                  <option value="super_admin">Super Admin</option>
+                </select>
+              </div>
+              <div className="flex gap-3 pt-2">
+                <button
+                  onClick={() => setEditingUser(null)}
+                  className="flex-1 px-4 py-2 bg-neutral-100 text-neutral-700 font-semibold rounded-xl hover:bg-neutral-200 transition-colors"
+                >
+                  Cancel
+                </button>
+                <button
+                  onClick={handleRoleUpdate}
+                  disabled={roleUpdating || newRole === editingUser.role}
+                  className="flex-1 px-4 py-2 bg-blue-600 text-white font-semibold rounded-xl hover:bg-blue-700 transition-colors disabled:opacity-50"
+                >
+                  {roleUpdating ? 'Saving...' : 'Save Role'}
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

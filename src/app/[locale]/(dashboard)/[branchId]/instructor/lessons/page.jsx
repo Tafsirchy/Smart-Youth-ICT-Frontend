@@ -1,4 +1,16 @@
-export const metadata = { title: 'Manage Lessons — Instructor' };
+import React, { Suspense } from 'react';
+import LessonContent from './LessonContent';
+import DashboardSkeleton from '@/components/ui/DashboardSkeleton';
+
+export const metadata = {
+  title: 'Lesson Builder — SYICT Instructor',
+  description: 'Manage your course curriculum and lessons.',
+};
+
 export default function InstructorLessonsPage() {
-  return <div><h1 className="text-2xl font-bold text-textPrimary mb-6">Lessons</h1><p className="text-textSecondary">Add and manage lessons here.</p></div>;
+  return (
+    <Suspense fallback={<DashboardSkeleton />}>
+      <LessonContent />
+    </Suspense>
+  );
 }

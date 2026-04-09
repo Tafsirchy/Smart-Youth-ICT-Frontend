@@ -9,8 +9,8 @@ export default function PageLoader() {
 
   // Helper to check if we are on the home page (accounting for locales)
   const isHomePage = (path) => {
-    const cleanPath =
-      path.replace(/^\/[a-z]{2}(-[A-Z]{2})?(?=\/|$)/, "") || "/";
+    if (!path) return false;
+    const cleanPath = path.replace(/^\/[a-z]{2}(-[A-Z]{2})?(?=\/|$)/, "") || "/";
     return cleanPath === "/";
   };
 
@@ -18,25 +18,38 @@ export default function PageLoader() {
   const [fadeOut, setFadeOut] = useState(false);
 
   useEffect(() => {
+    // 1. Check if we are on the Home page
     const shouldShowLoader = isHomePage(pathname);
+    
+    // 2. Check if we have already shown the splash screen this session
+    // We use sessionStorage so it plays once per browser tab session
+    const hasSeenSplash = sessionStorage.getItem("syict_splash_seen");
 
-    if (!shouldShowLoader) {
+    // If it's not the homepage, OR they already saw it -> INSTANT LOAD (do not show)
+    if (!shouldShowLoader || hasSeenSplash) {
       setVisible(false);
       setFadeOut(false);
       return;
     }
 
+    // Otherwise, play the animation!
     setVisible(true);
     setFadeOut(false);
 
-    const fadeTimer = setTimeout(() => setFadeOut(true), 1600);
-    const hideTimer = setTimeout(() => setVisible(false), 2200);
+    const fadeTimer = setTimeout(() => {
+      setFadeOut(true);
+      // Mark as seen so they don't see it again if they route back
+      sessionStorage.setItem("syict_splash_seen", "true"); 
+    }, 1600);
+    
+    const hideTimer = setTimeout(() => {
+      setVisible(false);
+    }, 2200);
 
     return () => {
       clearTimeout(fadeTimer);
       clearTimeout(hideTimer);
     };
-    // Re-run whenever pathname changes to Home
   }, [pathname]);
 
   if (!visible) return null;

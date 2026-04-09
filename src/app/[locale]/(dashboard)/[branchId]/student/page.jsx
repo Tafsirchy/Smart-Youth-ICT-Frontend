@@ -7,6 +7,7 @@ import Image from 'next/image';
 import api from '@/lib/api';
 import { useSession } from 'next-auth/react';
 import { useLocale } from 'next-intl';
+import { useDelayLoading } from '@/hooks/useDelayLoading';
 import {
   IoBookOutline, IoCheckmarkDoneOutline, IoRibbonOutline,
   IoPlayCircleOutline, IoFlameOutline, IoTrophyOutline,
@@ -29,6 +30,7 @@ export default function StudentDashboardPage() {
   const [courses, setCourses]           = useState([]);
   const [stats, setStats]               = useState({ enrolledCourses: 0, completedLessons: 0, certificates: 0 });
   const [loading, setLoading]           = useState(true);
+  const isDelayedLoading = useDelayLoading(loading, 300);
   const firstName = session?.user?.name?.split(' ')[0] || 'Student';
 
   useEffect(() => {
@@ -89,7 +91,7 @@ export default function StudentDashboardPage() {
             <div>
               <p className="text-xs font-medium text-neutral-500">{s.label}</p>
               <p className={`text-3xl font-extrabold mt-0.5 ${s.text}`}>
-                {loading ? <span className="animate-pulse bg-neutral-200 rounded w-8 h-7 inline-block" /> : s.value}
+                {isDelayedLoading ? <span className="animate-pulse bg-neutral-200 rounded w-8 h-7 inline-block" /> : s.value}
               </p>
             </div>
           </motion.div>
@@ -121,7 +123,7 @@ export default function StudentDashboardPage() {
           </Link>
         </div>
 
-        {loading ? (
+        {isDelayedLoading ? (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
             {[1,2,3].map(n => <div key={n} className="h-52 animate-pulse rounded-2xl bg-neutral-200" />)}
           </div>
