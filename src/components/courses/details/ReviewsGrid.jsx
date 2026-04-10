@@ -1,3 +1,5 @@
+"use client";
+
 import React from 'react';
 import { motion } from 'framer-motion';
 import { IoStar, IoStarOutline } from 'react-icons/io5';

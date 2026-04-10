@@ -1,3 +1,5 @@
+"use client";
+
 import React from 'react';
 import { motion } from 'framer-motion';
 import { IoCheckmarkCircle, IoLaptopOutline, IoBriefcaseOutline, IoRibbonOutline, IoRocketOutline } from 'react-icons/io5';
