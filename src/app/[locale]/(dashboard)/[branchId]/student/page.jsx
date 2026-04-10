@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
+import { useQuery } from '@tanstack/react-query';
 import { motion } from 'framer-motion';
 import Link from 'next/link';
 import Image from 'next/image';
@@ -27,22 +28,32 @@ const QUICK_LINKS = [
 export default function StudentDashboardPage() {
   const { data: session } = useSession();
   const locale = useLocale();
-  const [courses, setCourses]           = useState([]);
-  const [stats, setStats]               = useState({ enrolledCourses: 0, completedLessons: 0, certificates: 0 });
-  const [loading, setLoading]           = useState(true);
-  const isDelayedLoading = useDelayLoading(loading, 300);
-  const firstName = session?.user?.name?.split(' ')[0] || 'Student';
+  const { data: coursesData, isLoading: coursesLoading } = useQuery({
+    queryKey: ['enrolled-courses'],
+    queryFn: async () => {
+      const res = await api.get('/courses/enrolled');
+      return res.data?.data || [];
+    },
+    staleTime: 60000,
+    enabled: !!session
+  });
 
-  useEffect(() => {
-    if (!session) return;
-    Promise.all([
-      api.get('/courses/enrolled'),
-      api.get('/progress/dashboard/stats'),
-    ]).then(([cRes, sRes]) => {
-      if (cRes.data?.success)  setCourses(cRes.data.data);
-      if (sRes.data?.success)  setStats(sRes.data.data);
-    }).catch(console.error).finally(() => setLoading(false));
-  }, [session]);
+  const { data: statsData, isLoading: statsLoading } = useQuery({
+    queryKey: ['student-stats'],
+    queryFn: async () => {
+      const res = await api.get('/progress/dashboard/stats');
+      return res.data?.data || { enrolledCourses: 0, completedLessons: 0, certificates: 0 };
+    },
+    staleTime: 60000,
+    enabled: !!session
+  });
+
+  const courses = coursesData || [];
+  const stats = statsData || { enrolledCourses: 0, completedLessons: 0, certificates: 0 };
+  const loading = coursesLoading || statsLoading;
+  
+  const firstName = session?.user?.name?.split(' ')[0] || 'Student';
+  const isDelayedLoading = useDelayLoading(loading, 300);
 
   const STAT_CARDS = [
     { label: 'Enrolled Courses',   value: stats.enrolledCourses,  icon: IoBookOutline,          bg: 'bg-blue-50',    text: 'text-blue-600',    ring: 'ring-blue-100' },

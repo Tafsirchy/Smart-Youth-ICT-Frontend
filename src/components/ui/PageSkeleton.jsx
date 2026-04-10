@@ -13,8 +13,7 @@ export default function PageSkeleton({ rows = 3 }) {
       <div className="w-full max-w-5xl flex flex-col gap-12">
         {/* ── Hero Banner ─────────────────────────────── */}
         <div
-          className="py-16 px-4 text-center rounded-3xl overflow-hidden"
-          style={{ background: 'linear-gradient(135deg, #0f172a 0%, #1e1b4b 60%, #312e81 100%)' }}
+          className="py-16 px-4 text-center rounded-3xl overflow-hidden bg-neutral-100"
         >
           <div className="max-w-2xl mx-auto flex flex-col items-center gap-4">
             <Skeleton className="h-6 w-32 rounded-full bg-white/10" />

@@ -415,6 +415,17 @@ export default function HeroSlider() {
                             backgroundPosition: `${card.bgX - 100}px ${card.bgY}px`,
                           }}
                         />
+                        {/* 
+                          Optimized for LCP: Initial slide images are marked for priority loading 
+                          to prevent them from being queued behind other assets.
+                        */}
+                        <img 
+                          src={slides[current].image} 
+                          alt="" 
+                          className="hidden" 
+                          sizes="(max-width: 768px) 100vw, 50vw"
+                          fetchpriority={slides[current].id === 1 ? "high" : "auto"}
+                        />
                       </motion.div>
                     ))}
 

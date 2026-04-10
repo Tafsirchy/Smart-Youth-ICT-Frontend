@@ -1,6 +1,7 @@
 'use client';
 
-import { useState, useEffect, useMemo } from 'react';
+import { useState, useEffect, useMemo, useRef } from 'react';
+import { useQuery, useQueryClient, keepPreviousData } from '@tanstack/react-query';
 import { motion, AnimatePresence } from 'framer-motion';
 import api from '@/lib/api';
 import toast from 'react-hot-toast';
@@ -23,58 +24,38 @@ import {
 } from 'react-icons/hi2';
 
 export default function GlobalUserManagement() {
-  const [users, setUsers] = useState([]);
-  const [branches, setBranches] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [search, setSearch] = useState('');
-  const [filterRole, setFilterRole] = useState('');
-  const [filterBranch, setFilterBranch] = useState('');
   const [showModal, setShowModal] = useState(false);
   const [editingUser, setEditingUser] = useState(null);
   const [page, setPage] = useState(1);
-  const [total, setTotal] = useState(0);
-  const [totalPages, setTotalPages] = useState(1);
   const limit = 20;
 
   const { user: currentUser } = useRole();
+  const queryClient = useQueryClient();
   const [formData, setFormData] = useState({
     name: '', email: '', password: '', role: 'student', branchId: '', phone: '', isActive: true
   });
+  
+  const [search, setSearch] = useState('');
+  const [filterRole, setFilterRole] = useState('');
+  const [filterBranch, setFilterBranch] = useState('');
 
   const administrativeRoles = ['super_admin', 'super_management', 'admin', 'branch_admin', 'branch_management'];
 
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      fetchData();
-    }, 300); // Simple debounce
-    return () => clearTimeout(timer);
-  }, [page, filterRole, filterBranch, search]);
+  const { data: branchesData } = useQuery({
+    queryKey: ['branches'],
+    queryFn: async () => {
+      const res = await api.get('/super/branches');
+      return res.data?.data || [];
+    },
+    staleTime: 5 * 60 * 1000 // Cache branches for 5 mins
+  });
 
-  // Reset to page 1 when filters change
-  useEffect(() => {
-    setPage(1);
-  }, [filterRole, filterBranch, search]);
+  const branches = branchesData || [];
 
-  useEffect(() => {
-    fetchBranches();
-  }, []);
-
-  const fetchBranches = async () => {
-    try {
-      const bRes = await api.get('/super/branches');
-      if (bRes.data?.success) {
-        setBranches(bRes.data.data);
-      }
-    } catch (err) {
-      console.error('Failed to fetch branches:', err);
-      toast.error('Partial core failure: Branch registry unavailable');
-    }
-  };
-
-  const fetchData = async () => {
-    setLoading(true);
-    try {
-      const uRes = await api.get('/users', {
+  const { data: usersData, isLoading: loading, isPlaceholderData } = useQuery({
+    queryKey: ['users', { page, filterRole, filterBranch, search }],
+    queryFn: async () => {
+      const res = await api.get('/users', {
         params: {
           page,
           limit,
@@ -83,17 +64,15 @@ export default function GlobalUserManagement() {
           q: search
         }
       });
-      if (uRes.data?.success) {
-        setUsers(uRes.data.data);
-        setTotal(uRes.data.total);
-        setTotalPages(uRes.data.totalPages);
-      }
-    } catch (err) {
-      toast.error('System failure: Unable to retrieve global user registry');
-    } finally {
-      setLoading(false);
-    }
-  };
+      return res.data || { data: [], total: 0, totalPages: 1 };
+    },
+    placeholderData: keepPreviousData,
+    staleTime: 30000 // 30 sec freshness
+  });
+
+  const users = usersData?.data || [];
+  const total = usersData?.total || 0;
+  const totalPages = usersData?.totalPages || 1;
 
 
   const handleSubmit = async (e) => {
@@ -108,7 +87,7 @@ export default function GlobalUserManagement() {
         toast.success('New user established', { id: loadingToast });
       }
       setShowModal(false);
-      fetchData();
+      queryClient.invalidateQueries(['users']);
     } catch (err) {
       toast.error(err?.response?.data?.message || 'Transaction failed', { id: loadingToast });
     }
@@ -119,7 +98,7 @@ export default function GlobalUserManagement() {
     try {
       await api.patch(`/users/${user._id}/status`);
       toast.success('Access state toggled');
-      fetchData();
+      queryClient.invalidateQueries(['users']);
     } catch (err) {
       toast.error('Failed to update state');
     }
@@ -130,7 +109,7 @@ export default function GlobalUserManagement() {
     try {
       await api.delete(`/users/${user._id}`);
       toast.success('Node purged from system');
-      fetchData();
+      queryClient.invalidateQueries(['users']);
     } catch (err) {
       toast.error('Purge failed');
     }

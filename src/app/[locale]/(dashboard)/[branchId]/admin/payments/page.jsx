@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useEffect, useCallback } from 'react';
+import { useQuery, useQueryClient, keepPreviousData } from '@tanstack/react-query';
 import api from '@/lib/api';
 import toast from 'react-hot-toast';
 import { IoCardOutline, IoSearch, IoCheckmarkCircle, IoTimeOutline, IoCloseCircle, IoEyeOutline } from 'react-icons/io5';
@@ -15,9 +16,6 @@ const STATUS_COLORS = {
 const METHOD_LABELS = { bkash: 'bKash', nagad: 'Nagad', stripe: 'Stripe / Card', bank: 'Manual Bank' };
 
 export default function AdminPaymentsPage() {
-  const [payments, setPayments] = useState([]);
-  const [total, setTotal]       = useState(0);
-  const [loading, setLoading]   = useState(true);
   const [search, setSearch]     = useState('');
   const [statusFilter, setStatusFilter] = useState('');
   const [page, setPage]         = useState(1);
@@ -26,22 +24,22 @@ export default function AdminPaymentsPage() {
   const [actionLoading, setActionLoading] = useState(false);
   const limit = 20;
 
-  const fetchPayments = useCallback(async () => {
-    setLoading(true);
-    try {
+  const queryClient = useQueryClient();
+
+  const { data: paymentsRes, isLoading: loading } = useQuery({
+    queryKey: ['payments', { page, statusFilter }],
+    queryFn: async () => {
       const params = { page, limit };
       if (statusFilter) params.status = statusFilter;
       const res = await api.get('/payments', { params });
-      setPayments(res.data.data || []);
-      setTotal(res.data.total || 0);
-    } catch {
-      toast.error('Failed to load payments.');
-    } finally {
-      setLoading(false);
-    }
-  }, [page, statusFilter]);
+      return res.data || { data: [], total: 0 };
+    },
+    placeholderData: keepPreviousData,
+    staleTime: 30000
+  });
 
-  useEffect(() => { fetchPayments(); }, [fetchPayments]);
+  const payments = paymentsRes?.data || [];
+  const total = paymentsRes?.total || 0;
 
   const filtered = search
     ? payments.filter(p =>
@@ -65,7 +63,7 @@ export default function AdminPaymentsPage() {
       toast.success(`Payment marked as ${actionStatus}`);
       setSelectedPayment(null);
       setNote('');
-      fetchPayments();
+      queryClient.invalidateQueries(['payments']);
     } catch {
       toast.error('Failed to update payment status.');
     } finally {

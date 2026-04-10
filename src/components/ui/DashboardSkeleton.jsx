@@ -48,8 +48,8 @@ export function TableSkeleton({ rows = 6 }) {
  */
 export default function DashboardSkeleton() {
   return (
-    <div className="flex flex-col items-center justify-center min-h-[85vh] w-full gap-8 animate-in fade-in duration-500">
-      <div className="w-full max-w-4xl flex flex-col gap-8">
+    <div className="flex flex-col min-h-full w-full gap-8 animate-in fade-in duration-500">
+      <div className="w-full flex flex-col gap-8">
         <HeaderSkeleton />
 
         {/* ── Stats Row ────────────────────────────────── */}

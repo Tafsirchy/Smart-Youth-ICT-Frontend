@@ -50,9 +50,11 @@ api.interceptors.response.use(
     if (status === 403) {
       toast.error("Access Denied: You don't have permission for this action.");
     } else if (status === 401) {
-      // If we get a 401, the session is likely invalid. 
+      // If we get a 401, the session is likely invalid.
       // We don't want to alert on public login pages though.
-      const isLoginPage = typeof window !== "undefined" && window.location.pathname.includes("/login");
+      const isLoginPage =
+        typeof window !== "undefined" &&
+        window.location.pathname.includes("/login");
       if (!isLoginPage) {
         toast.error("Session expired. Please sign in again.");
         // signOut({ callbackUrl: '/login' }); // Uncomment to force logout on all 401s

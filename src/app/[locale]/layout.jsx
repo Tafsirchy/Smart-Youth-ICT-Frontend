@@ -8,6 +8,8 @@ import FacebookPixel from "@/components/marketing/FacebookPixel";
 import WhatsAppButton from "@/components/marketing/WhatsAppButton";
 import GoogleAnalytics from "@/components/marketing/GoogleAnalytics";
 import NextTopLoader from "nextjs-toploader";
+import { getServerSession } from "next-auth";
+import { authOptions } from "@/lib/auth";
 import PageLoader from "@/components/ui/PageLoader";
 
 const inter = Inter({ subsets: ["latin"] });
@@ -35,23 +37,34 @@ export const metadata = {
 };
 
 export default async function RootLayout({ children, params: { locale } }) {
-  // Fetch messages (translations) for the current locale
-  const messages = await getMessages();
+  // Fetch messages (translations) and session for the current locale on the server
+  // This avoids a redundant client-side fetch, making the first visit much faster.
+  const [messages, session] = await Promise.all([
+    getMessages(),
+    getServerSession(authOptions)
+  ]);
 
   return (
     <html lang={locale}>
       <body
         className={`${inter.className} overflow-x-hidden`}
         style={{ backgroundColor: "var(--color-background)" }}
+        suppressHydrationWarning
       >
-        {/* Next.js precise top loader */}
+        {/* Aggressive Top Loader: Jumps to 35% immediately for 'instant' feel */}
         <NextTopLoader 
           color="var(--color-brand-pink, #ec4899)" 
+          initialPosition={0.35}
+          crawlSpeed={150}
           height={3} 
-          showSpinner={false} 
+          crawl={true}
+          showSpinner={false}
+          easing="cubic-bezier(0.1, 0.7, 1.0, 0.1)"
+          speed={400}
+          shadow={false}
         />
         <NextIntlClientProvider messages={messages}>
-          <Providers>
+          <Providers session={session}>
             <PageLoader />
             <GoogleAnalytics />
             <FacebookPixel />

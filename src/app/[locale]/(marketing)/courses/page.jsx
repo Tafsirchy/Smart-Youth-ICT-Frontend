@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState, useEffect, useRef, useMemo } from "react";
+import { useQuery } from '@tanstack/react-query';
 import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
 import { useLocale } from "next-intl";
@@ -30,13 +31,24 @@ const cardVariant = {
 
 export default function CoursesPage() {
   const locale = useLocale();
-  const [courses, setCourses] = useState([]);
-  const [loading, setLoading] = useState(true);
   const [category, setCategory] = useState("all");
   const [branch, setBranch] = useState("all");
   const [search, setSearch] = useState("");
   const [inputVal, setInputVal] = useState("");
   const debounceRef = useRef(null);
+
+  const { data: coursesData, isLoading: loading } = useQuery({
+    queryKey: ['courses'],
+    queryFn: async () => {
+      const params = { page: 1, limit: 1000 };
+      const res = await api.get("/courses", { params });
+      return res.data?.data || [];
+    },
+    staleTime: 5 * 60 * 1000, // 5 minutes freshness for marketing
+    gcTime: 10 * 60 * 1000   // 10 minutes cache retention
+  });
+
+  const courses = coursesData || [];
 
   const branchOptions = useMemo(() => {
     const set = new Set();
@@ -46,22 +58,6 @@ export default function CoursesPage() {
     });
     return ["all", ...Array.from(set)];
   }, [courses]);
-
-  useEffect(() => {
-    const fetchCourses = async () => {
-      setLoading(true);
-      try {
-        const params = { page: 1, limit: 1000 };
-        const res = await api.get("/courses", { params });
-        if (res.data?.success) setCourses(res.data.data);
-      } catch (err) {
-        console.error("Failed to fetch courses", err);
-      } finally {
-        setLoading(false);
-      }
-    };
-    fetchCourses();
-  }, []);
 
   const filteredCourses = useMemo(() => {
     const keyword = search.trim().toLowerCase();

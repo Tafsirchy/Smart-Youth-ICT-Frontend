@@ -10,7 +10,8 @@ export default function PageLoader() {
   // Helper to check if we are on the home page (accounting for locales)
   const isHomePage = (path) => {
     if (!path) return false;
-    const cleanPath = path.replace(/^\/[a-z]{2}(-[A-Z]{2})?(?=\/|$)/, "") || "/";
+    const cleanPath =
+      path.replace(/^\/[a-z]{2}(-[A-Z]{2})?(?=\/|$)/, "") || "/";
     return cleanPath === "/";
   };
 
@@ -20,7 +21,7 @@ export default function PageLoader() {
   useEffect(() => {
     // 1. Check if we are on the Home page
     const shouldShowLoader = isHomePage(pathname);
-    
+
     // 2. Check if we have already shown the splash screen this session
     // We use sessionStorage so it plays once per browser tab session
     const hasSeenSplash = sessionStorage.getItem("syict_splash_seen");
@@ -39,12 +40,12 @@ export default function PageLoader() {
     const fadeTimer = setTimeout(() => {
       setFadeOut(true);
       // Mark as seen so they don't see it again if they route back
-      sessionStorage.setItem("syict_splash_seen", "true"); 
-    }, 1600);
-    
+      sessionStorage.setItem("syict_splash_seen", "true");
+    }, 600);
+
     const hideTimer = setTimeout(() => {
       setVisible(false);
-    }, 2200);
+    }, 1000);
 
     return () => {
       clearTimeout(fadeTimer);
@@ -105,7 +106,7 @@ export default function PageLoader() {
           }
         }
         .animate-progress {
-          animation: progress 1.5s ease-in-out forwards;
+          animation: progress 0.8s ease-in-out forwards;
         }
       `}</style>
     </div>

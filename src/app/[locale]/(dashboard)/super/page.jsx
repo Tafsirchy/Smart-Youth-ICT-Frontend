@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
+import { useQuery } from '@tanstack/react-query';
 import { motion } from 'framer-motion';
 import api from '@/lib/api';
 import toast from 'react-hot-toast';
@@ -24,23 +25,14 @@ const item = {
 };
 
 export default function GlobalDashboard() {
-  const [stats, setStats] = useState(null);
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    fetchStats();
-  }, []);
-
-  const fetchStats = async () => {
-    try {
+  const { data: stats, isLoading: loading } = useQuery({
+    queryKey: ['super-stats'],
+    queryFn: async () => {
       const res = await api.get('/super/stats');
-      if (res.data?.success) setStats(res.data.data);
-    } catch (err) {
-      toast.error('Failed to load global metrics');
-    } finally {
-      setLoading(false);
-    }
-  };
+      return res.data?.data || null;
+    },
+    staleTime: 60000 // 1 minute freshness
+  });
 
   return (
     <div className="space-y-10 max-w-7xl mx-auto pb-20">

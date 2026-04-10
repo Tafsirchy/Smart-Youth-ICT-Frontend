@@ -2,8 +2,6 @@ import React from 'react';
 import Image from 'next/image';
 import { motion } from 'framer-motion';
 import { IoStar, IoStarOutline, IoPeopleOutline, IoPlayCircleOutline, IoCallOutline, IoDocumentTextOutline } from 'react-icons/io5';
-import jsPDF from 'jspdf';
-import 'jspdf-autotable';
 import toast from 'react-hot-toast';
 
 export default function CourseHero({ course, onEnroll }) {
@@ -12,12 +10,18 @@ export default function CourseHero({ course, onEnroll }) {
   const enrolledCount = course?.enrolledCount || 1024;
   const instructorName = course?.instructor?.name || 'Expert Instructor';
 
-  const handleDownloadPdf = () => {
+  const handleDownloadPdf = async () => {
     if (!course?.curriculum || course.curriculum.length === 0) {
       toast.error('Curriculum syllabus is not available yet.');
       return;
     }
+
+    const waitToast = toast.loading('Preparing curriculum PDF...');
     try {
+      // Dynamic import to reduce initial bundle size
+      const { default: jsPDF } = await import('jspdf');
+      await import('jspdf-autotable');
+      
       const doc = new jsPDF();
       doc.setFontSize(20);
       doc.text(`${title} - Syllabus`, 14, 22);
@@ -53,10 +57,10 @@ export default function CourseHero({ course, onEnroll }) {
       });
 
       doc.save(`${course.slug}-curriculum.pdf`);
-      toast.success('Curriculum PDF downloaded successfully!');
+      toast.success('Curriculum PDF downloaded successfully!', { id: waitToast });
     } catch (err) {
       console.error(err);
-      toast.error('Failed to generate PDF.');
+      toast.error('Failed to generate PDF.', { id: waitToast });
     }
   };
 
@@ -70,7 +74,7 @@ export default function CourseHero({ course, onEnroll }) {
 
       {course.thumbnail && (
         <div className="absolute inset-0 opacity-10 pointer-events-none">
-          <Image src={course.thumbnail} alt="" fill className="object-cover blur-3xl saturate-200" />
+          <Image src={course.thumbnail} alt="" fill className="object-cover blur-3xl saturate-200" priority={true} />
         </div>
       )}
 
@@ -119,7 +123,7 @@ export default function CourseHero({ course, onEnroll }) {
             {/* Instructor */}
             <div className="flex items-center gap-2">
               <div className="w-6 h-6 rounded-full bg-indigo-500 overflow-hidden relative border border-indigo-400">
-                <Image src={course?.instructor?.avatar || '/images/default-avatar.png'} alt="Instructor" fill className="object-cover" />
+                <Image src={course?.instructor?.avatar || '/images/default-avatar.png'} alt="Instructor" fill className="object-cover" priority={true} />
               </div>
               <span>By <span className="text-white font-semibold underline underline-offset-4 decoration-indigo-400/50">{instructorName}</span></span>
             </div>

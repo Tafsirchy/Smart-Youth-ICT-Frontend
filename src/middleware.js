@@ -76,20 +76,26 @@ const authMiddleware = withAuth(
 );
 
 export default function middleware(req) {
-  // Using explicit route definitions to avoid parsing issues with dynamic segments
-  const publicPathnameRegex = RegExp(
-    `^(/(${locales.join("|")}))?(/|/login|/register|/about(/.*)?|/contact|/success-stories|/courses(/.*)?|/blog(/.*)?|/auth-redirect)?/?$`,
-    "i",
-  );
-  const isPublicPage = publicPathnameRegex.test(req.nextUrl.pathname);
+  const { pathname } = req.nextUrl;
 
-  if (isPublicPage) {
-    // Only apply i18n
+  // 1. High-Performance Public Route Detection
+  // These paths bypass the expensive Auth logic immediately.
+  const isPublicPath = 
+    pathname === "/" ||
+    pathname.includes("/login") ||
+    pathname.includes("/register") ||
+    pathname.includes("/courses") ||
+    pathname.includes("/blog") ||
+    pathname.includes("/about") ||
+    pathname.includes("/contact") ||
+    pathname.includes("/auth-redirect");
+
+  if (isPublicPath) {
     return intlMiddleware(req);
-  } else {
-    // Apply auth and then i18n
-    return authMiddleware(req, req.nextUrl);
   }
+
+  // 2. Auth & Dashboard Protection
+  return authMiddleware(req, req.nextUrl);
 }
 
 export const config = {
