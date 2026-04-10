@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import Portal from '@/components/ui/Portal';
 import { 
   HiOutlineDocumentText, HiOutlineCloudUpload, HiCheckCircle, 
   HiOutlineClock, HiOutlineClipboardList, HiOutlineX 
@@ -170,10 +171,11 @@ export default function AssignmentsPage() {
       )}
 
       {/* Submission Modal */}
-      <AnimatePresence>
-        {selectedAssignment && (
-          <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50 backdrop-blur-sm">
-             <motion.div initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} exit={{ opacity: 0, scale: 0.95 }} className="bg-white rounded-[32px] shadow-2xl w-full max-w-lg overflow-hidden">
+      <Portal>
+        <AnimatePresence>
+          {selectedAssignment && (
+            <div className="fixed inset-0 z-[9999] flex items-center justify-center p-4 bg-black/95 backdrop-blur-sm">
+             <motion.div initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} exit={{ opacity: 0, scale: 0.95 }} className="bg-white rounded-[32px] shadow-2xl w-full max-w-lg overflow-hidden relative z-[10000]">
                <div className="flex justify-between items-center p-8 border-b border-neutral-50 text-neutral-900">
                   <h2 className="text-2xl font-bold">Submit Assignment</h2>
                   <button onClick={() => setSelectedAssignment(null)} className="text-neutral-400 hover:text-neutral-700 transition-colors"><HiOutlineX size={28} /></button>
@@ -221,7 +223,8 @@ export default function AssignmentsPage() {
              </motion.div>
           </div>
         )}
-      </AnimatePresence>
+        </AnimatePresence>
+      </Portal>
     </div>
   );
 }

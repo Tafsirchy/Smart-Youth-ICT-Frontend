@@ -1,18 +1,5 @@
-import { getServerSession } from 'next-auth';
-import { redirect } from 'next/navigation';
-import { authOptions } from '@/lib/auth';
-import Sidebar from '@/components/layout/Sidebar';
-
-export default async function DashboardLayout({ children }) {
-  const session = await getServerSession(authOptions);
-  if (!session) redirect('/login');
-
-  return (
-    <div className="flex h-screen overflow-hidden" style={{ background: 'var(--color-background)' }}>
-      <Sidebar role={session.user.role} user={session.user} />
-      <div className="flex-1 overflow-y-auto">
-        <main className="p-6 md:p-8">{children}</main>
-      </div>
-    </div>
-  );
+export default function BranchDashboardLayout({ children }) {
+  // Common shell logic (Sidebar, Auth) has been moved up to (dashboard)/layout.jsx
+  // to support both global (/super) and branch-specific (/[branchId]) routes.
+  return <>{children}</>;
 }

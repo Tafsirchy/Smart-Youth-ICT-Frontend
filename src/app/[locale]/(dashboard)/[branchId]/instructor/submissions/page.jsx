@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import Portal from '@/components/ui/Portal';
 import { 
   HiOutlineClipboardList, HiOutlineSearch, HiOutlineFilter,
   HiOutlineExternalLink, HiOutlineCheckCircle, HiOutlineX,
@@ -166,91 +167,93 @@ export default function GradingHub() {
       </div>
 
       {/* GRADING MODAL */}
-      <AnimatePresence>
-         {selectedSub && (
-            <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
-               <motion.div 
-                 initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
-                 onClick={() => setSelectedSub(null)}
-                 className="absolute inset-0 bg-neutral-900/60 backdrop-blur-md"
-               />
-               <motion.div 
-                 initial={{ opacity: 0, scale: 0.9, y: 30 }}
-                 animate={{ opacity: 1, scale: 1, y: 0 }}
-                 exit={{ opacity: 0, scale: 0.9, y: 30 }}
-                 className="relative w-full max-w-2xl bg-white rounded-[40px] shadow-2xl p-10 overflow-hidden"
-               >
-                  <button onClick={() => setSelectedSub(null)} className="absolute top-8 right-8 text-neutral-400 hover:text-neutral-900 transition-colors">
-                     <HiOutlineX size={28} />
-                  </button>
+      <Portal>
+         <AnimatePresence>
+            {selectedSub && (
+               <div className="fixed inset-0 z-[9999] flex items-center justify-center p-4 bg-black/95 backdrop-blur-sm">
+                  <motion.div 
+                    initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
+                    onClick={() => setSelectedSub(null)}
+                    className="absolute inset-0"
+                  />
+                  <motion.div 
+                    initial={{ opacity: 0, scale: 0.9, y: 30 }}
+                    animate={{ opacity: 1, scale: 1, y: 0 }}
+                    exit={{ opacity: 0, scale: 0.9, y: 30 }}
+                    className="relative w-full max-w-2xl bg-white rounded-[40px] shadow-2xl p-10 overflow-hidden z-[10000]"
+                  >
+                     <button onClick={() => setSelectedSub(null)} className="absolute top-8 right-8 text-neutral-400 hover:text-neutral-900 transition-colors">
+                        <HiOutlineX size={28} />
+                     </button>
 
-                  <h2 className="text-2xl font-black text-neutral-900 mb-2">Grade Submission</h2>
-                  <p className="text-sm text-neutral-500 mb-8 border-b border-neutral-50 pb-4">
-                     Reviewing work by <span className="text-blue-600 font-bold">{selectedSub.student?.name}</span> for 
-                     <span className="font-bold text-neutral-900"> {selectedSub.assignment?.title}</span>
-                  </p>
+                     <h2 className="text-2xl font-black text-neutral-900 mb-2">Grade Submission</h2>
+                     <p className="text-sm text-neutral-500 mb-8 border-b border-neutral-50 pb-4">
+                        Reviewing work by <span className="text-blue-600 font-bold">{selectedSub.student?.name}</span> for 
+                        <span className="font-bold text-neutral-900"> {selectedSub.assignment?.title}</span>
+                     </p>
 
-                  <div className="space-y-8">
-                     {/* Student Work Preview Card */}
-                     <div className="bg-neutral-900 rounded-[32px] p-8 text-white">
-                        <h3 className="text-[10px] font-black text-neutral-500 uppercase tracking-[0.2em] mb-4">Submission Link</h3>
-                        <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
-                           <div className="font-mono text-sm text-blue-300 truncate max-w-sm">
-                              {selectedSub.fileUrl}
+                     <div className="space-y-8">
+                        {/* Student Work Preview Card */}
+                        <div className="bg-neutral-900 rounded-[32px] p-8 text-white">
+                           <h3 className="text-[10px] font-black text-neutral-500 uppercase tracking-[0.2em] mb-4">Submission Link</h3>
+                           <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
+                              <div className="font-mono text-sm text-blue-300 truncate max-w-sm">
+                                 {selectedSub.fileUrl}
+                              </div>
+                              <a 
+                                href={selectedSub.fileUrl} target="_blank" rel="noreferrer"
+                                className="flex items-center gap-2 bg-white text-neutral-900 px-6 py-3 rounded-xl font-bold hover:bg-blue-50 transition-all hover:-translate-y-1"
+                              >
+                                 <HiOutlineExternalLink size={20} /> View Work
+                              </a>
                            </div>
-                           <a 
-                             href={selectedSub.fileUrl} target="_blank" rel="noreferrer"
-                             className="flex items-center gap-2 bg-white text-neutral-900 px-6 py-3 rounded-xl font-bold hover:bg-blue-50 transition-all hover:-translate-y-1"
-                           >
-                              <HiOutlineExternalLink size={20} /> View Work
-                           </a>
+                           {selectedSub.notes && (
+                              <div className="mt-6 pt-6 border-t border-white/10">
+                                 <h3 className="text-[10px] font-black text-neutral-500 uppercase tracking-[0.2em] mb-2">Student Notes</h3>
+                                 <p className="text-sm text-neutral-300 italic">"{selectedSub.notes}"</p>
+                              </div>
+                           )}
                         </div>
-                        {selectedSub.notes && (
-                           <div className="mt-6 pt-6 border-t border-white/10">
-                              <h3 className="text-[10px] font-black text-neutral-500 uppercase tracking-[0.2em] mb-2">Student Notes</h3>
-                              <p className="text-sm text-neutral-300 italic">"{selectedSub.notes}"</p>
-                           </div>
-                        )}
-                     </div>
 
-                     {/* Grading Form */}
-                     <form onSubmit={submitGrade} className="space-y-6">
-                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                        {/* Grading Form */}
+                        <form onSubmit={submitGrade} className="space-y-6">
+                           <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                              <div className="space-y-1.5">
+                                 <label className="text-[10px] font-black text-neutral-400 uppercase tracking-widest ml-1">Grade (0-100)</label>
+                                 <input 
+                                    required type="number" min="0" max="100"
+                                    className="w-full bg-neutral-50 rounded-2xl border-none px-4 py-4 text-sm font-bold focus:ring-2 focus:ring-blue-600 transition-all" 
+                                    placeholder="e.g. 95"
+                                    value={gradingForm.grade} onChange={(e) => setGradingForm({...gradingForm, grade: e.target.value})}
+                                 />
+                              </div>
+                           </div>
+
                            <div className="space-y-1.5">
-                              <label className="text-[10px] font-black text-neutral-400 uppercase tracking-widest ml-1">Grade (0-100)</label>
-                              <input 
-                                 required type="number" min="0" max="100"
-                                 className="w-full bg-neutral-50 rounded-2xl border-none px-4 py-4 text-sm font-bold focus:ring-2 focus:ring-blue-600 transition-all" 
-                                 placeholder="e.g. 95"
-                                 value={gradingForm.grade} onChange={(e) => setGradingForm({...gradingForm, grade: e.target.value})}
+                              <label className="text-[10px] font-black text-neutral-400 uppercase tracking-widest ml-1 flex items-center gap-2">
+                                 <HiOutlineChatAlt2 /> Instructor Feedback
+                              </label>
+                              <textarea 
+                                 required rows={4}
+                                 className="w-full bg-neutral-50 rounded-2xl border-none px-4 py-4 text-sm font-medium focus:ring-2 focus:ring-blue-600 transition-all resize-none" 
+                                 placeholder="Great work! The attention to detail is excellent..."
+                                 value={gradingForm.feedback} onChange={(e) => setGradingForm({...gradingForm, feedback: e.target.value})}
                               />
                            </div>
-                        </div>
 
-                        <div className="space-y-1.5">
-                           <label className="text-[10px] font-black text-neutral-400 uppercase tracking-widest ml-1 flex items-center gap-2">
-                              <HiOutlineChatAlt2 /> Instructor Feedback
-                           </label>
-                           <textarea 
-                              required rows={4}
-                              className="w-full bg-neutral-50 rounded-2xl border-none px-4 py-4 text-sm font-medium focus:ring-2 focus:ring-blue-600 transition-all resize-none" 
-                              placeholder="Great work! The attention to detail is excellent..."
-                              value={gradingForm.feedback} onChange={(e) => setGradingForm({...gradingForm, feedback: e.target.value})}
-                           />
-                        </div>
-
-                        <button 
-                           type="submit" disabled={grading}
-                           className="w-full py-5 bg-blue-600 text-white rounded-[32px] font-extrabold text-lg shadow-2xl shadow-blue-600/20 hover:bg-blue-700 transition-all active:scale-[0.98] disabled:opacity-50"
-                        >
-                           {grading ? 'Recording Grade...' : 'Confirm & Publish Grade'}
-                        </button>
-                     </form>
-                  </div>
-               </motion.div>
-            </div>
-         )}
-      </AnimatePresence>
+                           <button 
+                              type="submit" disabled={grading}
+                              className="w-full py-5 bg-blue-600 text-white rounded-[32px] font-extrabold text-lg shadow-2xl shadow-blue-600/20 hover:bg-blue-700 transition-all active:scale-[0.98] disabled:opacity-50"
+                           >
+                              {grading ? 'Recording Grade...' : 'Confirm & Publish Grade'}
+                           </button>
+                        </form>
+                     </div>
+                  </motion.div>
+               </div>
+            )}
+         </AnimatePresence>
+      </Portal>
     </div>
   );
 }

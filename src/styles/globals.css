@@ -714,3 +714,30 @@ select.form-input { cursor: pointer; }
 .gap-4 { gap: 1rem; }
 .p-6 { padding: 1.5rem; }
 
+/* ─────────────────────────────────────────────────────────────────
+ * LEAFLET MAP CUSTOM STYLES
+ * ──────────────────────────────────────────────────────────────── */
+.leaflet-container {
+  width: 100%;
+  height: 100%;
+  z-index: 10 !important;
+  border-radius: 24px;
+}
+
+/* Fix for high z-index of map controls overlapping dashboard elements */
+.leaflet-control-container .leaflet-top,
+.leaflet-control-container .leaflet-bottom {
+  z-index: 50 !important;
+}
+
+/* Custom Marker Styling */
+.leaflet-marker-icon {
+  filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.1));
+}
+
+.leaflet-popup-content-wrapper {
+  border-radius: 12px;
+  background-color: rgba(255, 255, 255, 0.9);
+  backdrop-filter: blur(8px);
+}
+

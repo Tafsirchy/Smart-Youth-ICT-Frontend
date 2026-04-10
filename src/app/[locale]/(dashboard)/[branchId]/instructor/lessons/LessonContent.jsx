@@ -3,6 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import { useSearchParams, useRouter } from 'next/navigation';
 import { motion, AnimatePresence } from 'framer-motion';
+import Portal from '@/components/ui/Portal';
 import { 
   HiOutlineCollection, HiOutlinePlus, HiOutlinePencilSquare, 
   HiOutlineTrash, HiOutlineClock,
@@ -220,19 +221,20 @@ export default function LessonContent() {
       </div>
 
       {/* CREATE / EDIT MODAL */}
-      <AnimatePresence>
-         {showModal && (
-            <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
+      <Portal>
+         <AnimatePresence>
+            {showModal && (
+               <div className="fixed inset-0 z-[9999] flex items-center justify-center p-4 bg-black/95 backdrop-blur-sm">
                <motion.div 
                  initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
                  onClick={() => setShowModal(false)}
-                 className="absolute inset-0 bg-neutral-900/60 backdrop-blur-md"
+                 className="absolute inset-0"
                />
                <motion.div 
                  initial={{ opacity: 0, scale: 0.9, y: 30 }}
                  animate={{ opacity: 1, scale: 1, y: 0 }}
                  exit={{ opacity: 0, scale: 0.9, y: 30 }}
-                 className="relative w-full max-w-xl bg-white rounded-[40px] shadow-2xl p-10 overflow-hidden"
+                 className="relative w-full max-w-xl bg-white rounded-[40px] shadow-2xl p-10 overflow-hidden z-[10000]"
                >
                   <button onClick={() => setShowModal(false)} className="absolute top-8 right-8 text-neutral-400 hover:text-neutral-900 transition-colors">
                      <HiOutlineXMark size={28} />
@@ -294,8 +296,9 @@ export default function LessonContent() {
                   </form>
                </motion.div>
             </div>
-         )}
-      </AnimatePresence>
+          )}
+        </AnimatePresence>
+      </Portal>
     </div>
   );
 }

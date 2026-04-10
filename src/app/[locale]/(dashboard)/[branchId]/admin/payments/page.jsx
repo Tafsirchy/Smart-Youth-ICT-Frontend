@@ -4,6 +4,7 @@ import { useState, useEffect, useCallback } from 'react';
 import api from '@/lib/api';
 import toast from 'react-hot-toast';
 import { IoCardOutline, IoSearch, IoCheckmarkCircle, IoTimeOutline, IoCloseCircle, IoEyeOutline } from 'react-icons/io5';
+import Portal from '@/components/ui/Portal';
 
 const STATUS_COLORS = {
   completed: 'bg-emerald-100 text-emerald-700',
@@ -203,63 +204,64 @@ export default function AdminPaymentsPage() {
           </div>
         )}
       </div>
-
+      
       {/* Review Modal */}
-      {selectedPayment && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-neutral-900/40 backdrop-blur-sm">
-          <div className="bg-white rounded-2xl shadow-xl w-full max-w-md overflow-hidden">
-            <div className="px-6 py-4 border-b border-neutral-100 flex items-center justify-between">
-              <h3 className="font-bold text-lg text-textPrimary">Review Payment</h3>
-              <button onClick={() => setSelectedPayment(null)} className="text-neutral-400 hover:text-neutral-600"><IoCloseCircle size={24} /></button>
-            </div>
-            <div className="p-6 space-y-4 text-sm">
-              <div className="grid grid-cols-2 gap-4">
-                <div><span className="text-neutral-500">Student:</span> <div className="font-semibold">{selectedPayment.user?.name}</div></div>
-                <div><span className="text-neutral-500">Course:</span> <div className="font-semibold">{selectedPayment.course?.title?.en || selectedPayment.course?.title}</div></div>
-                <div><span className="text-neutral-500">Amount:</span> <div className="font-semibold">৳{selectedPayment.amount}</div></div>
-                <div><span className="text-neutral-500">Method:</span> <div className="font-semibold">{METHOD_LABELS[selectedPayment.method]}</div></div>
+      <Portal>
+        {selectedPayment && (
+          <div className="fixed inset-0 z-[9999] flex items-center justify-center p-4 bg-black/95 backdrop-blur-sm">
+            <div className="bg-white rounded-2xl shadow-xl w-full max-w-md overflow-hidden relative z-[10000]">
+              <div className="px-6 py-4 border-b border-neutral-100 flex items-center justify-between">
+                <h3 className="font-bold text-lg text-textPrimary">Review Payment</h3>
+                <button onClick={() => setSelectedPayment(null)} className="text-neutral-400 hover:text-neutral-600"><IoCloseCircle size={24} /></button>
               </div>
-              
-              {selectedPayment.slip && (
-                <div>
-                  <span className="text-neutral-500 block mb-1">Attached Slip:</span>
-                  <a href={selectedPayment.slip} target="_blank" rel="noreferrer" className="block p-2 border border-neutral-200 rounded-lg hover:border-blue-300">
-                    {/* eslint-disable-next-line @next/next/no-img-element */}
-                    <img src={selectedPayment.slip} alt="Payment Slip" className="w-full h-32 object-contain bg-neutral-50 rounded" />
-                  </a>
+              <div className="p-6 space-y-4 text-sm">
+                <div className="grid grid-cols-2 gap-4">
+                  <div><span className="text-neutral-500">Student:</span> <div className="font-semibold">{selectedPayment.user?.name}</div></div>
+                  <div><span className="text-neutral-500">Course:</span> <div className="font-semibold">{selectedPayment.course?.title?.en || selectedPayment.course?.title}</div></div>
+                  <div><span className="text-neutral-500">Amount:</span> <div className="font-semibold">৳{selectedPayment.amount}</div></div>
+                  <div><span className="text-neutral-500">Method:</span> <div className="font-semibold">{METHOD_LABELS[selectedPayment.method]}</div></div>
                 </div>
-              )}
+                
+                {selectedPayment.slip && (
+                  <div>
+                    <span className="text-neutral-500 block mb-1">Attached Slip:</span>
+                    <a href={selectedPayment.slip} target="_blank" rel="noreferrer" className="block p-2 border border-neutral-200 rounded-lg hover:border-blue-300">
+                      <img src={selectedPayment.slip} alt="Payment Slip" className="w-full h-32 object-contain bg-neutral-50 rounded" />
+                    </a>
+                  </div>
+                )}
 
-              <div>
-                <label className="text-neutral-500 block mb-1">Admin Note (optional):</label>
-                <textarea
-                  className="input w-full min-h-[80px]"
-                  placeholder="Reason for rejection or internal notes..."
-                  value={note}
-                  onChange={e => setNote(e.target.value)}
-                />
-              </div>
+                <div>
+                  <label className="text-neutral-500 block mb-1">Admin Note (optional):</label>
+                  <textarea
+                    className="input w-full min-h-[80px]"
+                    placeholder="Reason for rejection or internal notes..."
+                    value={note}
+                    onChange={e => setNote(e.target.value)}
+                  />
+                </div>
 
-              <div className="flex gap-3 pt-2">
-                <button
-                  onClick={() => handleAction(selectedPayment._id, 'failed')}
-                  disabled={actionLoading}
-                  className="flex-1 px-4 py-2 bg-red-100 text-red-700 font-semibold rounded-xl hover:bg-red-200 transition-colors disabled:opacity-50"
-                >
-                  Reject
-                </button>
-                <button
-                  onClick={() => handleAction(selectedPayment._id, 'completed')}
-                  disabled={actionLoading}
-                  className="flex-1 px-4 py-2 bg-emerald-600 text-white font-semibold rounded-xl hover:bg-emerald-700 transition-colors disabled:opacity-50"
-                >
-                  Approve (Enroll)
-                </button>
+                <div className="flex gap-3 pt-2">
+                  <button
+                    onClick={() => handleAction(selectedPayment._id, 'failed')}
+                    disabled={actionLoading}
+                    className="flex-1 px-4 py-2 bg-red-100 text-red-700 font-semibold rounded-xl hover:bg-red-200 transition-colors disabled:opacity-50"
+                  >
+                    Reject
+                  </button>
+                  <button
+                    onClick={() => handleAction(selectedPayment._id, 'completed')}
+                    disabled={actionLoading}
+                    className="flex-1 px-4 py-2 bg-emerald-600 text-white font-semibold rounded-xl hover:bg-emerald-700 transition-colors disabled:opacity-50"
+                  >
+                    Approve (Enroll)
+                  </button>
+                </div>
               </div>
             </div>
           </div>
-        </div>
-      )}
+        )}
+      </Portal>
     </div>
   );
 }

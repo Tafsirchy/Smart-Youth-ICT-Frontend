@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import Portal from '@/components/ui/Portal';
 import { 
   HiOutlineLifebuoy, HiOutlinePlus, HiOutlineChatBubbleLeftRight, 
   HiOutlineClock, HiOutlineCheckCircle, HiOutlineExclamationCircle,
@@ -178,19 +179,20 @@ export default function SupportContent() {
       </div>
 
       {/* CREATE TICKET MODAL */}
-      <AnimatePresence>
-        {showCreate && (
-           <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
+      <Portal>
+        <AnimatePresence>
+          {showCreate && (
+             <div className="fixed inset-0 z-[9999] flex items-center justify-center p-4 bg-black/95 backdrop-blur-sm">
               <motion.div 
                 initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
                 onClick={() => setShowCreate(false)}
-                className="absolute inset-0 bg-neutral-900/40 backdrop-blur-sm"
+                className="absolute inset-0"
               />
               <motion.div 
                 initial={{ opacity: 0, scale: 0.95, y: 20 }}
                 animate={{ opacity: 1, scale: 1, y: 0 }}
                 exit={{ opacity: 0, scale: 0.95, y: 20 }}
-                className="relative w-full max-w-xl bg-white rounded-[40px] shadow-2xl p-10 overflow-hidden"
+                className="relative w-full max-w-xl bg-white rounded-[40px] shadow-2xl p-10 overflow-hidden z-[10000]"
               >
                  <div className="absolute top-0 right-0 p-8">
                     <button onClick={() => setShowCreate(false)} className="w-10 h-10 rounded-full bg-neutral-50 text-neutral-400 flex items-center justify-center hover:bg-neutral-100">
@@ -238,8 +240,9 @@ export default function SupportContent() {
                  </form>
               </motion.div>
            </div>
-        )}
-      </AnimatePresence>
+          )}
+        </AnimatePresence>
+      </Portal>
     </div>
   );
 }

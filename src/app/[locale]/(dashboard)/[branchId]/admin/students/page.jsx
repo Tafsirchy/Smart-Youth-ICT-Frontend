@@ -4,6 +4,7 @@ import { useState, useEffect, useCallback } from 'react';
 import api from '@/lib/api';
 import toast from 'react-hot-toast';
 import { IoPersonOutline, IoSearch, IoCheckmarkCircle, IoCloseCircle, IoShieldOutline } from 'react-icons/io5';
+import Portal from '@/components/ui/Portal';
 
 export default function AdminStudentsPage() {
   const [users, setUsers]       = useState([]);
@@ -219,50 +220,52 @@ export default function AdminStudentsPage() {
           </div>
         )}
       </div>
-
+      
       {/* Role Edit Modal */}
-      {editingUser && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-neutral-900/40 backdrop-blur-sm">
-          <div className="bg-white rounded-2xl shadow-xl w-full max-w-sm overflow-hidden">
-            <div className="px-6 py-4 border-b border-neutral-100 flex items-center justify-between">
-              <h3 className="font-bold text-lg text-textPrimary">Edit User Role</h3>
-              <button onClick={() => setEditingUser(null)} className="text-neutral-400 hover:text-neutral-600"><IoCloseCircle size={24} /></button>
-            </div>
-            <div className="p-6 space-y-4 text-sm">
-              <div>
-                <label className="text-neutral-500 block mb-1">User:</label>
-                <div className="font-semibold">{editingUser.name}</div>
+      <Portal>
+        {editingUser && (
+          <div className="fixed inset-0 z-[9999] flex items-center justify-center p-4 bg-black/95 backdrop-blur-sm">
+            <div className="bg-white rounded-2xl shadow-xl w-full max-w-sm overflow-hidden relative z-[10000]">
+              <div className="px-6 py-4 border-b border-neutral-100 flex items-center justify-between">
+                <h3 className="font-bold text-lg text-textPrimary">Edit User Role</h3>
+                <button onClick={() => setEditingUser(null)} className="text-neutral-400 hover:text-neutral-600"><IoCloseCircle size={24} /></button>
               </div>
-              <div>
-                <label className="text-neutral-500 block mb-1">Role:</label>
-                <select className="input w-full" value={newRole} onChange={e => setNewRole(e.target.value)}>
-                  <option value="student">Student</option>
-                  <option value="instructor">Instructor</option>
-                  <option value="branch_admin">Branch Admin</option>
-                  <option value="branch_management">Branch Management</option>
-                  <option value="super_management">Super Management</option>
-                  <option value="super_admin">Super Admin</option>
-                </select>
-              </div>
-              <div className="flex gap-3 pt-2">
-                <button
-                  onClick={() => setEditingUser(null)}
-                  className="flex-1 px-4 py-2 bg-neutral-100 text-neutral-700 font-semibold rounded-xl hover:bg-neutral-200 transition-colors"
-                >
-                  Cancel
-                </button>
-                <button
-                  onClick={handleRoleUpdate}
-                  disabled={roleUpdating || newRole === editingUser.role}
-                  className="flex-1 px-4 py-2 bg-blue-600 text-white font-semibold rounded-xl hover:bg-blue-700 transition-colors disabled:opacity-50"
-                >
-                  {roleUpdating ? 'Saving...' : 'Save Role'}
-                </button>
+              <div className="p-6 space-y-4 text-sm">
+                <div>
+                  <label className="text-neutral-500 block mb-1">User:</label>
+                  <div className="font-semibold">{editingUser.name}</div>
+                </div>
+                <div>
+                  <label className="text-neutral-500 block mb-1">Role:</label>
+                  <select className="input w-full" value={newRole} onChange={e => setNewRole(e.target.value)}>
+                    <option value="student">Student</option>
+                    <option value="instructor">Instructor</option>
+                    <option value="branch_admin">Branch Admin</option>
+                    <option value="branch_management">Branch Management</option>
+                    <option value="super_management">Super Management</option>
+                    <option value="super_admin">Super Admin</option>
+                  </select>
+                </div>
+                <div className="flex gap-3 pt-2">
+                  <button
+                    onClick={() => setEditingUser(null)}
+                    className="flex-1 px-4 py-2 bg-neutral-100 text-neutral-700 font-semibold rounded-xl hover:bg-neutral-200 transition-colors"
+                  >
+                    Cancel
+                  </button>
+                  <button
+                    onClick={handleRoleUpdate}
+                    disabled={roleUpdating || newRole === editingUser.role}
+                    className="flex-1 px-4 py-2 bg-blue-600 text-white font-semibold rounded-xl hover:bg-blue-700 transition-colors disabled:opacity-50"
+                  >
+                    {roleUpdating ? 'Saving...' : 'Save Role'}
+                  </button>
+                </div>
               </div>
             </div>
           </div>
-        </div>
-      )}
+        )}
+      </Portal>
     </div>
   );
 }

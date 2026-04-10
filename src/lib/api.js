@@ -1,5 +1,6 @@
 import axios from "axios";
-import { getSession } from "next-auth/react";
+import { getSession, signOut } from "next-auth/react";
+import toast from "react-hot-toast";
 
 const api = axios.create({
   baseURL: process.env.NEXT_PUBLIC_API_URL || "http://localhost:5000/api",
@@ -43,8 +44,24 @@ api.interceptors.request.use(async (config) => {
 api.interceptors.response.use(
   (response) => response,
   (error) => {
+    const status = error?.response?.status;
     const message = error?.response?.data?.message || "Something went wrong.";
-    console.error("[API Error]", message, error?.response?.status);
+
+    if (status === 403) {
+      toast.error("Access Denied: You don't have permission for this action.");
+    } else if (status === 401) {
+      // If we get a 401, the session is likely invalid. 
+      // We don't want to alert on public login pages though.
+      const isLoginPage = typeof window !== "undefined" && window.location.pathname.includes("/login");
+      if (!isLoginPage) {
+        toast.error("Session expired. Please sign in again.");
+        // signOut({ callbackUrl: '/login' }); // Uncomment to force logout on all 401s
+      }
+    } else if (status >= 500) {
+      toast.error("Server error. Please try again later.");
+    }
+
+    console.error("[API Error]", message, status);
     return Promise.reject(error);
   },
 );

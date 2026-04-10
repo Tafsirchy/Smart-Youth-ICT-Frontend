@@ -6,7 +6,10 @@ import { useRouter } from "next/navigation";
 import { useLocale } from "next-intl";
 
 const redirectMap = {
+  super_admin: "super",
   admin: "admin",
+  branch_admin: "admin",
+  branch_management: "admin",
   instructor: "instructor",
   student: "student",
 };
@@ -24,8 +27,29 @@ export default function AuthRedirectPage() {
       return;
     }
 
-    const role = session?.user?.role || "student";
-    router.replace(`/${locale}/${redirectMap[role] || "student"}`);
+    const { role, branchId } = session?.user || {};
+    const path = redirectMap[role];
+
+    if (!path) {
+      console.error("[AuthRedirect] Invalid or missing role:", role);
+      router.replace(`/${locale}/login?error=invalid_role`);
+      return;
+    }
+
+    // Super Admin goes to global dashboard
+    if (role === "super_admin") {
+      router.replace(`/${locale}/super`);
+      return;
+    }
+
+    // Other roles are branch-scoped and require a branchId
+    if (!branchId) {
+      console.error("[AuthRedirect] Missing branchId for role:", role);
+      router.replace(`/${locale}/login?error=missing_branch`);
+      return;
+    }
+
+    router.replace(`/${locale}/${branchId}/${path}`);
   }, [locale, router, session, status]);
 
   return (

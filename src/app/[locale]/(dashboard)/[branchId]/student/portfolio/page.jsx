@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import Portal from '@/components/ui/Portal';
 import { 
   HiOutlineUserCircle, HiOutlineLink, HiOutlineBriefcase, 
   HiOutlineCheck, HiOutlinePlus, HiOutlinePencilAlt, HiOutlineTrash,
@@ -259,14 +260,15 @@ export default function PortfolioBuilderPage() {
       </div>
 
       {/* PROJECT CRUD MODAL */}
-      <AnimatePresence>
-        {isModalOpen && (
-          <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50 backdrop-blur-sm">
+      <Portal>
+        <AnimatePresence>
+          {isModalOpen && (
+            <div className="fixed inset-0 z-[9999] flex items-center justify-center p-4 bg-black/95 backdrop-blur-sm">
             <motion.div 
               initial={{ opacity: 0, scale: 0.95 }} 
               animate={{ opacity: 1, scale: 1 }} 
               exit={{ opacity: 0, scale: 0.95 }}
-              className="bg-white rounded-3xl shadow-2xl w-full max-w-lg overflow-hidden"
+              className="bg-white rounded-3xl shadow-2xl w-full max-w-lg overflow-hidden relative z-[10000]"
             >
               <div className="p-6 border-b border-neutral-100 flex justify-between items-center">
                 <h3 className="text-xl font-bold">{editingProject ? 'Edit Project' : 'Add New Project'}</h3>
@@ -301,7 +303,8 @@ export default function PortfolioBuilderPage() {
             </motion.div>
           </div>
         )}
-      </AnimatePresence>
+        </AnimatePresence>
+      </Portal>
     </div>
   );
 }

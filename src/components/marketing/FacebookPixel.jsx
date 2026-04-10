@@ -8,7 +8,8 @@ export default function FacebookPixel() {
   const pathname = usePathname();
 
   useEffect(() => {
-    if (!pixelId || typeof window === 'undefined') return;
+    // Skip if no ID, or if ID is a placeholder (XXXXXXXX)
+    if (!pixelId || pixelId.includes('X') || typeof window === 'undefined') return;
 
     // Inject FB Pixel base code once
     if (!window.fbq) {
