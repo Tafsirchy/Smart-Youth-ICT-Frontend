@@ -1,186 +1,439 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { 
-  IoBusinessOutline, 
-  IoFlashOutline, 
-  IoShieldCheckmarkOutline, 
-  IoAnalyticsOutline, 
-  IoDesktopOutline, 
-  IoGlobeOutline 
+import Link from "next/link";
+import {
+  IoBusinessOutline,
+  IoFlashOutline,
+  IoAnalyticsOutline,
+  IoShieldCheckmarkOutline,
+  IoCheckmarkCircleOutline,
+  IoRocketOutline,
+  IoBriefcaseOutline,
+  IoCubeOutline,
+  IoStatsChartOutline,
+  IoGlobeOutline,
+  IoGitNetworkOutline,
 } from "react-icons/io5";
 
-const verticalClassifications = [
+const verticalArchitecture = [
   {
     title: "Startup & SaaS",
-    desc: "Speed and conversion. Highly aggressive layouts built to explain your product and move visitors into your trial funnel immediately.",
+    desc: "Built for speed and conversion. We engineer aggressive growth funnels designed to turn traffic into trial users instantly.",
     icon: <IoRocketOutline />,
-    color: "from-indigo-500 to-blue-500"
+    color: "from-blue-600 to-indigo-600",
+    border: "border-blue-500/20",
   },
   {
     title: "Enterprise Corporate",
-    desc: "Scale and reliability. Structured, massive websites designed to communicate authority, investor relations, and deep brand value.",
+    desc: "Stability and brand authority. High-security, multi-lingual architectures designed for investor relations and global presence.",
     icon: <IoBusinessOutline />,
-    color: "from-blue-700 to-slate-900"
+    color: "from-slate-700 to-slate-900",
+    border: "border-slate-500/20",
   },
   {
-    title: "Agency & Service",
-    desc: "Visual storytelling and trust. Showcase your services and portfolio with elegant typography and lead-qualified contact flows.",
+    title: "Professional Agency",
+    desc: "Service-centric storytelling. We build elegant lead-generation hubs designed to showcase expertise and qualify high-value clients.",
     icon: <IoBriefcaseOutline />,
-    color: "from-rose-500 to-pink-500"
-  }
+    color: "from-cyan-600 to-blue-500",
+    border: "border-cyan-500/20",
+  },
 ];
 
-const engineFeatures = [
-  { t: "SEO First Architecture", d: "Schema markup, micro-data, and semantic HTML built directly into the core code." },
-  { t: "High-Speed CDN Edge", d: "Global edge delivery via Vercel for 100ms first-contentful paint worldwide." },
-  { t: "Conversion Optimized", d: "A/B testing ready funnels designed to maximize your return on ad spend." }
+const ecosystemIntegration = [
+  {
+    t: "CRM Sync",
+    d: "HubSpot, Salesforce, Zoho integration.",
+    icon: <IoGitNetworkOutline />,
+  },
+  {
+    t: "Payment Gateways",
+    d: "Stripe, SSLCommerz, PayPal native.",
+    icon: <IoGlobeOutline />,
+  },
+  {
+    t: "Marketing Automations",
+    d: "Mailchimp, Resend, Meta Pixel.",
+    icon: <IoAnalyticsOutline />,
+  },
+  {
+    t: "Uptime Shield",
+    d: "24/7 Monitoring & DDoS protection.",
+    icon: <IoShieldCheckmarkOutline />,
+  },
 ];
-
-import { IoRocketOutline, IoBriefcaseOutline } from "react-icons/io5";
 
 export default function BusinessWebsitesPage() {
   return (
-    <section className="min-h-screen bg-slate-900 overflow-hidden relative">
-      <div className="absolute top-0 right-0 w-[800px] h-[800px] bg-blue-600/10 rounded-full blur-[120px] pointer-events-none -z-10"></div>
-      
-      {/* Hero Section */}
-      <div className="container-custom pt-32 pb-20 relative z-10">
-         <div className="grid lg:grid-cols-2 gap-20 items-center">
-            <div className="max-w-2xl">
-               <motion.div
-                 initial={{ opacity: 0, x: -20 }}
-                 animate={{ opacity: 1, x: 0 }}
-                 className="inline-flex items-center gap-2 px-5 py-2 rounded-full bg-blue-500/10 text-blue-400 text-xs font-black tracking-widest uppercase mb-8 border border-blue-500/30"
-               >
-                 Corporate Scaling
-               </motion.div>
-               <motion.h1
-                 initial={{ opacity: 0, x: -20 }}
-                 animate={{ opacity: 1, x: 0 }}
-                 transition={{ delay: 0.1 }}
-                 className="text-5xl md:text-6xl lg:text-8xl font-black text-white leading-[0.9] mb-8 tracking-tighter"
-               >
-                 Business <br/> <span className="text-blue-500">Engines.</span>
-               </motion.h1>
-               <motion.p
-                 initial={{ opacity: 0, x: -20 }}
-                 animate={{ opacity: 1, x: 0 }}
-                 transition={{ delay: 0.2 }}
-                 className="text-slate-400 text-xl md:text-2xl font-light leading-relaxed mb-12"
-               >
-                 A general website isn't enough. We build conversion-first business engines that generate leads, establish immense trust, and look spectacular globally.
-               </motion.p>
-               
-               <div className="flex flex-col sm:flex-row gap-4">
-                  <button className="px-10 py-5 bg-blue-600 text-white font-black rounded-full hover:scale-105 transition-transform shadow-2xl uppercase tracking-widest text-sm">
-                    Build My Business Site
-                  </button>
-                  <button className="px-10 py-5 bg-white/5 border border-white/10 text-white font-black rounded-full hover:bg-white/10 transition-colors uppercase tracking-widest text-sm">
-                    View Portfolio Case
-                  </button>
-               </div>
-            </div>
+    <section className="min-h-screen bg-[#020617] text-white selection:bg-blue-600 overflow-hidden relative">
+      {/* INDUSTRIAL DECORATION */}
+      <div className="absolute top-0 left-0 w-full h-full pointer-events-none -z-10 opacity-30">
+        <div className="absolute top-0 left-1/4 w-[1px] h-full bg-blue-500/10 hidden lg:block"></div>
+        <div className="absolute top-0 right-1/4 w-[1px] h-full bg-blue-500/10 hidden lg:block"></div>
+        <div className="absolute top-1/2 left-0 w-full h-[1px] bg-blue-500/10"></div>
+        <div className="absolute top-0 right-[-100px] w-[600px] h-[600px] bg-blue-600/10 rounded-full blur-[160px]"></div>
+      </div>
 
-            {/* Graphic Right - Enhanced Browser Mockup */}
+      <div className="container-custom py-24 relative">
+        {/* INDUSTRIAL HERO SECTION */}
+        <div className="flex flex-col lg:flex-row items-center gap-20 mb-48 pt-10">
+          <div className="flex-1 text-left">
             <motion.div
-              initial={{ opacity: 0, scale: 0.8 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 1 }}
-              className="relative hidden lg:block perspective-1000"
+              initial={{ opacity: 0, x: -20 }}
+              animate={{ opacity: 1, x: 0 }}
+              className="inline-flex items-center gap-2 px-5 py-2 rounded-lg bg-blue-600/10 border border-blue-500/20 text-blue-400 text-[10px] font-black tracking-[0.4em] uppercase mb-10"
             >
-               <div className="w-full h-[600px] bg-slate-800 rounded-3xl border border-white/10 shadow-[0_50px_100px_rgba(0,0,0,0.5)] overflow-hidden flex flex-col transform rotate-y-[-10deg] rotate-x-[5deg]">
-                  <div className="h-12 bg-slate-900 border-b border-white/10 flex items-center px-6 gap-2">
-                     <div className="flex gap-2">
-                        <div className="w-3 h-3 rounded-full bg-rose-500"></div>
-                        <div className="w-3 h-3 rounded-full bg-amber-500"></div>
-                        <div className="w-3 h-3 rounded-full bg-emerald-500"></div>
-                     </div>
-                     <div className="mx-auto w-1/2 h-5 bg-slate-800 rounded-lg flex items-center justify-center text-[8px] text-slate-500 uppercase tracking-widest">https://yourbusiness.com</div>
-                  </div>
-                  <div className="flex-1 bg-white p-12 overflow-hidden relative">
-                    <div className="absolute top-0 right-0 w-32 h-32 bg-blue-100 rounded-full blur-[50px] opacity-20"></div>
-                    <div className="w-40 h-8 bg-slate-200 rounded mb-12"></div>
-                    <div className="w-full h-16 bg-slate-900 rounded-xl mb-6"></div>
-                    <div className="w-3/4 h-16 bg-slate-900 rounded-xl mb-12"></div>
-                    <div className="w-40 h-14 bg-blue-600 rounded-full mb-20 animate-pulse"></div>
-                    <div className="grid grid-cols-3 gap-6">
-                       <div className="h-32 bg-slate-100 rounded-2xl"></div>
-                       <div className="h-32 bg-slate-100 rounded-2xl"></div>
-                       <div className="h-32 bg-slate-100 rounded-2xl"></div>
-                    </div>
-                  </div>
-               </div>
-               
-               {/* Floating elements for depth */}
-               <motion.div 
-                 animate={{ y: [0, -20, 0] }} transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
-                 className="absolute -right-10 top-20 w-48 p-6 bg-slate-900 border border-white/20 rounded-2xl shadow-2xl z-20"
-               >
-                  <p className="text-[10px] text-blue-400 font-black uppercase mb-2">Growth Rate</p>
-                  <p className="text-3xl font-black text-white">+114%</p>
-               </motion.div>
+              <IoCubeOutline className="text-sm" /> Architecture for Scale
             </motion.div>
-         </div>
-      </div>
 
-      {/* Classifications Section */}
-      <div className="bg-slate-950 py-32 border-t border-white/5 relative">
-         <div className="container-custom">
-            <h2 className="text-4xl lg:text-5xl font-black text-white text-center mb-24 tracking-tighter">Business Sector Classifications.</h2>
-            <div className="grid lg:grid-cols-3 gap-12 max-w-6xl mx-auto">
-               {verticalClassifications.map((item, i) => (
-                  <motion.div 
-                    key={i} 
-                    initial={{ opacity: 0, y: 30 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ delay: i * 0.1 }}
-                    className="p-10 bg-white/5 border border-white/10 rounded-[2.5rem] relative overflow-hidden group hover:bg-white/10 transition-all"
+            <motion.h1
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, ease: "circOut" }}
+              className="text-6xl md:text-8xl lg:text-[10rem] font-black leading-[0.8] mb-12 tracking-tighter"
+            >
+              Business <br /> <span className="text-blue-500">Engines.</span>
+            </motion.h1>
+
+            <motion.p
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 0.4 }}
+              className="text-slate-400 text-xl md:text-3xl font-light leading-relaxed max-w-2xl mb-12"
+            >
+              We don't just build websites; we engineer{" "}
+              <span className="text-white font-bold underline decoration-blue-500 decoration-2 underline-offset-8">
+                conversion assets
+              </span>{" "}
+              that amplify your brand’s authority and operational efficiency
+              globally.
+            </motion.p>
+
+            <div className="flex flex-wrap gap-6">
+              <button className="px-12 py-6 bg-blue-600 text-white font-black rounded-xl hover:bg-blue-700 transition-all shadow-2xl shadow-blue-600/20 uppercase tracking-widest text-xs">
+                Initialize Project
+              </button>
+              <Link
+                href="/services/business-websites/details"
+                className="px-12 py-6 bg-white/5 border border-white/10 text-white font-black rounded-xl hover:bg-white/10 transition-all uppercase tracking-widest text-xs flex items-center justify-center"
+              >
+                Technical Specifications
+              </Link>
+            </div>
+          </div>
+
+          <div className="flex-1 relative hidden lg:block">
+            <motion.div
+              initial={{ opacity: 0, scale: 0.9, rotateY: -10 }}
+              animate={{ opacity: 1, scale: 1, rotateY: 0 }}
+              transition={{ duration: 1 }}
+              className="relative perspective-2000"
+            >
+              <div className="bg-slate-900 rounded-[3rem] p-4 border border-white/10 shadow-[0_50px_100px_rgba(0,0,0,0.8)] overflow-hidden scale-110">
+                <img
+                  src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=1000&h=800&fit=crop"
+                  className="w-full h-full object-cover rounded-[2.5rem] opacity-60 grayscale hover:grayscale-0 transition-all duration-1000"
+                  alt="Business Analytics"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-[#020617] via-transparent to-transparent flex flex-col justify-end p-12">
+                  <p className="text-blue-500 font-black text-2xl tracking-tighter uppercase">
+                    Operational Excellence.
+                  </p>
+                  <p className="text-slate-400 font-light">
+                    Engineered by SYICT Architects.
+                  </p>
+                </div>
+              </div>
+
+              {/* Floating Metric Card */}
+              <motion.div
+                animate={{ y: [0, -20, 0] }}
+                transition={{
+                  duration: 4,
+                  repeat: Infinity,
+                  ease: "easeInOut",
+                }}
+                className="absolute -right-10 top-20 bg-[#020617] p-8 rounded-3xl border border-blue-500/30 shadow-2xl"
+              >
+                <IoStatsChartOutline className="text-blue-500 text-3xl mb-4" />
+                <p className="text-4xl font-black text-white">+118%</p>
+                <p className="text-[10px] font-black uppercase text-slate-500 tracking-widest">
+                  Lead Gen Lift
+                </p>
+              </motion.div>
+            </motion.div>
+          </div>
+        </div>
+
+        {/* CONTRAST: LEGACY VS ENGINE */}
+        <div className="mb-48 relative">
+          <div className="grid lg:grid-cols-2 gap-1 px-8 lg:px-0 bg-white/5 border border-white/10 rounded-[4rem] overflow-hidden">
+            <div className="p-16 border-r border-white/10 group cursor-default">
+              <h4 className="text-[10px] font-black text-slate-500 uppercase tracking-widest mb-10">
+                The Legacy Site
+              </h4>
+              <div className="space-y-8 opacity-40 group-hover:opacity-60 transition-opacity">
+                <p className="text-3xl font-bold text-slate-500 leading-tight">
+                  Fragmented visual identity and slow infrastructure.
+                </p>
+                <div className="h-2 w-full bg-slate-800 rounded-full"></div>
+                <p className="text-sm font-light text-slate-600">
+                  Average Load Time: 4.8s
+                </p>
+                <p className="text-sm font-light text-slate-600 tracking-widest">
+                  CONVERSION: 0.8%
+                </p>
+              </div>
+            </div>
+            <div className="p-16 bg-blue-600/5 relative overflow-hidden group cursor-default">
+              <div className="absolute top-0 right-0 p-12 text-blue-500 opacity-10 text-9xl font-black uppercase tracking-widest select-none">
+                ENGINE
+              </div>
+              <h4 className="text-[10px] font-black text-blue-500 uppercase tracking-widest mb-10">
+                The SYICT Engine
+              </h4>
+              <div className="space-y-8 relative z-10">
+                <p className="text-3xl font-black text-white leading-tight">
+                  Cohesive architecture designed for conversion and speed.
+                </p>
+                <div className="h-2 w-full bg-blue-600 rounded-full relative overflow-hidden">
+                  <motion.div
+                    initial={{ width: 0 }}
+                    whileInView={{ width: "100%" }}
+                    transition={{ duration: 2 }}
+                    className="absolute h-full bg-blue-400 shadow-[0_0_20px_rgba(96,165,250,0.5)]"
+                  />
+                </div>
+                <p className="text-sm font-bold text-blue-400 uppercase tracking-widest">
+                  Average Load Time: 0.4s (Edge)
+                </p>
+                <p className="text-sm font-black text-white tracking-[0.4em] uppercase">
+                  CONVERSION: 4.2%
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* BUSINESS SECTOR ARCHITECTURE */}
+        <div className="mb-48">
+          <div className="flex flex-col md:flex-row justify-between items-end mb-24 gap-8 border-l-4 border-blue-600 pl-8">
+            <div className="max-w-xl">
+              <h2 className="text-[10px] font-black text-blue-500 uppercase tracking-[0.4em] mb-4">
+                Vertical Specializations
+              </h2>
+              <p className="text-4xl md:text-6xl font-black text-white leading-tight">
+                Architecture built for your{" "}
+                <span className="text-slate-600 italic font-serif font-light">
+                  Specific Industry.
+                </span>
+              </p>
+            </div>
+            <p className="text-slate-500 max-w-xs font-light text-lg">
+              We create custom blueprints for different business cycles and
+              maturity stages.
+            </p>
+          </div>
+
+          <div className="grid lg:grid-cols-3 gap-8">
+            {verticalArchitecture.map((item, i) => (
+              <motion.div
+                key={i}
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: i * 0.1 }}
+                className="group relative"
+              >
+                <div
+                  className={`bg-white/5 rounded-[3rem] p-12 h-full border ${item.border} hover:bg-white/10 transition-all duration-500 group-hover:-translate-y-2 relative overflow-hidden`}
+                >
+                  <div
+                    className={`w-14 h-14 rounded-2xl bg-gradient-to-br ${item.color} text-white flex items-center justify-center text-3xl mb-10 shadow-2xl`}
                   >
-                     <div className={`absolute top-0 left-0 w-full h-2 bg-gradient-to-r ${item.color} opacity-40 group-hover:opacity-100 transition-opacity`}></div>
-                     <div className="text-4xl text-white mb-8 group-hover:scale-110 transition-transform w-16 h-16 bg-white/5 rounded-2xl flex items-center justify-center border border-white/10">
-                        {item.icon}
-                     </div>
-                     <h3 className="text-2xl font-black text-white mb-4">{item.title}</h3>
-                     <p className="text-slate-400 font-light leading-relaxed text-lg">{item.desc}</p>
-                  </motion.div>
-               ))}
-            </div>
-         </div>
-      </div>
-
-      {/* Leads Engine Detailed Features */}
-      <div className="container-custom py-32">
-         <div className="max-w-6xl mx-auto flex flex-col md:flex-row gap-20 items-center">
-            <div className="flex-1">
-               <h2 className="text-5xl font-black text-white leading-tight mb-8">Built for <br/><span className="text-blue-500">Unfair Advantage.</span></h2>
-               <div className="space-y-10">
-                  {engineFeatures.map((feat, i) => (
-                     <div key={i} className="space-y-2">
-                        <h4 className="text-xl font-bold text-white flex items-center gap-3">
-                           <IoFlashOutline className="text-blue-500" /> {feat.t}
-                        </h4>
-                        <p className="text-slate-400 font-light leading-relaxed pl-8">{feat.d}</p>
-                     </div>
-                  ))}
-               </div>
-            </div>
-            
-            <div className="flex-1 grid grid-cols-2 gap-4">
-               {[
-                 { v: "100ms", l: "Edge Speed" },
-                 { v: "GDPR", l: "Compliant" },
-                 { v: "24/7", l: "Uptime" },
-                 { v: "Next.js", l: "Native Stack" }
-               ].map((stat, idx) => (
-                  <div key={idx} className="bg-white/5 border border-white/10 p-10 rounded-[2rem] text-center">
-                     <p className="text-3xl font-black text-white mb-1 uppercase tracking-tight">{stat.v}</p>
-                     <p className="text-[10px] font-black text-slate-500 uppercase tracking-widest">{stat.l}</p>
+                    {item.icon}
                   </div>
-               ))}
+                  <h3 className="text-2xl font-black text-white mb-4">
+                    {item.title}
+                  </h3>
+                  <p className="text-slate-400 leading-relaxed font-light mb-8 text-lg">
+                    {item.desc}
+                  </p>
+                  <div className="flex items-center gap-3 text-[10px] font-black text-blue-500 uppercase tracking-widest opacity-0 group-hover:opacity-100 transition-opacity">
+                    Blueprint Details <IoGlobeOutline className="text-lg" />
+                  </div>
+                  <div className="absolute inset-x-0 bottom-0 h-1 bg-gradient-to-r from-transparent via-blue-500/40 to-transparent"></div>
+                </div>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+
+        {/* ECOSYSTEM INTEGRATIONS (Bento Box) */}
+        <div className="bg-white/5 rounded-[4rem] p-8 lg:p-20 border border-white/10 mb-48 overflow-hidden relative">
+          <div className="grid lg:grid-cols-3 gap-12 relative z-10">
+            <div className="lg:col-span-1">
+              <h2 className="text-4xl font-black text-white mb-6">
+                A Unified <br />
+                <span className="text-blue-500">Ecosystem.</span>
+              </h2>
+              <p className="text-slate-400 font-light leading-relaxed text-lg mb-8">
+                We don't build in isolation. Our engines integrate natively with
+                the world’s leading business tools.
+              </p>
+              <div className="flex items-center gap-4 text-sm font-black text-slate-600 uppercase tracking-widest">
+                <span className="w-12 h-[1px] bg-slate-800"></span> API First
+                Architecture
+              </div>
             </div>
-         </div>
+
+            <div className="lg:col-span-2 grid sm:grid-cols-2 gap-6">
+              {ecosystemIntegration.map((item, idx) => (
+                <div
+                  key={idx}
+                  className="p-8 bg-black/40 rounded-[2.5rem] border border-white/5 hover:border-blue-500/40 transition-all flex items-start gap-6"
+                >
+                  <div className="text-3xl text-blue-500 shrink-0 mt-1">
+                    {item.icon}
+                  </div>
+                  <div>
+                    <h4 className="font-bold text-white mb-2">{item.t}</h4>
+                    <p className="text-sm text-slate-500 font-light leading-relaxed">
+                      {item.d}
+                    </p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* Background Grid Accent */}
+          <div
+            className="absolute inset-0 opacity-5 pointer-events-none"
+            style={{
+              backgroundImage:
+                "radial-gradient(circle, #3b82f6 1px, transparent 1px)",
+              backgroundSize: "40px 40px",
+            }}
+          ></div>
+        </div>
+
+        {/* CORPORATE SERVICE TIERS */}
+        <div className="mb-48 text-center pt-20 border-t border-white/5">
+          <div className="max-w-2xl mx-auto mb-20 text-center">
+            <h2 className="text-[10px] font-black text-blue-500 uppercase tracking-[0.4em] mb-4">
+              Pricing Architecture
+            </h2>
+            <p className="text-4xl md:text-6xl font-black text-white leading-tight">
+              Select your{" "}
+              <span className="text-slate-600">investment tier.</span>
+            </p>
+          </div>
+
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto text-left">
+            {[
+              {
+                t: "Standard Business",
+                p: "$1499",
+                list: [
+                  "SME Focused Strategy",
+                  "100ms Edge Load",
+                  "Mobile Responsive Architecture",
+                  "Core SEO Pack",
+                  "24/7 Security Shield",
+                ],
+                color: "slate",
+              },
+              {
+                t: "Growth Pro",
+                p: "$3499",
+                list: [
+                  "CRM Flow Integration",
+                  "A/B Conversion Testing",
+                  "Multi-Language Support",
+                  "Advanced ROI Dashboard",
+                  "Dedicated Architect Access",
+                ],
+                color: "blue",
+                highlight: true,
+              },
+              {
+                t: "Enterprise Suite",
+                p: "Custom",
+                list: [
+                  "Custom API Integrations",
+                  "Multi-Vendor Marketplaces",
+                  "Whitelabel Design Flow",
+                  "Dedicated SLA Support",
+                  "Legacy Data Migration",
+                ],
+                color: "indigo",
+              },
+            ].map((tier, idx) => (
+              <div
+                key={idx}
+                className={`bg-white/5 rounded-[3.5rem] p-12 border ${tier.highlight ? "border-blue-500 bg-blue-600/5 -translate-y-4 shadow-2xl shadow-blue-500/10" : "border-white/10"} flex flex-col h-full relative transition-all group`}
+              >
+                {tier.highlight && (
+                  <div className="absolute top-0 right-0 bg-blue-500 text-white text-[10px] font-black uppercase tracking-widest px-8 py-2 rounded-bl-3xl">
+                    Peak ROI
+                  </div>
+                )}
+                <h4 className="text-2xl font-black text-white mb-2">
+                  {tier.t}
+                </h4>
+                <p className="text-5xl font-black text-white mb-10">{tier.p}</p>
+
+                <div className="space-y-5 mb-12 flex-1">
+                  {tier.list.map((item) => (
+                    <div
+                      key={item}
+                      className="flex gap-3 items-center text-slate-400 font-light text-sm"
+                    >
+                      <IoCheckmarkCircleOutline className="text-blue-500 text-lg shrink-0" />{" "}
+                      {item}
+                    </div>
+                  ))}
+                </div>
+
+                <button
+                  className={`w-full py-5 rounded-2xl font-black uppercase tracking-widest text-[10px] transition-all shadow-2xl ${tier.highlight ? "bg-blue-600 text-white shadow-blue-600/30" : "bg-white/10 text-white hover:bg-blue-600"}`}
+                >
+                  Initialize {tier.t}
+                </button>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* FINAL INDUSTRIAL CTA */}
+        <div className="text-center py-40 bg-white/5 rounded-[5rem] relative overflow-hidden group">
+          <div className="absolute inset-0 bg-blue-600 opacity-0 group-hover:opacity-5 transition-opacity pointer-events-none"></div>
+          <motion.div
+            initial={{ opacity: 0, scale: 0.95 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            className="max-w-4xl mx-auto px-6"
+          >
+            <IoBusinessOutline className="text-7xl text-blue-500 mb-10 mx-auto opacity-20" />
+            <h3 className="text-5xl lg:text-7xl font-black text-white mb-12 leading-tight">
+              Ready to activate your <br />
+              <span className="text-blue-500 font-serif italic font-light opacity-80">
+                Online Engine?
+              </span>
+            </h3>
+            <div className="flex flex-col sm:flex-row gap-6 justify-center">
+              <button className="px-12 py-6 bg-blue-600 text-white font-black rounded-xl hover:bg-blue-700 transition-all shadow-2xl shadow-blue-600/40 uppercase tracking-widest text-xs">
+                Start Business Brief
+              </button>
+              <Link
+                href="/services/business-websites/details"
+                className="px-12 py-6 bg-white/5 border border-white/10 text-white font-black rounded-xl hover:bg-white/10 transition-all uppercase tracking-widest text-xs flex items-center justify-center"
+              >
+                Technical Specifications
+              </Link>
+            </div>
+          </motion.div>
+        </div>
       </div>
     </section>
   );
