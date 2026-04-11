@@ -1,20 +1,24 @@
 import axios from "axios";
 import { getSession, signOut } from "next-auth/react";
 import toast from "react-hot-toast";
+import Cookies from "js-cookie";
 
-const api = axios.create({
-  baseURL: process.env.NEXT_PUBLIC_API_URL || "http://localhost:5000/api",
-  headers: { "Content-Type": "application/json" },
-  timeout: 15000,
-});
+const API_BASE_URL =
+  process.env.NEXT_PUBLIC_API_URL || "http://localhost:5000/api";
 
 const PUBLIC_AUTH_PATHS = new Set([
-  "/auth/register",
   "/auth/login",
-  "/auth/google",
+  "/auth/register",
   "/auth/forgot-password",
   "/auth/reset-password",
 ]);
+
+const api = axios.create({
+  baseURL: API_BASE_URL,
+  headers: {
+    "Content-Type": "application/json",
+  },
+});
 
 // Attach JWT from NextAuth session on every request
 api.interceptors.request.use(async (config) => {
@@ -31,10 +35,12 @@ api.interceptors.request.use(async (config) => {
       session?.user?.token;
 
     if (accessToken) {
+      config.headers = config.headers || {};
       config.headers.Authorization = `Bearer ${accessToken}`;
     }
-  } catch {
+  } catch (err) {
     // If NextAuth isn't reachable yet, allow public API calls to proceed.
+    console.warn("[API Interceptor] Auth check failed", err.message);
   }
 
   return config;

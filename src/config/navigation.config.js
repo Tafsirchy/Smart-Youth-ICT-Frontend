@@ -47,6 +47,15 @@ export const NAVIGATION_CONFIG = {
     { href: '/super/finance',     Icon: HiCreditCard,   label: 'Global Finance'},
     { href: '/super/reports',     Icon: HiClipboardList,label: 'Audit Reports'},
   ],
+
+  about_cms: [
+    { href: '/super/cms/team',            Icon: HiUsers,        label: 'Core Management' },
+    { href: '/super/cms/advisory',        Icon: HiUserGroup,    label: 'Advisory Board' },
+    { href: '/super/cms/mentors',         Icon: HiAcademicCap,  label: 'Our Mentors' },
+    { href: '/super/cms/success-stories', Icon: HiBadgeCheck,    label: 'Success Stories' },
+    { href: '/super/cms/testimonials',    Icon: HiAnnotation,   label: 'Testimonials' },
+    { href: '/super/cms/partners',        Icon: HiCollection,   label: 'Our Partners' },
+  ],
 };
 
 export const SUPPORT_LINKS = [

@@ -419,12 +419,14 @@ export default function HeroSlider() {
                           Optimized for LCP: Initial slide images are marked for priority loading 
                           to prevent them from being queued behind other assets.
                         */}
-                        <img 
-                          src={slides[current].image} 
-                          alt="" 
-                          className="hidden" 
+                        <img
+                          src={slides[current].image}
+                          alt=""
+                          className="hidden"
                           sizes="(max-width: 768px) 100vw, 50vw"
-                          fetchpriority={slides[current].id === 1 ? "high" : "auto"}
+                          fetchPriority={
+                            slides[current].id === 1 ? "high" : "auto"
+                          }
                         />
                       </motion.div>
                     ))}
@@ -526,6 +528,8 @@ export default function HeroSlider() {
                           src={slides[current].image}
                           alt="Student"
                           fill
+                          sizes="(max-width: 768px) 90vw, (max-width: 1200px) 45vw, 520px"
+                          priority={slides[current].id === 2}
                           className="w-full h-full object-cover object-center"
                           wrapperClassName="w-full h-full"
                         />
@@ -616,6 +620,7 @@ export default function HeroSlider() {
                               src={slides[current].archImage}
                               alt="Student Left"
                               fill
+                              sizes="(max-width: 768px) 120px, 170px"
                               className="w-full h-full object-cover"
                               wrapperClassName="w-full h-full"
                             />
@@ -642,6 +647,7 @@ export default function HeroSlider() {
                               src={slides[current].image}
                               alt="Student Right"
                               fill
+                              sizes="(max-width: 768px) 120px, 170px"
                               className="w-full h-full object-cover"
                               wrapperClassName="w-full h-full"
                             />

@@ -12,6 +12,7 @@ import {
   IoCheckmarkCircle,
 } from "react-icons/io5";
 import { FaGoogle, FaWhatsapp } from "react-icons/fa";
+import toast from "react-hot-toast";
 
 const GOOGLE_AUTH_ENABLED =
   process.env.NEXT_PUBLIC_GOOGLE_AUTH_ENABLED === "true";
@@ -52,10 +53,13 @@ export default function LoginPage() {
     });
     setLoading(false);
     if (res?.ok) {
+      toast.success("Welcome back! Redirecting...");
       const session = await getSession();
       router.push(`/${locale}/`);
     } else {
-      setError(res?.error || "Invalid email or password. Please try again.");
+      const msg = res?.error || "Invalid email or password. Please try again.";
+      setError(msg);
+      toast.error(msg);
     }
   };
 

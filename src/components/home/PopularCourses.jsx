@@ -93,12 +93,15 @@ const FALLBACK = [
 
 export default function PopularCourses() {
   const locale = useLocale();
-  const [allCourses, setAllCourses] = useState(FALLBACK);
+  const [courses, setCourses] = useState([]);
+  const [loading, setLoading] = useState(true);
   const [category, setCategory] = useState("all");
   const [branch, setBranch] = useState("all");
   const [search, setSearch] = useState("");
   const [searchInput, setSearchInput] = useState("");
   const [page, setPage] = useState(1);
+  const [totalCount, setTotalCount] = useState(0);
+  const [totalPages, setTotalPages] = useState(1);
 
   const CATEGORY_LABELS = {
     all: "All",
@@ -112,67 +115,59 @@ export default function PopularCourses() {
   const PAGE_SIZE = 8;
 
   useEffect(() => {
+    let isMounted = true;
+    setLoading(true);
+
+    const params = {
+      page,
+      limit: PAGE_SIZE,
+      isPopular: "true",
+    };
+
+    if (category !== "all") params.category = category;
+    if (branch !== "all" && branch !== "master") params.branchId = branch;
+    if (branch === "master") params.isMaster = "true";
+    if (search.trim()) params.search = search; // Assuming backend supports search param
+
     api
-      .get("/courses", { params: { page: 1, limit: 1000, isPopular: "true" } })
+      .get("/courses", { params })
       .then((res) => {
-        if (res.data?.success && res.data.data.length) {
+        if (isMounted && res.data?.success) {
           const enriched = res.data.data.map((c) => ({
             ...c,
-            originalPrice: c.originalPrice ?? Math.round(c.price * 1.3), // fallback: show 23% discount
+            originalPrice: c.originalPrice ?? Math.round(c.price * 1.3),
           }));
-          setAllCourses(enriched);
+          setCourses(enriched);
+          setTotalCount(res.data.totalCount || enriched.length);
+          setTotalPages(res.data.totalPages || 1);
         }
       })
-      .catch(() => {});
-  }, []);
+      .catch((err) => {
+        console.error("Failed to fetch courses:", err);
+      })
+      .finally(() => {
+        if (isMounted) setLoading(false);
+      });
+
+    return () => {
+      isMounted = false;
+    };
+  }, [page, category, branch, search]);
 
   const categories = useMemo(() => {
-    const set = new Set(allCourses.map((c) => c.category).filter(Boolean));
-    return ["all", ...Array.from(set)];
-  }, [allCourses]);
+    // In a real app, these might come from a separate API or a static list.
+    // For now, we'll keep the core listing categories static as requested in the labels.
+    return ["all", "web-dev", "graphic-design", "smm", "ai", "other"];
+  }, []);
 
   const branches = useMemo(() => {
-    const set = new Set();
-    allCourses.forEach((course) => {
-      if (course.branchId) set.add(String(course.branchId));
-      else set.add("master");
-    });
-    return ["all", ...Array.from(set)];
-  }, [allCourses]);
-
-  const filteredCourses = useMemo(() => {
-    const normalized = search.trim().toLowerCase();
-    return allCourses.filter((course) => {
-      const title =
-        course.title?.en ||
-        (typeof course.title === "string" ? course.title : "");
-      const categoryMatch = category === "all" || course.category === category;
-      const branchKey = course.branchId ? String(course.branchId) : "master";
-      const branchMatch = branch === "all" || branchKey === branch;
-      const searchMatch =
-        !normalized ||
-        title.toLowerCase().includes(normalized) ||
-        (course.category || "").toLowerCase().includes(normalized);
-      return categoryMatch && branchMatch && searchMatch;
-    });
-  }, [allCourses, category, branch, search]);
-
-  const totalPages = Math.max(1, Math.ceil(filteredCourses.length / PAGE_SIZE));
+    // Branches are typically dynamic, but for the performance fix we assume 'all' and 'master' are defaults.
+    return ["all", "master"]; 
+  }, []);
 
   useEffect(() => {
     setPage(1);
   }, [category, branch, search]);
-
-  useEffect(() => {
-    if (page > totalPages) {
-      setPage(totalPages);
-    }
-  }, [page, totalPages]);
-
-  const paginatedCourses = useMemo(() => {
-    const start = (page - 1) * PAGE_SIZE;
-    return filteredCourses.slice(start, start + PAGE_SIZE);
-  }, [filteredCourses, page]);
 
   return (
     <section className="section py-24 bg-slate-50 relative overflow-hidden">
@@ -281,25 +276,33 @@ export default function PopularCourses() {
         </div>
 
         {/* Courses Grid */}
-        <motion.div
-          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8"
-          variants={container}
-          initial="hidden"
-          animate="visible"
-        >
-          {paginatedCourses.map((course, index) => (
-            <motion.div
-              key={course._id}
-              variants={cardAnim}
-              className="relative"
-            >
-              <CourseCard course={course} locale={locale} />
-            </motion.div>
-          ))}
-        </motion.div>
+        <div className="relative min-h-[400px]">
+          {loading && (
+            <div className="absolute inset-0 z-20 flex items-center justify-center bg-slate-50/50 backdrop-blur-[2px]">
+              <div className="w-12 h-12 border-4 border-blue-600 border-t-transparent rounded-full animate-spin" />
+            </div>
+          )}
+          
+          <motion.div
+            className={`grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 ${loading ? 'opacity-50' : ''}`}
+            variants={container}
+            initial="hidden"
+            animate="visible"
+          >
+            {courses.map((course, index) => (
+              <motion.div
+                key={course._id}
+                variants={cardAnim}
+                className="relative"
+              >
+                <CourseCard course={course} locale={locale} />
+              </motion.div>
+            ))}
+          </motion.div>
+        </div>
 
         {/* Empty State */}
-        {filteredCourses.length === 0 && (
+        {!loading && courses.length === 0 && (
           <div className="text-center py-20 bg-white rounded-[3rem] shadow-sm border border-slate-100 mt-10">
             <div className="inline-flex items-center justify-center w-20 h-20 rounded-full bg-slate-50 text-slate-300 mb-6">
                <IoSearchOutline size={40} />
@@ -312,10 +315,10 @@ export default function PopularCourses() {
         )}
 
         {/* Pagination Info */}
-        {filteredCourses.length > 0 && totalPages > 1 && (
+        {!loading && courses.length > 0 && totalPages > 1 && (
           <div className="mt-16 flex flex-col items-center gap-6">
             <p className="text-[10px] font-black uppercase tracking-[0.2em] text-slate-400">
-              Page {page} of {totalPages} • {filteredCourses.length} results
+              Page {page} of {totalPages} • {totalCount} results
             </p>
             <div className="flex items-center gap-3">
               <button

@@ -139,6 +139,17 @@ export default function Sidebar({ initialRole, initialUser }) {
             />
           )}
         </div>
+
+        {isSuperAdmin && (
+          <>
+            <div className="mt-10 text-[10px] font-black text-rose-500 uppercase tracking-[0.2em] px-4 mb-4">
+              About Us CMS
+            </div>
+            <div className="space-y-1.5">
+              {NAVIGATION_CONFIG.about_cms.map((item) => <NavItem key={item.href} {...item} />)}
+            </div>
+          </>
+        )}
       </div>
 
       {/* Bottom Actions */}
