@@ -1,50 +1,48 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import Link from "next/link";
 import { 
   IoServerOutline, 
   IoGlobeOutline, 
   IoSearchOutline, 
   IoFlashOutline, 
   IoShieldCheckmarkOutline, 
-  IoInfiniteOutline,
   IoHeadsetOutline,
   IoCheckmarkCircleOutline,
-  IoCloseCircleOutline
+  IoCloseCircleOutline,
+  IoHardwareChipOutline,
+  IoPulseOutline,
+  IoGitNetworkOutline,
+  IoSparklesOutline
 } from "react-icons/io5";
 
 const hostingPlans = [
   {
-    name: "Cloud Starter",
+    name: "Edge Starter",
     monthlyPrice: 5.99,
     annualPrice: 59.90,
-    desc: "Perfect for personal blogs and simple portfolio sites.",
-    features: ["1 Website", "10GB NVMe SSD", "Unmetered Bandwidth", "Free SSL Certificate", "Email Accounts (5)", "Standard Support"],
+    desc: "Optimized for personal portfolios and low-traffic structural sites.",
+    features: ["1 Domain", "10GB NVMe SSD", "Unmetered Data Flow", "Free SSL Gateway", "Tier-3 Support"],
     popular: false
   },
   {
-    name: "Business Pro",
+    name: "Enterprise Pro",
     monthlyPrice: 14.99,
     annualPrice: 149.90,
-    desc: "Optimized for high-traffic business sites and small e-commerce.",
-    features: ["Unlimited Websites", "100GB NVMe SSD", "LSCache Optimized", "Daily Backups", "Unlimited Emails", "Priority 24/7 Support"],
+    desc: "Engineered for high-vibration business environments and commerce.",
+    features: ["Unlimited Domains", "100GB NVMe SSD", "LSCache Protocol", "Daily Backups", "Priority 24/7 Access"],
     popular: true
   },
   {
-    name: "Enterprise VPS",
+    name: "Managed VPS",
     monthlyPrice: 49.99,
     annualPrice: 499.00,
-    desc: "Dedicated resources for massive scale and ultimate performance.",
-    features: ["Fully Managed VPS", "500GB NVMe SSD", "4 Core CPU / 8GB RAM", "Dedicated IP", "Root Access", "Dedicated Developer Support"],
+    desc: "Isolated server resources for ultimate operational sovereignty.",
+    features: ["Fully Managed Nodes", "500GB NVMe SSD", "4 Core / 8GB RAM", "Dedicated IP", "Root Shell Access"],
     popular: false
   }
-];
-
-const infraPillars = [
-  { title: "Pure NVMe SSD", desc: "Up to 50x faster read/write speeds than traditional SSDs.", icon: <IoFlashOutline /> },
-  { title: "Global CDN", desc: "Deliver content from the edge with zero-latency globally.", icon: <IoGlobeOutline /> },
-  { title: "24/7 Support", desc: "Real human engineers, not just chatbots, ready to assist.", icon: <IoHeadsetOutline /> }
 ];
 
 export default function HostingPage() {
@@ -56,117 +54,186 @@ export default function HostingPage() {
   const handleSearch = (e) => {
     e.preventDefault();
     if (!domainQuery) return;
-    
     setIsSearching(true);
-    setSearchResult(null);
-    
-    // Simulate API search
     setTimeout(() => {
-      const isAvailable = Math.random() > 0.3; // 70% chance of being available
+      const isAvailable = Math.random() > 0.3;
       setSearchResult({
         domain: domainQuery.includes(".") ? domainQuery : `${domainQuery}.com`,
         available: isAvailable,
         price: isAvailable ? "$12.99/yr" : null
       });
       setIsSearching(false);
-    }, 1500);
+    }, 1200);
   };
 
   return (
-    <section className="min-h-screen bg-slate-950 overflow-hidden relative font-sans lg:py-24">
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-blue-900/30 via-slate-950 to-slate-950 pointer-events-none -z-10"></div>
-      
-      <div className="container-custom pt-32 pb-20 relative z-10">
-        
-        {/* Domain Search Hero Section */}
-        <div className="max-w-4xl mx-auto text-center mb-24">
-          <motion.div
-            initial={{ opacity: 0, scale: 0.9 }}
-            animate={{ opacity: 1, scale: 1 }}
-            className="inline-flex items-center gap-2 px-5 py-2 rounded-full bg-blue-500/10 text-blue-400 text-xs font-black tracking-widest uppercase mb-8 border border-blue-500/20"
-          >
-            Launch Your Digital Home
-          </motion.div>
-          <motion.h1
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.1 }}
-            className="text-6xl md:text-8xl lg:text-9xl font-black text-white leading-[0.85] mb-8 tracking-tighter"
-          >
-            Domain & <br className="hidden md:block"/> <span className="text-blue-500">Hosting.</span>
-          </motion.h1>
-          
-          {/* Active Domain Search Engine */}
-          <div className="mt-16 max-w-3xl mx-auto relative group">
-             <div className="absolute -inset-1 bg-gradient-to-r from-blue-600 to-purple-600 rounded-[2rem] blur opacity-25 group-hover:opacity-50 transition duration-1000"></div>
-             <form onSubmit={handleSearch} className="relative bg-slate-900 border border-white/10 rounded-[2rem] p-3 flex flex-col sm:flex-row gap-4 items-center">
-                <div className="flex-1 flex items-center px-6 gap-4 w-full">
-                   <IoSearchOutline className="text-blue-500 text-2xl" />
-                   <input 
-                     type="text" 
-                     placeholder="Find your perfect domain (e.g. syict.com)" 
-                     className="bg-transparent border-none outline-none text-white w-full font-bold placeholder:text-slate-600"
-                     value={domainQuery}
-                     onChange={(e) => setDomainQuery(e.target.value)}
-                   />
-                </div>
-                <button 
-                  disabled={isSearching}
-                  className="bg-blue-600 text-white font-black px-10 py-4 rounded-full w-full sm:w-auto hover:bg-blue-500 transition-colors flex items-center justify-center gap-2"
-                >
-                   {isSearching ? <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin"></div> : "Search"}
-                </button>
-             </form>
-             
-             {/* Search Results Display */}
-             <AnimatePresence>
-                {searchResult && (
-                   <motion.div 
-                     initial={{ opacity: 0, y: 20 }}
-                     animate={{ opacity: 1, y: 0 }}
-                     exit={{ opacity: 0 }}
-                     className={`mt-6 p-6 rounded-2xl border flex items-center justify-between ${searchResult.available ? 'bg-emerald-500/10 border-emerald-500/30' : 'bg-rose-500/10 border-rose-500/30'}`}
-                   >
-                      <div className="flex items-center gap-4">
-                         {searchResult.available ? <IoCheckmarkCircleOutline className="text-emerald-500 text-3xl" /> : <IoCloseCircleOutline className="text-rose-500 text-3xl" />}
-                         <div className="text-left">
-                            <p className="text-white font-black text-xl">{searchResult.domain}</p>
-                            <p className={searchResult.available ? 'text-emerald-500 text-xs font-bold' : 'text-rose-500 text-xs font-bold'}>
-                               {searchResult.available ? 'Available for registration!' : 'Already taken by another user.'}
-                            </p>
-                         </div>
-                      </div>
-                      {searchResult.available && (
-                         <div className="flex items-center gap-4">
-                            <p className="text-white font-bold">{searchResult.price}</p>
-                            <button className="bg-emerald-500 text-black font-black px-6 py-2 rounded-full text-sm">Add to Cart</button>
-                         </div>
-                      )}
-                   </motion.div>
-                )}
-             </AnimatePresence>
+    <section className="min-h-screen bg-slate-50 text-slate-900 selection:bg-blue-600 selection:text-white overflow-hidden relative font-sans">
+      {/* INDUSTRIAL BACKGROUND DECOR */}
+      <div className="absolute top-0 opacity-20 pointer-events-none -z-10 w-full h-full">
+         <div className="absolute top-0 left-1/4 w-[1px] h-full bg-slate-200"></div>
+         <div className="absolute top-0 right-1/4 w-[1px] h-full bg-slate-200"></div>
+         <div className="absolute top-1/2 left-0 w-full h-[1px] bg-slate-200"></div>
+         <div className="absolute top-[15%] right-[-100px] w-[500px] h-[500px] bg-blue-50 rounded-full blur-[140px]"></div>
+      </div>
+
+      <div className="container-custom py-24 relative z-10">
+        {/* HOSTING HERO */}
+        <div className="flex flex-col lg:flex-row items-center gap-20 mb-32 pt-10 px-4 md:px-0">
+          <div className="flex-1 text-left">
+            <motion.div
+              initial={{ opacity: 0, x: -20 }}
+              animate={{ opacity: 1, x: 0 }}
+              className="inline-flex items-center gap-2 px-5 py-2 rounded-full bg-blue-50 border border-blue-100 text-blue-700 text-[10px] font-black tracking-[0.4em] uppercase mb-10"
+            >
+              <IoSparklesOutline className="text-sm" /> Digital Infrastructure Sovereignty
+            </motion.div>
+
+            <motion.h1
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, ease: "circOut" }}
+              className="text-6xl md:text-8xl lg:text-[10rem] font-black leading-[0.85] mb-12 tracking-tighter"
+            >
+              Uptime <br /> <span className="text-blue-600 italic font-serif font-light">Sovereign.</span>
+            </motion.h1>
+
+            <motion.p
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 0.4 }}
+              className="text-slate-500 text-xl md:text-2xl font-light leading-relaxed max-w-2xl mb-12"
+            >
+              More than just hosting. We provide high-vibration infrastructure that ensures your digital presence is resilient, secure, and globally optimized.
+            </motion.p>
+
+            <div className="flex flex-col sm:flex-row gap-6 mb-16">
+              <button className="w-full sm:w-[280px] px-8 py-6 bg-blue-600 text-white font-black rounded-xl hover:bg-blue-700 transition-all shadow-2xl shadow-blue-600/20 uppercase tracking-widest text-[10px] flex items-center justify-center">
+                Initialize Hosting Plan
+              </button>
+              <Link
+                href="/services/hosting/details"
+                className="w-full sm:w-[280px] px-8 py-6 bg-white border border-slate-200 text-slate-900 font-black rounded-xl hover:bg-slate-50 transition-all uppercase tracking-widest text-[10px] flex items-center justify-center text-center"
+              >
+                Technical Specifications
+              </Link>
+            </div>
+          </div>
+
+          <div className="flex-1 relative hidden lg:block">
+            {/* Server Core Schematic */}
+            <motion.div
+              initial={{ opacity: 0, scale: 0.9 }}
+              animate={{ opacity: 1, scale: 1 }}
+              className="relative p-12 bg-white rounded-[4rem] border border-slate-100 shadow-2xl overflow-hidden"
+            >
+               <div className="absolute inset-0 opacity-5 pointer-events-none" style={{ backgroundImage: "linear-gradient(#3b82f6 1px, transparent 1px), linear-gradient(90deg, #3b82f6 1px, transparent 1px)", backgroundSize: "40px 40px" }}></div>
+               <div className="relative aspect-square bg-slate-900 rounded-[3rem] p-10 flex flex-col justify-between overflow-hidden shadow-2xl">
+                  <div className="flex justify-between items-center text-white/30 font-mono text-[8px] tracking-[0.4em]">
+                     <span>CORE_SERVER_v6.0</span>
+                     <span>99.9%_UPTIME</span>
+                  </div>
+                  
+                  {/* Glowing Server Racks Visual */}
+                  <div className="space-y-4">
+                     {[1, 2, 3, 4].map(i => (
+                        <div key={i} className="h-12 bg-white/5 rounded-xl border border-white/5 flex items-center px-4 gap-4 relative overflow-hidden group">
+                           <div className="w-2 h-2 rounded-full bg-blue-500 shadow-[0_0_10px_#3b82f6]"></div>
+                           <div className="flex-1 h-1 bg-white/10 rounded-full">
+                              <motion.div animate={{ opacity: [0.3, 1, 0.3] }} transition={{ duration: 2, delay: i * 0.3, repeat: Infinity }} className="h-full w-2/3 bg-blue-500/50" />
+                           </div>
+                           <div className="flex gap-1">
+                              {[1, 2, 3].map(j => (
+                                 <div key={j} className="w-1 h-3 bg-white/10 rounded-full"></div>
+                              ))}
+                           </div>
+                           <motion.div initial={{ x: "-100%" }} whileHover={{ x: "100%" }} transition={{ duration: 1 }} className="absolute inset-0 bg-white/5 skew-x-12" />
+                        </div>
+                     ))}
+                  </div>
+
+                  <div className="flex justify-between items-center text-blue-400 font-mono text-[8px] tracking-widest">
+                     <p>NVMe::GEN4_SPEED</p>
+                     <p>ENCRYPTION::AES_256</p>
+                  </div>
+               </div>
+            </motion.div>
           </div>
         </div>
 
-        {/* Pricing Toggle Section */}
-        <div className="mb-12 flex flex-col items-center">
-           <h2 className="text-4xl font-black text-white text-center mb-10 tracking-tighter">Choose Your Power</h2>
-           <div className="flex items-center gap-4 mb-16 p-1 bg-white/5 border border-white/10 rounded-full w-fit">
-              <button 
-                onClick={() => setIsAnnual(false)}
-                className={`px-8 py-2 rounded-full text-xs font-bold transition-all ${!isAnnual ? 'bg-blue-600 text-white shadow-xl' : 'text-slate-400 hover:text-white'}`}
-              >
-                Monthly
-              </button>
-              <button 
-                onClick={() => setIsAnnual(true)}
-                className={`px-8 py-2 rounded-full text-xs font-bold transition-all relative ${isAnnual ? 'bg-blue-600 text-white shadow-xl' : 'text-slate-400 hover:text-white'}`}
-              >
-                Annual <span className="absolute -top-6 right-0 text-[10px] bg-emerald-500 text-black px-2 py-0.5 rounded-full font-black animate-bounce">-20%</span>
-              </button>
+        {/* DOMAIN SEARCH SECTION */}
+        <div className="mb-48 px-4 md:px-0">
+           <div className="max-w-4xl mx-auto bg-white border border-slate-100 p-12 lg:p-20 rounded-[4rem] shadow-2xl shadow-slate-200/50 relative overflow-hidden">
+              <div className="absolute top-0 right-0 w-32 h-32 bg-blue-50 rounded-bl-full opacity-50"></div>
+              <h2 className="text-4xl font-black text-slate-900 mb-6 tracking-tighter">Claim Your <span className="text-blue-600">Digital Node.</span></h2>
+              <form onSubmit={handleSearch} className="relative flex flex-col sm:flex-row gap-4 p-2 bg-slate-50 border border-slate-100 rounded-3xl overflow-hidden focus-within:border-blue-500 transition-colors">
+                 <div className="flex-1 flex items-center px-6 gap-4 py-4 sm:py-0">
+                    <IoSearchOutline className="text-blue-500 text-2xl" />
+                    <input 
+                      type="text" 
+                      placeholder="Find your perfect domain (e.g. syict.com)" 
+                      className="bg-transparent border-none outline-none text-slate-900 w-full font-bold placeholder:text-slate-300"
+                      value={domainQuery}
+                      onChange={(e) => setDomainQuery(e.target.value)}
+                    />
+                 </div>
+                 <button 
+                   disabled={isSearching}
+                   className="bg-blue-600 text-white font-black px-12 py-5 rounded-2xl w-full sm:w-auto hover:bg-blue-700 transition-colors flex items-center justify-center gap-2 uppercase tracking-widest text-[10px]"
+                 >
+                    {isSearching ? <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin"></div> : "Search Registry"}
+                 </button>
+              </form>
+              
+              <AnimatePresence>
+                 {searchResult && (
+                    <motion.div 
+                      initial={{ opacity: 0, y: 10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0 }}
+                      className={`mt-8 p-8 rounded-3xl border flex items-center justify-between ${searchResult.available ? 'bg-emerald-50 border-emerald-100 text-emerald-900' : 'bg-rose-50 border-rose-100 text-rose-900'}`}
+                    >
+                       <div className="flex items-center gap-6">
+                          {searchResult.available ? <IoCheckmarkCircleOutline className="text-emerald-500 text-4xl" /> : <IoCloseCircleOutline className="text-rose-500 text-4xl" />}
+                          <div className="text-left">
+                             <p className="font-black text-2xl tracking-tighter">{searchResult.domain}</p>
+                             <p className="text-xs font-bold uppercase tracking-widest opacity-60">
+                                {searchResult.available ? 'Ready for registration' : 'Already registered'}
+                             </p>
+                          </div>
+                       </div>
+                       {searchResult.available && (
+                          <div className="flex items-center gap-6">
+                             <p className="font-black text-xl">{searchResult.price}</p>
+                             <button className="bg-emerald-600 text-white font-black px-8 py-3 rounded-xl text-[10px] uppercase tracking-widest">Reserve Node</button>
+                          </div>
+                       )}
+                    </motion.div>
+                 )}
+              </AnimatePresence>
+           </div>
+        </div>
+
+        {/* PRICING TABLE */}
+        <div className="mb-48 px-4 md:px-0">
+           <div className="flex flex-col items-center mb-24">
+              <h2 className="text-[10px] font-black text-blue-600 uppercase tracking-[0.4em] mb-4">Infrastructure Tiers</h2>
+              <div className="flex items-center gap-4 p-1 bg-white border border-slate-100 rounded-full shadow-lg">
+                 <button 
+                   onClick={() => setIsAnnual(true)}
+                   className={`px-8 py-4 rounded-full text-[10px] font-black uppercase tracking-widest transition-all ${isAnnual ? 'bg-blue-600 text-white shadow-xl' : 'text-slate-400'}`}
+                 >
+                   Annual Saving <span className="ml-2 bg-emerald-500 text-black px-2 py-0.5 rounded-full">-20%</span>
+                 </button>
+                 <button 
+                   onClick={() => setIsAnnual(false)}
+                   className={`px-8 py-4 rounded-full text-[10px] font-black uppercase tracking-widest transition-all ${!isAnnual ? 'bg-blue-600 text-white shadow-xl' : 'text-slate-400'}`}
+                 >
+                   Monthly
+                 </button>
+              </div>
            </div>
 
-           <div className="grid lg:grid-cols-3 gap-8 w-full max-w-7xl mx-auto">
+           <div className="grid lg:grid-cols-3 gap-8 max-w-7xl mx-auto">
               {hostingPlans.map((plan, i) => (
                  <motion.div
                    key={plan.name}
@@ -174,48 +241,69 @@ export default function HostingPage() {
                    whileInView={{ opacity: 1, y: 0 }}
                    viewport={{ once: true }}
                    transition={{ delay: i * 0.1 }}
-                   className={`bg-slate-900 border ${plan.popular ? 'border-blue-500' : 'border-white/5'} p-10 rounded-[3rem] relative flex flex-col transition-all hover:translate-y-[-10px] group`}
+                   className={`bg-white border ${plan.popular ? 'border-blue-500 border-2' : 'border-slate-100'} p-12 rounded-[3.5rem] flex flex-col transition-all hover:-translate-y-4 shadow-xl shadow-slate-200/50 relative group`}
                  >
                     {plan.popular && (
-                       <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-blue-500 text-white px-6 py-1.5 rounded-full text-[10px] font-black uppercase tracking-widest">
-                          🔥 Most Popular
+                       <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-blue-600 text-white px-8 py-2 rounded-full text-[10px] font-black uppercase tracking-[0.4em] shadow-2xl">
+                          🔥 Preferred
                        </div>
                     )}
-                    <h3 className="text-2xl font-black text-white mb-2">{plan.name}</h3>
-                    <p className="text-slate-500 text-sm mb-8 leading-relaxed">{plan.desc}</p>
-                    <div className="mb-10">
-                       <p className="text-5xl font-black text-white leading-none">
-                          <span className="text-2xl align-top mr-1 font-sans text-blue-500">$</span>
+                    <h3 className="text-3xl font-black text-slate-900 mb-4">{plan.name}</h3>
+                    <p className="text-slate-400 text-sm mb-10 leading-relaxed font-bold">{plan.desc}</p>
+                    <div className="mb-12 border-b border-slate-100 pb-10">
+                       <p className="text-6xl font-black text-slate-900 leading-none tracking-tighter">
+                          <span className="text-2xl align-top mr-1 text-blue-600">$</span>
                           {isAnnual ? (plan.annualPrice / 12).toFixed(2) : plan.monthlyPrice}
-                          <span className="text-lg text-slate-600">/mo</span>
+                          <span className="text-lg text-slate-300"> /mo</span>
                        </p>
-                       <p className="text-xs text-slate-500 mt-2">Billed {isAnnual ? `$${plan.annualPrice} annually` : 'monthly'}</p>
+                       <p className="text-[10px] text-slate-300 font-black uppercase tracking-widest mt-4">Billed {isAnnual ? `$${plan.annualPrice} / Annual` : 'Monthly Cycle'}</p>
                     </div>
                     
-                    <ul className="flex-1 space-y-4 mb-10 border-t border-white/5 pt-10">
+                    <ul className="flex-1 space-y-5 mb-12">
                        {plan.features.map(f => (
-                          <li key={f} className="flex items-center gap-3 text-slate-300 text-sm font-medium">
+                          <li key={f} className="flex items-center gap-4 text-slate-600 text-sm font-bold">
                              <IoCheckmarkCircleOutline className="text-blue-500 text-xl" /> {f}
                           </li>
                        ))}
                     </ul>
-                    <button className={`w-full py-5 rounded-2xl font-black text-sm uppercase tracking-widest transition-all ${plan.popular ? 'bg-blue-600 text-white shadow-xl animate-pulse-slow' : 'bg-white/5 text-white hover:bg-white/10'}`}>
-                       Get Started Now
+                    <button className={`w-full py-6 rounded-2xl font-black text-[10px] uppercase tracking-widest transition-all ${plan.popular ? 'bg-blue-600 text-white shadow-2xl shadow-blue-600/30' : 'bg-slate-900 text-white hover:bg-slate-800'}`}>
+                       Initialize Cloud Instance
                     </button>
                  </motion.div>
               ))}
            </div>
         </div>
 
-        {/* Infrastructure Pillars */}
-        <div className="grid lg:grid-cols-3 gap-12 max-w-6xl mx-auto py-32 border-t border-white/10 mt-32">
-           {infraPillars.map((p, i) => (
+        {/* PILLARS SECTION */}
+        <div className="grid lg:grid-cols-3 gap-12 max-w-6xl mx-auto py-32 border-t border-slate-100 mt-32">
+           {[
+             { title: "NVMe Storage Gen4", desc: "Up to 50x faster read/write velocity than standard cloud storage.", icon: <IoFlashOutline /> },
+             { title: "Infrastructure Security", desc: "Every node is guarded by advanced DDoS mitigation and AES-256.", icon: <IoShieldCheckmarkOutline /> },
+             { title: "Elite Engineering", desc: "Real infrastructure engineers, not bots, available 24/7 for zero-latency support.", icon: <IoHeadsetOutline /> }
+           ].map((p, i) => (
               <motion.div key={i} className="text-center group">
-                 <div className="w-16 h-16 bg-blue-500/10 text-blue-400 rounded-2xl flex items-center justify-center text-3xl mx-auto mb-8 group-hover:scale-110 transition-transform">{p.icon}</div>
-                 <h4 className="text-white font-black text-2xl mb-4">{p.title}</h4>
-                 <p className="text-slate-500 font-light leading-relaxed">{p.desc}</p>
+                 <div className="w-20 h-20 bg-blue-50 text-blue-600 rounded-[2rem] flex items-center justify-center text-4xl mx-auto mb-10 group-hover:scale-110 transition-transform shadow-xl shadow-blue-600/10">{p.icon}</div>
+                 <h4 className="text-slate-900 font-black text-2xl mb-4 tracking-tight">{p.title}</h4>
+                 <p className="text-slate-500 font-light leading-relaxed text-lg">{p.desc}</p>
               </motion.div>
            ))}
+        </div>
+
+        {/* CTA */}
+        <div className="text-center py-40 border-t border-slate-200">
+           <IoServerOutline className="text-7xl text-blue-600 mb-12 mx-auto opacity-20" />
+           <h3 className="text-5xl lg:text-7xl font-black text-slate-900 mb-12 leading-tight">Scale your digital footprint. <br/><span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-indigo-600 font-serif italic font-medium">Command the Infrastructure.</span></h3>
+           <div className="flex flex-col sm:flex-row gap-6 justify-center">
+              <button className="w-full sm:w-[280px] px-8 py-6 bg-blue-600 text-white font-black rounded-xl hover:bg-blue-700 transition-all shadow-2xl shadow-blue-600/40 uppercase tracking-widest text-[10px] flex items-center justify-center">
+                Initialize Hosting Plan
+              </button>
+              <Link
+                href="/services/hosting/details"
+                className="w-full sm:w-[280px] px-8 py-6 bg-slate-900 text-white font-black rounded-xl hover:bg-slate-800 transition-all uppercase tracking-widest text-[10px] flex items-center justify-center text-center"
+              >
+                Technical Hub
+              </Link>
+           </div>
         </div>
       </div>
     </section>

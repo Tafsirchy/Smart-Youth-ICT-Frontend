@@ -55,15 +55,15 @@ export default function PortfolioDetailsPage() {
   ];
 
   return (
-    <section className="min-h-screen bg-[#050505] text-white selection:bg-rose-500 selection:text-white pb-40">
+    <section className="min-h-screen bg-slate-50 text-slate-900 selection:bg-rose-500 selection:text-white pb-40">
       
       {/* NAVIGATION ARCHITECTURE */}
-      <div className="border-b border-white/5 sticky top-0 bg-black/50 backdrop-blur-2xl z-50">
+      <div className="border-b border-slate-200 sticky top-0 bg-white/50 backdrop-blur-2xl z-50">
          <div className="container-custom py-6 flex justify-between items-center">
             <Link href="/services/portfolio-websites" className="flex items-center gap-2 text-slate-500 hover:text-rose-500 font-bold transition-all group">
                <IoArrowBackOutline className="group-hover:-translate-x-1 transition-transform" /> <span className="text-sm uppercase tracking-widest">Exit Vault</span>
             </Link>
-            <div className="flex items-center gap-4 bg-white/5 px-4 py-2 rounded-full border border-white/10">
+            <div className="flex items-center gap-4 bg-slate-100 px-4 py-2 rounded-full border border-slate-200">
                <div className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-[pulse_2s_infinite]"></div>
                <p className="text-[10px] font-black uppercase tracking-[0.3em] text-slate-400">System Live: Architecture.v2</p>
             </div>
@@ -77,7 +77,7 @@ export default function PortfolioDetailsPage() {
            <motion.div 
              initial={{ opacity: 0, y: 20 }}
              animate={{ opacity: 1, y: 0 }}
-             className="inline-flex items-center gap-3 px-6 py-2 rounded-full bg-rose-500/10 border border-rose-500/20 text-rose-500 text-[10px] font-black uppercase tracking-[0.4em] mb-12 shadow-[0_0_30px_rgba(244,63,94,0.1)]"
+             className="inline-flex items-center gap-3 px-6 py-2 rounded-full bg-rose-50 border border-rose-100 text-rose-600 text-[10px] font-black uppercase tracking-[0.4em] mb-12 shadow-xl shadow-rose-500/5"
            >
               <IoTerminalOutline className="text-sm" /> Initializing Detail Protocol
            </motion.div>
@@ -88,29 +88,29 @@ export default function PortfolioDetailsPage() {
              animate={{ opacity: 1, scale: 1 }}
              transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
            >
-             Technical <br/> <span className="text-transparent bg-clip-text bg-gradient-to-r from-rose-500 via-pink-500 to-indigo-500 font-serif italic font-light italic">Luxury.</span>
+             Technical <br/> <span className="text-transparent bg-clip-text bg-gradient-to-r from-rose-600 via-rose-500 to-indigo-600 font-serif italic font-light">Luxury.</span>
            </motion.h1>
 
            <motion.div 
              initial={{ opacity: 0 }}
              animate={{ opacity: 1 }}
              transition={{ delay: 0.5 }}
-             className="bg-slate-900/50 rounded-[2.5rem] border border-white/5 p-4 max-w-3xl mx-auto relative overflow-hidden group shadow-2xl"
+             className="bg-white rounded-[2.5rem] border border-slate-200 p-4 max-w-3xl mx-auto relative overflow-hidden group shadow-2xl"
            >
-              <div className="flex items-center gap-2 px-6 py-3 border-b border-white/5">
+              <div className="flex items-center gap-2 px-6 py-3 border-b border-slate-100">
                  <div className="w-2 h-2 rounded-full bg-rose-500/50"></div>
                  <div className="w-2 h-2 rounded-full bg-amber-500/50"></div>
                  <div className="w-2 h-2 rounded-full bg-emerald-500/50"></div>
-                 <p className="text-[10px] font-mono text-slate-500 ml-4">root@syict:~/architecture/portfolio</p>
+                 <p className="text-[10px] font-mono text-slate-400 ml-4">root@syict:~/architecture/portfolio</p>
               </div>
-              <div className="p-8 text-left font-mono text-sm leading-relaxed text-slate-400 space-y-2">
-                 <p className="text-rose-500">$ syict deploy --target portfolio --mode creative</p>
-                 <p className="text-emerald-400">› Compiling serverless functions...</p>
-                 <p className="text-emerald-400">› Optimizing 4K assets... OK</p>
-                 <p className="text-emerald-400">› Building SEO graph (Schema.org)... OK</p>
-                 <p className="text-white font-bold mt-4">✓ Deployment Status: PRODUCTION_READY</p>
+              <div className="p-8 text-left font-mono text-sm leading-relaxed text-slate-500 space-y-2">
+                 <p className="text-rose-600 font-bold">$ syict deploy --target portfolio --mode creative</p>
+                 <p className="text-emerald-600">› Compiling serverless functions...</p>
+                 <p className="text-emerald-600">› Optimizing 4K assets... OK</p>
+                 <p className="text-emerald-600">› Building SEO graph (Schema.org)... OK</p>
+                 <p className="text-slate-900 font-black mt-4">✓ Deployment Status: PRODUCTION_READY</p>
               </div>
-              <div className="absolute inset-0 bg-gradient-to-t from-rose-500/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
+              <div className="absolute inset-0 bg-gradient-to-t from-rose-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
            </motion.div>
         </div>
 
@@ -118,8 +118,8 @@ export default function PortfolioDetailsPage() {
         <div className="mb-48">
            <div className="flex flex-col md:flex-row justify-between items-end mb-20 gap-8">
               <div className="max-w-xl">
-                 <h2 className="text-[10px] font-black text-rose-500 uppercase tracking-[0.4em] mb-6">Engine Room</h2>
-                 <p className="text-4xl md:text-6xl font-black text-white leading-tight">Hand-coded for <span className="text-slate-600">peak performance.</span></p>
+                 <h2 className="text-[10px] font-black text-rose-500 uppercase tracking-[0.4em] mb-6 font-bold">Engine Room</h2>
+                 <p className="text-4xl md:text-6xl font-black text-slate-900 leading-tight">Hand-coded for <span className="text-slate-400">peak performance.</span></p>
               </div>
               <p className="text-slate-500 max-w-xs font-light text-lg">We don't use builders. We use code to control every byte of your digital legacy.</p>
            </div>
@@ -133,15 +133,15 @@ export default function PortfolioDetailsPage() {
                    viewport={{ once: true }}
                    className={`${item.colSpan} group relative`}
                 >
-                   <div className="bg-white/5 rounded-[3rem] p-12 h-full border border-white/10 hover:border-rose-500/50 transition-all duration-500 relative overflow-hidden group">
-                      <div className={`w-14 h-14 rounded-2xl ${item.color} text-white flex items-center justify-center text-2xl mb-10 shadow-2xl`}>
+                   <div className="bg-white rounded-[3rem] p-12 h-full border border-slate-100 hover:border-rose-500/30 transition-all duration-500 relative overflow-hidden shadow-sm hover:shadow-xl shadow-slate-200/50 group">
+                      <div className={`w-14 h-14 rounded-2xl ${item.color} text-white flex items-center justify-center text-2xl mb-10 shadow-lg`}>
                          {item.icon}
                       </div>
-                      <h4 className="text-2xl font-black text-white mb-4">{item.t}</h4>
-                      <p className="text-slate-400 font-light leading-relaxed text-lg max-w-sm">{item.d}</p>
+                      <h4 className="text-2xl font-black text-slate-900 mb-4">{item.t}</h4>
+                      <p className="text-slate-500 font-light leading-relaxed text-lg max-w-sm">{item.d}</p>
                       
                       {/* Decorative Background Glow */}
-                      <div className={`absolute bottom-[-20%] right-[-10%] w-40 h-40 ${item.color} rounded-full blur-[100px] opacity-0 group-hover:opacity-20 transition-opacity`}></div>
+                      <div className={`absolute bottom-[-20%] right-[-10%] w-40 h-40 ${item.color} rounded-full blur-[100px] opacity-0 group-hover:opacity-10 transition-opacity`}></div>
                    </div>
                 </motion.div>
               ))}
@@ -149,44 +149,44 @@ export default function PortfolioDetailsPage() {
         </div>
 
         {/* CODE-SNIPPET SHOWCASE (Technical Trust) */}
-        <div className="flex flex-col lg:flex-row gap-20 items-center mb-48 bg-white/5 rounded-[4rem] p-12 lg:p-24 border border-white/5 relative overflow-hidden">
-           <div className="absolute top-0 right-0 w-2/3 h-full bg-rose-500/5 -skew-x-[20deg] origin-top translate-x-1/2"></div>
+        <div className="flex flex-col lg:flex-row gap-20 items-center mb-48 bg-white rounded-[4rem] p-12 lg:p-24 border border-slate-100 relative overflow-hidden shadow-2xl shadow-slate-200/50">
+           <div className="absolute inset-0 bg-slate-50/50 opacity-40 pointer-events-none"></div>
            
-           <div className="flex-1">
-              <h2 className="text-5xl font-black text-white leading-tight mb-8">Architecturally <span className="text-rose-500 italic font-serif font-light">Clean.</span></h2>
-              <p className="text-slate-400 text-xl font-light leading-relaxed mb-10">
+           <div className="flex-1 relative z-10">
+              <h2 className="text-5xl font-black text-slate-900 leading-tight mb-8">Architecturally <span className="text-rose-600 italic font-serif font-light">Clean.</span></h2>
+              <p className="text-slate-500 text-xl font-light leading-relaxed mb-10">
                  All SYICT portfolios feature atomic structuring. We isolate concerns, ensuring your code is ready for future scaling or complex interactive expansions.
               </p>
               <div className="flex flex-wrap gap-4">
                  {["TypeScript Core", "Atomic CSS", "Clean Routes", "Edge Cache"].map(tag => (
-                   <span key={tag} className="px-4 py-2 bg-white/5 rounded-xl text-[10px] font-black uppercase tracking-widest text-slate-500 border border-white/5">
-                      {tag}
-                   </span>
+                    <span key={tag} className="px-4 py-2 bg-slate-100 rounded-xl text-[10px] font-black uppercase tracking-widest text-slate-500 border border-slate-200">
+                       {tag}
+                    </span>
                  ))}
               </div>
            </div>
 
-           <div className="flex-1 w-full overflow-hidden">
+           <div className="flex-1 w-full overflow-hidden relative z-10">
               <motion.div
                 initial={{ opacity: 0, x: 20 }}
                 whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: true }}
-                className="bg-[#0f1117] rounded-[2.5rem] p-8 font-mono text-xs leading-relaxed border border-white/10 shadow-2xl relative"
+                className="bg-slate-900 rounded-[2.5rem] p-8 font-mono text-xs leading-relaxed border border-slate-800 shadow-2xl relative"
               >
                  <div className="flex justify-between items-center mb-6">
-                    <p className="text-slate-600">portfolio-config.ts</p>
+                    <p className="text-slate-500">portfolio-config.ts</p>
                     <IoCodeSlashOutline className="text-rose-500" />
                  </div>
                  <pre className="text-slate-300">
                     <code className="block">
-                      <span className="text-pink-500">export const</span> <span className="text-white">PortfolioConfig</span> = {"{"} <br/>
+                      <span className="text-pink-400 font-bold">export const</span> <span className="text-white font-bold">PortfolioConfig</span> = {"{"} <br/>
                       &nbsp;&nbsp;<span className="text-indigo-400">performance</span>: <span className="text-amber-400">"ultra_fast"</span>, <br/>
                       &nbsp;&nbsp;<span className="text-indigo-400">animations</span>: <span className="text-amber-400">"immersive_physics"</span>, <br/>
-                      &nbsp;&nbsp;<span className="text-indigo-400">deployment</span>: <span className="text-pink-500">{"{"}</span> <br/>
+                      &nbsp;&nbsp;<span className="text-indigo-400">deployment</span>: <span className="text-pink-400 font-bold">{"{"}</span> <br/>
                       &nbsp;&nbsp;&nbsp;&nbsp;<span className="text-indigo-400">provider</span>: <span className="text-amber-400">"Vercel Edge"</span>, <br/>
-                      &nbsp;&nbsp;&nbsp;&nbsp;<span className="text-indigo-400">ssl</span>: <span className="text-pink-500">true</span> <br/>
-                      &nbsp;&nbsp;<span className="text-pink-500">{"}"}</span>, <br/>
-                      &nbsp;&nbsp;<span className="text-indigo-400">seo</span>: <span className="text-pink-500">["Schema.org", "JSON-LD"]</span> <br/>
+                      &nbsp;&nbsp;&nbsp;&nbsp;<span className="text-indigo-400">ssl</span>: <span className="text-pink-400 font-bold">true</span> <br/>
+                      &nbsp;&nbsp;<span className="text-pink-400 font-bold">{"}"}</span>, <br/>
+                      &nbsp;&nbsp;<span className="text-indigo-400">seo</span>: <span className="text-pink-400 font-bold">["Schema.org", "JSON-LD"]</span> <br/>
                       {"}"};
                     </code>
                  </pre>
@@ -197,8 +197,8 @@ export default function PortfolioDetailsPage() {
         {/* THE PREPARATION VAULT (Checklist) */}
         <div className="text-center mb-48">
            <div className="max-w-2xl mx-auto mb-20">
-              <h2 className="text-[10px] font-black text-rose-500 uppercase tracking-[0.4em] mb-6">Onboarding</h2>
-              <p className="text-4xl md:text-6xl font-black text-white leading-tight">The Preparation <br/> <span className="text-slate-600">Vault.</span></p>
+              <h2 className="text-[10px] font-black text-rose-500 uppercase tracking-[0.4em] mb-6 font-bold">Onboarding</h2>
+              <p className="text-4xl md:text-6xl font-black text-slate-900 leading-tight">The Preparation <br /> <span className="text-slate-400">Vault.</span></p>
            </div>
 
            <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-7xl mx-auto">
@@ -206,12 +206,12 @@ export default function PortfolioDetailsPage() {
                 <motion.div 
                    key={idx}
                    whileHover={{ scale: 1.02 }}
-                   className="bg-white/5 p-10 rounded-[3rem] border border-white/5 hover:border-emerald-500/50 transition-all text-left group"
+                   className="bg-white p-10 rounded-[3rem] border border-slate-100 hover:border-emerald-500/30 transition-all text-left group shadow-sm hover:shadow-xl shadow-slate-200/50"
                 >
-                   <div className="w-12 h-12 bg-white/5 rounded-2xl flex items-center justify-center text-xl text-slate-500 group-hover:bg-emerald-500 group-hover:text-white transition-all mb-8 shadow-2xl">
+                   <div className="w-12 h-12 bg-slate-50 rounded-2xl flex items-center justify-center text-xl text-slate-400 group-hover:bg-emerald-500 group-hover:text-white transition-all mb-8 shadow-sm">
                       <IoLockOpenOutline />
                    </div>
-                   <h4 className="text-xl font-bold text-white mb-4">{item.t}</h4>
+                   <h4 className="text-xl font-bold text-slate-900 mb-4 group-hover:text-emerald-600 transition-colors uppercase tracking-tighter">{item.t}</h4>
                    <p className="text-slate-500 font-light text-sm leading-relaxed">{item.d}</p>
                 </motion.div>
               ))}
@@ -219,14 +219,14 @@ export default function PortfolioDetailsPage() {
         </div>
 
         {/* FINAL VAULT CTA */}
-        <div className="text-center py-40 border-t border-white/5 mt-20 relative overflow-hidden bg-rose-500 rounded-[5rem]">
-           <div className="relative z-10">
-              <h3 className="text-5xl lg:text-8xl font-black text-white mb-12 leading-[0.8]">Ready to unlock <br/> your <span className="font-serif italic font-light opacity-60 italic">Online Power?</span></h3>
+        <div className="text-center py-40 bg-rose-600 rounded-[5rem] mt-20 relative overflow-hidden shadow-2xl shadow-rose-600/30">
+           <div className="relative z-10 flex flex-col items-center">
+              <h3 className="text-5xl lg:text-8xl font-black text-white mb-12 leading-[0.8] tracking-tighter">Ready to unlock <br/> your <span className="font-serif italic font-light opacity-60">Online Power?</span></h3>
               <div className="flex flex-col sm:flex-row gap-6 justify-center">
-                 <button className="px-16 py-6 bg-white text-rose-500 font-black rounded-3xl hover:bg-slate-900 hover:text-white transition-all shadow-2xl uppercase tracking-widest text-xs">
+                 <button className="px-16 py-6 bg-white text-rose-600 font-black rounded-3xl hover:bg-slate-900 hover:text-white transition-all shadow-2xl uppercase tracking-widest text-xs">
                     Start Architecture Brief
                  </button>
-                 <Link href="/services/portfolio-websites" className="px-16 py-6 bg-rose-600 text-white font-black rounded-3xl hover:bg-rose-700 transition-all shadow-2xl uppercase tracking-widest text-xs flex items-center justify-center">
+                 <Link href="/services/portfolio-websites" className="px-16 py-6 bg-rose-700 text-white font-black rounded-3xl hover:bg-rose-800 transition-all shadow-2xl uppercase tracking-widest text-xs flex items-center justify-center">
                     Return to Showcase
                  </Link>
               </div>

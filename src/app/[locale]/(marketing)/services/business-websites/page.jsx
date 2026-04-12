@@ -21,22 +21,22 @@ const verticalArchitecture = [
     title: "Startup & SaaS",
     desc: "Built for speed and conversion. We engineer aggressive growth funnels designed to turn traffic into trial users instantly.",
     icon: <IoRocketOutline />,
-    color: "from-blue-600 to-indigo-600",
-    border: "border-blue-500/20",
+    color: "from-blue-500 to-blue-600",
+    border: "border-blue-100",
   },
   {
     title: "Enterprise Corporate",
     desc: "Stability and brand authority. High-security, multi-lingual architectures designed for investor relations and global presence.",
     icon: <IoBusinessOutline />,
-    color: "from-slate-700 to-slate-900",
-    border: "border-slate-500/20",
+    color: "from-slate-700 to-slate-800",
+    border: "border-slate-100",
   },
   {
     title: "Professional Agency",
     desc: "Service-centric storytelling. We build elegant lead-generation hubs designed to showcase expertise and qualify high-value clients.",
     icon: <IoBriefcaseOutline />,
-    color: "from-cyan-600 to-blue-500",
-    border: "border-cyan-500/20",
+    color: "from-cyan-500 to-blue-500",
+    border: "border-cyan-100",
   },
 ];
 
@@ -65,13 +65,13 @@ const ecosystemIntegration = [
 
 export default function BusinessWebsitesPage() {
   return (
-    <section className="min-h-screen bg-[#020617] text-white selection:bg-blue-600 overflow-hidden relative">
+    <section className="min-h-screen bg-slate-50 text-slate-900 selection:bg-blue-600 overflow-hidden relative">
       {/* INDUSTRIAL DECORATION */}
-      <div className="absolute top-0 left-0 w-full h-full pointer-events-none -z-10 opacity-30">
-        <div className="absolute top-0 left-1/4 w-[1px] h-full bg-blue-500/10 hidden lg:block"></div>
-        <div className="absolute top-0 right-1/4 w-[1px] h-full bg-blue-500/10 hidden lg:block"></div>
-        <div className="absolute top-1/2 left-0 w-full h-[1px] bg-blue-500/10"></div>
-        <div className="absolute top-0 right-[-100px] w-[600px] h-[600px] bg-blue-600/10 rounded-full blur-[160px]"></div>
+      <div className="absolute top-0 left-0 w-full h-full pointer-events-none -z-10 opacity-40">
+        <div className="absolute top-0 left-1/4 w-[1px] h-full bg-slate-200 hidden lg:block"></div>
+        <div className="absolute top-0 right-1/4 w-[1px] h-full bg-slate-200 hidden lg:block"></div>
+        <div className="absolute top-1/2 left-0 w-full h-[1px] bg-slate-200"></div>
+        <div className="absolute top-0 right-[-100px] w-[600px] h-[600px] bg-blue-100 rounded-full blur-[160px]"></div>
       </div>
 
       <div className="container-custom py-24 relative">
@@ -81,7 +81,7 @@ export default function BusinessWebsitesPage() {
             <motion.div
               initial={{ opacity: 0, x: -20 }}
               animate={{ opacity: 1, x: 0 }}
-              className="inline-flex items-center gap-2 px-5 py-2 rounded-lg bg-blue-600/10 border border-blue-500/20 text-blue-400 text-[10px] font-black tracking-[0.4em] uppercase mb-10"
+              className="inline-flex items-center gap-2 px-5 py-2 rounded-lg bg-blue-50 border border-blue-100 text-blue-600 text-[10px] font-black tracking-[0.4em] uppercase mb-10"
             >
               <IoCubeOutline className="text-sm" /> Architecture for Scale
             </motion.div>
@@ -99,23 +99,23 @@ export default function BusinessWebsitesPage() {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: 0.4 }}
-              className="text-slate-400 text-xl md:text-3xl font-light leading-relaxed max-w-2xl mb-12"
+              className="text-slate-500 text-xl md:text-3xl font-light leading-relaxed max-w-2xl mb-12"
             >
               We don't just build websites; we engineer{" "}
-              <span className="text-white font-bold underline decoration-blue-500 decoration-2 underline-offset-8">
+              <span className="text-slate-900 font-bold underline decoration-blue-500 decoration-2 underline-offset-8">
                 conversion assets
               </span>{" "}
               that amplify your brand’s authority and operational efficiency
               globally.
             </motion.p>
 
-            <div className="flex flex-wrap gap-6">
-              <button className="px-12 py-6 bg-blue-600 text-white font-black rounded-xl hover:bg-blue-700 transition-all shadow-2xl shadow-blue-600/20 uppercase tracking-widest text-xs">
+            <div className="flex flex-col sm:flex-row gap-6">
+              <button className="w-full sm:w-[280px] px-8 py-6 bg-blue-600 text-white font-black rounded-xl hover:bg-blue-700 transition-all shadow-2xl shadow-blue-600/20 uppercase tracking-widest text-[10px] flex items-center justify-center">
                 Initialize Project
               </button>
               <Link
                 href="/services/business-websites/details"
-                className="px-12 py-6 bg-white/5 border border-white/10 text-white font-black rounded-xl hover:bg-white/10 transition-all uppercase tracking-widest text-xs flex items-center justify-center"
+                className="w-full sm:w-[280px] px-8 py-6 bg-white border border-slate-200 text-slate-900 font-black rounded-xl hover:bg-slate-50 transition-all uppercase tracking-widest text-[10px] flex items-center justify-center text-center"
               >
                 Technical Specifications
               </Link>
@@ -129,13 +129,13 @@ export default function BusinessWebsitesPage() {
               transition={{ duration: 1 }}
               className="relative perspective-2000"
             >
-              <div className="bg-slate-900 rounded-[3rem] p-4 border border-white/10 shadow-[0_50px_100px_rgba(0,0,0,0.8)] overflow-hidden scale-110">
+              <div className="bg-white rounded-[3rem] p-4 border border-slate-200 shadow-[0_50px_100px_rgba(0,0,0,0.1)] overflow-hidden scale-110">
                 <img
                   src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=1000&h=800&fit=crop"
-                  className="w-full h-full object-cover rounded-[2.5rem] opacity-60 grayscale hover:grayscale-0 transition-all duration-1000"
+                  className="w-full h-full object-cover rounded-[2.5rem] opacity-80 grayscale hover:grayscale-0 transition-all duration-1000"
                   alt="Business Analytics"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-[#020617] via-transparent to-transparent flex flex-col justify-end p-12">
+                <div className="absolute inset-0 bg-gradient-to-t from-white via-transparent to-transparent flex flex-col justify-end p-12">
                   <p className="text-blue-500 font-black text-2xl tracking-tighter uppercase">
                     Operational Excellence.
                   </p>
@@ -153,10 +153,10 @@ export default function BusinessWebsitesPage() {
                   repeat: Infinity,
                   ease: "easeInOut",
                 }}
-                className="absolute -right-10 top-20 bg-[#020617] p-8 rounded-3xl border border-blue-500/30 shadow-2xl"
+                className="absolute -right-10 top-20 bg-white p-8 rounded-3xl border border-blue-500/30 shadow-2xl"
               >
                 <IoStatsChartOutline className="text-blue-500 text-3xl mb-4" />
-                <p className="text-4xl font-black text-white">+118%</p>
+                <p className="text-4xl font-black text-slate-900">+118%</p>
                 <p className="text-[10px] font-black uppercase text-slate-500 tracking-widest">
                   Lead Gen Lift
                 </p>
@@ -167,47 +167,47 @@ export default function BusinessWebsitesPage() {
 
         {/* CONTRAST: LEGACY VS ENGINE */}
         <div className="mb-48 relative">
-          <div className="grid lg:grid-cols-2 gap-1 px-8 lg:px-0 bg-white/5 border border-white/10 rounded-[4rem] overflow-hidden">
-            <div className="p-16 border-r border-white/10 group cursor-default">
+          <div className="grid lg:grid-cols-2 gap-1 px-8 lg:px-0 bg-white border border-slate-200 rounded-[4rem] overflow-hidden shadow-xl shadow-slate-200/50">
+            <div className="p-16 border-r border-slate-100 group cursor-default">
               <h4 className="text-[10px] font-black text-slate-500 uppercase tracking-widest mb-10">
                 The Legacy Site
               </h4>
-              <div className="space-y-8 opacity-40 group-hover:opacity-60 transition-opacity">
-                <p className="text-3xl font-bold text-slate-500 leading-tight">
+              <div className="space-y-8 opacity-40 group-hover:opacity-100 transition-opacity">
+                <p className="text-3xl font-bold text-slate-600 leading-tight">
                   Fragmented visual identity and slow infrastructure.
                 </p>
-                <div className="h-2 w-full bg-slate-800 rounded-full"></div>
-                <p className="text-sm font-light text-slate-600">
+                <div className="h-2 w-full bg-slate-100 rounded-full"></div>
+                <p className="text-sm font-light text-slate-500">
                   Average Load Time: 4.8s
                 </p>
-                <p className="text-sm font-light text-slate-600 tracking-widest">
+                <p className="text-sm font-light text-slate-400 tracking-widest">
                   CONVERSION: 0.8%
                 </p>
               </div>
             </div>
-            <div className="p-16 bg-blue-600/5 relative overflow-hidden group cursor-default">
-              <div className="absolute top-0 right-0 p-12 text-blue-500 opacity-10 text-9xl font-black uppercase tracking-widest select-none">
+            <div className="p-16 bg-blue-50/30 relative overflow-hidden group cursor-default">
+              <div className="absolute top-0 right-0 p-12 text-blue-500 opacity-5 text-9xl font-black uppercase tracking-widest select-none">
                 ENGINE
               </div>
               <h4 className="text-[10px] font-black text-blue-500 uppercase tracking-widest mb-10">
                 The SYICT Engine
               </h4>
               <div className="space-y-8 relative z-10">
-                <p className="text-3xl font-black text-white leading-tight">
+                <p className="text-3xl font-black text-slate-900 leading-tight">
                   Cohesive architecture designed for conversion and speed.
                 </p>
-                <div className="h-2 w-full bg-blue-600 rounded-full relative overflow-hidden">
+                <div className="h-2 w-full bg-slate-100 rounded-full relative overflow-hidden">
                   <motion.div
                     initial={{ width: 0 }}
                     whileInView={{ width: "100%" }}
                     transition={{ duration: 2 }}
-                    className="absolute h-full bg-blue-400 shadow-[0_0_20px_rgba(96,165,250,0.5)]"
+                    className="absolute h-full bg-blue-400 shadow-[0_0_20px_rgba(96,165,250,0.3)]"
                   />
                 </div>
-                <p className="text-sm font-bold text-blue-400 uppercase tracking-widest">
+                <p className="text-sm font-bold text-blue-500 uppercase tracking-widest">
                   Average Load Time: 0.4s (Edge)
                 </p>
-                <p className="text-sm font-black text-white tracking-[0.4em] uppercase">
+                <p className="text-sm font-black text-slate-900 tracking-[0.4em] uppercase">
                   CONVERSION: 4.2%
                 </p>
               </div>
@@ -222,9 +222,9 @@ export default function BusinessWebsitesPage() {
               <h2 className="text-[10px] font-black text-blue-500 uppercase tracking-[0.4em] mb-4">
                 Vertical Specializations
               </h2>
-              <p className="text-4xl md:text-6xl font-black text-white leading-tight">
+              <p className="text-4xl md:text-6xl font-black text-slate-900 leading-tight">
                 Architecture built for your{" "}
-                <span className="text-slate-600 italic font-serif font-light">
+                <span className="text-slate-400 italic font-serif font-light">
                   Specific Industry.
                 </span>
               </p>
@@ -246,23 +246,23 @@ export default function BusinessWebsitesPage() {
                 className="group relative"
               >
                 <div
-                  className={`bg-white/5 rounded-[3rem] p-12 h-full border ${item.border} hover:bg-white/10 transition-all duration-500 group-hover:-translate-y-2 relative overflow-hidden`}
+                  className={`bg-white rounded-[3rem] p-12 h-full border border-slate-100 shadow-sm shadow-slate-200/50 hover:shadow-xl transition-all duration-500 group-hover:-translate-y-2 relative overflow-hidden`}
                 >
                   <div
-                    className={`w-14 h-14 rounded-2xl bg-gradient-to-br ${item.color} text-white flex items-center justify-center text-3xl mb-10 shadow-2xl`}
+                    className={`w-14 h-14 rounded-2xl bg-gradient-to-br ${item.color} text-white flex items-center justify-center text-3xl mb-10 shadow-lg shadow-blue-500/20`}
                   >
                     {item.icon}
                   </div>
-                  <h3 className="text-2xl font-black text-white mb-4">
+                  <h3 className="text-2xl font-black text-slate-900 mb-4">
                     {item.title}
                   </h3>
-                  <p className="text-slate-400 leading-relaxed font-light mb-8 text-lg">
+                  <p className="text-slate-500 leading-relaxed font-light mb-8 text-lg">
                     {item.desc}
                   </p>
                   <div className="flex items-center gap-3 text-[10px] font-black text-blue-500 uppercase tracking-widest opacity-0 group-hover:opacity-100 transition-opacity">
                     Blueprint Details <IoGlobeOutline className="text-lg" />
                   </div>
-                  <div className="absolute inset-x-0 bottom-0 h-1 bg-gradient-to-r from-transparent via-blue-500/40 to-transparent"></div>
+                  <div className="absolute inset-x-0 bottom-0 h-1 bg-gradient-to-r from-transparent via-blue-500/20 to-transparent"></div>
                 </div>
               </motion.div>
             ))}
@@ -270,19 +270,19 @@ export default function BusinessWebsitesPage() {
         </div>
 
         {/* ECOSYSTEM INTEGRATIONS (Bento Box) */}
-        <div className="bg-white/5 rounded-[4rem] p-8 lg:p-20 border border-white/10 mb-48 overflow-hidden relative">
+        <div className="bg-white rounded-[4rem] p-8 lg:p-20 border border-slate-100 mb-48 overflow-hidden relative shadow-2xl shadow-slate-200/50">
           <div className="grid lg:grid-cols-3 gap-12 relative z-10">
             <div className="lg:col-span-1">
-              <h2 className="text-4xl font-black text-white mb-6">
+              <h2 className="text-4xl font-black text-slate-900 mb-6">
                 A Unified <br />
                 <span className="text-blue-500">Ecosystem.</span>
               </h2>
-              <p className="text-slate-400 font-light leading-relaxed text-lg mb-8">
+              <p className="text-slate-500 font-light leading-relaxed text-lg mb-8">
                 We don't build in isolation. Our engines integrate natively with
                 the world’s leading business tools.
               </p>
-              <div className="flex items-center gap-4 text-sm font-black text-slate-600 uppercase tracking-widest">
-                <span className="w-12 h-[1px] bg-slate-800"></span> API First
+              <div className="flex items-center gap-4 text-sm font-black text-slate-200 uppercase tracking-widest">
+                <span className="w-12 h-[1px] bg-slate-100"></span> API First
                 Architecture
               </div>
             </div>
@@ -291,13 +291,13 @@ export default function BusinessWebsitesPage() {
               {ecosystemIntegration.map((item, idx) => (
                 <div
                   key={idx}
-                  className="p-8 bg-black/40 rounded-[2.5rem] border border-white/5 hover:border-blue-500/40 transition-all flex items-start gap-6"
+                  className="p-8 bg-slate-50 rounded-[2.5rem] border border-slate-100 hover:border-blue-500/20 transition-all flex items-start gap-6"
                 >
                   <div className="text-3xl text-blue-500 shrink-0 mt-1">
                     {item.icon}
                   </div>
                   <div>
-                    <h4 className="font-bold text-white mb-2">{item.t}</h4>
+                    <h4 className="font-bold text-slate-900 mb-2">{item.t}</h4>
                     <p className="text-sm text-slate-500 font-light leading-relaxed">
                       {item.d}
                     </p>
@@ -307,7 +307,6 @@ export default function BusinessWebsitesPage() {
             </div>
           </div>
 
-          {/* Background Grid Accent */}
           <div
             className="absolute inset-0 opacity-5 pointer-events-none"
             style={{
@@ -319,14 +318,14 @@ export default function BusinessWebsitesPage() {
         </div>
 
         {/* CORPORATE SERVICE TIERS */}
-        <div className="mb-48 text-center pt-20 border-t border-white/5">
+        <div className="mb-48 text-center pt-20 border-t border-slate-100">
           <div className="max-w-2xl mx-auto mb-20 text-center">
             <h2 className="text-[10px] font-black text-blue-500 uppercase tracking-[0.4em] mb-4">
               Pricing Architecture
             </h2>
-            <p className="text-4xl md:text-6xl font-black text-white leading-tight">
+            <p className="text-4xl md:text-6xl font-black text-slate-900 leading-tight">
               Select your{" "}
-              <span className="text-slate-600">investment tier.</span>
+              <span className="text-slate-400">investment tier.</span>
             </p>
           </div>
 
@@ -372,23 +371,23 @@ export default function BusinessWebsitesPage() {
             ].map((tier, idx) => (
               <div
                 key={idx}
-                className={`bg-white/5 rounded-[3.5rem] p-12 border ${tier.highlight ? "border-blue-500 bg-blue-600/5 -translate-y-4 shadow-2xl shadow-blue-500/10" : "border-white/10"} flex flex-col h-full relative transition-all group`}
+                className={`bg-white rounded-[3.5rem] p-12 border ${tier.highlight ? "border-blue-500 ring-4 ring-blue-500/5 -translate-y-4 shadow-2xl shadow-blue-500/10" : "border-slate-100 shadow-sm shadow-slate-200/50"} flex flex-col h-full relative transition-all group`}
               >
                 {tier.highlight && (
                   <div className="absolute top-0 right-0 bg-blue-500 text-white text-[10px] font-black uppercase tracking-widest px-8 py-2 rounded-bl-3xl">
                     Peak ROI
                   </div>
                 )}
-                <h4 className="text-2xl font-black text-white mb-2">
+                <h4 className="text-2xl font-black text-slate-900 mb-2">
                   {tier.t}
                 </h4>
-                <p className="text-5xl font-black text-white mb-10">{tier.p}</p>
+                <p className="text-5xl font-black text-slate-900 mb-10">{tier.p}</p>
 
                 <div className="space-y-5 mb-12 flex-1">
                   {tier.list.map((item) => (
                     <div
                       key={item}
-                      className="flex gap-3 items-center text-slate-400 font-light text-sm"
+                      className="flex gap-3 items-center text-slate-500 font-light text-sm"
                     >
                       <IoCheckmarkCircleOutline className="text-blue-500 text-lg shrink-0" />{" "}
                       {item}
@@ -397,7 +396,7 @@ export default function BusinessWebsitesPage() {
                 </div>
 
                 <button
-                  className={`w-full py-5 rounded-2xl font-black uppercase tracking-widest text-[10px] transition-all shadow-2xl ${tier.highlight ? "bg-blue-600 text-white shadow-blue-600/30" : "bg-white/10 text-white hover:bg-blue-600"}`}
+                  className={`w-full py-5 rounded-2xl font-black uppercase tracking-widest text-[10px] transition-all shadow-lg ${tier.highlight ? "bg-blue-600 text-white shadow-blue-600/30" : "bg-white border border-slate-200 text-slate-900 hover:bg-slate-50"}`}
                 >
                   Initialize {tier.t}
                 </button>
@@ -407,17 +406,17 @@ export default function BusinessWebsitesPage() {
         </div>
 
         {/* FINAL INDUSTRIAL CTA */}
-        <div className="text-center py-40 bg-white/5 rounded-[5rem] relative overflow-hidden group">
-          <div className="absolute inset-0 bg-blue-600 opacity-0 group-hover:opacity-5 transition-opacity pointer-events-none"></div>
+        <div className="text-center py-40 bg-white rounded-[5rem] border border-slate-100 relative overflow-hidden group shadow-2xl shadow-slate-200/50">
+          <div className="absolute inset-0 bg-blue-50 opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none"></div>
           <motion.div
             initial={{ opacity: 0, scale: 0.95 }}
             whileInView={{ opacity: 1, scale: 1 }}
-            className="max-w-4xl mx-auto px-6"
+            className="max-w-4xl mx-auto px-6 relative z-10"
           >
             <IoBusinessOutline className="text-7xl text-blue-500 mb-10 mx-auto opacity-20" />
-            <h3 className="text-5xl lg:text-7xl font-black text-white mb-12 leading-tight">
+            <h3 className="text-5xl lg:text-7xl font-black text-slate-900 mb-12 leading-tight">
               Ready to activate your <br />
-              <span className="text-blue-500 font-serif italic font-light opacity-80">
+              <span className="text-blue-500 font-serif italic font-medium">
                 Online Engine?
               </span>
             </h3>
@@ -427,7 +426,7 @@ export default function BusinessWebsitesPage() {
               </button>
               <Link
                 href="/services/business-websites/details"
-                className="px-12 py-6 bg-white/5 border border-white/10 text-white font-black rounded-xl hover:bg-white/10 transition-all uppercase tracking-widest text-xs flex items-center justify-center"
+                className="px-12 py-6 bg-white border border-slate-200 text-slate-900 font-black rounded-xl hover:bg-slate-50 transition-all uppercase tracking-widest text-xs flex items-center justify-center"
               >
                 Technical Specifications
               </Link>

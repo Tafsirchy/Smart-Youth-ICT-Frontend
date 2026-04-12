@@ -384,12 +384,12 @@ export default function PortfolioWebsitesPage() {
               </span>
             </h3>
             <div className="flex flex-col sm:flex-row gap-6 justify-center">
-              <button className="px-12 py-6 bg-rose-500 text-white font-black rounded-[2rem] hover:bg-rose-600 transition-all shadow-2xl shadow-rose-500/40 uppercase tracking-widest text-xs">
+              <button className="w-full sm:w-[280px] px-8 py-6 bg-rose-500 text-white font-black rounded-[2rem] hover:bg-rose-600 transition-all shadow-2xl shadow-rose-500/40 uppercase tracking-widest text-[10px] flex items-center justify-center">
                 Consult Portfolio Expert
               </button>
               <Link
                 href="/services/portfolio-websites/details"
-                className="px-12 py-6 bg-slate-900 text-white font-black rounded-[2rem] hover:bg-black transition-all shadow-2xl shadow-slate-900/40 uppercase tracking-widest text-xs flex items-center justify-center"
+                className="w-full sm:w-[280px] px-8 py-6 bg-slate-900 text-white font-black rounded-[2rem] hover:bg-black transition-all shadow-2xl shadow-slate-900/40 uppercase tracking-widest text-[10px] flex items-center justify-center text-center"
               >
                 Technical Details
               </Link>

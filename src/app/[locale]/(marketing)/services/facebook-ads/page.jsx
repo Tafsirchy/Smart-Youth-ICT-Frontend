@@ -1,158 +1,262 @@
 "use client";
 
 import { motion } from "framer-motion";
+import Link from "next/link";
 import { 
-  IoAnalyticsOutline, 
-  IoPeopleOutline, 
   IoFlashOutline, 
-  IoTrophyOutline, 
-  IoMegaphoneOutline,
-  IoPieChartOutline,
-  IoCheckmarkCircleOutline
+  IoPeopleOutline, 
+  IoBarChartOutline, 
+  IoAnalyticsOutline, 
+  IoCheckmarkCircleOutline,
+  IoGitNetworkOutline,
+  IoPulseOutline,
+  IoRocketOutline,
+  IoFilterOutline
 } from "react-icons/io5";
 
-const campaignTypes = [
+const fbAdsPillars = [
   {
-    title: "E-Commerce ROAS",
-    desc: "Scaling online stores via high-intent purchase conversions. We focus on catalog ads and high-ROAS lookalike scaling.",
-    icon: <IoAnalyticsOutline />,
-    color: "from-blue-600 to-blue-400"
-  },
-  {
-    title: "High-Intent Lead Gen",
-    desc: "Generating consistent pipelines of qualified leads using Meta's native forms and custom-built high-speed landing page funnels.",
+    title: "Precision Targeting",
+    desc: "Leveraging custom audiences, lookalikes, and behavioral interest mapping to ensure your budget hit the exact buyer persona.",
     icon: <IoPeopleOutline />,
-    color: "from-emerald-600 to-teal-400"
+    color: "from-emerald-600 to-green-700"
   },
   {
-    title: "Brand Dominance",
-    desc: "Maximizing reach and frequency to build undeniable authority in your local or global market through video-first awareness campaigns.",
-    icon: <IoTrophyOutline />,
-    color: "from-purple-600 to-indigo-500"
+    title: "Conversion Funnels",
+    desc: "Architecting multi-stage customer journeys from cold awareness to high-intent remarketing cycles.",
+    icon: <IoFilterOutline />,
+    color: "from-green-700 to-blue-800"
+  },
+  {
+    title: "ROAS Optimization",
+    desc: "Rigorous daily tracking of Return on Ad Spend (ROAS) and attribution modeling to maximize every dollar spent.",
+    icon: <IoBarChartOutline />,
+    color: "from-blue-600 to-emerald-700"
   }
-];
-
-const engineDetails = [
-  { t: "Meta Pixel & CAPI", d: "Advanced server-side tracking to ensure no conversion is missed, bypassing iOS privacy hurdles." },
-  { t: "A/B Testing Discipline", d: "Rigorous split testing of creatives, headings, and placements to identify winners in under 48 hours." },
-  { t: "Audience Scaling", d: "Moving from interest-based groups to advanced 1% Lookalike (LAL) and Broad targeting for scale." }
 ];
 
 export default function FacebookAdsPage() {
   return (
-    <section className="min-h-screen bg-[#F0F2F5] overflow-hidden relative font-sans lg:py-24">
-      <div className="absolute inset-x-0 top-0 h-[800px] bg-gradient-to-b from-blue-100/50 via-transparent to-transparent pointer-events-none -z-10"></div>
-      
-      <div className="container-custom pt-32 pb-20 relative z-10">
-        
-        {/* Ad Manager Style Hero */}
-        <div className="max-w-4xl mx-auto text-center mb-32">
-          <motion.div
-            initial={{ opacity: 0, scale: 0.9 }}
-            animate={{ opacity: 1, scale: 1 }}
-            className="inline-flex items-center gap-2 px-5 py-2 rounded-xl bg-blue-600 text-white text-[10px] font-black tracking-widest uppercase mb-8 shadow-2xl shadow-blue-600/30"
-          >
-            <IoMegaphoneOutline size={14} /> Meta Marketing Partners
-          </motion.div>
-          <motion.h1
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.1 }}
-            className="text-6xl md:text-8xl lg:text-9xl font-black text-slate-900 leading-[0.85] mb-8 tracking-tighter"
-          >
-            Data <br className="hidden md:block"/> <span className="text-blue-600">Driven.</span>
-          </motion.h1>
-          <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.2 }}
-            className="text-slate-500 text-xl md:text-3xl font-light leading-relaxed max-w-3xl mx-auto"
-          >
-            Scaling Facebook and Instagram ads is a science, not a gamble. We utilize intense pixel tracking, A/B testing, and data-driven audiences to scale your revenue exponentially.
-          </motion.p>
+    <section className="min-h-screen bg-slate-50 text-slate-900 selection:bg-emerald-600 selection:text-white overflow-hidden relative">
+      {/* INDUSTRIAL BACKGROUND DECOR */}
+      <div className="absolute top-0 opacity-20 pointer-events-none -z-10 w-full h-full">
+         <div className="absolute top-0 left-1/4 w-[1px] h-full bg-slate-200"></div>
+         <div className="absolute top-0 right-1/4 w-[1px] h-full bg-slate-200"></div>
+         <div className="absolute top-1/2 left-0 w-full h-[1px] bg-slate-200"></div>
+         <div className="absolute top-[30%] left-[-100px] w-[500px] h-[500px] bg-emerald-50 rounded-full blur-[140px]"></div>
+      </div>
+
+      <div className="container-custom py-24 relative">
+        {/* FB ADS HERO */}
+        <div className="flex flex-col lg:flex-row items-center gap-20 mb-48 pt-10 px-4 md:px-0">
+          <div className="flex-1 text-left">
+            <motion.div
+              initial={{ opacity: 0, x: -20 }}
+              animate={{ opacity: 1, x: 0 }}
+              className="inline-flex items-center gap-2 px-5 py-2 rounded-full bg-emerald-50 border border-emerald-100 text-emerald-700 text-[10px] font-black tracking-[0.4em] uppercase mb-10"
+            >
+              <IoRocketOutline className="text-sm" /> Performance Growth Engine
+            </motion.div>
+
+            <motion.h1
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, ease: "circOut" }}
+              className="text-6xl md:text-8xl lg:text-[10rem] font-black leading-[0.85] mb-12 tracking-tighter"
+            >
+              Conversion <br /> <span className="text-emerald-600 italic font-serif font-light">Architecture.</span>
+            </motion.h1>
+
+            <motion.p
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 0.4 }}
+              className="text-slate-500 text-xl md:text-2xl font-light leading-relaxed max-w-2xl mb-12"
+            >
+              We don't just 'boost posts'. We build rigorous conversion engines that turn attention into attributable revenue through advanced performance architecture.
+            </motion.p>
+
+            <div className="flex flex-col sm:flex-row gap-6">
+              <button className="w-full sm:w-[280px] px-8 py-6 bg-emerald-600 text-white font-black rounded-xl hover:bg-emerald-700 transition-all shadow-2xl shadow-emerald-600/20 uppercase tracking-widest text-[10px] flex items-center justify-center">
+                Initialize Performance Audit
+              </button>
+              <Link
+                href="/services/facebook-ads/details"
+                className="w-full sm:w-[280px] px-8 py-6 bg-white border border-slate-200 text-slate-900 font-black rounded-xl hover:bg-slate-50 transition-all uppercase tracking-widest text-[10px] flex items-center justify-center text-center"
+              >
+                Technical Specifications
+              </Link>
+            </div>
+          </div>
+
+          <div className="flex-1 relative hidden lg:block">
+            <motion.div
+              initial={{ opacity: 0, scale: 0.9 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 1 }}
+              className="relative p-12 bg-white rounded-[4rem] border border-slate-100 shadow-2xl overflow-hidden group"
+            >
+               {/* Performance Funnel Visual */}
+               <div className="absolute inset-0 opacity-5 pointer-events-none" style={{ backgroundImage: "linear-gradient(#10b981 1px, transparent 1px), linear-gradient(90deg, #10b981 1px, transparent 1px)", backgroundSize: "40px 40px" }}></div>
+               
+               <div className="relative aspect-square flex flex-col items-center justify-center space-y-4">
+                  {[
+                    { w: "w-64", h: "h-24", label: "AWARENESS (Top)", color: "bg-emerald-50 text-emerald-400" },
+                    { w: "w-48", h: "h-20", label: "INTENT (Mid)", color: "bg-emerald-100/50 text-emerald-500" },
+                    { w: "w-32", h: "h-16", label: "CONVERSION (Btm)", color: "bg-emerald-600 text-white" }
+                  ].map((level, i) => (
+                    <motion.div
+                      key={i}
+                      initial={{ opacity: 0, y: 20 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ delay: i * 0.2 }}
+                      whileHover={{ scale: 1.05 }}
+                      className={`${level.w} ${level.h} ${level.color} border border-emerald-200 rounded-3xl shadow-xl flex items-center justify-center relative overflow-hidden group/item cursor-default`}
+                    >
+                       <span className="text-[10px] font-black tracking-widest uppercase relative z-10">{level.label}</span>
+                       <motion.div 
+                         animate={{ x: ["-100%", "100%"] }}
+                         transition={{ duration: 3, repeat: Infinity, ease: "linear" }}
+                         className="absolute top-0 left-0 w-full h-full bg-white/20 -skew-x-12 pointer-events-none"
+                       />
+                    </motion.div>
+                  ))}
+
+                  <div className="absolute top-0 right-10 p-6 bg-slate-900 rounded-2xl shadow-2xl border border-slate-800 flex flex-col items-center">
+                     <p className="text-[8px] font-black text-white/40 uppercase tracking-widest mb-1">ROAS Forecast</p>
+                     <p className="text-xl font-black text-emerald-400">4.2x</p>
+                     <IoPulseOutline className="text-emerald-500 text-lg mt-2 animate-pulse" />
+                  </div>
+               </div>
+
+               <div className="absolute bottom-8 left-1/2 -translate-x-1/2 font-mono text-[8px] text-slate-300 uppercase tracking-[0.5em] bg-white px-4">
+                  FUNNEL_ARCHITECTURE_STRICT
+               </div>
+            </motion.div>
+          </div>
         </div>
 
-        {/* Campaign Classifications */}
-        <div className="mb-32">
-          <h2 className="text-4xl font-black text-slate-900 text-center mb-20 tracking-tighter">Campaign Objectives</h2>
+        {/* PILLARS SECTION */}
+        <div className="mb-48 px-4 md:px-0">
+          <div className="flex flex-col md:flex-row justify-between items-end mb-24 gap-8 border-l-4 border-emerald-600 pl-8">
+            <div className="max-w-xl">
+              <h2 className="text-[10px] font-black text-emerald-600 uppercase tracking-[0.4em] mb-4 font-bold">Growth Mechanics</h2>
+              <p className="text-4xl md:text-6xl font-black text-slate-900 leading-tight">
+                The architecture of <span className="text-slate-400 italic font-serif font-light">scalable revenue.</span>
+              </p>
+            </div>
+          </div>
+
           <div className="grid lg:grid-cols-3 gap-8">
-            {campaignTypes.map((type, i) => (
+            {fbAdsPillars.map((item, i) => (
               <motion.div
                 key={i}
                 initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: i * 0.1 }}
-                className="bg-white border border-slate-200/60 p-10 rounded-[2.5rem] relative overflow-hidden group hover:shadow-2xl hover:border-blue-200 transition-all"
+                className="group cursor-default"
               >
-                <div className={`absolute top-0 right-0 w-32 h-32 bg-gradient-to-br ${type.color} opacity-5 rounded-full blur-[40px] group-hover:opacity-20 transition-opacity`}></div>
-                <div className={`text-4xl mb-8 group-hover:scale-110 transition-transform w-16 h-16 rounded-2xl flex items-center justify-center bg-blue-50 text-blue-600 border border-blue-100 shadow-sm`}>
-                  {type.icon}
+                <div className="bg-white rounded-[3rem] p-12 h-full border border-slate-100 shadow-sm shadow-slate-200/50 hover:shadow-2xl transition-all group-hover:-translate-y-2 relative overflow-hidden">
+                  <div
+                    className={`w-14 h-14 rounded-2xl bg-gradient-to-br ${item.color} text-white flex items-center justify-center text-3xl mb-10 shadow-lg`}
+                  >
+                    {item.icon}
+                  </div>
+                  <h3 className="text-2xl font-black text-slate-900 mb-6 tracking-tighter uppercase leading-none">
+                    {item.title}
+                  </h3>
+                  <p className="text-slate-500 leading-relaxed font-light text-lg">
+                    {item.desc}
+                  </p>
                 </div>
-                <h3 className="text-2xl font-black text-slate-900 mb-4">{type.title}</h3>
-                <p className="text-slate-500 font-light leading-relaxed text-lg">{type.desc}</p>
               </motion.div>
             ))}
           </div>
         </div>
 
-        {/* The Data Engine Visual */}
-        <div className="grid lg:grid-cols-2 gap-20 items-center mb-32 bg-white rounded-[3rem] p-12 lg:p-20 border border-slate-200 shadow-2xl relative overflow-hidden">
-           <div className="absolute top-0 right-0 w-full h-full bg-[linear-gradient(45deg,transparent_45%,rgba(24,119,242,0.02)_50%,transparent_55%)] bg-[length:10px_10px] opacity-40"></div>
-           
-           <div className="relative z-10 space-y-12">
-              <h2 className="text-4xl lg:text-5xl font-black text-slate-900 leading-tight">The Data <br/><span className="text-blue-600">Engine.</span></h2>
-              <div className="space-y-8">
-                 {engineDetails.map((item, idx) => (
-                    <div key={idx} className="flex gap-6 items-start group">
-                       <div className="w-12 h-12 rounded-xl bg-blue-50 text-blue-600 flex items-center justify-center font-black text-xl shrink-0 border border-blue-100"><IoCheckmarkCircleOutline /></div>
-                       <div>
-                          <h4 className="text-xl font-bold text-slate-900 mb-2">{item.t}</h4>
-                          <p className="text-slate-500 font-light leading-relaxed">{item.d}</p>
-                       </div>
-                    </div>
-                 ))}
-              </div>
-           </div>
+        {/* PERFORMANCE SECTION */}
+        <div className="mb-48 px-4 md:px-0">
+          <div className="grid lg:grid-cols-2 gap-20 items-center bg-white rounded-[4rem] p-12 lg:p-24 border border-slate-100 shadow-2xl shadow-slate-200/50 relative overflow-hidden">
+             <div className="absolute top-0 right-0 w-1/3 h-full bg-emerald-50/20 -skew-x-[20deg] origin-top translate-x-1/2"></div>
+             
+             <div className="relative z-10 space-y-12">
+                <div className="w-16 h-16 bg-emerald-50 rounded-2xl flex items-center justify-center text-3xl text-emerald-600 border border-emerald-100">
+                   <IoBarChartOutline />
+                </div>
+                <h2 className="text-5xl lg:text-7xl font-black text-slate-900 leading-[0.9]">Technical <br/><span className="text-emerald-600">Precision.</span></h2>
+                <p className="text-slate-500 text-xl font-light leading-relaxed">We move beyond 'vanity metrics'. We focus on attributable revenue, checkout-intent modeling, and LTV optimization to ensure sustainable growth.</p>
+                
+                <div className="grid grid-cols-2 gap-6 pt-10 border-t border-slate-100">
+                   {[
+                     "Custom conversion setups",
+                     "Pixel & API Integration",
+                     "ROAS Attribution Logic",
+                     "LTV Forecasting",
+                     "A/B Creative Sprints",
+                     "Competitor Scale Audit"
+                   ].map((item, idx) => (
+                      <div key={idx} className="flex items-center gap-3 text-sm font-bold text-slate-700">
+                         <IoCheckmarkCircleOutline className="text-emerald-600 text-lg" /> {item}
+                      </div>
+                   ))}
+                </div>
+             </div>
 
-           {/* Metrics Bar Chart Mockup */}
-           <div className="flex flex-col gap-6 relative">
-              <motion.div initial={{ opacity: 0, x: 20 }} whileInView={{ opacity: 1, x: 0 }} className="p-8 bg-blue-600 rounded-3xl shadow-2xl text-white">
-                 <div className="flex justify-between items-center mb-6">
-                    <p className="text-[10px] font-black uppercase tracking-widest opacity-80 underline underline-offset-4 decoration-2">Meta Ads Manager Live</p>
-                    <IoFlashOutline className="animate-pulse" />
-                 </div>
-                 <div className="space-y-2">
-                    <p className="text-sm font-bold opacity-70">Total Conversion Value</p>
-                    <p className="text-5xl font-black tracking-tighter leading-none">$42,500.00</p>
-                 </div>
-                 <div className="mt-8 flex gap-2">
-                   <div className="px-3 py-1 bg-white/20 rounded-md text-[8px] font-black uppercase">ROAS 4.8x</div>
-                   <div className="px-3 py-1 bg-white/20 rounded-md text-[8px] font-black uppercase">CPM $2.4</div>
-                 </div>
-              </motion.div>
-              
-              <div className="grid grid-cols-2 gap-6">
-                 <div className="p-6 bg-white border border-slate-200 rounded-3xl">
-                    <p className="text-[10px] text-slate-400 font-black uppercase mb-2">Daily Spend</p>
-                    <div className="h-2 bg-slate-100 rounded-full w-full overflow-hidden">
-                       <div className="bg-blue-600 h-full w-[80%]"></div>
-                    </div>
-                 </div>
-                 <div className="p-6 bg-white border border-slate-200 rounded-3xl">
-                    <p className="text-[10px] text-slate-400 font-black uppercase mb-2">Audience Size</p>
-                    <p className="text-xl font-black text-slate-900">1.2M+</p>
-                 </div>
-              </div>
-           </div>
+             <motion.div
+               animate={{ y: [0, -10, 0] }}
+               transition={{ duration: 5, repeat: Infinity }}
+               className="relative lg:scale-110"
+             >
+                <div className="bg-slate-900 rounded-[3rem] p-12 border border-slate-800 shadow-2xl space-y-10 group">
+                   <div className="flex justify-between items-center text-white/40 font-mono text-[8px] tracking-[0.4em] uppercase">
+                      <span>Performance Logic</span>
+                      <span>ROI_CALCULATOR_v6.4</span>
+                   </div>
+                   
+                   <div className="space-y-6">
+                      <div className="flex items-center gap-4">
+                         <div className="w-12 h-12 rounded-xl bg-emerald-500 shadow-[0_0_20px_rgba(16,185,129,0.4)] flex items-center justify-center text-white"><IoFlashOutline className="text-2xl" /></div>
+                         <div className="flex-1 space-y-2">
+                            <div className="h-1.5 bg-white/10 rounded-full w-full"></div>
+                            <div className="h-1.5 bg-white/5 rounded-full w-1/2"></div>
+                         </div>
+                      </div>
+                      <div className="h-32 w-full bg-white/5 rounded-2xl border border-white/5 relative overflow-hidden flex flex-col items-center justify-center p-6">
+                         <div className="flex justify-between w-full mb-4">
+                            <p className="text-[10px] font-mono text-emerald-400">NET_CONV::485</p>
+                            <p className="text-[10px] font-mono text-white">CP_AQ::$12.4</p>
+                         </div>
+                         <div className="w-full h-2 bg-white/10 rounded-full overflow-hidden">
+                            <motion.div initial={{ width: 0 }} animate={{ width: "85%" }} transition={{ duration: 2 }} className="h-full bg-emerald-500" />
+                         </div>
+                      </div>
+                   </div>
+
+                   <div className="pt-8 border-t border-white/5 flex justify-between items-center">
+                      <p className="text-[10px] font-mono text-emerald-400 font-bold tracking-tighter">ATTRIBUTION::VERIFIED</p>
+                      <IoCheckmarkCircleOutline className="text-emerald-500" />
+                   </div>
+                </div>
+             </motion.div>
+          </div>
         </div>
 
-        {/* Ad Performance Footer */}
-        <div className="max-w-4xl mx-auto text-center border-t border-slate-200 pt-20">
-           <h3 className="text-4xl font-black text-slate-900 mb-10 tracking-tight">Stop burning your budget. Start scaling your sales.</h3>
-           <button className="px-12 py-5 bg-blue-600 text-white font-extrabold rounded-full hover:scale-105 transition-transform shadow-2xl shadow-blue-500/30 uppercase tracking-widest text-sm">
-             Launch Your First Campaign
-           </button>
+        {/* CTA */}
+        <div className="text-center py-40 border-t border-slate-200 px-4 md:px-0">
+           <IoAnalyticsOutline className="text-7xl text-emerald-600 mb-12 mx-auto opacity-20" />
+           <h3 className="text-5xl lg:text-7xl font-black text-slate-900 mb-12 leading-tight">Stop burning budget. <br/><span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-600 to-blue-700 font-serif italic font-medium">Command the Feed.</span></h3>
+           <div className="flex flex-col sm:flex-row gap-6 justify-center">
+              <button className="w-full sm:w-[280px] px-8 py-6 bg-emerald-600 text-white font-black rounded-xl hover:bg-emerald-700 transition-all shadow-2xl shadow-emerald-600/40 uppercase tracking-widest text-[10px] flex items-center justify-center">
+                Initialize Performance Audit
+              </button>
+              <Link
+                href="/services/facebook-ads/details"
+                className="w-full sm:w-[280px] px-8 py-6 bg-slate-900 text-white font-black rounded-xl hover:bg-slate-800 transition-all uppercase tracking-widest text-[10px] flex items-center justify-center text-center"
+              >
+                Technical Details
+              </Link>
+           </div>
         </div>
       </div>
     </section>

@@ -1,150 +1,262 @@
 "use client";
 
 import { motion } from "framer-motion";
+import Link from "next/link";
 import { 
-  IoTrendingUp, 
   IoSearchOutline, 
-  IoFlashOutline, 
-  IoGlobeOutline, 
+  IoTrendingUpOutline, 
+  IoShareSocialOutline, 
+  IoAnalyticsOutline, 
+  IoCheckmarkCircleOutline,
+  IoGitNetworkOutline,
   IoBarChartOutline,
-  IoCheckmarkCircleOutline
+  IoPulseOutline,
+  IoBugOutline
 } from "react-icons/io5";
 
-const seoHierarchy = [
+const seoPillars = [
   {
-    title: "Technical SEO",
-    desc: "The foundation. Optimizing Core Web Vitals, site speed, schema markup, and crawlability for search robots.",
-    icon: <IoFlashOutline />,
-    color: "from-emerald-500 to-teal-400"
+    title: "Structural Authority",
+    desc: "Optimizing your site's hierarchy and Core Web Vitals to ensure search engines can index your value with zero friction.",
+    icon: <IoGitNetworkOutline />,
+    color: "from-indigo-600 to-slate-700"
   },
   {
-    title: "On-Page / Content",
-    desc: "Elite content structuring using latent semantic indexing (LSI) and cluster-based keyword mapping for topical authority.",
+    title: "Semantic Mapping",
+    desc: "Moving beyond keywords into entity-based SEO. We map your content to the underlying intent of your target audience.",
     icon: <IoSearchOutline />,
-    color: "from-blue-500 to-indigo-400"
+    color: "from-slate-700 to-indigo-800"
   },
   {
-    title: "Authority / Backlinks",
-    desc: "Acquiring high-quality, relevant backlinks from established domains to solidify your authority and trust in Google's eyes.",
-    icon: <IoGlobeOutline />,
-    color: "from-purple-500 to-rose-400"
+    title: "Growth Analytics",
+    desc: "Real-time tracking of rank velocity, conversion attribution, and competitor movement to adjust strategy on the fly.",
+    icon: <IoBarChartOutline />,
+    color: "from-indigo-500 to-sky-600"
   }
 ];
 
-const roadmapSteps = [
-  { m: "Month 1", t: "Audit & Technical Fixes" },
-  { m: "Month 2", t: "Keyword Research & Clusters" },
-  { m: "Month 3", t: "Content Production & Mapping" },
-  { m: "Month 4", t: "Link Building & Outreach" },
-  { m: "Month 5", t: "Optimization & PR Blitz" },
-  { m: "Month 6", t: "Scaling Traffic Peaks" }
-];
-
-export default function SeoOptimizationPage() {
+export default function SeoPage() {
   return (
-    <section className="min-h-screen bg-slate-900 overflow-hidden relative font-sans lg:py-24">
-      <div className="absolute inset-x-0 top-0 h-[800px] bg-gradient-to-b from-emerald-900/30 via-transparent to-transparent pointer-events-none -z-10"></div>
-      
-      <div className="container-custom pt-32 pb-20 relative z-10">
-        
-        {/* SEO Dominance Hero */}
-        <div className="max-w-4xl mx-auto text-center mb-32">
-          <motion.div
-            initial={{ opacity: 0, scale: 0.9 }}
-            animate={{ opacity: 1, scale: 1 }}
-            className="inline-flex items-center gap-2 px-5 py-2 rounded-full bg-emerald-500/10 text-emerald-400 text-xs font-black tracking-widest uppercase mb-8 border border-emerald-500/20 shadow-2xl shadow-emerald-500/10"
-          >
-            Organic Growth Engine
-          </motion.div>
-          <motion.h1
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.1 }}
-            className="text-6xl md:text-8xl lg:text-9xl font-black text-white leading-[0.85] mb-8 tracking-tighter"
-          >
-            Organic <br className="hidden md:block"/> <span className="text-emerald-500">Unlocks.</span>
-          </motion.h1>
-          <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.2 }}
-            className="text-slate-400 text-xl md:text-3xl font-light leading-relaxed max-w-3xl mx-auto"
-          >
-            Paid ads stop the moment you stop paying. SEO works for you while you sleep. We execute elite technical alignments and authority building to dominate Google rankings.
-          </motion.p>
+    <section className="min-h-screen bg-slate-50 text-slate-900 selection:bg-indigo-600 selection:text-white overflow-hidden relative">
+      {/* INDUSTRIAL BACKGROUND DECOR */}
+      <div className="absolute top-0 opacity-20 pointer-events-none -z-10 w-full h-full">
+         <div className="absolute top-0 left-1/4 w-[1px] h-full bg-slate-200"></div>
+         <div className="absolute top-0 right-1/4 w-[1px] h-full bg-slate-200"></div>
+         <div className="absolute top-1/2 left-0 w-full h-[1px] bg-slate-200"></div>
+         <div className="absolute top-[20%] right-[-100px] w-[600px] h-[600px] bg-indigo-50 rounded-full blur-[160px]"></div>
+      </div>
+
+      <div className="container-custom py-24 relative">
+        {/* SEO HERO */}
+        <div className="flex flex-col lg:flex-row items-center gap-20 mb-48 pt-10 px-4 md:px-0">
+          <div className="flex-1 text-left">
+            <motion.div
+              initial={{ opacity: 0, x: -20 }}
+              animate={{ opacity: 1, x: 0 }}
+              className="inline-flex items-center gap-2 px-5 py-2 rounded-full bg-indigo-50 border border-indigo-100 text-indigo-700 text-[10px] font-black tracking-[0.4em] uppercase mb-10"
+            >
+              <IoAnalyticsOutline className="text-sm" /> Structural Authority Architecture
+            </motion.div>
+
+            <motion.h1
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, ease: "circOut" }}
+              className="text-6xl md:text-8xl lg:text-[10rem] font-black leading-[0.85] mb-12 tracking-tighter"
+            >
+              Semantic <br /> <span className="text-indigo-600 italic font-serif font-light">Authority.</span>
+            </motion.h1>
+
+            <motion.p
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 0.4 }}
+              className="text-slate-500 text-xl md:text-2xl font-light leading-relaxed max-w-2xl mb-12"
+            >
+              We treat SEO as a structural engineering discipline. We build technical authority that commands the first page and drives sustainable, high-intent traffic.
+            </motion.p>
+
+            <div className="flex flex-col sm:flex-row gap-6">
+              <button className="w-full sm:w-[280px] px-8 py-6 bg-indigo-600 text-white font-black rounded-xl hover:bg-indigo-700 transition-all shadow-2xl shadow-indigo-600/20 uppercase tracking-widest text-[10px] flex items-center justify-center">
+                Initialize Technical Audit
+              </button>
+              <Link
+                href="/services/seo/details"
+                className="w-full sm:w-[280px] px-8 py-6 bg-white border border-slate-200 text-slate-900 font-black rounded-xl hover:bg-slate-50 transition-all uppercase tracking-widest text-[10px] flex items-center justify-center text-center"
+              >
+                Technical Specifications
+              </Link>
+            </div>
+          </div>
+
+          <div className="flex-1 relative hidden lg:block">
+            <motion.div
+              initial={{ opacity: 0, scale: 0.9 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 1 }}
+              className="relative p-12 bg-white rounded-[4rem] border border-slate-100 shadow-2xl overflow-hidden group"
+            >
+               {/* Semantic Spider Visual */}
+               <div className="absolute inset-0 opacity-5 pointer-events-none" style={{ backgroundImage: "radial-gradient(#4338ca 1px, transparent 1px)", backgroundSize: "30px 30px" }}></div>
+               
+               <div className="relative aspect-square flex items-center justify-center">
+                  <motion.div 
+                    animate={{ scale: [1, 1.05, 1] }} 
+                    transition={{ duration: 6, repeat: Infinity }}
+                    className="w-64 h-64 bg-slate-50 rounded-full border border-slate-100 flex items-center justify-center relative p-8 shadow-inner"
+                  >
+                     <IoGitNetworkOutline className="text-8xl text-indigo-600/20 absolute opacity-50" />
+                     <div className="relative z-10 text-center">
+                        <IoSearchOutline className="text-5xl text-indigo-600 mb-4 mx-auto" />
+                        <p className="text-[10px] font-black text-slate-400 tracking-widest uppercase mb-1">Crawl Status</p>
+                        <p className="text-xs font-mono text-emerald-500 font-bold">200_OK_VERIFIED</p>
+                     </div>
+                  </motion.div>
+
+                  {/* Satellite Data Points */}
+                  {[
+                    { icon: <IoPulseOutline />, pos: "top-10 left-10" },
+                    { icon: <IoBugOutline />, pos: "bottom-10 right-10" },
+                    { icon: <IoAnalyticsOutline />, pos: "top-10 right-10" }
+                  ].map((sat, i) => (
+                    <motion.div
+                      key={i}
+                      animate={{ y: [0, -15, 0] }}
+                      transition={{ duration: 3 + i, repeat: Infinity }}
+                      className={`absolute ${sat.pos} p-6 bg-white rounded-3xl border border-slate-100 shadow-xl text-indigo-600 text-xl`}
+                    >
+                       {sat.icon}
+                    </motion.div>
+                  ))}
+               </div>
+
+               <div className="absolute bottom-8 left-1/2 -translate-x-1/2 font-mono text-[8px] text-slate-300 uppercase tracking-[0.5em] bg-white px-4">
+                  SEMANTIC_AUTHORITY_SYNC_V4
+               </div>
+            </motion.div>
+          </div>
         </div>
 
-        {/* The SEO Hierarchy */}
-        <div className="mb-32">
-          <h2 className="text-4xl font-black text-white text-center mb-24 tracking-tighter">The Search Hierarchy</h2>
+        {/* PILLARS SECTION */}
+        <div className="mb-48 px-4 md:px-0">
+          <div className="flex flex-col md:flex-row justify-between items-end mb-24 gap-8 border-l-4 border-indigo-600 pl-8">
+            <div className="max-w-xl">
+              <h2 className="text-[10px] font-black text-indigo-600 uppercase tracking-[0.4em] mb-4 font-bold">Search Mechanics</h2>
+              <p className="text-4xl md:text-6xl font-black text-slate-900 leading-tight">
+                The architecture of <span className="text-slate-400 italic font-serif font-light">global visibility.</span>
+              </p>
+            </div>
+          </div>
+
           <div className="grid lg:grid-cols-3 gap-8">
-            {seoHierarchy.map((pillar, i) => (
+            {seoPillars.map((item, i) => (
               <motion.div
                 key={i}
                 initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: i * 0.1 }}
-                className="bg-slate-800/40 border border-white/5 p-10 rounded-[2.5rem] relative overflow-hidden group hover:bg-slate-800 transition-all hover:border-emerald-500/20"
+                className="group cursor-default"
               >
-                <div className={`absolute top-0 right-0 w-32 h-32 bg-gradient-to-br ${pillar.color} opacity-5 rounded-full blur-[40px] group-hover:opacity-20 transition-opacity`}></div>
-                <div className={`text-4xl text-white mb-8 group-hover:scale-110 transition-transform w-16 h-16 rounded-2xl flex items-center justify-center bg-emerald-500/10 text-emerald-400 border border-emerald-500/20`}>
-                  {pillar.icon}
+                <div className="bg-white rounded-[3rem] p-12 h-full border border-slate-100 shadow-sm shadow-slate-200/50 hover:shadow-2xl transition-all group-hover:-translate-y-2 relative overflow-hidden">
+                  <div
+                    className={`w-14 h-14 rounded-2xl bg-gradient-to-br ${item.color} text-white flex items-center justify-center text-3xl mb-10 shadow-lg`}
+                  >
+                    {item.icon}
+                  </div>
+                  <h3 className="text-2xl font-black text-slate-900 mb-6 tracking-tighter uppercase leading-none">
+                    {item.title}
+                  </h3>
+                  <p className="text-slate-500 leading-relaxed font-light text-lg">
+                    {item.desc}
+                  </p>
                 </div>
-                <h3 className="text-2xl font-black text-white mb-4">{pillar.title}</h3>
-                <p className="text-slate-500 font-light leading-relaxed text-lg">{pillar.desc}</p>
               </motion.div>
             ))}
           </div>
         </div>
 
-        {/* Roadmap Roadmap Visualization */}
-        <div className="grid lg:grid-cols-2 gap-24 items-center mb-32 max-w-6xl mx-auto bg-slate-950 rounded-[4rem] p-12 lg:p-24 border border-white/5 shadow-2xl relative overflow-hidden">
-           <div className="absolute top-0 right-0 w-full h-full bg-[radial-gradient(ellipse_at_bottom_right,_var(--tw-gradient-stops))] from-emerald-500/10 via-transparent to-transparent opacity-40"></div>
-           
-           <div className="relative z-10 space-y-12">
-              <h2 className="text-4xl lg:text-5xl font-black text-white leading-tight">6-Month <br/><span className="text-emerald-500 underline decoration-4 underline-offset-8">Growth Roadmap.</span></h2>
-              <div className="space-y-6">
-                 {roadmapSteps.map((step, idx) => (
-                    <motion.div 
-                      key={idx} 
-                      initial={{ opacity: 0, x: -20 }}
-                      whileInView={{ opacity: 1, x: 0 }}
-                      viewport={{ once: true }}
-                      transition={{ delay: idx * 0.05 }}
-                      className="flex gap-4 items-center group cursor-default"
-                    >
-                       <div className="bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 font-black text-[10px] px-3 py-1 rounded w-20 text-center group-hover:bg-emerald-500 group-hover:text-black transition-colors">{step.m}</div>
-                       <p className="text-white text-lg font-bold group-hover:pl-4 transition-all">{step.t}</p>
-                    </motion.div>
-                 ))}
-              </div>
-           </div>
+        {/* TECHNICAL AUDIT SECTION */}
+        <div className="mb-48 px-4 md:px-0">
+          <div className="grid lg:grid-cols-2 gap-20 items-center bg-white rounded-[4rem] p-12 lg:p-24 border border-slate-100 shadow-2xl shadow-slate-200/50 relative overflow-hidden">
+             <div className="absolute top-0 right-0 w-1/3 h-full bg-indigo-50/20 -skew-x-[20deg] origin-top translate-x-1/2"></div>
+             
+             <div className="relative z-10 space-y-12">
+                <div className="w-16 h-16 bg-indigo-50 rounded-2xl flex items-center justify-center text-3xl text-indigo-600 border border-indigo-100">
+                   <IoBugOutline />
+                </div>
+                <h2 className="text-5xl lg:text-7xl font-black text-slate-900 leading-[0.9]">Technical <br/><span className="text-indigo-600">Integrity.</span></h2>
+                <p className="text-slate-500 text-xl font-light leading-relaxed">We perform deep-tissue technical audits covering Core Web Vitals, Structured Data (JSON-LD), and JavaScript rendering to eliminate every barrier to indexing.</p>
+                
+                <div className="grid grid-cols-2 gap-6 pt-10 border-t border-slate-100">
+                   {[
+                     "Core Web Vitals Audit",
+                     "Semantic Entity Mapping",
+                     "JavaScript SEO Handoff",
+                     "Internal Link Logic",
+                     "Competitor Velocity Gap",
+                     "Backlink Integrity"
+                   ].map((item, idx) => (
+                      <div key={idx} className="flex items-center gap-3 text-sm font-bold text-slate-700">
+                         <IoCheckmarkCircleOutline className="text-indigo-600 text-lg" /> {item}
+                      </div>
+                   ))}
+                </div>
+             </div>
 
-           {/* Analytical Growth Mockup */}
-           <div className="relative group">
-              <div className="bg-white/5 border border-white/10 rounded-[2.5rem] p-10 h-full min-h-[400px] flex flex-col justify-end relative shadow-2xl overflow-hidden backdrop-blur-xl">
-                 <div className="absolute top-0 left-0 w-full h-full p-10 opacity-20 flex items-end gap-2 overflow-hidden pointer-events-none">
-                    {[10, 25, 15, 45, 30, 60, 55, 90, 85, 100].map((h, i) => (
-                      <div key={i} className="flex-1 bg-emerald-500 rounded-t-sm" style={{ height: `${h}%` }}></div>
-                    ))}
-                 </div>
-                 
-                 <div className="relative z-10 text-center py-6">
-                    <IoBarChartOutline size={48} className="text-emerald-500 mx-auto mb-6 group-hover:scale-125 transition-transform" />
-                    <h4 className="text-3xl font-black text-white mb-2">Organic Authority</h4>
-                    <p className="text-emerald-400 font-mono text-sm tracking-widest">+285.4% Search Visibility</p>
-                 </div>
-              </div>
-           </div>
+             <motion.div
+               animate={{ y: [0, 10, 0] }}
+               transition={{ duration: 5, repeat: Infinity }}
+               className="relative lg:scale-110"
+             >
+                <div className="bg-slate-900 rounded-[3rem] p-12 border border-slate-800 shadow-2xl space-y-10 group">
+                   <div className="flex justify-between items-center text-white/40 font-mono text-[8px] tracking-[0.4em] uppercase">
+                      <span>Authority Report</span>
+                      <span>PAGE_RANK_v2.0</span>
+                   </div>
+                   
+                   <div className="space-y-6">
+                      <div className="flex items-center gap-4">
+                         <div className="w-12 h-12 rounded-xl bg-indigo-500 shadow-[0_0_20px_rgba(67,56,202,0.4)] flex items-center justify-center"><IoTrendingUpOutline className="text-white text-2xl" /></div>
+                         <div className="flex-1 space-y-2">
+                            <div className="h-1.5 bg-white/10 rounded-full w-full"></div>
+                            <div className="h-1.5 bg-white/5 rounded-full w-1/3"></div>
+                         </div>
+                      </div>
+                      <div className="h-32 w-full bg-white/5 rounded-2xl border border-white/5 relative overflow-hidden flex items-center justify-center">
+                         <p className="text-[4rem] font-black text-white/5 opacity-40">SEO</p>
+                         <div className="absolute inset-0 flex items-center justify-center space-x-1">
+                            {[0.4, 0.7, 0.9, 0.6, 0.8, 1].map((h, i) => (
+                               <motion.div key={i} initial={{ height: 0 }} animate={{ height: `${h * 40}px` }} transition={{ duration: 1, repeat: Infinity, repeatType: "reverse" }} className="w-1 bg-indigo-400 rounded-full" />
+                            ))}
+                         </div>
+                      </div>
+                   </div>
+
+                   <div className="pt-8 border-t border-white/5">
+                      <p className="text-[10px] font-mono text-emerald-400 font-bold tracking-tighter">SUCCESS_INDEX::94/100</p>
+                      <p className="text-[10px] font-mono text-slate-500 uppercase tracking-widest mt-2">Mobile Latency: 1.2s</p>
+                   </div>
+                </div>
+             </motion.div>
+          </div>
         </div>
 
-        {/* SEO Final Action */}
-        <div className="max-w-4xl mx-auto text-center border-t border-white/10 pt-20">
-           <h3 className="text-4xl font-black text-white mb-10 tracking-tight italic">Be visible. Be the authority.</h3>
-           <button className="px-12 py-5 bg-emerald-500 text-black font-extrabold rounded-full hover:scale-105 transition-transform shadow-2xl shadow-emerald-500/30 uppercase tracking-widest text-sm">
-             Request An SEO Audit Today
-           </button>
+        {/* CTA */}
+        <div className="text-center py-40 border-t border-slate-200 px-4 md:px-0">
+           <IoAnalyticsOutline className="text-7xl text-indigo-600 mb-12 mx-auto opacity-20" />
+           <h3 className="text-5xl lg:text-7xl font-black text-slate-900 mb-12 leading-tight">Stop playing catch up. <br/><span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-600 to-slate-700 font-serif italic font-medium">Command the First Page.</span></h3>
+           <div className="flex flex-col sm:flex-row gap-6 justify-center">
+              <button className="w-full sm:w-[280px] px-8 py-6 bg-indigo-600 text-white font-black rounded-xl hover:bg-indigo-700 transition-all shadow-2xl shadow-indigo-600/40 uppercase tracking-widest text-[10px] flex items-center justify-center">
+                Initialize Technical Audit
+              </button>
+              <Link
+                href="/services/seo/details"
+                className="w-full sm:w-[280px] px-8 py-6 bg-slate-900 text-white font-black rounded-xl hover:bg-slate-800 transition-all uppercase tracking-widest text-[10px] flex items-center justify-center text-center"
+              >
+                Technical Details
+              </Link>
+           </div>
         </div>
       </div>
     </section>
