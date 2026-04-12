@@ -56,11 +56,11 @@ export default function SocialCreativesDetailsPage() {
             <div className="w-12 h-[1px] bg-rose-600"></div>
             <span className="text-[10px] font-black uppercase tracking-[0.4em]">Algorithmic Retention Manifest</span>
           </motion.div>
-          <h1 className="text-6xl md:text-8xl font-black tracking-tighter mb-12 leading-[0.85]">
-            Retention <br/> <span className="text-slate-400 italic">Science.</span>
+          <h1 className="text-fluid-h1 font-black tracking-tighter mb-12 leading-none">
+            Kinetic <br/> <span className="text-slate-400 italic">Engineering.</span>
           </h1>
-          <p className="text-slate-500 text-xl font-light leading-relaxed max-w-2xl italic">
-            "Content is not just 'creative'. It's a series of algorithmic triggers designed to capture and hold human attention in a high-velocity environment."
+          <p className="text-slate-600 text-xl font-light leading-relaxed max-w-2xl italic">
+            "We don't just design content; we engineer engagement vectors that trigger neural retention."
           </p>
         </div>
 

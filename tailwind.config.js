@@ -37,12 +37,23 @@ module.exports = {
 
       // ─── Typography ────────────────────────────────────────────────
       fontFamily: {
-        sans: ['Inter', 'ui-sans-serif', 'system-ui', 'sans-serif'],
+        display: ['var(--font-display)', 'ui-sans-serif', 'system-ui', 'sans-serif'],
+        sans:    ['var(--font-sans)', 'ui-sans-serif', 'system-ui', 'sans-serif'],
       },
       fontSize: {
-        hero:    ['3.5rem',  { lineHeight: '1.1', fontWeight: '800' }],
-        display: ['2.5rem',  { lineHeight: '1.2', fontWeight: '700' }],
-        title:   ['1.75rem', { lineHeight: '1.3', fontWeight: '600' }],
+        'fluid-hero': ['var(--text-fluid-hero)', { lineHeight: '1.05', letterSpacing: '-0.04em', fontWeight: '900' }],
+        'fluid-h1':   ['var(--text-fluid-h1)',   { lineHeight: '1.1',  letterSpacing: '-0.02em', fontWeight: '800' }],
+        'fluid-h2':   ['var(--text-fluid-h2)',   { lineHeight: '1.15', letterSpacing: '-0.015em', fontWeight: '800' }],
+        'fluid-h3':   ['var(--text-fluid-h3)',   { lineHeight: '1.2',  letterSpacing: '-0.01em', fontWeight: '700' }],
+        'xs':         ['var(--text-xs)',         { lineHeight: '1.6' }],
+        'sm':         ['var(--text-sm)',         { lineHeight: '1.6' }],
+        'base':       ['var(--text-base)',       { lineHeight: '1.65' }],
+        'lg':         ['var(--text-lg)',         { lineHeight: '1.5' }],
+        'xl':         ['var(--text-xl)',         { lineHeight: '1.4' }],
+        '2xl':        ['var(--text-2xl)',        { lineHeight: '1.3' }],
+        '3xl':        ['var(--text-3xl)',        { lineHeight: '1.2' }],
+        '4xl':        ['var(--text-4xl)',        { lineHeight: '1.1' }],
+        '5xl':        ['var(--text-5xl)',        { lineHeight: '1.1' }],
       },
 
       // ─── Shadows ───────────────────────────────────────────────────

@@ -56,11 +56,11 @@ export default function FacebookAdsDetailsPage() {
             <div className="w-12 h-[1px] bg-emerald-600"></div>
             <span className="text-[10px] font-black uppercase tracking-[0.4em]">Performance Manifest</span>
           </motion.div>
-          <h1 className="text-6xl md:text-8xl font-black tracking-tighter mb-12 leading-[0.85]">
-            Conversion <br/> <span className="text-slate-400 italic">Engineering.</span>
+          <h1 className="text-fluid-h1 font-black tracking-tighter mb-12 leading-none">
+            Performance <br/> <span className="text-slate-400 italic">Logic.</span>
           </h1>
-          <p className="text-slate-500 text-xl font-light leading-relaxed max-w-2xl italic">
-            "We don't boost posts. We build rigorous conversion engines that turn attention into attributable revenue through advanced performance architecture."
+          <p className="text-slate-600 text-xl font-light leading-relaxed max-w-2xl italic">
+            "We treat ad targeting as a mathematical optimization problem, not a creative guessing game."
           </p>
         </div>
 

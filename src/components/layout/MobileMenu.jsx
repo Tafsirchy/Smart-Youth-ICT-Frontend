@@ -95,7 +95,7 @@ export default function MobileMenu({ links, session, onClose }) {
             <Link
               href="/services"
               onClick={onClose}
-              className="block px-3 py-1.5 text-[12px] font-black text-brand-pink uppercase tracking-widest"
+              className="block px-3 py-1.5 text-xs font-black text-brand-pink uppercase tracking-widest"
             >
               View All Services →
             </Link>

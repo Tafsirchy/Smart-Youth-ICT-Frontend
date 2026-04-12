@@ -18,6 +18,9 @@ export default function ImageLoader({
   className,
   wrapperClassName,
   skeletonClassName,
+  disableTransition,
+  priority,
+  fetchPriority,
   ...props
 }) {
   const [isLoaded, setIsLoaded] = useState(false);
@@ -30,8 +33,8 @@ export default function ImageLoader({
         wrapperClassName
       )}
     >
-      {/* Skeleton loader */}
-      {!isLoaded && (
+      {/* Skeleton loader - skip if transition is disabled (assume priority image) */}
+      {!isLoaded && !disableTransition && (
         <div
           className={cn(
             "absolute inset-0 bg-slate-200 animate-pulse z-0",
@@ -45,11 +48,13 @@ export default function ImageLoader({
         src={src}
         alt={alt || "Image"}
         className={cn(
-          "transition-opacity duration-500 ease-in-out",
-          isLoaded ? "opacity-100" : "opacity-0",
+          !disableTransition && "transition-opacity duration-500 ease-in-out",
+          (isLoaded || disableTransition) ? "opacity-100" : "opacity-0",
           className
         )}
         onLoad={() => setIsLoaded(true)}
+        priority={priority}
+        fetchPriority={fetchPriority}
         {...props}
       />
     </div>

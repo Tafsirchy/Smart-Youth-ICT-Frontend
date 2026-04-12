@@ -64,7 +64,7 @@ export default function BusinessAutomationPage() {
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, ease: "circOut" }}
-              className="text-6xl md:text-8xl lg:text-[10rem] font-black leading-[0.85] mb-12 tracking-tighter"
+              className="text-fluid-hero font-black leading-none mb-12 tracking-tighter"
             >
               Workflow <br /> <span className="text-amber-600 italic font-serif font-light">Sovereignty.</span>
             </motion.h1>
@@ -73,7 +73,7 @@ export default function BusinessAutomationPage() {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: 0.4 }}
-              className="text-slate-500 text-xl md:text-2xl font-light leading-relaxed max-w-2xl mb-12"
+              className="text-slate-600 text-xl font-light leading-relaxed max-w-2xl mb-12"
             >
               Stop wasting human potential on repetitive tasks. We build complex Zapier, Make.com, and custom API logic to turn your fragmented apps into a unified, high-velocity growth engine.
             </motion.p>

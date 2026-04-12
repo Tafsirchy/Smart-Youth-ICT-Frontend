@@ -54,11 +54,11 @@ export default function SeoDetailsPage() {
             <div className="w-12 h-[1px] bg-indigo-600"></div>
             <span className="text-[10px] font-black uppercase tracking-[0.4em]">Technical SEO Manifest</span>
           </motion.div>
-          <h1 className="text-6xl md:text-8xl font-black tracking-tighter mb-12 leading-[0.85]">
-            Structural <br/> <span className="text-slate-400 italic">Integrity.</span>
+          <h1 className="text-fluid-h1 font-black tracking-tighter mb-12 leading-none">
+            Technical <br/> <span className="text-slate-400 italic">Integrity.</span>
           </h1>
-          <p className="text-slate-500 text-xl font-light leading-relaxed max-w-2xl italic">
-            "We treat SEO as a structural engineering discipline. Your site's code is the foundation of its ranking potential."
+          <p className="text-slate-600 text-xl font-light leading-relaxed max-w-2xl italic">
+            "We treat search engines as logical systems. Our process is rooted in technical indexing science and semantic content architecture."
           </p>
         </div>
 

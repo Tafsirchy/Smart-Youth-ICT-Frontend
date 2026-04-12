@@ -62,18 +62,18 @@ export default function UiUxPage() {
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, ease: "circOut" }}
-              className="text-6xl md:text-8xl lg:text-[10rem] font-black leading-[0.85] mb-12 tracking-tighter"
+              className="text-fluid-hero font-black leading-none mb-12 tracking-tighter"
             >
-              Science of <br /> <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-600 to-indigo-600 italic font-serif font-light">Experience.</span>
+              Mathematical <br /> <span className="text-pink-600 italic font-serif font-light">UX.</span>
             </motion.h1>
 
             <motion.p
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: 0.4 }}
-              className="text-slate-500 text-xl md:text-2xl font-light leading-relaxed max-w-2xl mb-12"
+              className="text-slate-600 text-xl font-light leading-relaxed max-w-2xl mb-12"
             >
-              We don't just 'design' interfaces. We construct high-conversion user journeys that maximize retention and eliminate friction through scientific design principles.
+              We don't just design interfaces; we architect user behavior. Our UI/UX philosophy is grounded in cognitive psychology and data-driven accessibility to ensure your product is beautiful and highly efficient.
             </motion.p>
 
             <div className="flex flex-col sm:flex-row gap-6">

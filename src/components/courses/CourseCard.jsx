@@ -11,7 +11,7 @@ import {
 } from "react-icons/io5";
 import { HiArrowLongRight } from "react-icons/hi2";
 
-export default function CourseCard({ course, locale }) {
+export default function CourseCard({ course, locale, priority }) {
   const {
     slug,
     title,
@@ -45,6 +45,7 @@ export default function CourseCard({ course, locale }) {
           alt={displayTitle}
           fill
           sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+          priority={priority}
           className="object-cover transition-transform duration-700 group-hover:scale-110"
         />
 

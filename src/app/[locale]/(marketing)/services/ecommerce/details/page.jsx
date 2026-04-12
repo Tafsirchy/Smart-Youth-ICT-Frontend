@@ -132,8 +132,12 @@ export default function EcommerceDetailsPage() {
            <div className="relative z-10">
               <div className="flex flex-col lg:flex-row justify-between items-start gap-12 mb-20">
                  <div className="max-w-2xl">
-                    <h2 className="text-5xl lg:text-7xl font-black text-slate-900 leading-tight mb-8">Asset <br/> <span className="font-serif italic font-light text-rose-500">Readiness.</span></h2>
-                    <p className="text-slate-500 text-xl font-light leading-relaxed">To achieve high-velocity deployment, our architects require the following commerce artifacts before the build sequence initiates.</p>
+                    <h1 className="text-fluid-h1 font-black tracking-tighter mb-12 leading-none">
+                      Transaction <br/> <span className="text-slate-400 italic">Logic.</span>
+                    </h1>
+                    <p className="text-slate-600 text-xl font-light leading-relaxed max-w-2xl italic">
+                      "Commerce is not about products; it's about the reduction of transactional friction through secure technical architecture."
+                    </p>
                  </div>
                  <div className="w-20 h-20 bg-rose-50 rounded-full flex items-center justify-center border border-rose-100">
                     <IoLockClosedOutline className="text-4xl text-rose-500" />

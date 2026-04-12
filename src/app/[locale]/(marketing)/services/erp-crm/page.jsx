@@ -77,22 +77,18 @@ export default function ErpCrmPage() {
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, ease: "circOut" }}
-              className="text-6xl md:text-8xl lg:text-[10rem] font-black leading-[0.85] mb-12 tracking-tighter"
+              className="text-fluid-hero font-black leading-none mb-12 tracking-tighter"
             >
-              Operation <br /> <span className="text-teal-600 italic font-serif font-light">Ecosystem.</span>
+              Operational <br /> <span className="text-blue-600 italic font-serif font-light">Logic.</span>
             </motion.h1>
 
             <motion.p
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: 0.4 }}
-              className="text-slate-500 text-xl md:text-2xl font-light leading-relaxed max-w-2xl mb-12"
+              className="text-slate-600 text-xl font-light leading-relaxed max-w-2xl mb-12"
             >
-              Consolidate your entire organization into a single, high-fidelity ecosystem. We engineer{" "}
-              <span className="text-slate-900 font-bold underline decoration-amber-500 decoration-2 underline-offset-8">
-                bespoke systems
-              </span>{" "}
-              that eliminate licensing overhead and fragmented workflows.
+              We don't build software; we architect business efficiency. Our systems integrate ERP, CRM, and POS into a unified, high-vibration command center that eliminates operational friction.
             </motion.p>
 
             <div className="flex flex-col sm:flex-row gap-6">

@@ -64,9 +64,9 @@ export default function ChatbotDevelopmentPage() {
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, ease: "circOut" }}
-              className="text-6xl md:text-8xl lg:text-[10rem] font-black leading-[0.85] mb-12 tracking-tighter"
+              className="text-fluid-hero font-black leading-none mb-12 tracking-tighter"
             >
-              Autonomous <br /> <span className="text-emerald-600 italic font-serif font-light">Intelligence.</span>
+              Neural <br /> <span className="text-emerald-500 italic font-serif font-light">Response.</span>
             </motion.h1>
 
             <motion.p
@@ -75,7 +75,7 @@ export default function ChatbotDevelopmentPage() {
               transition={{ delay: 0.4 }}
               className="text-slate-500 text-xl md:text-2xl font-light leading-relaxed max-w-2xl mb-12"
             >
-              Automate your support infrastructure with precision. We engineer custom AI agents that process data, resolve queries, and execute tasks with 24/7 reliability.
+              Architecting conversation with precision. We build RAG-powered, multi-channel AI agents that reduce operational friction and drive autonomous engagement.
             </motion.p>
 
             <div className="flex flex-col sm:flex-row gap-6">

@@ -55,11 +55,11 @@ export default function ChatbotDetailsPage() {
             <div className="w-12 h-[1px] bg-emerald-600"></div>
             <span className="text-[10px] font-black uppercase tracking-[0.4em]">Inference Manifest</span>
           </motion.div>
-          <h1 className="text-6xl md:text-8xl font-black tracking-tighter mb-12 leading-[0.85]">
-            Neural <br/> <span className="text-slate-400 italic">Engineering.</span>
+          <h1 className="text-fluid-h1 font-black tracking-tighter mb-12 leading-none">
+            Intelligence <br/> <span className="text-slate-400 italic">Architecture.</span>
           </h1>
-          <p className="text-slate-500 text-xl font-light leading-relaxed max-w-2xl italic">
-            "We don't just build chatbots. We engineer autonomous intelligence hubs that process complex business logic with human-like reasoning."
+          <p className="text-slate-600 text-xl font-light leading-relaxed max-w-2xl italic">
+            "We don't just build scripts; we architect autonomous intelligence layers that process intent with surgical precision."
           </p>
         </div>
 

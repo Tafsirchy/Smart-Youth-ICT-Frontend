@@ -85,10 +85,10 @@ export default function HowItWorks() {
           viewport={{ once: true }}
           transition={{ duration: 0.8 }}
         >
-          <span className="inline-block px-4 py-1.5 rounded-full bg-slate-900 text-white text-[10px] font-black uppercase tracking-[0.3em] mb-6">
+          <span className="inline-block px-4 py-1.5 rounded-full bg-slate-900 text-white text-xs font-black uppercase tracking-[0.3em] mb-6">
             The Success Journey 
           </span>
-          <h2 className="text-4xl md:text-6xl font-black text-slate-900 leading-tight">
+          <h2 className="text-fluid-h2 font-black text-slate-900 leading-tight">
              How Smart Learning <br />
             <span className="text-emerald-500">Transforms Your Future</span>
           </h2>

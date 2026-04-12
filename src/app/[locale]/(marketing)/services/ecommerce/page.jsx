@@ -91,22 +91,18 @@ export default function EcommercePage() {
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, ease: "circOut" }}
-              className="text-6xl md:text-8xl lg:text-[10rem] font-black leading-[0.8] mb-12 tracking-tighter"
+              className="text-fluid-hero font-black leading-none mb-12 tracking-tighter"
             >
-              Commerce <br /> <span className="text-rose-500">Engines.</span>
+              Transaction <br /> <span className="text-pink-600 italic font-serif font-light">Velocity.</span>
             </motion.h1>
 
             <motion.p
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: 0.4 }}
-              className="text-slate-500 text-xl md:text-3xl font-light leading-relaxed max-w-2xl mb-12"
+              className="text-slate-600 text-xl font-light leading-relaxed max-w-2xl mb-12"
             >
-              Turning traffic into revenue. We engineer{" "}
-              <span className="text-slate-900 font-bold underline decoration-rose-500 decoration-2 underline-offset-8">
-                high-speed commerce hubs
-              </span>{" "}
-              that eliminate friction, optimize SEO, and maximize Average Order Value.
+              We don't just build 'stores'. We architect high-conversion transaction engines designed for massive scale, absolute security, and fluid global deployment.
             </motion.p>
 
             <div className="flex flex-col sm:flex-row gap-6">

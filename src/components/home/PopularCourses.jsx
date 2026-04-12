@@ -1,22 +1,15 @@
 "use client";
 
 import { useState, useEffect, useMemo } from "react";
+import { useQuery } from "@tanstack/react-query";
 import { motion } from "framer-motion";
 import Link from "next/link";
-import ImageLoader from "@/components/ui/ImageLoader";
 import { useLocale } from "next-intl";
 import api from "@/lib/api";
 import {
-  IoTimeOutline,
-  IoPeopleOutline,
-  IoStar,
   IoArrowForwardOutline,
-  IoBookOutline,
-  IoFlashOutline,
   IoSearchOutline,
   IoCloseOutline,
-  IoLanguageOutline,
-  IoVideocamOutline,
   IoChevronDownOutline
 } from "react-icons/io5";
 import CourseCard from "@/components/courses/CourseCard";
@@ -36,72 +29,13 @@ const cardAnim = {
   },
 };
 
-const FALLBACK = [
-  {
-    _id: "1",
-    slug: "web-development",
-    title: { en: "Web Development Mastery" },
-    category: "Development",
-    price: 6000,
-    originalPrice: 8000,
-    duration: "6 Months",
-    enrolledCount: 340,
-    rating: 4.9,
-    badge: "🔥 Hero Course",
-    thumbnail: "/images/web.png",
-  },
-  {
-    _id: "2",
-    slug: "social-media-marketing",
-    title: { en: "Digital Marketing Growth" },
-    category: "Marketing",
-    price: 3500,
-    originalPrice: 5000,
-    duration: "6 Months",
-    enrolledCount: 210,
-    rating: 4.8,
-    badge: "📈 Trending",
-    thumbnail: "/images/marketing.png",
-  },
-  {
-    _id: "3",
-    slug: "graphic-design",
-    title: { en: "Visual Design & UI" },
-    category: "Creative",
-    price: 4000,
-    originalPrice: 5500,
-    duration: "6 Months",
-    enrolledCount: 180,
-    rating: 4.8,
-    badge: "🎨 Artistic",
-    thumbnail: "/images/graphic.png",
-  },
-  {
-    _id: "4",
-    slug: "ai-prompt-engineering",
-    title: { en: "AI & Future Automation" },
-    category: "Advanced AI",
-    price: 2800,
-    originalPrice: 4000,
-    duration: "6 Months",
-    enrolledCount: 120,
-    rating: 4.9,
-    badge: "🤖 Smart Choice",
-    thumbnail: "/images/ai.png",
-  },
-];
-
 export default function PopularCourses() {
   const locale = useLocale();
-  const [courses, setCourses] = useState([]);
-  const [loading, setLoading] = useState(true);
   const [category, setCategory] = useState("all");
   const [branch, setBranch] = useState("all");
-  const [search, setSearch] = useState("");
   const [searchInput, setSearchInput] = useState("");
+  const [debouncedSearch, setDebouncedSearch] = useState("");
   const [page, setPage] = useState(1);
-  const [totalCount, setTotalCount] = useState(0);
-  const [totalPages, setTotalPages] = useState(1);
 
   const CATEGORY_LABELS = {
     all: "All",
@@ -114,60 +48,61 @@ export default function PopularCourses() {
 
   const PAGE_SIZE = 8;
 
+  // Search Debounce Logic
   useEffect(() => {
-    let isMounted = true;
-    setLoading(true);
+    const timer = setTimeout(() => {
+      setDebouncedSearch(searchInput);
+    }, 500);
+    return () => clearTimeout(timer);
+  }, [searchInput]);
 
-    const params = {
-      page,
-      limit: PAGE_SIZE,
-      isPopular: "true",
-    };
+  // Reset page on filter change
+  useEffect(() => {
+    setPage(1);
+  }, [category, branch, debouncedSearch]);
 
-    if (category !== "all") params.category = category;
-    if (branch !== "all" && branch !== "master") params.branchId = branch;
-    if (branch === "master") params.isMaster = "true";
-    if (search.trim()) params.search = search; // Assuming backend supports search param
+  const { data, isLoading, isPlaceholderData } = useQuery({
+    queryKey: ["popular-courses", page, category, branch, debouncedSearch],
+    queryFn: async () => {
+      const params = {
+        page,
+        limit: PAGE_SIZE,
+        isPopular: "true",
+      };
+      if (category !== "all") params.category = category;
+      if (branch !== "all" && branch !== "master") params.branchId = branch;
+      if (branch === "master") params.isMaster = "true";
+      if (debouncedSearch.trim()) params.search = debouncedSearch;
 
-    api
-      .get("/courses", { params })
-      .then((res) => {
-        if (isMounted && res.data?.success) {
-          const enriched = res.data.data.map((c) => ({
+      const res = await api.get("/courses", { params });
+      
+      if (res.data?.success) {
+        return {
+          courses: res.data.data.map((c) => ({
             ...c,
             originalPrice: c.originalPrice ?? Math.round(c.price * 1.3),
-          }));
-          setCourses(enriched);
-          setTotalCount(res.data.totalCount || enriched.length);
-          setTotalPages(res.data.totalPages || 1);
-        }
-      })
-      .catch((err) => {
-        console.error("Failed to fetch courses:", err);
-      })
-      .finally(() => {
-        if (isMounted) setLoading(false);
-      });
+          })),
+          totalCount: res.data.totalCount || res.data.data.length,
+          totalPages: res.data.totalPages || 1,
+        };
+      }
+      return { courses: [], totalCount: 0, totalPages: 1 };
+    },
+    placeholderData: (previousData) => previousData,
+    staleTime: 60 * 1000, // 1 minute cache
+  });
 
-    return () => {
-      isMounted = false;
-    };
-  }, [page, category, branch, search]);
+  const courses = data?.courses || [];
+  const totalCount = data?.totalCount || 0;
+  const totalPages = data?.totalPages || 1;
 
   const categories = useMemo(() => {
-    // In a real app, these might come from a separate API or a static list.
-    // For now, we'll keep the core listing categories static as requested in the labels.
     return ["all", "web-dev", "graphic-design", "smm", "ai", "other"];
   }, []);
 
   const branches = useMemo(() => {
-    // Branches are typically dynamic, but for the performance fix we assume 'all' and 'master' are defaults.
     return ["all", "master"]; 
   }, []);
-
-  useEffect(() => {
-    setPage(1);
-  }, [category, branch, search]);
 
   return (
     <section className="section py-24 bg-slate-50 relative overflow-hidden">
@@ -277,14 +212,16 @@ export default function PopularCourses() {
 
         {/* Courses Grid */}
         <div className="relative min-h-[400px]">
-          {loading && (
+          {isLoading && !data && (
             <div className="absolute inset-0 z-20 flex items-center justify-center bg-slate-50/50 backdrop-blur-[2px]">
               <div className="w-12 h-12 border-4 border-blue-600 border-t-transparent rounded-full animate-spin" />
             </div>
           )}
           
           <motion.div
-            className={`grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 ${loading ? 'opacity-50' : ''}`}
+            className={`grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 ${
+              (isLoading || isPlaceholderData) ? 'opacity-50 pointer-events-none' : ''
+            }`}
             variants={container}
             initial="hidden"
             animate="visible"
@@ -295,27 +232,27 @@ export default function PopularCourses() {
                 variants={cardAnim}
                 className="relative"
               >
-                <CourseCard course={course} locale={locale} />
+                <CourseCard course={course} locale={locale} priority={index < 2} />
               </motion.div>
             ))}
           </motion.div>
         </div>
 
         {/* Empty State */}
-        {!loading && courses.length === 0 && (
+        {!isLoading && courses.length === 0 && (
           <div className="text-center py-20 bg-white rounded-[3rem] shadow-sm border border-slate-100 mt-10">
             <div className="inline-flex items-center justify-center w-20 h-20 rounded-full bg-slate-50 text-slate-300 mb-6">
                <IoSearchOutline size={40} />
             </div>
             <h3 className="text-xl font-black text-slate-900 mb-2">No matching courses</h3>
             <p className="text-slate-500 font-medium">
-              We couldn't find anything matching "{search}". Try another keyword?
+              We couldn't find anything matching "{debouncedSearch}". Try another keyword?
             </p>
           </div>
         )}
 
         {/* Pagination Info */}
-        {!loading && courses.length > 0 && totalPages > 1 && (
+        {!isLoading && courses.length > 0 && totalPages > 1 && (
           <div className="mt-16 flex flex-col items-center gap-6">
             <p className="text-[10px] font-black uppercase tracking-[0.2em] text-slate-400">
               Page {page} of {totalPages} • {totalCount} results

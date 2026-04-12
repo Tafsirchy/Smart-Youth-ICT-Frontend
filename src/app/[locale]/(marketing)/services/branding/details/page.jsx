@@ -55,10 +55,10 @@ export default function BrandingDetailsPage() {
             <div className="w-12 h-[1px] bg-indigo-600"></div>
             <span className="text-[10px] font-black uppercase tracking-[0.4em]">Visual Grammar Manifest</span>
           </motion.div>
-          <h1 className="text-6xl md:text-8xl font-black tracking-tighter mb-12 leading-[0.85]">
+          <h1 className="text-fluid-h1 font-black tracking-tighter mb-12 leading-none">
             Identity <br/> <span className="text-slate-400 italic">Architecture.</span>
           </h1>
-          <p className="text-slate-500 text-xl font-light leading-relaxed max-w-2xl italic">
+          <p className="text-slate-600 text-xl font-light leading-relaxed max-w-2xl italic">
             "A brand is not a logo; it's a structural promise. We treat identity as a mathematical and psychological engineering discipline."
           </p>
         </div>

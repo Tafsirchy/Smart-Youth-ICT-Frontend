@@ -324,7 +324,10 @@ export default function Navbar() {
                 onClick={
                   href === "/" ? handleHomeClick : () => handleMouseEnter(null)
                 }
-                onMouseEnter={() => handleMouseEnter(null)}
+                onMouseEnter={() => {
+                  handleMouseEnter(null);
+                  prefetchRoutes([href]);
+                }}
                 className={`px-3 py-2 rounded-lg text-sm font-medium transition-all ${
                   isActive(href)
                     ? "text-brand-green bg-brand-green/10 font-semibold"
@@ -409,7 +412,7 @@ export default function Navbar() {
                       <div className="w-6 h-6 rounded-md bg-white/10 flex items-center justify-center backdrop-blur-sm border border-white/5">
                         <span className="text-white text-sm">📖</span>
                       </div>
-                      <span className="text-white text-[10px] font-black uppercase tracking-[0.2em]">
+                      <span className="text-white text-xs font-black uppercase tracking-[0.2em]">
                         About Smart Youth ICT
                       </span>
                     </div>
@@ -425,9 +428,9 @@ export default function Navbar() {
                           <div
                             className={`w-7 h-7 rounded-lg flex items-center justify-center shrink-0 shadow-sm transition-transform duration-300 group-hover/col:scale-110 ${col.iconTheme}`}
                           >
-                            <span className="text-[13px]">{col.icon}</span>
+                            <span className="text-xs">{col.icon}</span>
                           </div>
-                          <p className="text-[9px] font-black text-slate-800 uppercase tracking-widest leading-tight">
+                          <p className="text-xs font-black text-slate-800 uppercase tracking-widest leading-tight">
                             {col.heading}
                           </p>
                         </div>
@@ -441,11 +444,11 @@ export default function Navbar() {
                                   className="flex flex-col gap-0.5 px-2 py-1.5 -mx-2 rounded-md hover:bg-slate-50 group/item transition-colors"
                                 >
                                   <span
-                                    className={`text-[11px] font-bold group-hover/item:text-brand-pink transition-colors leading-tight ${isItemActive ? "text-brand-green" : "text-slate-700"}`}
+                                    className={`text-xs font-bold group-hover/item:text-brand-pink transition-colors leading-tight ${isItemActive ? "text-brand-green" : "text-slate-700"}`}
                                   >
                                     {item.label}
                                   </span>
-                                  <span className="text-[9px] text-slate-400 group-hover/item:text-slate-500 transition-colors">
+                                  <span className="text-xs text-slate-400 group-hover/item:text-slate-500 transition-colors">
                                     {item.desc}
                                   </span>
                                 </Link>
@@ -459,7 +462,7 @@ export default function Navbar() {
 
                   {/* Trust Badge / Footer */}
                   <div className="border-t border-slate-100 bg-white px-6 py-3 flex items-center justify-center">
-                    <p className="text-[10px] text-slate-400 font-bold uppercase tracking-[0.2em] italic">
+                    <p className="text-xs text-slate-400 font-bold uppercase tracking-[0.2em] italic">
                       From Learning to Earning • Built for Real-World Skills
                     </p>
                   </div>
@@ -520,6 +523,7 @@ export default function Navbar() {
               <Link
                 href="/login"
                 id="nav-login"
+                onMouseEnter={() => prefetchRoutes(["/login"])}
                 className="text-sm font-medium text-gray-700 hover:text-primary transition-colors"
               >
                 Sign In
@@ -531,6 +535,7 @@ export default function Navbar() {
                 <Link
                   href="/register"
                   id="nav-register"
+                  onMouseEnter={() => prefetchRoutes(["/register"])}
                   className="btn-primary text-sm px-4 py-2"
                 >
                   Enroll Now
@@ -598,7 +603,7 @@ export default function Navbar() {
                   <div className="w-6 h-6 rounded-md bg-white/10 flex items-center justify-center backdrop-blur-sm border border-white/5">
                     <span className="text-white text-sm">💡</span>
                   </div>
-                  <p className="text-white text-[10px] font-black uppercase tracking-[0.2em]">
+                  <p className="text-white text-xs font-black uppercase tracking-[0.2em]">
                     Our Expert Services
                   </p>
                 </div>
@@ -606,7 +611,7 @@ export default function Navbar() {
                   href="/services"
                   className="relative z-10 text-brand-pink text-xs font-bold hover:text-white transition-colors bg-white/5 hover:bg-brand-pink border border-white/10 hover:border-brand-pink px-3 py-1.5 rounded-full flex items-center gap-1"
                 >
-                  View full catalog <span className="text-[10px]">→</span>
+                  View full catalog <span className="text-xs">→</span>
                 </Link>
               </div>
 
@@ -621,9 +626,9 @@ export default function Navbar() {
                       <div
                         className={`w-7 h-7 rounded-lg flex items-center justify-center shrink-0 shadow-sm transition-transform duration-300 group-hover/col:scale-110 ${col.iconTheme}`}
                       >
-                        <span className="text-[13px]">{col.icon}</span>
+                        <span className="text-xs">{col.icon}</span>
                       </div>
-                      <p className="text-[9px] font-black text-slate-800 uppercase tracking-widest leading-tight">
+                      <p className="text-xs font-black text-slate-800 uppercase tracking-widest leading-tight">
                         {col.heading}
                       </p>
                     </div>
@@ -639,12 +644,12 @@ export default function Navbar() {
                                 className="flex items-center justify-between gap-1 px-2 py-1 -mx-2 rounded-md hover:bg-slate-50 group transition-colors"
                               >
                                 <span
-                                  className={`text-[11px] font-medium group-hover:text-brand-pink transition-colors leading-tight ${isItemActive ? "text-brand-green" : "text-slate-600"}`}
+                                  className={`text-xs font-medium group-hover:text-brand-pink transition-colors leading-tight ${isItemActive ? "text-brand-green" : "text-slate-600"}`}
                                 >
                                   {item.label}
                                 </span>
                                 {item.badge && (
-                                  <span className="shrink-0 text-[7px] font-black text-white bg-gradient-to-r from-pink-500 to-rose-500 px-1 py-0.5 rounded-sm shadow-sm uppercase tracking-wider">
+                                  <span className="shrink-0 text-xs font-black text-white bg-gradient-to-r from-pink-500 to-rose-500 px-1 py-0.5 rounded-sm shadow-sm uppercase tracking-wider">
                                     {item.badge}
                                   </span>
                                 )}

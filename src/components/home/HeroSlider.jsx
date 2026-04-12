@@ -279,7 +279,7 @@ export default function HeroSlider() {
                 transition={{ delay: 0.4 }}
               >
                 {slides[current].badge ? (
-                  <div className="inline-flex items-center gap-2 px-5 py-2 rounded-full bg-white/10 backdrop-blur-xl border border-white/20 text-white text-[11px] font-bold tracking-widest mb-5">
+                  <div className="inline-flex items-center gap-2 px-5 py-2 rounded-full bg-white/10 backdrop-blur-xl border border-white/20 text-white text-xs font-bold tracking-widest mb-5">
                     🚀 {slides[current].badge}
                   </div>
                 ) : slides[current].type === "dual-portrait" ? (
@@ -306,20 +306,20 @@ export default function HeroSlider() {
                             <StarIcon key={i} />
                           ))}
                         </div>
-                        <p className="text-[11px] font-bold text-slate-400 uppercase tracking-wider">
+                        <p className="text-xs font-bold text-slate-400 uppercase tracking-wider">
                           {slides[current].label}
                         </p>
                       </div>
                     </div>
                   </div>
                 ) : (
-                  <p className="text-[13px] font-medium tracking-tight mb-4 text-slate-500">
+                  <p className="text-xs font-medium tracking-tight mb-4 text-slate-500">
                     {slides[current].label}
                   </p>
                 )}
 
                 <h1
-                  className={`text-4xl md:text-[52px] font-[900] leading-[1.05] mb-5 ${slides[current].id === 1 ? "text-[#232F3E]" : slides[current].id === 3 ? "text-[#232F3E]" : "text-white"}`}
+                  className={`text-fluid-h1 font-[900] leading-[1.05] mb-5 ${slides[current].id === 1 ? "text-[#232F3E]" : slides[current].id === 3 ? "text-[#232F3E]" : "text-white"}`}
                 >
                   {slides[current].heading}
                 </h1>
@@ -529,7 +529,9 @@ export default function HeroSlider() {
                           alt="Student"
                           fill
                           sizes="(max-width: 768px) 90vw, (max-width: 1200px) 45vw, 520px"
-                          priority={slides[current].id === 2}
+                          priority={current === 0}
+                          fetchPriority={current === 0 ? "high" : "auto"}
+                          disableTransition={current === 0}
                           className="w-full h-full object-cover object-center"
                           wrapperClassName="w-full h-full"
                         />
@@ -565,12 +567,12 @@ export default function HeroSlider() {
                             <p className="text-slate-900 text-sm font-black leading-tight">
                               {slides[current].testimonial.name}
                             </p>
-                            <p className="text-slate-400 text-[10px] font-bold leading-tight uppercase tracking-wider">
+                            <p className="text-slate-400 text-xs font-bold leading-tight uppercase tracking-wider">
                               {slides[current].testimonial.role}
                             </p>
                           </div>
                         </div>
-                        <p className="text-slate-600 text-[12px] leading-relaxed font-semibold italic line-clamp-2">
+                        <p className="text-slate-600 text-xs leading-relaxed font-semibold italic line-clamp-2">
                           "{slides[current].testimonial.text}"
                         </p>
                       </motion.div>
@@ -621,6 +623,7 @@ export default function HeroSlider() {
                               alt="Student Left"
                               fill
                               sizes="(max-width: 768px) 120px, 170px"
+                              priority={false}
                               className="w-full h-full object-cover"
                               wrapperClassName="w-full h-full"
                             />
@@ -648,6 +651,7 @@ export default function HeroSlider() {
                               alt="Student Right"
                               fill
                               sizes="(max-width: 768px) 120px, 170px"
+                              priority={false}
                               className="w-full h-full object-cover"
                               wrapperClassName="w-full h-full"
                             />

@@ -89,7 +89,7 @@ export default function Sidebar({ initialRole, initialUser }) {
             </div>
             <div className="flex-1 min-w-0">
               <p className="text-white text-sm font-bold truncate">{user?.name || 'Guest User'}</p>
-              <p className="text-slate-500 text-[10px] uppercase font-bold tracking-widest">{role?.replace('_', ' ') || 'Authenticating...'}</p>
+              <p className="text-slate-500 text-xs uppercase font-bold tracking-widest">{role?.replace('_', ' ') || 'Authenticating...'}</p>
             </div>
           </div>
         )}
@@ -97,7 +97,7 @@ export default function Sidebar({ initialRole, initialUser }) {
 
       {/* Main Navigation */}
       <div className="flex-1 px-4 py-6 overflow-y-auto scrollbar-hide">
-        <div className="text-[10px] font-black text-slate-500 uppercase tracking-[0.2em] px-4 mb-4">
+        <div className="text-xs font-black text-slate-500 uppercase tracking-[0.2em] px-4 mb-4">
           Main Menu
         </div>
         <nav className="space-y-1.5">
@@ -105,7 +105,7 @@ export default function Sidebar({ initialRole, initialUser }) {
         </nav>
 
         {/* Tertiary Links */}
-        <div className="mt-10 text-[10px] font-black text-slate-500 uppercase tracking-[0.2em] px-4 mb-4">
+        <div className="mt-10 text-xs font-black text-slate-500 uppercase tracking-[0.2em] px-4 mb-4">
           Management
         </div>
         <div className="space-y-1.5">
@@ -142,7 +142,7 @@ export default function Sidebar({ initialRole, initialUser }) {
 
         {isSuperAdmin && (
           <>
-            <div className="mt-10 text-[10px] font-black text-rose-500 uppercase tracking-[0.2em] px-4 mb-4">
+            <div className="mt-10 text-xs font-black text-rose-500 uppercase tracking-[0.2em] px-4 mb-4">
               About Us CMS
             </div>
             <div className="space-y-1.5">

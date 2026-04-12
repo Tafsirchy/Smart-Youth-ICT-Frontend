@@ -92,7 +92,7 @@ export default function HostingPage() {
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, ease: "circOut" }}
-              className="text-6xl md:text-8xl lg:text-[10rem] font-black leading-[0.85] mb-12 tracking-tighter"
+              className="text-fluid-hero font-black leading-none mb-12 tracking-tighter"
             >
               Uptime <br /> <span className="text-blue-600 italic font-serif font-light">Sovereign.</span>
             </motion.h1>
@@ -101,7 +101,7 @@ export default function HostingPage() {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: 0.4 }}
-              className="text-slate-500 text-xl md:text-2xl font-light leading-relaxed max-w-2xl mb-12"
+              className="text-slate-600 text-xl font-light leading-relaxed max-w-2xl mb-12"
             >
               More than just hosting. We provide high-vibration infrastructure that ensures your digital presence is resilient, secure, and globally optimized.
             </motion.p>

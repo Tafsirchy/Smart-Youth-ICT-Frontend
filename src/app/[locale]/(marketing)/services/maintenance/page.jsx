@@ -62,7 +62,7 @@ export default function MaintenancePage() {
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, ease: "circOut" }}
-              className="text-6xl md:text-8xl lg:text-[10rem] font-black leading-[0.85] mb-12 tracking-tighter"
+              className="text-fluid-hero font-black leading-none mb-12 tracking-tighter"
             >
               System <br /> <span className="text-teal-600 italic font-serif font-light">Guard.</span>
             </motion.h1>
@@ -71,7 +71,7 @@ export default function MaintenancePage() {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: 0.4 }}
-              className="text-slate-500 text-xl md:text-2xl font-light leading-relaxed max-w-2xl mb-12"
+              className="text-slate-600 text-xl font-light leading-relaxed max-w-2xl mb-12"
             >
               Never worry about crashes or security vulnerabilities again. We architect high-vibration maintenance protocols that ensure your platform remains elite, secure, and globally performant.
             </motion.p>

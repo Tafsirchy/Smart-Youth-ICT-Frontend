@@ -1,5 +1,5 @@
 import "@/styles/globals.css";
-import { Inter } from "next/font/google";
+import { Inter, Outfit } from "next/font/google";
 import { Toaster } from "react-hot-toast";
 import { NextIntlClientProvider } from "next-intl";
 import { getMessages } from "next-intl/server";
@@ -11,8 +11,18 @@ import NextTopLoader from "nextjs-toploader";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/auth";
 import PageLoader from "@/components/ui/PageLoader";
+ 
+const inter = Inter({ 
+  subsets: ["latin"],
+  variable: '--font-inter',
+  display: 'swap',
+});
 
-const inter = Inter({ subsets: ["latin"] });
+const outfit = Outfit({
+  subsets: ["latin"],
+  variable: '--font-outfit',
+  display: 'swap',
+});
 
 export const metadata = {
   title: {
@@ -45,10 +55,16 @@ export default async function RootLayout({ children, params: { locale } }) {
   ]);
 
   return (
-    <html lang={locale}>
+    <html lang={locale} suppressHydrationWarning className={`${inter.variable} ${outfit.variable}`}>
+      <head>
+        {/* Next.js automatically preloads priority images from components */}
+      </head>
       <body
-        className={`${inter.className} overflow-x-hidden`}
-        style={{ backgroundColor: "var(--color-background)" }}
+        className="overflow-x-hidden"
+        style={{ 
+          backgroundColor: "var(--color-background)",
+          fontFamily: "var(--font-inter), var(--font-sans)"
+        }}
         suppressHydrationWarning
       >
         {/* Aggressive Top Loader: Jumps to 35% immediately for 'instant' feel */}

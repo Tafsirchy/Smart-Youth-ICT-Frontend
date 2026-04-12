@@ -55,11 +55,11 @@ export default function MaintenanceDetailsPage() {
             <div className="w-12 h-[1px] bg-teal-600"></div>
             <span className="text-[10px] font-black uppercase tracking-[0.4em]">Health Manifest</span>
           </motion.div>
-          <h1 className="text-6xl md:text-8xl font-black tracking-tighter mb-12 leading-[0.85]">
-            Operational <br/> <span className="text-slate-400 italic">Resilience.</span>
+          <h1 className="text-fluid-h1 font-black tracking-tighter mb-12 leading-none">
+            Maintenance <br/> <span className="text-slate-400 italic">Protocol.</span>
           </h1>
-          <p className="text-slate-500 text-xl font-light leading-relaxed max-w-2xl italic">
-            "We treat maintenance as a proactive defense mechanism. We don't fix websites; we ensure they never break in the first place."
+          <p className="text-slate-600 text-xl font-light leading-relaxed max-w-2xl italic">
+            "Software is never finished; it's either evolving or decaying. We treat maintenance as a continuous integrity audit."
           </p>
         </div>
 

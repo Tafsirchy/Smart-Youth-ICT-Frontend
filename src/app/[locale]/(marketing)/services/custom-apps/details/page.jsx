@@ -157,8 +157,12 @@ export default function CustomAppsDetailsPage() {
            <div className="relative z-10">
               <div className="flex flex-col lg:flex-row justify-between items-start gap-12 mb-20">
                  <div className="max-w-2xl">
-                    <h2 className="text-5xl lg:text-7xl font-black text-slate-900 leading-tight mb-8">Infrastructure <br/> <span className="font-serif italic font-light text-violet-600">Hardening.</span></h2>
-                    <p className="text-slate-500 text-xl font-light leading-relaxed">Security is not a feature; it's the foundation. Our custom platforms are hardened against modern attack vectors from the first line of code.</p>
+                    <h1 className="text-fluid-h1 font-black tracking-tighter mb-12 leading-none">
+                      Lifecycle <br/> <span className="text-slate-400 italic">Architecture.</span>
+                    </h1>
+                    <p className="text-slate-600 text-xl font-light leading-relaxed max-w-2xl italic">
+                      "Software is either architected for sovereignty or bonded to legacy. We treat every line of code as a structural asset."
+                    </p>
                  </div>
                  <div className="w-20 h-20 bg-violet-50 rounded-full flex items-center justify-center border border-violet-100">
                     <IoLockClosedOutline className="text-4xl text-violet-600" />

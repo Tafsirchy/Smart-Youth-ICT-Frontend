@@ -55,11 +55,11 @@ export default function UiUxDetailsPage() {
             <div className="w-12 h-[1px] bg-cyan-600"></div>
             <span className="text-[10px] font-black uppercase tracking-[0.4em]">Technical Manifest</span>
           </motion.div>
-          <h1 className="text-6xl md:text-8xl font-black tracking-tighter mb-12 leading-[0.85]">
-            Product <br/> <span className="text-slate-400 italic">Engineering.</span>
+          <h1 className="text-fluid-h1 font-black tracking-tighter mb-12 leading-none">
+            Cognitive <br/> <span className="text-slate-400 italic">Engineering.</span>
           </h1>
-          <p className="text-slate-500 text-xl font-light leading-relaxed max-w-2xl italic">
-            "Design is not how it looks, it's how it converts. We treat UI/UX as a structural engineering discipline rather than just a visual one."
+          <p className="text-slate-600 text-xl font-light leading-relaxed max-w-2xl italic">
+            "UI/UX is not about art; it's about the reduction of cognitive friction through mathematical design systems."
           </p>
         </div>
 

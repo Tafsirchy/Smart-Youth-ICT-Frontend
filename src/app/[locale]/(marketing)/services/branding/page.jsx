@@ -60,18 +60,18 @@ export default function BrandingPage() {
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, ease: "circOut" }}
-              className="text-6xl md:text-8xl lg:text-[10rem] font-black leading-[0.85] mb-12 tracking-tighter"
+              className="text-fluid-hero font-black leading-none mb-12 tracking-tighter"
             >
-              Beyond <br /> <span className="text-indigo-600 italic font-serif font-light">Identity.</span>
+              Visual <br /> <span className="text-purple-600 italic font-serif font-light">Sovereignty.</span>
             </motion.h1>
 
             <motion.p
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: 0.4 }}
-              className="text-slate-500 text-xl md:text-2xl font-light leading-relaxed max-w-2xl mb-12"
+              className="text-slate-600 text-xl font-light leading-relaxed max-w-2xl mb-12"
             >
-              Your logo is the first contact. We construct comprehensive visual identities that communicate deeply and command premium market positioning.
+              We don't just design logos. We architect high-fidelity visual ecosystems that command authority, foster absolute trust, and ensure your identity is mathematically perfect.
             </motion.p>
 
             <div className="flex flex-col sm:flex-row gap-6">

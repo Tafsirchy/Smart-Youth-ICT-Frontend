@@ -71,22 +71,18 @@ export default function CustomAppsPage() {
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, ease: "circOut" }}
-              className="text-6xl md:text-8xl lg:text-[10rem] font-black leading-[0.8] mb-12 tracking-tighter"
+              className="text-fluid-hero font-black leading-none mb-12 tracking-tighter"
             >
-              Custom <br /> <span className="text-violet-600">Engines.</span>
+              Architectural <br /> <span className="text-emerald-500 italic font-serif font-light">Logic.</span>
             </motion.h1>
 
             <motion.p
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: 0.4 }}
-              className="text-slate-500 text-xl md:text-3xl font-light leading-relaxed max-w-2xl mb-12"
+              className="text-slate-600 text-xl font-light leading-relaxed max-w-2xl mb-12"
             >
-              We don't build within templates. We engineer{" "}
-              <span className="text-slate-900 font-bold underline decoration-violet-500 decoration-2 underline-offset-8">
-                bespoke logic
-              </span>{" "}
-              designed specifically for your operational complexity and global scale.
+              We don't build MVP's; we engineer digital sovereignty. Our custom software infrastructure is built on clean-code principles, high-concurrency architecture, and future-proof logic.
             </motion.p>
 
             <div className="flex flex-col sm:flex-row gap-6">

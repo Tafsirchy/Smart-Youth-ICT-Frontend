@@ -77,7 +77,7 @@ export default function StudentDashboardPage() {
               <IoFlameOutline size={30} className="text-orange-300" />
             </div>
             <div>
-              <h1 className="text-2xl md:text-3xl font-extrabold text-white">
+              <h1 className="text-fluid-h2 font-extrabold text-white">
                 Welcome back, {firstName}! 👋
               </h1>
               <p className="text-indigo-200 text-sm mt-0.5">Keep pushing — you're on a learning streak!</p>
@@ -128,7 +128,7 @@ export default function StudentDashboardPage() {
       {/* ── Active Courses ── */}
       <section>
         <div className="flex items-center justify-between mb-5">
-          <h2 className="text-xl font-bold text-textPrimary">Continue Learning</h2>
+          <h2 className="text-fluid-h3 font-bold text-textPrimary">Continue Learning</h2>
           <Link href={`/${locale}/student/my-courses`} className="text-sm font-semibold text-blue-600 hover:underline flex items-center gap-1">
             View All <IoArrowForwardOutline size={14} />
           </Link>

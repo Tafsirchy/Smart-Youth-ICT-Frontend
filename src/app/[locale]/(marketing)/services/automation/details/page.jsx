@@ -56,11 +56,11 @@ export default function AutomationDetailsPage() {
             <div className="w-12 h-[1px] bg-amber-600"></div>
             <span className="text-[10px] font-black uppercase tracking-[0.4em]">Efficiency Manifest</span>
           </motion.div>
-          <h1 className="text-6xl md:text-8xl font-black tracking-tighter mb-12 leading-[0.85]">
-            Logic <br/> <span className="text-slate-400 italic">Engineering.</span>
+          <h1 className="text-fluid-h1 font-black tracking-tighter mb-12 leading-none">
+            Logic <br/> <span className="text-slate-400 italic">Blueprints.</span>
           </h1>
-          <p className="text-slate-500 text-xl font-light leading-relaxed max-w-2xl italic">
-            "We treat automation as a structural engineering discipline. We build resilient logic pipelines that eliminate manual friction at the source."
+          <p className="text-slate-600 text-xl font-light leading-relaxed max-w-2xl italic">
+            "Automation is not a task; it's a structural optimization of human time and organizational intelligence."
           </p>
         </div>
 

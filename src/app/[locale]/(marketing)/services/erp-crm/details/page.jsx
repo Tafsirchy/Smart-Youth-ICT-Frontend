@@ -160,8 +160,12 @@ export default function ErpCrmDetailsPage() {
            <div className="relative z-10">
               <div className="flex flex-col lg:flex-row justify-between items-start gap-12 mb-20">
                  <div className="max-w-2xl">
-                    <h2 className="text-5xl lg:text-7xl font-black text-slate-900 leading-tight mb-8">Hardware & <br/> <span className="font-serif italic font-light text-teal-600">Integrity.</span></h2>
-                    <p className="text-slate-500 text-xl font-light leading-relaxed">Industrial management requires absolute hardware-native integration. We bridge the gap between physical retail and digital intelligence.</p>
+                    <h1 className="text-fluid-h1 font-black tracking-tighter mb-12 leading-none">
+                      Operational <br/> <span className="text-slate-400 italic">Manifest.</span>
+                    </h1>
+                    <p className="text-slate-600 text-xl font-light leading-relaxed max-w-2xl italic">
+                      "Software is either an asset or a liability. We treat ERP and CRM implementation as a structural hardening of your organization's logic."
+                    </p>
                  </div>
                  <div className="w-20 h-20 bg-teal-50 rounded-full flex items-center justify-center border border-teal-100">
                     <IoHardwareChipOutline className="text-4xl text-teal-600" />

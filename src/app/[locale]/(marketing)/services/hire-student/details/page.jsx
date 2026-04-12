@@ -56,10 +56,10 @@ export default function HireStudentDetailsPage() {
             <div className="w-12 h-[1px] bg-amber-600"></div>
             <span className="text-[10px] font-black uppercase tracking-[0.4em]">Vetting Manifest</span>
           </motion.div>
-          <h1 className="text-6xl md:text-8xl font-black tracking-tighter mb-12 leading-[0.85]">
+          <h1 className="text-fluid-h1 font-black tracking-tighter mb-12 leading-none">
             Talent <br/> <span className="text-slate-400 italic">Engineering.</span>
           </h1>
-          <p className="text-slate-500 text-xl font-light leading-relaxed max-w-2xl italic">
+          <p className="text-slate-600 text-xl font-light leading-relaxed max-w-2xl italic">
             "Hiring a freelancer shouldn't be a gamble. We treat talent acquisition as a technical vetting discipline, ensuring every student on our platform is project-ready."
           </p>
         </div>
