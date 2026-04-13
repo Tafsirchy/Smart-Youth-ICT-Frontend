@@ -40,8 +40,9 @@ export default function TrustedBrandsStrip() {
           <p className="text-xs font-black uppercase tracking-[0.22em] text-emerald-600">
             Trusted Brands
           </p>
-          <h2 className="mt-3 text-2xl font-black text-slate-800 md:text-3xl">
-            Brands Our Learners Work With
+          <h2 className="text-4xl md:text-7xl font-black text-slate-800 leading-[1.1] mb-8 tracking-tighter">
+            Brands Our <br />
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-500 via-teal-500 to-emerald-600 animate-gradient-x">Learners Work With</span>
           </h2>
         </div>
 

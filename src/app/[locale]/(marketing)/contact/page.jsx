@@ -51,7 +51,10 @@ export default function ContactPage() {
           <span className="inline-block mb-4 px-4 py-1.5 rounded-full text-xs font-bold uppercase tracking-wider text-indigo-200 bg-white/10 border border-white/10">
             📞 Get In Touch
           </span>
-          <h1 className="text-4xl md:text-5xl font-extrabold text-white mb-4">Contact Us</h1>
+          <h1 className="text-5xl md:text-7xl font-black text-white leading-[1.1] mb-8 tracking-tighter">
+            Contact <br />
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-indigo-400 to-blue-500 animate-gradient-x">Us</span>
+          </h1>
           <p className="text-indigo-200 text-lg">We're here to help. Reach us via WhatsApp, email, or the form below.</p>
         </div>
       </section>

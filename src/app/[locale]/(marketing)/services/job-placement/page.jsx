@@ -56,7 +56,7 @@ export default function JobPlacementSupportPage() {
     <section className="min-h-screen bg-slate-950 overflow-hidden relative font-sans">
       <div className="absolute inset-x-0 top-0 h-[800px] bg-gradient-to-b from-blue-900/30 via-transparent to-transparent pointer-events-none"></div>
 
-      <div className="container-custom py-24 relative z-10">
+      <div className="container-custom py-20 relative z-10">
         
         {/* Massive Hero Section */}
         <div className="max-w-4xl mx-auto text-center mb-32">
@@ -71,9 +71,10 @@ export default function JobPlacementSupportPage() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.1 }}
-            className="text-6xl md:text-7xl lg:text-9xl font-black text-white leading-[0.9] mb-8 tracking-tighter"
+            className="text-5xl md:text-7xl font-black text-white leading-[1.1] mb-8 tracking-tighter"
           >
-            Graduate. <br className="hidden md:block"/> <span className="text-blue-500">Accelerate.</span>
+            Job Placement <br />
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-500 via-teal-500 to-cyan-600 animate-gradient-x">Support</span>
           </motion.h1>
           <motion.p
             initial={{ opacity: 0, y: 20 }}

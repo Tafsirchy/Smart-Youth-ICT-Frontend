@@ -96,8 +96,9 @@ export default async function BlogPage({ params, searchParams }) {
           <span className="inline-block mb-4 px-4 py-1.5 rounded-full text-xs font-bold uppercase tracking-wider text-indigo-200 bg-white/10 border border-white/10">
             📝 Free Guides & Tips
           </span>
-          <h1 className="text-4xl md:text-5xl font-extrabold text-white mb-4">
-            Blog & Resources
+          <h1 className="text-5xl md:text-7xl font-black text-white leading-[1.1] mb-8 tracking-tighter">
+            Blog & <br />
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-pink-400 via-rose-400 to-orange-400 animate-gradient-x">Resources</span>
           </h1>
           <p className="text-indigo-200 text-lg mb-8">
             IT career tips, freelancing guides & industry insights — straight from our instructors.
@@ -175,7 +176,7 @@ export default async function BlogPage({ params, searchParams }) {
             </div>
           </div>
         ) : (
-          <div className="flex flex-col items-center justify-center py-24 text-center">
+          <div className="flex flex-col items-center justify-center py-20 text-center">
             <div className="w-20 h-20 rounded-3xl bg-blue-50 flex items-center justify-center mb-5">
               <IoBookOutline size={40} className="text-blue-300" />
             </div>

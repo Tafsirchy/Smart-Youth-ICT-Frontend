@@ -16,7 +16,7 @@ const partners = [
 
 export default function PartnersPage() {
   return (
-    <section className="min-h-screen bg-slate-950 py-24 overflow-hidden relative">
+    <section className="min-h-screen bg-slate-950 py-20 overflow-hidden relative">
       <div className="absolute inset-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:24px_24px]"></div>
       
       <div className="container-custom relative z-10">
@@ -32,9 +32,10 @@ export default function PartnersPage() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.1 }}
-            className="text-4xl md:text-6xl font-black text-white leading-tight mb-6"
+            className="text-5xl md:text-7xl font-black text-white leading-[1.1] mb-8 tracking-tighter"
           >
-            Our Partners & Collaborators
+            Our <br />
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-500 via-teal-500 to-cyan-600 animate-gradient-x">Partners</span>
           </motion.h1>
           <motion.p
             initial={{ opacity: 0, y: 20 }}

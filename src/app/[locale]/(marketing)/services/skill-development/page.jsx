@@ -111,9 +111,10 @@ export default function SkillDevelopmentPage() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.1 }}
-            className="text-5xl md:text-6xl lg:text-8xl font-black text-slate-900 leading-[1.1] tracking-tight"
+            className="text-5xl md:text-7xl font-black text-slate-900 leading-[1.1] mb-8 tracking-tighter"
           >
-            Build skills that <br className="hidden md:block" /> actually <span className="text-transparent bg-clip-text bg-gradient-to-r from-brand-pink to-indigo-500">get you hired.</span>
+            Skill Development <br />
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-500 via-teal-500 to-cyan-600 animate-gradient-x">Programs</span>
           </motion.h1>
           <motion.p
             initial={{ opacity: 0, y: 20 }}
@@ -151,7 +152,7 @@ export default function SkillDevelopmentPage() {
       </div>
 
       {/* Detailed Programs Grid */}
-      <div className="container-custom py-24">
+      <div className="container-custom py-20">
         <h2 className="text-4xl font-black text-center mb-16 underline decoration-brand-pink decoration-4 underline-offset-8">Our Core Training Programs</h2>
         
         {loading ? (

@@ -70,10 +70,10 @@ export default function PortfolioDetailsPage() {
          </div>
       </div>
 
-      <div className="container-custom pt-24">
+      <div className="container-custom pt-20">
         
         {/* TERMINAL HERO: ARCHITECTURE REVEAL */}
-        <div className="max-w-5xl mx-auto mb-40 text-center">
+        <div className="max-w-5xl mx-auto mb-20 text-center">
            <motion.div 
              initial={{ opacity: 0, y: 20 }}
              animate={{ opacity: 1, y: 0 }}
@@ -83,12 +83,13 @@ export default function PortfolioDetailsPage() {
            </motion.div>
            
            <motion.h1 
-             className="text-6xl md:text-8xl lg:text-[10rem] font-black leading-[0.8] mb-12 tracking-tighter"
+             className="text-5xl md:text-7xl font-black text-slate-900 leading-[1.1] mb-8 tracking-tighter"
              initial={{ opacity: 0, scale: 0.95 }}
              animate={{ opacity: 1, scale: 1 }}
              transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
            >
-             Technical <br/> <span className="text-transparent bg-clip-text bg-gradient-to-r from-rose-600 via-rose-500 to-indigo-600 font-serif italic font-light">Luxury.</span>
+             Technical <br />
+             <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 via-indigo-500 to-cyan-500 animate-gradient-x">Luxury</span>
            </motion.h1>
 
            <motion.div 

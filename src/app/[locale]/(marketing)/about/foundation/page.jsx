@@ -35,8 +35,9 @@ export default function FoundationPage() {
           <p className="inline-block text-[11px] font-black uppercase tracking-[0.28em] text-brand-green mb-4">
             About Smart Youth ICT
           </p>
-          <h1 className="text-3xl sm:text-4xl font-black text-slate-900 leading-tight">
-            SYICT Foundation
+          <h1 className="text-5xl md:text-7xl font-black text-slate-900 leading-[1.1] mb-8 tracking-tighter">
+            SYICT <br />
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-500 via-teal-500 to-cyan-600 animate-gradient-x">Foundation</span>
           </h1>
           <p className="mt-4 text-slate-600 text-sm sm:text-base">
             Our foundation is built on applied learning and measurable outcomes.

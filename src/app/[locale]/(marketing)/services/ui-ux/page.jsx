@@ -46,7 +46,7 @@ export default function UiUxPage() {
          <div className="absolute top-[10%] left-[-100px] w-[500px] h-[500px] bg-cyan-50 rounded-full blur-[140px]"></div>
       </div>
 
-      <div className="container-custom py-24 relative z-10">
+      <div className="container-custom py-20 relative z-10">
         {/* UI/UX HERO */}
         <div className="flex flex-col lg:flex-row items-center gap-20 mb-48 pt-10 px-4 md:px-0">
           <div className="flex-1 text-left">
@@ -62,9 +62,10 @@ export default function UiUxPage() {
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, ease: "circOut" }}
-              className="text-fluid-hero font-black leading-none mb-12 tracking-tighter"
+              className="text-5xl md:text-7xl font-black text-slate-900 leading-[1.1] mb-8 tracking-tighter"
             >
-              Mathematical <br /> <span className="text-pink-600 italic font-serif font-light">UX.</span>
+              UI/UX <br />
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-pink-500 via-rose-500 to-indigo-500 animate-gradient-x">Design</span>
             </motion.h1>
 
             <motion.p

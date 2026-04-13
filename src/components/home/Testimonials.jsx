@@ -143,8 +143,9 @@ export default function Testimonials() {
             <span className="inline-block px-4 py-1.5 rounded-full bg-pink-100 text-pink-600 text-xs font-bold tracking-wider uppercase mb-4">
               Success Stories
             </span>
-            <h2 className="text-4xl md:text-5xl font-black text-slate-900 leading-tight mb-6">
-              What Our Students <span className="text-pink-600">Say</span>
+            <h2 className="text-5xl md:text-7xl font-black text-slate-900 leading-[1.1] mb-8 tracking-tighter">
+              What Our <br />
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-pink-500 via-rose-500 to-amber-500 animate-gradient-x">Students Say</span>
             </h2>
             <p className="text-slate-600 text-lg md:text-xl leading-relaxed">
               Real results from real people. Join 5,000+ graduates who have

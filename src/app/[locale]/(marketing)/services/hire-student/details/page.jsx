@@ -45,7 +45,7 @@ export default function HireStudentDetailsPage() {
         </div>
       </div>
 
-      <div className="container-custom pt-24">
+      <div className="container-custom pt-20">
         {/* TECH HEADER */}
         <div className="max-w-5xl mb-32">
           <motion.div
@@ -56,8 +56,9 @@ export default function HireStudentDetailsPage() {
             <div className="w-12 h-[1px] bg-amber-600"></div>
             <span className="text-[10px] font-black uppercase tracking-[0.4em]">Vetting Manifest</span>
           </motion.div>
-          <h1 className="text-fluid-h1 font-black tracking-tighter mb-12 leading-none">
-            Talent <br/> <span className="text-slate-400 italic">Engineering.</span>
+          <h1 className="text-5xl md:text-7xl font-black text-slate-900 leading-[1.1] mb-8 tracking-tighter">
+            Talent <br />
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-600 via-violet-500 to-emerald-500 animate-gradient-x">Engineering</span>
           </h1>
           <p className="text-slate-600 text-xl font-light leading-relaxed max-w-2xl italic">
             "Hiring a freelancer shouldn't be a gamble. We treat talent acquisition as a technical vetting discipline, ensuring every student on our platform is project-ready."

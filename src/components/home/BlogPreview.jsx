@@ -48,8 +48,9 @@ export default function BlogPreview() {
             <div className="w-1.5 h-1.5 rounded-full bg-brand-pink animate-pulse" />
             <span className="text-slate-500 font-black text-[10px] uppercase tracking-[0.4em]">The Digital Journal</span>
           </div>
-          <h2 className="text-5xl md:text-6xl font-black text-slate-900 tracking-tighter leading-[0.85] uppercase">
-            Learn &amp; <span className="text-brand-pink italic">Stay Ahead.</span>
+          <h2 className="text-5xl md:text-7xl font-black text-slate-900 leading-[1.1] mb-8 tracking-tighter uppercase">
+            Learn &amp; <br />
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-pink-500 via-rose-500 to-amber-500 animate-gradient-x">Stay Ahead.</span>
           </h2>
         </motion.div>
 

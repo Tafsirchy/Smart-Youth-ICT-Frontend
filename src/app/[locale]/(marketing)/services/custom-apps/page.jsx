@@ -55,7 +55,7 @@ export default function CustomAppsPage() {
         <div className="absolute top-[10%] right-[-100px] w-[600px] h-[600px] bg-violet-100 rounded-full blur-[160px]"></div>
       </div>
 
-      <div className="container-custom py-24 relative">
+      <div className="container-custom py-20 relative">
         {/* BESPOKE HERO SECTION */}
         <div className="flex flex-col lg:flex-row items-center gap-20 mb-48 pt-10">
           <div className="flex-1 text-left">
@@ -71,9 +71,10 @@ export default function CustomAppsPage() {
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, ease: "circOut" }}
-              className="text-fluid-hero font-black leading-none mb-12 tracking-tighter"
+              className="text-5xl md:text-7xl font-black text-slate-900 leading-[1.1] mb-8 tracking-tighter"
             >
-              Architectural <br /> <span className="text-emerald-500 italic font-serif font-light">Logic.</span>
+              Custom Web <br />
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 via-indigo-500 to-cyan-500 animate-gradient-x">Applications</span>
             </motion.h1>
 
             <motion.p

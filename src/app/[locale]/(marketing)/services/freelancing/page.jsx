@@ -49,7 +49,7 @@ const phases = [
 export default function FreelancingTrainingPage() {
   return (
     <section className="min-h-screen bg-slate-50 overflow-hidden relative">
-      <div className="container-custom py-24">
+      <div className="container-custom py-20">
         
         {/* Header Block */}
         <div className="text-center max-w-4xl mx-auto mb-24 bg-white rounded-[3rem] p-12 lg:p-20 border border-slate-200 shadow-xl shadow-slate-200/50">
@@ -64,9 +64,10 @@ export default function FreelancingTrainingPage() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.1 }}
-            className="text-5xl md:text-6xl lg:text-7xl font-black text-slate-900 leading-[1.1] mb-8"
+            className="text-5xl md:text-7xl font-black text-slate-900 leading-[1.1] mb-8 tracking-tighter"
           >
-            Launch Your <br className="hidden md:block"/> <span className="text-emerald-600">Global Career.</span>
+            Freelancing <br />
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-500 via-teal-600 to-cyan-600 animate-gradient-x">Training</span>
           </motion.h1>
           <motion.p
             initial={{ opacity: 0, y: 20 }}

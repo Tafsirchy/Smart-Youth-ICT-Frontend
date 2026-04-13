@@ -27,7 +27,7 @@ export default function HeroSection() {
 
   return (
     <section
-      className="relative overflow-hidden py-24 md:py-32 px-4"
+      className="relative overflow-hidden py-20 md:py-32 px-4"
       style={{ background: 'var(--color-background)' }}
     >
       {/* Animated blob — pink */}

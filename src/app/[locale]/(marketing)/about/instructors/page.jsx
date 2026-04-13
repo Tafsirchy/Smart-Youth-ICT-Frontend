@@ -62,16 +62,13 @@ export default function InstructorsPage() {
   };
 
   return (
-    <section className="min-h-screen bg-slate-50/50 py-24 overflow-hidden">
+    <section className="min-h-screen bg-slate-50/50 py-20 overflow-hidden">
       <div className="container-custom relative">
         <div className="max-w-3xl mb-12 text-left border-l-4 border-brand-green pl-6 sm:pl-8">
-          <motion.h1
-            initial={{ opacity: 0, x: -20 }}
-            animate={{ opacity: 1, x: 0 }}
-            className="text-4xl md:text-5xl font-black text-slate-900 leading-tight mb-4"
-          >
-            Meet Our Industry Mentors
-          </motion.h1>
+          <h1 className="text-5xl md:text-7xl font-black text-slate-900 leading-[1.1] mb-8 tracking-tighter">
+            Our <br />
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-500 via-indigo-500 to-blue-600 animate-gradient-x">Mentors</span>
+          </h1>
           <p className="text-slate-600 text-lg leading-relaxed">
             Learn directly from active professionals currently building real-world solutions. 
             Filter by branch or course to find the perfect mentor for your journey.

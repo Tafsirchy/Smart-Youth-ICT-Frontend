@@ -114,7 +114,7 @@ const serviceColumns = [
       {
         label: "Skill Development Programs",
         href: "/services/skill-development",
-        badge: "🔥 Popular",
+        badge: "🔥 Popular ",
       },
       {
         label: "Career Tracks (Web, AI, SMM)",
@@ -136,7 +136,7 @@ const serviceColumns = [
       {
         label: "Business Websites",
         href: "/services/business-websites",
-        badge: "⭐ Popular",
+        badge: "⭐ Popular ",
       },
       { label: "E-commerce Development", href: "/services/ecommerce" },
       { label: "Custom Web Applications", href: "/services/custom-apps" },
@@ -167,19 +167,19 @@ const serviceColumns = [
       {
         label: "Chatbot Development",
         href: "/services/chatbot",
-        badge: "✨ New",
+        badge: "✨ New ",
       },
       {
         label: "Business Automation",
         href: "/services/automation",
-        badge: "✨ New",
+        badge: "✨ New ",
       },
       { label: "Domain & Hosting", href: "/services/hosting" },
       { label: "Website Maintenance", href: "/services/maintenance" },
       {
         label: "Hire a Student (Freelancer)",
         href: "/services/hire-student",
-        badge: "🔥 Popular",
+        badge: "🔥 Popular ",
       },
     ],
     price: "", // Removed for compact version

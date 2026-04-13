@@ -74,7 +74,7 @@ export default function PortfolioWebsitesPage() {
         <div className="absolute top-[100px] right-[-300px] w-[700px] h-[700px] bg-emerald-100/30 rounded-full blur-[140px]"></div>
       </div>
 
-      <div className="container-custom py-24 relative">
+      <div className="container-custom py-20 relative">
         {/* STRUCTURALLY CREATIVE HERO */}
         <div className="flex flex-col lg:flex-row items-center gap-16 mb-40 pt-10">
           <div className="flex-1 text-left">
@@ -90,12 +90,10 @@ export default function PortfolioWebsitesPage() {
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, ease: "circOut" }}
-              className="text-6xl md:text-8xl lg:text-9xl font-black text-slate-900 leading-[0.85] mb-10 tracking-tight"
+              className="text-5xl md:text-7xl font-black text-slate-900 leading-[1.1] mb-8 tracking-tighter"
             >
-              Creative <br className="hidden md:block" />{" "}
-              <span className="font-serif italic font-light text-rose-500 underline decoration-rose-100/50 underline-offset-[-10px]">
-                Alchemists.
-              </span>
+              Portfolio <br />
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 via-indigo-500 to-cyan-500 animate-gradient-x">Websites</span>
             </motion.h1>
             <motion.p
               initial={{ opacity: 0 }}

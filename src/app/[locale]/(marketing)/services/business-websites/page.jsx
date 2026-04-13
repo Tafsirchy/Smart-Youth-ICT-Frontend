@@ -74,7 +74,7 @@ export default function BusinessWebsitesPage() {
         <div className="absolute top-0 right-[-100px] w-[600px] h-[600px] bg-blue-100 rounded-full blur-[160px]"></div>
       </div>
 
-      <div className="container-custom py-24 relative">
+      <div className="container-custom py-20 relative">
         {/* INDUSTRIAL HERO SECTION */}
         <div className="flex flex-col lg:flex-row items-center gap-20 mb-48 pt-10">
           <div className="flex-1 text-left">
@@ -90,9 +90,10 @@ export default function BusinessWebsitesPage() {
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, ease: "circOut" }}
-              className="text-6xl md:text-8xl lg:text-[10rem] font-black leading-[0.8] mb-12 tracking-tighter"
+              className="text-5xl md:text-7xl font-black text-slate-900 leading-[1.1] mb-8 tracking-tighter"
             >
-              Business <br /> <span className="text-blue-500">Engines.</span>
+              Business <br />
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 via-indigo-500 to-cyan-500 animate-gradient-x">Websites</span>
             </motion.h1>
 
             <motion.p

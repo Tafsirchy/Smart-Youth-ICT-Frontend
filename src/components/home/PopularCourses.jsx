@@ -105,7 +105,7 @@ export default function PopularCourses() {
   }, []);
 
   return (
-    <section className="section py-24 bg-slate-50 relative overflow-hidden">
+    <section className="section py-20 bg-slate-50 relative overflow-hidden">
       {/* Decorative background elements */}
       <div className="absolute top-0 left-0 w-full h-full pointer-events-none">
         <div className="absolute top-[-10%] left-[-5%] w-[40%] h-[40%] bg-pink-100/30 rounded-full blur-[100px]" />
@@ -123,8 +123,9 @@ export default function PopularCourses() {
             <span className="inline-block px-4 py-1.5 rounded-full bg-slate-900 text-white text-[10px] font-black uppercase tracking-[0.3em] mb-6 shadow-xl shadow-slate-200">
               Skill Up Daily
             </span>
-            <h2 className="text-4xl md:text-5xl font-black text-slate-900 leading-tight mb-6 tracking-tighter">
-              Our Core <span className="text-blue-600">Training Programs</span>
+            <h2 className="text-5xl md:text-7xl font-black text-slate-900 leading-[1.1] mb-8 tracking-tighter">
+              Our Core <br />
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-500 via-indigo-500 to-blue-600 animate-gradient-x">Training Programs</span>
             </h2>
             <p className="text-slate-500 text-lg md:text-xl font-medium">
               Join 5,000+ students already mastering the most in-demand digital

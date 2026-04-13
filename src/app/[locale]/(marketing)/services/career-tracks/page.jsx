@@ -61,9 +61,10 @@ export default function CareerTracksPage() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.1 }}
-            className="text-5xl md:text-7xl lg:text-8xl font-black text-white leading-[1.1] mb-8"
+            className="text-5xl md:text-7xl font-black text-white leading-[1.1] mb-8 tracking-tighter"
           >
-            Structured <br className="hidden md:block"/> Career Tracks.
+            Career Tracks <br />
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-500 via-teal-400 to-cyan-400 animate-gradient-x">(Web, AI, SMM)</span>
           </motion.h1>
           <motion.p
             initial={{ opacity: 0, y: 20 }}

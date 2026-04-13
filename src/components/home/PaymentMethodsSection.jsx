@@ -110,7 +110,7 @@ function HolographicCard({ name, icon, desc, color }) {
 export default function PaymentMethodsSection() {
   return (
     <section 
-      className="section py-24 min-h-[700px] flex items-center relative overflow-hidden" 
+      className="section py-20 min-h-[700px] flex items-center relative overflow-hidden" 
       style={{ 
         backgroundImage: "url('/images/bg.png')",
         backgroundSize: 'cover',
@@ -198,9 +198,9 @@ export default function PaymentMethodsSection() {
                 <span className="text-white/80 text-[8px] font-black tracking-[0.3em] uppercase">Join the Elite</span>
               </div>
 
-              <h2 className="text-5xl md:text-7xl font-black text-white mb-6 leading-[0.9] tracking-tighter">
+              <h2 className="text-5xl md:text-7xl font-black text-white leading-[1.1] mb-8 tracking-tighter">
                 Start Your <br />
-                <span className="text-transparent bg-clip-text bg-gradient-to-r from-pink-500 to-rose-600">Mastery.</span>
+                <span className="text-transparent bg-clip-text bg-gradient-to-r from-pink-500 via-rose-500 to-amber-500 animate-gradient-x">Mastery.</span>
               </h2>
               
               <p className="text-white/50 text-lg md:text-xl mb-10 max-w-lg leading-relaxed font-medium">

@@ -27,7 +27,7 @@ const licenses = [
 
 export default function CertificationsPage() {
   return (
-    <section className="min-h-screen bg-slate-50 py-24 overflow-hidden relative">
+    <section className="min-h-screen bg-slate-50 py-20 overflow-hidden relative">
       <div className="container-custom">
         <div className="grid lg:grid-cols-2 gap-16 items-center">
           
@@ -40,14 +40,10 @@ export default function CertificationsPage() {
             >
               <IoCheckmarkCircle size={18} /> Approvals & Trust
             </motion.div>
-            <motion.h1
-              initial={{ opacity: 0, x: -20 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ delay: 0.1 }}
-              className="text-4xl md:text-5xl lg:text-6xl font-black text-slate-900 leading-tight mb-6"
-            >
-              Recognized for <span className="text-transparent bg-clip-text bg-gradient-to-r from-brand-green to-emerald-600">Excellence.</span>
-            </motion.h1>
+            <h1 className="text-5xl md:text-7xl font-black text-slate-900 leading-[1.1] mb-8 tracking-tighter">
+              Certifi-<br />
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-500 via-teal-500 to-cyan-600 animate-gradient-x">cations.</span>
+            </h1>
             <motion.p
               initial={{ opacity: 0, x: -20 }}
               animate={{ opacity: 1, x: 0 }}

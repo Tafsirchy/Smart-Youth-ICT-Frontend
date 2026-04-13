@@ -50,8 +50,9 @@ export default function HowItWorksPage() {
           <p className="inline-block text-[11px] font-black uppercase tracking-[0.28em] text-brand-green mb-4">
             About Smart Youth ICT
           </p>
-          <h1 className="text-4xl sm:text-5xl font-black text-slate-900 leading-tight mb-6">
-            How It Works
+          <h1 className="text-5xl md:text-7xl font-black text-slate-900 leading-[1.1] mb-8 tracking-tighter">
+            How <br />
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-500 via-teal-500 to-cyan-600 animate-gradient-x">It Works</span>
           </h1>
           <p className="text-slate-600 text-lg leading-relaxed">
             Our strategic step-by-step learning methodology is uniquely designed to securely take you from an absolute beginner to an actively earning tech professional. No fluff—just solid results.

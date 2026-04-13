@@ -5,7 +5,7 @@ import { IoRibbonOutline } from "react-icons/io5";
 
 export default function CertificationsProgramsPage() {
   return (
-    <section className="min-h-screen bg-slate-50 py-24 overflow-hidden relative">
+    <section className="min-h-screen bg-slate-50 py-20 overflow-hidden relative">
       <div className="container-custom">
         <div className="grid lg:grid-cols-2 gap-16 items-center">
           
@@ -21,9 +21,10 @@ export default function CertificationsProgramsPage() {
               initial={{ opacity: 0, x: -20 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ delay: 0.1 }}
-              className="text-4xl md:text-5xl lg:text-7xl font-black text-slate-900 leading-tight mb-6"
+              className="text-5xl md:text-7xl font-black text-slate-900 leading-[1.1] mb-8 tracking-tighter"
             >
-              Certification Programs.
+              Certification <br />
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-500 via-teal-500 to-cyan-600 animate-gradient-x">Programs</span>
             </motion.h1>
             <motion.p
               initial={{ opacity: 0, x: -20 }}

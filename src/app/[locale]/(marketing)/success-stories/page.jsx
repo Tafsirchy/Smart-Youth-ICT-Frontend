@@ -27,7 +27,7 @@ export default function SuccessStoriesPage() {
     <div className="min-h-screen bg-slate-50 overflow-hidden">
       
       {/* ── Hero Section ── */}
-      <section className="relative pt-24 pb-32 px-4 bg-[#0f172a] overflow-hidden text-center">
+      <section className="relative pt-20 pb-32 px-4 bg-[#0f172a] overflow-hidden text-center">
         <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-5xl h-[500px] opacity-20 pointer-events-none">
           <div className="absolute top-20 left-10 w-72 h-72 bg-blue-500 rounded-full mix-blend-screen filter blur-[100px] animate-blob"></div>
           <div className="absolute top-20 right-10 w-72 h-72 bg-purple-500 rounded-full mix-blend-screen filter blur-[100px] animate-blob animation-delay-2000"></div>
@@ -42,8 +42,9 @@ export default function SuccessStoriesPage() {
           </motion.span>
           <motion.h1 
             initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1 }}
-            className="text-4xl md:text-6xl font-extrabold text-white mb-6 leading-tight">
-            Real Skills. <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-400">Real Careers.</span>
+            className="text-5xl md:text-7xl font-black text-white leading-[1.1] mb-8 tracking-tighter">
+            Success <br />
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-pink-500 via-rose-500 to-amber-500 animate-gradient-x">Stories</span>
           </motion.h1>
           <motion.p 
             initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2 }}
@@ -74,7 +75,7 @@ export default function SuccessStoriesPage() {
       </section>
 
       {/* ── Video Testimonials (Infinite Scroll Marquee) ── */}
-      <section id="stories" className="py-24 overflow-hidden">
+      <section id="stories" className="py-20 overflow-hidden">
         <div className="text-center max-w-2xl mx-auto mb-16 px-4">
           <h2 className="text-3xl md:text-4xl font-extrabold text-slate-900 mb-4">Hear From Our Graduates</h2>
           <p className="text-slate-500 text-lg">Watch how mastering modern skills at Smart Youth ICT changed their lives completely.</p>
@@ -112,7 +113,7 @@ export default function SuccessStoriesPage() {
       </section>
 
       {/* ── Alumni Wall Grid ── */}
-      <section className="py-24 bg-white border-t border-slate-100">
+      <section className="py-20 bg-white border-t border-slate-100">
         <div className="container-lg mx-auto px-4 max-w-6xl">
           <div className="text-center max-w-2xl mx-auto mb-16">
             <h2 className="text-3xl md:text-4xl font-extrabold text-slate-900 mb-4">The Alumni Wall of Fame</h2>

@@ -44,7 +44,7 @@ export default function UiUxDetailsPage() {
         </div>
       </div>
 
-      <div className="container-custom pt-24">
+      <div className="container-custom pt-20">
         {/* TECH HEADER */}
         <div className="max-w-5xl mb-32">
           <motion.div
@@ -55,8 +55,9 @@ export default function UiUxDetailsPage() {
             <div className="w-12 h-[1px] bg-cyan-600"></div>
             <span className="text-[10px] font-black uppercase tracking-[0.4em]">Technical Manifest</span>
           </motion.div>
-          <h1 className="text-fluid-h1 font-black tracking-tighter mb-12 leading-none">
-            Cognitive <br/> <span className="text-slate-400 italic">Engineering.</span>
+          <h1 className="text-5xl md:text-7xl font-black text-slate-900 leading-[1.1] mb-8 tracking-tighter">
+            Cognitive <br />
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-pink-500 via-rose-500 to-indigo-500 animate-gradient-x">Engineering</span>
           </h1>
           <p className="text-slate-600 text-xl font-light leading-relaxed max-w-2xl italic">
             "UI/UX is not about art; it's about the reduction of cognitive friction through mathematical design systems."

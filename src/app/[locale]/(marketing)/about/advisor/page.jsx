@@ -32,7 +32,7 @@ const advisors = [
 
 export default function AdvisoryBoardPage() {
   return (
-    <section className="min-h-screen bg-slate-950 py-24 overflow-hidden text-white relative">
+    <section className="min-h-screen bg-slate-950 py-20 overflow-hidden text-white relative">
       {/* Deep dark abstract grids & flares */}
       <div className="absolute inset-0 bg-[url('/images/grid-pattern.svg')] bg-[length:40px_40px] opacity-10 pointer-events-none"></div>
       <div className="absolute top-1/4 -right-20 w-96 h-96 bg-blue-600 rounded-full blur-[120px] opacity-50 mix-blend-screen pointer-events-none animate-pulse duration-1000"></div>
@@ -50,14 +50,10 @@ export default function AdvisoryBoardPage() {
               Guidance & Trust
             </p>
           </motion.div>
-          <motion.h1
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.1 }}
-            className="text-4xl md:text-6xl font-black text-white leading-tight mb-6"
-          >
-            The Advisory Board
-          </motion.h1>
+          <h1 className="text-5xl md:text-7xl font-black text-white leading-[1.1] mb-8 tracking-tighter">
+            Advisory <br />
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-indigo-400 to-blue-500 animate-gradient-x">Board</span>
+          </h1>
           <motion.p
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}

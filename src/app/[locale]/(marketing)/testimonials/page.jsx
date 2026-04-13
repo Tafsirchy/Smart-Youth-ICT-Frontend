@@ -51,7 +51,7 @@ const testimonials = [
 
 export default function TestimonialsPage() {
   return (
-    <section className="min-h-screen bg-slate-50 py-24 overflow-hidden">
+    <section className="min-h-screen bg-slate-50 py-20 overflow-hidden">
       <div className="container-custom relative">
         <div className="text-center max-w-3xl mx-auto mb-20">
           <motion.div
@@ -65,14 +65,10 @@ export default function TestimonialsPage() {
             ))}
             <span className="text-amber-700 font-bold text-sm ml-2">4.9/5 Average Rating</span>
           </motion.div>
-          <motion.h1
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.1 }}
-            className="text-4xl md:text-5xl font-black text-slate-900 leading-tight mb-6"
-          >
-            Don't Just Take Our Word For It.
-          </motion.h1>
+          <h1 className="text-5xl md:text-7xl font-black text-slate-900 leading-[1.1] mb-8 tracking-tighter">
+            Testi-<br />
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-pink-500 via-rose-500 to-amber-500 animate-gradient-x">monials</span>
+          </h1>
           <motion.p
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}

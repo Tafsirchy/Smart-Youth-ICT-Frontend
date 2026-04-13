@@ -47,7 +47,7 @@ export default function BusinessDetailsPage() {
          </div>
       </div>
 
-      <div className="container-custom pt-24 text-slate-900">
+      <div className="container-custom pt-20 text-slate-900">
         
         {/* ARCHITECTURE HERO */}
         <div className="max-w-5xl mb-40">
@@ -60,12 +60,13 @@ export default function BusinessDetailsPage() {
            </motion.div>
            
            <motion.h1 
-             className="text-6xl md:text-8xl lg:text-[10rem] font-black leading-[0.8] mb-12 tracking-tighter"
+             className="text-5xl md:text-7xl font-black text-slate-900 leading-[1.1] mb-8 tracking-tighter"
              initial={{ opacity: 0, scale: 0.95 }}
              animate={{ opacity: 1, scale: 1 }}
              transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
            >
-             Operational <br/> <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 via-cyan-500 to-indigo-600 font-serif italic font-light">Architecture.</span>
+             Business <br />
+             <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 via-indigo-500 to-cyan-500 animate-gradient-x">Intelligence</span>
            </motion.h1>
 
            <p className="text-xl md:text-2xl text-slate-500 font-light leading-relaxed max-w-3xl">

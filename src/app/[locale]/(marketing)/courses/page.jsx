@@ -129,10 +129,9 @@ export default function CoursesPage() {
               ? `${filteredCourses.length} Courses Available`
               : "Courses"}
           </span>
-          <h1 className="text-4xl md:text-5xl font-extrabold text-white mb-4 leading-tight">
-            Explore Our
-            <br />
-            <span className="text-gradient">Courses</span>
+          <h1 className="text-5xl md:text-7xl font-black text-white leading-[1.1] mb-8 tracking-tighter">
+            Explore Our <br />
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-indigo-400 to-blue-500 animate-gradient-x">Courses</span>
           </h1>
           <p className="text-indigo-200 text-lg max-w-xl mx-auto mb-8">
             Learn demand-driven skills from industry experts and start earning
@@ -227,7 +226,7 @@ export default function CoursesPage() {
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            className="flex flex-col items-center justify-center py-24 text-center"
+            className="flex flex-col items-center justify-center py-20 text-center"
           >
             <div className="w-20 h-20 rounded-full bg-blue-50 flex items-center justify-center mb-5">
               <IoBookOutline size={36} className="text-blue-400" />

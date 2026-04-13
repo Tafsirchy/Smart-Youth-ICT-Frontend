@@ -132,8 +132,8 @@ const slides = [
     label: "Welcome Back",
     heading: (
       <>
-        <span className="text-[#FF9D2E]">Education</span> Is the Fruit <br /> of
-        All Knowledge
+        Learn IT Skills & <br />
+        <span className="text-transparent bg-clip-text bg-gradient-to-r from-orange-500 via-rose-500 to-amber-500 animate-gradient-x">Earn from Real Projects</span>
       </>
     ),
     description:
@@ -319,7 +319,7 @@ export default function HeroSlider() {
                 )}
 
                 <h1
-                  className={`text-fluid-h1 font-[900] leading-[1.05] mb-5 ${slides[current].id === 1 ? "text-[#232F3E]" : slides[current].id === 3 ? "text-[#232F3E]" : "text-white"}`}
+                  className={`text-5xl md:text-7xl font-black leading-[1.1] mb-8 tracking-tighter ${slides[current].id === 1 ? "text-[#232F3E]" : slides[current].id === 3 ? "text-[#232F3E]" : "text-white"}`}
                 >
                   {slides[current].heading}
                 </h1>

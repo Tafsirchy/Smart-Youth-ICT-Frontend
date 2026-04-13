@@ -93,20 +93,9 @@ export default function WhyChooseUs() {
                 The SYICT Difference
               </span>
               
-              <h2 className="text-4xl md:text-6xl font-black text-slate-900 leading-[1.1] mb-6">
-                Not Just a Course — <br />
-                <span className="relative inline-block mt-2">
-                  A Career Launch Pad
-                  <motion.svg 
-                    viewBox="0 0 400 20" 
-                    className="absolute -bottom-2 left-0 w-full h-3 text-emerald-400/60"
-                    initial={{ pathLength: 0 }}
-                    whileInView={{ pathLength: 1 }}
-                    transition={{ duration: 1.5, delay: 0.5 }}
-                  >
-                    <path d="M5 15Q100 5 200 15T395 10" fill="none" stroke="currentColor" strokeWidth="6" strokeLinecap="round" />
-                  </motion.svg>
-                </span>
+              <h2 className="text-5xl md:text-7xl font-black text-slate-900 leading-[1.1] mb-8 tracking-tighter">
+                Real Skills. <br />
+                <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-500 via-teal-500 to-cyan-600 animate-gradient-x">Real Careers.</span>
               </h2>
 
               <p className="text-slate-600 text-lg md:text-xl leading-relaxed max-w-xl font-medium mb-10">
