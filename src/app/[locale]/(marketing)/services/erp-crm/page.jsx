@@ -61,7 +61,7 @@ export default function ErpCrmPage() {
         <div className="absolute top-[10%] right-[-100px] w-[600px] h-[600px] bg-teal-50 rounded-full blur-[160px]"></div>
       </div>
 
-      <div className="container-custom relative py-20 lg:py-32">
+      <div className="container-custom relative py-20">
         {/* ENTERPRISE HERO SECTION */}
         <div className="flex flex-col lg:flex-row items-center gap-16 lg:gap-24 mb-48">
           <div className="flex-1 text-left relative z-10">

@@ -65,7 +65,7 @@ export default function ServicesDirectoryPage() {
          <div className="absolute top-0 right-1/3 w-[1px] h-full bg-slate-300"></div>
       </div>
 
-      <div className="container-custom pt-32">
+      <div className="container-custom pt-20">
         {/* HEADER */}
         <div className="max-w-4xl mb-32 px-4 md:px-0">
           <motion.div
@@ -126,7 +126,7 @@ export default function ServicesDirectoryPage() {
         </div>
 
         {/* TECH MANIFEST CTA */}
-        <div className="mt-48 text-center border-t border-slate-200 pt-32">
+        <div className="mt-48 text-center border-t border-slate-200 pt-20">
            <IoInfiniteOutline className="text-7xl text-indigo-600 mb-12 mx-auto opacity-20" />
            <h3 className="text-4xl lg:text-6xl font-black text-slate-900 mb-12 tracking-tighter">Unified Infrastructure. <br/><span className="text-indigo-600 italic font-serif font-light">Global Scale.</span></h3>
            <div className="flex flex-col sm:flex-row gap-6 justify-center">

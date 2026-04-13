@@ -57,7 +57,7 @@ export default function CustomAppsPage() {
 
       <div className="container-custom py-20 relative">
         {/* BESPOKE HERO SECTION */}
-        <div className="flex flex-col lg:flex-row items-center gap-20 mb-48 pt-10">
+        <div className="flex flex-col lg:flex-row items-center gap-20 mb-48">
           <div className="flex-1 text-left">
             <motion.div
               initial={{ opacity: 0, x: -20 }}

@@ -48,7 +48,7 @@ export default function UiUxPage() {
 
       <div className="container-custom py-20 relative z-10">
         {/* UI/UX HERO */}
-        <div className="flex flex-col lg:flex-row items-center gap-20 mb-48 pt-10 px-4 md:px-0">
+        <div className="flex flex-col lg:flex-row items-center gap-20 mb-48 px-4 md:px-0">
           <div className="flex-1 text-left">
             <motion.div
               initial={{ opacity: 0, x: -20 }}

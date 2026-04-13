@@ -67,17 +67,17 @@ export default async function RootLayout({ children, params: { locale } }) {
         }}
         suppressHydrationWarning
       >
-        {/* Aggressive Top Loader: Jumps to 35% immediately for 'instant' feel */}
+        {/* Snappy Top Loader: Jumps to 30% immediately, moves fast, and has a subtle glow */}
         <NextTopLoader 
           color="var(--color-brand-pink, #ec4899)" 
-          initialPosition={0.35}
-          crawlSpeed={150}
-          height={3} 
+          initialPosition={0.3}
+          crawlSpeed={100}
+          height={4} 
           crawl={true}
           showSpinner={false}
-          easing="cubic-bezier(0.1, 0.7, 1.0, 0.1)"
-          speed={400}
-          shadow={false}
+          easing="ease"
+          speed={200}
+          shadow="0 0 10px #ec4899,0 0 5px #ec4899"
         />
         <NextIntlClientProvider messages={messages}>
           <Providers session={session}>

@@ -48,7 +48,7 @@ export default function CareerTracksPage() {
       {/* Heavy grid background */}
       <div className="absolute inset-0 bg-[linear-gradient(to_right,#ffffff08_1px,transparent_1px),linear-gradient(to_bottom,#ffffff08_1px,transparent_1px)] bg-[size:40px_40px]"></div>
 
-      <div className="relative pt-32 pb-20 px-4">
+      <div className="relative pt-20 pb-20 px-4">
         <div className="container-custom relative z-10 text-center max-w-4xl mx-auto">
           <motion.div
              initial={{ opacity: 0, scale: 0.9 }}
