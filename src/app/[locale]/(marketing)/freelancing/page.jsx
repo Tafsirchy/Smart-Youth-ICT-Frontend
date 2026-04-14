@@ -56,7 +56,7 @@ export default function FreelancingPage() {
       <section className="bg-neutral-900 py-20 text-center px-4 sm:px-6 lg:px-8">
         <div className="max-w-4xl mx-auto">
           <h1 className="text-4xl sm:text-5xl font-extrabold text-white tracking-tight mb-6">
-             Learn IT Skills <span className="text-blue-500">& Earn from Real Projects</span>
+             Learn IT Skills <span className="text-orange-400">& Earn from Real Projects</span>
           </h1>
           <p className="text-lg sm:text-xl text-neutral-300 mb-10 max-w-2xl mx-auto leading-relaxed">
             Apply your newly learned skills to real-world client projects. Build your portfolio, gain experience, and start earning before you even graduate.

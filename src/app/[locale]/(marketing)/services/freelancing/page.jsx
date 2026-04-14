@@ -1,205 +1,172 @@
 "use client";
 
+import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { 
   IoGlobeOutline, 
-  IoWalletOutline, 
-  IoTrendingUpOutline, 
-  IoStar, 
-  IoBriefcaseOutline, 
-  IoRocketOutline, 
-  IoShieldCheckmarkOutline,
-  IoCheckmarkCircleOutline
+  IoFlashOutline, 
+  IoShieldCheckmarkOutline, 
+  IoCheckmarkCircle, 
+  IoBriefcaseOutline,
+  IoRocketIcon,
+  IoSearchOutline
 } from "react-icons/io5";
-
-const classifications = [
-  {
-    title: "Upwork (Global Projects)",
-    type: "High-Ticket & Agency",
-    desc: "Focus on long-term contracts and high-value project-based work. We teach you to build a specialist profile and bid for premium enterprise clients.",
-    icon: <IoBriefcaseOutline />,
-    color: "bg-emerald-600",
-    features: ["Agency-level profile setup", "Advanced Bidding Psychology", "Contract Management"]
-  },
-  {
-    title: "Fiverr (Specialized Gigs)",
-    type: "Volume & Speed",
-    desc: "Perfect for quick-start income. Master gig SEO, thumbnail psychology, and automated response systems to dominate your niche quickly.",
-    icon: <IoRocketOutline />,
-    color: "bg-[#1dbf73]",
-    features: ["Gig Ranking SEO", "Buyer Request Strategies", "Order Queue Optimization"]
-  },
-  {
-    title: "LinkedIn & Direct",
-    type: "Networking & P2P",
-    desc: "Avoid marketplace fees. Learn to source high-paying direct clients through professional networking and cold outreach strategies.",
-    icon: <IoGlobeOutline />,
-    color: "bg-blue-600",
-    features: ["LinkedIn Lead Generation", "Cold Email Mastery", "Direct Invoicing & PayPal"]
-  }
-];
-
-const phases = [
-  { step: "01", title: "Identity & Asset Curation", desc: "Building a global-standard portfolio that bypasses cultural and geographical filters instantly." },
-  { step: "02", title: "The Art of the Win", desc: "Scientific proposal writing. We provide templates that have a 70% reply rate across major marketplaces." },
-  { step: "03", title: "Project Lifecycle", desc: "Managing client expectations, handled revisions, and ensuring 5-star feedback every single time." },
-  { step: "04", title: "Financial Freedom", desc: "Securely withdrawing dollars via Payoneer/Wise and navigating legal taxations flawlessly." }
-];
+import api from "@/lib/api";
 
 export default function FreelancingTrainingPage() {
+  const [data, setData] = useState(null);
+  const [content, setContent] = useState(null);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    fetchData();
+  }, []);
+
+  const fetchData = async () => {
+    try {
+      const [freelanceRes, contentRes] = await Promise.all([
+        api.get("/cms/services/freelancing"),
+        api.get("/cms/services/content/freelancing")
+      ]);
+      
+      if (freelanceRes.data.data && freelanceRes.data.data.length > 0) {
+        setData(freelanceRes.data.data[0]);
+      }
+      setContent(contentRes.data.data);
+    } catch (err) {
+      console.error("Failed to load freelancing data", err);
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return (
-    <section className="min-h-screen bg-slate-50 overflow-hidden relative">
-      <div className="container-custom py-20">
+    <section className="min-h-screen bg-slate-950 overflow-hidden relative font-sans">
+      <div className="absolute inset-x-0 top-0 h-[800px] bg-gradient-to-b from-emerald-900/40 via-transparent to-transparent pointer-events-none"></div>
+
+      <div className="container-custom py-20 relative z-10">
         
-        {/* Header Block */}
-        <div className="text-center max-w-4xl mx-auto mb-24 bg-white rounded-[3rem] p-12 lg:p-20 border border-slate-200 shadow-xl shadow-slate-200/50">
+        {/* Massive Hero Section */}
+        <div className="max-w-4xl mx-auto text-center mb-32">
           <motion.div
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
-            className="inline-flex items-center gap-2 px-5 py-2 rounded-full bg-emerald-100 text-emerald-800 text-xs font-black tracking-widest uppercase mb-8"
+            className="inline-flex items-center gap-2 px-5 py-2 rounded-full bg-emerald-500/10 text-emerald-400 text-xs font-black tracking-widest uppercase mb-8 border border-emerald-500/20"
           >
-            <IoGlobeOutline size={16} /> Global Financial Freedom
+            {content?.hero?.badge || "Digital Sovereignty"}
           </motion.div>
           <motion.h1
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.1 }}
-            className="text-5xl md:text-7xl font-black text-slate-900 leading-[1.1] mb-8 tracking-tighter"
+            className="text-5xl md:text-7xl font-black text-white leading-[1.1] mb-8 tracking-tighter"
           >
-            Freelancing <br />
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-500 via-teal-600 to-cyan-600 animate-gradient-x">Training</span>
+            {content?.hero?.title || "Freelancing"} <br />
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-500 via-teal-500 to-cyan-500 animate-gradient-x">
+              {content?.hero?.subtitle || "Success Training"}
+            </span>
           </motion.h1>
           <motion.p
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.2 }}
-            className="text-slate-500 text-xl md:text-2xl leading-relaxed font-light max-w-3xl mx-auto"
+            className="text-slate-400 text-xl md:text-3xl leading-relaxed font-light max-w-3xl mx-auto"
           >
-            Learning a skill is only 50% of the journey. The other 50% is knowing exactly how to sell it. Our modules turn technical students into high-earning global freelancers.
+            {content?.hero?.description || "Master the art of high-ticket client acquisition on global marketplaces."}
           </motion.p>
         </div>
 
-        {/* Marketplace Classification */}
-        <div className="mb-32">
-          <h2 className="text-4xl font-black text-slate-900 text-center mb-16">Marketplace Classifications</h2>
-          <div className="grid lg:grid-cols-3 gap-8">
-            {classifications.map((item, i) => (
-              <motion.div
-                key={i}
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: i * 0.1 }}
-                className="bg-white rounded-[2.5rem] p-10 border border-slate-100 shadow-xl shadow-slate-200/30 group hover:-translate-y-2 transition-transform"
-              >
-                <div className={`w-16 h-16 rounded-2xl ${item.color} text-white flex items-center justify-center text-3xl mb-8 shadow-lg`}>
-                   {item.icon}
-                </div>
-                <h3 className="text-2xl font-black text-slate-900 mb-2">{item.title}</h3>
-                <p className="text-xs font-black uppercase tracking-widest text-slate-400 mb-6">{item.type}</p>
-                <p className="text-slate-600 leading-relaxed mb-8">{item.desc}</p>
-                
-                <div className="space-y-3 pt-6 border-t border-slate-100">
-                   {item.features.map(f => (
-                     <div key={f} className="flex gap-2 items-center text-sm font-bold text-slate-700">
-                        <IoCheckmarkCircleOutline className="text-emerald-500" /> {f}
-                     </div>
-                   ))}
-                </div>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-
-        {/* Detailed Mechanics (Roadmap) */}
-        <div className="grid lg:grid-cols-2 gap-20 items-center max-w-6xl mx-auto mb-32">
-          <div>
-            <h2 className="text-4xl lg:text-5xl font-black text-slate-900 mb-8 leading-tight">The 4-Phase Mastery Roadmap.</h2>
-            <div className="space-y-10">
-              {phases.map((p, i) => (
-                <motion.div 
-                  key={i} 
-                  initial={{ opacity: 0, x: -30 }} 
-                  whileInView={{ opacity: 1, x: 0 }} 
-                  viewport={{ once: true }}
-                  className="relative pl-12"
-                >
-                  <div className="absolute left-0 top-1 text-slate-200 font-black text-4xl select-none leading-none">{p.step}</div>
-                  <h3 className="text-2xl font-extrabold text-slate-900 mb-2">{p.title}</h3>
-                  <p className="text-slate-600 leading-relaxed font-light text-lg">{p.desc}</p>
-                </motion.div>
-              ))}
+        {loading ? (
+           <div className="grid lg:grid-cols-3 gap-8 max-w-7xl mx-auto mb-32">
+              {[1, 2, 3].map(i => <div key={i} className="h-96 bg-white/5 rounded-[3rem] animate-pulse border border-white/10" />)}
+           </div>
+        ) : data?.classifications?.length > 0 ? (
+          /* Target Classifications */
+          <div className="mb-32">
+            <h2 className="text-4xl font-black text-white text-center mb-16 uppercase tracking-tighter italic">Marketplace Strategy Hubs</h2>
+            <div className="grid lg:grid-cols-3 gap-8 max-w-7xl mx-auto">
+               {data.classifications.map((item, i) => (
+                  <motion.div
+                    key={i}
+                    initial={{ opacity: 0, y: 30 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ delay: i * 0.1 }}
+                    className="bg-white/5 backdrop-blur-3xl border border-white/10 rounded-[3rem] p-10 group hover:border-emerald-500/50 transition-all overflow-hidden relative"
+                  >
+                    <div className={`absolute -right-10 -bottom-10 w-40 h-40 ${item.color} opacity-10 rounded-full blur-[60px] group-hover:opacity-30 transition-opacity`}></div>
+                    
+                    <div className={`w-16 h-16 rounded-2xl ${item.color} text-white flex items-center justify-center text-3xl mb-8 shadow-2xl group-hover:scale-110 transition-transform`}>
+                      <IoGlobeOutline />
+                    </div>
+                    <h3 className="text-2xl font-black text-white mb-2">{item.title}</h3>
+                    <p className="text-xs font-black uppercase tracking-widest text-emerald-400 mb-6">{item.type}</p>
+                    <p className="text-slate-400 leading-relaxed font-light mb-8">{item.desc}</p>
+                    
+                    <div className="space-y-3 pt-6 border-t border-white/5">
+                       {item.features.map((f, idx) => (
+                         <div key={idx} className="flex items-center gap-3 text-[10px] font-black text-slate-500 uppercase tracking-widest">
+                           <IoCheckmarkCircle className="text-emerald-500 text-lg" />
+                           {f}
+                         </div>
+                       ))}
+                    </div>
+                  </motion.div>
+               ))}
             </div>
           </div>
+        ) : (
+          <div className="flex flex-col items-center justify-center py-20 bg-white/5 rounded-[3rem] mb-32">
+             <IoSearchOutline className="text-6xl text-white/20 mb-6" />
+             <p className="text-white/40 font-black uppercase tracking-[0.2em]">Strategy Catalog Syncing...</p>
+          </div>
+        )}
 
-          <div className="relative">
-             <div className="absolute inset-0 bg-emerald-100 rounded-full blur-[100px] opacity-40 -z-10 translate-x-1/4"></div>
-             {/* Large Mockup Element */}
-             <motion.div
-               initial={{ opacity: 0, scale: 0.9 }}
-               whileInView={{ opacity: 1, scale: 1 }}
-               viewport={{ once: true }}
-               className="bg-white rounded-[3rem] shadow-2xl p-10 border border-slate-200 relative overflow-hidden"
-             >
-                <div className="absolute top-0 left-0 w-full h-3 bg-emerald-600"></div>
-                <div className="flex justify-between items-center mb-10">
-                  <div className="flex items-center gap-4">
-                    <div className="w-16 h-16 rounded-2xl bg-slate-100 border-2 border-slate-200 flex items-center justify-center text-emerald-600 text-3xl font-black shadow-sm">U</div>
-                    <div>
-                      <h4 className="font-black text-slate-900 text-xl tracking-tight">Verified Expert</h4>
-                      <p className="text-xs font-bold text-slate-400 uppercase tracking-widest">Global Status</p>
-                    </div>
-                  </div>
-                  <div className="text-emerald-500 font-bold bg-emerald-50 px-4 py-2 rounded-xl border border-emerald-100">
-                     +100% Success
-                  </div>
-                </div>
-
-                <div className="space-y-6">
-                   <div className="h-6 bg-slate-100 rounded-full w-full"></div>
-                   <div className="h-6 bg-slate-100 rounded-full w-3/4"></div>
-                   
-                   <div className="grid grid-cols-2 gap-4 mt-8">
-                      <div className="p-6 bg-slate-50 rounded-2xl border border-slate-100">
-                         <p className="text-[10px] font-black text-slate-400 uppercase mb-2">Earnings</p>
-                         <p className="text-2xl font-black text-slate-900">$24,500</p>
-                      </div>
-                      <div className="p-6 bg-slate-50 rounded-2xl border border-slate-100 text-emerald-600">
-                         <p className="text-[10px] font-black text-slate-400 uppercase mb-2">Projects</p>
-                         <p className="text-2xl font-black text-slate-900">142+</p>
-                      </div>
+        {/* Dynamic Mastery Roadmap */}
+        {data?.phases?.length > 0 && (
+          <div className="mb-32 max-w-5xl mx-auto">
+            <h2 className="text-4xl lg:text-5xl font-black text-white text-center mb-20 leading-tight">Mastery <span className="text-emerald-500">Roadmap.</span></h2>
+            <div className="space-y-12 relative">
+               <div className="absolute left-6 top-10 bottom-10 w-px bg-white/10 hidden md:block"></div>
+               {data.phases.map((p, i) => (
+                 <motion.div
+                   key={i}
+                   initial={{ opacity: 0, x: -20 }}
+                   whileInView={{ opacity: 1, x: 0 }}
+                   viewport={{ once: true }}
+                   transition={{ delay: i * 0.1 }}
+                   className="flex flex-col md:flex-row gap-8 items-start relative z-10"
+                 >
+                   <div className="w-12 h-12 bg-emerald-600 rounded-2xl flex items-center justify-center text-white font-black shrink-0 shadow-xl shadow-emerald-600/30">
+                     {p.step}
                    </div>
-                </div>
-
-                <div className="mt-10 pt-8 border-t border-slate-100 text-center">
-                   <p className="text-slate-400 text-sm font-bold uppercase tracking-widest">Withdrawal Status: <span className="text-emerald-600">Ready</span></p>
-                </div>
-             </motion.div>
+                   <div className="flex-1">
+                      <h3 className="text-2xl font-black text-white mb-2 tracking-tight">{p.title}</h3>
+                      <p className="text-slate-400 text-lg font-light leading-relaxed max-w-2xl">{p.desc}</p>
+                   </div>
+                 </motion.div>
+               ))}
+            </div>
           </div>
-        </div>
+        )}
 
-        {/* Global Toolkit Section */}
-        <div className="bg-slate-900 rounded-[3rem] p-12 lg:p-20 text-center overflow-hidden relative">
-          <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-[600px] bg-emerald-500/20 blur-[120px] pointer-events-none"></div>
-          <motion.p 
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            className="text-emerald-400 font-bold uppercase tracking-[0.3em] text-[10px] mb-6"
-          >
-            Global Industry Standard
-          </motion.p>
-          <h2 className="text-4xl md:text-5xl font-black text-white mb-12 relative z-10">The Success Toolkit.</h2>
-          <div className="flex flex-wrap justify-center gap-6 lg:gap-12 relative z-10 opacity-60 hover:opacity-100 transition-opacity">
-             {["Upwork", "Fiverr", "Payoneer", "Wise", "Slack", "LinkedIn"].map(tool => (
-               <div key={tool} className="text-2xl md:text-3xl font-black text-white/50 hover:text-white transition-colors cursor-default select-none uppercase tracking-tighter italic">
-                 {tool}
-               </div>
-             ))}
-          </div>
-          <button className="mt-16 px-10 py-5 bg-emerald-500 text-white font-black rounded-full hover:scale-105 transition-transform shadow-2xl relative z-10">
-             Start Your Journey Today
+        {/* Global Access Banner */}
+        <motion.div
+           initial={{ opacity: 0, y: 30 }}
+           whileInView={{ opacity: 1, y: 0 }}
+           viewport={{ once: true }}
+           className="bg-emerald-600 rounded-[3rem] p-12 lg:p-24 text-center text-white shadow-2xl relative overflow-hidden"
+        >
+          <div className="absolute top-0 right-0 w-[400px] h-[400px] bg-white rounded-full blur-[100px] pointer-events-none -translate-y-1/2 translate-x-1/2 opacity-20"></div>
+          
+          <IoShieldCheckmarkOutline className="text-7xl mb-12 mx-auto" />
+          <h2 className="text-4xl lg:text-7xl font-black mb-8 leading-none tracking-tighter">Certified Global <br/>Freelance Expert.</h2>
+          <p className="text-emerald-100 text-xl font-light mb-12 max-w-2xl mx-auto italic">Receive a high-authority digital credential that proves your proficiency to clients across 180+ countries.</p>
+          <button className="px-12 py-6 bg-white text-emerald-600 font-black rounded-xl hover:scale-105 transition-transform shadow-2xl uppercase tracking-widest text-xs">
+            Join Next BootCamp
           </button>
-        </div>
+        </motion.div>
+
       </div>
     </section>
   );

@@ -148,6 +148,13 @@ export default function Sidebar({ initialRole, initialUser }) {
             <div className="space-y-1.5">
               {NAVIGATION_CONFIG.about_cms.map((item) => <NavItem key={item.href} {...item} />)}
             </div>
+
+            <div className="mt-10 text-xs font-black text-indigo-500 uppercase tracking-[0.2em] px-4 mb-4">
+              Learning & Career CMS
+            </div>
+            <div className="space-y-1.5">
+              {NAVIGATION_CONFIG.learning_services_cms.map((item) => <NavItem key={item.href} {...item} />)}
+            </div>
           </>
         )}
       </div>

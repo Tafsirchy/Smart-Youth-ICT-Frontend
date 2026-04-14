@@ -133,7 +133,7 @@ const slides = [
     heading: (
       <>
         Learn IT Skills & <br />
-        <span className="text-transparent bg-clip-text bg-gradient-to-r from-orange-500 via-rose-500 to-amber-500 animate-gradient-x">Earn from Real Projects</span>
+        <span className="text-orange-500">Earn from Real Projects</span>
       </>
     ),
     description:
@@ -262,7 +262,7 @@ export default function HeroSlider() {
           {slides[current].bgBanner && (
             <div className="absolute inset-0 flex items-center justify-center p-3 md:p-4">
               <div
-                className="w-[96%] max-w-[1500px] h-[90%] rounded-[32px] md:rounded-[84px] overflow-hidden relative"
+                className="w-[96%] max-w-[1500px] h-[90%] rounded-[24px] md:rounded-[84px]  overflow-hidden relative"
                 style={{ background: slides[current].bgBanner }}
               >
                 <div className="absolute bottom-0 right-0 w-[40%] max-w-[500px] h-[35%] bg-white rounded-tl-[100px]" />
@@ -279,7 +279,7 @@ export default function HeroSlider() {
                 transition={{ delay: 0.4 }}
               >
                 {slides[current].badge ? (
-                  <div className="inline-flex items-center gap-2 px-5 py-2 rounded-full bg-white/10 backdrop-blur-xl border border-white/20 text-white text-xs font-bold tracking-widest mb-5">
+                  <div className="inline-flex items-center gap-2 px-5 py-2 rounded-full bg-white/10 backdrop-blur-xl border border-white/20 text-white text-xs font-bold tracking-widest mb-3 md:mb-5">
                     🚀 {slides[current].badge}
                   </div>
                 ) : slides[current].type === "dual-portrait" ? (

@@ -1,9 +1,10 @@
 import "@/styles/globals.css";
-import { Inter, Outfit } from "next/font/google";
+import { Inter, Outfit, Cinzel, Playfair_Display } from "next/font/google";
 import { Toaster } from "react-hot-toast";
 import { NextIntlClientProvider } from "next-intl";
 import { getMessages } from "next-intl/server";
 import Providers from "@/providers/Providers";
+import { Suspense } from "react";
 import FacebookPixel from "@/components/marketing/FacebookPixel";
 import WhatsAppButton from "@/components/marketing/WhatsAppButton";
 import GoogleAnalytics from "@/components/marketing/GoogleAnalytics";
@@ -23,6 +24,19 @@ const outfit = Outfit({
   variable: '--font-outfit',
   display: 'swap',
 });
+
+const cinzel = Cinzel({
+  subsets: ["latin"],
+  variable: '--font-cinzel',
+  display: 'swap',
+});
+
+const playfair = Playfair_Display({
+  subsets: ["latin"],
+  variable: '--font-playfair',
+  display: 'swap',
+});
+
 
 export const metadata = {
   title: {
@@ -46,16 +60,32 @@ export const metadata = {
   },
 };
 
-export default async function RootLayout({ children, params: { locale } }) {
-  // Fetch messages (translations) and session for the current locale on the server
-  // This avoids a redundant client-side fetch, making the first visit much faster.
+/**
+ * AppContent Component (Async)
+ * Handles the blocking data fetching (Translations & Session)
+ */
+async function AppContent({ children }) {
   const [messages, session] = await Promise.all([
     getMessages(),
     getServerSession(authOptions)
   ]);
 
   return (
-    <html lang={locale} suppressHydrationWarning className={`${inter.variable} ${outfit.variable}`}>
+    <NextIntlClientProvider messages={messages}>
+      <Providers session={session}>
+        <GoogleAnalytics />
+        <FacebookPixel />
+        {children}
+        <WhatsAppButton />
+        <Toaster position="top-right" toastOptions={{ duration: 4000 }} />
+      </Providers>
+    </NextIntlClientProvider>
+  );
+}
+
+export default function RootLayout({ children, params: { locale } }) {
+  return (
+    <html lang={locale} suppressHydrationWarning className={`${inter.variable} ${outfit.variable} ${cinzel.variable} ${playfair.variable}`}>
       <head>
         {/* Next.js automatically preloads priority images from components */}
       </head>
@@ -67,28 +97,20 @@ export default async function RootLayout({ children, params: { locale } }) {
         }}
         suppressHydrationWarning
       >
-        {/* Snappy Top Loader: Jumps to 30% immediately, moves fast, and has a subtle glow */}
         <NextTopLoader 
           color="var(--color-brand-pink, #ec4899)" 
-          initialPosition={0.3}
-          crawlSpeed={100}
-          height={4} 
+          initialPosition={0.08}
+          crawlSpeed={200}
+          height={3} 
           crawl={true}
           showSpinner={false}
-          easing="ease"
-          speed={200}
+          easing="ease-in-out"
+          speed={300}
           shadow="0 0 10px #ec4899,0 0 5px #ec4899"
         />
-        <NextIntlClientProvider messages={messages}>
-          <Providers session={session}>
-            <PageLoader />
-            <GoogleAnalytics />
-            <FacebookPixel />
-            {children}
-            <WhatsAppButton />
-            <Toaster position="top-right" toastOptions={{ duration: 4000 }} />
-          </Providers>
-        </NextIntlClientProvider>
+        <Suspense fallback={null}>
+          <AppContent>{children}</AppContent>
+        </Suspense>
       </body>
     </html>
   );

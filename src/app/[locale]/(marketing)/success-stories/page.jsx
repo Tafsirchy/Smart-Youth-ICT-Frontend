@@ -1,19 +1,11 @@
 'use client';
 
+import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import Image from 'next/image';
 import { IoPlayCircleOutline, IoBriefcaseOutline, IoLocationOutline, IoCheckmarkCircle } from 'react-icons/io5';
 import Link from 'next/link';
-
-// Mock Data
-const ALUMNI = [
-  { id: 1, name: 'Rafiqul Islam', role: 'Frontend Engineer', company: 'BrainStation-23', img: 'https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=400&h=400&fit=crop', course: 'Web Development Masterclass', location: 'Dhaka, BD' },
-  { id: 2, name: 'Sadia Rahman', role: 'UI/UX Designer', company: 'Pathao', img: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=400&h=400&fit=crop', course: 'Graphic & UI/UX Design', location: 'Dhaka, BD' },
-  { id: 3, name: 'Hasan Mahmud', role: 'Top Rated Freelancer', company: 'Upwork', img: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=400&h=400&fit=crop', course: 'Digital Marketing pro', location: 'Sylhet, BD' },
-  { id: 4, name: 'Nusrat Jahan', role: 'Software Developer', company: 'TigerIT', img: 'https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=400&h=400&fit=crop', course: 'Full-Stack MERN', location: 'Remote' },
-  { id: 5, name: 'Anisur Rahman', role: 'SEO Expert', company: 'Fiverr (Level 2)', img: 'https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?w=400&h=400&fit=crop', course: 'SEO Fundamentals', location: 'Khulna, BD' },
-  { id: 6, name: 'Mithila Farzana', role: 'React Content Developer', company: 'Enosis Solutions', img: 'https://images.unsplash.com/photo-1580489944761-15a19d654956?w=400&h=400&fit=crop', course: 'Advanced React.js', location: 'Dhaka, BD' },
-];
+import api from '@/lib/api';
 
 const STATS = [
   { number: '15,000+', label: 'Students Trained' },
@@ -23,6 +15,27 @@ const STATS = [
 ];
 
 export default function SuccessStoriesPage() {
+  const [stories, setStories] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchStories = async () => {
+      try {
+        const res = await api.get("/cms/stories");
+        setStories(res.data.data || []);
+      } catch (err) {
+        console.error("Failed to load success stories", err);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchStories();
+  }, []);
+
+  // Filter video stories and grid stories
+  const videoStories = stories.filter(s => s.videoUrl || s.videoThumbnail);
+  const gridStories = stories;
+
   return (
     <div className="min-h-screen bg-slate-50 overflow-hidden">
       
@@ -81,35 +94,41 @@ export default function SuccessStoriesPage() {
           <p className="text-slate-500 text-lg">Watch how mastering modern skills at Smart Youth ICT changed their lives completely.</p>
         </div>
 
-        <div className="relative w-full flex overflow-hidden group py-4">
-          <motion.div 
-            animate={{ x: ["0%", "-50%"] }}
-            transition={{ duration: 30, ease: "linear", repeat: Infinity }}
-            className="flex gap-6 px-3 w-max"
-          >
-            {[1, 2, 3, 4, 5, 1, 2, 3, 4, 5].map((v, i) => (
-               <div key={i} className="relative rounded-3xl overflow-hidden w-[300px] md:w-[400px] aspect-[4/5] bg-slate-200 cursor-pointer shadow-lg hover:shadow-2xl transition-all shrink-0 group/card">
-                 <Image src={`https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=600&h=800&fit=crop&q=80&sig=${v}`} alt="Student Testimonial" fill className="object-cover group-hover/card:scale-110 transition-transform duration-700" />
-                 <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent"></div>
-                 
-                 <div className="absolute inset-0 flex items-center justify-center">
-                    <div className="w-16 h-16 bg-white/20 backdrop-blur-md rounded-full flex items-center justify-center text-white group-hover/card:bg-blue-600 transition-colors shadow-[0_0_20px_rgba(0,0,0,0.3)]">
-                      <IoPlayCircleOutline size={40} className="opacity-90 ml-1" />
-                    </div>
-                 </div>
+        {loading ? (
+          <div className="flex justify-center items-center py-20">
+             <div className="w-12 h-12 border-4 border-slate-200 border-t-blue-600 rounded-full animate-spin"></div>
+          </div>
+        ) : videoStories.length > 0 && (
+          <div className="relative w-full flex overflow-hidden group py-4">
+            <motion.div 
+              animate={{ x: ["0%", "-50%"] }}
+              transition={{ duration: 30, ease: "linear", repeat: Infinity }}
+              className="flex gap-6 px-3 w-max"
+            >
+              {[...videoStories, ...videoStories].map((story, i) => (
+                 <a key={i} href={story.videoUrl} target="_blank" rel="noopener noreferrer" className="relative rounded-3xl overflow-hidden w-[300px] md:w-[400px] aspect-[4/5] bg-slate-200 cursor-pointer shadow-lg hover:shadow-2xl transition-all shrink-0 group/card">
+                   <Image src={story.videoThumbnail || story.image || "/images/placeholder.png"} alt={story.name} fill className="object-cover group-hover/card:scale-110 transition-transform duration-700" />
+                   <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent"></div>
+                   
+                   <div className="absolute inset-0 flex items-center justify-center">
+                      <div className="w-16 h-16 bg-white/20 backdrop-blur-md rounded-full flex items-center justify-center text-white group-hover/card:bg-rose-600 transition-colors shadow-[0_0_20px_rgba(0,0,0,0.3)]">
+                        <IoPlayCircleOutline size={40} className="opacity-90 ml-1" />
+                      </div>
+                   </div>
 
-                 <div className="absolute bottom-6 left-6 right-6">
-                   <h3 className="text-white font-bold text-lg leading-snug mb-1">How I landed a $40k Remote US job in 6 Months.</h3>
-                   <p className="text-slate-300 text-sm font-medium">Aminul H. - Web Developer</p>
-                 </div>
-               </div>
-            ))}
-          </motion.div>
-          
-          {/* Fading Edges for Marquee Effect */}
-          <div className="absolute top-0 bottom-0 left-0 w-16 md:w-48 bg-gradient-to-r from-slate-50 to-transparent pointer-events-none z-10" />
-          <div className="absolute top-0 bottom-0 right-0 w-16 md:w-48 bg-gradient-to-l from-slate-50 to-transparent pointer-events-none z-10" />
-        </div>
+                   <div className="absolute bottom-6 left-6 right-6">
+                     <h3 className="text-white font-bold text-lg leading-snug mb-1 truncate">{story.title}</h3>
+                     <p className="text-slate-300 text-sm font-medium">{story.name} - {story.role}</p>
+                   </div>
+                 </a>
+              ))}
+            </motion.div>
+            
+            {/* Fading Edges for Marquee Effect */}
+            <div className="absolute top-0 bottom-0 left-0 w-16 md:w-48 bg-gradient-to-r from-slate-50 to-transparent pointer-events-none z-10" />
+            <div className="absolute top-0 bottom-0 right-0 w-16 md:w-48 bg-gradient-to-l from-slate-50 to-transparent pointer-events-none z-10" />
+          </div>
+        )}
       </section>
 
       {/* ── Alumni Wall Grid ── */}
@@ -120,41 +139,51 @@ export default function SuccessStoriesPage() {
             <p className="text-slate-500 text-lg">Hundreds of students are joining top-tier software companies and freelancing platforms every month.</p>
           </div>
 
-          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
-            {ALUMNI.map((alumni, i) => (
-               <motion.div 
-                  initial={{ opacity: 0, y: 30 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true, margin: "-100px" }}
-                  transition={{ delay: i * 0.1 }}
-                  key={alumni.id} className="bg-slate-50 rounded-3xl p-6 border border-slate-100 hover:border-blue-200 hover:shadow-xl transition-all group">
-                 <div className="flex gap-4 items-center mb-6">
-                    <div className="relative w-16 h-16 rounded-full overflow-hidden shadow-sm ring-2 ring-white">
-                      <Image src={alumni.img} alt={alumni.name} fill className="object-cover" />
-                    </div>
-                    <div>
-                      <h4 className="font-bold text-slate-900 text-lg">{alumni.name}</h4>
-                      <p className="text-blue-600 font-bold text-sm">{alumni.role}</p>
-                    </div>
-                 </div>
+          {!loading && (
+            <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
+              {gridStories.map((story, i) => (
+                 <motion.div 
+                    initial={{ opacity: 0, y: 30 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true, margin: "-100px" }}
+                    transition={{ delay: i * 0.1 }}
+                    key={story._id || i} className="bg-slate-50 rounded-3xl p-6 border border-slate-100 hover:border-blue-200 hover:shadow-xl transition-all group">
+                   <div className="flex gap-4 items-center mb-6">
+                      <div className="relative w-16 h-16 rounded-full overflow-hidden shadow-sm ring-2 ring-white bg-white">
+                        <Image src={story.image || "/images/placeholder.png"} alt={story.name} fill className="object-cover" />
+                      </div>
+                      <div className="min-w-0">
+                        <h4 className="font-bold text-slate-900 text-lg truncate">{story.name}</h4>
+                        <p className="text-blue-600 font-bold text-sm truncate">{story.role}</p>
+                      </div>
+                   </div>
 
-                 <div className="space-y-3 mb-6">
-                    <div className="flex items-center gap-3 text-sm text-slate-600 font-medium">
-                       <div className="w-8 h-8 rounded-lg bg-white shadow-sm flex items-center justify-center shrink-0">
-                         <IoBriefcaseOutline className="text-purple-500" size={16} />
-                       </div>
-                       Hired at <strong className="text-slate-900">{alumni.company}</strong>
-                    </div>
-                    <div className="flex items-center gap-3 text-sm text-slate-600 font-medium">
-                       <div className="w-8 h-8 rounded-lg bg-white shadow-sm flex items-center justify-center shrink-0">
-                         <IoCheckmarkCircle className="text-emerald-500" size={16} />
-                       </div>
-                       SYICT <strong className="text-slate-900">{alumni.course}</strong>
-                    </div>
-                 </div>
-               </motion.div>
-            ))}
-          </div>
+                   <div className="space-y-3 mb-6">
+                      <div className="flex items-center gap-3 text-sm text-slate-600 font-medium">
+                         <div className="w-8 h-8 rounded-lg bg-white shadow-sm flex items-center justify-center shrink-0">
+                           <IoBriefcaseOutline className="text-purple-500" size={16} />
+                         </div>
+                         <span className="truncate">Hired at <strong className="text-slate-900">{story.company}</strong></span>
+                      </div>
+                      <div className="flex items-center gap-3 text-sm text-slate-600 font-medium">
+                         <div className="w-8 h-8 rounded-lg bg-white shadow-sm flex items-center justify-center shrink-0">
+                           <IoCheckmarkCircle className="text-emerald-500" size={16} />
+                         </div>
+                         <span className="truncate">SYICT <strong className="text-slate-900">{story.course}</strong></span>
+                      </div>
+                      {story.location && (
+                         <div className="flex items-center gap-3 text-sm text-slate-600 font-medium">
+                            <div className="w-8 h-8 rounded-lg bg-white shadow-sm flex items-center justify-center shrink-0">
+                              <IoLocationOutline className="text-rose-500" size={16} />
+                            </div>
+                            <span className="truncate">Based in <strong className="text-slate-900">{story.location}</strong></span>
+                         </div>
+                      )}
+                   </div>
+                 </motion.div>
+              ))}
+            </div>
+          )}
 
           <div className="mt-16 text-center">
              <Link href="/courses" className="inline-block px-8 py-4 bg-slate-900 text-white rounded-full font-bold hover:bg-blue-600 transition-colors shadow-lg">

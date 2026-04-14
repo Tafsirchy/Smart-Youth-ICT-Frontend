@@ -1,7 +1,8 @@
 import {
   HiHome, HiAcademicCap, HiChartBar, HiClipboardList,
   HiBadgeCheck, HiCreditCard, HiUsers, HiCollection,
-  HiAnnotation, HiUserGroup, HiUserCircle, HiGift
+  HiAnnotation, HiUserGroup, HiUserCircle, HiGift,
+  HiGlobeAlt, HiBriefcase, HiLightningBolt
 } from 'react-icons/hi';
 
 /**
@@ -55,6 +56,14 @@ export const NAVIGATION_CONFIG = {
     { href: '/super/cms/success-stories', Icon: HiBadgeCheck,    label: 'Success Stories' },
     { href: '/super/cms/testimonials',    Icon: HiAnnotation,   label: 'Testimonials' },
     { href: '/super/cms/partners',        Icon: HiCollection,   label: 'Our Partners' },
+  ],
+
+  learning_services_cms: [
+    { href: '/super/cms/services/skill-development', Icon: HiLightningBolt, label: 'Skill Development' },
+    { href: '/super/cms/services/career-tracks',     Icon: HiChartBar,      label: 'Career Tracks' },
+    { href: '/super/cms/services/certifications',    Icon: HiBadgeCheck,    label: 'Certification Programs' },
+    { href: '/super/cms/services/freelancing',       Icon: HiGlobeAlt,      label: 'Freelancing Training' },
+    { href: '/super/cms/services/job-placements',    Icon: HiBriefcase,     label: 'Job Placement Support' },
   ],
 };
 

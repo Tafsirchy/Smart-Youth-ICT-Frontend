@@ -7,6 +7,7 @@ import api from "@/lib/api";
 import { LuSearch as Search, LuMapPin as MapPin, LuBookOpen as BookOpen, LuUser as UserIcon } from "react-icons/lu";
 
 export default function InstructorsPage() {
+  const [allMentors, setAllMentors] = useState([]);
   const [instructors, setInstructors] = useState([]);
   const [branches, setBranches] = useState([]);
   const [courses, setCourses] = useState([]);
@@ -17,45 +18,62 @@ export default function InstructorsPage() {
   });
   const [loading, setLoading] = useState(true);
 
-  // Fetch initial dropdown data
+  // Fetch initial data
   useEffect(() => {
-    const fetchMetadata = async () => {
+    const fetchInitialData = async () => {
+      setLoading(true);
       try {
-        const [bRes, cRes] = await Promise.all([
+        const [bRes, cRes, mRes] = await Promise.all([
           api.get("/branches/public/list"),
           api.get("/courses"),
+          api.get("/cms/team?type=instructor")
         ]);
         setBranches(bRes.data.data || []);
         setCourses(cRes.data.data || []);
+        setAllMentors(mRes.data.data || []);
+        setInstructors(mRes.data.data || []);
       } catch (err) {
-        console.error("Failed to fetch filter metadata", err);
-      }
-    };
-    fetchMetadata();
-  }, []);
-
-  // Fetch instructors based on filters
-  useEffect(() => {
-    const fetchInstructors = async () => {
-      setLoading(true);
-      try {
-        const params = new URLSearchParams();
-        if (filters.q) params.append("q", filters.q);
-        if (filters.branchId) params.append("branchId", filters.branchId);
-        if (filters.courseId) params.append("courseId", filters.courseId);
-
-        const res = await api.get(`/users/instructors/public?${params.toString()}`);
-        setInstructors(res.data.data || []);
-      } catch (err) {
-        console.error("Failed to fetch instructors", err);
+        console.error("Failed to fetch page data", err);
       } finally {
         setLoading(false);
       }
     };
+    fetchInitialData();
+  }, []);
 
-    const timer = setTimeout(fetchInstructors, 300); // Debounce
-    return () => clearTimeout(timer);
-  }, [filters]);
+  // Filter mentors locally
+  useEffect(() => {
+    let filtered = [...allMentors];
+
+    if (filters.q) {
+      const q = filters.q.toLowerCase();
+      filtered = filtered.filter(m => 
+        m.name.toLowerCase().includes(q) || 
+        m.role.toLowerCase().includes(q) || 
+        m.expertise?.some(skill => skill.toLowerCase().includes(q))
+      );
+    }
+
+    if (filters.branchId) {
+      filtered = filtered.filter(m => 
+        (m.branchId?._id === filters.branchId) || 
+        (m.branchId === filters.branchId)
+      );
+    }
+
+    if (filters.courseId) {
+      const selectedCourse = courses.find(c => c._id === filters.courseId);
+      if (selectedCourse) {
+        const courseTitle = (selectedCourse.title?.en || selectedCourse.title).toLowerCase();
+        filtered = filtered.filter(m => 
+          m.expertise?.some(skill => skill.toLowerCase().includes(courseTitle)) ||
+          m.role.toLowerCase().includes(courseTitle)
+        );
+      }
+    }
+
+    setInstructors(filtered);
+  }, [filters, allMentors, courses]);
 
   const handleFilterChange = (key, value) => {
     setFilters((prev) => ({ ...prev, [key]: value }));
@@ -65,14 +83,23 @@ export default function InstructorsPage() {
     <section className="min-h-screen bg-slate-50/50 py-20 overflow-hidden">
       <div className="container-custom relative">
         <div className="max-w-3xl mb-12 text-left border-l-4 border-brand-green pl-6 sm:pl-8">
-          <h1 className="text-5xl md:text-7xl font-black text-slate-900 leading-[1.1] mb-8 tracking-tighter">
+          <motion.h1 
+            initial={{ opacity: 0, x: -20 }}
+            animate={{ opacity: 1, x: 0 }}
+            className="text-5xl md:text-7xl font-black text-slate-900 leading-[1.1] mb-8 tracking-tighter"
+          >
             Our <br />
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-500 via-indigo-500 to-blue-600 animate-gradient-x">Mentors</span>
-          </h1>
-          <p className="text-slate-600 text-lg leading-relaxed">
+          </motion.h1>
+          <motion.p 
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.1 }}
+            className="text-slate-600 text-lg leading-relaxed"
+          >
             Learn directly from active professionals currently building real-world solutions. 
-            Filter by branch or course to find the perfect mentor for your journey.
-          </p>
+            Filtered and curated via CMS to ensure the highest quality mentorship for your journey.
+          </motion.p>
         </div>
 
         {/* Filter Bar */}
@@ -82,7 +109,7 @@ export default function InstructorsPage() {
             <input
               type="text"
               placeholder="Search by name or skill (e.g. React, UI/UX)..."
-              className="w-full pl-12 pr-4 py-3 bg-slate-50 border-none rounded-2xl focus:ring-2 focus:ring-brand-green/20 text-slate-900 transition-all"
+              className="w-full pl-12 pr-4 py-3 bg-slate-50 border-none rounded-2xl focus:ring-2 focus:ring-brand-green/20 text-slate-900 transition-all font-bold text-sm outline-none"
               value={filters.q}
               onChange={(e) => handleFilterChange("q", e.target.value)}
             />
@@ -92,7 +119,7 @@ export default function InstructorsPage() {
             <div className="relative flex-1 md:w-56">
               <MapPin className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 w-4 h-4" />
               <select
-                className="w-full pl-10 pr-4 py-3 bg-slate-50 border-none rounded-2xl focus:ring-2 focus:ring-brand-green/20 text-slate-700 text-sm appearance-none cursor-pointer"
+                className="w-full pl-10 pr-4 py-3 bg-slate-50 border-none rounded-2xl focus:ring-2 focus:ring-brand-green/20 text-slate-700 text-xs font-bold appearance-none cursor-pointer outline-none"
                 value={filters.branchId}
                 onChange={(e) => handleFilterChange("branchId", e.target.value)}
               >
@@ -106,11 +133,11 @@ export default function InstructorsPage() {
             <div className="relative flex-1 md:w-64">
               <BookOpen className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 w-4 h-4" />
               <select
-                className="w-full pl-10 pr-4 py-3 bg-slate-50 border-none rounded-2xl focus:ring-2 focus:ring-brand-green/20 text-slate-700 text-sm appearance-none cursor-pointer"
+                className="w-full pl-10 pr-4 py-3 bg-slate-50 border-none rounded-2xl focus:ring-2 focus:ring-brand-green/20 text-slate-700 text-xs font-bold appearance-none cursor-pointer outline-none"
                 value={filters.courseId}
                 onChange={(e) => handleFilterChange("courseId", e.target.value)}
               >
-                <option value="">All Courses</option>
+                <option value="">All Course Skills</option>
                 {courses.map((c) => (
                   <option key={c._id} value={c._id}>{c.title?.en || c.title}</option>
                 ))}
@@ -124,7 +151,7 @@ export default function InstructorsPage() {
           {loading && (
             <div className="flex flex-col items-center justify-center py-20 gap-4">
               <div className="w-12 h-12 border-4 border-slate-200 border-t-brand-green rounded-full animate-spin" />
-              <p className="text-slate-400 font-medium">Finding best mentors for you...</p>
+              <p className="text-slate-400 font-bold uppercase tracking-widest text-[10px]">Syncing Mentor Network...</p>
             </div>
           )}
 
@@ -139,12 +166,12 @@ export default function InstructorsPage() {
               </div>
               <h3 className="text-xl font-bold text-slate-900 mb-2">No Mentors Found</h3>
               <p className="text-slate-500 max-w-sm">
-                We couldn't find any mentors matching your current filters. 
+                We couldn't find any mentors matching your filters in the CMS. 
                 Try clearing your search or selecting a different branch.
               </p>
               <button 
                 onClick={() => setFilters({ q: "", branchId: "", courseId: "" })}
-                className="mt-6 text-brand-green font-bold hover:underline"
+                className="mt-6 text-brand-green font-bold hover:underline uppercase text-xs tracking-widest"
               >
                 Reset all filters
               </button>
@@ -155,7 +182,7 @@ export default function InstructorsPage() {
             <AnimatePresence mode="popLayout">
               {instructors.map((instructor, i) => (
                 <motion.div
-                  key={instructor._id}
+                  key={instructor._id || i}
                   layout
                   initial={{ opacity: 0, scale: 0.95 }}
                   animate={{ opacity: 1, scale: 1 }}
@@ -165,7 +192,7 @@ export default function InstructorsPage() {
                 >
                   <div className="relative w-24 h-24 sm:w-32 sm:h-32 shrink-0 rounded-[2rem] overflow-hidden shadow-sm bg-slate-50">
                     <Image
-                      src={instructor.avatar || "https://images.unsplash.com/photo-1633332755192-727a05c4013d?w=400&h=400&fit=crop"}
+                      src={instructor.image || "/images/placeholder.png"}
                       alt={instructor.name}
                       fill
                       className="object-cover group-hover:scale-110 transition-transform duration-500"
@@ -173,24 +200,25 @@ export default function InstructorsPage() {
                   </div>
                   
                   <div className="flex-1 min-w-0">
-                    <h3 className="text-xl font-bold text-slate-900 group-hover:text-brand-green transition-colors truncate">
+                    <h3 className="text-xl font-bold text-slate-900 group-hover:text-brand-green transition-colors truncate px-1">
                       {instructor.name}
                     </h3>
-                    <p className="text-xs font-bold text-slate-400 mb-3 flex items-center gap-1">
-                      <MapPin className="w-3 h-3" />
+                    <p className="text-[10px] font-black uppercase text-brand-green mb-1 px-1">{instructor.role}</p>
+                    <p className="text-[10px] font-bold text-slate-400 mb-3 flex items-center gap-1 px-1">
+                      <MapPin className="w-3 h-3 text-slate-300" />
                       {instructor.branchId?.name || "Global Faculty"}
                     </p>
-                    <div className="flex flex-wrap gap-2">
+                    <div className="flex flex-wrap gap-2 px-1">
                       {(instructor.expertise || []).slice(0, 3).map((t) => (
                         <span
                           key={t}
-                          className="px-2 py-1 bg-slate-100 text-slate-600 text-[10px] font-bold uppercase tracking-wider rounded-lg"
+                          className="px-2 py-1 bg-slate-50 text-slate-500 border border-slate-100 text-[9px] font-bold uppercase tracking-wider rounded-lg"
                         >
                           {t}
                         </span>
                       ))}
                       {instructor.expertise?.length > 3 && (
-                        <span className="text-[10px] text-slate-400 font-bold self-center">
+                        <span className="text-[9px] text-slate-400 font-bold self-center">
                           +{instructor.expertise.length - 3}
                         </span>
                       )}

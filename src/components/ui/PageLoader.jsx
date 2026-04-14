@@ -41,11 +41,11 @@ export default function PageLoader() {
       setFadeOut(true);
       // Mark as seen so they don't see it again if they route back
       sessionStorage.setItem("syict_splash_seen", "true");
-    }, 600);
+    }, 300);
 
     const hideTimer = setTimeout(() => {
       setVisible(false);
-    }, 1000);
+    }, 600);
 
     return () => {
       clearTimeout(fadeTimer);
@@ -106,7 +106,7 @@ export default function PageLoader() {
           }
         }
         .animate-progress {
-          animation: progress 0.8s ease-in-out forwards;
+          animation: progress 0.4s ease-in-out forwards;
         }
       `}</style>
     </div>

@@ -2,35 +2,27 @@
 
 import { motion } from "framer-motion";
 import Image from "next/image";
-
-const advisors = [
-  {
-    name: "Dr. Shafiqul Alam",
-    role: "Academic Advisor",
-    institution: "University of Dhaka",
-    image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=400&fit=crop",
-  },
-  {
-    name: "Sarah Miller",
-    role: "Global Tech Liaison",
-    institution: "Techstars",
-    image: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=400&h=400&fit=crop",
-  },
-  {
-    name: "Kamrul Islam",
-    role: "Industry Expert",
-    institution: "Google, BD",
-    image: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=400&h=400&fit=crop",
-  },
-  {
-    name: "Ayesha Siddiqua",
-    role: "Freelancing Consultant",
-    institution: "Top Rated Plus, Upwork",
-    image: "https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=400&h=400&fit=crop",
-  },
-];
+import { useEffect, useState } from "react";
+import api from "@/lib/api";
 
 export default function AdvisoryBoardPage() {
+  const [advisors, setAdvisors] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchAdvisors = async () => {
+      try {
+        const res = await api.get("/cms/team?type=advisory");
+        setAdvisors(res.data.data);
+      } catch (err) {
+        console.error("Failed to load advisory board", err);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchAdvisors();
+  }, []);
+
   return (
     <section className="min-h-screen bg-slate-950 py-20 overflow-hidden text-white relative">
       {/* Deep dark abstract grids & flares */}
@@ -64,48 +56,54 @@ export default function AdvisoryBoardPage() {
           </motion.p>
         </div>
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-7xl">
-          {advisors.map((advisor, i) => (
-            <motion.div
-              key={advisor.name}
-              initial={{ opacity: 0, scale: 0.9, y: 20 }}
-              whileInView={{ opacity: 1, scale: 1, y: 0 }}
-              viewport={{ once: true, margin: "-50px" }}
-              transition={{ delay: i * 0.1, duration: 0.5 }}
-              whileHover={{ y: -5 }}
-              className="group relative"
-            >
-              <div className="absolute inset-0 bg-gradient-to-t from-blue-600/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-[2rem] blur-xl"></div>
-              
-              <div className="relative bg-slate-900/50 backdrop-blur-xl border border-white/10 rounded-[2rem] p-6 hover:border-blue-500/50 transition-colors h-full flex flex-col justify-between">
-                <div className="mb-6 overflow-hidden rounded-2xl aspect-square relative">
-                  <Image
-                    src={advisor.image}
-                    alt={advisor.name}
-                    fill
-                    className="object-cover group-hover:scale-110 transition-transform duration-700"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-slate-900 via-transparent to-transparent"></div>
-                </div>
+        {loading ? (
+          <div className="flex justify-center items-center py-20">
+             <div className="w-12 h-12 border-4 border-slate-800 border-t-blue-500 rounded-full animate-spin"></div>
+          </div>
+        ) : (
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-7xl">
+            {advisors.map((advisor, i) => (
+              <motion.div
+                key={advisor._id || i}
+                initial={{ opacity: 0, scale: 0.9, y: 20 }}
+                whileInView={{ opacity: 1, scale: 1, y: 0 }}
+                viewport={{ once: true, margin: "-50px" }}
+                transition={{ delay: i * 0.1, duration: 0.5 }}
+                whileHover={{ y: -5 }}
+                className="group relative"
+              >
+                <div className="absolute inset-0 bg-gradient-to-t from-blue-600/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-[2rem] blur-xl"></div>
                 
-                <div className="relative z-10">
-                  <h3 className="text-xl font-bold text-white mb-1 group-hover:text-blue-400 transition-colors">
-                    {advisor.name}
-                  </h3>
-                  <p className="text-blue-300 font-medium text-sm mb-2">
-                    {advisor.role}
-                  </p>
-                  <div className="flex items-center gap-2">
-                    <div className="w-1.5 h-1.5 rounded-full bg-slate-500"></div>
-                    <p className="text-slate-400 text-xs font-semibold tracking-wider uppercase">
-                      {advisor.institution}
+                <div className="relative bg-slate-900/50 backdrop-blur-xl border border-white/10 rounded-[2rem] p-6 hover:border-blue-500/50 transition-colors h-full flex flex-col justify-between">
+                  <div className="mb-6 overflow-hidden rounded-2xl aspect-square relative">
+                    <Image
+                      src={advisor.image || "/images/placeholder.png"}
+                      alt={advisor.name}
+                      fill
+                      className="object-cover group-hover:scale-110 transition-transform duration-700"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-slate-900 via-transparent to-transparent"></div>
+                  </div>
+                  
+                  <div className="relative z-10">
+                    <h3 className="text-xl font-bold text-white mb-1 group-hover:text-blue-400 transition-colors">
+                      {advisor.name}
+                    </h3>
+                    <p className="text-blue-300 font-medium text-sm mb-2">
+                      {advisor.role}
                     </p>
+                    <div className="flex items-center gap-2">
+                      <div className="w-1.5 h-1.5 rounded-full bg-slate-500"></div>
+                      <p className="text-slate-400 text-xs font-semibold tracking-wider uppercase">
+                        {advisor.institution || "Industry Expert"}
+                      </p>
+                    </div>
                   </div>
                 </div>
-              </div>
-            </motion.div>
-          ))}
-        </div>
+              </motion.div>
+            ))}
+          </div>
+        )}
       </div>
     </section>
   );

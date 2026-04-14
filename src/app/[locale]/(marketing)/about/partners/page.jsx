@@ -2,19 +2,27 @@
 
 import { motion } from "framer-motion";
 import Image from "next/image";
-
-const partners = [
-  { name: "BrainStation-23", type: "Hiring Partner", logo: "🚀" },
-  { name: "Payoneer", type: "Payment Solutions", logo: "💳" },
-  { name: "AWS Educate", type: "Cloud Infrastructure", logo: "☁️" },
-  { name: "Pathao", type: "Local Tech Partner", logo: "🏍️" },
-  { name: "Google for Startups", type: "Incubator", logo: "🌐" },
-  { name: "Figma", type: "Educational Software", logo: "🎨" },
-  { name: "Dribbble", type: "Creative Portfolio", logo: "🏀" },
-  { name: "Digital Ocean", type: "Infrastructure", logo: "🌊" },
-];
+import { useEffect, useState } from "react";
+import api from "@/lib/api";
 
 export default function PartnersPage() {
+  const [partners, setPartners] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchPartners = async () => {
+      try {
+        const res = await api.get("/cms/partners");
+        setPartners(res.data.data || []);
+      } catch (err) {
+        console.error("Failed to load partners", err);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchPartners();
+  }, []);
+
   return (
     <section className="min-h-screen bg-slate-950 py-20 overflow-hidden relative">
       <div className="absolute inset-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:24px_24px]"></div>
@@ -47,29 +55,35 @@ export default function PartnersPage() {
           </motion.p>
         </div>
 
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6 max-w-6xl mx-auto">
-          {partners.map((partner, i) => (
-            <motion.div
-              key={partner.name}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-50px" }}
-              transition={{ delay: i * 0.1 }}
-              whileHover={{ scale: 1.05 }}
-              className="bg-slate-900/80 backdrop-blur-sm border border-slate-800 rounded-3xl p-6 md:p-8 flex flex-col items-center justify-center text-center group cursor-crosshair hover:bg-white transition-colors duration-500"
-            >
-              <div className="text-4xl md:text-5xl mb-4 group-hover:scale-125 transition-transform duration-500 origin-bottom">
-                {partner.logo}
-              </div>
-              <h3 className="text-white font-bold text-lg group-hover:text-slate-900 transition-colors">
-                {partner.name}
-              </h3>
-              <p className="text-slate-500 text-xs font-semibold uppercase tracking-wider mt-1 group-hover:text-brand-pink transition-colors">
-                {partner.type}
-              </p>
-            </motion.div>
-          ))}
-        </div>
+        {loading ? (
+          <div className="flex justify-center items-center py-20">
+             <div className="w-12 h-12 border-4 border-slate-800 border-t-emerald-500 rounded-full animate-spin"></div>
+          </div>
+        ) : (
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6 max-w-6xl mx-auto">
+            {partners.map((partner, i) => (
+              <motion.div
+                key={partner._id || i}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: "-50px" }}
+                transition={{ delay: i * 0.1 }}
+                whileHover={{ scale: 1.05 }}
+                className="bg-slate-900/80 backdrop-blur-sm border border-slate-800 rounded-3xl p-6 md:p-8 flex flex-col items-center justify-center text-center group cursor-crosshair hover:bg-white transition-colors duration-500"
+              >
+                <div className="w-full aspect-video relative mb-4 flex items-center justify-center">
+                  <img src={partner.logo} alt={partner.name} className="max-w-full max-h-full object-contain group-hover:scale-110 grayscale group-hover:grayscale-0 transition-all duration-500" />
+                </div>
+                <h3 className="text-white font-bold text-lg group-hover:text-slate-900 transition-colors truncate w-full px-2">
+                  {partner.name}
+                </h3>
+                <p className="text-slate-500 text-[10px] font-black uppercase tracking-widest mt-1 group-hover:text-emerald-600 transition-colors">
+                  {partner.partnerType || "Affiliate Partner"}
+                </p>
+              </motion.div>
+            ))}
+          </div>
+        )}
 
         <motion.div 
           initial={{ opacity: 0 }}
@@ -79,7 +93,7 @@ export default function PartnersPage() {
         >
           <h2 className="text-2xl font-bold text-white mb-4">Want to partner with us?</h2>
           <p className="text-slate-400 mb-8">We are always open to mutually beneficial relationships with tech companies, recruiters, and educational platforms.</p>
-          <button className="px-8 py-4 bg-brand-pink text-white font-black rounded-full hover:scale-105 transition-transform shadow-[0_0_30px_rgba(236,72,153,0.3)]">
+          <button className="px-8 py-4 bg-emerald-600 text-white font-black rounded-full hover:scale-105 transition-transform shadow-[0_0_30px_rgba(16,185,129,0.3)]">
             Become a Partner
           </button>
         </motion.div>

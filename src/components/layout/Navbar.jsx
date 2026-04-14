@@ -632,8 +632,7 @@ export default function Navbar() {
                         {col.heading}
                       </p>
                     </div>
-                    {/* Scrollable container for items */}
-                    <div className="max-h-[140px] overflow-y-auto pr-1 scrollbar-hide hover:scrollbar-default transition-all">
+                    <div>
                       <ul className="space-y-0.5">
                         {col.items.map((item) => {
                           const isItemActive = cleanPath === item.href;
