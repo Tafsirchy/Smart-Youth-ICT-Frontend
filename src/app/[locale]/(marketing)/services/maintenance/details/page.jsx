@@ -1,5 +1,6 @@
 "use client";
 
+import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import Link from "next/link";
 import { 
@@ -15,23 +16,48 @@ import {
   IoReloadOutline,
   IoBuildOutline
 } from "react-icons/io5";
-
-const maintenanceLifecycle = [
-  { step: "01", stage: "Infrastructure Audit", action: "Baseline security scans and version integrity checks across the entire stack." },
-  { step: "02", stage: "Nuclear Backups", action: "Setting up redundant, cross-region daily snapshots with 1-click restoration capability." },
-  { step: "03", stage: "Core Synchronization", action: "Atomic updates of CMS cores, frameworks, and plugins with zero-downtime staging tests." },
-  { step: "04", stage: "Security Hardening", action: "Implementing WAF rules, login throttling, and real-time malware neutralization." },
-  { step: "05", stage: "Speed Calibration", action: "Fine-tuning database queries and LSCache objects to maintain sub-1s LCP metrics." },
-  { step: "06", stage: "Health Reporting", action: "Generating high-fidelity technical manifests documenting all system vibration and updates." }
-];
-
-const techSpecs = [
-  { group: "Security Tier", items: ["24/7 SIEM Monitoring", "Brute-force Shielding", "Malware Deep-Scan", "SSL/TLS Integrity"] },
-  { group: "Performance Tier", items: ["Core Web Vitals Hub", "Database Optimization", "CDN Asset Purging", "Resource Scaling"] },
-  { group: "Persistence Tier", items: ["Off-site S3 Backups", "30-Day Snapshot Log", "Instant Restoration", "Uptime Pulse V4"] }
-];
+import api from "@/lib/api";
 
 export default function MaintenanceDetailsPage() {
+  const [content, setContent] = useState(null);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const res = await api.get("/cms/services/web-software/maintenance");
+        if (res.data.data) setContent(res.data.data);
+      } catch (err) {
+        console.error("Failed to load maintenance details", err);
+      }
+    };
+    fetchData();
+  }, []);
+
+  const data = content?.details || {
+    hero: {
+      badge: "Health Manifest",
+      title: "Maintenance Protocol",
+      desc: "Software is never finished; it's either evolving or decaying. We treat maintenance as a continuous integrity audit.",
+      subtitle: "OPS_SPEC_v4.4"
+    },
+    sections: {
+      phases: [
+        { step: "01", stage: "Infrastructure Audit", action: "Baseline security scans and version integrity checks across the entire stack." },
+        { step: "02", stage: "Nuclear Backups", action: "Setting up redundant, cross-region daily snapshots with 1-click restoration capability." },
+        { step: "03", stage: "Core Synchronization", action: "Atomic updates of CMS cores, frameworks, and plugins with zero-downtime staging tests." },
+        { step: "04", stage: "Security Hardening", action: "Implementing WAF rules, login throttling, and real-time malware neutralization." },
+        { step: "05", stage: "Speed Calibration", action: "Fine-tuning database queries and LSCache objects to maintain sub-1s LCP metrics." },
+        { step: "06", stage: "Health Reporting", action: "Generating high-fidelity technical manifests documenting all system vibration and updates." }
+      ],
+      roi: [
+        { group: "Security Tier", items: ["24/7 SIEM Monitoring", "Brute-force Shielding", "Malware Deep-Scan", "SSL/TLS Integrity"] },
+        { group: "Performance Tier", items: ["Core Web Vitals Hub", "Database Optimization", "CDN Asset Purging", "Resource Scaling"] },
+        { group: "Persistence Tier", items: ["Off-site S3 Backups", "30-Day Snapshot Log", "Instant Restoration", "Uptime Pulse V4"] }
+      ]
+    },
+    cta: { title: "Initialize Ops Audit" }
+  };
+
   return (
     <section className="min-h-screen bg-slate-50 text-slate-900 selection:bg-teal-600 selection:text-white pb-40">
       {/* PERSISTENT BREADCRUMB */}
@@ -40,7 +66,7 @@ export default function MaintenanceDetailsPage() {
           <Link href="/services/maintenance" className="flex items-center gap-2 text-[10px] font-black uppercase tracking-widest text-slate-400 hover:text-teal-600 transition-colors">
             <IoArrowBackOutline className="text-sm" /> Infrastructure Overview
           </Link>
-          <div className="text-[10px] font-black uppercase tracking-[0.4em] text-teal-600">OPS_SPEC_v4.4</div>
+          <div className="text-[10px] font-black uppercase tracking-[0.4em] text-teal-600">{data.hero.subtitle}</div>
         </div>
       </div>
 
@@ -53,14 +79,14 @@ export default function MaintenanceDetailsPage() {
             className="flex items-center gap-4 text-teal-600 mb-8"
           >
             <div className="w-12 h-[1px] bg-teal-600"></div>
-            <span className="text-[10px] font-black uppercase tracking-[0.4em]">Health Manifest</span>
+            <span className="text-[10px] font-black uppercase tracking-[0.4em]">{data.hero.badge}</span>
           </motion.div>
           <h1 className="text-5xl md:text-7xl font-black text-slate-900 leading-[1.1] mb-8 tracking-tighter">
-            Maintenance <br />
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-600 via-violet-500 to-emerald-500 animate-gradient-x">Protocol</span>
+            {data.hero.title?.split(' ')[0]} <br />
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-600 via-violet-500 to-emerald-500 animate-gradient-x">{data.hero.title?.split(' ').slice(1).join(' ')}</span>
           </h1>
           <p className="text-slate-600 text-xl font-light leading-relaxed max-w-2xl italic">
-            "Software is never finished; it's either evolving or decaying. We treat maintenance as a continuous integrity audit."
+            "{data.hero.desc}"
           </p>
         </div>
 
@@ -72,7 +98,7 @@ export default function MaintenanceDetailsPage() {
           </div>
           
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-px bg-slate-200 border border-slate-200 rounded-[3rem] overflow-hidden shadow-2xl">
-            {maintenanceLifecycle.map((item, i) => (
+            {(data.sections.phases || []).map((item, i) => (
               <div key={i} className="bg-white p-12 hover:bg-slate-50 transition-colors group">
                  <div className="text-teal-600 font-mono text-xs mb-8 flex items-center gap-2">
                     <span className="w-2 h-2 rounded-full bg-teal-600"></span> 
@@ -107,11 +133,11 @@ export default function MaintenanceDetailsPage() {
            </div>
 
            <div className="space-y-6">
-              {techSpecs.map((spec, idx) => (
+              {(data.sections.roi || []).map((spec, idx) => (
                  <div key={idx} className="bg-white rounded-[2.5rem] p-10 border border-slate-200 shadow-sm hover:shadow-xl transition-all">
                     <h4 className="text-[10px] font-black text-teal-600 uppercase tracking-[0.4em] mb-8">{spec.group} Framework</h4>
                     <div className="grid grid-cols-2 gap-4">
-                       {spec.items.map(item => (
+                       {spec.items?.map(item => (
                           <div key={item} className="flex items-center gap-3 text-sm font-bold text-slate-600">
                              <IoCheckmarkCircleOutline className="text-teal-600 text-lg" /> {item}
                           </div>
@@ -194,7 +220,7 @@ export default function MaintenanceDetailsPage() {
            <h3 className="text-5xl lg:text-7xl font-black text-slate-900 mb-12 leading-tight">Protect your digital legacy. <br/><span className="text-transparent bg-clip-text bg-gradient-to-r from-teal-600 to-slate-900 font-serif italic font-medium">Engineer Absolute Uptime.</span></h3>
            <div className="flex flex-col sm:flex-row gap-6 justify-center">
               <button className="w-full sm:w-[280px] px-8 py-6 bg-teal-600 text-white font-black rounded-xl hover:bg-teal-700 transition-all shadow-2xl shadow-teal-600/40 uppercase tracking-widest text-[10px] flex items-center justify-center">
-                Initialize Ops Audit
+                {data.cta.title}
               </button>
               <Link
                 href="/freelancing"

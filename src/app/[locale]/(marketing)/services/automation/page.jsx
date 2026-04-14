@@ -1,5 +1,6 @@
 "use client";
 
+import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import Link from "next/link";
 import { 
@@ -15,29 +16,46 @@ import {
   IoSettingsOutline,
   IoSparklesOutline
 } from "react-icons/io5";
-
-const automationTiers = [
-  {
-    title: "Ecosystem Sync",
-    desc: "Keep your CRM, Database, and E-commerce platforms in perfect harmony. No more manual entry or data fragmentation.",
-    icon: <IoSyncOutline />,
-    color: "from-amber-500 to-orange-600"
-  },
-  {
-    title: "Financial Pipelines",
-    desc: "Automated invoicing, payment tracking, and ledger updates triggered by project milestones or sales events.",
-    icon: <IoCalculatorOutline />,
-    color: "from-indigo-600 to-blue-700"
-  },
-  {
-    title: "Engagement Engines",
-    desc: "Automated distribution of marketing assets and social content triggered by user behavior and trend signals.",
-    icon: <IoShareSocialOutline />,
-    color: "from-slate-700 to-slate-900"
-  }
-];
+import api from "@/lib/api";
+import { getIcon } from "@/lib/icons";
 
 export default function BusinessAutomationPage() {
+  const [content, setContent] = useState(null);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const res = await api.get("/cms/services/web-software/automation");
+        if (res.data.data) setContent(res.data.data);
+      } catch (err) {
+        console.error("Failed to load automation content", err);
+      }
+    };
+    fetchData();
+  }, []);
+
+  const data = content?.landing || {
+    hero: {
+      badge: "✨ Business Autopilot [NEW]",
+      title: "Workflow Sovereignty",
+      description: "Stop wasting human potential on repetitive tasks. We build complex Zapier, Make.com, and custom API logic to turn your fragmented apps into a unified, high-velocity growth engine."
+    },
+    sections: {
+      pillars: [
+        { title: "Ecosystem Sync", desc: "Keep your CRM, Database, and E-commerce platforms in perfect harmony. No more manual entry or data fragmentation.", icon: "Sync", color: "from-amber-500 to-orange-600" },
+        { title: "Financial Pipelines", desc: "Automated invoicing, payment tracking, and ledger updates triggered by project milestones or sales events.", icon: "Calculator", color: "from-indigo-600 to-blue-700" },
+        { title: "Engagement Engines", desc: "Automated distribution of marketing assets and social content triggered by user behavior and trend signals.", icon: "ShareSocial", color: "from-slate-700 to-slate-900" }
+      ],
+      integrations: [
+        { t: "Zapier Master", d: "100+ App integrations" },
+        { t: "Make.com Lab", d: "High-complexity logic" },
+        { t: "Custom Webhooks", d: "Direct server-to-server" },
+        { t: "Zero-Latency Scan", d: "Instant data propagation" }
+      ]
+    },
+    cta: { title: "Request Automation Audit" }
+  };
+
   return (
     <section className="min-h-screen bg-slate-50 text-slate-900 selection:bg-amber-600 selection:text-white overflow-hidden relative font-sans">
       {/* INDUSTRIAL BACKGROUND DECOR */}
@@ -57,7 +75,7 @@ export default function BusinessAutomationPage() {
               animate={{ opacity: 1, x: 0 }}
               className="inline-flex items-center gap-2 px-5 py-2 rounded-full bg-amber-50 border border-amber-100 text-amber-700 text-[10px] font-black tracking-[0.4em] uppercase mb-10"
             >
-              <IoSparklesOutline className="text-sm" /> ✨ Business Autopilot [NEW]
+              <IoSparklesOutline className="text-sm" /> {data.hero.badge}
             </motion.div>
 
             <motion.h1
@@ -66,8 +84,8 @@ export default function BusinessAutomationPage() {
               transition={{ duration: 0.8, ease: "circOut" }}
               className="text-5xl md:text-7xl font-black text-slate-900 leading-[1.1] mb-8 tracking-tighter"
             >
-              Workflow <br />
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-600 via-violet-500 to-emerald-500 animate-gradient-x">Sovereignty</span>
+              {data.hero.title?.split(' ')[0]} <br />
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-600 via-violet-500 to-emerald-500 animate-gradient-x">{data.hero.title?.split(' ').slice(1).join(' ')}</span>
             </motion.h1>
 
             <motion.p
@@ -76,12 +94,12 @@ export default function BusinessAutomationPage() {
               transition={{ delay: 0.4 }}
               className="text-slate-600 text-xl font-light leading-relaxed max-w-2xl mb-12"
             >
-              Stop wasting human potential on repetitive tasks. We build complex Zapier, Make.com, and custom API logic to turn your fragmented apps into a unified, high-velocity growth engine.
+              {data.hero.description}
             </motion.p>
 
             <div className="flex flex-col sm:flex-row gap-6">
               <button className="w-full sm:w-[280px] px-8 py-6 bg-amber-600 text-white font-black rounded-xl hover:bg-amber-700 transition-all shadow-2xl shadow-amber-600/20 uppercase tracking-widest text-[10px] flex items-center justify-center">
-                Request Automation Audit
+                {data.cta.title}
               </button>
               <Link
                 href="/services/automation/details"
@@ -163,7 +181,7 @@ export default function BusinessAutomationPage() {
           </div>
         </div>
 
-        {/* TIERS SECTION */}
+        {/* PILLARS SECTION */}
         <div className="mb-48 px-4 md:px-0">
           <div className="flex flex-col md:flex-row justify-between items-end mb-24 gap-8 border-l-4 border-amber-600 pl-8">
             <div className="max-w-xl">
@@ -175,7 +193,7 @@ export default function BusinessAutomationPage() {
           </div>
 
           <div className="grid lg:grid-cols-3 gap-8">
-            {automationTiers.map((item, i) => (
+            {(data.sections.pillars || []).map((item, i) => (
               <motion.div
                 key={i}
                 initial={{ opacity: 0, y: 30 }}
@@ -185,8 +203,8 @@ export default function BusinessAutomationPage() {
                 className="group cursor-default"
               >
                 <div className="bg-white rounded-[3rem] p-12 h-full border border-slate-100 shadow-sm shadow-slate-200/50 hover:shadow-2xl transition-all group-hover:-translate-y-2 relative overflow-hidden">
-                  <div className={`w-14 h-14 rounded-2xl bg-gradient-to-br ${item.color} text-white flex items-center justify-center text-3xl mb-10 shadow-lg`}>
-                    {item.icon}
+                  <div className={`w-14 h-14 rounded-2xl bg-gradient-to-br ${item.color || 'from-amber-500 to-orange-600'} text-white flex items-center justify-center text-3xl mb-10 shadow-lg`}>
+                    {getIcon(item.icon)}
                   </div>
                   <h3 className="text-2xl font-black text-slate-900 mb-6 tracking-tighter uppercase leading-none">
                     {item.title}
@@ -213,12 +231,7 @@ export default function BusinessAutomationPage() {
                 <p className="text-slate-500 text-xl font-light leading-relaxed">We connect your software ecosystem through complex, resilient nodes. Every time an event triggers in one app, your entire business reacts instantly.</p>
                 
                 <div className="grid grid-cols-2 gap-6 pt-10 border-t border-slate-100">
-                   {[
-                     { t: "Zapier Master", d: "100+ App integrations" },
-                     { t: "Make.com Lab", d: "High-complexity logic" },
-                     { t: "Custom Webhooks", d: "Direct server-to-server" },
-                     { t: "Zero-Latency Scan", d: "Instant data propagation" }
-                   ].map((item, idx) => (
+                   {(data.sections.integrations || []).map((item, idx) => (
                       <div key={idx} className="space-y-2">
                          <h4 className="text-[10px] font-black text-amber-600 uppercase tracking-widest">{item.t}</h4>
                          <p className="text-xs text-slate-400 font-bold">{item.d}</p>
@@ -263,7 +276,7 @@ export default function BusinessAutomationPage() {
            <h3 className="text-5xl lg:text-7xl font-black text-slate-900 mb-12 leading-tight">Focus on your strategy. <br/><span className="text-transparent bg-clip-text bg-gradient-to-r from-amber-600 to-indigo-600 font-serif italic font-medium">Automate the Grind.</span></h3>
            <div className="flex flex-col sm:flex-row gap-6 justify-center">
               <button className="w-full sm:w-[280px] px-8 py-6 bg-amber-600 text-white font-black rounded-xl hover:bg-amber-700 transition-all shadow-2xl shadow-amber-600/40 uppercase tracking-widest text-[10px] flex items-center justify-center">
-                Initialize Automation Audit
+                {data.cta.title}
               </button>
               <Link
                 href="/services/automation/details"

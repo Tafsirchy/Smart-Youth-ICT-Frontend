@@ -1,71 +1,45 @@
 "use client";
 
+import { useState, useEffect } from "react";
+import { 
+  IoDiamondOutline, 
+  IoCheckmarkCircleOutline, 
+  IoInfiniteOutline, 
+  IoFingerPrintOutline 
+} from "react-icons/io5";
 import { motion } from "framer-motion";
 import Link from "next/link";
-import {
-  IoDiamondOutline,
-  IoColorPaletteOutline,
-  IoLayersOutline,
-  IoFlashOutline,
-  IoCheckmarkCircleOutline,
-  IoFingerPrintOutline,
-  IoInfiniteOutline,
-  IoSparklesOutline,
-} from "react-icons/io5";
-
-const designPhilosophies = [
-  {
-    title: "Minimalist / Nordic",
-    desc: "A surgical focus on negative space and clean typography. Ideal for photographers, architects, and high-end fashion designers.",
-    icon: <IoLayersOutline />,
-    color: "from-slate-900 to-slate-800",
-    shadow: "shadow-slate-500/10",
-  },
-  {
-    title: "Editorial Magazine",
-    desc: "Dynamic imagery with bold, editorial layouts that make your content feel like a premium publication or luxury lookbook.",
-    icon: <IoColorPaletteOutline />,
-    color: "from-rose-600 to-pink-500",
-    shadow: "shadow-rose-500/20",
-  },
-  {
-    title: "Creative Immersive",
-    desc: "Utilizing deep interactions and subtle motion architectures to pull visitors into your unique creative world.",
-    icon: <IoFlashOutline />,
-    color: "from-emerald-600 to-teal-500",
-    shadow: "shadow-emerald-500/20",
-  },
-];
-
-const transformationPhases = [
-  {
-    id: "01",
-    t: "Architecture & Strategy",
-    d: "Mapping your professional narrative and defining your conversion goals.",
-  },
-  {
-    id: "02",
-    t: "Immersive Design",
-    d: "Crafting a bespoke aesthetic fingerprint that resonates with your industry.",
-  },
-  {
-    id: "03",
-    t: "High-Octane Build",
-    d: "Engineering using Next.js for sub-second load times and global scalability.",
-  },
-  {
-    id: "04",
-    t: "SEO Optimization",
-    d: "Injecting technical SEO to ensure your portfolio ranks for your key expertises.",
-  },
-  {
-    id: "05",
-    t: "Global Launch",
-    d: "Deploying to edge networks with custom performance monitoring active.",
-  },
-];
+import api from "@/lib/api";
+import { getIcon } from "@/lib/icons";
 
 export default function PortfolioWebsitesPage() {
+  const [data, setData] = useState(null);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const res = await api.get("/cms/services/web-software/portfolio-websites");
+        if (res.data.data) {
+          setData(res.data.data.landing);
+        }
+      } catch (err) {
+        console.error("Failed to load portfolio data", err);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchData();
+  }, []);
+
+  if (loading) return <div className="min-h-screen bg-[#fafafa] flex items-center justify-center font-black animate-pulse text-slate-300 uppercase tracking-widest">INITIALIZING VAULT...</div>;
+  if (!data) return null;
+
+  const { hero = {}, sections = {}, cta = {} } = data;
+  const philosophies = sections.philosophies || [];
+  const phases = sections.phases || [];
+  const pricing = sections.pricing || [];
+
   return (
     <section className="min-h-screen bg-[#fafafa] overflow-hidden relative selection:bg-rose-500 selection:text-white">
       {/* Decorative Background Elements */}
@@ -83,8 +57,7 @@ export default function PortfolioWebsitesPage() {
               animate={{ opacity: 1, x: 0 }}
               className="inline-flex items-center gap-2 px-6 py-2 rounded-full bg-white border border-slate-100 shadow-xl shadow-slate-200/50 text-slate-900 text-[10px] font-black tracking-[0.3em] uppercase mb-10"
             >
-              <IoDiamondOutline className="text-rose-500" /> Digital Legacy
-              Builder
+              <IoDiamondOutline className="text-rose-500" /> {hero.badge}
             </motion.div>
             <motion.h1
               initial={{ opacity: 0, y: 30 }}
@@ -92,8 +65,8 @@ export default function PortfolioWebsitesPage() {
               transition={{ duration: 0.8, ease: "circOut" }}
               className="text-5xl md:text-7xl font-black text-slate-900 leading-[1.1] mb-8 tracking-tighter"
             >
-              Portfolio <br />
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 via-indigo-500 to-cyan-500 animate-gradient-x">Websites</span>
+              {hero.title?.split(" ")[0]} <br />
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 via-indigo-500 to-cyan-500 animate-gradient-x">{hero.subtitle}</span>
             </motion.h1>
             <motion.p
               initial={{ opacity: 0 }}
@@ -101,12 +74,7 @@ export default function PortfolioWebsitesPage() {
               transition={{ delay: 0.4 }}
               className="text-slate-500 text-xl md:text-3xl font-light leading-relaxed max-w-2xl"
             >
-              We don't build websites; we engineer{" "}
-              <span className="text-slate-900 font-bold">
-                digital pedestals
-              </span>
-              . Your work is extraordinary—it deserves a frame that amplifies
-              its resonance and power.
+              {hero.description}
             </motion.p>
           </div>
 
@@ -119,7 +87,7 @@ export default function PortfolioWebsitesPage() {
             >
               <div className="bg-white rounded-[3.5rem] p-4 shadow-2xl border border-slate-50 relative overflow-hidden transition-transform duration-700 group-hover:scale-[1.02]">
                 <img
-                  src="https://images.unsplash.com/photo-1541462608143-67571c6738dd?w=1000&h=1200&fit=crop"
+                  src={hero.mainImage}
                   className="w-full aspect-[4/5] object-cover rounded-[2.8rem] grayscale group-hover:grayscale-0 transition-all duration-1000"
                   alt="Portfolio Concept"
                 />
@@ -180,7 +148,7 @@ export default function PortfolioWebsitesPage() {
           </div>
 
           <div className="grid lg:grid-cols-3 gap-8">
-            {designPhilosophies.map((style, i) => (
+            {philosophies?.map((style, i) => (
               <motion.div
                 key={i}
                 initial={{ opacity: 0, y: 30 }}
@@ -193,7 +161,7 @@ export default function PortfolioWebsitesPage() {
                   <div
                     className={`w-14 h-14 rounded-2xl bg-gradient-to-br ${style.color} text-white flex items-center justify-center text-2xl mb-8 ${style.shadow} group-hover:scale-110 transition-transform`}
                   >
-                    {style.icon}
+                    {getIcon(style.icon)}
                   </div>
                   <h3 className="text-2xl font-black text-slate-900 mb-4">
                     {style.title}
@@ -230,7 +198,7 @@ export default function PortfolioWebsitesPage() {
               </p>
 
               <div className="space-y-1 w-full">
-                {transformationPhases.map((phase, idx) => (
+                {phases?.map((phase, idx) => (
                   <motion.div
                     key={idx}
                     whileHover={{ x: 20 }}
@@ -253,20 +221,20 @@ export default function PortfolioWebsitesPage() {
             </div>
 
             <div className="hidden lg:flex items-center justify-center relative">
-              <div className="w-full aspect-square border border-white/10 rounded-full flex items-center justify-center p-20 animate-[spin_60s_linear_infinite]">
-                <div className="w-full aspect-square border-2 border-dashed border-rose-500/30 rounded-full flex items-center justify-center relative">
-                  <IoSparklesOutline className="absolute -top-4 text-rose-500 text-3xl" />
-                  <IoInfiniteOutline className="absolute -bottom-4 text-emerald-500 text-3xl" />
-                </div>
-              </div>
-              <div className="absolute text-center bg-slate-900 p-10 rounded-full z-20">
-                <p className="text-rose-500 font-serif italic text-7xl">
-                  Gold.
-                </p>
-                <p className="text-[10px] font-black uppercase tracking-[0.4em] text-white mt-4">
-                  Standard Delivery
-                </p>
-              </div>
+               <div className="w-full aspect-square border border-white/10 rounded-full flex items-center justify-center p-20 animate-[spin_60s_linear_infinite]">
+                 <div className="w-full aspect-square border-2 border-dashed border-rose-500/30 rounded-full flex items-center justify-center relative">
+                   <div className="absolute -top-4 text-rose-500 text-3xl">✦</div>
+                   <IoInfiniteOutline className="absolute -bottom-4 text-emerald-500 text-3xl" />
+                 </div>
+               </div>
+               <div className="absolute text-center bg-slate-900 p-10 rounded-full z-20">
+                 <p className="text-rose-500 font-serif italic text-7xl">
+                   Gold.
+                 </p>
+                 <p className="text-[10px] font-black uppercase tracking-[0.4em] text-white mt-4">
+                   Standard Delivery
+                 </p>
+               </div>
             </div>
           </div>
         </div>
@@ -284,44 +252,7 @@ export default function PortfolioWebsitesPage() {
           </div>
 
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto text-left">
-            {[
-              {
-                t: "Starter",
-                p: "$499",
-                list: [
-                  "SPA Architecture",
-                  "Lightning Fast",
-                  "Social Integration",
-                  "Vercel Edge Launch",
-                ],
-                color: "rose",
-              },
-              {
-                t: "Professional",
-                p: "$1299",
-                list: [
-                  "Multi-Page Narratives",
-                  "Dynamic CMS Hub",
-                  "Custom Motion System",
-                  "Technical SEO Pack",
-                  "Lead Gen Integration",
-                ],
-                color: "slate",
-                highlight: true,
-              },
-              {
-                t: "Legacy (Agency)",
-                p: "$3499",
-                list: [
-                  "Custom 3D Interactions",
-                  "Immersive Audio Experience",
-                  "Whiteset Design Philosophy",
-                  "Dedicated Launch Suite",
-                  "Brand Identity Pack",
-                ],
-                color: "emerald",
-              },
-            ].map((tier, idx) => (
+            {pricing?.map((tier, idx) => (
               <div
                 key={idx}
                 className={`bg-white rounded-[3rem] p-12 border ${tier.highlight ? "border-rose-500 shadow-2xl shadow-rose-500/10 -translate-y-4" : "border-slate-100 shadow-xl"} flex flex-col h-full relative overflow-hidden group transition-all`}
@@ -343,7 +274,7 @@ export default function PortfolioWebsitesPage() {
                 </p>
 
                 <div className="space-y-5 mb-12 flex-1">
-                  {tier.list.map((item) => (
+                  {tier.list?.map((item) => (
                     <div
                       key={item}
                       className="flex gap-3 items-center text-slate-600 font-light"
@@ -376,13 +307,10 @@ export default function PortfolioWebsitesPage() {
           >
             <IoFingerPrintOutline className="text-7xl text-rose-500 mb-10 mx-auto opacity-20" />
             <h3 className="text-5xl lg:text-7xl font-black text-slate-900 mb-12 leading-tight">
-              Ready to build your{" "}
-              <span className="font-serif italic font-light italic">
-                Digital Legacy?
-              </span>
+              {cta.title}
             </h3>
             <div className="flex flex-col sm:flex-row gap-6 justify-center">
-              <button className="w-full sm:w-[280px] px-8 py-6 bg-rose-500 text-white font-black rounded-[2rem] hover:bg-rose-600 transition-all shadow-2xl shadow-rose-500/40 uppercase tracking-widest text-[10px] flex items-center justify-center">
+              <button className="w-full sm:w-[280px] px-8 py-6 bg-rose-500 text-white font-black rounded-[2rem] hover:bg-rose-600 transition-all shadow-2xl shadow-rose-600/40 uppercase tracking-widest text-[10px] flex items-center justify-center">
                 Consult Portfolio Expert
               </button>
               <Link

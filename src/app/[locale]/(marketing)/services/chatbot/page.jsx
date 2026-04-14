@@ -1,5 +1,6 @@
 "use client";
 
+import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import Link from "next/link";
 import { 
@@ -15,29 +16,46 @@ import {
   IoRocketOutline,
   IoSparklesOutline
 } from "react-icons/io5";
-
-const botClassifications = [
-  {
-    title: "Neural Architectures",
-    desc: "Utilizing Large Language Models (LLMs) to understand context, intent, and sentiment for human-level reasoning.",
-    icon: <IoHardwareChipOutline />,
-    color: "from-emerald-500 to-teal-600"
-  },
-  {
-    title: "Deterministic Logic",
-    desc: "Structured workflow systems designed for high-velocity FAQ handling and precise data collection.",
-    icon: <IoGitNetworkOutline />,
-    color: "from-blue-500 to-indigo-600"
-  },
-  {
-    title: "Hybrid Governance",
-    desc: "Combining AI autonomy with seamless human-agent handoffs for enterprise-grade support reliability.",
-    icon: <IoAnalyticsOutline />,
-    color: "from-purple-500 to-fuchsia-600"
-  }
-];
+import api from "@/lib/api";
+import { getIcon } from "@/lib/icons";
 
 export default function ChatbotDevelopmentPage() {
+  const [content, setContent] = useState(null);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const res = await api.get("/cms/services/web-software/chatbot");
+        if (res.data.data) setContent(res.data.data);
+      } catch (err) {
+        console.error("Failed to load chatbot content", err);
+      }
+    };
+    fetchData();
+  }, []);
+
+  const data = content?.landing || {
+    hero: {
+      badge: "✨ Next-Gen AI Support [NEW]",
+      title: "Neural Response",
+      description: "Architecting conversation with precision. We build RAG-powered, multi-channel AI agents that reduce operational friction and drive autonomous engagement."
+    },
+    sections: {
+      pillars: [
+        { title: "Neural Architectures", desc: "Utilizing Large Language Models (LLMs) to understand context, intent, and sentiment for human-level reasoning.", icon: "Chip", color: "from-emerald-500 to-teal-600" },
+        { title: "Deterministic Logic", desc: "Structured workflow systems designed for high-velocity FAQ handling and precise data collection.", icon: "GitNetwork", color: "from-blue-500 to-indigo-600" },
+        { title: "Hybrid Governance", desc: "Combining AI autonomy with seamless human-agent handoffs for enterprise-grade support reliability.", icon: "Analytics", color: "from-purple-500 to-fuchsia-600" }
+      ],
+      integrations: [
+        { t: "WhatsApp Business", d: "High-latency direct chat" },
+        { t: "Facebook Messenger", d: "Social commerce sync" },
+        { t: "Native Web Chat", d: "Browser-level engagement" },
+        { t: "GDPR Compliant", d: "ISO-27001 Security standards" }
+      ]
+    },
+    cta: { title: "Build My AI Agent" }
+  };
+
   return (
     <section className="min-h-screen bg-slate-50 text-slate-900 selection:bg-emerald-600 selection:text-white overflow-hidden relative font-sans">
       {/* INDUSTRIAL BACKGROUND DECOR */}
@@ -57,7 +75,7 @@ export default function ChatbotDevelopmentPage() {
               animate={{ opacity: 1, x: 0 }}
               className="inline-flex items-center gap-2 px-5 py-2 rounded-full bg-emerald-50 border border-emerald-100 text-emerald-700 text-[10px] font-black tracking-[0.4em] uppercase mb-10"
             >
-              <IoSparklesOutline className="text-sm" /> ✨ Next-Gen AI Support [NEW]
+              <IoSparklesOutline className="text-sm" /> {data.hero.badge}
             </motion.div>
 
             <motion.h1
@@ -66,8 +84,8 @@ export default function ChatbotDevelopmentPage() {
               transition={{ duration: 0.8, ease: "circOut" }}
               className="text-5xl md:text-7xl font-black text-slate-900 leading-[1.1] mb-8 tracking-tighter"
             >
-              Neural <br />
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-600 via-violet-500 to-emerald-500 animate-gradient-x">Response</span>
+              {data.hero.title?.split(' ')[0]} <br />
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-600 via-violet-500 to-emerald-500 animate-gradient-x">{data.hero.title?.split(' ').slice(1).join(' ')}</span>
             </motion.h1>
 
             <motion.p
@@ -76,7 +94,7 @@ export default function ChatbotDevelopmentPage() {
               transition={{ delay: 0.4 }}
               className="text-slate-500 text-xl md:text-2xl font-light leading-relaxed max-w-2xl mb-12"
             >
-              Architecting conversation with precision. We build RAG-powered, multi-channel AI agents that reduce operational friction and drive autonomous engagement.
+              {data.hero.description}
             </motion.p>
 
             <div className="flex flex-col sm:flex-row gap-6">
@@ -157,7 +175,7 @@ export default function ChatbotDevelopmentPage() {
           </div>
 
           <div className="grid lg:grid-cols-3 gap-8">
-            {botClassifications.map((item, i) => (
+            {(data.sections.pillars || []).map((item, i) => (
               <motion.div
                 key={i}
                 initial={{ opacity: 0, y: 30 }}
@@ -167,8 +185,8 @@ export default function ChatbotDevelopmentPage() {
                 className="group cursor-default"
               >
                 <div className="bg-white rounded-[3rem] p-12 h-full border border-slate-100 shadow-sm shadow-slate-200/50 hover:shadow-2xl transition-all group-hover:-translate-y-2 relative overflow-hidden">
-                  <div className={`w-14 h-14 rounded-2xl bg-gradient-to-br ${item.color} text-white flex items-center justify-center text-3xl mb-10 shadow-lg`}>
-                    {item.icon}
+                  <div className={`w-14 h-14 rounded-2xl bg-gradient-to-br ${item.color || 'from-emerald-500 to-teal-600'} text-white flex items-center justify-center text-3xl mb-10 shadow-lg`}>
+                    {getIcon(item.icon)}
                   </div>
                   <h3 className="text-2xl font-black text-slate-900 mb-6 tracking-tighter uppercase leading-none">
                     {item.title}
@@ -195,12 +213,7 @@ export default function ChatbotDevelopmentPage() {
                 <p className="text-slate-500 text-xl font-light leading-relaxed">Don't limit your support to just one gate. We deploy your AI across all major platforms, keeping your knowledge base synchronized and secure.</p>
                 
                 <div className="grid grid-cols-2 gap-6 pt-10 border-t border-slate-100">
-                   {[
-                     { t: "WhatsApp Business", d: "High-latency direct chat" },
-                     { t: "Facebook Messenger", d: "Social commerce sync" },
-                     { t: "Native Web Chat", d: "Browser-level engagement" },
-                     { t: "GDPR Compliant", d: "ISO-27001 Security standards" }
-                   ].map((item, idx) => (
+                   {(data.sections.integrations || []).map((item, idx) => (
                       <div key={idx} className="space-y-2">
                          <h4 className="text-[10px] font-black text-emerald-600 uppercase tracking-widest">{item.t}</h4>
                          <p className="text-xs text-slate-400 font-bold">{item.d}</p>
@@ -245,10 +258,10 @@ export default function ChatbotDevelopmentPage() {
         {/* CTA */}
         <div className="text-center py-40 border-t border-slate-200 px-4 md:px-0">
            <IoRocketOutline className="text-7xl text-emerald-600 mb-12 mx-auto opacity-20" />
-           <h3 className="text-5xl lg:text-7xl font-black text-slate-900 mb-12 leading-tight">Your team doesn't sleep. <br/><span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-600 to-blue-500 font-serif italic font-medium">Initialize Autonomy.</span></h3>
+           <h3 className="text-5xl lg:text-7xl font-black text-slate-900 mb-12 leading-tight">Your team doesn't sleep. <br/><span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-600 to-blue-500 font-serif italic font-medium">{data.cta.title?.split(' ')[0]} {data.cta.title?.split(' ').slice(1).join(' ')}.</span></h3>
            <div className="flex flex-col sm:flex-row gap-6 justify-center">
               <button className="w-full sm:w-[280px] px-8 py-6 bg-emerald-600 text-white font-black rounded-xl hover:bg-emerald-700 transition-all shadow-2xl shadow-emerald-600/40 uppercase tracking-widest text-[10px] flex items-center justify-center">
-                Build My AI Agent
+                {data.cta.title}
               </button>
               <Link
                 href="/services/chatbot/details"
@@ -256,7 +269,7 @@ export default function ChatbotDevelopmentPage() {
               >
                 Technical Hub
               </Link>
-           </div>
+            </div>
         </div>
       </div>
     </section>

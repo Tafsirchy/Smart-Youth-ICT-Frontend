@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
 import { 
@@ -17,39 +17,27 @@ import {
   IoGitNetworkOutline,
   IoSparklesOutline
 } from "react-icons/io5";
-
-const hostingPlans = [
-  {
-    name: "Edge Starter",
-    monthlyPrice: 5.99,
-    annualPrice: 59.90,
-    desc: "Optimized for personal portfolios and low-traffic structural sites.",
-    features: ["1 Domain", "10GB NVMe SSD", "Unmetered Data Flow", "Free SSL Gateway", "Tier-3 Support"],
-    popular: false
-  },
-  {
-    name: "Enterprise Pro",
-    monthlyPrice: 14.99,
-    annualPrice: 149.90,
-    desc: "Engineered for high-vibration business environments and commerce.",
-    features: ["Unlimited Domains", "100GB NVMe SSD", "LSCache Protocol", "Daily Backups", "Priority 24/7 Access"],
-    popular: true
-  },
-  {
-    name: "Managed VPS",
-    monthlyPrice: 49.99,
-    annualPrice: 499.00,
-    desc: "Isolated server resources for ultimate operational sovereignty.",
-    features: ["Fully Managed Nodes", "500GB NVMe SSD", "4 Core / 8GB RAM", "Dedicated IP", "Root Shell Access"],
-    popular: false
-  }
-];
+import api from "@/lib/api";
+import { getIcon } from "@/lib/icons";
 
 export default function HostingPage() {
+  const [content, setContent] = useState(null);
   const [isAnnual, setIsAnnual] = useState(true);
   const [domainQuery, setDomainQuery] = useState("");
   const [isSearching, setIsSearching] = useState(false);
   const [searchResult, setSearchResult] = useState(null);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const res = await api.get("/cms/services/web-software/hosting");
+        if (res.data.data) setContent(res.data.data);
+      } catch (err) {
+        console.error("Failed to load hosting content", err);
+      }
+    };
+    fetchData();
+  }, []);
 
   const handleSearch = (e) => {
     e.preventDefault();
@@ -64,6 +52,27 @@ export default function HostingPage() {
       });
       setIsSearching(false);
     }, 1200);
+  };
+
+  const data = content?.landing || {
+    hero: {
+      badge: "Digital Infrastructure Sovereignty",
+      title: "Uptime Sovereign",
+      description: "More than just hosting. We provide high-vibration infrastructure that ensures your digital presence is resilient, secure, and globally optimized."
+    },
+    sections: {
+      plans: [
+        { name: "Edge Starter", monthlyPrice: 5.99, annualPrice: 59.90, desc: "Optimized for personal portfolios and low-traffic structural sites.", features: ["1 Domain", "10GB NVMe SSD", "Unmetered Data Flow", "Free SSL Gateway", "Tier-3 Support"], popular: false },
+        { name: "Enterprise Pro", monthlyPrice: 14.99, annualPrice: 149.90, desc: "Engineered for high-vibration business environments and commerce.", features: ["Unlimited Domains", "100GB NVMe SSD", "LSCache Protocol", "Daily Backups", "Priority 24/7 Access"], popular: true },
+        { name: "Managed VPS", monthlyPrice: 49.99, annualPrice: 499.00, desc: "Isolated server resources for ultimate operational sovereignty.", features: ["Fully Managed Nodes", "500GB NVMe SSD", "4 Core / 8GB RAM", "Dedicated IP", "Root Shell Access"], popular: false }
+      ],
+      pillars: [
+        { title: "NVMe Storage Gen4", desc: "Up to 50x faster read/write velocity than standard cloud storage.", icon: "Flash" },
+        { title: "Infrastructure Security", desc: "Every node is guarded by advanced DDoS mitigation and AES-256.", icon: "ShieldCheckmark" },
+        { title: "Elite Engineering", desc: "Real infrastructure engineers, not bots, available 24/7 for zero-latency support.", icon: "Headset" }
+      ]
+    },
+    cta: { title: "Initialize Hosting Plan" }
   };
 
   return (
@@ -85,7 +94,7 @@ export default function HostingPage() {
               animate={{ opacity: 1, x: 0 }}
               className="inline-flex items-center gap-2 px-5 py-2 rounded-full bg-blue-50 border border-blue-100 text-blue-700 text-[10px] font-black tracking-[0.4em] uppercase mb-10"
             >
-              <IoSparklesOutline className="text-sm" /> Digital Infrastructure Sovereignty
+              <IoSparklesOutline className="text-sm" /> {data.hero.badge}
             </motion.div>
 
             <motion.h1
@@ -94,8 +103,8 @@ export default function HostingPage() {
               transition={{ duration: 0.8, ease: "circOut" }}
               className="text-5xl md:text-7xl font-black text-slate-900 leading-[1.1] mb-8 tracking-tighter"
             >
-              Uptime <br />
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-600 via-violet-500 to-emerald-500 animate-gradient-x">Sovereign</span>
+              {data.hero.title?.split(' ')[0]} <br />
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-600 via-violet-500 to-emerald-500 animate-gradient-x">{data.hero.title?.split(' ').slice(1).join(' ')}</span>
             </motion.h1>
 
             <motion.p
@@ -104,12 +113,12 @@ export default function HostingPage() {
               transition={{ delay: 0.4 }}
               className="text-slate-600 text-xl font-light leading-relaxed max-w-2xl mb-12"
             >
-              More than just hosting. We provide high-vibration infrastructure that ensures your digital presence is resilient, secure, and globally optimized.
+              {data.hero.description}
             </motion.p>
 
             <div className="flex flex-col sm:flex-row gap-6 mb-16">
               <button className="w-full sm:w-[280px] px-8 py-6 bg-blue-600 text-white font-black rounded-xl hover:bg-blue-700 transition-all shadow-2xl shadow-blue-600/20 uppercase tracking-widest text-[10px] flex items-center justify-center">
-                Initialize Hosting Plan
+                {data.cta.title}
               </button>
               <Link
                 href="/services/hosting/details"
@@ -235,7 +244,7 @@ export default function HostingPage() {
            </div>
 
            <div className="grid lg:grid-cols-3 gap-8 max-w-7xl mx-auto">
-              {hostingPlans.map((plan, i) => (
+              {(data.sections.plans || []).map((plan, i) => (
                  <motion.div
                    key={plan.name}
                    initial={{ opacity: 0, y: 30 }}
@@ -261,7 +270,7 @@ export default function HostingPage() {
                     </div>
                     
                     <ul className="flex-1 space-y-5 mb-12">
-                       {plan.features.map(f => (
+                       {plan.features?.map(f => (
                           <li key={f} className="flex items-center gap-4 text-slate-600 text-sm font-bold">
                              <IoCheckmarkCircleOutline className="text-blue-500 text-xl" /> {f}
                           </li>
@@ -277,13 +286,9 @@ export default function HostingPage() {
 
         {/* PILLARS SECTION */}
         <div className="grid lg:grid-cols-3 gap-12 max-w-6xl mx-auto py-32 border-t border-slate-100 mt-32">
-           {[
-             { title: "NVMe Storage Gen4", desc: "Up to 50x faster read/write velocity than standard cloud storage.", icon: <IoFlashOutline /> },
-             { title: "Infrastructure Security", desc: "Every node is guarded by advanced DDoS mitigation and AES-256.", icon: <IoShieldCheckmarkOutline /> },
-             { title: "Elite Engineering", desc: "Real infrastructure engineers, not bots, available 24/7 for zero-latency support.", icon: <IoHeadsetOutline /> }
-           ].map((p, i) => (
+           {(data.sections.pillars || []).map((p, i) => (
               <motion.div key={i} className="text-center group">
-                 <div className="w-20 h-20 bg-blue-50 text-blue-600 rounded-[2rem] flex items-center justify-center text-4xl mx-auto mb-10 group-hover:scale-110 transition-transform shadow-xl shadow-blue-600/10">{p.icon}</div>
+                 <div className="w-20 h-20 bg-blue-50 text-blue-600 rounded-[2rem] flex items-center justify-center text-4xl mx-auto mb-10 group-hover:scale-110 transition-transform shadow-xl shadow-blue-600/10">{getIcon(p.icon)}</div>
                  <h4 className="text-slate-900 font-black text-2xl mb-4 tracking-tight">{p.title}</h4>
                  <p className="text-slate-500 font-light leading-relaxed text-lg">{p.desc}</p>
               </motion.div>
@@ -296,7 +301,7 @@ export default function HostingPage() {
            <h3 className="text-5xl lg:text-7xl font-black text-slate-900 mb-12 leading-tight">Scale your digital footprint. <br/><span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-indigo-600 font-serif italic font-medium">Command the Infrastructure.</span></h3>
            <div className="flex flex-col sm:flex-row gap-6 justify-center">
               <button className="w-full sm:w-[280px] px-8 py-6 bg-blue-600 text-white font-black rounded-xl hover:bg-blue-700 transition-all shadow-2xl shadow-blue-600/40 uppercase tracking-widest text-[10px] flex items-center justify-center">
-                Initialize Hosting Plan
+                {data.cta.title}
               </button>
               <Link
                 href="/services/hosting/details"

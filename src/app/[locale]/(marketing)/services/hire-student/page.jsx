@@ -1,5 +1,6 @@
 "use client";
 
+import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import Link from "next/link";
 import { 
@@ -15,29 +16,46 @@ import {
   IoTerminalOutline,
   IoSparklesOutline
 } from "react-icons/io5";
-
-const talentCategories = [
-  {
-    title: "Core Engineering",
-    desc: "React, Next.js, and Python specialists trained to build resilient frontends and automated internal tools.",
-    icon: <IoTerminalOutline />,
-    color: "from-blue-600 to-indigo-700"
-  },
-  {
-    title: "Visual Identity",
-    desc: "Creative students focused on mathematical logo construction, social media branding, and high-impact assets.",
-    icon: <IoColorPaletteOutline />,
-    color: "from-amber-500 to-orange-600"
-  },
-  {
-    title: "Performance Growth",
-    desc: "Rigorously trained in SEO fundamentals, Meta Ads, and social strategy to drive measurable business reach.",
-    icon: <IoMegaphoneOutline />,
-    color: "from-emerald-600 to-teal-700"
-  }
-];
+import api from "@/lib/api";
+import { getIcon } from "@/lib/icons";
 
 export default function HireStudentPage() {
+  const [content, setContent] = useState(null);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const res = await api.get("/cms/services/web-software/hire-student");
+        if (res.data.data) setContent(res.data.data);
+      } catch (err) {
+        console.error("Failed to load hire-student content", err);
+      }
+    };
+    fetchData();
+  }, []);
+
+  const data = content?.landing || {
+    hero: {
+      badge: "🔥 Higher Fidelity Talent [POPULAR]",
+      title: "Elite Freelance",
+      description: "Access our network of rigorously trained, project-tested student talent. Support the next generation while receiving enterprise-grade work at competitive startup rates."
+    },
+    sections: {
+      pillars: [
+        { title: "Core Engineering", desc: "React, Next.js, and Python specialists trained to build resilient frontends and automated internal tools.", icon: "Terminal", color: "from-blue-600 to-indigo-700" },
+        { title: "Visual Identity", desc: "Creative students focused on mathematical logo construction, social media branding, and high-impact assets.", icon: "ColorPalette", color: "from-amber-500 to-orange-600" },
+        { title: "Performance Growth", desc: "Rigorously trained in SEO fundamentals, Meta Ads, and social strategy to drive measurable business reach.", icon: "Megaphone", color: "from-emerald-600 to-teal-700" }
+      ],
+      integrations: [
+        { t: "Vetted Access", d: "Strict Top 10% filtering" },
+        { t: "Senior Oversight", d: "Mandatory lead reviews" },
+        { t: "Zero Overhead", d: "Direct portal contracting" },
+        { t: "Rapid Bridge", d: "Launch ready in 48hrs" }
+      ]
+    },
+    cta: { title: "Request Talent Bridge" }
+  };
+
   return (
     <section className="min-h-screen bg-slate-50 text-slate-900 selection:bg-amber-600 selection:text-white overflow-hidden relative font-sans">
       {/* INDUSTRIAL BACKGROUND DECOR */}
@@ -57,7 +75,7 @@ export default function HireStudentPage() {
               animate={{ opacity: 1, x: 0 }}
               className="inline-flex items-center gap-2 px-5 py-2 rounded-full bg-amber-50 border border-amber-100 text-amber-700 text-[10px] font-black tracking-[0.4em] uppercase mb-10"
             >
-              <IoSparklesOutline className="text-sm" /> 🔥 Higher Fidelity Talent [POPULAR]
+              <IoSparklesOutline className="text-sm" /> {data.hero.badge}
             </motion.div>
 
             <motion.h1
@@ -66,8 +84,8 @@ export default function HireStudentPage() {
               transition={{ duration: 0.8, ease: "circOut" }}
               className="text-5xl md:text-7xl font-black text-slate-900 leading-[1.1] mb-8 tracking-tighter"
             >
-              Elite <br />
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-600 via-violet-500 to-emerald-500 animate-gradient-x">Freelance</span>
+              {data.hero.title?.split(' ')[0]} <br />
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-600 via-violet-500 to-emerald-500 animate-gradient-x">{data.hero.title?.split(' ').slice(1).join(' ')}</span>
             </motion.h1>
 
             <motion.p
@@ -76,12 +94,12 @@ export default function HireStudentPage() {
               transition={{ delay: 0.4 }}
               className="text-slate-600 text-xl font-light leading-relaxed max-w-2xl mb-12"
             >
-              Access our network of rigorously trained, project-tested student talent. Support the next generation while receiving enterprise-grade work at competitive startup rates.
+              {data.hero.description}
             </motion.p>
 
             <div className="flex flex-col sm:flex-row gap-6">
               <button className="w-full sm:w-[280px] px-8 py-6 bg-amber-600 text-white font-black rounded-xl hover:bg-amber-700 transition-all shadow-2xl shadow-amber-600/20 uppercase tracking-widest text-[10px] flex items-center justify-center">
-                Initialize Talent Request
+                {data.cta.title}
               </button>
               <Link
                 href="/services/hire-student/details"
@@ -141,7 +159,7 @@ export default function HireStudentPage() {
           </div>
         </div>
 
-        {/* TIERS SECTION */}
+        {/* PILLARS SECTION */}
         <div className="mb-48 px-4 md:px-0">
           <div className="flex flex-col md:flex-row justify-between items-end mb-24 gap-8 border-l-4 border-amber-600 pl-8">
             <div className="max-w-xl">
@@ -153,7 +171,7 @@ export default function HireStudentPage() {
           </div>
 
           <div className="grid lg:grid-cols-3 gap-8">
-            {talentCategories.map((item, i) => (
+            {(data.sections.pillars || []).map((item, i) => (
               <motion.div
                 key={i}
                 initial={{ opacity: 0, y: 30 }}
@@ -163,8 +181,8 @@ export default function HireStudentPage() {
                 className="group cursor-default"
               >
                 <div className="bg-white rounded-[3rem] p-12 h-full border border-slate-100 shadow-sm shadow-slate-200/50 hover:shadow-2xl transition-all group-hover:-translate-y-2 relative overflow-hidden">
-                  <div className={`w-14 h-14 rounded-2xl bg-gradient-to-br ${item.color} text-white flex items-center justify-center text-3xl mb-10 shadow-lg`}>
-                    {item.icon}
+                  <div className={`w-14 h-14 rounded-2xl bg-gradient-to-br ${item.color || 'from-amber-500 to-orange-600'} text-white flex items-center justify-center text-3xl mb-10 shadow-lg`}>
+                    {getIcon(item.icon)}
                   </div>
                   <h3 className="text-2xl font-black text-slate-900 mb-6 tracking-tighter uppercase leading-none">
                     {item.title}
@@ -184,19 +202,14 @@ export default function HireStudentPage() {
              <div className="absolute top-0 right-0 w-1/3 h-full bg-amber-50/20 -skew-x-[20deg] origin-top translate-x-1/2"></div>
              
              <div className="relative z-10 space-y-12">
-                <div className="w-16 h-16 bg-amber-50 rounded-2xl flex items-center justify-center text-3xl text-amber-600 border border-amber-100">
+                <div className="w-16 h-16 bg-amber-50 rounded-2xl flex items-center justify-center text-3xl text-amber-600 border border-teal-100">
                    <IoGitBranchOutline />
                 </div>
                 <h2 className="text-5xl lg:text-7xl font-black text-slate-900 leading-[0.9]">The Quality <br/><span className="text-amber-600">Mentor Mesh.</span></h2>
                 <p className="text-slate-500 text-xl font-light leading-relaxed">Hiring a student doesn't mean compromising. Every project is supervised by our senior Mentors through a proprietary review system ensureing enterprise standards.</p>
                 
                 <div className="grid grid-cols-2 gap-6 pt-10 border-t border-slate-100">
-                   {[
-                     { t: "Vetted Access", d: "Strict Top 10% filtering" },
-                     { t: "Senior Oversight", d: "Mandatory lead reviews" },
-                     { t: "Zero Overhead", d: "Direct portal contracting" },
-                     { t: "Rapid Bridge", d: "Launch ready in 48hrs" }
-                   ].map((item, idx) => (
+                   {(data.sections.integrations || []).map((item, idx) => (
                       <div key={idx} className="space-y-2">
                          <h4 className="text-[10px] font-black text-amber-600 uppercase tracking-widest">{item.t}</h4>
                          <p className="text-xs text-slate-400 font-bold">{item.d}</p>
@@ -241,7 +254,7 @@ export default function HireStudentPage() {
            <h3 className="text-5xl lg:text-7xl font-black text-slate-900 mb-12 leading-tight">The support they need. <br/><span className="text-transparent bg-clip-text bg-gradient-to-r from-amber-600 to-indigo-600 font-serif italic font-medium">The Quality You Require.</span></h3>
            <div className="flex flex-col sm:flex-row gap-6 justify-center">
               <button className="w-full sm:w-[280px] px-8 py-6 bg-amber-600 text-white font-black rounded-xl hover:bg-amber-700 transition-all shadow-2xl shadow-amber-600/40 uppercase tracking-widest text-[10px] flex items-center justify-center">
-                Request Talent Bridge
+                {data.cta.title}
               </button>
               <Link
                 href="/services/hire-student/details"

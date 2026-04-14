@@ -1,5 +1,6 @@
 "use client";
 
+import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import Link from "next/link";
 import { 
@@ -13,29 +14,46 @@ import {
   IoFlashOutline,
   IoSparklesOutline
 } from "react-icons/io5";
-
-const maintenanceTiers = [
-  {
-    title: "Security & Core",
-    desc: "The structural essentials. Weekly off-site backups, core engine updates, and 24/7 malware monitoring to keep your node live.",
-    icon: <IoShieldCheckmarkOutline />,
-    color: "from-teal-600 to-emerald-700"
-  },
-  {
-    title: "Standard Ops",
-    desc: "Active performance tuning. Includes plugin/theme synchronization, broken link logic, and monthly speed optimization audits.",
-    icon: <IoConstructOutline />,
-    color: "from-slate-700 to-slate-900"
-  },
-  {
-    title: "Full Dedicated",
-    desc: "Your own development engineers on retainer. Includes unlimited small content changes and dedicated custom feature support.",
-    icon: <IoPulseOutline />,
-    color: "from-blue-600 to-indigo-700"
-  }
-];
+import api from "@/lib/api";
+import { getIcon } from "@/lib/icons";
 
 export default function MaintenancePage() {
+  const [content, setContent] = useState(null);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const res = await api.get("/cms/services/web-software/maintenance");
+        if (res.data.data) setContent(res.data.data);
+      } catch (err) {
+        console.error("Failed to load maintenance content", err);
+      }
+    };
+    fetchData();
+  }, []);
+
+  const data = content?.landing || {
+    hero: {
+      badge: "Zero-Downtime Infrastructure Guarantee",
+      title: "System Guard",
+      description: "Never worry about crashes or security vulnerabilities again. We architect high-vibration maintenance protocols that ensure your platform remains elite, secure, and globally performant."
+    },
+    sections: {
+      pillars: [
+        { title: "Security & Core", desc: "The structural essentials. Weekly off-site backups, core engine updates, and 24/7 malware monitoring to keep your node live.", icon: "ShieldCheckmark", color: "from-teal-600 to-emerald-700" },
+        { title: "Standard Ops", desc: "Active performance tuning. Includes plugin/theme synchronization, broken link logic, and monthly speed optimization audits.", icon: "Construct", color: "from-slate-700 to-slate-900" },
+        { title: "Full Dedicated", desc: "Your own development engineers on retainer. Includes unlimited small content changes and dedicated custom feature support.", icon: "Pulse", color: "from-blue-600 to-indigo-700" }
+      ],
+      integrations: [
+        { t: "99.9% Uptime", d: "Zero-latency monitoring" },
+        { t: "Malware Decryption", d: "Deep heuristic scanning" },
+        { t: "Version Sync", d: "Atomic core updates" },
+        { t: "Speed Calibration", d: "LCP/CLS Optimization" }
+      ]
+    },
+    cta: { title: "Initialize Ops Audit" }
+  };
+
   return (
     <section className="min-h-screen bg-slate-50 text-slate-900 selection:bg-teal-600 selection:text-white overflow-hidden relative font-sans">
       {/* INDUSTRIAL BACKGROUND DECOR */}
@@ -55,7 +73,7 @@ export default function MaintenancePage() {
               animate={{ opacity: 1, x: 0 }}
               className="inline-flex items-center gap-2 px-5 py-2 rounded-full bg-teal-50 border border-teal-100 text-teal-700 text-[10px] font-black tracking-[0.4em] uppercase mb-10"
             >
-              <IoSparklesOutline className="text-sm" /> Zero-Downtime Infrastructure Guarantee
+              <IoSparklesOutline className="text-sm" /> {data.hero.badge}
             </motion.div>
 
             <motion.h1
@@ -64,8 +82,8 @@ export default function MaintenancePage() {
               transition={{ duration: 0.8, ease: "circOut" }}
               className="text-5xl md:text-7xl font-black text-slate-900 leading-[1.1] mb-8 tracking-tighter"
             >
-              System <br />
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-600 via-violet-500 to-emerald-500 animate-gradient-x">Guard</span>
+              {data.hero.title?.split(' ')[0]} <br />
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-600 via-violet-500 to-emerald-500 animate-gradient-x">{data.hero.title?.split(' ').slice(1).join(' ')}</span>
             </motion.h1>
 
             <motion.p
@@ -74,12 +92,12 @@ export default function MaintenancePage() {
               transition={{ delay: 0.4 }}
               className="text-slate-600 text-xl font-light leading-relaxed max-w-2xl mb-12"
             >
-              Never worry about crashes or security vulnerabilities again. We architect high-vibration maintenance protocols that ensure your platform remains elite, secure, and globally performant.
+              {data.hero.description}
             </motion.p>
 
             <div className="flex flex-col sm:flex-row gap-6">
               <button className="w-full sm:w-[280px] px-8 py-6 bg-teal-600 text-white font-black rounded-xl hover:bg-teal-700 transition-all shadow-2xl shadow-teal-600/20 uppercase tracking-widest text-[10px] flex items-center justify-center">
-                Initialize Ops Audit
+                {data.cta.title}
               </button>
               <Link
                 href="/services/maintenance/details"
@@ -140,7 +158,7 @@ export default function MaintenancePage() {
           </div>
         </div>
 
-        {/* TIERS SECTION */}
+        {/* PILLARS SECTION */}
         <div className="mb-48 px-4 md:px-0">
           <div className="flex flex-col md:flex-row justify-between items-end mb-24 gap-8 border-l-4 border-teal-600 pl-8">
             <div className="max-w-xl">
@@ -152,7 +170,7 @@ export default function MaintenancePage() {
           </div>
 
           <div className="grid lg:grid-cols-3 gap-8">
-            {maintenanceTiers.map((item, i) => (
+            {(data.sections.pillars || []).map((item, i) => (
               <motion.div
                 key={i}
                 initial={{ opacity: 0, y: 30 }}
@@ -162,8 +180,8 @@ export default function MaintenancePage() {
                 className="group cursor-default"
               >
                 <div className="bg-white rounded-[3rem] p-12 h-full border border-slate-100 shadow-sm shadow-slate-200/50 hover:shadow-2xl transition-all group-hover:-translate-y-2 relative overflow-hidden">
-                  <div className={`w-14 h-14 rounded-2xl bg-gradient-to-br ${item.color} text-white flex items-center justify-center text-3xl mb-10 shadow-lg`}>
-                    {item.icon}
+                  <div className={`w-14 h-14 rounded-2xl bg-gradient-to-br ${item.color || 'from-teal-600 to-emerald-700'} text-white flex items-center justify-center text-3xl mb-10 shadow-lg`}>
+                    {getIcon(item.icon)}
                   </div>
                   <h3 className="text-2xl font-black text-slate-900 mb-6 tracking-tighter uppercase leading-none">
                     {item.title}
@@ -190,12 +208,7 @@ export default function MaintenancePage() {
                 <p className="text-slate-500 text-xl font-light leading-relaxed">Gain absolute structural transparency. Every client receives a manifest showing real-time uptime, security scans, and V8 engine performance metrics.</p>
                 
                 <div className="grid grid-cols-2 gap-6 pt-10 border-t border-slate-100">
-                   {[
-                     { t: "99.9% Uptime", d: "Zero-latency monitoring" },
-                     { t: "Malware Decryption", d: "Deep heuristic scanning" },
-                     { t: "Version Sync", d: "Atomic core updates" },
-                     { t: "Speed Calibration", d: "LCP/CLS Optimization" }
-                   ].map((item, idx) => (
+                   {(data.sections.integrations || []).map((item, idx) => (
                       <div key={idx} className="space-y-2">
                          <h4 className="text-[10px] font-black text-teal-600 uppercase tracking-widest">{item.t}</h4>
                          <p className="text-xs text-slate-400 font-bold">{item.d}</p>
@@ -243,7 +256,7 @@ export default function MaintenancePage() {
            <h3 className="text-5xl lg:text-7xl font-black text-slate-900 mb-12 leading-tight">Your website doesn't get sick. <br/><span className="text-transparent bg-clip-text bg-gradient-to-r from-teal-600 to-slate-900 font-serif italic font-medium">Engineer Resilience.</span></h3>
            <div className="flex flex-col sm:flex-row gap-6 justify-center">
               <button className="w-full sm:w-[280px] px-8 py-6 bg-teal-600 text-white font-black rounded-xl hover:bg-teal-700 transition-all shadow-2xl shadow-teal-600/40 uppercase tracking-widest text-[10px] flex items-center justify-center">
-                Initialize Ops Audit
+                {data.cta.title}
               </button>
               <Link
                 href="/services/maintenance/details"

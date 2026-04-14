@@ -1,5 +1,6 @@
 "use client";
 
+import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import Link from "next/link";
 import { 
@@ -13,32 +14,36 @@ import {
   IoPulseOutline,
   IoBugOutline
 } from "react-icons/io5";
-
-const seoPillars = [
-  {
-    title: "Structural Authority",
-    desc: "Optimizing your site's hierarchy and Core Web Vitals to ensure search engines can index your value with zero friction.",
-    icon: <IoGitNetworkOutline />,
-    color: "from-indigo-600 to-slate-700"
-  },
-  {
-    title: "Semantic Mapping",
-    desc: "Moving beyond keywords into entity-based SEO. We map your content to the underlying intent of your target audience.",
-    icon: <IoSearchOutline />,
-    color: "from-slate-700 to-indigo-800"
-  },
-  {
-    title: "Growth Analytics",
-    desc: "Real-time tracking of rank velocity, conversion attribution, and competitor movement to adjust strategy on the fly.",
-    icon: <IoBarChartOutline />,
-    color: "from-indigo-500 to-sky-600"
-  }
-];
+import api from "@/lib/api";
+import { getIcon } from "@/lib/icons";
 
 export default function SeoPage() {
+  const [content, setContent] = useState(null);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const res = await api.get("/cms/services/web-software/seo");
+        setContent(res.data.data);
+      } catch (err) {
+        console.error("Failed to fetch SEO content", err);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchData();
+  }, []);
+
+  if (loading) return <div className="min-h-screen bg-slate-50 flex items-center justify-center font-black animate-pulse text-indigo-400">ACTIVATING SEARCH ENGINES...</div>;
+  if (!content) return null;
+
+  const { hero, sections, cta } = content.landing;
+  const pillars = sections.pillars || [];
+  const metrics = sections.metrics || [];
+
   return (
     <section className="min-h-screen bg-slate-50 text-slate-900 selection:bg-indigo-600 selection:text-white overflow-hidden relative">
-      {/* INDUSTRIAL BACKGROUND DECOR */}
       <div className="absolute top-0 opacity-20 pointer-events-none -z-10 w-full h-full">
          <div className="absolute top-0 left-1/4 w-[1px] h-full bg-slate-200"></div>
          <div className="absolute top-0 right-1/4 w-[1px] h-full bg-slate-200"></div>
@@ -55,7 +60,7 @@ export default function SeoPage() {
               animate={{ opacity: 1, x: 0 }}
               className="inline-flex items-center gap-2 px-5 py-2 rounded-full bg-indigo-50 border border-indigo-100 text-indigo-700 text-[10px] font-black tracking-[0.4em] uppercase mb-10"
             >
-              <IoAnalyticsOutline className="text-sm" /> Structural Authority Architecture
+              <IoAnalyticsOutline className="text-sm" /> {hero.badge}
             </motion.div>
 
             <motion.h1
@@ -64,8 +69,10 @@ export default function SeoPage() {
               transition={{ duration: 0.8, ease: "circOut" }}
               className="text-5xl md:text-7xl font-black text-slate-900 leading-[1.1] mb-8 tracking-tighter"
             >
-              SEO <br />
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-pink-500 via-rose-500 to-indigo-500 animate-gradient-x">Optimization</span>
+              {hero.title?.split(' ')[0]} <br />
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-pink-500 via-rose-500 to-indigo-500 animate-gradient-x">
+                {hero.title?.split(' ').slice(1).join(' ') || "Optimization"}
+              </span>
             </motion.h1>
 
             <motion.p
@@ -74,7 +81,7 @@ export default function SeoPage() {
               transition={{ delay: 0.4 }}
               className="text-slate-600 text-xl font-light leading-relaxed max-w-2xl mb-12"
             >
-              We stop the scroll and dominate the search. Our SEO strategies are built on deep technical audits and semantic entity mapping that turn search intent into high-fidelity revenue.
+              {hero.description}
             </motion.p>
 
             <div className="flex flex-col sm:flex-row gap-6">
@@ -97,7 +104,6 @@ export default function SeoPage() {
               transition={{ duration: 1 }}
               className="relative p-12 bg-white rounded-[4rem] border border-slate-100 shadow-2xl overflow-hidden group"
             >
-               {/* Semantic Spider Visual */}
                <div className="absolute inset-0 opacity-5 pointer-events-none" style={{ backgroundImage: "radial-gradient(#4338ca 1px, transparent 1px)", backgroundSize: "30px 30px" }}></div>
                
                <div className="relative aspect-square flex items-center justify-center">
@@ -114,7 +120,6 @@ export default function SeoPage() {
                      </div>
                   </motion.div>
 
-                  {/* Satellite Data Points */}
                   {[
                     { icon: <IoPulseOutline />, pos: "top-10 left-10" },
                     { icon: <IoBugOutline />, pos: "bottom-10 right-10" },
@@ -150,7 +155,7 @@ export default function SeoPage() {
           </div>
 
           <div className="grid lg:grid-cols-3 gap-8">
-            {seoPillars.map((item, i) => (
+            {pillars?.map((item, i) => (
               <motion.div
                 key={i}
                 initial={{ opacity: 0, y: 30 }}
@@ -163,7 +168,7 @@ export default function SeoPage() {
                   <div
                     className={`w-14 h-14 rounded-2xl bg-gradient-to-br ${item.color} text-white flex items-center justify-center text-3xl mb-10 shadow-lg`}
                   >
-                    {item.icon}
+                    {getIcon(item.icon)}
                   </div>
                   <h3 className="text-2xl font-black text-slate-900 mb-6 tracking-tighter uppercase leading-none">
                     {item.title}
@@ -190,16 +195,9 @@ export default function SeoPage() {
                 <p className="text-slate-500 text-xl font-light leading-relaxed">We perform deep-tissue technical audits covering Core Web Vitals, Structured Data (JSON-LD), and JavaScript rendering to eliminate every barrier to indexing.</p>
                 
                 <div className="grid grid-cols-2 gap-6 pt-10 border-t border-slate-100">
-                   {[
-                     "Core Web Vitals Audit",
-                     "Semantic Entity Mapping",
-                     "JavaScript SEO Handoff",
-                     "Internal Link Logic",
-                     "Competitor Velocity Gap",
-                     "Backlink Integrity"
-                   ].map((item, idx) => (
+                   {metrics?.map((item, idx) => (
                       <div key={idx} className="flex items-center gap-3 text-sm font-bold text-slate-700">
-                         <IoCheckmarkCircleOutline className="text-indigo-600 text-lg" /> {item}
+                         <IoCheckmarkCircleOutline className="text-indigo-600 text-lg" /> {item.t}
                       </div>
                    ))}
                 </div>
@@ -246,9 +244,9 @@ export default function SeoPage() {
         {/* CTA */}
         <div className="text-center py-40 border-t border-slate-200 px-4 md:px-0">
            <IoAnalyticsOutline className="text-7xl text-indigo-600 mb-12 mx-auto opacity-20" />
-           <h3 className="text-5xl lg:text-7xl font-black text-slate-900 mb-12 leading-tight">Stop playing catch up. <br/><span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-600 to-slate-700 font-serif italic font-medium">Command the First Page.</span></h3>
+           <h3 className="text-5xl lg:text-7xl font-black text-slate-900 mb-12 leading-tight">{cta.title?.split('. ')[0]}. <br/><span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-600 to-slate-700 font-serif italic font-medium">{cta.title?.split('. ')[1] || "Command the First Page."}</span></h3>
            <div className="flex flex-col sm:flex-row gap-6 justify-center">
-              <button className="w-full sm:w-[280px] px-8 py-6 bg-indigo-600 text-white font-black rounded-xl hover:bg-indigo-700 transition-all shadow-2xl shadow-indigo-600/40 uppercase tracking-widest text-[10px] flex items-center justify-center">
+              <button className="w-full sm:w-[280px] px-8 py-6 bg-indigo-600 text-white font-black rounded-xl hover:bg-indigo-700 transition-all shadow-2xl shadow-indigo-600/20 uppercase tracking-widest text-[10px] flex items-center justify-center">
                 Initialize Technical Audit
               </button>
               <Link

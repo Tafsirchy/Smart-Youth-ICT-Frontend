@@ -1,5 +1,6 @@
 "use client";
 
+import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import Link from "next/link";
 import { 
@@ -15,23 +16,48 @@ import {
   IoFlaskOutline,
   IoSaveOutline
 } from "react-icons/io5";
-
-const aiLifecycle = [
-  { step: "01", stage: "Data Ingestion", action: "Parsing unstructured business data (PDFs, Docs, CRM) into high-dimensional vector embeddings." },
-  { step: "02", stage: "RAG Architecture", action: "Implementing Retrieval-Augmented Generation to ensure AI answers are grounded in your specific data." },
-  { step: "03", stage: "Inference Tuning", action: "Optimizing model temperature, top-p, and system prompts for accurate intent recognition." },
-  { step: "04", stage: "API Orchestration", action: "Connecting the AI core to your backend systems via secure REST/GraphQL hooks." },
-  { step: "05", stage: "Shadow Testing", action: "Running the bot in 'listen-only' mode to benchmark accuracy against human agents." },
-  { step: "06", stage: "Active Deployment", action: "Phased rollout with daily logic pruning and feedback loop integration." }
-];
-
-const techSpecs = [
-  { group: "Intelligence Tier", items: ["GPT-4o / Claude 3.5 Sync", "Custom Vector DB", "NLP Sentiment Mapping", "Zero-Shot Learning"] },
-  { group: "Integrity Tier", items: ["AES-256 Encryption", "SOC-2 Ready Hub", "PII Redaction Engine", "Rate Limiting V2"] },
-  { group: "Interconnect Tier", items: ["WhatsApp Webhook API", "Websocket Live-stream", "CRM Bi-directional Sync", "JSON Meta-Payloads"] }
-];
+import api from "@/lib/api";
 
 export default function ChatbotDetailsPage() {
+  const [content, setContent] = useState(null);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const res = await api.get("/cms/services/web-software/chatbot");
+        if (res.data.data) setContent(res.data.data);
+      } catch (err) {
+        console.error("Failed to load chatbot details", err);
+      }
+    };
+    fetchData();
+  }, []);
+
+  const data = content?.details || {
+    hero: {
+      badge: "Inference Manifest",
+      title: "Intelligence Architecture",
+      desc: "We don't just build scripts; we architect autonomous intelligence layers that process intent with surgical precision.",
+      subtitle: "AI_CORE_SPEC_v6.4"
+    },
+    sections: {
+      phases: [
+        { step: "01", stage: "Data Ingestion", action: "Parsing unstructured business data (PDFs, Docs, CRM) into high-dimensional vector embeddings." },
+        { step: "02", stage: "RAG Architecture", action: "Implementing Retrieval-Augmented Generation to ensure AI answers are grounded in your specific data." },
+        { step: "03", stage: "Inference Tuning", action: "Optimizing model temperature, top-p, and system prompts for accurate intent recognition." },
+        { step: "04", stage: "API Orchestration", action: "Connecting the AI core to your backend systems via secure REST/GraphQL hooks." },
+        { step: "05", stage: "Shadow Testing", action: "Running the bot in 'listen-only' mode to benchmark accuracy against human agents." },
+        { step: "06", stage: "Active Deployment", action: "Phased rollout with daily logic pruning and feedback loop integration." }
+      ],
+      roi: [
+        { group: "Intelligence Tier", items: ["GPT-4o / Claude 3.5 Sync", "Custom Vector DB", "NLP Sentiment Mapping", "Zero-Shot Learning"] },
+        { group: "Integrity Tier", items: ["AES-256 Encryption", "SOC-2 Ready Hub", "PII Redaction Engine", "Rate Limiting V2"] },
+        { group: "Interconnect Tier", items: ["WhatsApp Webhook API", "Websocket Live-stream", "CRM Bi-directional Sync", "JSON Meta-Payloads"] }
+      ]
+    },
+    cta: { title: "Build My AI Agent" }
+  };
+
   return (
     <section className="min-h-screen bg-slate-50 text-slate-900 selection:bg-emerald-600 selection:text-white pb-40">
       {/* PERSISTENT BREADCRUMB */}
@@ -40,7 +66,7 @@ export default function ChatbotDetailsPage() {
           <Link href="/services/chatbot" className="flex items-center gap-2 text-[10px] font-black uppercase tracking-widest text-slate-400 hover:text-emerald-600 transition-colors">
             <IoArrowBackOutline className="text-sm" /> Infrastructure Overview
           </Link>
-          <div className="text-[10px] font-black uppercase tracking-[0.4em] text-emerald-600">AI_CORE_SPEC_v6.4</div>
+          <div className="text-[10px] font-black uppercase tracking-[0.4em] text-emerald-600">{data.hero.subtitle}</div>
         </div>
       </div>
 
@@ -53,14 +79,14 @@ export default function ChatbotDetailsPage() {
             className="flex items-center gap-4 text-emerald-600 mb-8"
           >
             <div className="w-12 h-[1px] bg-emerald-600"></div>
-            <span className="text-[10px] font-black uppercase tracking-[0.4em]">Inference Manifest</span>
+            <span className="text-[10px] font-black uppercase tracking-[0.4em]">{data.hero.badge}</span>
           </motion.div>
           <h1 className="text-5xl md:text-7xl font-black text-slate-900 leading-[1.1] mb-8 tracking-tighter">
-            Intelligence <br />
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-600 via-violet-500 to-emerald-500 animate-gradient-x">Architecture</span>
+            {data.hero.title?.split(' ')[0]} <br />
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-600 via-violet-500 to-emerald-500 animate-gradient-x">{data.hero.title?.split(' ').slice(1).join(' ')}</span>
           </h1>
           <p className="text-slate-600 text-xl font-light leading-relaxed max-w-2xl italic">
-            "We don't just build scripts; we architect autonomous intelligence layers that process intent with surgical precision."
+            "{data.hero.desc}"
           </p>
         </div>
 
@@ -72,7 +98,7 @@ export default function ChatbotDetailsPage() {
           </div>
           
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-px bg-slate-200 border border-slate-200 rounded-[3rem] overflow-hidden shadow-2xl">
-            {aiLifecycle.map((item, i) => (
+            {(data.sections.phases || []).map((item, i) => (
               <div key={i} className="bg-white p-12 hover:bg-slate-50 transition-colors group">
                  <div className="text-emerald-600 font-mono text-xs mb-8 flex items-center gap-2">
                     <span className="w-2 h-2 rounded-full bg-emerald-600"></span> 
@@ -107,11 +133,11 @@ export default function ChatbotDetailsPage() {
            </div>
 
            <div className="space-y-6">
-              {techSpecs.map((spec, idx) => (
+              {(data.sections.roi || []).map((spec, idx) => (
                  <div key={idx} className="bg-white rounded-[2.5rem] p-10 border border-slate-200 shadow-sm hover:shadow-xl transition-all">
                     <h4 className="text-[10px] font-black text-emerald-600 uppercase tracking-[0.4em] mb-8">{spec.group} Framework</h4>
                     <div className="grid grid-cols-2 gap-4">
-                       {spec.items.map(item => (
+                       {spec.items?.map(item => (
                           <div key={item} className="flex items-center gap-3 text-sm font-bold text-slate-600">
                              <IoCheckmarkCircleOutline className="text-emerald-600 text-lg" /> {item}
                           </div>
@@ -130,7 +156,7 @@ export default function ChatbotDetailsPage() {
                  <div className="text-emerald-600 mb-8 flex items-center gap-4">
                     <div className="w-12 h-[2px] bg-emerald-600"></div>
                     <span className="text-[10px] font-black uppercase tracking-[0.4em]">Integrity Governance</span>
-                 </div>
+                  </div>
                  <h2 className="text-5xl font-black text-slate-900 mb-8 leading-[0.9]">Trusted <br/><span className="text-emerald-600">Decision Systems.</span></h2>
                  <p className="text-slate-500 text-lg font-light leading-relaxed mb-12 italic">"We implement multi-layered prompt injection shielding and PII redaction to ensure your AI behaves with corporate-grade integrity."</p>
                  
@@ -194,7 +220,7 @@ export default function ChatbotDetailsPage() {
            <h3 className="text-5xl lg:text-7xl font-black text-slate-900 mb-12 leading-tight">Ready to activate your <br/><span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-600 to-blue-500 font-serif italic font-medium">Digital Intelligence?</span></h3>
            <div className="flex flex-col sm:flex-row gap-6 justify-center">
               <button className="w-full sm:w-[280px] px-8 py-6 bg-emerald-600 text-white font-black rounded-xl hover:bg-emerald-700 transition-all shadow-2xl shadow-emerald-600/40 uppercase tracking-widest text-[10px] flex items-center justify-center">
-                Build My AI Agent
+                {data.cta.title}
               </button>
               <Link
                 href="/freelancing"

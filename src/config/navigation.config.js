@@ -1,8 +1,9 @@
 import {
   HiHome, HiAcademicCap, HiChartBar, HiClipboardList,
-  HiBadgeCheck, HiCreditCard, HiUsers, HiCollection,
-  HiAnnotation, HiUserGroup, HiUserCircle, HiGift,
-  HiGlobeAlt, HiBriefcase, HiLightningBolt
+  HiBadgeCheck, HiCreditCard, HiUsers, HiUserGroup,
+  HiAnnotation, HiCollection, HiUserCircle, HiGift,
+  HiGlobeAlt, HiBriefcase, HiLightningBolt, HiSparkles,
+  HiChatAlt2, HiPuzzle, HiServer, HiShieldCheck, HiUserAdd
 } from 'react-icons/hi';
 
 /**
@@ -64,6 +65,30 @@ export const NAVIGATION_CONFIG = {
     { href: '/super/cms/services/certifications',    Icon: HiBadgeCheck,    label: 'Certification Programs' },
     { href: '/super/cms/services/freelancing',       Icon: HiGlobeAlt,      label: 'Freelancing Training' },
     { href: '/super/cms/services/job-placements',    Icon: HiBriefcase,     label: 'Job Placement Support' },
+  ],
+
+  web_software_services_cms: [
+    { href: '/super/cms/services/portfolio-websites', Icon: HiCollection,   label: 'Portfolio Websites' },
+    { href: '/super/cms/services/business-websites',  Icon: HiBriefcase,    label: 'Business Websites' },
+    { href: '/super/cms/services/ecommerce',          Icon: HiCreditCard,   label: 'E-commerce' },
+    { href: '/super/cms/services/custom-apps',        Icon: HiLightningBolt, label: 'Custom Apps' },
+    { href: '/super/cms/services/erp-crm',            Icon: HiChartBar,     label: 'ERP / CRM / POS' },
+  ],
+
+  design_marketing_services_cms: [
+    { href: '/super/cms/services/branding',           Icon: HiSparkles,      label: 'Branding' },
+    { href: '/super/cms/services/ui-ux',               Icon: HiCollection,    label: 'UI/UX Design' },
+    { href: '/super/cms/services/social-creatives',   Icon: HiAnnotation,    label: 'Social Creatives' },
+    { href: '/super/cms/services/facebook-ads',       Icon: HiLightningBolt, label: 'Facebook Ads' },
+    { href: '/super/cms/services/seo',                Icon: HiGlobeAlt,      label: 'SEO Optimization' },
+  ],
+
+  ai_managed_services_cms: [
+    { href: '/super/cms/services/chatbot',          Icon: HiChatAlt2,      label: 'Chatbot Development' },
+    { href: '/super/cms/services/automation',       Icon: HiPuzzle,        label: 'Business Automation' },
+    { href: '/super/cms/services/hosting',          Icon: HiServer,        label: 'Domain & Hosting' },
+    { href: '/super/cms/services/maintenance',      Icon: HiShieldCheck,   label: 'Website Maintenance' },
+    { href: '/super/cms/services/hire-student',     Icon: HiUserAdd,       label: 'Hire a Student' },
   ],
 };
 

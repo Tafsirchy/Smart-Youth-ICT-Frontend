@@ -1,5 +1,6 @@
 "use client";
 
+import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import Link from "next/link";
 import { 
@@ -13,32 +14,36 @@ import {
   IoRocketOutline,
   IoFilterOutline
 } from "react-icons/io5";
-
-const fbAdsPillars = [
-  {
-    title: "Precision Targeting",
-    desc: "Leveraging custom audiences, lookalikes, and behavioral interest mapping to ensure your budget hit the exact buyer persona.",
-    icon: <IoPeopleOutline />,
-    color: "from-emerald-600 to-green-700"
-  },
-  {
-    title: "Conversion Funnels",
-    desc: "Architecting multi-stage customer journeys from cold awareness to high-intent remarketing cycles.",
-    icon: <IoFilterOutline />,
-    color: "from-green-700 to-blue-800"
-  },
-  {
-    title: "ROAS Optimization",
-    desc: "Rigorous daily tracking of Return on Ad Spend (ROAS) and attribution modeling to maximize every dollar spent.",
-    icon: <IoBarChartOutline />,
-    color: "from-blue-600 to-emerald-700"
-  }
-];
+import api from "@/lib/api";
+import { getIcon } from "@/lib/icons";
 
 export default function FacebookAdsPage() {
+  const [content, setContent] = useState(null);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const res = await api.get("/cms/services/web-software/facebook-ads");
+        setContent(res.data.data);
+      } catch (err) {
+        console.error("Failed to fetch Facebook Ads content", err);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchData();
+  }, []);
+
+  if (loading) return <div className="min-h-screen bg-slate-50 flex items-center justify-center font-black animate-pulse text-emerald-400">ACTIVATING PERFORMANCE ENGINES...</div>;
+  if (!content) return null;
+
+  const { hero, sections, cta } = content.landing;
+  const pillars = sections.pillars || [];
+  const metrics = sections.metrics || [];
+
   return (
     <section className="min-h-screen bg-slate-50 text-slate-900 selection:bg-emerald-600 selection:text-white overflow-hidden relative">
-      {/* INDUSTRIAL BACKGROUND DECOR */}
       <div className="absolute top-0 opacity-20 pointer-events-none -z-10 w-full h-full">
          <div className="absolute top-0 left-1/4 w-[1px] h-full bg-slate-200"></div>
          <div className="absolute top-0 right-1/4 w-[1px] h-full bg-slate-200"></div>
@@ -55,7 +60,7 @@ export default function FacebookAdsPage() {
               animate={{ opacity: 1, x: 0 }}
               className="inline-flex items-center gap-2 px-5 py-2 rounded-full bg-emerald-50 border border-emerald-100 text-emerald-700 text-[10px] font-black tracking-[0.4em] uppercase mb-10"
             >
-              <IoRocketOutline className="text-sm" /> Performance Growth Engine
+              <IoRocketOutline className="text-sm" /> {hero.badge}
             </motion.div>
 
             <motion.h1
@@ -64,8 +69,10 @@ export default function FacebookAdsPage() {
               transition={{ duration: 0.8, ease: "circOut" }}
               className="text-5xl md:text-7xl font-black text-slate-900 leading-[1.1] mb-8 tracking-tighter"
             >
-              Facebook <br />
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-pink-500 via-rose-500 to-indigo-500 animate-gradient-x">Ads Management</span>
+              {hero.title?.split(' Management')[0]} <br />
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-pink-500 via-rose-500 to-indigo-500 animate-gradient-x">
+                {hero.title?.includes('Management') ? 'Ads Management' : hero.title}
+              </span>
             </motion.h1>
 
             <motion.p
@@ -74,7 +81,7 @@ export default function FacebookAdsPage() {
               transition={{ delay: 0.4 }}
               className="text-slate-600 text-xl font-light leading-relaxed max-w-2xl mb-12"
             >
-              We treat ad spend as a technical investment. Our Facebook Ads infrastructure is built on deep behavioral data and creative engineering to ensure your ROAS is both high and predictable.
+              {hero.description}
             </motion.p>
 
             <div className="flex flex-col sm:flex-row gap-6">
@@ -97,7 +104,6 @@ export default function FacebookAdsPage() {
               transition={{ duration: 1 }}
               className="relative p-12 bg-white rounded-[4rem] border border-slate-100 shadow-2xl overflow-hidden group"
             >
-               {/* Performance Funnel Visual */}
                <div className="absolute inset-0 opacity-5 pointer-events-none" style={{ backgroundImage: "linear-gradient(#10b981 1px, transparent 1px), linear-gradient(90deg, #10b981 1px, transparent 1px)", backgroundSize: "40px 40px" }}></div>
                
                <div className="relative aspect-square flex flex-col items-center justify-center space-y-4">
@@ -149,7 +155,7 @@ export default function FacebookAdsPage() {
           </div>
 
           <div className="grid lg:grid-cols-3 gap-8">
-            {fbAdsPillars.map((item, i) => (
+            {pillars?.map((item, i) => (
               <motion.div
                 key={i}
                 initial={{ opacity: 0, y: 30 }}
@@ -162,7 +168,7 @@ export default function FacebookAdsPage() {
                   <div
                     className={`w-14 h-14 rounded-2xl bg-gradient-to-br ${item.color} text-white flex items-center justify-center text-3xl mb-10 shadow-lg`}
                   >
-                    {item.icon}
+                    {getIcon(item.icon)}
                   </div>
                   <h3 className="text-2xl font-black text-slate-900 mb-6 tracking-tighter uppercase leading-none">
                     {item.title}
@@ -189,16 +195,9 @@ export default function FacebookAdsPage() {
                 <p className="text-slate-500 text-xl font-light leading-relaxed">We move beyond 'vanity metrics'. We focus on attributable revenue, checkout-intent modeling, and LTV optimization to ensure sustainable growth.</p>
                 
                 <div className="grid grid-cols-2 gap-6 pt-10 border-t border-slate-100">
-                   {[
-                     "Custom conversion setups",
-                     "Pixel & API Integration",
-                     "ROAS Attribution Logic",
-                     "LTV Forecasting",
-                     "A/B Creative Sprints",
-                     "Competitor Scale Audit"
-                   ].map((item, idx) => (
+                   {metrics?.map((item, idx) => (
                       <div key={idx} className="flex items-center gap-3 text-sm font-bold text-slate-700">
-                         <IoCheckmarkCircleOutline className="text-emerald-600 text-lg" /> {item}
+                         <IoCheckmarkCircleOutline className="text-emerald-600 text-lg" /> {item.t}
                       </div>
                    ))}
                 </div>
@@ -246,7 +245,7 @@ export default function FacebookAdsPage() {
         {/* CTA */}
         <div className="text-center py-40 border-t border-slate-200 px-4 md:px-0">
            <IoAnalyticsOutline className="text-7xl text-emerald-600 mb-12 mx-auto opacity-20" />
-           <h3 className="text-5xl lg:text-7xl font-black text-slate-900 mb-12 leading-tight">Stop burning budget. <br/><span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-600 to-blue-700 font-serif italic font-medium">Command the Feed.</span></h3>
+           <h3 className="text-5xl lg:text-7xl font-black text-slate-900 mb-12 leading-tight">{cta.title?.split('. ')[0]}. <br/><span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-600 to-blue-700 font-serif italic font-medium">{cta.title?.split('. ')[1] || "Command the Feed."}</span></h3>
            <div className="flex flex-col sm:flex-row gap-6 justify-center">
               <button className="w-full sm:w-[280px] px-8 py-6 bg-emerald-600 text-white font-black rounded-xl hover:bg-emerald-700 transition-all shadow-2xl shadow-emerald-600/40 uppercase tracking-widest text-[10px] flex items-center justify-center">
                 Initialize Performance Audit

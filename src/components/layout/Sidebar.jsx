@@ -155,6 +155,27 @@ export default function Sidebar({ initialRole, initialUser }) {
             <div className="space-y-1.5">
               {NAVIGATION_CONFIG.learning_services_cms.map((item) => <NavItem key={item.href} {...item} />)}
             </div>
+
+            <div className="mt-10 text-xs font-black text-cyan-500 uppercase tracking-[0.2em] px-4 mb-4">
+              Web & Software CMS
+            </div>
+            <div className="space-y-1.5">
+              {NAVIGATION_CONFIG.web_software_services_cms.map((item) => <NavItem key={item.href} {...item} />)}
+            </div>
+
+            <div className="mt-10 text-xs font-black text-emerald-500 uppercase tracking-[0.2em] px-4 mb-4">
+              Design & Marketing CMS
+            </div>
+            <div className="space-y-1.5">
+              {NAVIGATION_CONFIG.design_marketing_services_cms.map((item) => <NavItem key={item.href} {...item} />)}
+            </div>
+
+            <div className="mt-10 text-xs font-black text-amber-500 uppercase tracking-[0.2em] px-4 mb-4">
+              AI & Managed CMS
+            </div>
+            <div className="space-y-1.5">
+              {NAVIGATION_CONFIG.ai_managed_services_cms.map((item) => <NavItem key={item.href} {...item} />)}
+            </div>
           </>
         )}
       </div>

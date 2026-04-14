@@ -1,5 +1,6 @@
 "use client";
 
+import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import Link from "next/link";
 import { 
@@ -13,32 +14,36 @@ import {
   IoGitNetworkOutline,
   IoShapesOutline
 } from "react-icons/io5";
-
-const designPillars = [
-  {
-    title: "User Research Protocol",
-    desc: "Empathy mapping, user interviews, and data-driven personas to understand exactly who we are building for.",
-    icon: <IoSearchOutline />,
-    color: "from-cyan-600 to-indigo-600"
-  },
-  {
-    title: "Architectural Wireframing",
-    desc: "Low-fidelity structural logic. We prioritize flow and information architecture before we touch a single pixel.",
-    icon: <IoLayersOutline />,
-    color: "from-indigo-600 to-blue-700"
-  },
-  {
-    title: "Atomic Prototyping",
-    desc: "High-fidelity, interactive Figma handoffs. Experience the final product before a single line of code is written.",
-    icon: <IoFlashOutline />,
-    color: "from-rose-500 to-pink-600"
-  }
-];
+import api from "@/lib/api";
+import { getIcon } from "@/lib/icons";
 
 export default function UiUxPage() {
+  const [content, setContent] = useState(null);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const res = await api.get("/cms/services/web-software/ui-ux");
+        setContent(res.data.data);
+      } catch (err) {
+        console.error("Failed to fetch UI/UX content", err);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchData();
+  }, []);
+
+  if (loading) return <div className="min-h-screen bg-slate-50 flex items-center justify-center font-black animate-pulse text-cyan-400">ACTIVATING DESIGN ENGINES...</div>;
+  if (!content) return null;
+
+  const { hero, sections, cta } = content.landing;
+  const pillars = sections.pillars || [];
+  const metrics = sections.metrics || [];
+
   return (
     <section className="min-h-screen bg-slate-50 text-slate-900 selection:bg-cyan-600 selection:text-white overflow-hidden relative font-sans">
-      {/* INDUSTRIAL BACKGROUND DECOR */}
       <div className="absolute top-0 opacity-20 pointer-events-none -z-10 w-full h-full">
          <div className="absolute top-0 left-1/4 w-[1px] h-full bg-slate-200"></div>
          <div className="absolute top-0 right-1/4 w-[1px] h-full bg-slate-200"></div>
@@ -55,7 +60,7 @@ export default function UiUxPage() {
               animate={{ opacity: 1, x: 0 }}
               className="inline-flex items-center gap-2 px-5 py-2 rounded-full bg-cyan-50 border border-cyan-100 text-cyan-700 text-[10px] font-black tracking-[0.4em] uppercase mb-10"
             >
-              <IoColorWandOutline className="text-sm" /> Product Experience Blueprint
+              <IoColorWandOutline className="text-sm" /> {hero.badge}
             </motion.div>
 
             <motion.h1
@@ -64,8 +69,10 @@ export default function UiUxPage() {
               transition={{ duration: 0.8, ease: "circOut" }}
               className="text-5xl md:text-7xl font-black text-slate-900 leading-[1.1] mb-8 tracking-tighter"
             >
-              UI/UX <br />
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-pink-500 via-rose-500 to-indigo-500 animate-gradient-x">Design</span>
+              {hero.title?.split(' ')[0]} <br />
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-pink-500 via-rose-500 to-indigo-500 animate-gradient-x">
+                {hero.title?.split(' ').slice(1).join(' ') || "Design"}
+              </span>
             </motion.h1>
 
             <motion.p
@@ -74,7 +81,7 @@ export default function UiUxPage() {
               transition={{ delay: 0.4 }}
               className="text-slate-600 text-xl font-light leading-relaxed max-w-2xl mb-12"
             >
-              We don't just design interfaces; we architect user behavior. Our UI/UX philosophy is grounded in cognitive psychology and data-driven accessibility to ensure your product is beautiful and highly efficient.
+              {hero.description}
             </motion.p>
 
             <div className="flex flex-col sm:flex-row gap-6">
@@ -97,7 +104,6 @@ export default function UiUxPage() {
               transition={{ duration: 1 }}
               className="relative p-12 bg-white rounded-[4rem] border border-slate-100 shadow-2xl overflow-hidden"
             >
-               {/* Component Logic Grid */}
                <div className="absolute inset-x-0 top-1/2 h-[1px] bg-slate-100"></div>
                <div className="absolute inset-y-0 left-1/2 w-[1px] bg-slate-100"></div>
                
@@ -155,7 +161,7 @@ export default function UiUxPage() {
           </div>
 
           <div className="grid lg:grid-cols-3 gap-8">
-            {designPillars.map((item, i) => (
+            {pillars?.map((item, i) => (
               <motion.div
                 key={i}
                 initial={{ opacity: 0, y: 30 }}
@@ -168,7 +174,7 @@ export default function UiUxPage() {
                   <div
                     className={`w-14 h-14 rounded-2xl bg-gradient-to-br ${item.color} text-white flex items-center justify-center text-3xl mb-10 shadow-lg`}
                   >
-                    {item.icon}
+                    {getIcon(item.icon)}
                   </div>
                   <h3 className="text-2xl font-black text-slate-900 mb-6 tracking-tighter uppercase leading-none">
                     {item.title}
@@ -195,16 +201,9 @@ export default function UiUxPage() {
                 <p className="text-slate-500 text-xl font-light leading-relaxed">We deliver more than pages. We deliver Scalability. Our designs come with a comprehensive component library mapping every button and interaction state.</p>
                 
                 <div className="grid grid-cols-2 gap-6 pt-10 border-t border-slate-100">
-                   {[
-                     "Atomic Design Specs",
-                     "Design Tokens (JSON)",
-                     "Figma Auto-Layout",
-                     "Interaction Prototypes",
-                     "Handoff Protocol",
-                     "Light/Dark Schemas"
-                   ].map((item, idx) => (
+                   {metrics?.map((item, idx) => (
                       <div key={idx} className="flex items-center gap-3 text-sm font-bold text-slate-700">
-                         <IoCheckmarkCircleOutline className="text-cyan-600 text-lg" /> {item}
+                         <IoCheckmarkCircleOutline className="text-cyan-600 text-lg" /> {item.t}
                       </div>
                    ))}
                 </div>
@@ -217,8 +216,8 @@ export default function UiUxPage() {
              >
                 <div className="bg-slate-900 rounded-[3rem] p-12 border border-slate-800 shadow-2xl space-y-10 group">
                    <div className="flex justify-between items-center text-white/40 font-mono text-[8px] tracking-[0.4em] uppercase">
-                      <span>Sync Active</span>
-                      <span>Product_Spec_v3</span>
+                       <span>Sync Active</span>
+                       <span>Product_Spec_v3</span>
                    </div>
                    
                    <div className="space-y-6">
@@ -248,7 +247,7 @@ export default function UiUxPage() {
         {/* CTA */}
         <div className="text-center py-40 border-t border-slate-200 px-4 md:px-0">
            <IoColorWandOutline className="text-7xl text-cyan-600 mb-12 mx-auto opacity-20" />
-           <h3 className="text-5xl lg:text-7xl font-black text-slate-900 mb-12 leading-tight">Eliminate friction. <br/><span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-600 to-indigo-600 font-serif italic font-medium">Maximize Conversion.</span></h3>
+           <h3 className="text-5xl lg:text-7xl font-black text-slate-900 mb-12 leading-tight">{cta.title?.split('. ')[0]}. <br/><span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-600 to-indigo-600 font-serif italic font-medium">{cta.title?.split('. ')[1] || "Maximize Conversion."}</span></h3>
            <div className="flex flex-col sm:flex-row gap-6 justify-center">
               <button className="w-full sm:w-[280px] px-8 py-6 bg-cyan-600 text-white font-black rounded-xl hover:bg-cyan-700 transition-all shadow-2xl shadow-cyan-600/40 uppercase tracking-widest text-[10px] flex items-center justify-center">
                 Initialize Product Audit

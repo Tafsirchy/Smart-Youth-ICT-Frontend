@@ -1,5 +1,6 @@
 "use client";
 
+import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import Link from "next/link";
 import { 
@@ -12,32 +13,36 @@ import {
   IoGitNetworkOutline,
   IoSparklesOutline
 } from "react-icons/io5";
-
-const brandingPillars = [
-  {
-    title: "Visual Geometry",
-    desc: "We don't just 'draw' logos. We construct them using mathematical grids and the golden ratio for timeless balance.",
-    icon: <IoTriangleOutline />,
-    color: "from-indigo-600 to-blue-700"
-  },
-  {
-    title: "Psychological Palettes",
-    desc: "Selection of hex codes that trigger specific brand sentiments and emotional resonance in your target audience.",
-    icon: <IoColorPaletteOutline />,
-    color: "from-purple-600 to-indigo-700"
-  },
-  {
-    title: "Typographic Voice",
-    desc: "Engineering primary and secondary typefaces that establish a clear hierarchy and establish your brand's authority.",
-    icon: <IoTextOutline />,
-    color: "from-slate-700 to-slate-900"
-  }
-];
+import api from "@/lib/api";
+import { getIcon } from "@/lib/icons";
 
 export default function BrandingPage() {
+  const [content, setContent] = useState(null);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const res = await api.get("/cms/services/web-software/branding");
+        setContent(res.data.data);
+      } catch (err) {
+        console.error("Failed to fetch branding content", err);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchData();
+  }, []);
+
+  if (loading) return <div className="min-h-screen bg-slate-50 flex items-center justify-center font-black animate-pulse text-indigo-400">INITIALIZING BRAND PROTOCOL...</div>;
+  if (!content) return null;
+
+  const { hero, sections, cta } = content.landing;
+  const pillars = sections.pillars || [];
+  const metrics = sections.metrics || [];
+
   return (
     <section className="min-h-screen bg-slate-50 text-slate-900 selection:bg-indigo-600 selection:text-white overflow-hidden relative">
-      {/* INDUSTRIAL BACKGROUND DECOR */}
       <div className="absolute top-0 opacity-20 pointer-events-none -z-10 w-full h-full">
          <div className="absolute top-0 left-1/4 w-[1px] h-full bg-slate-200"></div>
          <div className="absolute top-0 right-1/4 w-[1px] h-full bg-slate-200"></div>
@@ -53,7 +58,7 @@ export default function BrandingPage() {
               animate={{ opacity: 1, x: 0 }}
               className="inline-flex items-center gap-2 px-5 py-2 rounded-full bg-indigo-50 border border-indigo-100 text-indigo-600 text-[10px] font-black tracking-[0.4em] uppercase mb-10"
             >
-              <IoFingerPrintOutline className="text-sm" /> Visual Grammar Protocol
+              <IoFingerPrintOutline className="text-sm" /> {hero.badge}
             </motion.div>
 
             <motion.h1
@@ -62,8 +67,10 @@ export default function BrandingPage() {
               transition={{ duration: 0.8, ease: "circOut" }}
               className="text-5xl md:text-7xl font-black text-slate-900 leading-[1.1] mb-8 tracking-tighter"
             >
-              Logo & <br />
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-pink-500 via-rose-500 to-indigo-500 animate-gradient-x">Brand Identity</span>
+              {hero.title?.split('&')[0]} & <br />
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-pink-500 via-rose-500 to-indigo-500 animate-gradient-x">
+                {hero.title?.split('&')[1] || "Identity"}
+              </span>
             </motion.h1>
 
             <motion.p
@@ -72,7 +79,7 @@ export default function BrandingPage() {
               transition={{ delay: 0.4 }}
               className="text-slate-600 text-xl font-light leading-relaxed max-w-2xl mb-12"
             >
-              We don't just design logos. We architect high-fidelity visual ecosystems that command authority, foster absolute trust, and ensure your identity is mathematically perfect.
+              {hero.description}
             </motion.p>
 
             <div className="flex flex-col sm:flex-row gap-6">
@@ -92,12 +99,10 @@ export default function BrandingPage() {
               transition={{ duration: 1 }}
               className="relative p-12 bg-white rounded-[4rem] border border-slate-100 shadow-2xl overflow-hidden group"
             >
-               {/* Mathematical Grid Overlay */}
                <div className="absolute inset-0 opacity-10 pointer-events-none" style={{ backgroundImage: "linear-gradient(#6366f1 1px, transparent 1px), linear-gradient(90deg, #6366f1 1px, transparent 1px)", backgroundSize: "40px 40px" }}></div>
                <div className="absolute inset-0 bg-gradient-to-br from-indigo-50/50 via-transparent to-transparent"></div>
 
                <div className="relative aspect-square flex items-center justify-center">
-                  {/* The Golden Ratio Visual Component */}
                   <motion.div 
                     animate={{ rotate: 360 }}
                     transition={{ duration: 30, repeat: Infinity, ease: "linear" }}
@@ -111,7 +116,6 @@ export default function BrandingPage() {
 
                   <div className="relative z-10 w-48 h-48 bg-slate-900 rounded-[3rem] shadow-2xl flex items-center justify-center group-hover:scale-110 transition-transform">
                      <IoDiamondOutline className="text-6xl text-white animate-pulse" />
-                     {/* HUD Brackets */}
                      <div className="absolute top-0 left-0 w-8 h-8 border-t-2 border-l-2 border-indigo-500 -translate-x-4 -translate-y-4"></div>
                      <div className="absolute bottom-0 right-0 w-8 h-8 border-b-2 border-r-2 border-indigo-500 translate-x-4 translate-y-4"></div>
                   </div>
@@ -136,7 +140,7 @@ export default function BrandingPage() {
           </div>
 
           <div className="grid lg:grid-cols-3 gap-8">
-            {brandingPillars.map((item, i) => (
+            {pillars?.map((item, i) => (
               <motion.div
                 key={i}
                 initial={{ opacity: 0, y: 30 }}
@@ -149,7 +153,7 @@ export default function BrandingPage() {
                   <div
                     className={`w-14 h-14 rounded-2xl bg-gradient-to-br ${item.color} text-white flex items-center justify-center text-3xl mb-10 shadow-lg`}
                   >
-                    {item.icon}
+                    {getIcon(item.icon)}
                   </div>
                   <h3 className="text-2xl font-black text-slate-900 mb-6 tracking-tighter uppercase leading-none">
                     {item.title}
@@ -176,12 +180,7 @@ export default function BrandingPage() {
                 <p className="text-slate-500 text-xl font-light leading-relaxed">Consistency is absolute. We deliver a comprehensive brand manual documenting every pixel of your identity for flawless global scaling.</p>
                 
                 <div className="grid grid-cols-2 gap-6 pt-10 border-t border-slate-100">
-                   {[
-                     { t: "Style Manual", d: "Usage & Exclusion zones" },
-                     { t: "Color Systems", d: "HEX, RGB & CMYK Scales" },
-                     { t: "Logic Grid", d: "Mathematical Construction" },
-                     { t: "Tone of Voice", d: "Copywriting Syntax" }
-                   ].map((item, idx) => (
+                   {metrics?.map((item, idx) => (
                       <div key={idx} className="space-y-2">
                          <h4 className="text-[10px] font-black text-indigo-600 uppercase tracking-widest">{item.t}</h4>
                          <p className="text-xs text-slate-400 font-bold">{item.d}</p>
@@ -219,7 +218,7 @@ export default function BrandingPage() {
         {/* CTA */}
         <div className="text-center py-40 border-t border-slate-200 px-4 md:px-0">
            <IoGitNetworkOutline className="text-7xl text-indigo-600 mb-12 mx-auto opacity-20" />
-           <h3 className="text-5xl lg:text-7xl font-black text-slate-900 mb-12 leading-tight">Stop blending in. <br/><span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-600 to-purple-500 font-serif italic font-medium">Initialize Iconography.</span></h3>
+           <h3 className="text-5xl lg:text-7xl font-black text-slate-900 mb-12 leading-tight">{cta.title?.split('. ')[0]}. <br/><span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-600 to-purple-500 font-serif italic font-medium">{cta.title?.split('. ')[1] || "Initialize Architecture."}</span></h3>
            <div className="flex flex-col sm:flex-row gap-6 justify-center">
               <button className="w-full sm:w-[280px] px-8 py-6 bg-indigo-600 text-white font-black rounded-xl hover:bg-indigo-700 transition-all shadow-2xl shadow-indigo-600/40 uppercase tracking-widest text-[10px] flex items-center justify-center">
                 Initialize Consultation

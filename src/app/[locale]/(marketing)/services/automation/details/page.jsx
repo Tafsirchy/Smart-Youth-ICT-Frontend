@@ -1,5 +1,6 @@
 "use client";
 
+import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import Link from "next/link";
 import { 
@@ -16,23 +17,48 @@ import {
   IoSettingsOutline,
   IoCloudDoneOutline
 } from "react-icons/io5";
-
-const automationLifecycle = [
-  { step: "01", stage: "System Audit", action: "Mapping all manual touchpoints and identifying high-friction data silos within your current stack." },
-  { step: "02", stage: "Node Architecture", action: "Designing the logic flows between software endpoints (e.g., Shopify to Quickbooks)." },
-  { step: "03", stage: "Data Normalization", action: "Engineering the transformation logic to ensure data remains consistent across all platforms." },
-  { step: "04", stage: "BETA Implementation", action: "Deploying automated workflows in a sandbox environment to monitor for latency or edge-case failure." },
-  { step: "05", stage: "ROI Calibration", action: "Measuring 'Hours Saved' and 'Error Reduction' metrics to fine-tune the automation velocity." },
-  { step: "06", stage: "Scale & Maintain", action: "Expanding automation to secondary departments and establishing monthly logic audits." }
-];
-
-const techSpecs = [
-  { group: "Integration Tier", items: ["Zapier / Make Orchestration", "Custom Webhook Hubs", "GraphQL / REST Logic", "JSON Transformation"] },
-  { group: "Governance Tier", items: ["Error Handling Protocol", "OAuth 2.0 Security", "Rate Limit Guard", "Logging & Persistence"] },
-  { group: "Performance Tier", items: ["Zero-Latency Webhooks", "Bulk Data Streamlining", "Conditional Logic Gates", "Real-time Sync Pulse"] }
-];
+import api from "@/lib/api";
 
 export default function AutomationDetailsPage() {
+  const [content, setContent] = useState(null);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const res = await api.get("/cms/services/web-software/automation");
+        if (res.data.data) setContent(res.data.data);
+      } catch (err) {
+        console.error("Failed to load automation details", err);
+      }
+    };
+    fetchData();
+  }, []);
+
+  const data = content?.details || {
+    hero: {
+      badge: "Efficiency Manifest",
+      title: "Logic Blueprints",
+      desc: "Automation is not a task; it's a structural optimization of human time and organizational intelligence.",
+      subtitle: "AUTO_BLUEPRINT_v6.8"
+    },
+    sections: {
+      phases: [
+        { step: "01", stage: "System Audit", action: "Mapping all manual touchpoints and identifying high-friction data silos within your current stack." },
+        { step: "02", stage: "Node Architecture", action: "Designing the logic flows between software endpoints (e.g., Shopify to Quickbooks)." },
+        { step: "03", stage: "Data Normalization", action: "Engineering the transformation logic to ensure data remains consistent across all platforms." },
+        { step: "04", stage: "BETA Implementation", action: "Deploying automated workflows in a sandbox environment to monitor for latency or edge-case failure." },
+        { step: "05", stage: "ROI Calibration", action: "Measuring 'Hours Saved' and 'Error Reduction' metrics to fine-tune the automation velocity." },
+        { step: "06", stage: "Scale & Maintain", action: "Expanding automation to secondary departments and establishing monthly logic audits." }
+      ],
+      roi: [
+        { group: "Integration Tier", items: ["Zapier / Make Orchestration", "Custom Webhook Hubs", "GraphQL / REST Logic", "JSON Transformation"] },
+        { group: "Governance Tier", items: ["Error Handling Protocol", "OAuth 2.0 Security", "Rate Limit Guard", "Logging & Persistence"] },
+        { group: "Performance Tier", items: ["Zero-Latency Webhooks", "Bulk Data Streamlining", "Conditional Logic Gates", "Real-time Sync Pulse"] }
+      ]
+    },
+    cta: { title: "Initialize Automation Audit" }
+  };
+
   return (
     <section className="min-h-screen bg-slate-50 text-slate-900 selection:bg-amber-600 selection:text-white pb-40">
       {/* PERSISTENT BREADCRUMB */}
@@ -41,7 +67,7 @@ export default function AutomationDetailsPage() {
           <Link href="/services/automation" className="flex items-center gap-2 text-[10px] font-black uppercase tracking-widest text-slate-400 hover:text-amber-600 transition-colors">
             <IoArrowBackOutline className="text-sm" /> Infrastructure Overview
           </Link>
-          <div className="text-[10px] font-black uppercase tracking-[0.4em] text-amber-600">AUTO_BLUEPRINT_v6.8</div>
+          <div className="text-[10px] font-black uppercase tracking-[0.4em] text-amber-600">{data.hero.subtitle}</div>
         </div>
       </div>
 
@@ -54,14 +80,14 @@ export default function AutomationDetailsPage() {
             className="flex items-center gap-4 text-amber-600 mb-8"
           >
             <div className="w-12 h-[1px] bg-amber-600"></div>
-            <span className="text-[10px] font-black uppercase tracking-[0.4em]">Efficiency Manifest</span>
+            <span className="text-[10px] font-black uppercase tracking-[0.4em]">{data.hero.badge}</span>
           </motion.div>
           <h1 className="text-5xl md:text-7xl font-black text-slate-900 leading-[1.1] mb-8 tracking-tighter">
-            Logic <br />
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-600 via-violet-500 to-emerald-500 animate-gradient-x">Blueprints</span>
+            {data.hero.title?.split(' ')[0]} <br />
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-600 via-violet-500 to-emerald-500 animate-gradient-x">{data.hero.title?.split(' ').slice(1).join(' ')}</span>
           </h1>
           <p className="text-slate-600 text-xl font-light leading-relaxed max-w-2xl italic">
-            "Automation is not a task; it's a structural optimization of human time and organizational intelligence."
+            "{data.hero.desc}"
           </p>
         </div>
 
@@ -73,7 +99,7 @@ export default function AutomationDetailsPage() {
           </div>
           
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-px bg-slate-200 border border-slate-200 rounded-[3rem] overflow-hidden shadow-2xl">
-            {automationLifecycle.map((item, i) => (
+            {(data.sections.phases || []).map((item, i) => (
               <div key={i} className="bg-white p-12 hover:bg-slate-50 transition-colors group">
                  <div className="text-amber-600 font-mono text-xs mb-8 flex items-center gap-2">
                     <span className="w-2 h-2 rounded-full bg-amber-600"></span> 
@@ -108,11 +134,11 @@ export default function AutomationDetailsPage() {
            </div>
 
            <div className="space-y-6">
-              {techSpecs.map((spec, idx) => (
+              {(data.sections.roi || []).map((spec, idx) => (
                  <div key={idx} className="bg-white rounded-[2.5rem] p-10 border border-slate-200 shadow-sm hover:shadow-xl transition-all">
                     <h4 className="text-[10px] font-black text-amber-600 uppercase tracking-[0.4em] mb-8">{spec.group} Framework</h4>
                     <div className="grid grid-cols-2 gap-4">
-                       {spec.items.map(item => (
+                       {spec.items?.map(item => (
                           <div key={item} className="flex items-center gap-3 text-sm font-bold text-slate-600">
                              <IoCheckmarkCircleOutline className="text-amber-600 text-lg" /> {item}
                           </div>
@@ -195,7 +221,7 @@ export default function AutomationDetailsPage() {
            <h3 className="text-5xl lg:text-7xl font-black text-slate-900 mb-12 leading-tight">Ready to activate your <br/><span className="text-transparent bg-clip-text bg-gradient-to-r from-amber-600 to-indigo-600 font-serif italic font-medium">Efficiency Engines?</span></h3>
            <div className="flex flex-col sm:flex-row gap-6 justify-center">
               <button className="w-full sm:w-[280px] px-8 py-6 bg-amber-600 text-white font-black rounded-xl hover:bg-amber-700 transition-all shadow-2xl shadow-amber-600/40 uppercase tracking-widest text-[10px] flex items-center justify-center">
-                Initialize Automation Audit
+                {data.cta.title}
               </button>
               <Link
                 href="/freelancing"

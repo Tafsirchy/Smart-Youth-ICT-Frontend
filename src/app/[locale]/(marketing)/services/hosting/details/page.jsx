@@ -1,5 +1,6 @@
 "use client";
 
+import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import Link from "next/link";
 import { 
@@ -15,23 +16,48 @@ import {
   IoCloudDownloadOutline,
   IoFlashOutline
 } from "react-icons/io5";
-
-const infraLifecycle = [
-  { step: "01", stage: "Provisioning", action: "Deploying high-performance NVMe Gen4 nodes in strategic global data centers." },
-  { step: "02", stage: "Network Hardening", action: "Implementing multi-layered DDoS mitigation and AES-256 encrypted backplanes." },
-  { step: "03", stage: "SSL Handshake", action: "Automatic certificate generation and enforced TLS 1.3 security protocols." },
-  { step: "04", stage: "CDN Propagation", action: "Caching static assets across 200+ edge locations for sub-50ms global latency." },
-  { step: "05", stage: "Daily Snapshot", action: "Delta-based automated backups with 30-day high-availability retention." },
-  { step: "06", stage: "Resource Scaling", action: "Dynamic CPU/RAM allocation based on traffic vibration and load signals." }
-];
-
-const infraSpecs = [
-  { group: "Hardware Tier", items: ["NVMe Gen4 Storage", "ECC DDR4 RAM", "AMD EPYC Processors", "10Gbps Uplinks"] },
-  { group: "Security Tier", items: ["Hardware Firewalls", "ModSecurity WAF", "Imunify360 Shield", "Isolated Cage Hubs"] },
-  { group: "Authority Tier", items: ["Anycast DNS Hub", "Cloudflare Integration", "Free SSL Gateway", "Tier-3 Data Centers"] }
-];
+import api from "@/lib/api";
 
 export default function HostingDetailsPage() {
+  const [content, setContent] = useState(null);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const res = await api.get("/cms/services/web-software/hosting");
+        if (res.data.data) setContent(res.data.data);
+      } catch (err) {
+        console.error("Failed to load hosting details", err);
+      }
+    };
+    fetchData();
+  }, []);
+
+  const data = content?.details || {
+    hero: {
+      badge: "Infrastructure Manifest",
+      title: "Infrastructure Manifest",
+      desc: "Your digital foundation should be invisible yet invincible. We treat infrastructure as a zero-trust, high-vibration engineering discipline.",
+      subtitle: "CLOUD_SPEC_v9.2"
+    },
+    sections: {
+      phases: [
+        { step: "01", stage: "Provisioning", action: "Deploying high-performance NVMe Gen4 nodes in strategic global data centers." },
+        { step: "02", stage: "Network Hardening", action: "Implementing multi-layered DDoS mitigation and AES-256 encrypted backplanes." },
+        { step: "03", stage: "SSL Handshake", action: "Automatic certificate generation and enforced TLS 1.3 security protocols." },
+        { step: "04", stage: "CDN Propagation", action: "Caching static assets across 200+ edge locations for sub-50ms global latency." },
+        { step: "05", stage: "Daily Snapshot", action: "Delta-based automated backups with 30-day high-availability retention." },
+        { step: "06", stage: "Resource Scaling", action: "Dynamic CPU/RAM allocation based on traffic vibration and load signals." }
+      ],
+      roi: [
+        { group: "Hardware Tier", items: ["NVMe Gen4 Storage", "ECC DDR4 RAM", "AMD EPYC Processors", "10Gbps Uplinks"] },
+        { group: "Security Tier", items: ["Hardware Firewalls", "ModSecurity WAF", "Imunify360 Shield", "Isolated Cage Hubs"] },
+        { group: "Authority Tier", items: ["Anycast DNS Hub", "Cloudflare Integration", "Free SSL Gateway", "Tier-3 Data Centers"] }
+      ]
+    },
+    cta: { title: "Initialize Hosting Plan" }
+  };
+
   return (
     <section className="min-h-screen bg-slate-50 text-slate-900 selection:bg-blue-600 selection:text-white pb-40">
       {/* PERSISTENT BREADCRUMB */}
@@ -40,7 +66,7 @@ export default function HostingDetailsPage() {
           <Link href="/services/hosting" className="flex items-center gap-2 text-[10px] font-black uppercase tracking-widest text-slate-400 hover:text-blue-600 transition-colors">
             <IoArrowBackOutline className="text-sm" /> Infrastructure Overview
           </Link>
-          <div className="text-[10px] font-black uppercase tracking-[0.4em] text-blue-600">CLOUD_SPEC_v9.2</div>
+          <div className="text-[10px] font-black uppercase tracking-[0.4em] text-blue-600">{data.hero.subtitle}</div>
         </div>
       </div>
 
@@ -53,14 +79,14 @@ export default function HostingDetailsPage() {
             className="flex items-center gap-4 text-blue-600 mb-8"
           >
             <div className="w-12 h-[1px] bg-blue-600"></div>
-            <span className="text-[10px] font-black uppercase tracking-[0.4em]">Infrastructure Manifest</span>
+            <span className="text-[10px] font-black uppercase tracking-[0.4em]">{data.hero.badge}</span>
           </motion.div>
           <h1 className="text-5xl md:text-7xl font-black text-slate-900 leading-[1.1] mb-8 tracking-tighter">
-            Infrastructure <br />
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-600 via-violet-500 to-emerald-500 animate-gradient-x">Manifest</span>
+            {data.hero.title?.split(' ')[0]} <br />
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-600 via-violet-500 to-emerald-500 animate-gradient-x">{data.hero.title?.split(' ').slice(1).join(' ')}</span>
           </h1>
           <p className="text-slate-600 text-xl font-light leading-relaxed max-w-2xl italic">
-            "Your digital foundation should be invisible yet invincible. We treat infrastructure as a zero-trust, high-vibration engineering discipline."
+            "{data.hero.desc}"
           </p>
         </div>
 
@@ -72,7 +98,7 @@ export default function HostingDetailsPage() {
           </div>
           
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-px bg-slate-200 border border-slate-200 rounded-[3rem] overflow-hidden shadow-2xl">
-            {infraLifecycle.map((item, i) => (
+            {(data.sections.phases || []).map((item, i) => (
               <div key={i} className="bg-white p-12 hover:bg-slate-50 transition-colors group">
                  <div className="text-blue-600 font-mono text-xs mb-8 flex items-center gap-2">
                     <span className="w-2 h-2 rounded-full bg-blue-600"></span> 
@@ -107,11 +133,11 @@ export default function HostingDetailsPage() {
            </div>
 
            <div className="space-y-6">
-              {infraSpecs.map((spec, idx) => (
+              {(data.sections.roi || []).map((spec, idx) => (
                  <div key={idx} className="bg-white rounded-[2.5rem] p-10 border border-slate-200 shadow-sm hover:shadow-xl transition-all">
                     <h4 className="text-[10px] font-black text-blue-600 uppercase tracking-[0.4em] mb-8">{spec.group} Framework</h4>
                     <div className="grid grid-cols-2 gap-4">
-                       {spec.items.map(item => (
+                       {spec.items?.map(item => (
                           <div key={item} className="flex items-center gap-3 text-sm font-bold text-slate-600">
                              <IoCheckmarkCircleOutline className="text-blue-600 text-lg" /> {item}
                           </div>
@@ -194,7 +220,7 @@ export default function HostingDetailsPage() {
            <h3 className="text-5xl lg:text-7xl font-black text-slate-900 mb-12 leading-tight">Ready to command your <br/><span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-indigo-600 font-serif italic font-medium">Infrastructure Sovereignty?</span></h3>
            <div className="flex flex-col sm:flex-row gap-6 justify-center">
               <button className="w-full sm:w-[280px] px-8 py-6 bg-blue-600 text-white font-black rounded-xl hover:bg-blue-700 transition-all shadow-2xl shadow-blue-600/40 uppercase tracking-widest text-[10px] flex items-center justify-center">
-                Initialize Hosting Plan
+                {data.cta.title}
               </button>
               <Link
                 href="/freelancing"

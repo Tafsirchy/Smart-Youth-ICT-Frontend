@@ -1,203 +1,89 @@
 "use client";
 
+import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import Link from "next/link";
 import { 
   IoArrowBackOutline, 
-  IoLibraryOutline, 
-  IoGitMergeOutline, 
-  IoJournalOutline,
-  IoFlaskOutline,
-  IoSyncOutline,
-  IoTerminalOutline,
-  IoHardwareChipOutline,
+  IoColorWandOutline, 
+  IoCubeOutline, 
+  IoShieldCheckmarkOutline,
   IoCheckmarkCircleOutline,
-  IoFingerPrintOutline
+  IoGitNetworkOutline,
+  IoFlaskOutline
 } from "react-icons/io5";
-
-const designLifecycle = [
-  { step: "01", stage: "Strategic Discovery", action: "Empathy mapping, stakeholder interviews, and technical debt assessment." },
-  { step: "02", stage: "Information Architecture", action: "Constructing logical user flows and hierarchal site maps." },
-  { step: "03", stage: "Wireframe Logic", action: "Low-fidelity structural blueprints focusing on friction and flow." },
-  { step: "04", stage: "Visual Governance", action: "Applying color theory, typography, and brand-aligned art direction." },
-  { step: "05", stage: "Atomic Engineering", action: "Building a scalable component library with documented states (Hover, Focus, Active)." },
-  { step: "06", stage: "Handoff & Audit", action: "Providing pixel-perfect specs via Figma and technical QA during development." }
-];
-
-const componentManifest = [
-  { group: "Foundation", items: ["Color Tokens", "Typography Scales", "Shadow Blueprints", "Grid Systems"] },
-  { group: "Atoms", items: ["Action Buttons", "Input Fields", "Status Badges", "Toggle Switches"] },
-  { group: "Molecules", items: ["Search Components", "Card Overlays", "Form Segments", "Navigation Nodes"] },
-  { group: "Orchestration", items: ["Infinite Scrollers", "Modal Engines", "Data Visualizers", "Auth Flows"] }
-];
+import api from "@/lib/api";
+import { getIcon } from "@/lib/icons";
 
 export default function UiUxDetailsPage() {
+  const [content, setContent] = useState(null);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const res = await api.get("/cms/services/web-software/ui-ux");
+        setContent(res.data.data);
+      } catch (err) {
+        console.error("Failed to fetch UI/UX details", err);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchData();
+  }, []);
+
+  if (loading) return <div className="min-h-screen bg-slate-50 flex items-center justify-center font-black animate-pulse text-cyan-400">LOADING DESIGN MANIFEST...</div>;
+  if (!content) return null;
+
+  const { hero, sections, cta } = content.details;
+  const roi = sections.roi || [];
+  const manifest = sections.manifest || [];
+
   return (
     <section className="min-h-screen bg-slate-50 text-slate-900 selection:bg-cyan-600 selection:text-white pb-40">
       {/* PERSISTENT BREADCRUMB */}
       <div className="border-b border-slate-200 bg-white/80 backdrop-blur-md sticky top-0 z-50">
         <div className="container-custom py-4 flex items-center justify-between">
           <Link href="/services/ui-ux" className="flex items-center gap-2 text-[10px] font-black uppercase tracking-widest text-slate-400 hover:text-cyan-600 transition-colors">
-            <IoArrowBackOutline className="text-sm" /> Infrastructure Overview
+            <IoArrowBackOutline className="text-sm" /> Product Experience Overview
           </Link>
-          <div className="text-[10px] font-black uppercase tracking-[0.4em] text-cyan-600">UI/UX_SPEC_V4.2</div>
+          <div className="text-[10px] font-black uppercase tracking-[0.4em] text-cyan-600">DESIGN_SPEC_v4.2</div>
         </div>
       </div>
 
       <div className="container-custom pt-20">
-        {/* TECH HEADER */}
         <div className="max-w-5xl mb-32">
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            className="flex items-center gap-4 text-cyan-600 mb-8"
-          >
+          <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="flex items-center gap-4 text-cyan-600 mb-8">
             <div className="w-12 h-[1px] bg-cyan-600"></div>
-            <span className="text-[10px] font-black uppercase tracking-[0.4em]">Technical Manifest</span>
+            <span className="text-[10px] font-black uppercase tracking-[0.4em]">{hero.badge}</span>
           </motion.div>
           <h1 className="text-5xl md:text-7xl font-black text-slate-900 leading-[1.1] mb-8 tracking-tighter">
-            Cognitive <br />
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-pink-500 via-rose-500 to-indigo-500 animate-gradient-x">Engineering</span>
+            {hero.title?.split(' ')[0]} <br />
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-pink-500 via-rose-500 to-indigo-500 animate-gradient-x">{hero.title?.split(' ').slice(1).join(' ')}</span>
           </h1>
-          <p className="text-slate-600 text-xl font-light leading-relaxed max-w-2xl italic">
-            "UI/UX is not about art; it's about the reduction of cognitive friction through mathematical design systems."
+          <p className="text-slate-600 text-xl font-light leading-relaxed max-w-2xl">
+            {hero.description}
           </p>
         </div>
 
-        {/* 6-PHASE LIFECYCLE GRID */}
-        <div className="mb-48">
-          <div className="flex items-center gap-8 mb-20">
-             <h2 className="text-3xl font-black text-slate-900 tracking-tighter uppercase leading-none">The Design Lifecycle</h2>
-             <div className="h-[1px] flex-1 bg-slate-200"></div>
-          </div>
-          
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-px bg-slate-200 border border-slate-200 rounded-[3rem] overflow-hidden shadow-2xl">
-            {designLifecycle.map((item, i) => (
-              <div key={i} className="bg-white p-12 hover:bg-slate-50 transition-colors group">
-                 <div className="text-cyan-600 font-mono text-xs mb-8 flex items-center gap-2">
-                    <span className="w-2 h-2 rounded-full bg-cyan-600"></span> 
-                    {item.step} // DISCIPLINE_SYNC
+        {/* ROI / PILLARS SECTION */}
+        <div className="grid lg:grid-cols-2 gap-12 mb-48">
+           {roi?.map((item, idx) => (
+              <div key={idx} className="bg-white rounded-[3rem] p-12 border border-slate-100 shadow-xl shadow-slate-200/50 hover:shadow-2xl transition-all">
+                 <div className="w-16 h-16 bg-cyan-50 rounded-2xl flex items-center justify-center text-3xl text-cyan-600 mb-10 border border-cyan-100">
+                    {getIcon(item.icon)}
                  </div>
-                 <h3 className="text-xl font-black text-slate-900 mb-4 tracking-tight group-hover:text-cyan-600 transition-colors uppercase">{item.stage}</h3>
-                 <p className="text-slate-500 text-sm font-light leading-relaxed">{item.action}</p>
+                 <h3 className="text-2xl font-black text-slate-900 mb-6 tracking-tighter uppercase">{item.title}</h3>
+                 <p className="text-slate-500 text-lg font-light leading-relaxed">{item.desc}</p>
               </div>
-            ))}
-          </div>
-        </div>
-
-        {/* COMPONENT MANIFEST SECTION */}
-        <div className="grid lg:grid-cols-2 gap-20 items-start mb-48">
-           <div className="sticky top-32">
-              <div className="w-16 h-16 bg-cyan-50 rounded-2xl flex items-center justify-center text-3xl text-cyan-600 mb-10 border border-cyan-100">
-                <IoLibraryOutline />
-              </div>
-              <h2 className="text-5xl font-black text-slate-900 mb-8 tracking-tighter">Atomic <br/> Component <span className="text-cyan-600">Registry.</span></h2>
-              <p className="text-slate-500 text-lg font-light leading-relaxed mb-12">Every product we design is built on a scalable component system. This ensures that as your platform grows, your UI remains logically consistent and easy for engineers to maintain.</p>
-              
-              <div className="p-8 bg-slate-900 rounded-3xl border border-slate-800 shadow-2xl flex items-center justify-between group cursor-default">
-                 <div className="flex gap-4 items-center">
-                    <div className="w-12 h-12 rounded-xl bg-cyan-500 flex items-center justify-center text-white shadow-lg"><IoGitMergeOutline className="text-2xl" /></div>
-                    <div>
-                       <p className="text-[10px] font-black text-white/40 uppercase tracking-widest">Git Integration</p>
-                       <p className="text-xs font-bold text-white tracking-tight">Figma_to_Code_Sync: ACTIVE</p>
-                    </div>
-                 </div>
-                 <IoSyncOutline className="text-emerald-500 text-xl animate-spin-slow" />
-              </div>
-           </div>
-
-           <div className="space-y-6">
-              {componentManifest.map((manifest, idx) => (
-                 <div key={idx} className="bg-white rounded-[2.5rem] p-10 border border-slate-200 shadow-sm hover:shadow-xl transition-all">
-                    <h4 className="text-[10px] font-black text-cyan-600 uppercase tracking-[0.4em] mb-8">{manifest.group} Architecture</h4>
-                    <div className="grid grid-cols-2 gap-4">
-                       {manifest.items.map(item => (
-                          <div key={item} className="flex items-center gap-3 text-sm font-bold text-slate-600">
-                             <IoCheckmarkCircleOutline className="text-cyan-600 text-lg" /> {item}
-                          </div>
-                       ))}
-                    </div>
-                 </div>
-              ))}
-           </div>
-        </div>
-
-        {/* DESIGN HANDOVER PROTOCOL */}
-        <div className="bg-white rounded-[4rem] p-12 lg:p-24 border border-slate-100 shadow-2xl shadow-slate-200/50 relative overflow-hidden mb-48">
-           <div className="absolute top-0 right-0 w-1/3 h-full bg-slate-50/50 border-l border-slate-100 skew-x-12 translate-x-12"></div>
-           <div className="grid lg:grid-cols-2 gap-20 relative z-10">
-              <div>
-                 <div className="text-cyan-600 mb-8 flex items-center gap-4">
-                    <div className="w-12 h-[2px] bg-cyan-600"></div>
-                    <span className="text-[10px] font-black uppercase tracking-[0.4em]">Engineering Handoff</span>
-                 </div>
-                 <h2 className="text-5xl font-black text-slate-900 mb-8 leading-[0.9]">Developer-Prime <br/><span className="text-cyan-600">Production Systems.</span></h2>
-                 <p className="text-slate-500 text-lg font-light leading-relaxed mb-12 italic">"We speak both design and code. Our handoffs include CSS variables, interaction tokens, and state mapping to ensure zero-loss implementation."</p>
-                 
-                 <div className="space-y-4">
-                    {[
-                       { i: <IoTerminalOutline />, t: "CSS Token Export", d: "Automatic generation of SCSS/Tailwind variables." },
-                       { i: <IoJournalOutline />, t: "Logical Documentation", d: "Detailed state maps for every complex interaction." },
-                       { i: <IoHardwareChipOutline />, t: "Accessibility Audit", d: "WCAG 2.1 compliance check for every component." }
-                    ].map((feat, i) => (
-                       <div key={i} className="flex gap-4 p-6 bg-slate-50 rounded-2xl border border-slate-100">
-                          <div className="text-2xl text-cyan-600">{feat.i}</div>
-                          <div>
-                             <h5 className="text-[10px] font-black text-slate-900 uppercase tracking-widest">{feat.t}</h5>
-                             <p className="text-xs text-slate-400 font-bold">{feat.d}</p>
-                          </div>
-                       </div>
-                    ))}
-                 </div>
-              </div>
-
-              <div className="relative">
-                 <div className="bg-slate-900 rounded-[3rem] p-10 border border-slate-800 shadow-2xl aspect-[3/4] flex flex-col justify-between group overflow-hidden">
-                    <div className="absolute inset-0 bg-gradient-to-br from-cyan-500/10 to-transparent pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity"></div>
-                    <div className="space-y-8 relative z-10">
-                       <div className="flex justify-between items-center text-white/30 font-mono text-[8px] tracking-[0.4em]">
-                          <span>SYS_STATUS_200</span>
-                          <span>CORE_BLUEPRINT</span>
-                       </div>
-                       
-                       <div className="space-y-4">
-                          <div className="h-[1px] w-full bg-white/10"></div>
-                          <div className="flex items-center gap-4">
-                             <div className="w-12 h-12 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center text-cyan-400 font-black text-xs">A</div>
-                             <div className="flex-1 space-y-2">
-                                <div className="h-1.5 bg-white/10 rounded-full w-full"></div>
-                                <div className="h-1.5 bg-white/5 rounded-full w-2/3"></div>
-                             </div>
-                          </div>
-                       </div>
-
-                       <div className="pt-10 border-t border-white/5">
-                          <div className="flex justify-between items-center mb-4">
-                             <p className="text-[10px] font-mono text-cyan-400 font-bold tracking-tighter">VAR_SPACING_XL</p>
-                             <p className="text-[10px] font-mono text-slate-500 font-bold tracking-tighter">3.5rem</p>
-                          </div>
-                          <div className="flex justify-between items-center">
-                             <p className="text-[10px] font-mono text-cyan-400 font-bold tracking-tighter">VAR_RADIUS_SM</p>
-                             <p className="text-[10px] font-mono text-slate-500 font-bold tracking-tighter">0.375rem</p>
-                          </div>
-                       </div>
-                    </div>
-
-                    <div className="bg-white/5 rounded-3xl border border-white/10 p-8 relative overflow-hidden group/m hover:bg-white/10 transition-all">
-                       <IoFlaskOutline className="text-4xl text-cyan-600/30 mb-4 group-hover/m:rotate-12 transition-transform" />
-                       <p className="text-[9px] font-black text-white/50 uppercase tracking-widest mb-2">Protocol: SCALABILITY_QA</p>
-                       <p className="text-xs font-bold text-white tracking-tight">System ready for global deployment.</p>
-                       <div className="absolute bottom-0 left-0 w-full h-[1px] bg-cyan-500/50"></div>
-                    </div>
-                 </div>
-              </div>
-           </div>
+           ))}
         </div>
 
         {/* CTA */}
         <div className="text-center py-40 border-t border-slate-200">
-           <IoFingerPrintOutline className="text-7xl text-cyan-600 mb-12 mx-auto opacity-20" />
-           <h3 className="text-5xl lg:text-7xl font-black text-slate-900 mb-12 leading-tight">Ready to activate your <br/><span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-600 to-indigo-600 font-serif italic font-medium">Digital Architecture?</span></h3>
+           <IoColorWandOutline className="text-7xl text-cyan-600 mb-12 mx-auto opacity-20" />
+           <h3 className="text-5xl lg:text-7xl font-black text-slate-900 mb-12 leading-tight">{cta.title?.split('your ')[0]}your <br/><span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-600 to-indigo-600 font-serif italic font-medium">{cta.title?.split('your ')[1]}</span></h3>
            <div className="flex flex-col sm:flex-row gap-6 justify-center">
               <button className="w-full sm:w-[280px] px-8 py-6 bg-cyan-600 text-white font-black rounded-xl hover:bg-cyan-700 transition-all shadow-2xl shadow-cyan-600/40 uppercase tracking-widest text-[10px] flex items-center justify-center">
                 Initialize Product Audit

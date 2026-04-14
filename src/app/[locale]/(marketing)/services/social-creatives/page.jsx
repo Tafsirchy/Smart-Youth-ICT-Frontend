@@ -1,5 +1,6 @@
 "use client";
 
+import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import Link from "next/link";
 import { 
@@ -13,32 +14,36 @@ import {
   IoChatbubblesOutline,
   IoEyeOutline
 } from "react-icons/io5";
-
-const socialPillars = [
-  {
-    title: "Viral Psychology",
-    desc: "Designing visuals that stop the scroll through high-contrast hooks and psychological trigger mapping.",
-    icon: <IoImagesOutline />,
-    color: "from-rose-500 to-pink-600"
-  },
-  {
-    title: "Kinetic Content",
-    desc: "High-density motion graphics and short-form video (Reels/TikTok) designed for maximum algorithmic retention.",
-    icon: <IoFilmOutline />,
-    color: "from-pink-600 to-amber-600"
-  },
-  {
-    title: "Brand Consistency",
-    desc: "Engineering a unified visual language across all social touchpoints to build recognition and elite positioning.",
-    icon: <IoColorPaletteOutline />,
-    color: "from-amber-500 to-rose-600"
-  }
-];
+import api from "@/lib/api";
+import { getIcon } from "@/lib/icons";
 
 export default function SocialCreativesPage() {
+  const [content, setContent] = useState(null);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const res = await api.get("/cms/services/web-software/social-creatives");
+        setContent(res.data.data);
+      } catch (err) {
+        console.error("Failed to fetch Social Creatives content", err);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchData();
+  }, []);
+
+  if (loading) return <div className="min-h-screen bg-slate-50 flex items-center justify-center font-black animate-pulse text-rose-400">ACTIVATING CREATIVE ENGINES...</div>;
+  if (!content) return null;
+
+  const { hero, sections, cta } = content.landing;
+  const pillars = sections.pillars || [];
+  const metrics = sections.metrics || [];
+
   return (
     <section className="min-h-screen bg-slate-50 text-slate-900 selection:bg-rose-600 selection:text-white overflow-hidden relative font-sans">
-      {/* INDUSTRIAL BACKGROUND DECOR */}
       <div className="absolute top-0 opacity-20 pointer-events-none -z-10 w-full h-full">
          <div className="absolute top-0 left-1/4 w-[1px] h-full bg-slate-200"></div>
          <div className="absolute top-0 right-1/4 w-[1px] h-full bg-slate-200"></div>
@@ -55,7 +60,7 @@ export default function SocialCreativesPage() {
               animate={{ opacity: 1, x: 0 }}
               className="inline-flex items-center gap-2 px-5 py-2 rounded-full bg-rose-50 border border-rose-100 text-rose-700 text-[10px] font-black tracking-[0.4em] uppercase mb-10"
             >
-              <IoSparklesOutline className="text-sm" /> Scroll-Stopping Architecture
+              <IoSparklesOutline className="text-sm" /> {hero.badge}
             </motion.div>
 
             <motion.h1
@@ -64,8 +69,10 @@ export default function SocialCreativesPage() {
               transition={{ duration: 0.8, ease: "circOut" }}
               className="text-5xl md:text-7xl font-black text-slate-900 leading-[1.1] mb-8 tracking-tighter"
             >
-              Social Media <br />
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-pink-500 via-rose-500 to-indigo-500 animate-gradient-x">Creatives</span>
+              {hero.title?.split('Media ')[0]}Media <br />
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-pink-500 via-rose-500 to-indigo-500 animate-gradient-x">
+                {hero.title?.split('Media ')[1] || "Creatives"}
+              </span>
             </motion.h1>
 
             <motion.p
@@ -74,7 +81,7 @@ export default function SocialCreativesPage() {
               transition={{ delay: 0.4 }}
               className="text-slate-600 text-xl font-light leading-relaxed max-w-2xl mb-12"
             >
-              We stop the scroll with mathematical precision. Our creative assets are engineered to trigger engagement signals and build brand resonance through high-fidelity visual storytelling.
+              {hero.description}
             </motion.p>
 
             <div className="flex flex-col sm:flex-row gap-6">
@@ -94,7 +101,6 @@ export default function SocialCreativesPage() {
               transition={{ duration: 1 }}
               className="relative p-12 bg-white rounded-[4rem] border border-slate-100 shadow-2xl overflow-hidden group"
             >
-               {/* Engagement Interaction Visual */}
                <div className="absolute inset-0 opacity-5 pointer-events-none" style={{ backgroundImage: "radial-gradient(#f43f5e 1px, transparent 1px)", backgroundSize: "30px 30px" }}></div>
                
                <div className="relative aspect-square flex flex-col items-center justify-center">
@@ -150,7 +156,7 @@ export default function SocialCreativesPage() {
           </div>
 
           <div className="grid lg:grid-cols-3 gap-8">
-            {socialPillars.map((item, i) => (
+            {pillars?.map((item, i) => (
               <motion.div
                 key={i}
                 initial={{ opacity: 0, y: 30 }}
@@ -163,7 +169,7 @@ export default function SocialCreativesPage() {
                   <div
                     className={`w-14 h-14 rounded-2xl bg-gradient-to-br ${item.color} text-white flex items-center justify-center text-3xl mb-10 shadow-lg`}
                   >
-                    {item.icon}
+                    {getIcon(item.icon)}
                   </div>
                   <h3 className="text-2xl font-black text-slate-900 mb-6 tracking-tighter uppercase leading-none">
                     {item.title}
@@ -190,16 +196,9 @@ export default function SocialCreativesPage() {
                 <p className="text-slate-500 text-xl font-light leading-relaxed">We deliver high-density motion assets designed for 1.2s hook retention and algorithm-favoring engagement cycles.</p>
                 
                 <div className="grid grid-cols-2 gap-6 pt-10 border-t border-slate-100">
-                   {[
-                     "Short-form Content Sprints",
-                     "Carousel Storytelling",
-                     "Algorithmic Hook Mapping",
-                     "Viral Asset Auditing",
-                     "Cross-Platform Resizing",
-                     "Community Interaction Assets"
-                   ].map((item, idx) => (
+                   {metrics?.map((item, idx) => (
                       <div key={idx} className="flex items-center gap-3 text-sm font-bold text-slate-700">
-                         <IoCheckmarkCircleOutline className="text-rose-600 text-lg" /> {item}
+                         <IoCheckmarkCircleOutline className="text-rose-600 text-lg" /> {item.t}
                       </div>
                    ))}
                 </div>
@@ -243,7 +242,7 @@ export default function SocialCreativesPage() {
         {/* CTA */}
         <div className="text-center py-40 border-t border-slate-200 px-4 md:px-0">
            <IoShareSocialOutline className="text-7xl text-rose-600 mb-12 mx-auto opacity-20" />
-           <h3 className="text-5xl lg:text-7xl font-black text-slate-900 mb-12 leading-tight">Stop being ignored. <br/><span className="text-transparent bg-clip-text bg-gradient-to-r from-rose-600 to-amber-500 font-serif italic font-medium">Command the Feed.</span></h3>
+           <h3 className="text-5xl lg:text-7xl font-black text-slate-900 mb-12 leading-tight">{cta.title?.split('. ')[0]}. <br/><span className="text-transparent bg-clip-text bg-gradient-to-r from-rose-600 to-amber-500 font-serif italic font-medium">{cta.title?.split('. ')[1] || "Command the Feed."}</span></h3>
            <div className="flex flex-col sm:flex-row gap-6 justify-center">
               <button className="w-full sm:w-[280px] px-8 py-6 bg-rose-600 text-white font-black rounded-xl hover:bg-rose-700 transition-all shadow-2xl shadow-rose-600/40 uppercase tracking-widest text-[10px] flex items-center justify-center">
                 Initialize Creative Sprint

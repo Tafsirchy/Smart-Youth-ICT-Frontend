@@ -1,5 +1,6 @@
 "use client";
 
+import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import Link from "next/link";
 import { 
@@ -15,23 +16,35 @@ import {
   IoInfiniteOutline,
   IoDiamondOutline
 } from "react-icons/io5";
-
-const brandingProtocol = [
-  { step: "01", stage: "Syntactic Research", action: "Analyzing market linguistics and defining the brand's unique semantic hooks." },
-  { step: "02", stage: "Geometric Baseline", action: "Setting up mathematical grids and Fibonacci ratios for structural balance." },
-  { step: "03", stage: "Core Construction", action: "Iterative sketching and vector refining of the primary mark." },
-  { step: "04", stage: "Chromodynamic Mapping", action: "Synthesizing color palettes based on emotional delta and accessibility." },
-  { step: "05", stage: "Voice & Tone Logic", action: "Engineering the copywriting syntax and communication manifest." },
-  { step: "06", stage: "Governance Manual", action: "Documenting usage limits, spacing, and scaling protocols for global growth." }
-];
-
-const brandSpecs = [
-  { group: "Visual Grammar", items: ["Grid-Based Logic", "Exclusion Zones", "Golden Ratio Scaling", "Adaptive Systems"] },
-  { group: "Color Science", items: ["Emotion Mapping", "Delta-E Compliance", "WCAG AA Contrast", "Sub-Brand Palettes"] },
-  { group: "Authority Tier", items: ["Corporate Tone Guide", "Typeface Licensing", "Iconography Logic", "Motion DNA"] }
-];
+import api from "@/lib/api";
+import { getIcon } from "@/lib/icons";
 
 export default function BrandingDetailsPage() {
+  const [content, setContent] = useState(null);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const res = await api.get("/cms/services/web-software/branding");
+        setContent(res.data.data);
+      } catch (err) {
+        console.error("Failed to fetch branding details", err);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchData();
+  }, []);
+
+  if (loading) return <div className="min-h-screen bg-slate-50 flex items-center justify-center font-black animate-pulse text-indigo-400">ACTIVATING DETAIL PROTOCOL...</div>;
+  if (!content) return null;
+
+  const { hero, sections, cta } = content.details;
+  const phases = sections.phases || [];
+  const roi = sections.roi || [];
+  const manifest = sections.manifest || [];
+
   return (
     <section className="min-h-screen bg-slate-50 text-slate-900 selection:bg-indigo-600 selection:text-white pb-40">
       {/* PERSISTENT BREADCRUMB */}
@@ -53,14 +66,14 @@ export default function BrandingDetailsPage() {
             className="flex items-center gap-4 text-indigo-600 mb-8"
           >
             <div className="w-12 h-[1px] bg-indigo-600"></div>
-            <span className="text-[10px] font-black uppercase tracking-[0.4em]">Visual Grammar Manifest</span>
+            <span className="text-[10px] font-black uppercase tracking-[0.4em]">{hero.badge}</span>
           </motion.div>
           <h1 className="text-5xl md:text-7xl font-black text-slate-900 leading-[1.1] mb-8 tracking-tighter">
-            Identity <br />
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-pink-500 via-rose-500 to-indigo-500 animate-gradient-x">Architecture</span>
+            {hero.title?.split(' ')[0]} <br />
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-pink-500 via-rose-500 to-indigo-500 animate-gradient-x">{hero.title?.split(' ').slice(1).join(' ')}</span>
           </h1>
           <p className="text-slate-600 text-xl font-light leading-relaxed max-w-2xl italic">
-            "A brand is not a logo; it's a structural promise. We treat identity as a mathematical and psychological engineering discipline."
+            {hero.description}
           </p>
         </div>
 
@@ -72,7 +85,7 @@ export default function BrandingDetailsPage() {
           </div>
           
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-px bg-slate-200 border border-slate-200 rounded-[3rem] overflow-hidden shadow-2xl">
-            {brandingProtocol.map((item, i) => (
+            {phases?.map((item, i) => (
               <div key={i} className="bg-white p-12 hover:bg-slate-50 transition-colors group">
                  <div className="text-indigo-600 font-mono text-xs mb-8 flex items-center gap-2">
                     <span className="w-2 h-2 rounded-full bg-indigo-600"></span> 
@@ -107,11 +120,11 @@ export default function BrandingDetailsPage() {
            </div>
 
            <div className="space-y-6">
-              {brandSpecs.map((spec, idx) => (
+              {roi?.map((spec, idx) => (
                  <div key={idx} className="bg-white rounded-[2.5rem] p-10 border border-slate-200 shadow-sm hover:shadow-xl transition-all">
                     <h4 className="text-[10px] font-black text-indigo-600 uppercase tracking-[0.4em] mb-8">{spec.group} Protocol</h4>
                     <div className="grid grid-cols-2 gap-4">
-                       {spec.items.map(item => (
+                       {spec.items?.map(item => (
                           <div key={item} className="flex items-center gap-3 text-sm font-bold text-slate-600">
                              <IoCheckmarkCircleOutline className="text-indigo-600 text-lg" /> {item}
                           </div>
@@ -135,13 +148,9 @@ export default function BrandingDetailsPage() {
                  <p className="text-slate-500 text-lg font-light leading-relaxed mb-12 italic">"Colors aren't just aesthetic; they are neural triggers. We map palettes to brand sentiment and accessibility standards."</p>
                  
                  <div className="space-y-4">
-                    {[
-                       { i: <IoColorPaletteOutline />, t: "Delta-E Compliance", d: "Ensuring color consistency across all digital/print outputs." },
-                       { i: <IoTerminalOutline />, t: "HEX/RGB Logic", d: "Standardized code handoffs for digital implementation." },
-                       { i: <IoHardwareChipOutline />, t: "Print Precision", d: "Pantone & CMYK mapping for material assets." }
-                    ].map((feat, i) => (
+                    {manifest?.map((feat, i) => (
                        <div key={i} className="flex gap-4 p-6 bg-slate-50 rounded-2xl border border-slate-100">
-                          <div className="text-2xl text-indigo-600">{feat.i}</div>
+                          <div className="text-2xl text-indigo-600">{getIcon(feat.i)}</div>
                           <div>
                              <h5 className="text-[10px] font-black text-slate-900 uppercase tracking-widest">{feat.t}</h5>
                              <p className="text-xs text-slate-400 font-bold">{feat.d}</p>
@@ -195,7 +204,7 @@ export default function BrandingDetailsPage() {
         {/* CTA */}
         <div className="text-center py-40 border-t border-slate-200">
            <IoFingerPrintOutline className="text-7xl text-indigo-600 mb-12 mx-auto opacity-20" />
-           <h3 className="text-5xl lg:text-7xl font-black text-slate-900 mb-12 leading-tight">Ready to activate your <br/><span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-600 to-purple-500 font-serif italic font-medium">Distinctive Identity?</span></h3>
+           <h3 className="text-5xl lg:text-7xl font-black text-slate-900 mb-12 leading-tight">{cta.title?.split('your ')[0]}your <br/><span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-600 to-purple-500 font-serif italic font-medium">{cta.title?.split('your ')[1]}</span></h3>
            <div className="flex flex-col sm:flex-row gap-6 justify-center">
               <button className="w-full sm:w-[280px] px-8 py-6 bg-indigo-600 text-white font-black rounded-xl hover:bg-indigo-700 transition-all shadow-2xl shadow-indigo-600/40 uppercase tracking-widest text-[10px] flex items-center justify-center">
                 Initialize Brand Audit

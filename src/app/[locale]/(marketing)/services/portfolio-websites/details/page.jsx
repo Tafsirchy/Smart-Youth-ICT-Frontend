@@ -1,242 +1,166 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { useState, useEffect } from "react";
 import { 
   IoArrowBackOutline, 
-  IoTerminalOutline, 
-  IoLayersOutline, 
+  IoCheckmarkCircleOutline, 
   IoFlashOutline, 
-  IoGlobeOutline,
+  IoShieldCheckmarkOutline, 
+  IoGlobeOutline, 
   IoCodeSlashOutline,
-  IoShieldCheckmarkOutline,
-  IoLockOpenOutline,
-  IoCheckmarkCircleSharp
+  IoLayersOutline
 } from "react-icons/io5";
+import { motion } from "framer-motion";
 import Link from "next/link";
+import api from "@/lib/api";
+import { getIcon } from "@/lib/icons";
 
 export default function PortfolioDetailsPage() {
-  
-  const techBento = [
-    { 
-      t: "Next.js 14", 
-      d: "The core engine for SSG & ISR, delivering sub-second hydration and global scalability.",
-      icon: <IoLayersOutline />,
-      color: "bg-slate-900",
-      colSpan: "md:col-span-2"
-    },
-    { 
-      t: "Vercel Edge", 
-      d: "Deployed on 100+ global edge locations for zero latency.",
-      icon: <IoGlobeOutline />,
-      color: "bg-emerald-600",
-      colSpan: "md:col-span-1"
-    },
-    { 
-      t: "Framer Motion", 
-      d: "High-performance physics-based animation system.",
-      icon: <IoFlashOutline />,
-      color: "bg-rose-500",
-      colSpan: "md:col-span-1"
-    },
-    { 
-      t: "Schema.org", 
-      d: "Structured JSON-LD injections for elite search rankings.",
-      icon: <IoShieldCheckmarkOutline />,
-      color: "bg-indigo-600",
-      colSpan: "md:col-span-2"
-    }
-  ];
+  const [data, setData] = useState(null);
+  const [loading, setLoading] = useState(true);
 
-  const preparationVault = [
-    { t: "Storytelling Bio", d: "Craft a narrative that connects with high-value clients." },
-    { t: "Visual Artifacts", d: "4K renders or screenshots of your production work." },
-    { t: "Proof of Authority", d: "Links to case studies, GitHub, or client reviews." },
-    { t: "Identity Links", d: "A consolidated list of all professional handles." }
-  ];
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const res = await api.get("/cms/services/web-software/portfolio-websites");
+        if (res.data.data) {
+          setData(res.data.data.details);
+        }
+      } catch (err) {
+        console.error("Failed to load portfolio details", err);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchData();
+  }, []);
+
+  if (loading) return <div className="min-h-screen bg-[#fafafa] flex items-center justify-center font-black animate-pulse text-slate-300 uppercase tracking-widest">INITIALIZING DETAIL VAULT...</div>;
+  if (!data) return null;
+
+  const { hero = {}, sections = {}, cta = {} } = data;
+  const techStack = sections.techStack || [];
+  const checklist = sections.checklist || [];
+  const codeSnippet = sections.codeSnippet || {};
 
   return (
-    <section className="min-h-screen bg-slate-50 text-slate-900 selection:bg-rose-500 selection:text-white pb-40">
-      
-      {/* NAVIGATION ARCHITECTURE */}
-      <div className="border-b border-slate-200 sticky top-0 bg-white/50 backdrop-blur-2xl z-50">
-         <div className="container-custom py-6 flex justify-between items-center">
-            <Link href="/services/portfolio-websites" className="flex items-center gap-2 text-slate-500 hover:text-rose-500 font-bold transition-all group">
-               <IoArrowBackOutline className="group-hover:-translate-x-1 transition-transform" /> <span className="text-sm uppercase tracking-widest">Exit Vault</span>
-            </Link>
-            <div className="flex items-center gap-4 bg-slate-100 px-4 py-2 rounded-full border border-slate-200">
-               <div className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-[pulse_2s_infinite]"></div>
-               <p className="text-[10px] font-black uppercase tracking-[0.3em] text-slate-400">System Live: Architecture.v2</p>
-            </div>
-         </div>
+    <section className="min-h-screen bg-white text-slate-900 selection:bg-rose-500 selection:text-white pb-40">
+      {/* PERSISTENT BREADCRUMB */}
+      <div className="border-b border-slate-100 bg-white/80 backdrop-blur-md sticky top-0 z-50">
+        <div className="container-custom py-4 flex items-center justify-between">
+          <Link href="/services/portfolio-websites" className="flex items-center gap-2 text-[10px] font-black uppercase tracking-widest text-slate-400 hover:text-rose-500 transition-colors">
+            <IoArrowBackOutline className="text-sm" /> Infrastructure Overview
+          </Link>
+          <div className="text-[10px] font-black uppercase tracking-[0.4em] text-slate-400">SPEC_LOG_v2.1</div>
+        </div>
       </div>
 
       <div className="container-custom pt-20">
-        
-        {/* TERMINAL HERO: ARCHITECTURE REVEAL */}
-        <div className="max-w-5xl mx-auto mb-20 text-center">
-           <motion.div 
-             initial={{ opacity: 0, y: 20 }}
-             animate={{ opacity: 1, y: 0 }}
-             className="inline-flex items-center gap-3 px-6 py-2 rounded-full bg-rose-50 border border-rose-100 text-rose-600 text-[10px] font-black uppercase tracking-[0.4em] mb-12 shadow-xl shadow-rose-500/5"
-           >
-              <IoTerminalOutline className="text-sm" /> Initializing Detail Protocol
-           </motion.div>
-           
-           <motion.h1 
-             className="text-5xl md:text-7xl font-black text-slate-900 leading-[1.1] mb-8 tracking-tighter"
-             initial={{ opacity: 0, scale: 0.95 }}
-             animate={{ opacity: 1, scale: 1 }}
-             transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
-           >
-             Technical <br />
-             <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 via-indigo-500 to-cyan-500 animate-gradient-x">Luxury</span>
-           </motion.h1>
-
-           <motion.div 
-             initial={{ opacity: 0 }}
-             animate={{ opacity: 1 }}
-             transition={{ delay: 0.5 }}
-             className="bg-white rounded-[2.5rem] border border-slate-200 p-4 max-w-3xl mx-auto relative overflow-hidden group shadow-2xl"
-           >
-              <div className="flex items-center gap-2 px-6 py-3 border-b border-slate-100">
-                 <div className="w-2 h-2 rounded-full bg-rose-500/50"></div>
-                 <div className="w-2 h-2 rounded-full bg-amber-500/50"></div>
-                 <div className="w-2 h-2 rounded-full bg-emerald-500/50"></div>
-                 <p className="text-[10px] font-mono text-slate-400 ml-4">root@syict:~/architecture/portfolio</p>
-              </div>
-              <div className="p-8 text-left font-mono text-sm leading-relaxed text-slate-500 space-y-2">
-                 <p className="text-rose-600 font-bold">$ syict deploy --target portfolio --mode creative</p>
-                 <p className="text-emerald-600">› Compiling serverless functions...</p>
-                 <p className="text-emerald-600">› Optimizing 4K assets... OK</p>
-                 <p className="text-emerald-600">› Building SEO graph (Schema.org)... OK</p>
-                 <p className="text-slate-900 font-black mt-4">✓ Deployment Status: PRODUCTION_READY</p>
-              </div>
-              <div className="absolute inset-0 bg-gradient-to-t from-rose-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
-           </motion.div>
+        <div className="max-w-5xl mb-32">
+          <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="flex items-center gap-4 text-emerald-600 mb-8">
+            <div className="w-12 h-[1px] bg-emerald-600"></div>
+            <span className="text-[10px] font-black uppercase tracking-[0.4em]">{hero.badge}</span>
+          </motion.div>
+          <h1 className="text-5xl md:text-8xl font-black text-slate-900 leading-[0.9] mb-8 tracking-tighter">
+            {hero.title} <br />
+            <span className="text-slate-200">{hero.subtitle}</span>
+          </h1>
+          <p className="text-slate-500 text-xl font-light leading-relaxed max-w-2xl">
+            {hero.description}
+          </p>
         </div>
 
-        {/* THE ENGINE ROOM (Bento Tech Stack) */}
-        <div className="mb-48">
-           <div className="flex flex-col md:flex-row justify-between items-end mb-20 gap-8">
-              <div className="max-w-xl">
-                 <h2 className="text-[10px] font-black text-rose-500 uppercase tracking-[0.4em] mb-6 font-bold">Engine Room</h2>
-                 <p className="text-4xl md:text-6xl font-black text-slate-900 leading-tight">Hand-coded for <span className="text-slate-400">peak performance.</span></p>
+        {/* TECH STACK BENTO */}
+        <div className="grid md:grid-cols-3 gap-1 mb-48 bg-slate-100 border border-slate-100 rounded-[3rem] overflow-hidden shadow-2xl shadow-slate-200/50">
+           {techStack?.map((tech, idx) => (
+              <div key={idx} className={`${tech.color} ${tech.colSpan || ""} p-12 flex flex-col justify-between group hover:grayscale transition-all duration-700`}>
+                 <div className="text-white/20 text-5xl mb-20 group-hover:text-white transition-colors">
+                    {getIcon(tech.icon)}
+                 </div>
+                 <div>
+                    <h4 className="text-white text-2xl font-black mb-2">{tech.t}</h4>
+                    <p className="text-white/60 text-sm font-light leading-relaxed max-w-sm">{tech.d}</p>
+                 </div>
               </div>
-              <p className="text-slate-500 max-w-xs font-light text-lg">We don't use builders. We use code to control every byte of your digital legacy.</p>
-           </div>
-
-           <div className="grid md:grid-cols-3 gap-6">
-              {techBento.map((item, idx) => (
-                <motion.div 
-                   key={idx}
-                   initial={{ opacity: 0, y: 20 }}
-                   whileInView={{ opacity: 1, y: 0 }}
-                   viewport={{ once: true }}
-                   className={`${item.colSpan} group relative`}
-                >
-                   <div className="bg-white rounded-[3rem] p-12 h-full border border-slate-100 hover:border-rose-500/30 transition-all duration-500 relative overflow-hidden shadow-sm hover:shadow-xl shadow-slate-200/50 group">
-                      <div className={`w-14 h-14 rounded-2xl ${item.color} text-white flex items-center justify-center text-2xl mb-10 shadow-lg`}>
-                         {item.icon}
-                      </div>
-                      <h4 className="text-2xl font-black text-slate-900 mb-4">{item.t}</h4>
-                      <p className="text-slate-500 font-light leading-relaxed text-lg max-w-sm">{item.d}</p>
-                      
-                      {/* Decorative Background Glow */}
-                      <div className={`absolute bottom-[-20%] right-[-10%] w-40 h-40 ${item.color} rounded-full blur-[100px] opacity-0 group-hover:opacity-10 transition-opacity`}></div>
-                   </div>
-                </motion.div>
-              ))}
-           </div>
+           ))}
         </div>
 
-        {/* CODE-SNIPPET SHOWCASE (Technical Trust) */}
-        <div className="flex flex-col lg:flex-row gap-20 items-center mb-48 bg-white rounded-[4rem] p-12 lg:p-24 border border-slate-100 relative overflow-hidden shadow-2xl shadow-slate-200/50">
-           <div className="absolute inset-0 bg-slate-50/50 opacity-40 pointer-events-none"></div>
-           
-           <div className="flex-1 relative z-10">
-              <h2 className="text-5xl font-black text-slate-900 leading-tight mb-8">Architecturally <span className="text-rose-600 italic font-serif font-light">Clean.</span></h2>
-              <p className="text-slate-500 text-xl font-light leading-relaxed mb-10">
-                 All SYICT portfolios feature atomic structuring. We isolate concerns, ensuring your code is ready for future scaling or complex interactive expansions.
+        {/* CODE & CHECKLIST SECTION */}
+        <div className="grid lg:grid-cols-2 gap-20 items-start mb-48 px-6 lg:px-0">
+           <div className="sticky top-32">
+              <div className="w-16 h-16 bg-slate-50 rounded-2xl flex items-center justify-center text-3xl text-slate-900 mb-10 border border-slate-100 shadow-sm">
+                <IoCodeSlashOutline />
+              </div>
+              <h2 className="text-5xl font-black text-slate-900 mb-8 tracking-tighter">{codeSnippet.title || "Architecturally Clean."}</h2>
+              <p className="text-slate-500 text-lg font-light leading-relaxed mb-12">
+                {codeSnippet.description}
               </p>
-              <div className="flex flex-wrap gap-4">
-                 {["TypeScript Core", "Atomic CSS", "Clean Routes", "Edge Cache"].map(tag => (
-                    <span key={tag} className="px-4 py-2 bg-slate-100 rounded-xl text-[10px] font-black uppercase tracking-widest text-slate-500 border border-slate-200">
-                       {tag}
-                    </span>
+              
+              <div className="flex flex-wrap gap-3">
+                 {codeSnippet.tags?.map(tag => (
+                    <span key={tag} className="px-5 py-2 rounded-full border border-slate-200 text-[10px] font-black uppercase tracking-widest text-slate-400">{tag}</span>
                  ))}
               </div>
            </div>
 
-           <div className="flex-1 w-full overflow-hidden relative z-10">
-              <motion.div
-                initial={{ opacity: 0, x: 20 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: true }}
-                className="bg-slate-900 rounded-[2.5rem] p-8 font-mono text-xs leading-relaxed border border-slate-800 shadow-2xl relative"
-              >
-                 <div className="flex justify-between items-center mb-6">
-                    <p className="text-slate-500">portfolio-config.ts</p>
-                    <IoCodeSlashOutline className="text-rose-500" />
+           <div className="bg-slate-900 rounded-[3.5rem] p-1 shadow-2xl">
+              <div className="bg-slate-800 rounded-[3.2rem] p-8 lg:p-12 overflow-hidden relative">
+                 <div className="flex items-center justify-between mb-8 border-b border-white/10 pb-6">
+                    <span className="text-[10px] font-black text-rose-500 uppercase tracking-widest">{codeSnippet.fileName || "portfolio-config.ts"}</span>
+                    <div className="flex gap-2">
+                       <div className="w-2 h-2 rounded-full bg-slate-700"></div>
+                       <div className="w-2 h-2 rounded-full bg-slate-700"></div>
+                    </div>
                  </div>
-                 <pre className="text-slate-300">
-                    <code className="block">
-                      <span className="text-pink-400 font-bold">export const</span> <span className="text-white font-bold">PortfolioConfig</span> = {"{"} <br/>
-                      &nbsp;&nbsp;<span className="text-indigo-400">performance</span>: <span className="text-amber-400">"ultra_fast"</span>, <br/>
-                      &nbsp;&nbsp;<span className="text-indigo-400">animations</span>: <span className="text-amber-400">"immersive_physics"</span>, <br/>
-                      &nbsp;&nbsp;<span className="text-indigo-400">deployment</span>: <span className="text-pink-400 font-bold">{"{"}</span> <br/>
-                      &nbsp;&nbsp;&nbsp;&nbsp;<span className="text-indigo-400">provider</span>: <span className="text-amber-400">"Vercel Edge"</span>, <br/>
-                      &nbsp;&nbsp;&nbsp;&nbsp;<span className="text-indigo-400">ssl</span>: <span className="text-pink-400 font-bold">true</span> <br/>
-                      &nbsp;&nbsp;<span className="text-pink-400 font-bold">{"}"}</span>, <br/>
-                      &nbsp;&nbsp;<span className="text-indigo-400">seo</span>: <span className="text-pink-400 font-bold">["Schema.org", "JSON-LD"]</span> <br/>
-                      {"}"};
-                    </code>
+                 <pre className="text-indigo-300 font-mono text-sm leading-relaxed overflow-x-auto selection:bg-rose-500">
+                    <code>{codeSnippet.code}</code>
                  </pre>
-              </motion.div>
+                 
+                 <div className="absolute bottom-0 right-0 p-10 opacity-10">
+                    <IoInfiniteOutline className="text-9xl text-white" />
+                 </div>
+              </div>
            </div>
         </div>
 
-        {/* THE PREPARATION VAULT (Checklist) */}
-        <div className="text-center mb-48">
-           <div className="max-w-2xl mx-auto mb-20">
-              <h2 className="text-[10px] font-black text-rose-500 uppercase tracking-[0.4em] mb-6 font-bold">Onboarding</h2>
-              <p className="text-4xl md:text-6xl font-black text-slate-900 leading-tight">The Preparation <br /> <span className="text-slate-400">Vault.</span></p>
+        {/* CLIENT PREPARATION (CHECKLIST) */}
+        <div className="mb-48">
+           <div className="flex flex-col md:flex-row justify-between items-center mb-20 gap-8">
+              <h2 className="text-4xl font-black text-slate-900 tracking-tighter">Prerequisites for <span className="text-slate-400">Production.</span></h2>
+              <div className="h-[1px] flex-1 bg-slate-100 hidden md:block"></div>
            </div>
 
-           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-7xl mx-auto">
-              {preparationVault.map((item, idx) => (
-                <motion.div 
-                   key={idx}
-                   whileHover={{ scale: 1.02 }}
-                   className="bg-white p-10 rounded-[3rem] border border-slate-100 hover:border-emerald-500/30 transition-all text-left group shadow-sm hover:shadow-xl shadow-slate-200/50"
-                >
-                   <div className="w-12 h-12 bg-slate-50 rounded-2xl flex items-center justify-center text-xl text-slate-400 group-hover:bg-emerald-500 group-hover:text-white transition-all mb-8 shadow-sm">
-                      <IoLockOpenOutline />
-                   </div>
-                   <h4 className="text-xl font-bold text-slate-900 mb-4 group-hover:text-emerald-600 transition-colors uppercase tracking-tighter">{item.t}</h4>
-                   <p className="text-slate-500 font-light text-sm leading-relaxed">{item.d}</p>
-                </motion.div>
+           <div className="grid md:grid-cols-2 gap-8">
+              {checklist?.map((item, i) => (
+                 <div key={i} className="flex gap-8 p-10 bg-slate-50 rounded-[2.5rem] border border-slate-100 group hover:bg-white hover:shadow-2xl hover:shadow-slate-200/50 transition-all">
+                    <div className="text-emerald-500 text-2xl pt-1">
+                       <IoCheckmarkCircleOutline />
+                    </div>
+                    <div>
+                       <h5 className="text-xl font-bold text-slate-900 mb-2">{item.t}</h5>
+                       <p className="text-slate-500 text-sm font-light leading-relaxed">{item.d}</p>
+                    </div>
+                 </div>
               ))}
            </div>
         </div>
 
-        {/* FINAL VAULT CTA */}
-        <div className="text-center py-40 bg-rose-600 rounded-[5rem] mt-20 relative overflow-hidden shadow-2xl shadow-rose-600/30">
-           <div className="relative z-10 flex flex-col items-center">
-              <h3 className="text-5xl lg:text-8xl font-black text-white mb-12 leading-[0.8] tracking-tighter">Ready to unlock <br/> your <span className="font-serif italic font-light opacity-60">Online Power?</span></h3>
-              <div className="flex flex-col sm:flex-row gap-6 justify-center">
-                 <button className="px-16 py-6 bg-white text-rose-600 font-black rounded-3xl hover:bg-slate-900 hover:text-white transition-all shadow-2xl uppercase tracking-widest text-xs">
-                    Start Architecture Brief
-                 </button>
-                 <Link href="/services/portfolio-websites" className="px-16 py-6 bg-rose-700 text-white font-black rounded-3xl hover:bg-rose-800 transition-all shadow-2xl uppercase tracking-widest text-xs flex items-center justify-center">
-                    Return to Showcase
-                 </Link>
-              </div>
+        {/* CTA */}
+        <div className="text-center py-40 border-t border-slate-100">
+           <IoShieldCheckmarkOutline className="text-7xl text-slate-900 mb-12 mx-auto opacity-10" />
+           <h3 className="text-5xl lg:text-7xl font-black text-slate-900 mb-12 leading-tight">{cta.title}</h3>
+           <div className="flex flex-col sm:flex-row gap-6 justify-center">
+              <button className="w-full sm:w-[280px] px-8 py-6 bg-rose-500 text-white font-black rounded-xl hover:bg-rose-600 transition-all shadow-2xl shadow-rose-500/40 uppercase tracking-widest text-[10px] flex items-center justify-center">
+                Initialize Build
+              </button>
+              <Link
+                href="/freelancing"
+                className="w-full sm:w-[280px] px-8 py-6 bg-slate-900 text-white font-black rounded-xl hover:bg-slate-800 transition-all uppercase tracking-widest text-[10px] flex items-center justify-center text-center"
+              >
+                Hire Student Talent
+              </Link>
            </div>
-           
-           {/* Decorative Background Elements */}
-           <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full bg-white/10 blur-[120px] rounded-full pointer-events-none"></div>
         </div>
-
       </div>
     </section>
   );
