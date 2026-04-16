@@ -1,8 +1,8 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { motion } from "framer-motion";
-import { IoRibbonOutline, IoCheckmarkCircle, IoSearchOutline, IoShieldCheckmarkOutline } from "react-icons/io5";
+import Link from "next/link";
+import { IoRibbonOutline, IoCheckmarkCircle, IoSearchOutline, IoShieldCheckmarkOutline, IoArrowBackOutline } from "react-icons/io5";
 import CertificationIllustration from "@/components/marketing/CertificationIllustration";
 import api from "@/lib/api";
 
@@ -62,6 +62,20 @@ export default function CertificationsProgramsPage() {
             >
               {content?.hero?.description || "Boost your resume instantly. Our certification programs assess your skills through rigorous practical exams."}
             </motion.p>
+            
+            <motion.div
+              initial={{ opacity: 0, x: -20 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ delay: 0.3 }}
+              className="mt-8"
+            >
+              <Link 
+                href="/services/certifications/details"
+                className="inline-flex items-center gap-2 text-[10px] font-black uppercase tracking-[0.4em] text-emerald-600 hover:text-indigo-600 transition-colors group"
+              >
+                View Validation Manifest <IoArrowBackOutline className="rotate-180 group-hover:translate-x-2 transition-transform" />
+              </Link>
+            </motion.div>
           </div>
 
           {/* Creative Illustration */}

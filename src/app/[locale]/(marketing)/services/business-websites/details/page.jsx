@@ -116,13 +116,13 @@ export default function BusinessDetailsPage() {
            </div>
 
            <div>
-              <h2 className="text-5xl font-black text-slate-900 mb-8 tracking-tighter">Operationally <br /> <span className="text-blue-600 font-serif italic font-medium">Atomic.</span></h2>
-              <p className="text-slate-500 text-lg font-light leading-relaxed mb-10">We deliver more than a website. We deliver a high-velocity business asset isolated from the common friction of monolithic CMS builders.</p>
+              <h2 className="text-5xl font-black text-slate-900 mb-8 tracking-tighter">{sections.extraInfo?.title || "Operationally Atomic."}</h2>
+              <p className="text-slate-500 text-lg font-light leading-relaxed mb-10">{sections.extraInfo?.description || "We deliver more than a website. We deliver a high-velocity business asset isolated from the common friction of monolithic CMS builders."}</p>
               <div className="flex items-center gap-6 p-8 bg-blue-50 rounded-3xl border border-blue-100">
                  <div className="w-12 h-12 bg-blue-600 rounded-xl flex items-center justify-center text-white text-xl"><IoShieldCheckmarkOutline /></div>
                  <div>
-                    <p className="text-xs font-black text-blue-900 uppercase tracking-widest">Security Protocol</p>
-                    <p className="text-xs text-blue-600 font-bold">Standard SSL + DDoS Shield Active</p>
+                    <p className="text-xs font-black text-blue-900 uppercase tracking-widest">{sections.extraInfo?.securityBadge || "Security Protocol"}</p>
+                    <p className="text-xs text-blue-600 font-bold">{sections.extraInfo?.securityValue || "Standard SSL + DDoS Shield Active"}</p>
                  </div>
               </div>
            </div>
@@ -131,7 +131,7 @@ export default function BusinessDetailsPage() {
         {/* PREREQUISITES GRID */}
         <div className="mb-48">
            <div className="flex flex-col md:flex-row justify-between items-center mb-20 gap-8 px-8 lg:px-0">
-              <h2 className="text-4xl font-black text-slate-900 tracking-tighter">Corporate <span className="text-slate-400">Handover Assets.</span></h2>
+              <h2 className="text-4xl font-black text-slate-900 tracking-tighter">{sections.checklistHeader?.title || "Corporate"} <span className="text-slate-400">{sections.checklistHeader?.focus || "Handover Assets."}</span></h2>
               <div className="h-[1px] flex-1 bg-slate-100 hidden md:block"></div>
            </div>
 

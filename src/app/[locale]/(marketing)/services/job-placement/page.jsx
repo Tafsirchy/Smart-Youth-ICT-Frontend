@@ -1,7 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
-import { motion } from "framer-motion";
+import Link from "next/link";
 import { 
   IoNavigateCircleOutline, 
   IoBriefcaseOutline, 
@@ -9,7 +8,8 @@ import {
   IoFlaskOutline, 
   IoChatbubblesOutline, 
   IoSearchOutline,
-  IoPulseOutline
+  IoPulseOutline,
+  IoArrowBackOutline
 } from "react-icons/io5";
 import api from "@/lib/api";
 
@@ -74,6 +74,20 @@ export default function JobPlacementSupportPage() {
           >
             {content?.hero?.description || "Graduation is just the beginning. Our dedicated placement cell actively maps our top talent with hiring partners."}
           </motion.p>
+
+          <motion.div
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.3 }}
+            className="pt-12"
+          >
+            <Link 
+              href="/services/job-placement/details"
+              className="inline-flex items-center gap-2 text-[10px] font-black uppercase tracking-[0.4em] text-blue-400 hover:text-white transition-colors group"
+            >
+              View Placement Manifest <IoArrowBackOutline className="rotate-180 group-hover:translate-x-2 transition-transform" />
+            </Link>
+          </motion.div>
         </div>
 
         {loading ? (

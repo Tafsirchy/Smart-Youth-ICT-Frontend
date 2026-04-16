@@ -1,7 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
-import { motion } from "framer-motion";
+import Link from "next/link";
 import { 
   IoGlobeOutline, 
   IoFlashOutline, 
@@ -9,7 +8,8 @@ import {
   IoCheckmarkCircle, 
   IoBriefcaseOutline,
   IoRocketIcon,
-  IoSearchOutline
+  IoSearchOutline,
+  IoArrowBackOutline
 } from "react-icons/io5";
 import api from "@/lib/api";
 
@@ -74,6 +74,20 @@ export default function FreelancingTrainingPage() {
           >
             {content?.hero?.description || "Master the art of high-ticket client acquisition on global marketplaces."}
           </motion.p>
+
+          <motion.div
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.3 }}
+            className="pt-12"
+          >
+            <Link 
+              href="/services/freelancing/details"
+              className="inline-flex items-center gap-2 text-[10px] font-black uppercase tracking-[0.4em] text-emerald-400 hover:text-white transition-colors group"
+            >
+              View Market Manifest <IoArrowBackOutline className="rotate-180 group-hover:translate-x-2 transition-transform" />
+            </Link>
+          </motion.div>
         </div>
 
         {loading ? (

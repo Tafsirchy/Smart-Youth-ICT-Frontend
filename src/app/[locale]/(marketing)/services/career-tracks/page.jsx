@@ -1,8 +1,8 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { motion } from "framer-motion";
-import { IoTimerOutline, IoBriefcaseOutline, IoSearchOutline } from "react-icons/io5";
+import Link from "next/link";
+import { IoTimerOutline, IoBriefcaseOutline, IoSearchOutline, IoArrowBackOutline } from "react-icons/io5";
 import api from "@/lib/api";
 
 export default function CareerTracksPage() {
@@ -62,6 +62,20 @@ export default function CareerTracksPage() {
           >
             {content?.hero?.description || "Select a track, follow our rigorously tested curriculum, and launch your tech career methodically."}
           </motion.p>
+
+          <motion.div
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.3 }}
+            className="pt-10"
+          >
+            <Link 
+              href="/services/career-tracks/details"
+              className="inline-flex items-center gap-2 text-[10px] font-black uppercase tracking-[0.4em] text-emerald-400 hover:text-white transition-colors group"
+            >
+              View Trajectory Manifest <IoArrowBackOutline className="rotate-180 group-hover:translate-x-2 transition-transform" />
+            </Link>
+          </motion.div>
         </div>
       </div>
 

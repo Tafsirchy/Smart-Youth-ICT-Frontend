@@ -120,9 +120,9 @@ export default function BusinessWebsitesPage() {
         <div className="mb-48 px-4 md:px-0">
           <div className="flex flex-col md:flex-row justify-between items-end mb-24 gap-8 border-l-4 border-blue-600 pl-8">
             <div className="max-w-xl">
-              <h2 className="text-[10px] font-black text-blue-600 uppercase tracking-[0.4em] mb-4 font-bold">Industrial Standard</h2>
+              <h2 className="text-[10px] font-black text-blue-600 uppercase tracking-[0.4em] mb-4 font-bold">{sections.verticalsHeader?.badge || "Industrial Standard"}</h2>
               <p className="text-4xl md:text-6xl font-black text-slate-900 leading-tight">
-                Architectures built for <span className="text-slate-400 italic font-serif font-light">conversion & scale.</span>
+                {sections.verticalsHeader?.title || "Architectures built for"} <span className="text-slate-400 italic font-serif font-light">{sections.verticalsHeader?.focus || "conversion & scale."}</span>
               </p>
             </div>
           </div>
@@ -165,8 +165,8 @@ export default function BusinessWebsitesPage() {
            
            <div className="grid lg:grid-cols-2 gap-32 items-center relative z-10">
               <div>
-                 <h2 className="text-5xl lg:text-8xl font-black mb-12 leading-[0.8] tracking-tighter">Unified <br /> <span className="text-blue-500">Logistics.</span></h2>
-                 <p className="text-slate-400 text-xl font-light leading-relaxed mb-16">We eliminate technical silos. Your website becomes the central node for your CRM, payments, and marketing automation.</p>
+                 <h2 className="text-5xl lg:text-8xl font-black mb-12 leading-[0.8] tracking-tighter">{sections.logistics?.title || "Unified Logistics."}</h2>
+                 <p className="text-slate-400 text-xl font-light leading-relaxed mb-16">{sections.logistics?.description || "We eliminate technical silos. Your website becomes the central node for your CRM, payments, and marketing automation."}</p>
                  
                  <div className="grid grid-cols-2 gap-px bg-white/5 border border-white/5 rounded-3xl overflow-hidden">
                     {integrations?.map((int, i) => (
@@ -182,7 +182,7 @@ export default function BusinessWebsitesPage() {
               <div className="relative group lg:scale-110">
                  <div className="p-12 bg-white/5 rounded-[4rem] border border-white/10 backdrop-blur-sm relative z-20 overflow-hidden">
                     <div className="flex justify-between items-center mb-16 border-b border-white/5 pb-8">
-                       <p className="text-[10px] font-black uppercase tracking-[0.4em] text-blue-500">Infrastructure_Health</p>
+                       <p className="text-[10px] font-black uppercase tracking-[0.4em] text-blue-500">{sections.logistics?.badge || "Infrastructure_Health"}</p>
                        <IoGlobeOutline className="text-emerald-500 animate-[spin_10s_linear_infinite]" />
                     </div>
                     
@@ -210,8 +210,8 @@ export default function BusinessWebsitesPage() {
         {/* PRICING SELECTOR */}
         <div className="mb-48 px-4 md:px-0">
            <div className="text-center max-w-2xl mx-auto mb-20">
-              <h2 className="text-[10px] font-black text-blue-600 uppercase tracking-[0.4em] mb-4 font-bold">Scaling Tiers</h2>
-              <p className="text-4xl md:text-6xl font-black text-slate-900 leading-tight">Bespoke investment <span className="text-slate-400">for results.</span></p>
+              <h2 className="text-[10px] font-black text-blue-600 uppercase tracking-[0.4em] mb-4 font-bold">{sections.pricingHeader?.badge || "Scaling Tiers"}</h2>
+              <p className="text-4xl md:text-6xl font-black text-slate-900 leading-tight">{sections.pricingHeader?.title || "Bespoke investment"} <span className="text-slate-400">{sections.pricingHeader?.focus || "for results."}</span></p>
            </div>
 
            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">

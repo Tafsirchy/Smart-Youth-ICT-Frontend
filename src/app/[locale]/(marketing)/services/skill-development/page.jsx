@@ -12,7 +12,8 @@ import {
   IoLayersOutline,
   IoCodeWorkingOutline,
   IoCheckmarkCircle, 
-  IoSearchOutline
+  IoSearchOutline,
+  IoArrowBackOutline
 } from "react-icons/io5";
 
 const CATEGORY_STYLE_MAP = {
@@ -156,6 +157,15 @@ export default function SkillDevelopmentPage() {
                      <p className="text-slate-600 leading-relaxed max-w-sm mx-auto">{mod.description}</p>
                   </motion.div>
                ))}
+            </div>
+
+            <div className="mt-16 text-center">
+               <Link 
+                 href="/services/skill-development/details"
+                 className="inline-flex items-center gap-2 text-[10px] font-black uppercase tracking-[0.4em] text-blue-600 hover:text-indigo-600 transition-colors group"
+               >
+                 View Pedagogical Manifest <IoArrowBackOutline className="rotate-180 group-hover:translate-x-2 transition-transform" />
+               </Link>
             </div>
          </div>
       </div>

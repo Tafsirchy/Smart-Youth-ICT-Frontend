@@ -243,11 +243,11 @@ export default function PortfolioWebsitesPage() {
         <div className="mb-48 text-center">
           <div className="max-w-2xl mx-auto mb-20 text-center">
             <h2 className="text-[10px] font-black text-rose-500 uppercase tracking-[0.4em] mb-4">
-              Select Your Artifact
+              {sections.pricingHeader?.badge || "Select Your Artifact"}
             </h2>
             <p className="text-4xl md:text-6xl font-black text-slate-900 leading-tight">
-              Structured tiers for{" "}
-              <span className="text-slate-400">every career stage.</span>
+              {sections.pricingHeader?.title || "Structured tiers for"}{" "}
+              <span className="text-slate-400">{sections.pricingHeader?.focus || "every career stage."}</span>
             </p>
           </div>
 

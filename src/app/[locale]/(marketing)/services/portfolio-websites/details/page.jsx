@@ -8,7 +8,8 @@ import {
   IoShieldCheckmarkOutline, 
   IoGlobeOutline, 
   IoCodeSlashOutline,
-  IoLayersOutline
+  IoLayersOutline,
+  IoInfiniteOutline
 } from "react-icons/io5";
 import { motion } from "framer-motion";
 import Link from "next/link";
