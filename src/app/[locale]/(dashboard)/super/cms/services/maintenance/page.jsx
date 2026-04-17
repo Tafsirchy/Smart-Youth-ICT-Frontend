@@ -248,7 +248,7 @@ export default function MaintenanceCMS() {
                 </div>
             </section>
 
-             {/* METRICS */}
+            {/* METRICS */}
             <section className="bg-slate-900 p-6 rounded-3xl text-white shadow-xl">
                  <div className="flex justify-between items-center mb-4 pb-3 border-b border-white/10">
                     <h2 className="text-xl font-black tracking-tighter flex items-center gap-3">
@@ -256,26 +256,60 @@ export default function MaintenanceCMS() {
                         Uptime Metrics
                     </h2>
                 </div>
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-3">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
                     {content.landing.sections.metrics?.map((metric, idx) => (
-                        <div key={idx} className="bg-white/5 border border-white/10 p-5 rounded-xl relative group hover:bg-white/10 transition-all text-center">
+                        <div key={idx} className="bg-white/5 border border-white/10 p-5 rounded-xl relative group hover:bg-white/10 transition-all">
                              <button onClick={() => {
                                 const newArr = content.landing.sections.metrics.filter((_, i) => i !== idx);
                                 updateNested("landing", "sections.metrics", newArr);
-                            }} className="absolute top-4 right-4 text-white/10 hover:text-rose-500 opacity-0 group-hover:opacity-100 transition-all"><IoTrashOutline size={16}/></button>
-                            <input className="bg-transparent border-none outline-none font-black text-xs uppercase text-white w-full text-center" value={metric.t} onChange={(e) => {
-                                const newArr = [...content.landing.sections.metrics];
-                                newArr[idx].t = e.target.value;
-                                updateNested("landing", "sections.metrics", newArr);
-                            }} />
+                            }} className="absolute top-2 right-2 text-white/10 hover:text-rose-500 opacity-0 group-hover:opacity-100 transition-all p-1"><IoTrashOutline size={14}/></button>
+                            <input 
+                                placeholder="Metric Label"
+                                className="bg-transparent border-none outline-none font-black text-[10px] uppercase text-teal-400 w-full mb-1" 
+                                value={metric.t} 
+                                onChange={(e) => {
+                                    const newArr = [...content.landing.sections.metrics];
+                                    newArr[idx].t = e.target.value;
+                                    updateNested("landing", "sections.metrics", newArr);
+                                }} 
+                            />
+                            <textarea 
+                                placeholder="Metric description"
+                                rows="2"
+                                className="bg-transparent border-none outline-none text-[11px] text-white/60 w-full resize-none scrollbar-hide font-medium leading-relaxed" 
+                                value={metric.d} 
+                                onChange={(e) => {
+                                    const newArr = [...content.landing.sections.metrics];
+                                    newArr[idx].d = e.target.value;
+                                    updateNested("landing", "sections.metrics", newArr);
+                                }} 
+                            />
                         </div>
                     ))}
                     <button onClick={() => {
-                        const newArr = [...(content.landing.sections.metrics || []), { t: "99.9% UPTIME" }];
+                        const newArr = [...(content.landing.sections.metrics || []), { t: "99.9% UPTIME", d: "Zero-latency monitoring via proprietary logic." }];
                         updateNested("landing", "sections.metrics", newArr);
-                    }} className="border-2 border-dashed border-white/10 rounded-xl flex items-center justify-center py-5 text-white/20 hover:text-slate-400 hover:bg-white/5 transition-all">
+                    }} className="border-2 border-dashed border-white/10 rounded-xl flex items-center justify-center py-8 text-white/20 hover:text-teal-400 hover:bg-white/5 transition-all">
                         <IoAddOutline size={20} />
                     </button>
+                </div>
+            </section>
+
+            {/* CALL TO ACTION */}
+            <section className="bg-white p-6 rounded-3xl border border-slate-100 shadow-lg shadow-slate-200/30">
+                <div className="flex justify-between items-center mb-4 pb-3 border-b border-slate-100">
+                    <h2 className="text-xl font-black tracking-tighter flex items-center gap-3">
+                        <div className="w-8 h-8 bg-slate-50 rounded-lg flex items-center justify-center text-slate-600"><IoRocketOutline /></div>
+                        Call-To-Action Ribbon
+                    </h2>
+                </div>
+                <div className="max-w-md">
+                    <Field 
+                        label="Button Title" 
+                        value={content.landing.cta.title} 
+                        onChange={(v) => updateNested("landing", "cta.title", v)} 
+                        icon={<IoFlashOutline className="text-slate-600" />}
+                    />
                 </div>
             </section>
 
@@ -283,15 +317,73 @@ export default function MaintenanceCMS() {
         ) : (
           <motion.div key="details" initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -10 }} className="space-y-8">
             
-            {/* ROI FEATURES */}
+            {/* HERO SECTION */}
+            <section className="bg-white p-6 rounded-3xl border border-slate-100 shadow-lg shadow-slate-200/30">
+                <div className="flex justify-between items-center mb-4 pb-3 border-b border-slate-100">
+                    <h2 className="text-xl font-black tracking-tighter flex items-center gap-3">
+                        <div className="w-8 h-8 bg-slate-50 rounded-lg flex items-center justify-center text-slate-600"><IoPrismOutline /></div>
+                        Manifest Hero
+                    </h2>
+                </div>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <Field label="Badge" value={content.details.hero.badge} onChange={(v) => updateNested("details", "hero.badge", v)} />
+                    <Field label="Title" value={content.details.hero.title} onChange={(v) => updateNested("details", "hero.title", v)} />
+                    <Field label="Subtitle" value={content.details.hero.subtitle} onChange={(v) => updateNested("details", "hero.subtitle", v)} />
+                    <div className="md:col-span-2">
+                        <Field label="Technical Summary" value={content.details.hero.description} onChange={(v) => updateNested("details", "hero.description", v)} textarea />
+                    </div>
+                </div>
+            </section>
+
+            {/* MAINTENANCE PROTOCOL (PHASES) */}
+            <section className="bg-white p-6 rounded-3xl border border-slate-100 shadow-lg shadow-slate-200/30">
+                <div className="flex justify-between items-center mb-4 pb-3 border-b border-slate-100">
+                    <h2 className="text-xl font-black tracking-tighter flex items-center gap-3">
+                        <div className="w-8 h-8 bg-amber-50 rounded-lg flex items-center justify-center text-amber-600"><IoRocketOutline /></div>
+                        The Maintenance Protocol
+                    </h2>
+                    <AddButton onClick={() => {
+                        const newArr = [...(content.details.sections.phases || []), { step: "STEP_01", stage: "", action: "" }];
+                        updateNested("details", "sections.phases", newArr);
+                    }} small />
+                </div>
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                    {content.details.sections.phases?.map((phase, idx) => (
+                        <CardWrapper key={idx} onRemove={() => {
+                            const newArr = content.details.sections.phases.filter((_, i) => i !== idx);
+                            updateNested("details", "sections.phases", newArr);
+                        }} compact>
+                            <div className="flex gap-3 mb-3">
+                                <input placeholder="STEP_01" className="w-16 bg-slate-50 border-none outline-none font-mono text-[9px] text-amber-600 font-bold px-2 py-1 rounded-md uppercase" value={phase.step} onChange={(e) => {
+                                    const newArr = [...content.details.sections.phases];
+                                    newArr[idx].step = e.target.value;
+                                    updateNested("details", "sections.phases", newArr);
+                                }} />
+                                <input placeholder="Stage Name" className="flex-1 bg-transparent border-none outline-none font-black text-xs uppercase tracking-tight" value={phase.stage} onChange={(e) => {
+                                    const newArr = [...content.details.sections.phases];
+                                    newArr[idx].stage = e.target.value;
+                                    updateNested("details", "sections.phases", newArr);
+                                }} />
+                            </div>
+                            <textarea placeholder="Phase action/description" rows="3" className="w-full bg-slate-50 border border-transparent focus:bg-white focus:border-slate-100 rounded-xl p-3 text-[10px] text-slate-500 leading-relaxed outline-none transition-all scrollbar-hide" value={phase.action} onChange={(e) => {
+                                    const newArr = [...content.details.sections.phases];
+                                    newArr[idx].action = e.target.value;
+                                    updateNested("details", "sections.phases", newArr);
+                                }} />
+                        </CardWrapper>
+                    ))}
+                </div>
+            </section>
+
+            {/* ROI FEATURES (GROUPED) */}
             <section className="bg-white p-6 rounded-3xl border border-slate-100 shadow-lg shadow-slate-200/30">
                 <div className="flex justify-between items-center mb-4 pb-3 border-b border-slate-100">
                     <h2 className="text-xl font-black tracking-tighter flex items-center gap-3">
                         <div className="w-8 h-8 bg-slate-50 rounded-lg flex items-center justify-center text-slate-600"><IoFlashOutline /></div>
-                        Support ROI
+                        Stability Frameworks
                     </h2>
                     <AddButton onClick={() => {
-                        const newArr = [...(content.details.sections.roi || []), { title: "", desc: "", icon: "Build" }];
+                        const newArr = [...(content.details.sections.roi || []), { group: "", items: [] }];
                         updateNested("details", "sections.roi", newArr);
                     }} small />
                 </div>
@@ -302,45 +394,50 @@ export default function MaintenanceCMS() {
                                 const newArr = content.details.sections.roi.filter((_, i) => i !== idx);
                                 updateNested("details", "sections.roi", newArr);
                             }} className="absolute top-4 right-4 text-slate-200 hover:text-rose-500 transition-all opacity-0 group-hover:opacity-100 z-10 p-1.5 bg-white/5 rounded-lg"><IoTrashOutline size={16}/></button>
-                            <div className="flex gap-4 mb-4">
-                                <div className="shrink-0 relative group/icon">
-                                    <div className="w-12 h-12 rounded-xl bg-white flex items-center justify-center text-slate-600 text-2xl shadow-inner border border-slate-100 group-hover:scale-105 transition-transform">
-                                        {spec.icon === "Build" && <IoBuildOutline />}
-                                        {spec.icon === "Shield" && <IoShieldOutline />}
-                                        {spec.icon === "Flash" && <IoFlashOutline />}
-                                        {spec.icon === "Globe" && <IoGlobeOutline />}
-                                        {spec.icon === "Analytics" && <IoAnalyticsOutline />}
-                                        {spec.icon === "Rocket" && <IoRocketOutline />}
-                                        {spec.icon === "Layers" && <IoLayersOutline />}
-                                        
-                                        <select 
-                                            className="absolute inset-0 opacity-0 cursor-pointer w-full h-full" 
-                                            value={spec.icon} 
-                                            onChange={(e) => {
-                                                const newArr = [...content.details.sections.roi];
-                                                newArr[idx].icon = e.target.value;
-                                                updateNested("details", "sections.roi", newArr);
-                                            }}
-                                        >
-                                            {ICON_OPTIONS.map(o => <option key={o} value={o}>{o}</option>)}
-                                        </select>
-                                    </div>
-                                </div>
-                                <div className="flex-1 min-w-0">
-                                    <input placeholder="ROI Principle" className="w-full bg-transparent border-none outline-none font-black text-sm tracking-tighter mb-0.5 uppercase text-slate-900 focus:text-slate-600 transition-colors" value={spec.title} onChange={(e) => {
+                            
+                            <div className="mb-4">
+                                <label className="text-[8px] font-black uppercase text-slate-600 mb-1 block">Group Type</label>
+                                <input placeholder="e.g. Infrastructure Tier" className="w-full bg-transparent border-none outline-none font-black text-sm tracking-tighter uppercase text-slate-900 focus:text-slate-600 transition-colors" value={spec.group} onChange={(e) => {
+                                    const newArr = [...content.details.sections.roi];
+                                    newArr[idx].group = e.target.value;
+                                    updateNested("details", "sections.roi", newArr);
+                                }} />
+                            </div>
+                            
+                            <div>
+                                <label className="text-[8px] font-black uppercase text-slate-400 mb-1 block">Framework Items (Comma Separated)</label>
+                                <textarea 
+                                    placeholder="Sentry Audit, SSL Sync, Node Patch..." 
+                                    rows="3" 
+                                    className="w-full bg-white border border-slate-100 rounded-xl p-3 text-[10px] text-slate-500 font-medium leading-relaxed outline-none transition-all scrollbar-hide" 
+                                    value={spec.items?.join(", ")} 
+                                    onChange={(e) => {
                                         const newArr = [...content.details.sections.roi];
-                                        newArr[idx].title = e.target.value;
+                                        newArr[idx].items = e.target.value.split(",").map(i => i.trim()).filter(i => i !== "");
                                         updateNested("details", "sections.roi", newArr);
-                                    }} />
-                                    <textarea placeholder="Technical explanation" rows="2" className="w-full bg-transparent border-none outline-none text-[10px] text-slate-400 font-medium leading-relaxed scrollbar-hide shrink-0" value={spec.desc} onChange={(e) => {
-                                        const newArr = [...content.details.sections.roi];
-                                        newArr[idx].desc = e.target.value;
-                                        updateNested("details", "sections.roi", newArr);
-                                    }} />
-                                </div>
+                                    }} 
+                                />
                             </div>
                         </div>
                     ))}
+                </div>
+            </section>
+
+            {/* CALL TO ACTION */}
+            <section className="bg-white p-6 rounded-3xl border border-slate-100 shadow-lg shadow-slate-200/30">
+                <div className="flex justify-between items-center mb-4 pb-3 border-b border-slate-100">
+                    <h2 className="text-xl font-black tracking-tighter flex items-center gap-3">
+                        <div className="w-8 h-8 bg-slate-50 rounded-lg flex items-center justify-center text-slate-600"><IoRocketOutline /></div>
+                        Call-To-Action Ribbon
+                    </h2>
+                </div>
+                <div className="max-w-md">
+                    <Field 
+                        label="Button Title" 
+                        value={content.details.cta.title} 
+                        onChange={(v) => updateNested("details", "cta.title", v)} 
+                        icon={<IoFlashOutline className="text-slate-600" />}
+                    />
                 </div>
             </section>
 

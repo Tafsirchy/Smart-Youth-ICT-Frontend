@@ -48,7 +48,7 @@ export default function HireStudentDetailsClient({ data }) {
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-600 via-violet-500 to-emerald-500 animate-gradient-x">{data.hero.title?.split(' ').slice(1).join(' ')}</span>
           </h1>
           <p className="text-slate-600 text-xl font-light leading-relaxed max-w-2xl italic">
-            "{data.hero.desc}"
+            "{data.hero.description}"
           </p>
         </div>
 

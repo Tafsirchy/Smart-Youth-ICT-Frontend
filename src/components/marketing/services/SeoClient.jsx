@@ -86,30 +86,35 @@ export default function SeoClient({ content }) {
                
                <div className="relative aspect-square flex items-center justify-center">
                   <motion.div 
-                    animate={{ scale: [1, 1.05, 1] }} 
-                    transition={{ duration: 6, repeat: Infinity }}
+                    animate={{ scale: [1, 1.05, 1], rotate: [0, 5, 0] }} 
+                    transition={{ duration: 10, repeat: Infinity }}
                     className="w-64 h-64 bg-slate-50 rounded-full border border-slate-100 flex items-center justify-center relative p-8 shadow-inner"
                   >
-                     <IoGitNetworkOutline className="text-8xl text-indigo-600/20 absolute opacity-50" />
+                     <div className="absolute inset-0 bg-indigo-50/30 rounded-full animate-pulse"></div>
+                     <IoGitNetworkOutline className="text-8xl text-indigo-600/10 absolute opacity-50" />
                      <div className="relative z-10 text-center">
-                        <IoSearchOutline className="text-5xl text-indigo-600 mb-4 mx-auto" />
+                        <motion.div animate={{ y: [0, -5, 0] }} transition={{ duration: 4, repeat: Infinity }}>
+                           <IoSearchOutline className="text-5xl text-indigo-600 mb-4 mx-auto" />
+                        </motion.div>
                         <p className="text-[10px] font-black text-slate-400 tracking-widest uppercase mb-1">Crawl Status</p>
                         <p className="text-xs font-mono text-emerald-500 font-bold">200_OK_VERIFIED</p>
                      </div>
                   </motion.div>
 
                   {[
-                    { icon: <IoPulseOutline />, pos: "top-10 left-10" },
-                    { icon: <IoBugOutline />, pos: "bottom-10 right-10" },
-                    { icon: <IoAnalyticsOutline />, pos: "top-10 right-10" }
+                    { icon: <IoPulseOutline />, pos: "top-10 left-10", label: "NODE_PING" },
+                    { icon: <IoBugOutline />, pos: "bottom-10 right-10", label: "SCRAPE_V4" },
+                    { icon: <IoAnalyticsOutline />, pos: "top-10 right-10", label: "AUTH_MAP" },
+                    { icon: <IoGitNetworkOutline />, pos: "bottom-10 left-10", label: "LINK_SYNC" }
                   ].map((sat, i) => (
                     <motion.div
                       key={i}
                       animate={{ y: [0, -15, 0] }}
                       transition={{ duration: 3 + i, repeat: Infinity }}
-                      className={`absolute ${sat.pos} p-6 bg-white rounded-3xl border border-slate-100 shadow-xl text-indigo-600 text-xl`}
+                      className={`absolute ${sat.pos} p-6 bg-white rounded-3xl border border-slate-100 shadow-xl flex flex-col items-center gap-2 group hover:scale-110 transition-transform`}
                     >
-                       {sat.icon}
+                       <div className="text-indigo-600 text-xl">{sat.icon}</div>
+                       <span className="text-[7px] font-black text-slate-300 uppercase tracking-widest opacity-0 group-hover:opacity-100 transition-opacity">{sat.label}</span>
                     </motion.div>
                   ))}
                </div>
@@ -143,15 +148,16 @@ export default function SeoClient({ content }) {
                 className="group cursor-default"
               >
                 <div className="bg-white rounded-[3rem] p-12 h-full border border-slate-100 shadow-sm shadow-slate-200/50 hover:shadow-2xl transition-all group-hover:-translate-y-2 relative overflow-hidden">
+                   <div className="absolute top-0 right-0 w-24 h-24 bg-slate-50 rounded-bl-[4rem] opacity-0 group-hover:opacity-100 transition-opacity" />
                   <div
-                    className={`w-14 h-14 rounded-2xl bg-gradient-to-br ${item.color} text-white flex items-center justify-center text-3xl mb-10 shadow-lg`}
+                    className={`w-14 h-14 rounded-2xl bg-gradient-to-br ${item.color} text-white flex items-center justify-center text-3xl mb-10 shadow-lg relative z-10`}
                   >
                     {getIcon(item.icon)}
                   </div>
-                  <h3 className="text-2xl font-black text-slate-900 mb-6 tracking-tighter uppercase leading-none">
+                  <h3 className="text-2xl font-black text-slate-900 mb-6 tracking-tighter uppercase leading-none relative z-10">
                     {item.title}
                   </h3>
-                  <p className="text-slate-500 leading-relaxed font-light text-lg">
+                  <p className="text-slate-500 leading-relaxed font-light text-lg relative z-10">
                     {item.desc}
                   </p>
                 </div>
@@ -172,11 +178,14 @@ export default function SeoClient({ content }) {
                 <h2 className="text-5xl lg:text-7xl font-black text-slate-900 leading-[0.9]">Technical <br/><span className="text-indigo-600">Integrity.</span></h2>
                 <p className="text-slate-500 text-xl font-light leading-relaxed">We perform deep-tissue technical audits covering Core Web Vitals, Structured Data (JSON-LD), and JavaScript rendering to eliminate every barrier to indexing.</p>
                 
-                <div className="grid grid-cols-2 gap-px bg-slate-50 border border-slate-100 rounded-3xl overflow-hidden mt-10">
+                <div className="grid grid-cols-2 gap-px bg-slate-50 border border-slate-100 rounded-3xl overflow-hidden mt-10 shadow-sm">
                    {metrics?.map((item, idx) => (
                       <div key={idx} className="p-10 hover:bg-white transition-colors group">
+                         <div className="text-indigo-600 mb-4 opacity-40 group-hover:opacity-100 transition-opacity">
+                            {getIcon(item.icon)}
+                         </div>
                          <h4 className="text-[10px] font-black text-indigo-600 uppercase tracking-widest mb-2">{item.t}</h4>
-                         <p className="text-xs text-slate-400 font-bold">{item.d}</p>
+                         <p className="text-[10px] text-slate-400 font-bold leading-tight line-clamp-2">{item.d}</p>
                       </div>
                    ))}
                 </div>
@@ -187,7 +196,8 @@ export default function SeoClient({ content }) {
                transition={{ duration: 5, repeat: Infinity }}
                className="relative lg:scale-110"
              >
-                <div className="bg-slate-900 rounded-[3rem] p-12 border border-slate-800 shadow-2xl space-y-10 group">
+                <div className="bg-slate-900 rounded-[3rem] p-12 border border-slate-800 shadow-2xl space-y-10 group overflow-hidden">
+                   <div className="absolute top-0 right-0 p-4 font-mono text-[7px] text-indigo-400 bg-white/5 opacity-50 tracking-[0.4em]">SYNCING_ENGINE::V4.2</div>
                    <div className="flex justify-between items-center text-white/40 font-mono text-[8px] tracking-[0.4em] uppercase">
                       <span>Authority Report</span>
                       <span>PAGE_RANK_v2.0</span>
@@ -201,11 +211,11 @@ export default function SeoClient({ content }) {
                             <div className="h-1.5 bg-white/5 rounded-full w-1/3"></div>
                          </div>
                       </div>
-                      <div className="h-32 w-full bg-white/5 rounded-2xl border border-white/5 relative overflow-hidden flex items-center justify-center">
-                         <p className="text-[4rem] font-black text-white/5 opacity-40">SEO</p>
+                      <div className="h-32 w-full bg-white/5 rounded-2xl border border-white/5 relative overflow-hidden flex items-center justify-center group-hover:bg-white/10 transition-colors">
+                         <p className="text-[4rem] font-black text-white/5 opacity-40 select-none">SEO</p>
                          <div className="absolute inset-0 flex items-center justify-center space-x-1">
-                            {[0.4, 0.7, 0.9, 0.6, 0.8, 1].map((h, i) => (
-                               <motion.div key={i} initial={{ height: 0 }} animate={{ height: `${h * 40}px` }} transition={{ duration: 1, repeat: Infinity, repeatType: "reverse" }} className="w-1 bg-indigo-400 rounded-full" />
+                            {[0.4, 0.7, 0.9, 0.6, 0.8, 1, 0.5, 0.8, 0.3].map((h, i) => (
+                               <motion.div key={i} initial={{ height: 0 }} animate={{ height: `${h * 40}px` }} transition={{ duration: 1, delay: i * 0.1, repeat: Infinity, repeatType: "reverse" }} className="w-1 bg-indigo-400 rounded-full shadow-[0_0_10px_rgba(129,140,248,0.5)]" />
                             ))}
                          </div>
                       </div>
@@ -213,7 +223,9 @@ export default function SeoClient({ content }) {
 
                    <div className="pt-8 border-t border-white/5">
                       <p className="text-[10px] font-mono text-emerald-400 font-bold tracking-tighter">SUCCESS_INDEX::94/100</p>
-                      <p className="text-[10px] font-mono text-slate-500 uppercase tracking-widest mt-2">Mobile Latency: 1.2s</p>
+                      <p className="text-[10px] font-mono text-slate-500 uppercase tracking-widest mt-2 flex items-center gap-2">
+                        <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" /> Mobile Latency: 1.2s
+                      </p>
                    </div>
                 </div>
              </motion.div>
@@ -223,16 +235,32 @@ export default function SeoClient({ content }) {
         {/* CTA */}
         <div className="text-center py-40 border-t border-slate-200 px-4 md:px-0">
            <IoAnalyticsOutline className="text-7xl text-indigo-600 mb-12 mx-auto opacity-20" />
-           <h3 className="text-5xl lg:text-7xl font-black text-slate-900 mb-12 leading-tight">{cta.title?.split('. ')[0]}. <br/><span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-600 to-slate-700 font-serif italic font-medium">{cta.title?.split('. ')[1] || "Command the First Page."}</span></h3>
+           <h3 className="text-5xl lg:text-7xl font-black text-slate-900 mb-12 leading-tight">
+              {cta.title?.includes('.') ? (
+                <>
+                  {cta.title.split('.')[0]}. <br/>
+                  <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-600 to-slate-700 font-serif italic font-medium">
+                    {cta.title.split('.').slice(1).join('.').trim()}
+                  </span>
+                </>
+              ) : (
+                <>
+                  Stop playing catch up. <br/>
+                  <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-600 to-slate-700 font-serif italic font-medium">
+                    {cta.title}
+                  </span>
+                </>
+              )}
+           </h3>
            <div className="flex flex-col sm:flex-row gap-6 justify-center">
-              <button className="w-full sm:w-[280px] px-8 py-6 bg-indigo-600 text-white font-black rounded-xl hover:bg-indigo-700 transition-all shadow-2xl shadow-indigo-600/20 uppercase tracking-widest text-[10px] flex items-center justify-center">
+              <button className="w-full sm:w-[280px] px-8 py-6 bg-indigo-600 text-white font-black rounded-xl hover:bg-indigo-700 transition-all shadow-2xl shadow-indigo-600/40 uppercase tracking-widest text-[10px] flex items-center justify-center">
                 Initialize Technical Audit
               </button>
               <Link
                 href="/services/seo/details"
                 className="w-full sm:w-[280px] px-8 py-6 bg-slate-900 text-white font-black rounded-xl hover:bg-slate-800 transition-all uppercase tracking-widest text-[10px] flex items-center justify-center text-center"
               >
-                Technical Details
+                Technical Hub
               </Link>
            </div>
         </div>

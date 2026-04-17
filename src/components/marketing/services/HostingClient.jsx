@@ -78,7 +78,7 @@ export default function HostingClient({ data }) {
 
             <div className="flex flex-col sm:flex-row gap-6 mb-16">
               <button className="w-full sm:w-[280px] px-8 py-6 bg-blue-600 text-white font-black rounded-xl hover:bg-blue-700 transition-all shadow-2xl shadow-blue-600/20 uppercase tracking-widest text-[10px] flex items-center justify-center">
-                Initialize Plan
+                {data.cta?.title || "Initialize Plan"}
               </button>
               <Link
                 href="/services/hosting/details"
@@ -179,6 +179,24 @@ export default function HostingClient({ data }) {
            </div>
         </div>
 
+        {/* SLA METRICS SECTION */}
+        {data.sections.metrics && data.sections.metrics.length > 0 && (
+           <div className="mb-48 px-4 md:px-0 max-w-7xl mx-auto">
+              <div className="flex items-center gap-6 mb-16">
+                 <h2 className="text-3xl font-black text-slate-900 tracking-tighter uppercase leading-none">SLA Metrics Matrix</h2>
+                 <div className="h-[1px] flex-1 bg-slate-200"></div>
+              </div>
+              <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-px bg-slate-200 border border-slate-200 rounded-[3rem] overflow-hidden shadow-2xl">
+                 {data.sections.metrics.map((item, idx) => (
+                    <div key={idx} className="bg-white p-10 hover:bg-blue-50 transition-colors group">
+                       <h4 className="text-[10px] font-black text-blue-600 uppercase tracking-widest mb-3">{item.t}</h4>
+                       <p className="text-sm text-slate-500 font-medium leading-relaxed">{item.d}</p>
+                    </div>
+                 ))}
+              </div>
+           </div>
+        )}
+
         {/* PRICING TABLE */}
         <div className="mb-48 px-4 md:px-0">
            <div className="flex flex-col items-center mb-24">
@@ -241,14 +259,20 @@ export default function HostingClient({ data }) {
         </div>
 
         {/* PILLARS SECTION */}
-        <div className="grid lg:grid-cols-3 gap-12 max-w-6xl mx-auto py-32 border-t border-slate-100 mt-32">
-           {(data.sections.pillars || []).map((p, i) => (
-              <motion.div key={i} className="text-center group">
-                 <div className="w-20 h-20 bg-blue-50 text-blue-600 rounded-[2rem] flex items-center justify-center text-4xl mx-auto mb-10 group-hover:scale-110 transition-transform shadow-xl shadow-blue-600/10">{getIcon(p.icon)}</div>
-                 <h4 className="text-slate-900 font-black text-2xl mb-4 tracking-tight">{p.title}</h4>
-                 <p className="text-slate-500 font-light leading-relaxed text-lg">{p.desc}</p>
-              </motion.div>
-           ))}
+        <div className="max-w-6xl mx-auto py-32 border-t border-slate-100 mt-32 px-4 md:px-0">
+           <div className="text-center mb-24">
+              <h2 className="text-[10px] font-black text-blue-600 uppercase tracking-[0.4em] mb-4">Core Principles</h2>
+              <h3 className="text-4xl md:text-5xl font-black text-slate-900 tracking-tighter">Industrial <span className="text-blue-600">Infrastructure.</span></h3>
+           </div>
+           <div className="grid lg:grid-cols-3 gap-12">
+              {(data.sections.pillars || []).map((p, i) => (
+                 <motion.div key={i} className="text-center group">
+                    <div className="w-20 h-20 bg-blue-50 text-blue-600 rounded-[2rem] flex items-center justify-center text-4xl mx-auto mb-10 group-hover:scale-110 transition-transform shadow-xl shadow-blue-600/10">{getIcon(p.icon)}</div>
+                    <h4 className="text-slate-900 font-black text-2xl mb-4 tracking-tight">{p.title}</h4>
+                    <p className="text-slate-500 font-light leading-relaxed text-lg">{p.desc}</p>
+                 </motion.div>
+              ))}
+           </div>
         </div>
 
         {/* CTA */}
@@ -257,7 +281,7 @@ export default function HostingClient({ data }) {
            <h3 className="text-5xl lg:text-7xl font-black text-slate-900 mb-12 leading-tight">Scale your digital footprint. <br/><span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-indigo-600 font-serif italic font-medium">Command the Infrastructure.</span></h3>
            <div className="flex flex-col sm:flex-row gap-6 justify-center">
               <button className="w-full sm:w-[280px] px-8 py-6 bg-blue-600 text-white font-black rounded-xl hover:bg-blue-700 transition-all shadow-2xl shadow-blue-600/40 uppercase tracking-widest text-[10px] flex items-center justify-center">
-                Initialize Plan
+                {data.cta?.title || "Initialize Plan"}
               </button>
               <Link
                 href="/services/hosting/details"

@@ -302,7 +302,7 @@ export default function AutomationCMS() {
                 </div>
             </section>
 
-             {/* METRICS */}
+            {/* METRICS */}
             <section className="bg-slate-900 p-6 rounded-3xl text-white shadow-xl">
                  <div className="flex justify-between items-center mb-4 pb-3 border-b border-white/10">
                     <h2 className="text-xl font-black tracking-tighter flex items-center gap-3">
@@ -330,6 +330,24 @@ export default function AutomationCMS() {
                     }} className="border-2 border-dashed border-white/10 rounded-xl flex items-center justify-center py-5 text-white/20 hover:text-cyan-400 hover:bg-white/5 transition-all">
                         <IoAddOutline size={20} />
                     </button>
+                </div>
+            </section>
+
+            {/* CALL TO ACTION */}
+            <section className="bg-white p-6 rounded-3xl border border-slate-100 shadow-lg shadow-slate-200/30">
+                <div className="flex justify-between items-center mb-4 pb-3 border-b border-slate-100">
+                    <h2 className="text-xl font-black tracking-tighter flex items-center gap-3">
+                        <div className="w-8 h-8 bg-cyan-50 rounded-lg flex items-center justify-center text-cyan-600"><IoRocketOutline /></div>
+                        Call-To-Action Ribbon
+                    </h2>
+                </div>
+                <div className="max-w-md">
+                    <Field 
+                        label="Button Title" 
+                        value={content.landing.cta.title} 
+                        onChange={(v) => updateNested("landing", "cta.title", v)} 
+                        icon={<IoFlashOutline className="text-cyan-600" />}
+                    />
                 </div>
             </section>
 
@@ -422,6 +440,24 @@ export default function AutomationCMS() {
                             </div>
                         </div>
                     ))}
+                </div>
+            </section>
+
+            {/* CALL TO ACTION */}
+            <section className="bg-white p-6 rounded-3xl border border-slate-100 shadow-lg shadow-slate-200/30">
+                <div className="flex justify-between items-center mb-4 pb-3 border-b border-slate-100">
+                    <h2 className="text-xl font-black tracking-tighter flex items-center gap-3">
+                        <div className="w-8 h-8 bg-cyan-50 rounded-lg flex items-center justify-center text-cyan-600"><IoRocketOutline /></div>
+                        Call-To-Action Ribbon
+                    </h2>
+                </div>
+                <div className="max-w-md">
+                    <Field 
+                        label="Button Title" 
+                        value={content.details.cta.title} 
+                        onChange={(v) => updateNested("details", "cta.title", v)} 
+                        icon={<IoFlashOutline className="text-cyan-600" />}
+                    />
                 </div>
             </section>
 

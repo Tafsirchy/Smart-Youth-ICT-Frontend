@@ -166,7 +166,7 @@ export default function HireStudentClient({ data }) {
                 <p className="text-slate-500 text-xl font-light leading-relaxed">Hiring a student doesn't mean compromising. Every project is supervised by our senior Mentors through a proprietary review system ensureing enterprise standards.</p>
                 
                 <div className="grid grid-cols-2 gap-6 pt-10 border-t border-slate-100">
-                   {(data.sections.integrations || []).map((item, idx) => (
+                   {(data.sections.metrics || []).map((item, idx) => (
                       <div key={idx} className="space-y-2">
                          <h4 className="text-[10px] font-black text-amber-600 uppercase tracking-widest">{item.t}</h4>
                          <p className="text-xs text-slate-400 font-bold">{item.d}</p>

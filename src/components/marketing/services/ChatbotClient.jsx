@@ -82,7 +82,7 @@ export default function ChatbotClient({ content }) {
             </motion.p>
 
             <div className="flex flex-col sm:flex-row gap-6">
-              <button className="w-full sm:w-[280px] px-8 py-6 bg-emerald-600 text-white font-black rounded-xl hover:bg-emerald-700 transition-all shadow-2xl shadow-emerald-600/20 uppercase tracking-widest text-[100px] flex items-center justify-center">
+              <button className="w-full sm:w-[280px] px-8 py-6 bg-emerald-600 text-white font-black rounded-xl hover:bg-emerald-700 transition-all shadow-2xl shadow-emerald-600/20 uppercase tracking-widest text-[10px] flex items-center justify-center">
                 Initialize AI Deployment
               </button>
               <Link
@@ -130,7 +130,8 @@ export default function ChatbotClient({ content }) {
                   {[
                     { icon: <IoChatbubblesOutline />, pos: "top-10 left-10", label: "NLP_SYNC" },
                     { icon: <IoPulseOutline />, pos: "bottom-10 right-10", label: "RAG_PROTO" },
-                    { icon: <IoGitNetworkOutline />, pos: "top-14 right-14", label: "MAPPED_V4" }
+                    { icon: <IoGitNetworkOutline />, pos: "top-14 right-14", label: "MAPPED_V4" },
+                    { icon: <IoShieldCheckmarkOutline />, pos: "bottom-10 left-10", label: "SECURE_AI" }
                   ].map((node, i) => (
                     <motion.div
                       key={i}

@@ -191,7 +191,7 @@ export default function MaintenanceClient({ content }) {
                 <p className="text-slate-500 text-xl font-light leading-relaxed">Gain absolute structural transparency. Every client receives a manifest showing real-time uptime, security scans, and V8 engine performance metrics.</p>
                 
                 <div className="grid grid-cols-2 gap-px bg-slate-50 border border-slate-100 rounded-3xl overflow-hidden mt-10">
-                   {(data.sections.integrations || []).map((item, idx) => (
+                   {(data.sections.metrics || []).map((item, idx) => (
                       <div key={idx} className="p-10 hover:bg-white transition-colors group">
                          <h4 className="text-[10px] font-black text-teal-600 uppercase tracking-widest mb-2">{item.t}</h4>
                          <p className="text-xs text-slate-400 font-bold">{item.d}</p>

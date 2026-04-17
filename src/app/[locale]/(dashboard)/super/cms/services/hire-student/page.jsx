@@ -40,8 +40,9 @@ export default function HireStudentCMS() {
       cta: { title: "" }
     },
     details: {
-      hero: { badge: "", title: "", description: "" },
+      hero: { badge: "", title: "", description: "", subtitle: "" },
       sections: { 
+        phases: [],
         roi: [] 
       },
       cta: { title: "" }
@@ -258,94 +259,185 @@ export default function HireStudentCMS() {
                         Success Metrics
                     </h2>
                 </div>
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-3">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
                     {content.landing.sections.metrics?.map((metric, idx) => (
-                        <div key={idx} className="bg-white/5 border border-white/10 p-5 rounded-xl relative group hover:bg-white/10 transition-all text-center">
+                        <div key={idx} className="bg-white/5 border border-white/10 p-5 rounded-xl relative group hover:bg-white/10 transition-all">
                              <button onClick={() => {
                                 const newArr = content.landing.sections.metrics.filter((_, i) => i !== idx);
                                 updateNested("landing", "sections.metrics", newArr);
-                            }} className="absolute top-4 right-4 text-white/10 hover:text-rose-500 opacity-0 group-hover:opacity-100 transition-all"><IoTrashOutline size={16}/></button>
-                            <input className="bg-transparent border-none outline-none font-black text-xs uppercase text-white w-full text-center" value={metric.t} onChange={(e) => {
-                                const newArr = [...content.landing.sections.metrics];
-                                newArr[idx].t = e.target.value;
-                                updateNested("landing", "sections.metrics", newArr);
-                            }} />
+                            }} className="absolute top-2 right-2 text-white/10 hover:text-rose-500 opacity-0 group-hover:opacity-100 transition-all p-1"><IoTrashOutline size={14}/></button>
+                            <input 
+                                placeholder="Metric Label"
+                                className="bg-transparent border-none outline-none font-black text-[10px] uppercase text-indigo-400 w-full mb-1" 
+                                value={metric.t} 
+                                onChange={(e) => {
+                                    const newArr = [...content.landing.sections.metrics];
+                                    newArr[idx].t = e.target.value;
+                                    updateNested("landing", "sections.metrics", newArr);
+                                }} 
+                            />
+                            <textarea 
+                                placeholder="Metric rationale/description"
+                                rows="2"
+                                className="bg-transparent border-none outline-none text-[11px] text-white/60 w-full resize-none scrollbar-hide font-medium leading-relaxed" 
+                                value={metric.d} 
+                                onChange={(e) => {
+                                    const newArr = [...content.landing.sections.metrics];
+                                    newArr[idx].d = e.target.value;
+                                    updateNested("landing", "sections.metrics", newArr);
+                                }} 
+                            />
                         </div>
                     ))}
                     <button onClick={() => {
-                        const newArr = [...(content.landing.sections.metrics || []), { t: "95% RETENTION" }];
+                        const newArr = [...(content.landing.sections.metrics || []), { t: "98% MATCH_RATE", d: "Proprietary vetting logic ensuring elite alignment." }];
                         updateNested("landing", "sections.metrics", newArr);
-                    }} className="border-2 border-dashed border-white/10 rounded-xl flex items-center justify-center py-5 text-white/20 hover:text-indigo-400 hover:bg-white/5 transition-all">
+                    }} className="border-2 border-dashed border-white/10 rounded-xl flex items-center justify-center py-8 text-white/20 hover:text-indigo-400 hover:bg-white/5 transition-all">
                         <IoAddOutline size={20} />
                     </button>
                 </div>
+            </section>
+
+            {/* CALL TO ACTION */}
+            <section className="bg-white p-6 rounded-3xl border border-slate-100 shadow-lg shadow-slate-200/30">
+                <div className="flex justify-between items-center mb-4 pb-3 border-b border-slate-100">
+                    <h2 className="text-xl font-black tracking-tighter flex items-center gap-3">
+                        <div className="w-8 h-8 bg-indigo-50 rounded-lg flex items-center justify-center text-indigo-600"><IoCodeSlashOutline /></div>
+                        Call-To-Action Ribbon
+                    </h2>
+                </div>
+                <Field label="Action Button Label" value={content.landing.cta?.title || ""} onChange={(v) => updateNested("landing", "cta.title", v)} />
             </section>
 
           </motion.div>
         ) : (
           <motion.div key="details" initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -10 }} className="space-y-8">
             
-            {/* ROI FEATURES */}
+            {/* DETAILS HERO */}
+            <section className="bg-white p-6 rounded-3xl border border-slate-100 shadow-lg shadow-slate-200/30">
+                <div className="flex justify-between items-center mb-4 pb-3 border-b border-slate-100">
+                    <h2 className="text-xl font-black tracking-tighter flex items-center gap-3">
+                        <div className="w-8 h-8 bg-indigo-50 rounded-lg flex items-center justify-center text-indigo-600"><IoPrismOutline /></div>
+                        Protocol Hero
+                    </h2>
+                </div>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <Field label="Subtitle" value={content.details.hero.subtitle} onChange={(v) => updateNested("details", "hero.subtitle", v)} />
+                    <Field label="Badge" value={content.details.hero.badge} onChange={(v) => updateNested("details", "hero.badge", v)} />
+                    <Field label="Title" value={content.details.hero.title} onChange={(v) => updateNested("details", "hero.title", v)} />
+                    <Field label="Description" value={content.details.hero.description} onChange={(v) => updateNested("details", "hero.description", v)} textarea />
+                </div>
+            </section>
+
+            {/* VETTING PHASES */}
+            <section className="bg-white p-6 rounded-3xl border border-slate-100 shadow-lg shadow-slate-200/30">
+                <div className="flex justify-between items-center mb-4 pb-3 border-b border-slate-100">
+                    <h2 className="text-xl font-black tracking-tighter flex items-center gap-3">
+                        <div className="w-8 h-8 bg-indigo-50 rounded-lg flex items-center justify-center text-indigo-600"><IoListOutline /></div>
+                        Vetting Lifecycle
+                    </h2>
+                    <AddButton onClick={() => {
+                        const newArr = [...(content.details.sections.phases || []), { step: "PHASE_0X", stage: "", action: "" }];
+                        updateNested("details", "sections.phases", newArr);
+                    }} small />
+                </div>
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                    {content.details.sections.phases?.map((item, idx) => (
+                        <CardWrapper key={idx} onRemove={() => {
+                            const newArr = content.details.sections.phases.filter((_, i) => i !== idx);
+                            updateNested("details", "sections.phases", newArr);
+                        }} compact>
+                            <input placeholder="Step (e.g. PHASE_01)" className="w-full bg-transparent border-none outline-none font-mono text-[8px] text-indigo-500 uppercase tracking-widest mb-2" value={item.step} onChange={(e) => {
+                                const newArr = [...content.details.sections.phases];
+                                newArr[idx].step = e.target.value;
+                                updateNested("details", "sections.phases", newArr);
+                            }} />
+                            <input placeholder="Stage Title" className="w-full bg-transparent border-none outline-none font-black text-xs uppercase tracking-tight mb-2" value={item.stage} onChange={(e) => {
+                                const newArr = [...content.details.sections.phases];
+                                newArr[idx].stage = e.target.value;
+                                updateNested("details", "sections.phases", newArr);
+                            }} />
+                            <textarea placeholder="Action description" rows="3" className="w-full bg-slate-50 border border-transparent focus:bg-white focus:border-slate-100 rounded-xl p-3 text-[10px] text-slate-500 leading-relaxed outline-none transition-all scrollbar-hide" value={item.action} onChange={(e) => {
+                                const newArr = [...content.details.sections.phases];
+                                newArr[idx].action = e.target.value;
+                                updateNested("details", "sections.phases", newArr);
+                            }} />
+                        </CardWrapper>
+                    ))}
+                </div>
+            </section>
+
+            {/* ROI FRAMEWORKS */}
             <section className="bg-white p-6 rounded-3xl border border-slate-100 shadow-lg shadow-slate-200/30">
                 <div className="flex justify-between items-center mb-4 pb-3 border-b border-slate-100">
                     <h2 className="text-xl font-black tracking-tighter flex items-center gap-3">
                         <div className="w-8 h-8 bg-indigo-50 rounded-lg flex items-center justify-center text-indigo-600"><IoFlashOutline /></div>
-                        Recruitment ROI
+                        Recruitment Frameworks
                     </h2>
                     <AddButton onClick={() => {
-                        const newArr = [...(content.details.sections.roi || []), { title: "", desc: "", icon: "School" }];
+                        const newArr = [...(content.details.sections.roi || []), { group: "", items: [""] }];
                         updateNested("details", "sections.roi", newArr);
                     }} small />
                 </div>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     {content.details.sections.roi?.map((spec, idx) => (
-                        <div key={idx} className="p-5 bg-slate-50 rounded-2xl relative group border border-transparent hover:border-indigo-100 transition-all">
+                        <div key={idx} className="p-6 bg-slate-50 rounded-2xl relative group border border-transparent hover:border-indigo-100 transition-all">
                             <button onClick={() => {
                                 const newArr = content.details.sections.roi.filter((_, i) => i !== idx);
                                 updateNested("details", "sections.roi", newArr);
-                            }} className="absolute top-4 right-4 text-slate-200 hover:text-rose-500 transition-all opacity-0 group-hover:opacity-100 z-10 p-1.5 bg-white/5 rounded-lg"><IoTrashOutline size={16}/></button>
-                            <div className="flex gap-4 mb-4">
-                                <div className="shrink-0 relative group/icon">
-                                    <div className="w-12 h-12 rounded-xl bg-white flex items-center justify-center text-indigo-600 text-2xl shadow-inner border border-slate-100 group-hover:scale-105 transition-transform">
-                                        {spec.icon === "School" && <IoSchoolOutline />}
-                                        {spec.icon === "People" && <IoPeopleOutline />}
-                                        {spec.icon === "Ribbon" && <IoRibbonOutline />}
-                                        {spec.icon === "Flash" && <IoFlashOutline />}
-                                        {spec.icon === "Briefcase" && <IoBriefcaseOutline />}
-                                        {spec.icon === "Globe" && <IoGlobeOutline />}
-                                        {spec.icon === "Analytics" && <IoAnalyticsOutline />}
-                                        {spec.icon === "Rocket" && <IoRocketOutline />}
-                                        {spec.icon === "Layers" && <IoLayersOutline />}
-                                        
-                                        <select 
-                                            className="absolute inset-0 opacity-0 cursor-pointer w-full h-full" 
-                                            value={spec.icon} 
+                            }} className="absolute top-4 right-4 text-slate-200 hover:text-rose-500 transition-all opacity-0 group-hover:opacity-100 z-10"><IoTrashOutline size={16}/></button>
+                            
+                            <input placeholder="Framework Group (e.g. Design)" className="w-full bg-transparent border-none outline-none font-black text-[10px] uppercase text-indigo-600 tracking-widest mb-4" value={spec.group} onChange={(e) => {
+                                const newArr = [...content.details.sections.roi];
+                                newArr[idx].group = e.target.value;
+                                updateNested("details", "sections.roi", newArr);
+                            }} />
+
+                            <div className="space-y-2">
+                                {spec.items?.map((item, sIdx) => (
+                                    <div key={sIdx} className="flex items-center gap-2">
+                                        <div className="w-1.5 h-1.5 rounded-full bg-indigo-400 shrink-0" />
+                                        <input 
+                                            className="flex-1 bg-transparent border-none outline-none text-[11px] font-bold text-slate-700" 
+                                            value={item} 
                                             onChange={(e) => {
                                                 const newArr = [...content.details.sections.roi];
-                                                newArr[idx].icon = e.target.value;
+                                                newArr[idx].items[sIdx] = e.target.value;
                                                 updateNested("details", "sections.roi", newArr);
-                                            }}
-                                        >
-                                            {ICON_OPTIONS.map(o => <option key={o} value={o}>{o}</option>)}
-                                        </select>
+                                            }} 
+                                        />
+                                        <button onClick={() => {
+                                            const newArr = [...content.details.sections.roi];
+                                            newArr[idx].items = newArr[idx].items.filter((_, i) => i !== sIdx);
+                                            updateNested("details", "sections.roi", newArr);
+                                        }} className="text-slate-300 hover:text-rose-500 opacity-0 group-hover:opacity-100"><IoTrashOutline size={12}/></button>
                                     </div>
-                                </div>
-                                <div className="flex-1 min-w-0">
-                                    <input placeholder="ROI Factor" className="w-full bg-transparent border-none outline-none font-black text-sm tracking-tighter mb-0.5 uppercase text-slate-900 focus:text-indigo-600 transition-colors" value={spec.title} onChange={(e) => {
+                                ))}
+                                <button 
+                                    onClick={() => {
                                         const newArr = [...content.details.sections.roi];
-                                        newArr[idx].title = e.target.value;
+                                        newArr[idx].items.push("");
                                         updateNested("details", "sections.roi", newArr);
-                                    }} />
-                                    <textarea placeholder="Technical explanation" rows="2" className="w-full bg-transparent border-none outline-none text-[10px] text-slate-400 font-medium leading-relaxed scrollbar-hide shrink-0" value={spec.desc} onChange={(e) => {
-                                        const newArr = [...content.details.sections.roi];
-                                        newArr[idx].desc = e.target.value;
-                                        updateNested("details", "sections.roi", newArr);
-                                    }} />
-                                </div>
+                                    }}
+                                    className="text-[9px] font-black text-indigo-400 uppercase tracking-widest mt-2 hover:text-indigo-600 transition-colors"
+                                >
+                                    + Add Item
+                                </button>
                             </div>
                         </div>
                     ))}
                 </div>
+            </section>
+
+            {/* CALL TO ACTION */}
+            <section className="bg-white p-6 rounded-3xl border border-slate-100 shadow-lg shadow-slate-200/30">
+                <div className="flex justify-between items-center mb-4 pb-3 border-b border-slate-100">
+                    <h2 className="text-xl font-black tracking-tighter flex items-center gap-3">
+                        <div className="w-8 h-8 bg-indigo-50 rounded-lg flex items-center justify-center text-indigo-600"><IoCodeSlashOutline /></div>
+                        Call-To-Action Ribbon
+                    </h2>
+                </div>
+                <Field label="Action Button Label" value={content.details.cta?.title || ""} onChange={(v) => updateNested("details", "cta.title", v)} />
             </section>
 
           </motion.div>
