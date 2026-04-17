@@ -118,14 +118,14 @@ export default function HireStudentCMS() {
   return (
     <div className="min-h-screen bg-slate-50 p-6 max-w-7xl mx-auto pb-24 text-slate-900 selection:bg-indigo-600 selection:text-white">
       {/* HEADER PROTOCOL */}
-      <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-8">
+      <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-6">
         <div>
           <div className="flex items-center gap-2 text-indigo-600 mb-1">
             <IoSchoolOutline className="text-lg" />
-            <span className="text-[9px] font-black uppercase tracking-[0.4em]">Service_Tier_Talent_Acquisition</span>
+            <span className="text-[10px] font-black uppercase tracking-[0.4em]">Service_Tier_Talent_Acquisition</span>
           </div>
           <h1 className="text-3xl font-black text-slate-900 tracking-tighter leading-none">Hire Student AI/Managed</h1>
-          <p className="text-slate-400 font-bold uppercase tracking-widest text-[9px] mt-2 ml-1">Centralized Hiring Node</p>
+          <p className="text-slate-400 font-bold uppercase tracking-widest text-[10px] mt-1.5 ml-1">Centralized Hiring Node</p>
         </div>
         <button 
           onClick={handleSave}
@@ -141,7 +141,7 @@ export default function HireStudentCMS() {
       </div>
 
        {/* TIER SELECTOR */}
-       <div className="flex gap-1 mb-8 bg-white p-1.5 rounded-xl border border-slate-200 w-fit shadow-sm">
+       <div className="flex gap-1 mb-6 bg-white p-1 rounded-xl border border-slate-200 w-fit shadow-sm">
         {[
           { id: "landing", label: "Talent Landing", icon: IoLayersOutline, color: "text-indigo-500" },
           { id: "details", label: "Protocol Manifest", icon: IoSettingsOutline, color: "text-slate-500" },
@@ -149,9 +149,9 @@ export default function HireStudentCMS() {
           <button
             key={tab.id}
             onClick={() => setActiveTab(tab.id)}
-            className={`flex items-center gap-2.5 px-6 py-2.5 rounded-lg font-black uppercase tracking-widest text-[9px] transition-all ${activeTab === tab.id ? 'bg-slate-900 text-white shadow-md' : 'text-slate-400 hover:text-slate-600 hover:bg-slate-50'}`}
+            className={`flex items-center gap-2 px-5 py-2 rounded-lg font-black uppercase tracking-widest text-[9px] transition-all ${activeTab === tab.id ? 'bg-slate-900 text-white shadow-md' : 'text-slate-400 hover:text-slate-600 hover:bg-slate-50'}`}
           >
-            <tab.icon size={16} className={activeTab === tab.id ? 'text-indigo-400' : tab.color} />
+            <tab.icon size={15} className={activeTab === tab.id ? 'text-indigo-400' : tab.color} />
             {tab.label}
           </button>
         ))}
@@ -162,8 +162,8 @@ export default function HireStudentCMS() {
           <motion.div key="landing" initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -10 }} className="space-y-8">
             
             {/* HERO SECTION */}
-            <section className="bg-white p-8 rounded-3xl border border-slate-100 shadow-lg shadow-slate-200/30">
-                <div className="flex justify-between items-center mb-6 pb-4 border-b border-slate-100">
+            <section className="bg-white p-6 rounded-3xl border border-slate-100 shadow-lg shadow-slate-200/30">
+                <div className="flex justify-between items-center mb-4 pb-3 border-b border-slate-100">
                     <h2 className="text-xl font-black tracking-tighter flex items-center gap-3">
                         <div className="w-8 h-8 bg-indigo-50 rounded-lg flex items-center justify-center text-indigo-600"><IoPrismOutline /></div>
                         Hero Architecture
@@ -179,8 +179,8 @@ export default function HireStudentCMS() {
             </section>
 
              {/* PILLARS */}
-             <section className="bg-white p-8 rounded-3xl border border-slate-100 shadow-lg shadow-slate-200/30">
-                <div className="flex justify-between items-center mb-6 pb-4 border-b border-slate-100">
+             <section className="bg-white p-6 rounded-3xl border border-slate-100 shadow-lg shadow-slate-200/30">
+                <div className="flex justify-between items-center mb-4 pb-3 border-b border-slate-100">
                     <h2 className="text-xl font-black tracking-tighter flex items-center gap-3">
                         <div className="w-8 h-8 bg-indigo-50 rounded-lg flex items-center justify-center text-indigo-600"><IoRibbonOutline /></div>
                         Talent Pillars
@@ -191,23 +191,41 @@ export default function HireStudentCMS() {
                         <CardWrapper key={idx} onRemove={() => {
                             const newArr = content.landing.sections.pillars.filter((_, i) => i !== idx);
                             updateNested("landing", "sections.pillars", newArr);
-                        }}>
+                        }} compact>
                              <div className="flex gap-4 mb-4">
-                                <select className="bg-slate-50 border border-slate-100 rounded-lg p-2 text-[9px] font-black uppercase tracking-widest outline-none text-indigo-600" value={item.icon} onChange={(e) => {
-                                    const newArr = [...content.landing.sections.pillars];
-                                    newArr[idx].icon = e.target.value;
-                                    updateNested("landing", "sections.pillars", newArr);
-                                }}>
-                                    {ICON_OPTIONS.map(o => <option key={o} value={o}>{o}</option>)}
-                                </select>
-                                <div className="flex-1">
+                                <div className="shrink-0 relative group/icon">
+                                    <div className="w-12 h-12 rounded-xl bg-slate-50 flex items-center justify-center text-indigo-600 text-2xl shadow-inner border border-slate-100 group-hover:scale-105 transition-all">
+                                        {item.icon === "School" && <IoSchoolOutline />}
+                                        {item.icon === "People" && <IoPeopleOutline />}
+                                        {item.icon === "Ribbon" && <IoRibbonOutline />}
+                                        {item.icon === "Flash" && <IoFlashOutline />}
+                                        {item.icon === "Briefcase" && <IoBriefcaseOutline />}
+                                        {item.icon === "Globe" && <IoGlobeOutline />}
+                                        {item.icon === "Analytics" && <IoAnalyticsOutline />}
+                                        {item.icon === "Rocket" && <IoRocketOutline />}
+                                        {item.icon === "Layers" && <IoLayersOutline />}
+                                        
+                                        <select 
+                                            className="absolute inset-0 opacity-0 cursor-pointer w-full h-full" 
+                                            value={item.icon} 
+                                            onChange={(e) => {
+                                                const newArr = [...content.landing.sections.pillars];
+                                                newArr[idx].icon = e.target.value;
+                                                updateNested("landing", "sections.pillars", newArr);
+                                            }}
+                                        >
+                                            {ICON_OPTIONS.map(o => <option key={o} value={o}>{o}</option>)}
+                                        </select>
+                                    </div>
+                                </div>
+                                <div className="flex-1 min-w-0">
                                     <input placeholder="Pillar Title" className="w-full bg-transparent border-none outline-none font-black text-sm uppercase tracking-tighter" value={item.title} onChange={(e) => {
                                         const newArr = [...content.landing.sections.pillars];
                                         newArr[idx].title = e.target.value;
                                         updateNested("landing", "sections.pillars", newArr);
                                     }} />
                                     <div className="flex items-center gap-1.5 mt-1">
-                                        <IoColorPaletteOutline className="text-slate-300 text-xs" />
+                                        <IoColorPaletteOutline className="text-slate-300 text-[10px]" />
                                         <select className="bg-transparent border-none outline-none text-[8px] font-bold text-slate-400 uppercase" value={item.color} onChange={(e) => {
                                             const newArr = [...content.landing.sections.pillars];
                                             newArr[idx].color = e.target.value;
@@ -218,7 +236,7 @@ export default function HireStudentCMS() {
                                     </div>
                                 </div>
                             </div>
-                            <textarea placeholder="Talent rationale" rows="3" className="w-full bg-slate-50 border border-transparent focus:bg-white focus:border-slate-100 rounded-xl p-3 text-[11px] text-slate-500 leading-relaxed outline-none transition-all" value={item.desc} onChange={(e) => {
+                            <textarea placeholder="Talent rationale" rows="3" className="w-full bg-slate-50 border border-transparent focus:bg-white focus:border-slate-100 rounded-xl p-3 text-[11px] text-slate-500 leading-relaxed outline-none transition-all scrollbar-hide" value={item.desc} onChange={(e) => {
                                 const newArr = [...content.landing.sections.pillars];
                                 newArr[idx].desc = e.target.value;
                                 updateNested("landing", "sections.pillars", newArr);
@@ -233,8 +251,8 @@ export default function HireStudentCMS() {
             </section>
 
              {/* METRICS */}
-             <section className="bg-slate-900 p-8 rounded-3xl text-white shadow-xl">
-                 <div className="flex justify-between items-center mb-6 pb-4 border-b border-white/10">
+             <section className="bg-slate-900 p-6 rounded-3xl text-white shadow-xl">
+                 <div className="flex justify-between items-center mb-4 pb-3 border-b border-white/10">
                     <h2 className="text-xl font-black tracking-tighter flex items-center gap-3">
                         <div className="w-8 h-8 bg-white/10 rounded-lg flex items-center justify-center text-indigo-400"><IoStatsChartOutline /></div>
                         Success Metrics
@@ -268,8 +286,8 @@ export default function HireStudentCMS() {
           <motion.div key="details" initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -10 }} className="space-y-8">
             
             {/* ROI FEATURES */}
-            <section className="bg-white p-8 rounded-3xl border border-slate-100 shadow-lg shadow-slate-200/30">
-                <div className="flex justify-between items-center mb-6 pb-4 border-b border-slate-100">
+            <section className="bg-white p-6 rounded-3xl border border-slate-100 shadow-lg shadow-slate-200/30">
+                <div className="flex justify-between items-center mb-4 pb-3 border-b border-slate-100">
                     <h2 className="text-xl font-black tracking-tighter flex items-center gap-3">
                         <div className="w-8 h-8 bg-indigo-50 rounded-lg flex items-center justify-center text-indigo-600"><IoFlashOutline /></div>
                         Recruitment ROI
@@ -281,26 +299,44 @@ export default function HireStudentCMS() {
                 </div>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     {content.details.sections.roi?.map((spec, idx) => (
-                        <div key={idx} className="p-8 bg-slate-50 rounded-2xl relative group border border-transparent hover:border-indigo-100 transition-all">
+                        <div key={idx} className="p-5 bg-slate-50 rounded-2xl relative group border border-transparent hover:border-indigo-100 transition-all">
                             <button onClick={() => {
                                 const newArr = content.details.sections.roi.filter((_, i) => i !== idx);
                                 updateNested("details", "sections.roi", newArr);
-                            }} className="absolute top-4 right-4 text-slate-200 hover:text-rose-500 transition-all opacity-0 group-hover:opacity-100"><IoTrashOutline size={16}/></button>
+                            }} className="absolute top-4 right-4 text-slate-200 hover:text-rose-500 transition-all opacity-0 group-hover:opacity-100 z-10 p-1.5 bg-white/5 rounded-lg"><IoTrashOutline size={16}/></button>
                             <div className="flex gap-4 mb-4">
-                                <select className="bg-white p-2.5 h-fit rounded-lg text-indigo-600 outline-none text-2xl shrink-0 border border-slate-100" value={spec.icon} onChange={(e) => {
-                                    const newArr = [...content.details.sections.roi];
-                                    newArr[idx].icon = e.target.value;
-                                    updateNested("details", "sections.roi", newArr);
-                                }}>
-                                    {ICON_OPTIONS.map(o => <option key={o} value={o}>{o}</option>)}
-                                </select>
-                                <div className="flex-1">
-                                    <input placeholder="ROI Factor" className="w-full bg-transparent border-none outline-none font-black text-sm tracking-tighter mb-1 uppercase text-slate-900" value={spec.title} onChange={(e) => {
+                                <div className="shrink-0 relative group/icon">
+                                    <div className="w-12 h-12 rounded-xl bg-white flex items-center justify-center text-indigo-600 text-2xl shadow-inner border border-slate-100 group-hover:scale-105 transition-transform">
+                                        {spec.icon === "School" && <IoSchoolOutline />}
+                                        {spec.icon === "People" && <IoPeopleOutline />}
+                                        {spec.icon === "Ribbon" && <IoRibbonOutline />}
+                                        {spec.icon === "Flash" && <IoFlashOutline />}
+                                        {spec.icon === "Briefcase" && <IoBriefcaseOutline />}
+                                        {spec.icon === "Globe" && <IoGlobeOutline />}
+                                        {spec.icon === "Analytics" && <IoAnalyticsOutline />}
+                                        {spec.icon === "Rocket" && <IoRocketOutline />}
+                                        {spec.icon === "Layers" && <IoLayersOutline />}
+                                        
+                                        <select 
+                                            className="absolute inset-0 opacity-0 cursor-pointer w-full h-full" 
+                                            value={spec.icon} 
+                                            onChange={(e) => {
+                                                const newArr = [...content.details.sections.roi];
+                                                newArr[idx].icon = e.target.value;
+                                                updateNested("details", "sections.roi", newArr);
+                                            }}
+                                        >
+                                            {ICON_OPTIONS.map(o => <option key={o} value={o}>{o}</option>)}
+                                        </select>
+                                    </div>
+                                </div>
+                                <div className="flex-1 min-w-0">
+                                    <input placeholder="ROI Factor" className="w-full bg-transparent border-none outline-none font-black text-sm tracking-tighter mb-0.5 uppercase text-slate-900 focus:text-indigo-600 transition-colors" value={spec.title} onChange={(e) => {
                                         const newArr = [...content.details.sections.roi];
                                         newArr[idx].title = e.target.value;
                                         updateNested("details", "sections.roi", newArr);
                                     }} />
-                                    <textarea placeholder="Technical explanation" rows="2" className="w-full bg-transparent border-none outline-none text-[11px] text-slate-400 font-medium leading-relaxed" value={spec.desc} onChange={(e) => {
+                                    <textarea placeholder="Technical explanation" rows="2" className="w-full bg-transparent border-none outline-none text-[10px] text-slate-400 font-medium leading-relaxed scrollbar-hide shrink-0" value={spec.desc} onChange={(e) => {
                                         const newArr = [...content.details.sections.roi];
                                         newArr[idx].desc = e.target.value;
                                         updateNested("details", "sections.roi", newArr);
@@ -322,7 +358,7 @@ export default function HireStudentCMS() {
 function Field({ label, value, onChange, textarea = false, dark = false, small = false, icon = null }) {
     return (
         <div className={small ? "w-48" : "w-full"}>
-            <label className={`block text-[9px] font-black uppercase mb-1.5 tracking-widest ${dark ? 'text-slate-500' : 'text-slate-400'}`}>
+            <label className={`block text-[10px] font-black uppercase mb-1 tracking-widest ${dark ? 'text-slate-500' : 'text-slate-400'}`}>
                 {label}
             </label>
             <div className={`relative flex items-center ${dark ? 'bg-white/5 border-white/5' : 'bg-slate-50 border-transparent'} border rounded-xl overflow-hidden focus-within:border-indigo-500/10 transition-all`}>
@@ -330,13 +366,13 @@ function Field({ label, value, onChange, textarea = false, dark = false, small =
                 {textarea ? (
                     <textarea 
                         rows="3" 
-                        className={`w-full px-4 py-2.5 bg-transparent outline-none font-medium text-[11px] leading-relaxed shrink-0 ${dark ? 'text-white' : 'text-slate-900'}`} 
+                        className={`w-full px-4 py-2 bg-transparent outline-none font-medium text-[11px] leading-relaxed shrink-0 scrollbar-hide ${dark ? 'text-white' : 'text-slate-900'}`} 
                         value={value || ""} 
                         onChange={(e) => onChange(e.target.value)} 
                     />
                 ) : (
                     <input 
-                        className={`w-full px-4 py-2.5 bg-transparent outline-none font-black text-xs ${dark ? 'text-white' : 'text-slate-900'}`} 
+                        className={`w-full px-4 py-2 bg-transparent outline-none font-black text-xs ${dark ? 'text-white' : 'text-slate-900'}`} 
                         value={value || ""} 
                         onChange={(e) => onChange(e.target.value)} 
                     />
@@ -346,9 +382,9 @@ function Field({ label, value, onChange, textarea = false, dark = false, small =
     );
 }
 
-function CardWrapper({ children, onRemove, highlight = false }) {
+function CardWrapper({ children, onRemove, highlight = false, compact = false }) {
     return (
-        <div className={`p-6 bg-white border border-slate-100 rounded-2xl shadow-sm hover:shadow-lg transition-all relative group ${highlight ? 'ring-2 ring-indigo-600 shadow-indigo-600/10' : ''}`}>
+        <div className={`${compact ? 'p-4' : 'p-6'} bg-white border border-slate-100 rounded-2xl shadow-sm hover:shadow-lg transition-all relative group ${highlight ? 'ring-2 ring-indigo-600 shadow-indigo-600/10' : ''}`}>
             {onRemove && (
                 <button 
                     onClick={onRemove} 

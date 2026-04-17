@@ -26,6 +26,45 @@ const COLOR_OPTIONS = [
   { name: "Slate", value: "from-slate-700 to-slate-900", text: "text-slate-700" }
 ];
 
+const AUTOMATION_TEMPLATE = {
+    landing: {
+        hero: { 
+            badge: "Operational Efficiency Protocol", 
+            title: "Eliminate the 'Human Tax' with Workflow Automation", 
+            description: "Bridge your software stack with high-velocity automation engines. We create seamless, hands-free operational flows that save hundreds of hours per month." 
+        },
+        sections: { 
+            pillars: [
+                { title: "Data Pipeline Automation", desc: "Synchronizing data between CRMs, Sheets, and internal databases in real-time with zero latency.", icon: "Sync", color: "from-cyan-600 to-blue-700" },
+                { title: "RPA (UI Automation)", desc: "Bot-driven navigation of legacy web apps that lack official API support, bridging digital silos.", icon: "Extension", color: "from-slate-700 to-slate-900" },
+                { title: "DevOps Pipelines", desc: "Automated testing, deployment, and infrastructure scaling triggers for high-frequency releases.", icon: "Flash", color: "from-blue-600 to-indigo-800" }
+            ], 
+            metrics: [
+                { t: "40+ HOURS SAVED / WEEK" },
+                { t: "ZERO DATA ENTRY ERRORS" },
+                { t: "24/7 EVENT MONITORING" },
+                { t: "5X OPERATIONAL SCALE" }
+            ] 
+        },
+        cta: { title: "Ready to automate your future?" }
+    },
+    details: {
+        hero: { 
+            badge: "Technical Specification Protocol", 
+            title: "Efficiency Logic & Operational Flow", 
+            description: "Technical manifest of our automation engines. We deliver low-latency logic gates designed to scale your business operations without increasing headcount." 
+        },
+        sections: { 
+            roi: [
+                { title: "Labor Reduction", desc: "Average saving of 40+ hours per week per department through hands-free data entry and reporting.", icon: "Sync" },
+                { title: "Error Mitigation", desc: "Reducing human data entry errors to practically zero percent with automated validation and failure recovery.", icon: "Shield" },
+                { title: "High-Speed Scaling", desc: "Execute complex workflows in milliseconds, allowing your operation to handle infinite volume spikes.", icon: "Flash" }
+            ] 
+        },
+        cta: { title: "Initialize Your Automation Audit" }
+    }
+};
+
 export default function AutomationCMS() {
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
@@ -42,7 +81,8 @@ export default function AutomationCMS() {
     details: {
       hero: { badge: "", title: "", description: "" },
       sections: { 
-        roi: [] 
+        roi: [],
+        phases: []
       },
       cta: { title: "" }
     }
@@ -127,17 +167,29 @@ export default function AutomationCMS() {
           <h1 className="text-3xl font-black text-slate-900 tracking-tighter leading-none">Process Automation</h1>
           <p className="text-slate-400 font-bold uppercase tracking-widest text-[10px] mt-1.5 ml-1">Centralized Efficiency Node</p>
         </div>
-        <button 
-          onClick={handleSave}
-          disabled={saving}
-          className="group relative overflow-hidden px-8 py-3.5 bg-slate-900 text-white rounded-xl font-black uppercase tracking-widest text-[10px] flex items-center gap-3 hover:shadow-xl hover:shadow-cyan-950/20 transition-all active:scale-95 disabled:opacity-50"
-        >
-          <div className="absolute inset-0 bg-gradient-to-r from-cyan-600 to-blue-600 opacity-0 group-hover:opacity-100 transition-opacity" />
-          <div className="relative flex items-center gap-3">
-            {saving ? <IoRefreshOutline className="animate-spin" /> : <IoSaveOutline className="group-hover:rotate-12 transition-transform" />}
-            Deploy Factory Logic
-          </div>
-        </button>
+        <div className="flex gap-3">
+          <button 
+            onClick={() => {
+                setContent(AUTOMATION_TEMPLATE);
+                toast.success("Elite template loaded. Deployment pending.");
+            }}
+            className="px-6 py-3.5 bg-white border border-slate-200 text-slate-600 rounded-xl font-black uppercase tracking-widest text-[10px] flex items-center gap-3 hover:bg-slate-50 transition-all active:scale-95"
+          >
+            <IoLayersOutline className="text-cyan-600" />
+            Load Elite Template
+          </button>
+          <button 
+            onClick={handleSave}
+            disabled={saving}
+            className="group relative overflow-hidden px-8 py-3.5 bg-slate-900 text-white rounded-xl font-black uppercase tracking-widest text-[10px] flex items-center gap-3 hover:shadow-xl hover:shadow-cyan-950/20 transition-all active:scale-95 disabled:opacity-50"
+          >
+            <div className="absolute inset-0 bg-gradient-to-r from-cyan-600 to-blue-600 opacity-0 group-hover:opacity-100 transition-opacity" />
+            <div className="relative flex items-center gap-3">
+              {saving ? <IoRefreshOutline className="animate-spin" /> : <IoSaveOutline className="group-hover:rotate-12 transition-transform" />}
+              Deploy Factory Logic
+            </div>
+          </button>
+        </div>
       </div>
 
        {/* TIER SELECTOR */}
@@ -285,15 +337,55 @@ export default function AutomationCMS() {
         ) : (
           <motion.div key="details" initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -10 }} className="space-y-8">
             
-            {/* ROI FEATURES */}
+            {/* IMPLEMENTATION LIFECYCLE (PHASES) */}
+            <section className="bg-white p-6 rounded-3xl border border-slate-100 shadow-lg shadow-slate-200/30">
+                <div className="flex justify-between items-center mb-4 pb-3 border-b border-slate-100">
+                    <h2 className="text-xl font-black tracking-tighter flex items-center gap-3">
+                        <div className="w-8 h-8 bg-amber-50 rounded-lg flex items-center justify-center text-amber-600"><IoRocketOutline /></div>
+                        Implementation Lifecycle
+                    </h2>
+                    <AddButton onClick={() => {
+                        const newArr = [...(content.details.sections.phases || []), { step: "01", stage: "", action: "" }];
+                        updateNested("details", "sections.phases", newArr);
+                    }} small />
+                </div>
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                    {content.details.sections.phases?.map((phase, idx) => (
+                        <CardWrapper key={idx} onRemove={() => {
+                            const newArr = content.details.sections.phases.filter((_, i) => i !== idx);
+                            updateNested("details", "sections.phases", newArr);
+                        }} compact>
+                            <div className="flex gap-3 mb-3">
+                                <input placeholder="01" className="w-10 bg-slate-50 border-none outline-none font-mono text-[10px] text-amber-600 font-bold px-2 py-1 rounded-md" value={phase.step} onChange={(e) => {
+                                    const newArr = [...content.details.sections.phases];
+                                    newArr[idx].step = e.target.value;
+                                    updateNested("details", "sections.phases", newArr);
+                                }} />
+                                <input placeholder="Stage Name" className="flex-1 bg-transparent border-none outline-none font-black text-xs uppercase tracking-tight" value={phase.stage} onChange={(e) => {
+                                    const newArr = [...content.details.sections.phases];
+                                    newArr[idx].stage = e.target.value;
+                                    updateNested("details", "sections.phases", newArr);
+                                }} />
+                            </div>
+                            <textarea placeholder="Phase action/description" rows="3" className="w-full bg-slate-50 border border-transparent focus:bg-white focus:border-slate-100 rounded-xl p-3 text-[10px] text-slate-500 leading-relaxed outline-none transition-all scrollbar-hide" value={phase.action} onChange={(e) => {
+                                const newArr = [...content.details.sections.phases];
+                                newArr[idx].action = e.target.value;
+                                updateNested("details", "sections.phases", newArr);
+                            }} />
+                        </CardWrapper>
+                    ))}
+                </div>
+            </section>
+
+            {/* ROI FEATURES (GROUPED) */}
             <section className="bg-white p-6 rounded-3xl border border-slate-100 shadow-lg shadow-slate-200/30">
                 <div className="flex justify-between items-center mb-4 pb-3 border-b border-slate-100">
                     <h2 className="text-xl font-black tracking-tighter flex items-center gap-3">
                         <div className="w-8 h-8 bg-cyan-50 rounded-lg flex items-center justify-center text-cyan-600"><IoFlashOutline /></div>
-                        Efficiency ROI
+                        Efficiency Frameworks
                     </h2>
                     <AddButton onClick={() => {
-                        const newArr = [...(content.details.sections.roi || []), { title: "", desc: "", icon: "Sync" }];
+                        const newArr = [...(content.details.sections.roi || []), { group: "", items: [] }];
                         updateNested("details", "sections.roi", newArr);
                     }} small />
                 </div>
@@ -304,44 +396,29 @@ export default function AutomationCMS() {
                                 const newArr = content.details.sections.roi.filter((_, i) => i !== idx);
                                 updateNested("details", "sections.roi", newArr);
                             }} className="absolute top-4 right-4 text-slate-200 hover:text-rose-500 transition-all opacity-0 group-hover:opacity-100 z-10 p-1.5 bg-white/5 rounded-lg"><IoTrashOutline size={16}/></button>
-                            <div className="flex gap-4 mb-4">
-                                <div className="shrink-0 relative group/icon">
-                                    <div className="w-12 h-12 rounded-xl bg-white flex items-center justify-center text-cyan-600 text-2xl shadow-inner border border-slate-100 group-hover:scale-105 transition-transform">
-                                        {spec.icon === "Sync" && <IoSyncOutline />}
-                                        {spec.icon === "Flash" && <IoFlashOutline />}
-                                        {spec.icon === "Extension" && <IoExtensionOutline />}
-                                        {spec.icon === "Settings" && <IoSettingsOutline />}
-                                        {spec.icon === "Shield" && <IoShieldOutline />}
-                                        {spec.icon === "Globe" && <IoGlobeOutline />}
-                                        {spec.icon === "Analytics" && <IoAnalyticsOutline />}
-                                        {spec.icon === "Rocket" && <IoRocketOutline />}
-                                        {spec.icon === "Layers" && <IoLayersOutline />}
-                                        
-                                        <select 
-                                            className="absolute inset-0 opacity-0 cursor-pointer w-full h-full" 
-                                            value={spec.icon} 
-                                            onChange={(e) => {
-                                                const newArr = [...content.details.sections.roi];
-                                                newArr[idx].icon = e.target.value;
-                                                updateNested("details", "sections.roi", newArr);
-                                            }}
-                                        >
-                                            {ICON_OPTIONS.map(o => <option key={o} value={o}>{o}</option>)}
-                                        </select>
-                                    </div>
-                                </div>
-                                <div className="flex-1 min-w-0">
-                                    <input placeholder="ROI Principle" className="w-full bg-transparent border-none outline-none font-black text-sm tracking-tighter mb-0.5 uppercase text-slate-900 focus:text-cyan-600 transition-colors" value={spec.title} onChange={(e) => {
+                            
+                            <div className="mb-4">
+                                <label className="text-[8px] font-black uppercase text-cyan-600 mb-1 block">Framework Group</label>
+                                <input placeholder="e.g. Integration Tier" className="w-full bg-transparent border-none outline-none font-black text-sm tracking-tighter uppercase text-slate-900 focus:text-cyan-600 transition-colors" value={spec.group} onChange={(e) => {
+                                    const newArr = [...content.details.sections.roi];
+                                    newArr[idx].group = e.target.value;
+                                    updateNested("details", "sections.roi", newArr);
+                                }} />
+                            </div>
+                            
+                            <div>
+                                <label className="text-[8px] font-black uppercase text-slate-400 mb-1 block">Framework Items (Comma Separated)</label>
+                                <textarea 
+                                    placeholder="Zapier Hub, OAuth 2.0, Sync Pulse..." 
+                                    rows="3" 
+                                    className="w-full bg-white border border-slate-100 rounded-xl p-3 text-[10px] text-slate-500 font-medium leading-relaxed outline-none transition-all scrollbar-hide" 
+                                    value={spec.items?.join(", ")} 
+                                    onChange={(e) => {
                                         const newArr = [...content.details.sections.roi];
-                                        newArr[idx].title = e.target.value;
+                                        newArr[idx].items = e.target.value.split(",").map(i => i.trim()).filter(i => i !== "");
                                         updateNested("details", "sections.roi", newArr);
-                                    }} />
-                                    <textarea placeholder="Technical explanation" rows="2" className="w-full bg-transparent border-none outline-none text-[10px] text-slate-400 font-medium leading-relaxed scrollbar-hide shrink-0" value={spec.desc} onChange={(e) => {
-                                        const newArr = [...content.details.sections.roi];
-                                        newArr[idx].desc = e.target.value;
-                                        updateNested("details", "sections.roi", newArr);
-                                    }} />
-                                </div>
+                                    }} 
+                                />
                             </div>
                         </div>
                     ))}

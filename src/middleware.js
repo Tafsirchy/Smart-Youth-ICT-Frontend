@@ -87,6 +87,7 @@ export default function middleware(req) {
     pathname.includes("/courses") ||
     pathname.includes("/blog") ||
     pathname.includes("/about") ||
+    pathname.includes("/services") ||
     pathname.includes("/contact") ||
     pathname.includes("/auth-redirect");
 
