@@ -10,7 +10,7 @@ import {
   IoRocketOutline, IoBriefcaseOutline, IoGitNetworkOutline, IoAnalyticsOutline,
   IoShieldOutline, IoSparklesOutline, IoHardwareChipOutline, IoArrowBackOutline,
   IoImageOutline, IoListOutline, IoInformationCircleOutline,
-  IoSyncOutline, IoFlashOutline, IoTerminalOutline, IoExtensionOutline
+  IoSyncOutline, IoFlashOutline, IoTerminalOutline, IoExtensionPuzzleOutline
 } from "react-icons/io5";
 import api from "@/lib/api";
 import toast from "react-hot-toast";
@@ -249,7 +249,7 @@ export default function AutomationCMS() {
                                     <div className="w-12 h-12 rounded-xl bg-slate-50 flex items-center justify-center text-cyan-600 text-2xl shadow-inner border border-slate-100 group-hover:scale-105 transition-all">
                                         {item.icon === "Sync" && <IoSyncOutline />}
                                         {item.icon === "Flash" && <IoFlashOutline />}
-                                        {item.icon === "Extension" && <IoExtensionOutline />}
+                                        {item.icon === "Extension" && <IoExtensionPuzzleOutline />}
                                         {item.icon === "Settings" && <IoSettingsOutline />}
                                         {item.icon === "Shield" && <IoShieldOutline />}
                                         {item.icon === "Globe" && <IoGlobeOutline />}
