@@ -4,7 +4,7 @@ import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { 
   HiOutlineLightningBolt, HiOutlineBadgeCheck, HiOutlineTrendingUp, 
-  HiOutlineAcademicCap, HiChevronRight, HiOutlineTrophy
+  HiOutlineAcademicCap, HiChevronRight, HiTrophy
 } from 'react-icons/hi';
 import api from '@/lib/api';
 
@@ -117,7 +117,7 @@ export default function ProgressPage() {
       ) : (
         <div className="bg-white rounded-[40px] border-2 border-dashed border-neutral-100 p-20 text-center">
            <div className="w-20 h-20 bg-neutral-50 rounded-full flex items-center justify-center text-neutral-200 mx-auto mb-6">
-              <HiOutlineTrophy size={40} />
+              <HiTrophy size={40} />
            </div>
            <p className="text-neutral-400 font-medium">No course progress detected. Start a course to see your velocity!</p>
         </div>

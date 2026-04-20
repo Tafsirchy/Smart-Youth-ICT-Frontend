@@ -9,7 +9,7 @@ import {
   IoSparklesOutline,
   IoColorPaletteOutline,
   IoCodeSlashOutline,
-  IoAppWindowOutline,
+  IoBrowsersOutline,
   IoFingerPrintOutline,
   IoFileTrayFullOutline
 } from "react-icons/io5";
@@ -103,7 +103,7 @@ export default function UiUxClient({ content }) {
                      {[
                        { icon: <IoColorPaletteOutline />, pos: "top-10 left-10", d: 0.1 },
                        { icon: <IoCodeSlashOutline />, pos: "bottom-10 right-10", d: 0.3 },
-                       { icon: <IoAppWindowOutline />, pos: "top-10 right-10", d: 0.5 },
+                       { icon: <IoBrowsersOutline />, pos: "top-10 right-10", d: 0.5 },
                        { icon: <IoFingerPrintOutline />, pos: "bottom-10 left-10", d: 0.7 }
                      ].map((sat, i) => (
                        <motion.div
