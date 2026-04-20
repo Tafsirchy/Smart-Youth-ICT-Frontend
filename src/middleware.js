@@ -82,6 +82,7 @@ export default function middleware(req) {
   // These paths bypass the expensive Auth logic immediately.
   const isPublicPath = 
     pathname === "/" ||
+    locales.some(locale => pathname === `/${locale}`) ||
     pathname.includes("/login") ||
     pathname.includes("/register") ||
     pathname.includes("/courses") ||
