@@ -1,4 +1,5 @@
 const LOCAL_API_URL = "http://localhost:5000/api";
+const DEFAULT_PROD_API_URL = "https://syict-backend.vercel.app/api";
 
 function stripTrailingSlash(value) {
   return value.replace(/\/$/, "");
@@ -29,16 +30,14 @@ export function getApiBaseUrl({ absolute = false } = {}) {
     return LOCAL_API_URL;
   }
 
+  if (process.env.NODE_ENV === "production" || process.env.VERCEL) {
+    return DEFAULT_PROD_API_URL;
+  }
+
   const deploymentOrigin = getDeploymentOrigin();
   if (deploymentOrigin) {
     return `${stripTrailingSlash(deploymentOrigin)}/api`;
   }
 
-  if (absolute) {
-    throw new Error(
-      "Missing API URL for production. Set NEXT_PUBLIC_API_URL in Vercel to your backend API endpoint.",
-    );
-  }
-
-  return "/api";
+  return absolute ? DEFAULT_PROD_API_URL : "/api";
 }
