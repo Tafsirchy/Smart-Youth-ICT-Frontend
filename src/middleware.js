@@ -21,11 +21,13 @@ const authMiddleware = withAuth(
     const userBranchId = token?.branchId;
 
     // 1. Path Parsing
-    const isSuperPath = pathname.includes('/super');
-    
+    const isSuperPath = pathname.includes("/super");
+
     // Regex matches /[locale]/[branchId]/[dashboardType] e.g. /en/BR123/student
     // Group 2: branchId, Group 3: dashboardType
-    const dashboardMatch = pathname.match(/^\/(?:en|bn)?\/?([a-zA-Z0-9_-]+)\/(student|admin|instructor)/i);
+    const dashboardMatch = pathname.match(
+      /^\/(?:en|bn)?\/?([a-zA-Z0-9_-]+)\/(student|admin|instructor)/i,
+    );
 
     // 2. Role-Path Protection
     if (dashboardMatch) {
@@ -33,34 +35,38 @@ const authMiddleware = withAuth(
       const targetDashboardType = dashboardMatch[2];
 
       // a. Super Admin Protection: Prevent super admins from staying in branch dashboard pages
-      if (role === 'super_admin') {
-        return NextResponse.redirect(new URL('/super', req.url));
+      if (role === "super_admin") {
+        return NextResponse.redirect(new URL("/super", req.url));
       }
 
       // b. Dashboard Type vs Role Validation
       const roleToDashboardMap = {
-        student: 'student',
-        instructor: 'instructor',
-        admin: 'admin',
-        branch_admin: 'admin',
-        branch_management: 'admin',
+        student: "student",
+        instructor: "instructor",
+        admin: "admin",
+        branch_admin: "admin",
+        branch_management: "admin",
       };
 
       if (roleToDashboardMap[role] !== targetDashboardType) {
-        console.warn(`[Middleware] Role mismatch. User ${role} attempted to access ${targetDashboardType} dashboard.`);
-        return NextResponse.redirect(new URL('/auth-redirect', req.url));
+        console.warn(
+          `[Middleware] Role mismatch. User ${role} attempted to access ${targetDashboardType} dashboard.`,
+        );
+        return NextResponse.redirect(new URL("/auth-redirect", req.url));
       }
 
       // c. Branch ID Validation (Strict Isolation)
       if (userBranchId && userBranchId !== targetBranchId) {
-        console.warn(`[Middleware] Branch mismatch. User branch ${userBranchId} attempted to access branch ${targetBranchId}.`);
-        return NextResponse.redirect(new URL('/auth-redirect', req.url));
+        console.warn(
+          `[Middleware] Branch mismatch. User branch ${userBranchId} attempted to access branch ${targetBranchId}.`,
+        );
+        return NextResponse.redirect(new URL("/auth-redirect", req.url));
       }
     }
 
     // 3. Super Stats Protection
-    if (isSuperPath && role !== 'super_admin') {
-      return NextResponse.redirect(new URL('/auth-redirect', req.url));
+    if (isSuperPath && role !== "super_admin") {
+      return NextResponse.redirect(new URL("/auth-redirect", req.url));
     }
 
     return intlMiddleware(req);
@@ -80,9 +86,9 @@ export default function middleware(req) {
 
   // 1. High-Performance Public Route Detection
   // These paths bypass the expensive Auth logic immediately.
-  const isPublicPath = 
+  const isPublicPath =
     pathname === "/" ||
-    locales.some(locale => pathname === `/${locale}`) ||
+    locales.some((locale) => pathname === `/${locale}`) ||
     pathname.includes("/login") ||
     pathname.includes("/register") ||
     pathname.includes("/freelancing") ||

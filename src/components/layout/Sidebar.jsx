@@ -1,15 +1,22 @@
-'use client';
+"use client";
 
-import Link from 'next/link';
-import Image from 'next/image';
-import { usePathname, useParams } from 'next/navigation';
-import { signOut } from 'next-auth/react';
-import { motion } from 'framer-motion';
-import { HiHome, HiLogout, HiUserCircle, HiQuestionMarkCircle, HiAnnotation, HiCog } from 'react-icons/hi';
+import Link from "next/link";
+import Image from "next/image";
+import { usePathname, useParams } from "next/navigation";
+import { signOut } from "next-auth/react";
+import { motion } from "framer-motion";
+import {
+  HiHome,
+  HiLogout,
+  HiUserCircle,
+  HiQuestionMarkCircle,
+  HiAnnotation,
+  HiCog,
+} from "react-icons/hi";
 
 // Architectural Imports
-import { useRole } from '@/hooks/useRole';
-import { NAVIGATION_CONFIG } from '@/config/navigation.config';
+import { useRole } from "@/hooks/useRole";
+import { NAVIGATION_CONFIG } from "@/config/navigation.config";
 
 /**
  * NavItem - Individual sidebar Link with active state detection.
@@ -17,19 +24,27 @@ import { NAVIGATION_CONFIG } from '@/config/navigation.config';
 function NavItem({ href, Icon, label }) {
   const pathname = usePathname();
   const { branchId } = useParams();
-  
+
   // Scoped navigation path
   const fullHref = branchId ? `/${branchId}${href}` : href;
-  const isActive = pathname === fullHref || (href !== '/student' && href !== '/admin' && href !== '/super' && pathname.startsWith(fullHref));
-  
+  const isActive =
+    pathname === fullHref ||
+    (href !== "/student" &&
+      href !== "/admin" &&
+      href !== "/super" &&
+      pathname.startsWith(fullHref));
+
   return (
     <motion.div whileHover={{ x: 4 }} whileTap={{ scale: 0.98 }}>
-      <Link 
-        href={fullHref} 
-        id={`sidebar-${label.toLowerCase().replace(/\s/g, '-')}`}
-        className={`sidebar-link ${isActive ? 'active' : ''}`}
+      <Link
+        href={fullHref}
+        id={`sidebar-${label.toLowerCase().replace(/\s/g, "-")}`}
+        className={`sidebar-link ${isActive ? "active" : ""}`}
       >
-        <Icon className={`${isActive ? 'text-pink-500' : 'text-slate-400'} transition-colors`} size={20} />
+        <Icon
+          className={`${isActive ? "text-pink-500" : "text-slate-400"} transition-colors`}
+          size={20}
+        />
         <span>{label}</span>
       </Link>
     </motion.div>
@@ -50,16 +65,17 @@ export default function Sidebar({ initialRole, initialUser }) {
   const role = clientRole || initialRole;
 
   // Determine current role status
-  const isSuperAdmin = role === 'super_admin' || role === 'super_management';
-  const isAdmin      = role === 'admin' || role === 'branch_admin' || role === 'branch_management';
-  const isInstructor = role === 'instructor';
+  const isSuperAdmin = role === "super_admin" || role === "super_management";
+  const isAdmin =
+    role === "admin" || role === "branch_admin" || role === "branch_management";
+  const isInstructor = role === "instructor";
 
   // Determine which navigation set to display (avoid defaulting to student if role is undefined)
   let navItems = [];
-  if (isSuperAdmin)     navItems = NAVIGATION_CONFIG.super_admin;
-  else if (isAdmin)      navItems = NAVIGATION_CONFIG.admin;
+  if (isSuperAdmin) navItems = NAVIGATION_CONFIG.super_admin;
+  else if (isAdmin) navItems = NAVIGATION_CONFIG.admin;
   else if (isInstructor) navItems = NAVIGATION_CONFIG.instructor;
-  else if (role === 'student') navItems = NAVIGATION_CONFIG.student;
+  else if (role === "student") navItems = NAVIGATION_CONFIG.student;
   else if (!role && !isLoading) navItems = NAVIGATION_CONFIG.student; // Final fallback
 
   return (
@@ -91,12 +107,16 @@ export default function Sidebar({ initialRole, initialUser }) {
           <div className="flex items-center gap-3">
             <div className="w-10 h-10 rounded-full border-2 border-pink-500/20 p-0.5">
               <div className="w-full h-full rounded-full bg-slate-800 flex items-center justify-center text-white font-bold text-sm">
-                  {user?.name?.charAt(0) || 'U'}
+                {user?.name?.charAt(0) || "U"}
               </div>
             </div>
             <div className="flex-1 min-w-0">
-              <p className="text-white text-sm font-bold truncate">{user?.name || 'Guest User'}</p>
-              <p className="text-slate-500 text-xs uppercase font-bold tracking-widest">{role?.replace('_', ' ') || 'Authenticating...'}</p>
+              <p className="text-white text-sm font-bold truncate">
+                {user?.name || "Guest User"}
+              </p>
+              <p className="text-slate-500 text-xs uppercase font-bold tracking-widest">
+                {role?.replace("_", " ") || "Authenticating..."}
+              </p>
             </div>
           </div>
         )}
@@ -108,7 +128,9 @@ export default function Sidebar({ initialRole, initialUser }) {
           Main Menu
         </div>
         <nav className="space-y-1.5">
-          {navItems.map((item) => <NavItem key={item.href} {...item} />)}
+          {navItems.map((item) => (
+            <NavItem key={item.href} {...item} />
+          ))}
         </nav>
 
         {/* Tertiary Links */}
@@ -116,34 +138,30 @@ export default function Sidebar({ initialRole, initialUser }) {
           Management
         </div>
         <div className="space-y-1.5">
-          <NavItem 
-            href={isSuperAdmin ? '/super/support' : '/student/support'} 
-            Icon={HiAnnotation} 
-            label="Support Hub" 
+          <NavItem
+            href={isSuperAdmin ? "/super/support" : "/student/support"}
+            Icon={HiAnnotation}
+            label="Support Hub"
           />
-          <NavItem 
-            href="/contact" 
-            Icon={HiQuestionMarkCircle} 
-            label="Help Center" 
+          <NavItem
+            href="/contact"
+            Icon={HiQuestionMarkCircle}
+            label="Help Center"
           />
-          <NavItem 
-            href="/profile" 
-            Icon={HiUserCircle} 
-            label="Account Profile" 
+          <NavItem
+            href="/profile"
+            Icon={HiUserCircle}
+            label="Account Profile"
           />
           {isSuperAdmin && (
-            <NavItem 
-              href="/super/settings" 
-              Icon={HiCog} 
-              label="Global Settings" 
+            <NavItem
+              href="/super/settings"
+              Icon={HiCog}
+              label="Global Settings"
             />
           )}
           {isAdmin && !isSuperAdmin && (
-            <NavItem 
-              href="/settings" 
-              Icon={HiCog} 
-              label="Branch Settings" 
-            />
+            <NavItem href="/settings" Icon={HiCog} label="Branch Settings" />
           )}
         </div>
 
@@ -153,14 +171,18 @@ export default function Sidebar({ initialRole, initialUser }) {
               About Us CMS
             </div>
             <div className="space-y-1.5">
-              {NAVIGATION_CONFIG.about_cms.map((item) => <NavItem key={item.href} {...item} />)}
+              {NAVIGATION_CONFIG.about_cms.map((item) => (
+                <NavItem key={item.href} {...item} />
+              ))}
             </div>
 
             <div className="mt-10 text-xs font-black text-blue-500 uppercase tracking-[0.2em] px-4 mb-4">
               Services CMS
             </div>
             <div className="space-y-1.5 pb-8">
-              {NAVIGATION_CONFIG.services_cms.map((item) => <NavItem key={item.href} {...item} />)}
+              {NAVIGATION_CONFIG.services_cms.map((item) => (
+                <NavItem key={item.href} {...item} />
+              ))}
             </div>
           </>
         )}
@@ -170,10 +192,13 @@ export default function Sidebar({ initialRole, initialUser }) {
       <div className="px-4 pb-8 border-t border-white/5 pt-6 space-y-2">
         <button
           id="sidebar-logout"
-          onClick={() => signOut({ callbackUrl: '/' })}
+          onClick={() => signOut({ callbackUrl: "/" })}
           className="sidebar-logout group w-full text-left flex items-center gap-3 px-4 py-3"
         >
-          <HiLogout className="group-hover:-translate-x-1 transition-transform text-red-400" size={20} />
+          <HiLogout
+            className="group-hover:-translate-x-1 transition-transform text-red-400"
+            size={20}
+          />
           <span className="font-bold">Sign Out</span>
         </button>
 
@@ -182,8 +207,13 @@ export default function Sidebar({ initialRole, initialUser }) {
           id="sidebar-back-home"
           className="sidebar-link group w-full hover:bg-white/5"
         >
-          <HiHome className="group-hover:-translate-y-0.5 transition-transform text-slate-400 group-hover:text-white" size={20} />
-          <span className="font-bold text-slate-400 group-hover:text-white">Back to Home</span>
+          <HiHome
+            className="group-hover:-translate-y-0.5 transition-transform text-slate-400 group-hover:text-white"
+            size={20}
+          />
+          <span className="font-bold text-slate-400 group-hover:text-white">
+            Back to Home
+          </span>
         </Link>
       </div>
     </aside>
