@@ -10,7 +10,7 @@ import {
   IoColorPaletteOutline,
   IoCodeSlashOutline,
   IoAppWindowOutline,
-  IoCursorClickOutline,
+  IoFingerPrintOutline,
   IoFileTrayFullOutline
 } from "react-icons/io5";
 import { motion } from "framer-motion";
@@ -104,7 +104,7 @@ export default function UiUxClient({ content }) {
                        { icon: <IoColorPaletteOutline />, pos: "top-10 left-10", d: 0.1 },
                        { icon: <IoCodeSlashOutline />, pos: "bottom-10 right-10", d: 0.3 },
                        { icon: <IoAppWindowOutline />, pos: "top-10 right-10", d: 0.5 },
-                       { icon: <IoCursorClickOutline />, pos: "bottom-10 left-10", d: 0.7 }
+                       { icon: <IoFingerPrintOutline />, pos: "bottom-10 left-10", d: 0.7 }
                      ].map((sat, i) => (
                        <motion.div
                          key={i}
