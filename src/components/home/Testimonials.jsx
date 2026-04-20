@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
+import Image from "next/image";
 import { IoStar, IoChatbubblesOutline, IoLogoYoutube } from "react-icons/io5";
 import api from "@/lib/api";
 
@@ -145,7 +146,9 @@ export default function Testimonials() {
             </span>
             <h2 className="text-5xl md:text-7xl font-black text-slate-900 leading-[1.1] mb-8 tracking-tighter">
               What Our <br />
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-pink-500 via-rose-500 to-amber-500 animate-gradient-x">Students Say</span>
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-pink-500 via-rose-500 to-amber-500 animate-gradient-x">
+                Students Say
+              </span>
             </h2>
             <p className="text-slate-600 text-lg md:text-xl leading-relaxed">
               Real results from real people. Join 5,000+ graduates who have
@@ -208,10 +211,12 @@ export default function Testimonials() {
                   key={`${video._id}-${idx}`}
                   className="w-[300px] mx-3 aspect-video relative rounded-2xl overflow-hidden group shadow-lg border-2 border-transparent hover:border-pink-500 transition-all duration-300"
                 >
-                  <img
+                  <Image
                     src={video.thumbnail}
-                    alt={video.name}
-                    className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                    alt={video.name || "Video testimonial thumbnail"}
+                    fill
+                    sizes="300px"
+                    className="object-cover group-hover:scale-110 transition-transform duration-500"
                   />
                   <div className="absolute inset-0 bg-black/40 group-hover:bg-black/20 transition-all flex flex-col items-center justify-center">
                     <div className="w-12 h-12 bg-pink-600 rounded-full flex items-center justify-center text-white shadow-lg group-hover:scale-125 transition-transform">

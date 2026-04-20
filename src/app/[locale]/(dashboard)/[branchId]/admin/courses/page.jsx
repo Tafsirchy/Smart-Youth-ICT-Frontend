@@ -4,6 +4,7 @@ import { useState, useEffect, useCallback } from "react";
 import api from "@/lib/api";
 import toast from "react-hot-toast";
 import Link from "next/link";
+import Image from "next/image";
 import { useParams } from "next/navigation";
 import {
   IoBookOutline,
@@ -136,12 +137,15 @@ export default function AdminCoursesPage() {
               className="bg-white rounded-2xl shadow-sm border border-neutral-200 overflow-hidden hover:shadow-md transition-shadow flex flex-col"
             >
               {course.thumbnail ? (
-                // eslint-disable-next-line @next/next/no-img-element
-                <img
-                  src={course.thumbnail}
-                  alt={course.title?.en}
-                  className="w-full h-40 object-cover border-b"
-                />
+                <div className="relative w-full h-40 border-b">
+                  <Image
+                    src={course.thumbnail}
+                    alt={course.title?.en || course.title || "Course thumbnail"}
+                    fill
+                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 25vw"
+                    className="object-cover"
+                  />
+                </div>
               ) : (
                 <div className="w-full h-40 bg-neutral-100 flex items-center justify-center border-b">
                   <IoBookOutline size={32} className="text-neutral-300" />
