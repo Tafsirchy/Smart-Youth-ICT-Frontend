@@ -39,7 +39,7 @@ export default function UiUxDetailsClient({ data }) {
           <div className="flex flex-col md:flex-row gap-12 items-start mt-20">
              <div className="flex-1">
                 <p className="text-slate-600 text-2xl font-light leading-relaxed mb-10 italic">
-                  "{hero.description}"
+                  &quot;{hero.description}&quot;
                 </p>
                 <div className="h-1 w-20 bg-cyan-600/20" />
              </div>

@@ -49,7 +49,7 @@ export default function ChatbotDetailsClient({ data }) {
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-600 via-violet-500 to-emerald-500 animate-gradient-x">{hero.title?.split(' ').slice(1).join(' ')}</span>
           </h1>
           <p className="text-slate-600 text-xl font-light leading-relaxed max-w-2xl italic">
-            "{hero.description}"
+            &quot;{hero.description}&quot;
           </p>
         </div>
 
