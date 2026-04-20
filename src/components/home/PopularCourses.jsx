@@ -137,7 +137,9 @@ export default function PopularCourses() {
           </motion.div>
         </div>
 
-        <div className="max-w-6xl mx-auto mb-16 space-y-8">
+        <div
+          className={`max-w-6xl mx-auto ${isEmptyState ? "mb-6" : "mb-16"} space-y-8`}
+        >
           {/* Search Bar */}
           <div className="relative max-w-2xl mx-auto group">
             <IoSearchOutline
@@ -150,7 +152,6 @@ export default function PopularCourses() {
               onChange={(e) => {
                 const value = e.target.value;
                 setSearchInput(value);
-                setSearch(value);
               }}
               placeholder="Search by course title or category"
               className="w-full rounded-[2rem] border-none bg-white py-5 pl-14 pr-14 text-sm font-black text-slate-700 outline-none focus:ring-4 focus:ring-blue-100 shadow-2xl shadow-slate-100 transition-all placeholder:text-slate-300"
@@ -159,7 +160,6 @@ export default function PopularCourses() {
               <button
                 onClick={() => {
                   setSearchInput("");
-                  setSearch("");
                 }}
                 className="absolute right-5 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-700"
                 aria-label="Clear search"
@@ -215,42 +215,46 @@ export default function PopularCourses() {
         </div>
 
         {/* Courses Grid */}
-        <div className={`relative ${isLoading ? "min-h-[400px]" : "min-h-0"}`}>
-          {isLoading && !data && (
-            <div className="absolute inset-0 z-20 flex items-center justify-center bg-slate-50/50 backdrop-blur-[2px]">
-              <div className="w-12 h-12 border-4 border-blue-600 border-t-transparent rounded-full animate-spin" />
-            </div>
-          )}
-
-          <motion.div
-            className={`grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 ${
-              isLoading || isPlaceholderData
-                ? "opacity-50 pointer-events-none"
-                : ""
-            }`}
-            variants={container}
-            initial="hidden"
-            animate="visible"
+        {!isEmptyState && (
+          <div
+            className={`relative ${isLoading ? "min-h-[400px]" : "min-h-0"}`}
           >
-            {courses.map((course, index) => (
-              <motion.div
-                key={course._id}
-                variants={cardAnim}
-                className="relative"
-              >
-                <CourseCard
-                  course={course}
-                  locale={locale}
-                  priority={index < 2}
-                />
-              </motion.div>
-            ))}
-          </motion.div>
-        </div>
+            {isLoading && !data && (
+              <div className="absolute inset-0 z-20 flex items-center justify-center bg-slate-50/50 backdrop-blur-[2px]">
+                <div className="w-12 h-12 border-4 border-blue-600 border-t-transparent rounded-full animate-spin" />
+              </div>
+            )}
+
+            <motion.div
+              className={`grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 ${
+                isLoading || isPlaceholderData
+                  ? "opacity-50 pointer-events-none"
+                  : ""
+              }`}
+              variants={container}
+              initial="hidden"
+              animate="visible"
+            >
+              {courses.map((course, index) => (
+                <motion.div
+                  key={course._id}
+                  variants={cardAnim}
+                  className="relative"
+                >
+                  <CourseCard
+                    course={course}
+                    locale={locale}
+                    priority={index < 2}
+                  />
+                </motion.div>
+              ))}
+            </motion.div>
+          </div>
+        )}
 
         {/* Empty State */}
         {isEmptyState && (
-          <div className="text-center py-14 bg-white rounded-[3rem] shadow-sm border border-slate-100 mt-4">
+          <div className="text-center py-12 bg-white rounded-[3rem] shadow-sm border border-slate-100 mt-0">
             <div className="inline-flex items-center justify-center w-20 h-20 rounded-full bg-slate-50 text-slate-300 mb-6">
               <IoSearchOutline size={40} />
             </div>
