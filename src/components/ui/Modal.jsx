@@ -1,5 +1,7 @@
 'use client';
-
+import { useEffect } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { IoClose } from 'react-icons/io5';
 import Portal from './Portal';
 
 export function Modal({ isOpen, onClose, title, children, maxWidth = 'max-w-md' }) {
