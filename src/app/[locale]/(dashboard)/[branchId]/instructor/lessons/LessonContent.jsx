@@ -5,7 +5,7 @@ import { useSearchParams, useRouter } from 'next/navigation';
 import { motion, AnimatePresence } from 'framer-motion';
 import Portal from '@/components/ui/Portal';
 import { 
-  HiOutlineCollection, HiOutlinePlus, HiOutlinePencilSquare, 
+  HiOutlineRectangleStack, HiOutlinePlus, HiOutlinePencilSquare, 
   HiOutlineTrash, HiOutlineClock,
   HiOutlineXMark, HiChevronLeft
 } from 'react-icons/hi2'; // Switched to hi2
@@ -122,7 +122,7 @@ export default function LessonContent() {
               >
                  <div className="flex items-center gap-4">
                     <div className="w-12 h-12 rounded-2xl bg-blue-50 text-blue-600 flex items-center justify-center">
-                       <HiOutlineCollection size={24} />
+                       <HiOutlineRectangleStack size={24} />
                     </div>
                     <div>
                        <p className="font-bold text-neutral-900">{course.title?.en || course.title}</p>
