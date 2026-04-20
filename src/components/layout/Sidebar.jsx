@@ -1,6 +1,7 @@
 'use client';
 
 import Link from 'next/link';
+import Image from 'next/image';
 import { usePathname, useParams } from 'next/navigation';
 import { signOut } from 'next-auth/react';
 import { motion } from 'framer-motion';
@@ -66,7 +67,13 @@ export default function Sidebar({ initialRole, initialUser }) {
       {/* Brand */}
       <div className="px-8 py-8 flex justify-center">
         <Link href="/" className="flex items-center">
-          <img src="/images/logo.png" alt="Smart Youth ICT" className="h-10 w-auto object-contain" />
+          <Image
+            src="/images/logo.png"
+            alt="Smart Youth ICT"
+            width={160}
+            height={40}
+            className="h-10 w-auto object-contain"
+          />
         </Link>
       </div>
 

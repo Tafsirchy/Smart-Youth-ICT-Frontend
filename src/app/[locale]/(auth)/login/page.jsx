@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { signIn, getSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { useLocale } from "next-intl";
@@ -101,9 +102,12 @@ export default function LoginPage() {
 
         {/* Logo */}
         <Link href="/">
-          <img
+          <Image
             src="/images/logo.png"
             alt="SYICT"
+            width={160}
+            height={40}
+            priority
             className="h-10 w-auto object-contain brightness-200"
           />
         </Link>
@@ -168,9 +172,11 @@ export default function LoginPage() {
           {/* Mobile logo */}
           <div className="flex justify-center mb-8 lg:hidden">
             <Link href="/">
-              <img
+              <Image
                 src="/images/logo.png"
                 alt="SYICT"
+                width={160}
+                height={40}
                 className="h-10 w-auto object-contain"
               />
             </Link>

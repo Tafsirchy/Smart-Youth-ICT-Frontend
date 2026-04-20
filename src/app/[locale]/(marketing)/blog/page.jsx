@@ -240,9 +240,11 @@ export default async function BlogPage({ params, searchParams }) {
                     </p>
                     <div className="flex items-center gap-3 mt-auto">
                       {posts[0].author?.avatar ? (
-                        <img
+                        <Image
                           src={posts[0].author.avatar}
                           alt="Author"
+                          width={40}
+                          height={40}
                           className="w-10 h-10 rounded-full"
                         />
                       ) : (

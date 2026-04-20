@@ -2,6 +2,7 @@
 
 import { useState, Suspense } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { useLocale } from 'next-intl';
 import { authService } from '@/services/authService';
@@ -71,7 +72,13 @@ function ResetForm() {
           </div>
 
           <Link href="/" className="flex justify-center mb-4">
-            <img src="/images/logo.png" alt="SYICT" className="h-8 w-auto object-contain brightness-200" />
+            <Image
+              src="/images/logo.png"
+              alt="SYICT"
+              width={128}
+              height={32}
+              className="h-8 w-auto object-contain brightness-200"
+            />
           </Link>
 
           <h1 className="text-2xl font-bold text-white mb-2 text-center">Set New Password</h1>

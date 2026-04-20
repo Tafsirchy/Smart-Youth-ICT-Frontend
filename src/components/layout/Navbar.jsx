@@ -2,6 +2,7 @@
 
 import { useState, useRef, useEffect } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { useSession } from "next-auth/react";
 import { usePathname, useRouter } from "next/navigation";
 import { HiMenu, HiX, HiChevronDown } from "react-icons/hi";
@@ -302,9 +303,12 @@ export default function Navbar() {
             whileHover={{ scale: 1.05 }}
             transition={{ type: "spring", stiffness: 400, damping: 15 }}
           >
-            <img
+            <Image
               src="/images/logo.png"
               alt="Smart Youth ICT"
+              width={160}
+              height={40}
+              priority
               className="h-10 w-auto object-contain"
             />
           </motion.div>

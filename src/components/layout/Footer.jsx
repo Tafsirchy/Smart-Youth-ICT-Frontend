@@ -1,6 +1,7 @@
 'use client';
 
 import Link from 'next/link';
+import Image from 'next/image';
 import { useState } from 'react';
 import { useLocale } from 'next-intl';
 import { motion } from 'framer-motion';
@@ -65,7 +66,13 @@ export default function Footer() {
           {/* Brand column — spans 2 cols */}
           <div className="col-span-2">
             <Link href={`/${locale}`} className="mb-5 inline-block">
-              <img src="/images/logo.png" alt="Smart Youth ICT" className="h-12 w-auto object-contain brightness-200" />
+              <Image
+                src="/images/logo.png"
+                alt="Smart Youth ICT"
+                width={192}
+                height={48}
+                className="h-12 w-auto object-contain brightness-200"
+              />
             </Link>
             <p className="text-sm leading-relaxed text-indigo-300 max-w-xs mb-5">
               Earn while you learn. Bangladesh's most practical IT training & freelancing platform.
