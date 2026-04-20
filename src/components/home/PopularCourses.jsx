@@ -10,7 +10,7 @@ import {
   IoArrowForwardOutline,
   IoSearchOutline,
   IoCloseOutline,
-  IoChevronDownOutline
+  IoChevronDownOutline,
 } from "react-icons/io5";
 import CourseCard from "@/components/courses/CourseCard";
 
@@ -75,7 +75,7 @@ export default function PopularCourses() {
       if (debouncedSearch.trim()) params.search = debouncedSearch;
 
       const res = await api.get("/courses", { params });
-      
+
       if (res.data?.success) {
         return {
           courses: res.data.data.map((c) => ({
@@ -95,13 +95,14 @@ export default function PopularCourses() {
   const courses = data?.courses || [];
   const totalCount = data?.totalCount || 0;
   const totalPages = data?.totalPages || 1;
+  const isEmptyState = !isLoading && courses.length === 0;
 
   const categories = useMemo(() => {
     return ["all", "web-dev", "graphic-design", "smm", "ai", "other"];
   }, []);
 
   const branches = useMemo(() => {
-    return ["all", "master"]; 
+    return ["all", "master"];
   }, []);
 
   return (
@@ -125,7 +126,9 @@ export default function PopularCourses() {
             </span>
             <h2 className="text-5xl md:text-7xl font-black text-slate-900 leading-[1.1] mb-8 tracking-tighter">
               Our Core <br />
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-500 via-indigo-500 to-blue-600 animate-gradient-x">Training Programs</span>
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-500 via-indigo-500 to-blue-600 animate-gradient-x">
+                Training Programs
+              </span>
             </h2>
             <p className="text-slate-500 text-lg md:text-xl font-medium">
               Join 5,000+ students already mastering the most in-demand digital
@@ -212,16 +215,18 @@ export default function PopularCourses() {
         </div>
 
         {/* Courses Grid */}
-        <div className="relative min-h-[400px]">
+        <div className={`relative ${isLoading ? "min-h-[400px]" : "min-h-0"}`}>
           {isLoading && !data && (
             <div className="absolute inset-0 z-20 flex items-center justify-center bg-slate-50/50 backdrop-blur-[2px]">
               <div className="w-12 h-12 border-4 border-blue-600 border-t-transparent rounded-full animate-spin" />
             </div>
           )}
-          
+
           <motion.div
             className={`grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 ${
-              (isLoading || isPlaceholderData) ? 'opacity-50 pointer-events-none' : ''
+              isLoading || isPlaceholderData
+                ? "opacity-50 pointer-events-none"
+                : ""
             }`}
             variants={container}
             initial="hidden"
@@ -233,21 +238,28 @@ export default function PopularCourses() {
                 variants={cardAnim}
                 className="relative"
               >
-                <CourseCard course={course} locale={locale} priority={index < 2} />
+                <CourseCard
+                  course={course}
+                  locale={locale}
+                  priority={index < 2}
+                />
               </motion.div>
             ))}
           </motion.div>
         </div>
 
         {/* Empty State */}
-        {!isLoading && courses.length === 0 && (
-          <div className="text-center py-20 bg-white rounded-[3rem] shadow-sm border border-slate-100 mt-10">
+        {isEmptyState && (
+          <div className="text-center py-14 bg-white rounded-[3rem] shadow-sm border border-slate-100 mt-4">
             <div className="inline-flex items-center justify-center w-20 h-20 rounded-full bg-slate-50 text-slate-300 mb-6">
-               <IoSearchOutline size={40} />
+              <IoSearchOutline size={40} />
             </div>
-            <h3 className="text-xl font-black text-slate-900 mb-2">No matching courses</h3>
+            <h3 className="text-xl font-black text-slate-900 mb-2">
+              No matching courses
+            </h3>
             <p className="text-slate-500 font-medium">
-              We couldn't find anything matching "{debouncedSearch}". Try another keyword?
+              We couldn't find anything matching "{debouncedSearch}". Try
+              another keyword?
             </p>
           </div>
         )}
