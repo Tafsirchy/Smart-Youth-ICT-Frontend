@@ -11,30 +11,36 @@ import GoogleAnalytics from "@/components/marketing/GoogleAnalytics";
 import NextTopLoader from "nextjs-toploader";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/auth";
-import PageLoader from "@/components/ui/PageLoader";
+
  
 const inter = Inter({ 
   subsets: ["latin"],
   variable: '--font-inter',
   display: 'swap',
+  adjustFontFallback: true,
+  weight: ['400', '500', '600', '700'],
 });
 
 const outfit = Outfit({
   subsets: ["latin"],
   variable: '--font-outfit',
   display: 'swap',
+  adjustFontFallback: true,
+  weight: ['400', '500', '600', '700', '800', '900'],
 });
 
 const cinzel = Cinzel({
   subsets: ["latin"],
   variable: '--font-cinzel',
   display: 'swap',
+  adjustFontFallback: true,
 });
 
 const playfair = Playfair_Display({
   subsets: ["latin"],
   variable: '--font-playfair',
   display: 'swap',
+  adjustFontFallback: true,
 });
 
 

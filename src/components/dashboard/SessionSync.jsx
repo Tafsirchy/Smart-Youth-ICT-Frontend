@@ -51,7 +51,7 @@ export default function SessionSync() {
       const hasNameChanged = dbUser.name !== currentSession.user.name;
 
       if (hasRoleChanged || hasBranchChanged || hasNameChanged) {
-        console.log('[SessionSync] Mismatch detected. Synchronizing...');
+
         
         // Update the client-side session JWT
         await update({
@@ -76,7 +76,7 @@ export default function SessionSync() {
           const isOnSuperPage = pathname.includes('/super');
 
           if (isSuperRole && !isOnSuperPage) {
-            console.log('[SessionSync] Super Admin detected. Redirecting to global dashboard...');
+
             // Hard redirect to ensure a clean mount of the global dashboard layout
             setTimeout(() => { window.location.href = '/super'; }, 1500);
             return;

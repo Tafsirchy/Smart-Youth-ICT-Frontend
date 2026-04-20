@@ -82,7 +82,7 @@ export default function PageLoader() {
       </div>
 
       <div className="text-center z-10">
-        <h1 className="text-2xl sm:text-3xl font-black tracking-tight leading-none mb-1">
+        <h1 className="text-2xl sm:text-3xl font-black tracking-tight leading-none mb-1" style={{ fontSynthesis: 'none' }}>
           <span className="text-pink-600">Smart </span>
           <span className="text-green-900">Youth </span>
           <span className="text-green-900">ICT</span>
