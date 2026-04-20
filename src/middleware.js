@@ -85,6 +85,7 @@ export default function middleware(req) {
     locales.some(locale => pathname === `/${locale}`) ||
     pathname.includes("/login") ||
     pathname.includes("/register") ||
+    pathname.includes("/freelancing") ||
     pathname.includes("/courses") ||
     pathname.includes("/blog") ||
     pathname.includes("/about") ||
