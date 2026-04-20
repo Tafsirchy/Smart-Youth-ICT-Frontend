@@ -1,7 +1,8 @@
 import { getServerSession } from "next-auth";
 import { authOptions } from "./auth";
+import { getApiBaseUrl } from "./api-base";
 
-const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:5000/api";
+const API_BASE_URL = getApiBaseUrl({ absolute: true });
 
 /**
  * Server-side API fetcher for React Server Components.
@@ -26,15 +27,17 @@ export async function fetchServer(path, options = {}) {
     ...options,
     headers,
     // Next.js specific caching options can be passed in options.next
-    next: { 
+    next: {
       revalidate: options.revalidate !== undefined ? options.revalidate : 3600, // Default 1 hour
-      ...options.next
-    }
+      ...options.next,
+    },
   });
 
   if (!response.ok) {
     const errorData = await response.json().catch(() => ({}));
-    throw new Error(errorData.message || `API Request failed with status ${response.status}`);
+    throw new Error(
+      errorData.message || `API Request failed with status ${response.status}`,
+    );
   }
 
   return response.json();

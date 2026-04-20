@@ -2,9 +2,9 @@ import axios from "axios";
 import { getSession, signOut } from "next-auth/react";
 import toast from "react-hot-toast";
 import Cookies from "js-cookie";
+import { getApiBaseUrl } from "./api-base";
 
-const API_BASE_URL =
-  process.env.NEXT_PUBLIC_API_URL || "http://localhost:5000/api";
+const API_BASE_URL = getApiBaseUrl();
 
 const PUBLIC_AUTH_PATHS = new Set([
   "/auth/login",

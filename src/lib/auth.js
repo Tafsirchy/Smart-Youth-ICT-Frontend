@@ -2,9 +2,9 @@ import NextAuth from "next-auth";
 import axios from "axios";
 import CredentialsProvider from "next-auth/providers/credentials";
 import GoogleProvider from "next-auth/providers/google";
+import { getApiBaseUrl } from "./api-base";
 
-const API_BASE_URL =
-  process.env.NEXT_PUBLIC_API_URL || "http://localhost:5000/api";
+const API_BASE_URL = getApiBaseUrl({ absolute: true });
 
 const exchangeAuth = async (path, payload) => {
   const { data } = await axios.post(`${API_BASE_URL}${path}`, payload, {
