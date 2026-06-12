@@ -20,12 +20,12 @@ const container = {
 };
 
 const cardAnim = {
-  hidden: { opacity: 0, scale: 0.95, y: 30 },
+  hidden: { opacity: 0, scale: 0.98, y: 15 },
   visible: {
     opacity: 1,
     scale: 1,
     y: 0,
-    transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] },
+    transition: { duration: 0.4, ease: [0.22, 1, 0.36, 1] },
   },
 };
 
@@ -106,7 +106,7 @@ export default function PopularCourses() {
   }, []);
 
   return (
-    <section className="section py-20 bg-slate-50 relative overflow-hidden">
+    <section className="section py-12 sm:py-16 md:py-20 bg-slate-50 relative overflow-hidden">
       {/* Decorative background elements */}
       <div className="absolute top-0 left-0 w-full h-full pointer-events-none">
         <div className="absolute top-[-10%] left-[-5%] w-[40%] h-[40%] bg-pink-100/30 rounded-full blur-[100px]" />
@@ -115,22 +115,22 @@ export default function PopularCourses() {
 
       <div className="container-custom relative z-10">
         {/* Header */}
-        <div className="text-center mb-20 max-w-3xl mx-auto">
+        <div className="text-center mb-10 sm:mb-16 md:mb-20 max-w-3xl mx-auto">
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 15 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
           >
             <span className="inline-block px-4 py-1.5 rounded-full bg-slate-900 text-white text-[10px] font-black uppercase tracking-[0.3em] mb-6 shadow-xl shadow-slate-200">
               Skill Up Daily
             </span>
-            <h2 className="text-5xl md:text-7xl font-black text-slate-900 leading-[1.1] mb-8 tracking-tighter">
-              Our Core <br />
+            <h2 className="text-2xl sm:text-4xl md:text-5xl font-black text-slate-900 leading-[1.15] mb-4 sm:mb-6 md:mb-8 tracking-tighter">
+              Our Core <br className="hidden sm:block" />
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-500 via-indigo-500 to-blue-600 animate-gradient-x">
                 Training Programs
               </span>
             </h2>
-            <p className="text-slate-500 text-lg md:text-xl font-medium">
+            <p className="text-slate-500 text-sm sm:text-base md:text-lg lg:text-xl font-medium">
               Join 5,000+ students already mastering the most in-demand digital
               skills in today's competitive job market.
             </p>
@@ -138,7 +138,7 @@ export default function PopularCourses() {
         </div>
 
         <div
-          className={`max-w-6xl mx-auto ${isEmptyState ? "mb-6" : "mb-16"} space-y-8`}
+          className={`max-w-6xl mx-auto ${isEmptyState ? "mb-6" : "mb-8 sm:mb-12 md:mb-16"} space-y-6 sm:space-y-8`}
         >
           {/* Search Bar */}
           <div className="relative max-w-2xl mx-auto group">
@@ -170,35 +170,36 @@ export default function PopularCourses() {
           </div>
 
           {/* Filters Bar */}
-          <div className="flex flex-wrap items-center justify-center gap-4">
-            <div className="flex flex-wrap justify-center gap-2">
-              {categories.map((cat) => (
-                <button
-                  key={cat}
-                  onClick={() => setCategory(cat)}
-                  className={`rounded-full px-6 py-3 text-[10px] font-black uppercase tracking-[0.1em] transition-all shadow-sm ${
-                    category === cat
-                      ? "bg-slate-900 text-white shadow-xl shadow-slate-200"
-                      : "bg-white text-slate-600 hover:bg-slate-50 border border-slate-100"
-                  }`}
-                >
-                  {CATEGORY_LABELS[cat] || cat}
-                </button>
-              ))}
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
+            <div className="w-full sm:w-auto overflow-x-auto scrollbar-none -mx-4 px-4 sm:mx-0 sm:px-0">
+              <div className="flex sm:flex-wrap justify-start sm:justify-center gap-2 pb-2 sm:pb-0 min-w-max sm:min-w-0">
+                {categories.map((cat) => (
+                  <button
+                    key={cat}
+                    onClick={() => setCategory(cat)}
+                    className={`rounded-full px-5 py-3.5 text-xs font-black uppercase tracking-[0.05em] transition-all shadow-sm min-h-[44px] flex items-center justify-center ${category === cat
+                        ? "bg-slate-900 text-white shadow-xl shadow-slate-200"
+                        : "bg-white text-slate-600 hover:bg-slate-50 border border-slate-100"
+                      }`}
+                  >
+                    {CATEGORY_LABELS[cat] || cat}
+                  </button>
+                ))}
+              </div>
             </div>
 
-            <div className="h-8 w-px bg-slate-200 mx-2 hidden md:block" />
+            <div className="h-8 w-px bg-slate-200 mx-2 hidden sm:block" />
 
             {/* Branch Selector */}
-            <div className="relative group">
+            <div className="relative group w-full sm:w-auto flex justify-center">
               <IoChevronDownOutline
                 size={14}
-                className="absolute right-4 top-1/2 -translate-y-1/2 text-slate-400 pointer-events-none group-hover:text-blue-600 transition-colors"
+                className="absolute right-4 top-1/2 -translate-y-1/2 text-slate-400 pointer-events-none group-hover:text-blue-600 transition-colors hidden sm:block"
               />
               <select
                 value={branch}
                 onChange={(e) => setBranch(e.target.value)}
-                className="appearance-none rounded-full pl-6 pr-10 py-3 text-[10px] font-black uppercase tracking-[0.1em] bg-white text-slate-600 border border-slate-100 shadow-sm focus:outline-none focus:ring-4 focus:ring-blue-500/10 cursor-pointer min-w-[180px] hover:border-blue-200 transition-all"
+                className="appearance-none rounded-full pl-6 pr-10 py-3.5 text-xs font-black uppercase tracking-[0.05em] bg-white text-slate-600 border border-slate-100 shadow-sm focus:outline-none focus:ring-4 focus:ring-blue-500/10 cursor-pointer min-w-[200px] sm:min-w-[180px] min-h-[44px] hover:border-blue-200 transition-all text-center sm:text-left"
               >
                 {branches.map((id) => (
                   <option key={id} value={id}>
@@ -210,6 +211,10 @@ export default function PopularCourses() {
                   </option>
                 ))}
               </select>
+              {/* Mobile custom indicator arrow overlay */}
+              <div className="absolute right-4 top-1/2 -translate-y-1/2 text-slate-400 pointer-events-none sm:hidden">
+                <IoChevronDownOutline size={14} />
+              </div>
             </div>
           </div>
         </div>
@@ -226,11 +231,10 @@ export default function PopularCourses() {
             )}
 
             <motion.div
-              className={`grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 ${
-                isLoading || isPlaceholderData
+              className={`grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8 ${isLoading || isPlaceholderData
                   ? "opacity-50 pointer-events-none"
                   : ""
-              }`}
+                }`}
               variants={container}
               initial="hidden"
               animate="visible"
@@ -254,7 +258,7 @@ export default function PopularCourses() {
 
         {/* Empty State */}
         {isEmptyState && (
-          <div className="text-center py-12 bg-white rounded-[3rem] shadow-sm border border-slate-100 mt-0">
+          <div className="text-center py-10 sm:py-12 bg-white rounded-2xl sm:rounded-[3rem] shadow-sm border border-slate-100 mt-0">
             <div className="inline-flex items-center justify-center w-20 h-20 rounded-full bg-slate-50 text-slate-300 mb-6">
               <IoSearchOutline size={40} />
             </div>
@@ -270,22 +274,22 @@ export default function PopularCourses() {
 
         {/* Pagination Info */}
         {!isLoading && courses.length > 0 && totalPages > 1 && (
-          <div className="mt-16 flex flex-col items-center gap-6">
-            <p className="text-[10px] font-black uppercase tracking-[0.2em] text-slate-400">
+          <div className="mt-10 sm:mt-16 flex flex-col items-center gap-4 sm:gap-6">
+            <p className="text-xs font-black uppercase tracking-[0.15em] text-slate-400">
               Page {page} of {totalPages} • {totalCount} results
             </p>
             <div className="flex items-center gap-3">
               <button
                 onClick={() => setPage((p) => Math.max(1, p - 1))}
                 disabled={page === 1}
-                className="rounded-2xl border border-slate-200 bg-white px-8 py-3.5 text-[10px] font-black uppercase tracking-widest text-slate-700 disabled:opacity-40 hover:bg-slate-50 transition-all shadow-sm"
+                className="rounded-2xl border border-slate-200 bg-white px-6 py-3.5 sm:px-8 sm:py-4 text-xs font-black uppercase tracking-widest text-slate-700 disabled:opacity-40 hover:bg-slate-50 transition-all shadow-sm min-h-[44px] flex items-center justify-center"
               >
                 Previous
               </button>
               <button
                 onClick={() => setPage((p) => Math.min(totalPages, p + 1))}
                 disabled={page === totalPages}
-                className="rounded-2xl border border-slate-200 bg-white px-8 py-3.5 text-[10px] font-black uppercase tracking-widest text-slate-700 disabled:opacity-40 hover:bg-slate-50 transition-all shadow-sm"
+                className="rounded-2xl border border-slate-200 bg-white px-6 py-3.5 sm:px-8 sm:py-4 text-xs font-black uppercase tracking-widest text-slate-700 disabled:opacity-40 hover:bg-slate-50 transition-all shadow-sm min-h-[44px] flex items-center justify-center"
               >
                 Next
               </button>
@@ -295,14 +299,14 @@ export default function PopularCourses() {
 
         {/* Footer Link */}
         <motion.div
-          className="mt-20 text-center"
+          className="mt-12 sm:mt-20 text-center"
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
         >
           <Link
             href={`/${locale}/courses`}
-            className="inline-flex items-center gap-3 px-10 py-5 bg-white text-slate-900 font-black uppercase tracking-[0.2em] text-[10px] rounded-[2rem] shadow-lg shadow-slate-200 hover:shadow-xl hover:shadow-blue-200 transition-all border border-slate-100 group"
+            className="inline-flex items-center gap-3 px-8 py-4 sm:px-10 sm:py-5 bg-white text-slate-900 font-black uppercase tracking-[0.15em] text-xs rounded-[2rem] shadow-lg shadow-slate-200 hover:shadow-xl hover:shadow-blue-200 transition-all border border-slate-100 group min-h-[48px]"
           >
             Explore Master Catalog
             <IoArrowForwardOutline
@@ -312,6 +316,17 @@ export default function PopularCourses() {
           </Link>
         </motion.div>
       </div>
+
+      {/* Styles to hide webkit and default scrollbars */}
+      <style dangerouslySetInnerHTML={{ __html: `
+        .scrollbar-none::-webkit-scrollbar {
+          display: none;
+        }
+        .scrollbar-none {
+          -ms-overflow-style: none;
+          scrollbar-width: none;
+        }
+      `}} />
     </section>
   );
 }

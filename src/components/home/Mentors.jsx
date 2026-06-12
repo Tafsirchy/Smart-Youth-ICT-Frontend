@@ -97,6 +97,7 @@ const MentorCard = ({ mentor }) => {
 
   const handleMouseMove = (event) => {
     if (!cardRef.current) return;
+    if (typeof window !== "undefined" && window.innerWidth < 768) return; // Skip tilt on mobile/tablets
     const rect = cardRef.current.getBoundingClientRect();
     const width = rect.width;
     const height = rect.height;
@@ -126,7 +127,7 @@ const MentorCard = ({ mentor }) => {
         className={`absolute -inset-4 rounded-[48px] ${mentor.glowColor} blur-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-700`}
       />
 
-      <div className="relative h-full bg-slate-900/40 border border-white/10 backdrop-blur-3xl rounded-[40px] p-8 flex flex-col items-center text-center transition-all duration-500 group-hover:bg-slate-900/60 group-hover:border-white/20 overflow-hidden">
+      <div className="relative h-full bg-slate-900/40 border border-white/10 backdrop-blur-3xl rounded-[32px] sm:rounded-[40px] p-6 sm:p-8 flex flex-col items-center text-center transition-all duration-500 group-hover:bg-slate-900/60 group-hover:border-white/20 overflow-hidden">
         {/* Animated Corner Decor */}
         <div
           className={`absolute top-0 right-0 w-24 h-24 bg-gradient-to-bl ${mentor.color} opacity-20 blur-2xl group-hover:opacity-40 transition-opacity`}
@@ -155,7 +156,7 @@ const MentorCard = ({ mentor }) => {
 
           {/* Top Rated Badge */}
           <div className="absolute -top-4 -right-4 bg-white/10 backdrop-blur-md border border-white/20 rounded-2xl p-2 px-3 shadow-xl transform translate-z-10 group-hover:scale-110 transition-transform">
-            <span className="text-[10px] font-black text-white uppercase tracking-tighter flex items-center gap-1">
+            <span className="text-xs font-black text-white uppercase tracking-tighter flex items-center gap-1">
               <IoSchoolOutline className="text-pink-400" /> Professional
             </span>
           </div>
@@ -167,7 +168,7 @@ const MentorCard = ({ mentor }) => {
           style={{ transform: "translateZ(30px)" }}
         >
           <div>
-            <h3 className="text-3xl font-black text-white tracking-tight mb-1">
+            <h3 className="text-2xl sm:text-3xl font-black text-white tracking-tight mb-1">
               {mentor.name}
             </h3>
             <p className="inline-block px-3 py-1 rounded-lg bg-white/5 text-xs font-bold text-white/60 uppercase tracking-widest border border-white/5">
@@ -180,10 +181,10 @@ const MentorCard = ({ mentor }) => {
           </p>
 
           <div className="flex flex-wrap justify-center gap-2">
-            <span className="px-3 py-1 rounded-full bg-white/5 border border-white/10 text-[10px] font-black text-white/60 uppercase">
+            <span className="px-3 py-1 rounded-full bg-white/5 border border-white/10 text-xs font-black text-white/60 uppercase">
               {mentor.expertise}
             </span>
-            <span className="px-3 py-1 rounded-full bg-white/5 border border-white/10 text-[10px] font-black text-white/60 uppercase">
+            <span className="px-3 py-1 rounded-full bg-white/5 border border-white/10 text-xs font-black text-white/60 uppercase">
               {mentor.experience}
             </span>
           </div>
@@ -197,19 +198,21 @@ const MentorCard = ({ mentor }) => {
           <div className="flex gap-3">
             <a
               href="#"
-              className="w-10 h-10 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center text-white/40 hover:bg-white hover:text-slate-900 transition-all duration-300"
+              className="w-11 h-11 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center text-white/40 hover:bg-white hover:text-slate-900 transition-all duration-300 min-h-[44px] min-w-[44px]"
+              aria-label="LinkedIn"
             >
-              <IoLogoLinkedin size={18} />
+              <IoLogoLinkedin size={20} />
             </a>
             <a
               href="#"
-              className="w-10 h-10 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center text-white/40 hover:bg-white hover:text-slate-900 transition-all duration-300"
+              className="w-11 h-11 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center text-white/40 hover:bg-white hover:text-slate-900 transition-all duration-300 min-h-[44px] min-w-[44px]"
+              aria-label="Twitter"
             >
-              <IoLogoTwitter size={18} />
+              <IoLogoTwitter size={20} />
             </a>
           </div>
 
-          <button className="flex items-center gap-2 text-[10px] font-black text-white/40 uppercase tracking-widest hover:text-white transition-colors group/btn">
+          <button className="flex items-center gap-2 text-xs font-black text-white/40 uppercase tracking-widest hover:text-white transition-colors group/btn min-h-[44px] py-2 px-3">
             View Profile{" "}
             <IoExpandOutline className="group-hover/btn:rotate-45 transition-transform" />
           </button>
@@ -227,12 +230,11 @@ export default function Mentors() {
   });
 
   const bgY = useTransform(scrollYProgress, [0, 1], ["0%", "20%"]);
-  const opacity = useTransform(scrollYProgress, [0, 0.2, 0.8, 1], [0, 1, 1, 0]);
 
   return (
     <section
       ref={containerRef}
-      className="section py-32 relative overflow-hidden bg-[#020617]"
+      className="section py-16 sm:py-24 md:py-32 relative overflow-hidden bg-[#020617]"
     >
       {/* Dynamic Background Layer */}
       <motion.div className="absolute inset-0 z-0" style={{ y: bgY }}>
@@ -253,41 +255,41 @@ export default function Mentors() {
       <div className="container-custom relative z-10">
         {/* Header */}
         <motion.div
-          className="text-center mb-24 max-w-4xl mx-auto"
-          initial={{ opacity: 0, y: 30 }}
+          className="text-center mb-10 sm:mb-16 md:mb-24 max-w-4xl mx-auto"
+          initial={{ opacity: 0, y: 15 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.8 }}
+          transition={{ duration: 0.6 }}
         >
           <div className="inline-block relative mb-8">
             <div className="absolute inset-0 bg-brand-pink/20 blur-xl rounded-full" />
-            <span className="relative px-6 py-2 rounded-full border border-white/10 text-white text-[10px] font-black uppercase tracking-[0.4em] backdrop-blur-xl">
+            <span className="relative px-6 py-2 rounded-full border border-white/10 text-white text-xs font-black uppercase tracking-[0.4em] backdrop-blur-xl">
               The Board of Directors
             </span>
           </div>
 
-          <h2 className="text-5xl md:text-7xl font-black text-white leading-[1.1] mb-8 tracking-tighter">
-            Learn from the <br />
+          <h2 className="text-2xl sm:text-4xl md:text-5xl font-black text-white leading-[1.15] mb-4 sm:mb-6 md:mb-8 tracking-tighter">
+            Learn from the <br className="hidden sm:block" />
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-pink-500 via-rose-500 to-amber-500 animate-gradient-x">
               Best in Industry
             </span>
           </h2>
 
-          <p className="text-white/50 text-xl font-medium max-w-2xl mx-auto leading-relaxed">
+          <p className="text-white/50 text-sm sm:text-base md:text-lg lg:text-xl font-medium max-w-2xl mx-auto leading-relaxed mt-4 sm:mt-6">
             Direct guidance from top-tier professionals who have built, scaled,
             and transformed industry standards globally.
           </p>
         </motion.div>
 
         {/* Mentor Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-10 xl:gap-16">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8 md:gap-10 xl:gap-16">
           {mentors.map((mentor, index) => (
             <motion.div
               key={mentor.id}
-              initial={{ opacity: 0, y: 50 }}
+              initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ delay: index * 0.2, duration: 0.8 }}
+              transition={{ delay: index * 0.1, duration: 0.6 }}
             >
               <MentorCard mentor={mentor} />
             </motion.div>
@@ -296,13 +298,13 @@ export default function Mentors() {
 
         {/* Bottom Decorative Line */}
         <motion.div
-          className="mt-32 flex flex-col items-center gap-6"
+          className="mt-16 sm:mt-24 md:mt-32 flex flex-col items-center gap-6"
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
         >
           <div className="h-px w-40 bg-gradient-to-r from-transparent via-white/20 to-transparent" />
-          <p className="text-white/20 text-[10px] font-black uppercase tracking-[0.5em] text-center">
+          <p className="text-white/20 text-xs font-black uppercase tracking-[0.5em] text-center">
             Empowering the next generation of digital leaders
           </p>
         </motion.div>

@@ -119,13 +119,13 @@ export default function Testimonials() {
           setReviews([...res.data.data, ...STATIC_TEXT]);
         }
       })
-      .catch(() => {});
+      .catch(() => { });
   }, []);
 
   if (!mounted) return <div className="section h-[600px]" />; // Skeleton/Placeholder
 
   return (
-    <section className="section relative overflow-hidden bg-white">
+    <section className="section py-12 sm:py-16 md:py-20 relative overflow-hidden bg-white">
       {/* Dynamic Background Elements */}
       <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-full pointer-events-none">
         <div className="absolute top-10 left-10 w-72 h-72 bg-pink-200/20 rounded-full blur-[100px]" />
@@ -134,23 +134,24 @@ export default function Testimonials() {
 
       <div className="relative z-10">
         {/* Header Section */}
-        <div className="container-custom mb-24">
+        <div className="container-custom mb-10 sm:mb-16 md:mb-24">
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 15 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
             className="text-center mb-16 max-w-3xl mx-auto"
           >
             <span className="inline-block px-4 py-1.5 rounded-full bg-pink-100 text-pink-600 text-xs font-bold tracking-wider uppercase mb-4">
               Success Stories
             </span>
-            <h2 className="text-5xl md:text-7xl font-black text-slate-900 leading-[1.1] mb-8 tracking-tighter">
-              What Our <br />
+            <h2 className="text-2xl sm:text-4xl md:text-5xl font-black text-slate-900 leading-[1.15] mb-4 sm:mb-6 md:mb-8 tracking-tighter">
+              What Our <br className="hidden sm:block" />
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-pink-500 via-rose-500 to-amber-500 animate-gradient-x">
                 Students Say
               </span>
             </h2>
-            <p className="text-slate-600 text-lg md:text-xl leading-relaxed">
+            <p className="text-slate-600 text-sm sm:text-base md:text-lg lg:text-xl leading-relaxed mt-4 sm:mt-6">
               Real results from real people. Join 5,000+ graduates who have
               transformed their lives through our industry-leading courses and
               mentorship.
@@ -161,7 +162,7 @@ export default function Testimonials() {
         {/* Scrolling Row 1: Text Reviews (Left to Right) */}
         <div className="mb-8 relative grayscale hover:grayscale-0 transition-all duration-500">
           <div
-            className="scroll-container animate-scroll-right"
+            className="scroll-container animate-scroll-right motion-gpu"
             style={{ "--scroll-duration": "60s" }}
           >
             {[...reviews, ...reviews].map((review, idx) => (
@@ -189,7 +190,7 @@ export default function Testimonials() {
                     <h4 className="text-xs font-bold text-slate-900">
                       {review.name}
                     </h4>
-                    <p className="text-[10px] text-slate-500 uppercase tracking-wider">
+                    <p className="text-xs text-slate-500 uppercase tracking-wider">
                       {review.role || "SYICT Graduate"}
                     </p>
                   </div>
@@ -202,7 +203,7 @@ export default function Testimonials() {
         {/* Scrolling Row 2: Video Reviews (Right to Left) */}
         <div className="relative">
           <div
-            className="scroll-container animate-scroll-left"
+            className="scroll-container animate-scroll-left motion-gpu"
             style={{ "--scroll-duration": "50s" }}
           >
             {[...STATIC_VIDEOS, ...STATIC_VIDEOS, ...STATIC_VIDEOS].map(
@@ -223,7 +224,7 @@ export default function Testimonials() {
                       <IoLogoYoutube size={24} />
                     </div>
                     <div className="absolute bottom-3 left-4 right-4">
-                      <p className="text-white text-[10px] font-bold uppercase tracking-widest bg-black/60 backdrop-blur-md px-2 py-1 rounded inline-block">
+                      <p className="text-white text-xs font-bold uppercase tracking-widest bg-black/60 backdrop-blur-md px-2 py-1 rounded inline-block">
                         {video.name}
                       </p>
                     </div>
@@ -247,8 +248,8 @@ export default function Testimonials() {
       </div>
 
       {/* Stats Summary Section */}
-      <div className="container-custom mt-20">
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
+      <div className="container-custom mt-10 sm:mt-16 md:mt-20">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6 md:gap-8">
           {[
             { val: "4.9/5", label: "Average Rating", color: "text-amber-500" },
             { val: "5k+", label: "Happy Students", color: "text-pink-600" },
@@ -257,14 +258,14 @@ export default function Testimonials() {
           ].map((stat, i) => (
             <motion.div
               key={i}
-              initial={{ opacity: 0, y: 20 }}
+              initial={{ opacity: 0, y: 10 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: i * 0.1 }}
               className="text-center"
             >
               <div
-                className={`text-3xl md:text-4xl font-black ${stat.color} mb-1`}
+                className={`text-2xl sm:text-3xl md:text-4xl font-black ${stat.color} mb-1`}
               >
                 {stat.val}
               </div>
@@ -275,6 +276,13 @@ export default function Testimonials() {
           ))}
         </div>
       </div>
+
+      {/* Styles to hide scrollbars and promote scrolling row performance to GPU hardware compositing */}
+      <style dangerouslySetInnerHTML={{ __html: `
+        .scroll-container {
+          will-change: transform;
+        }
+      `}} />
     </section>
   );
 }
