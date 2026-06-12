@@ -67,7 +67,7 @@ export default function WhyChooseUs() {
 
   return (
     <section
-      className="section relative overflow-hidden bg-[#FAF9F6] py-12 sm:py-16 md:py-24"
+      className="section relative overflow-hidden bg-[#FAF9F6] pt-6 pb-12 sm:pt-8 sm:pb-16 md:pt-12 md:pb-24"
       id="why-choose-us"
     >
       {/* Dynamic Background Elements */}
