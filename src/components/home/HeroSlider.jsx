@@ -284,9 +284,9 @@ export default function HeroSlider() {
             </div>
           )}
 
-          <div className="w-full max-w-[1440px] mx-auto px-8 md:px-16 lg:px-24 xl:px-32 grid lg:grid-cols-2 gap-6 lg:gap-8 items-center relative z-20 py-8 lg:py-12">
+          <div className="container-custom grid lg:grid-cols-2 gap-6 lg:gap-8 items-center relative z-20 py-8 lg:py-12">
             {/* Left Texts */}
-            <div className="max-w-2xl mx-auto text-center lg:text-left lg:mx-0 flex flex-col items-center lg:items-start w-full">
+            <div className="max-w-2xl mx-auto text-center lg:text-left lg:mx-0 flex flex-col items-center lg:items-start w-full lg:pl-16 xl:pl-20">
               <motion.div
                 initial={mounted ? { opacity: 0, x: -50 } : false}
                 animate={{ opacity: 1, x: 0 }}
@@ -390,7 +390,7 @@ export default function HeroSlider() {
             </div>
 
             {/* Right Visuals - Hidden on mobile/tablet, shown on desktop (lg and up) */}
-            <div className="hidden lg:flex relative items-center justify-end h-full">
+            <div className="hidden lg:flex relative items-center justify-end h-full lg:pr-16 xl:pr-20">
               <motion.div
                 initial={mounted ? { opacity: 0, scale: 0.95 } : false}
                 animate={{ opacity: 1, scale: 1 }}
