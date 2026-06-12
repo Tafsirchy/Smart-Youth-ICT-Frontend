@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
+import Cookies from "js-cookie";
 
 export default function PageLoader() {
   const pathname = usePathname();
@@ -23,8 +24,8 @@ export default function PageLoader() {
     const shouldShowLoader = isHomePage(pathname);
 
     // 2. Check if we have already shown the splash screen this session
-    // We use sessionStorage so it plays once per browser tab session
-    const hasSeenSplash = sessionStorage.getItem("syict_splash_seen");
+    // We use a cookie so it is synchronized with the server layout
+    const hasSeenSplash = Cookies.get("syict_splash_seen") === "true";
 
     // If it's not the homepage, OR they already saw it -> INSTANT LOAD (do not show)
     if (!shouldShowLoader || hasSeenSplash) {
@@ -39,8 +40,8 @@ export default function PageLoader() {
 
     const fadeTimer = setTimeout(() => {
       setFadeOut(true);
-      // Mark as seen so they don't see it again if they route back
-      sessionStorage.setItem("syict_splash_seen", "true");
+      // Mark as seen in session cookie (clears on browser/tab close)
+      Cookies.set("syict_splash_seen", "true", { path: "/" });
     }, 300);
 
     const hideTimer = setTimeout(() => {

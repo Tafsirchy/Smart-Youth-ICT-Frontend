@@ -1,36 +1,37 @@
-const path = require('path');
-const createNextIntlPlugin = require('next-intl/plugin');
+const path = require("path");
+const createNextIntlPlugin = require("next-intl/plugin");
 
-const withNextIntl = createNextIntlPlugin('./src/i18n.js');
+const withNextIntl = createNextIntlPlugin("./src/i18n.js");
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   images: {
     remotePatterns: [
-      { protocol: 'https', hostname: 'res.cloudinary.com' },
-      { protocol: 'https', hostname: 'lh3.googleusercontent.com' },
-      { protocol: 'https', hostname: 'avatars.githubusercontent.com' },
-      { protocol: 'https', hostname: 'i.pravatar.cc' },
-      { protocol: 'https', hostname: 'images.unsplash.com' },
-      { protocol: 'https', hostname: 'i.ibb.co' },
-      { protocol: 'https', hostname: 'c.saavncdn.com' },
+      { protocol: "https", hostname: "res.cloudinary.com" },
+      { protocol: "https", hostname: "lh3.googleusercontent.com" },
+      { protocol: "https", hostname: "avatars.githubusercontent.com" },
+      { protocol: "https", hostname: "i.pravatar.cc" },
+      { protocol: "https", hostname: "images.unsplash.com" },
+      { protocol: "https", hostname: "i.ibb.co" },
+      { protocol: "https", hostname: "c.saavncdn.com" },
+      { protocol: "https", hostname: "img.youtube.com" },
     ],
   },
 
   // ─── @/ → src/ path alias ───────────────────────────────────────
   webpack(config) {
-    config.resolve.alias['@'] = path.resolve(__dirname, 'src');
+    config.resolve.alias["@"] = path.resolve(__dirname, "src");
     return config;
   },
 
   async headers() {
     return [
       {
-        source: '/(.*)',
+        source: "/(.*)",
         headers: [
-          { key: 'X-Content-Type-Options', value: 'nosniff' },
-          { key: 'X-Frame-Options',        value: 'DENY'    },
-          { key: 'X-XSS-Protection',       value: '1; mode=block' },
+          { key: "X-Content-Type-Options", value: "nosniff" },
+          { key: "X-Frame-Options", value: "DENY" },
+          { key: "X-XSS-Protection", value: "1; mode=block" },
         ],
       },
     ];
@@ -38,4 +39,3 @@ const nextConfig = {
 };
 
 module.exports = withNextIntl(nextConfig);
-

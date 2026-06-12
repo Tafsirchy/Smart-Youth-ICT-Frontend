@@ -37,8 +37,8 @@ module.exports = {
 
       // ─── Typography ────────────────────────────────────────────────
       fontFamily: {
-        display: ['var(--font-display)', 'ui-sans-serif', 'system-ui', 'sans-serif'],
-        sans:    ['var(--font-sans)', 'ui-sans-serif', 'system-ui', 'sans-serif'],
+        display: ['var(--font-outfit)', 'var(--font-display)', 'system-ui', 'sans-serif'],
+        sans:    ['var(--font-inter)', 'var(--font-sans)', 'system-ui', 'sans-serif'],
       },
       fontSize: {
         'fluid-hero': ['var(--text-fluid-hero)', { lineHeight: '1.05', letterSpacing: '-0.04em', fontWeight: '900' }],

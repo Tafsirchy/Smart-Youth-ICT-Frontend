@@ -203,6 +203,8 @@ const slides = [
 export default function HeroSlider() {
   const [current, setCurrent] = useState(0);
   const [direction, setDirection] = useState(0);
+  const [mounted, setMounted] = useState(false);
+
   const nextSlide = useCallback(() => {
     setDirection(1);
     setCurrent((prev) => (prev === slides.length - 1 ? 0 : prev + 1));
@@ -214,6 +216,7 @@ export default function HeroSlider() {
   }, []);
 
   useEffect(() => {
+    setMounted(true);
     const timer = setInterval(nextSlide, 8000); // 8 seconds for slower read
     return () => clearInterval(timer);
   }, [nextSlide]);
@@ -242,49 +245,61 @@ export default function HeroSlider() {
             x: { type: "tween", duration: 0.8, ease: [0.4, 0, 0.2, 1] },
             opacity: { duration: 0.5 },
           }}
-          className="absolute inset-0 w-full h-full flex items-center justify-center p-0"
+          drag="x"
+          dragConstraints={{ left: 0, right: 0 }}
+          dragElastic={0.2}
+          onDragEnd={(e, info) => {
+            const threshold = 80;
+            if (info.offset.x > threshold) {
+              prevSlide();
+            } else if (info.offset.x < -threshold) {
+              nextSlide();
+            }
+          }}
+          className="absolute inset-0 w-full h-full flex items-center justify-center p-0 touch-pan-y"
           style={{
             background: slides[current].hasStripes
               ? "none"
               : slides[current].bgGradient || slides[current].bgColor,
           }}
         >
-          {/* Decorative Elements for Slide 1 */}
+          {/* Decorative Elements for Slide 1 - Hidden on mobile/tablet */}
           {slides[current].id === 1 && (
-            <>
+            <div className="hidden lg:block">
               <LoopScribble className="absolute top-10 left-10" />
               <ArrowScribbleLong className="absolute top-20 right-40" />
               <DotGrid className="absolute bottom-10 left-10" />
-            </>
+            </div>
           )}
 
           {/* Slide 2 Layout */}
           {slides[current].bgBanner && (
-            <div className="absolute inset-0 flex items-center justify-center p-3 md:p-4">
+            <div className="absolute inset-0 flex items-center justify-center p-0 sm:p-3 md:p-4">
               <div
-                className="w-[96%] max-w-[1500px] h-[90%] rounded-[24px] md:rounded-[84px]  overflow-hidden relative"
+                className="w-full sm:w-[96%] max-w-[1500px] h-full sm:h-[90%] rounded-none sm:rounded-[24px] md:rounded-[84px] overflow-hidden relative"
                 style={{ background: slides[current].bgBanner }}
               >
-                <div className="absolute bottom-0 right-0 w-[40%] max-w-[500px] h-[35%] bg-white rounded-tl-[100px]" />
+                <div className="hidden lg:block absolute bottom-0 right-0 w-[40%] max-w-[500px] h-[35%] bg-white rounded-tl-[100px]" />
               </div>
             </div>
           )}
 
-          <div className="container-custom grid lg:grid-cols-2 gap-6 lg:gap-8 items-center relative z-20 py-10 lg:py-12">
+          <div className="w-full max-w-[1440px] mx-auto px-8 md:px-16 lg:px-24 xl:px-32 grid lg:grid-cols-2 gap-6 lg:gap-8 items-center relative z-20 py-8 lg:py-12">
             {/* Left Texts */}
-            <div className="max-w-2xl">
+            <div className="max-w-2xl mx-auto text-center lg:text-left lg:mx-0 flex flex-col items-center lg:items-start w-full">
               <motion.div
-                initial={{ opacity: 0, x: -50 }}
+                initial={mounted ? { opacity: 0, x: -50 } : false}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ delay: 0.4 }}
+                className="flex flex-col items-center lg:items-start w-full motion-gpu"
               >
                 {slides[current].badge ? (
                   <div className="inline-flex items-center gap-2 px-5 py-2 rounded-full bg-white/10 backdrop-blur-xl border border-white/20 text-white text-xs font-bold tracking-widest mb-3 md:mb-5">
                     🚀 {slides[current].badge}
                   </div>
                 ) : slides[current].type === "dual-portrait" ? (
-                  <div className="flex flex-col gap-3 mb-5">
-                    <div className="flex items-center gap-6">
+                  <div className="flex flex-col gap-3 mb-5 items-center lg:items-start">
+                    <div className="flex flex-col sm:flex-row items-center gap-4 sm:gap-6">
                       <div className="flex -space-x-4">
                         {[1, 2, 3, 4].map((i) => (
                           <div
@@ -300,7 +315,7 @@ export default function HeroSlider() {
                           </div>
                         ))}
                       </div>
-                      <div className="flex flex-col gap-1">
+                      <div className="flex flex-col gap-1 items-center lg:items-start">
                         <div className="flex text-yellow-400">
                           {[1, 2, 3, 4, 5].map((i) => (
                             <StarIcon key={i} />
@@ -319,7 +334,7 @@ export default function HeroSlider() {
                 )}
 
                 <h1
-                  className={`text-5xl md:text-7xl font-black leading-[1.1] mb-8 tracking-tighter ${slides[current].id === 1 ? "text-[#232F3E]" : slides[current].id === 3 ? "text-[#232F3E]" : "text-white"}`}
+                  className={`font-display text-4xl sm:text-5xl lg:text-5xl xl:text-6xl 2xl:text-7xl font-black leading-[1.1] mb-6 md:mb-8 tracking-tighter ${slides[current].id === 1 ? "text-[#232F3E]" : slides[current].id === 3 ? "text-[#232F3E]" : "text-white"}`}
                 >
                   {slides[current].heading}
                 </h1>
@@ -332,25 +347,25 @@ export default function HeroSlider() {
 
                 {/* Buttons Container for Slide 1 */}
                 {slides[current].id === 1 ? (
-                  <div className="inline-flex items-center bg-white p-2 rounded-[24px] shadow-2xl border border-slate-50 overflow-hidden">
+                  <div className="flex flex-col sm:flex-row items-stretch sm:items-center bg-white p-2 rounded-[24px] sm:rounded-full shadow-2xl border border-slate-50 overflow-hidden w-full sm:w-auto">
                     <Link
                       href="/courses"
-                      className="px-10 py-5 text-[#232F3E] font-black text-sm hover:translate-y-[-1px] transition-transform"
+                      className="px-6 py-4 sm:px-10 sm:py-5 text-center text-[#232F3E] font-black text-sm hover:translate-y-[-1px] transition-transform"
                     >
                       {slides[current].primaryBtn.text}
                     </Link>
                     <Link
                       href="/courses"
-                      className="px-10 py-5 bg-[#2D5A54] text-white rounded-[20px] font-black text-sm shadow-xl hover:translate-y-[-1px] transition-transform"
+                      className="px-6 py-4 sm:px-10 sm:py-5 text-center bg-[#2D5A54] text-white rounded-[18px] sm:rounded-full font-black text-sm shadow-xl hover:translate-y-[-1px] transition-transform"
                     >
                       {slides[current].secondaryBtn.text}
                     </Link>
                   </div>
                 ) : (
-                  <div className="flex flex-wrap gap-4 items-center">
+                  <div className="flex flex-col sm:flex-row gap-4 items-stretch sm:items-center w-full sm:w-auto">
                     <Link
                       href={slides[current].primaryBtn.href}
-                      className="px-12 py-5 rounded-full font-black text-sm transition-all transform hover:scale-105 shadow-2xl"
+                      className="px-6 py-4 sm:px-12 sm:py-5 rounded-full font-black text-sm transition-all transform hover:scale-105 shadow-2xl text-center"
                       style={{
                         background:
                           slides[current].primaryBtn.color || "#FFFFFF",
@@ -363,7 +378,7 @@ export default function HeroSlider() {
                     {slides[current].secondaryBtn && (
                       <Link
                         href="#"
-                        className="px-12 py-5 rounded-full font-black text-sm border-2 border-white/20 text-white flex items-center gap-3 hover:bg-white/10 transition-colors"
+                        className="px-6 py-4 sm:px-12 sm:py-5 rounded-full font-black text-sm border-2 border-white/20 text-white flex items-center justify-center gap-3 hover:bg-white/10 transition-colors text-center"
                       >
                         <HiPlay size={24} />
                         {slides[current].secondaryBtn.text}
@@ -374,10 +389,10 @@ export default function HeroSlider() {
               </motion.div>
             </div>
 
-            {/* Right Visuals */}
-            <div className="relative flex items-center justify-center lg:justify-end h-full">
+            {/* Right Visuals - Hidden on mobile/tablet, shown on desktop (lg and up) */}
+            <div className="hidden lg:flex relative items-center justify-end h-full">
               <motion.div
-                initial={{ opacity: 0, scale: 0.95 }}
+                initial={mounted ? { opacity: 0, scale: 0.95 } : false}
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ delay: 0.5 }}
               >
@@ -396,7 +411,7 @@ export default function HeroSlider() {
                     ].map((card, i) => (
                       <motion.div
                         key={i}
-                        initial={{ opacity: 0, scale: 0.8 }}
+                        initial={mounted ? { opacity: 0, scale: 0.8 } : false}
                         animate={{ opacity: 1, scale: 1 }}
                         transition={{ delay: 0.6 + i * 0.05 }}
                         className="absolute rounded-[24px] overflow-hidden shadow-2xl border border-white/40"
@@ -587,14 +602,14 @@ export default function HeroSlider() {
                       {/* Background Frames from Schematic */}
                       {/* Top-Left Frame */}
                       <motion.div
-                        initial={{ opacity: 0, scale: 0.9 }}
+                        initial={mounted ? { opacity: 0, scale: 0.9 } : false}
                         animate={{ opacity: 1, scale: 1 }}
                         transition={{ delay: 0.4 }}
                         className="absolute -top-8 -left-8 md:-top-10 md:-left-10 w-[85%] h-[85%] border-2 border-[#A85161]/20 rounded-[20px] pointer-events-none"
                       />
                       {/* Bottom-Right Frame */}
                       <motion.div
-                        initial={{ opacity: 0, scale: 0.9 }}
+                        initial={mounted ? { opacity: 0, scale: 0.9 } : false}
                         animate={{ opacity: 1, scale: 1 }}
                         transition={{ delay: 0.5 }}
                         className="absolute -bottom-8 -right-8 md:-bottom-10 md:-right-10 w-[85%] h-[85%] border-2 border-[#A85161]/20 rounded-[20px] pointer-events-none ml-auto"
@@ -604,7 +619,7 @@ export default function HeroSlider() {
                       <div className="relative flex items-center gap-3 z-10">
                         {/* Left Pillar */}
                         <motion.div
-                          initial={{ opacity: 0, x: -30 }}
+                          initial={mounted ? { opacity: 0, x: -30 } : false}
                           animate={{ opacity: 1, x: 0 }}
                           transition={{ delay: 0.6 }}
                           className="relative w-[120px] h-[260px] md:w-[170px] md:h-[390px] rounded-[24px] overflow-hidden border border-rose-100 bg-[#FAF1F2] shadow-xl"
@@ -632,7 +647,7 @@ export default function HeroSlider() {
 
                         {/* Right Pillar */}
                         <motion.div
-                          initial={{ opacity: 0, x: 30 }}
+                          initial={mounted ? { opacity: 0, x: 30 } : false}
                           animate={{ opacity: 1, x: 0 }}
                           transition={{ delay: 0.7 }}
                           className="relative w-[120px] h-[260px] md:w-[170px] md:h-[390px] rounded-[24px] overflow-hidden border border-rose-100 bg-[#FAF1F2] shadow-xl"
@@ -692,40 +707,32 @@ export default function HeroSlider() {
         </motion.div>
       </AnimatePresence>
 
-      {/* Manual Controls */}
-      <div className="absolute inset-x-4 md:inset-x-8 top-1/2 -translate-y-1/2 flex justify-between pointer-events-none z-30">
+      {/* Manual Controls - Hidden on mobile/tablet, shown on desktop (lg and up) */}
+      <div className="hidden lg:flex absolute inset-x-4 xl:inset-x-12 top-1/2 -translate-y-1/2 justify-between pointer-events-none z-30">
         <button
           onClick={prevSlide}
-          className="p-3 text-slate-800/40 cursor-pointer pointer-events-auto hover:text-[#10B981] transition-all group scale-125 md:scale-150"
+          className="w-12 h-12 rounded-full bg-white/90 hover:bg-[#2D5A54] text-slate-800 hover:text-white flex items-center justify-center cursor-pointer pointer-events-auto transition-all shadow-lg hover:shadow-xl border border-slate-100 group"
+          aria-label="Previous slide"
         >
-          <motion.div
-            animate={{ x: [0, -4, 0] }}
-            transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
-          >
-            <HiArrowLeft
-              size={28}
-              className="group-hover:scale-110 transition-transform"
-            />
-          </motion.div>
+          <HiArrowLeft
+            size={20}
+            className="group-hover:-translate-x-0.5 transition-transform"
+          />
         </button>
         <button
           onClick={nextSlide}
-          className="p-3 text-slate-800/40 cursor-pointer pointer-events-auto hover:text-[#10B981] transition-all group scale-125 md:scale-150"
+          className="w-12 h-12 rounded-full bg-white/90 hover:bg-[#2D5A54] text-slate-800 hover:text-white flex items-center justify-center cursor-pointer pointer-events-auto transition-all shadow-lg hover:shadow-xl border border-slate-100 group"
+          aria-label="Next slide"
         >
-          <motion.div
-            animate={{ x: [0, 4, 0] }}
-            transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
-          >
-            <HiArrowRight
-              size={28}
-              className="group-hover:scale-110 transition-transform"
-            />
-          </motion.div>
+          <HiArrowRight
+            size={20}
+            className="group-hover:translate-x-0.5 transition-transform"
+          />
         </button>
       </div>
 
-      {/* Progress Dots */}
-      <div className="absolute bottom-6 md:bottom-8 inset-x-0 flex justify-center gap-3 md:gap-4 z-40">
+      {/* Progress Dots - Touch Target Optimized */}
+      <div className="absolute bottom-6 md:bottom-8 inset-x-0 flex justify-center items-center gap-1 z-40">
         {slides.map((_, i) => (
           <button
             key={i}
@@ -733,8 +740,17 @@ export default function HeroSlider() {
               setDirection(i > current ? 1 : -1);
               setCurrent(i);
             }}
-            className={`h-2.5 rounded-full transition-all duration-1000 ${current === i ? "w-12 bg-[#10B981] shadow-xl" : "w-2.5 bg-slate-300"}`}
-          />
+            aria-label={`Go to slide ${i + 1}`}
+            className="p-3 focus:outline-none transition-transform hover:scale-110"
+          >
+            <span
+              className={`block h-2 rounded-full transition-all duration-500 ${
+                current === i
+                  ? "w-8 bg-[#10B981] shadow-md shadow-emerald-200"
+                  : "w-2 bg-slate-300 hover:bg-slate-400"
+              }`}
+            />
+          </button>
         ))}
       </div>
     </section>

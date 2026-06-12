@@ -46,9 +46,14 @@ const providers = [
 
         return toSessionUser(data);
       } catch (error) {
-        throw new Error(
-          error?.response?.data?.message || "Invalid email or password",
-        );
+        const message = error?.response?.data?.message;
+        if (message) throw new Error(message);
+
+        if (error.code === "ECONNREFUSED" || !error.response) {
+          throw new Error("Unable to connect to authentication server. Please try again later.");
+        }
+
+        throw new Error("An unexpected error occurred. Please try again.");
       }
     },
   }),

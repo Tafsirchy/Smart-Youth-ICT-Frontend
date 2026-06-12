@@ -100,7 +100,6 @@ body {
   line-height: 1.65;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  font-synthesis: none;
   text-rendering: optimizeLegibility;
 }
 
@@ -110,7 +109,6 @@ h1, h2, h3, h4, h5, h6 {
   line-height: 1.1;
   color: var(--color-text-primary);
   letter-spacing: -0.02em;
-  font-synthesis: none;
 }
 
 h1 { font-size: var(--text-fluid-h1); margin-bottom: 2rem; }
@@ -317,6 +315,16 @@ a {
  * 4. UTILITY HELPERS  (@layer utilities)
  * ──────────────────────────────────────────────────────────────── */
 @layer utilities {
+  .motion-gpu,
+  .optimize-text-rendering {
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+    perspective: 1000px;
+    -webkit-perspective: 1000px;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
   .text-gradient {
     background: var(--gradient-hero);
     -webkit-background-clip: text;
@@ -779,5 +787,13 @@ select.form-input { cursor: pointer; }
   border-radius: 12px;
   background-color: rgba(255, 255, 255, 0.9);
   backdrop-filter: blur(8px);
+}
+
+/* Force hardware accelerated layers & smooth antialiasing on animated text to prevent font weight shifts */
+.motion-gpu {
+  transform: translate3d(0, 0, 0);
+  backface-visibility: hidden;
+  perspective: 1000px;
+  will-change: transform, opacity;
 }
 

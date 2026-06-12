@@ -1,5 +1,6 @@
 'use client';
 
+import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import Link from 'next/link';
 import { FaWhatsapp } from 'react-icons/fa';
@@ -24,10 +25,15 @@ const stats = [
 
 export default function HeroSection() {
   const waNumber = process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || '8801000000000';
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   return (
     <section
-      className="relative overflow-hidden py-20 md:py-32 px-4"
+      className="relative overflow-hidden py-12 sm:py-20 md:py-32 px-4"
       style={{ background: 'var(--color-background)' }}
     >
       {/* Animated blob — pink */}
@@ -47,9 +53,9 @@ export default function HeroSection() {
         transition={{ duration: 10, repeat: Infinity, ease: 'easeInOut', delay: 1 }}
       />
 
-      <div className="container-lg relative z-10 text-center">
+      <div className="container-lg relative z-10 text-center motion-gpu">
         {/* Badge */}
-        <motion.div variants={fadeUp} initial="hidden" animate="visible" custom={0}>
+        <motion.div variants={fadeUp} initial={mounted ? "hidden" : "visible"} animate="visible" custom={0}>
           <span className="badge-pink text-sm mb-6 inline-block">
             🚀 Bangladesh&apos;s #1 Project-Based IT Platform
           </span>
@@ -57,8 +63,8 @@ export default function HeroSection() {
 
         {/* Headline */}
         <motion.h1
-          className="text-4xl md:text-6xl font-extrabold text-textPrimary leading-tight mb-6"
-          variants={fadeUp} initial="hidden" animate="visible" custom={0.1}
+          className="font-display text-3xl sm:text-5xl md:text-6xl font-extrabold text-textPrimary leading-tight mb-6"
+          variants={fadeUp} initial={mounted ? "hidden" : "visible"} animate="visible" custom={0.1}
         >
           Learn IT Skills &amp; <br />
           <span className="text-gradient">Earn Real Money</span>
@@ -66,8 +72,8 @@ export default function HeroSection() {
 
         {/* Sub-headline */}
         <motion.p
-          className="text-textSecondary text-lg md:text-xl max-w-2xl mx-auto mb-10 leading-relaxed"
-          variants={fadeUp} initial="hidden" animate="visible" custom={0.2}
+          className="text-textSecondary text-base sm:text-lg md:text-xl max-w-2xl mx-auto mb-8 sm:mb-10 leading-relaxed"
+          variants={fadeUp} initial={mounted ? "hidden" : "visible"} animate="visible" custom={0.2}
         >
           Master Web Development, Graphic Design, Social Media Marketing &amp; AI.
           Work on real client projects while you study and earn before you graduate.
@@ -75,10 +81,10 @@ export default function HeroSection() {
 
         {/* CTA Buttons */}
         <motion.div
-          className="flex flex-col sm:flex-row gap-4 justify-center items-center"
-          variants={fadeUp} initial="hidden" animate="visible" custom={0.3}
+          className="flex flex-col sm:flex-row gap-4 justify-center items-center w-full max-w-md mx-auto sm:max-w-none"
+          variants={fadeUp} initial={mounted ? "hidden" : "visible"} animate="visible" custom={0.3}
         >
-          <Link href="/courses" id="hero-enroll-btn" className="btn-primary text-base px-8 py-4 rounded-xl2">
+          <Link href="/courses" id="hero-enroll-btn" className="btn-primary text-base px-8 py-4 rounded-xl2 w-full sm:w-auto text-center">
             🎓 Enroll Now — Start Free
           </Link>
           <motion.a
@@ -86,7 +92,7 @@ export default function HeroSection() {
             id="hero-whatsapp-btn"
             target="_blank"
             rel="noreferrer"
-            className="btn-secondary flex items-center gap-2 text-base px-8 py-4 rounded-xl2"
+            className="btn-secondary flex items-center justify-center gap-2 text-base px-8 py-4 rounded-xl2 w-full sm:w-auto text-center"
             whileHover={{ scale: 1.04 }}
             whileTap={{ scale: 0.97 }}
           >
@@ -101,7 +107,7 @@ export default function HeroSection() {
             <motion.div
               key={label}
               variants={stat}
-              initial="hidden"
+              initial={mounted ? "hidden" : "visible"}
               animate="visible"
               custom={0.4 + i * 0.1}
             >
