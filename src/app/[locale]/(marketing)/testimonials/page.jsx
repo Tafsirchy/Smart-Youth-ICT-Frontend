@@ -39,7 +39,7 @@ export default function TestimonialsPage() {
             ))}
             <span className="text-amber-700 font-bold text-sm ml-2">4.9/5 Average Rating</span>
           </motion.div>
-          <h1 className="text-5xl md:text-7xl font-black text-slate-900 leading-[1.1] mb-8 tracking-tighter">
+          <h1 className="text-5xl md:text-5xl font-black text-slate-900 leading-[1.1] mb-8 tracking-tighter">
             Testi-<br />
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-pink-500 via-rose-500 to-amber-500 animate-gradient-x">monials</span>
           </h1>
@@ -55,7 +55,7 @@ export default function TestimonialsPage() {
 
         {loading ? (
           <div className="flex justify-center items-center py-20">
-             <div className="w-12 h-12 border-4 border-slate-200 border-t-pink-600 rounded-full animate-spin"></div>
+            <div className="w-12 h-12 border-4 border-slate-200 border-t-pink-600 rounded-full animate-spin"></div>
           </div>
         ) : (
           <div className="columns-1 md:columns-2 lg:columns-3 gap-6 space-y-6 max-w-7xl mx-auto">

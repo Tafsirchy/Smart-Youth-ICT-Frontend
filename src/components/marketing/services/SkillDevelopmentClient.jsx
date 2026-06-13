@@ -2,10 +2,10 @@
 
 import { motion } from "framer-motion";
 import Link from "next/link";
-import { 
-  IoHardwareChipOutline, 
-  IoColorPaletteOutline, 
-  IoMegaphoneOutline, 
+import {
+  IoHardwareChipOutline,
+  IoColorPaletteOutline,
+  IoMegaphoneOutline,
   IoLayersOutline,
   IoCodeWorkingOutline,
   IoSearchOutline,
@@ -46,19 +46,19 @@ const CATEGORY_STYLE_MAP = {
 };
 
 export default function SkillDevelopmentClient({ locale, courses, pageContent }) {
-  const programsToDisplay = courses.length > 0 
+  const programsToDisplay = courses.length > 0
     ? courses.map(course => {
-        const style = CATEGORY_STYLE_MAP[course.category] || CATEGORY_STYLE_MAP.other;
-        return {
-          _id: course._id,
-          slug: course.slug,
-          title: course.title?.en || course.title || "Untitled Program",
-          badge: course.tagline || (course.isPopular ? "Popular" : "New"),
-          description: course.description?.en || (typeof course.description === 'string' ? course.description : ""),
-          tech: course.outcomes?.slice(0, 4) || [],
-          ...style
-        };
-      })
+      const style = CATEGORY_STYLE_MAP[course.category] || CATEGORY_STYLE_MAP.other;
+      return {
+        _id: course._id,
+        slug: course.slug,
+        title: course.title?.en || course.title || "Untitled Program",
+        badge: course.tagline || (course.isPopular ? "Popular" : "New"),
+        description: course.description?.en || (typeof course.description === 'string' ? course.description : ""),
+        tech: course.outcomes?.slice(0, 4) || [],
+        ...style
+      };
+    })
     : [];
 
   const hero = pageContent?.hero || {
@@ -102,9 +102,9 @@ export default function SkillDevelopmentClient({ locale, courses, pageContent })
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.1 }}
-            className="text-5xl md:text-7xl font-black text-slate-900 leading-[1.1] mb-8 tracking-tighter"
+            className="text-5xl md:text-5xl font-black text-slate-900 leading-[1.1] mb-8 tracking-tighter"
           >
-             {hero.title.split(hero.subtitle)[0]} <br />
+            {hero.title.split(hero.subtitle)[0]} <br />
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-500 via-teal-500 to-cyan-600 animate-gradient-x">{hero.subtitle}</span>
           </motion.h1>
           <motion.p
@@ -120,37 +120,37 @@ export default function SkillDevelopmentClient({ locale, courses, pageContent })
 
       {/* Methodology Section */}
       <div className="bg-white py-20 border-y border-slate-100">
-         <div className="container-custom">
-            <div className="grid md:grid-cols-3 gap-12 text-center">
-               {methods.map((mod, i) => (
-                  <motion.div 
-                     key={i}
-                     initial={{ opacity: 0, y: 20 }}
-                     whileInView={{ opacity: 1, y: 0 }}
-                     viewport={{ once: true }}
-                     className="space-y-4"
-                  >
-                     <h3 className="text-2xl font-extrabold text-slate-900">{mod.title}</h3>
-                     <p className="text-slate-600 leading-relaxed max-w-sm mx-auto">{mod.description}</p>
-                  </motion.div>
-               ))}
-            </div>
+        <div className="container-custom">
+          <div className="grid md:grid-cols-3 gap-12 text-center">
+            {methods.map((mod, i) => (
+              <motion.div
+                key={i}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                className="space-y-4"
+              >
+                <h3 className="text-2xl font-extrabold text-slate-900">{mod.title}</h3>
+                <p className="text-slate-600 leading-relaxed max-w-sm mx-auto">{mod.description}</p>
+              </motion.div>
+            ))}
+          </div>
 
-            <div className="mt-16 text-center">
-               <Link 
-                 href="/services/skill-development/details"
-                 className="inline-flex items-center gap-2 text-[10px] font-black uppercase tracking-[0.4em] text-blue-600 hover:text-indigo-600 transition-colors group"
-               >
-                 View Pedagogical Manifest <IoArrowBackOutline className="rotate-180 group-hover:translate-x-2 transition-transform" />
-               </Link>
-            </div>
-         </div>
+          <div className="mt-16 text-center">
+            <Link
+              href="/services/skill-development/details"
+              className="inline-flex items-center gap-2 text-[10px] font-black uppercase tracking-[0.4em] text-blue-600 hover:text-indigo-600 transition-colors group"
+            >
+              View Pedagogical Manifest <IoArrowBackOutline className="rotate-180 group-hover:translate-x-2 transition-transform" />
+            </Link>
+          </div>
+        </div>
       </div>
 
       {/* Detailed Programs Grid */}
       <div className="container-custom py-20">
         <h2 className="text-4xl font-black text-center mb-16 underline decoration-brand-pink decoration-4 underline-offset-8 uppercase tracking-tighter italic">Our Core Training Programs</h2>
-        
+
         {programsToDisplay.length > 0 ? (
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
             {programsToDisplay.map((prog, i) => (
@@ -164,28 +164,28 @@ export default function SkillDevelopmentClient({ locale, courses, pageContent })
                   className="bg-white rounded-[2rem] p-8 border border-slate-100 shadow-xl shadow-slate-200/40 relative overflow-hidden group flex flex-col h-full cursor-pointer"
                 >
                   <div className={`absolute top-0 left-0 w-full h-2 bg-gradient-to-r ${prog.color}`}></div>
-                  
+
                   <div className="flex justify-between items-start mb-6">
-                     <div className={`w-16 h-16 rounded-2xl ${prog.bg} ${prog.text} flex items-center justify-center group-hover:scale-110 transition-transform duration-500`}>
-                       {prog.icon}
-                     </div>
-                     <span className="px-3 py-1 bg-slate-100 text-slate-600 text-[10px] font-bold uppercase tracking-widest rounded-full">
-                        {prog.badge}
-                     </span>
+                    <div className={`w-16 h-16 rounded-2xl ${prog.bg} ${prog.text} flex items-center justify-center group-hover:scale-110 transition-transform duration-500`}>
+                      {prog.icon}
+                    </div>
+                    <span className="px-3 py-1 bg-slate-100 text-slate-600 text-[10px] font-bold uppercase tracking-widest rounded-full">
+                      {prog.badge}
+                    </span>
                   </div>
-                  
+
                   <h3 className="text-2xl font-bold text-slate-900 mb-3 group-hover:text-blue-600 transition-colors">{prog.title}</h3>
                   <p className="text-slate-600 leading-relaxed mb-6 flex-1 text-sm line-clamp-3">{prog.description}</p>
-                  
+
                   <div className="space-y-4 border-t border-slate-100 pt-6">
-                     <p className="text-xs font-bold text-slate-400 uppercase tracking-widest">Outcomes</p>
-                     <div className="flex flex-wrap gap-2">
-                        {prog.tech.map(t => (
-                           <span key={t} className="px-3 py-1.5 bg-slate-50 border border-slate-100 rounded-lg text-[10px] font-bold text-slate-700">
-                              {t}
-                           </span>
-                        ))}
-                     </div>
+                    <p className="text-xs font-bold text-slate-400 uppercase tracking-widest">Outcomes</p>
+                    <div className="flex flex-wrap gap-2">
+                      {prog.tech.map(t => (
+                        <span key={t} className="px-3 py-1.5 bg-slate-50 border border-slate-100 rounded-lg text-[10px] font-bold text-slate-700">
+                          {t}
+                        </span>
+                      ))}
+                    </div>
                   </div>
                 </motion.div>
               </Link>
@@ -194,7 +194,7 @@ export default function SkillDevelopmentClient({ locale, courses, pageContent })
         ) : (
           <div className="text-center py-20 bg-white rounded-[3rem] shadow-sm border border-slate-100">
             <div className="inline-flex items-center justify-center w-20 h-20 rounded-full bg-slate-50 text-slate-300 mb-6">
-               <IoSearchOutline size={40} />
+              <IoSearchOutline size={40} />
             </div>
             <h3 className="text-xl font-black text-slate-900 mb-2">Programs Coming Soon</h3>
             <p className="text-slate-500 font-medium">We are currently updating our course catalog. Please check back later.</p>
@@ -204,19 +204,19 @@ export default function SkillDevelopmentClient({ locale, courses, pageContent })
 
       {/* CTA Bottom */}
       <div className="container-custom pb-24">
-         <motion.div 
-            initial={{ opacity: 0, scale: 0.95 }}
-            whileInView={{ opacity: 1, scale: 1 }}
-            viewport={{ once: true }}
-            className="bg-slate-900 rounded-[3rem] p-12 md:p-20 text-center relative overflow-hidden shadow-2xl"
-         >
-            <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-full max-w-3xl bg-brand-pink/20 blur-[120px]"></div>
-            <h2 className="text-4xl md:text-5xl font-black text-white relative z-10 mb-8">{cta.title}</h2>
-            <p className="text-slate-300 text-lg mb-10 max-w-2xl mx-auto relative z-10 font-light">{cta.description}</p>
-            <button className="relative z-10 px-8 py-4 bg-white text-slate-900 font-extrabold rounded-full hover:scale-105 transition-transform shadow-xl uppercase tracking-widest text-xs">
-               {cta.buttonText}
-            </button>
-         </motion.div>
+        <motion.div
+          initial={{ opacity: 0, scale: 0.95 }}
+          whileInView={{ opacity: 1, scale: 1 }}
+          viewport={{ once: true }}
+          className="bg-slate-900 rounded-[3rem] p-12 md:p-20 text-center relative overflow-hidden shadow-2xl"
+        >
+          <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-full max-w-3xl bg-brand-pink/20 blur-[120px]"></div>
+          <h2 className="text-4xl md:text-5xl font-black text-white relative z-10 mb-8">{cta.title}</h2>
+          <p className="text-slate-300 text-lg mb-10 max-w-2xl mx-auto relative z-10 font-light">{cta.description}</p>
+          <button className="relative z-10 px-8 py-4 bg-white text-slate-900 font-extrabold rounded-full hover:scale-105 transition-transform shadow-xl uppercase tracking-widest text-xs">
+            {cta.buttonText}
+          </button>
+        </motion.div>
       </div>
 
     </section>

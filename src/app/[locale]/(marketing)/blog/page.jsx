@@ -93,10 +93,10 @@ function BlogCard({ post, locale }) {
               <IoCalendarOutline size={12} />
               {post.createdAt
                 ? new Date(post.createdAt).toLocaleDateString("en-BD", {
-                    day: "numeric",
-                    month: "short",
-                    year: "numeric",
-                  })
+                  day: "numeric",
+                  month: "short",
+                  year: "numeric",
+                })
                 : ""}
             </span>
           </div>
@@ -152,7 +152,7 @@ export default async function BlogPage({ params, searchParams }) {
           <span className="inline-block mb-4 px-4 py-1.5 rounded-full text-xs font-bold uppercase tracking-wider text-indigo-200 bg-white/10 border border-white/10">
             📝 Free Guides & Tips
           </span>
-          <h1 className="text-5xl md:text-7xl font-black text-white leading-[1.1] mb-8 tracking-tighter">
+          <h1 className="text-5xl md:text-5xl font-black text-white leading-[1.1] mb-8 tracking-tighter">
             Blog & <br />
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-pink-400 via-rose-400 to-orange-400 animate-gradient-x">
               Resources
@@ -295,11 +295,10 @@ export default async function BlogPage({ params, searchParams }) {
               <Link
                 key={p}
                 href={`/${locale}/blog?page=${p}${tag ? `&tag=${tag}` : ""}${q ? `&q=${q}` : ""}`}
-                className={`w-10 h-10 rounded-xl flex items-center justify-center text-sm font-semibold transition-all ${
-                  page === p
+                className={`w-10 h-10 rounded-xl flex items-center justify-center text-sm font-semibold transition-all ${page === p
                     ? "bg-blue-600 text-white shadow-md"
                     : "bg-white text-neutral-600 ring-1 ring-neutral-200 hover:bg-neutral-50"
-                }`}
+                  }`}
               >
                 {p}
               </Link>

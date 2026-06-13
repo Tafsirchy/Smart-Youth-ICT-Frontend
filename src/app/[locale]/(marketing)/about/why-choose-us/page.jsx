@@ -52,7 +52,7 @@ export default function WhyChooseUsPage() {
   return (
     <section className="min-h-screen bg-white py-20 overflow-hidden relative">
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-brand-green/5 rounded-full blur-[100px] mix-blend-multiply pointer-events-none"></div>
-      
+
       <div className="container-custom relative z-10">
         <div className="max-w-3xl mb-16">
           <motion.p
@@ -66,7 +66,7 @@ export default function WhyChooseUsPage() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.1 }}
-            className="text-5xl md:text-7xl font-black text-slate-900 leading-[1.1] mb-8 tracking-tighter"
+            className="text-5xl md:text-5xl font-black text-slate-900 leading-[1.1] mb-8 tracking-tighter"
           >
             Why <br />
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-500 via-teal-500 to-cyan-600 animate-gradient-x">Choose Us.</span>

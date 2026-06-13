@@ -1,10 +1,10 @@
 "use client";
 
-import { 
-  IoDiamondOutline, 
-  IoCheckmarkCircleOutline, 
-  IoInfiniteOutline, 
-  IoFingerPrintOutline 
+import {
+  IoDiamondOutline,
+  IoCheckmarkCircleOutline,
+  IoInfiniteOutline,
+  IoFingerPrintOutline
 } from "react-icons/io5";
 import { motion } from "framer-motion";
 import Link from "next/link";
@@ -41,7 +41,7 @@ export default function PortfolioWebsitesClient({ data }) {
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, ease: "circOut" }}
-              className="text-5xl md:text-7xl font-black text-slate-900 leading-[1.1] mb-8 tracking-tighter"
+              className="text-5xl md:text-5xl font-black text-slate-900 leading-[1.1] mb-8 tracking-tighter"
             >
               {hero.title?.split(" ")[0]} <br />
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 via-indigo-500 to-cyan-500 animate-gradient-x">{hero.subtitle}</span>
@@ -114,7 +114,7 @@ export default function PortfolioWebsitesClient({ data }) {
               <h2 className="text-[10px] font-black text-rose-500 uppercase tracking-[0.4em] mb-4">
                 Core Methodologies
               </h2>
-              <p className="text-4xl md:text-6xl font-black text-slate-900 leading-tight">
+              <p className="text-4xl md:text-5xl font-black text-slate-900 leading-tight">
                 Design thinking meets{" "}
                 <span className="text-slate-400">technical mastery.</span>
               </p>
@@ -167,7 +167,7 @@ export default function PortfolioWebsitesClient({ data }) {
 
           <div className="relative z-10 grid lg:grid-cols-2 gap-20">
             <div>
-              <h2 className="text-5xl lg:text-7xl font-black text-white leading-tight mb-10">
+              <h2 className="text-5xl lg:text-6xl font-black text-white leading-tight mb-10">
                 5-Phase Digital Alchemy.
               </h2>
               <p className="text-slate-400 text-xl font-light leading-relaxed mb-12">
@@ -199,20 +199,20 @@ export default function PortfolioWebsitesClient({ data }) {
             </div>
 
             <div className="hidden lg:flex items-center justify-center relative">
-               <div className="w-full aspect-square border border-white/10 rounded-full flex items-center justify-center p-20 animate-[spin_60s_linear_infinite]">
-                 <div className="w-full aspect-square border-2 border-dashed border-rose-500/30 rounded-full flex items-center justify-center relative">
-                    <div className="absolute -top-4 text-rose-500 text-3xl">✦</div>
-                    <IoInfiniteOutline className="absolute -bottom-4 text-emerald-500 text-3xl" />
-                 </div>
-               </div>
-               <div className="absolute text-center bg-slate-900 p-10 rounded-full z-20">
-                 <p className="text-rose-500 font-serif italic text-7xl">
-                   Gold.
-                 </p>
-                 <p className="text-[10px] font-black uppercase tracking-[0.4em] text-white mt-4">
-                   Standard Delivery
-                 </p>
-               </div>
+              <div className="w-full aspect-square border border-white/10 rounded-full flex items-center justify-center p-20 animate-[spin_60s_linear_infinite]">
+                <div className="w-full aspect-square border-2 border-dashed border-rose-500/30 rounded-full flex items-center justify-center relative">
+                  <div className="absolute -top-4 text-rose-500 text-3xl">✦</div>
+                  <IoInfiniteOutline className="absolute -bottom-4 text-emerald-500 text-3xl" />
+                </div>
+              </div>
+              <div className="absolute text-center bg-slate-900 p-10 rounded-full z-20">
+                <p className="text-rose-500 font-serif italic text-7xl">
+                  Gold.
+                </p>
+                <p className="text-[10px] font-black uppercase tracking-[0.4em] text-white mt-4">
+                  Standard Delivery
+                </p>
+              </div>
             </div>
           </div>
         </div>
@@ -223,7 +223,7 @@ export default function PortfolioWebsitesClient({ data }) {
             <h2 className="text-[10px] font-black text-rose-500 uppercase tracking-[0.4em] mb-4">
               {sections.pricingHeader?.badge || "Select Your Artifact"}
             </h2>
-            <p className="text-4xl md:text-6xl font-black text-slate-900 leading-tight">
+            <p className="text-4xl md:text-5xl font-black text-slate-900 leading-tight">
               {sections.pricingHeader?.title || "Structured tiers for"}{" "}
               <span className="text-slate-400">{sections.pricingHeader?.focus || "every career stage."}</span>
             </p>
@@ -284,7 +284,7 @@ export default function PortfolioWebsitesClient({ data }) {
             className="max-w-4xl mx-auto px-6"
           >
             <IoFingerPrintOutline className="text-7xl text-rose-500 mb-10 mx-auto opacity-20" />
-            <h3 className="text-5xl lg:text-7xl font-black text-slate-900 mb-12 leading-tight">
+            <h3 className="text-5xl lg:text-6xl font-black text-slate-900 mb-12 leading-tight">
               {cta.title}
             </h3>
             <div className="flex flex-col sm:flex-row gap-6 justify-center">

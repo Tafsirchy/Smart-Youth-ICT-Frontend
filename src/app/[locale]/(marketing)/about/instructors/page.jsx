@@ -47,16 +47,16 @@ export default function InstructorsPage() {
 
     if (filters.q) {
       const q = filters.q.toLowerCase();
-      filtered = filtered.filter(m => 
-        m.name.toLowerCase().includes(q) || 
-        m.role.toLowerCase().includes(q) || 
+      filtered = filtered.filter(m =>
+        m.name.toLowerCase().includes(q) ||
+        m.role.toLowerCase().includes(q) ||
         m.expertise?.some(skill => skill.toLowerCase().includes(q))
       );
     }
 
     if (filters.branchId) {
-      filtered = filtered.filter(m => 
-        (m.branchId?._id === filters.branchId) || 
+      filtered = filtered.filter(m =>
+        (m.branchId?._id === filters.branchId) ||
         (m.branchId === filters.branchId)
       );
     }
@@ -65,7 +65,7 @@ export default function InstructorsPage() {
       const selectedCourse = courses.find(c => c._id === filters.courseId);
       if (selectedCourse) {
         const courseTitle = (selectedCourse.title?.en || selectedCourse.title).toLowerCase();
-        filtered = filtered.filter(m => 
+        filtered = filtered.filter(m =>
           m.expertise?.some(skill => skill.toLowerCase().includes(courseTitle)) ||
           m.role.toLowerCase().includes(courseTitle)
         );
@@ -83,21 +83,21 @@ export default function InstructorsPage() {
     <section className="min-h-screen bg-slate-50/50 py-20 overflow-hidden">
       <div className="container-custom relative">
         <div className="max-w-3xl mb-12 text-left border-l-4 border-brand-green pl-6 sm:pl-8">
-          <motion.h1 
+          <motion.h1
             initial={{ opacity: 0, x: -20 }}
             animate={{ opacity: 1, x: 0 }}
-            className="text-5xl md:text-7xl font-black text-slate-900 leading-[1.1] mb-8 tracking-tighter"
+            className="text-5xl md:text-5xl font-black text-slate-900 leading-[1.1] mb-8 tracking-tighter"
           >
             Our <br />
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-500 via-indigo-500 to-blue-600 animate-gradient-x">Mentors</span>
           </motion.h1>
-          <motion.p 
+          <motion.p
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.1 }}
             className="text-slate-600 text-lg leading-relaxed"
           >
-            Learn directly from active professionals currently building real-world solutions. 
+            Learn directly from active professionals currently building real-world solutions.
             Filtered and curated via CMS to ensure the highest quality mentorship for your journey.
           </motion.p>
         </div>
@@ -156,7 +156,7 @@ export default function InstructorsPage() {
           )}
 
           {!loading && instructors.length === 0 && (
-            <motion.div 
+            <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               className="flex flex-col items-center justify-center py-20 text-center"
@@ -166,10 +166,10 @@ export default function InstructorsPage() {
               </div>
               <h3 className="text-xl font-bold text-slate-900 mb-2">No Mentors Found</h3>
               <p className="text-slate-500 max-w-sm">
-                We couldn't find any mentors matching your filters in the CMS. 
+                We couldn't find any mentors matching your filters in the CMS.
                 Try clearing your search or selecting a different branch.
               </p>
-              <button 
+              <button
                 onClick={() => setFilters({ q: "", branchId: "", courseId: "" })}
                 className="mt-6 text-brand-green font-bold hover:underline uppercase text-xs tracking-widest"
               >
@@ -198,7 +198,7 @@ export default function InstructorsPage() {
                       className="object-cover group-hover:scale-110 transition-transform duration-500"
                     />
                   </div>
-                  
+
                   <div className="flex-1 min-w-0">
                     <h3 className="text-xl font-bold text-slate-900 group-hover:text-brand-green transition-colors truncate px-1">
                       {instructor.name}

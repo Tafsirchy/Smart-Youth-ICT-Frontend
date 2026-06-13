@@ -40,7 +40,7 @@ export default function TrustedBrandsStrip() {
           <p className="text-[10px] sm:text-xs font-black uppercase tracking-[0.22em] text-emerald-600 mb-2">
             Trusted Brands
           </p>
-          <h2 className="text-2xl sm:text-4xl md:text-5xl lg:text-7xl font-black text-slate-800 leading-[1.15] mb-4 tracking-tighter">
+          <h2 className="text-2xl sm:text-4xl md:text-5xl lg:text-6xl font-black text-slate-800 leading-[1.15] mb-4 tracking-tighter">
             Brands Our <br className="sm:hidden" />
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-500 via-teal-500 to-emerald-600">
               Learners Work With

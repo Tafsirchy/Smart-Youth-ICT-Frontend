@@ -39,7 +39,7 @@ export default function CoreManagementPage() {
           >
             Leadership
           </motion.p>
-          <h1 className="text-5xl md:text-7xl font-black text-slate-900 leading-[1.1] mb-8 tracking-tighter">
+          <h1 className="text-5xl md:text-5xl font-black text-slate-900 leading-[1.1] mb-8 tracking-tighter">
             Core <br />
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-500 via-indigo-500 to-blue-600 animate-gradient-x">Management</span>
           </h1>
@@ -56,7 +56,7 @@ export default function CoreManagementPage() {
 
         {loading ? (
           <div className="flex justify-center items-center py-20">
-             <div className="w-12 h-12 border-4 border-slate-200 border-t-blue-600 rounded-full animate-spin"></div>
+            <div className="w-12 h-12 border-4 border-slate-200 border-t-blue-600 rounded-full animate-spin"></div>
           </div>
         ) : (
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">

@@ -50,7 +50,7 @@ export default function HowItWorksPage() {
           <p className="inline-block text-[11px] font-black uppercase tracking-[0.28em] text-brand-green mb-4">
             About Smart Youth ICT
           </p>
-          <h1 className="text-5xl md:text-7xl font-black text-slate-900 leading-[1.1] mb-8 tracking-tighter">
+          <h1 className="text-5xl md:text-5xl font-black text-slate-900 leading-[1.1] mb-8 tracking-tighter">
             How <br />
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-500 via-teal-500 to-cyan-600 animate-gradient-x">It Works</span>
           </h1>
@@ -73,7 +73,7 @@ export default function HowItWorksPage() {
                   <div className="w-0.5 h-full bg-slate-200 mt-2 mb-2 group-hover:bg-brand-green/30 transition-colors duration-300"></div>
                 )}
               </div>
-              
+
               <div className="md:ml-28 bg-white p-8 sm:p-10 rounded-3xl border border-slate-200 shadow-sm flex-1 hover:shadow-lg transition-all duration-300 group-hover:border-slate-300 group-hover:-translate-y-1 w-full relative overflow-hidden">
                 <div className="absolute top-0 right-0 p-8 opacity-5 text-8xl pointer-events-none group-hover:scale-110 group-hover:opacity-10 transition-all duration-500">
                   {step.icon}

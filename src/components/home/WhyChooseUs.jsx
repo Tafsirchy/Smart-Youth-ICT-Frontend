@@ -85,9 +85,9 @@ export default function WhyChooseUs() {
 
       <div className="container-custom px-4 sm:px-6 md:px-12 relative z-10">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-24 items-start">
-          
+
           {/* Left Side: Sticky Text */}
-          <div className="lg:sticky lg:top-32 self-start space-y-6 md:space-y-8">
+          <div className="lg:sticky lg:top-20 self-start space-y-6 md:space-y-8">
             <motion.div
               initial={{ opacity: 0, x: -30 }}
               whileInView={{ opacity: 1, x: 0 }}
@@ -98,8 +98,8 @@ export default function WhyChooseUs() {
                 <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
                 The SYICT Difference
               </span>
-              
-              <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-7xl font-black text-slate-900 leading-[1.1] mb-6 md:mb-8 tracking-tighter">
+
+              <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-black text-slate-900 leading-[1.1] mb-6 md:mb-8 tracking-tighter">
                 Real Skills. <br />
                 <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-500 via-teal-500 to-cyan-600">
                   Real Careers.
@@ -114,12 +114,12 @@ export default function WhyChooseUs() {
               <div className="relative mt-8 md:mt-12 pb-6">
                 <div className="absolute -top-12 -left-8 w-32 h-32 bg-emerald-100/40 rounded-full blur-3xl -z-10" />
                 <div className="relative z-10 pl-4 border-l-4 border-emerald-500">
-                   <p className="text-slate-800 font-bold text-base md:text-lg mb-1 italic leading-relaxed">
-                     "Our mission is to empower the next generation of digital leaders through practical, project-first education."
-                   </p>
-                   <p className="text-emerald-600 font-black text-[11px] sm:text-xs uppercase tracking-widest">
-                     — SYICT FOUNDATION
-                   </p>
+                  <p className="text-slate-800 font-bold text-base md:text-lg mb-1 italic leading-relaxed">
+                    "Our mission is to empower the next generation of digital leaders through practical, project-first education."
+                  </p>
+                  <p className="text-emerald-600 font-black text-[11px] sm:text-xs uppercase tracking-widest">
+                    — SYICT FOUNDATION
+                  </p>
                 </div>
               </div>
 

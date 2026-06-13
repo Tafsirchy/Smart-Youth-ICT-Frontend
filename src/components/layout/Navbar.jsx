@@ -211,6 +211,7 @@ export default function Navbar() {
   const prefetchedRoutes = useRef(new Set());
 
   useMotionValueEvent(scrollY, "change", (latest) => {
+    if (mobileOpen) return;
     const previous = scrollY.getPrevious();
     if (latest > 50 && latest > previous) {
       setHidden(true);
@@ -283,6 +284,26 @@ export default function Navbar() {
     ]);
   }, []);
 
+  useEffect(() => {
+    if (mobileOpen) {
+      document.body.style.overflow = "hidden";
+      document.body.style.height = "100%";
+      document.documentElement.style.overflow = "hidden";
+      document.documentElement.style.height = "100%";
+    } else {
+      document.body.style.overflow = "";
+      document.body.style.height = "";
+      document.documentElement.style.overflow = "";
+      document.documentElement.style.height = "";
+    }
+    return () => {
+      document.body.style.overflow = "";
+      document.body.style.height = "";
+      document.documentElement.style.overflow = "";
+      document.documentElement.style.height = "";
+    };
+  }, [mobileOpen]);
+
   return (
     <motion.header
       className="bg-white shadow-sm sticky top-0 z-[100]"
@@ -332,11 +353,10 @@ export default function Navbar() {
                   handleMouseEnter(null);
                   prefetchRoutes([href]);
                 }}
-                className={`px-3 py-2 rounded-lg text-sm font-medium transition-all ${
-                  isActive(href)
+                className={`px-3 py-2 rounded-lg text-sm font-medium transition-all ${isActive(href)
                     ? "text-brand-green bg-brand-green/10 font-semibold"
                     : "text-gray-700 hover:text-brand-green hover:bg-brand-green/5"
-                }`}
+                  }`}
               >
                 {label}
               </Link>
@@ -353,11 +373,10 @@ export default function Navbar() {
             <button
               onMouseEnter={() => handleMouseEnter("services")}
               onMouseLeave={handleMouseLeave}
-              className={`flex items-center gap-1 px-3 py-2 rounded-lg text-sm font-medium transition-all ${
-                isActive("/services") || activeDropdown === "services"
+              className={`flex items-center gap-1 px-3 py-2 rounded-lg text-sm font-medium transition-all ${isActive("/services") || activeDropdown === "services"
                   ? "text-brand-green bg-brand-green/10 font-semibold"
                   : "text-gray-700 hover:text-brand-green hover:bg-brand-green/5"
-              }`}
+                }`}
             >
               Services
               <motion.span
@@ -379,11 +398,10 @@ export default function Navbar() {
             <button
               onMouseEnter={() => handleMouseEnter("about")}
               onMouseLeave={handleMouseLeave}
-              className={`flex items-center gap-1 px-3 py-2 rounded-lg text-sm font-medium transition-all ${
-                isActive("/about") || activeDropdown === "about"
+              className={`flex items-center gap-1 px-3 py-2 rounded-lg text-sm font-medium transition-all ${isActive("/about") || activeDropdown === "about"
                   ? "text-brand-green bg-brand-green/10 font-semibold"
                   : "text-gray-700 hover:text-brand-green hover:bg-brand-green/5"
-              }`}
+                }`}
             >
               About
               <motion.span
@@ -553,7 +571,10 @@ export default function Navbar() {
         <motion.button
           id="nav-mobile-toggle"
           className="md:hidden text-gray-800 p-1"
-          onClick={() => setMobileOpen(!mobileOpen)}
+          onClick={() => {
+            setMobileOpen(!mobileOpen);
+            setHidden(false);
+          }}
           aria-label="Toggle menu"
           whileTap={{ scale: 0.85 }}
         >
@@ -698,7 +719,8 @@ export default function Navbar() {
             animate={{ height: "auto", opacity: 1 }}
             exit={{ height: 0, opacity: 0 }}
             transition={{ duration: 0.3, ease: "easeInOut" }}
-            style={{ overflow: "hidden" }}
+            className="max-h-[calc(100vh-80px)] overflow-y-auto overscroll-y-contain custom-scrollbar"
+            style={{ overflowX: "hidden" }}
           >
             <MobileMenu
               links={allMobileLinks}

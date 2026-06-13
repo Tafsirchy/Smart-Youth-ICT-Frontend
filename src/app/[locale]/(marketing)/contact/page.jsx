@@ -12,16 +12,16 @@ import {
 import { FaFacebook, FaYoutube } from 'react-icons/fa';
 
 const CONTACT_INFO = [
-  { icon: IoCallOutline,     label: 'Phone / WhatsApp', value: '01822-335566', href: 'tel:01822-335566' },
-  { icon: IoMailOutline,     label: 'Email',             value: 'smartyouthictbd@gmail.com',         href: 'mailto:smartyouthictbd@gmail.com' },
-  { icon: IoLocationOutline, label: 'Office',            value: 'Plot 18 (Flat 5/A), Road 2, Sector 15, Uttara, Dhaka', href: null },
-  { icon: IoTimeOutline,     label: 'Office Hours',      value: 'Sat–Thu, 9AM – 9PM',     href: null },
+  { icon: IoCallOutline, label: 'Phone / WhatsApp', value: '01822-335566', href: 'tel:01822-335566' },
+  { icon: IoMailOutline, label: 'Email', value: 'smartyouthictbd@gmail.com', href: 'mailto:smartyouthictbd@gmail.com' },
+  { icon: IoLocationOutline, label: 'Office', value: 'Plot 18 (Flat 5/A), Road 2, Sector 15, Uttara, Dhaka', href: null },
+  { icon: IoTimeOutline, label: 'Office Hours', value: 'Sat–Thu, 9AM – 9PM', href: null },
 ];
 
 export default function ContactPage() {
-  const [form, setForm]     = useState({ name: '', email: '', phone: '', subject: '', message: '' });
+  const [form, setForm] = useState({ name: '', email: '', phone: '', subject: '', message: '' });
   const [loading, setLoading] = useState(false);
-  const [done, setDone]     = useState(false);
+  const [done, setDone] = useState(false);
 
   const handleChange = e => setForm(prev => ({ ...prev, [e.target.name]: e.target.value }));
 
@@ -46,12 +46,12 @@ export default function ContactPage() {
         style={{ background: 'linear-gradient(135deg, #0f172a 0%, #1e1b4b 60%, #312e81 100%)' }}>
         <motion.div className="absolute -top-20 -left-20 w-72 h-72 rounded-full opacity-15 blur-3xl pointer-events-none"
           style={{ background: 'var(--color-brand-pink)' }}
-          animate={{ scale:[1,1.15,1] }} transition={{ duration:8, repeat:Infinity }} />
+          animate={{ scale: [1, 1.15, 1] }} transition={{ duration: 8, repeat: Infinity }} />
         <div className="relative z-10 max-w-xl mx-auto">
           <span className="inline-block mb-4 px-4 py-1.5 rounded-full text-xs font-bold uppercase tracking-wider text-indigo-200 bg-white/10 border border-white/10">
             📞 Get In Touch
           </span>
-          <h1 className="text-5xl md:text-7xl font-black text-white leading-[1.1] mb-8 tracking-tighter">
+          <h1 className="text-5xl md:text-5xl font-black text-white leading-[1.1] mb-8 tracking-tighter">
             Contact <br />
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-indigo-400 to-blue-500 animate-gradient-x">Us</span>
           </h1>
@@ -69,7 +69,7 @@ export default function ContactPage() {
               <h2 className="text-2xl font-extrabold text-textPrimary mb-5">Get In Touch 👋</h2>
               <div className="space-y-4">
                 {CONTACT_INFO.map(c => (
-                  <motion.div key={c.label} initial={{ opacity:0, x:-20 }} whileInView={{ opacity:1, x:0 }} viewport={{ once:true }}
+                  <motion.div key={c.label} initial={{ opacity: 0, x: -20 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }}
                     className="flex items-center gap-4 bg-white rounded-2xl ring-1 ring-neutral-200 shadow-sm p-4">
                     <div className="w-11 h-11 rounded-xl bg-blue-50 text-blue-600 flex items-center justify-center shrink-0">
                       <c.icon size={22} />
@@ -112,11 +112,11 @@ export default function ContactPage() {
           </div>
 
           {/* Right — Form */}
-          <motion.div initial={{ opacity:0, y:24 }} whileInView={{ opacity:1, y:0 }} viewport={{ once:true }}
+          <motion.div initial={{ opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}
             className="bg-white rounded-3xl ring-1 ring-neutral-200 shadow-xl p-8">
             <AnimatePresence mode="wait">
               {done ? (
-                <motion.div key="ok" initial={{ opacity:0, scale:0.9 }} animate={{ opacity:1, scale:1 }} className="text-center py-8">
+                <motion.div key="ok" initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }} className="text-center py-8">
                   <div className="w-20 h-20 mx-auto rounded-full bg-emerald-50 flex items-center justify-center mb-5">
                     <IoCheckmarkCircle size={48} className="text-emerald-500" />
                   </div>
@@ -124,7 +124,7 @@ export default function ContactPage() {
                   <p className="text-textSecondary text-sm">We'll get back to you within 24 hours. For urgent matters, use WhatsApp.</p>
                 </motion.div>
               ) : (
-                <motion.div key="form" initial={{ opacity:0 }} animate={{ opacity:1 }}>
+                <motion.div key="form" initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
                   <h3 className="text-xl font-extrabold text-textPrimary mb-1">Send Us a Message</h3>
                   <p className="text-textSecondary text-sm mb-6">We read every message and reply within 24 hours.</p>
                   <form onSubmit={handleSubmit} className="space-y-4">
@@ -157,10 +157,10 @@ export default function ContactPage() {
                     </div>
                     <motion.button type="submit" disabled={loading}
                       className="w-full py-3.5 rounded-2xl bg-gradient-to-r from-pink-500 to-indigo-500 text-white font-bold flex items-center justify-center gap-2 hover:opacity-90 transition disabled:opacity-60"
-                      whileHover={{ scale:1.01 }} whileTap={{ scale:0.97 }}>
+                      whileHover={{ scale: 1.01 }} whileTap={{ scale: 0.97 }}>
                       {loading
-                        ? <><svg className="animate-spin h-4 w-4" viewBox="0 0 24 24" fill="none"><circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"/><path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8z"/></svg> Sending…</>
-                        : <><IoSendOutline size={18}/> Send Message</>
+                        ? <><svg className="animate-spin h-4 w-4" viewBox="0 0 24 24" fill="none"><circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" /><path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8z" /></svg> Sending…</>
+                        : <><IoSendOutline size={18} /> Send Message</>
                       }
                     </motion.button>
                   </form>

@@ -20,9 +20,24 @@ const serviceLinks = [
 ];
 
 const aboutLinks = [
+  // Foundation
   { href: "/about/foundation", label: "🧭 SYICT Foundation" },
-  { href: "/about/advisor", label: "🎓 Advisor" },
+  { href: "/about/story", label: "📖 Our Story" },
+  { href: "/about/mission", label: "🎯 Mission & Vision" },
+  { href: "/about/how-it-works", label: "⚙️ How It Works" },
+  // Trust & Proof
   { href: "/about/core-management", label: "🏛️ Core Management" },
+  { href: "/about/advisor", label: "🎓 Advisory Board" },
+  { href: "/about/instructors", label: "👨‍🏫 Our Mentors" },
+  { href: "/success-stories", label: "🏆 Success Stories" },
+  { href: "/testimonials", label: "💬 Testimonials" },
+  // Brand & Edge
+  { href: "/about/why-choose-us", label: "⭐ Why Choose Us" },
+  { href: "/about/partners", label: "🤝 Our Partners" },
+  { href: "/about/certifications", label: "📜 Certifications" },
+  // Connect
+  { href: "/about/locations", label: "📍 Our Locations" },
+  { href: "/contact", label: "📞 Contact Us" },
 ];
 
 function MobileAccordion({ label, children }) {
@@ -78,11 +93,10 @@ export default function MobileMenu({ links, session, onClose }) {
             <Link
               href={href}
               onClick={onClose}
-              className={`block px-3 py-2 rounded-lg text-sm font-medium transition-all ${
-                isActive(href)
+              className={`block px-3 py-2 rounded-lg text-sm font-medium transition-all ${isActive(href)
                   ? "text-brand-green bg-brand-green/10 font-semibold border-l-2 border-brand-green pl-4"
                   : "text-gray-700 hover:text-brand-green hover:bg-brand-green/5"
-              }`}
+                }`}
             >
               {label}
             </Link>

@@ -17,7 +17,7 @@ export default function LocationsPage() {
           >
             Visit Our Campus
           </motion.p>
-          <h1 className="text-5xl md:text-7xl font-black text-slate-900 leading-[1.1] mb-8 tracking-tighter">
+          <h1 className="text-5xl md:text-5xl font-black text-slate-900 leading-[1.1] mb-8 tracking-tighter">
             Our <br />
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-500 via-indigo-500 to-blue-600 animate-gradient-x">Locations</span>
           </h1>
@@ -41,7 +41,7 @@ export default function LocationsPage() {
           >
             {/* Background design */}
             <div className="absolute top-0 right-0 w-32 h-32 bg-brand-green/10 rounded-full blur-3xl -mr-10 -mt-10"></div>
-            
+
             <div className="flex items-center gap-3 mb-8 relative z-10">
               <div className="w-12 h-12 bg-emerald-100 text-emerald-600 rounded-xl flex items-center justify-center">
                 <IoLocationOutline size={24} />
@@ -97,9 +97,9 @@ export default function LocationsPage() {
               </div>
             </div>
 
-            <a 
-              href="https://maps.google.com/?q=Sector+15,+Uttara,+Dhaka" 
-              target="_blank" 
+            <a
+              href="https://maps.google.com/?q=Sector+15,+Uttara,+Dhaka"
+              target="_blank"
               rel="noreferrer"
               className="mt-8 w-full block text-center py-4 rounded-xl bg-slate-900 text-white font-bold hover:bg-brand-green transition-colors"
             >
@@ -117,7 +117,7 @@ export default function LocationsPage() {
           >
             {/* Visual map placeholder with a pin */}
             <div className="absolute inset-0 opacity-40 bg-[url('https://images.unsplash.com/photo-1524661135-423995f22d0b?w=800&h=800&fit=crop')] bg-cover bg-center mix-blend-overlay grayscale"></div>
-            
+
             <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 flex flex-col items-center">
               <div className="relative group cursor-pointer animate-bounce">
                 <div className="w-14 h-14 bg-brand-green rounded-full rounded-br-none -rotate-45 flex items-center justify-center shadow-2xl border-4 border-white">
@@ -125,7 +125,7 @@ export default function LocationsPage() {
                 </div>
               </div>
               <div className="w-8 h-2 bg-black/20 rounded-[100%] mt-2 blur-[2px]"></div>
-              
+
               <div className="mt-4 bg-white px-5 py-3 rounded-2xl shadow-xl flex flex-col items-center pointer-events-none">
                 <p className="font-extrabold text-slate-900">Uttara Campus</p>
                 <p className="text-xs text-slate-500 font-medium">Sector 15, Dhaka</p>

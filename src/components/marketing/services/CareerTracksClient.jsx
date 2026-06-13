@@ -13,17 +13,17 @@ export default function CareerTracksClient({ tracks, content }) {
       <div className="relative pt-20 pb-20 px-4">
         <div className="container-custom relative z-10 text-center max-w-4xl mx-auto">
           <motion.div
-             initial={{ opacity: 0, scale: 0.9 }}
-             animate={{ opacity: 1, scale: 1 }}
-             className="px-4 py-2 border border-white/20 rounded-full inline-block text-white/70 text-xs font-mono uppercase tracking-widest mb-8 bg-white/5 backdrop-blur-md"
+            initial={{ opacity: 0, scale: 0.9 }}
+            animate={{ opacity: 1, scale: 1 }}
+            className="px-4 py-2 border border-white/20 rounded-full inline-block text-white/70 text-xs font-mono uppercase tracking-widest mb-8 bg-white/5 backdrop-blur-md"
           >
-             {content?.hero?.badge || "Zero To Hero"}
+            {content?.hero?.badge || "Zero To Hero"}
           </motion.div>
           <motion.h1
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.1 }}
-            className="text-5xl md:text-7xl font-black text-white leading-[1.1] mb-8 tracking-tighter"
+            className="text-5xl md:text-5xl font-black text-white leading-[1.1] mb-8 tracking-tighter"
           >
             {content?.hero?.title || "Career Tracks"} <br />
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-500 via-teal-400 to-cyan-400 animate-gradient-x">
@@ -45,7 +45,7 @@ export default function CareerTracksClient({ tracks, content }) {
             transition={{ delay: 0.3 }}
             className="pt-10"
           >
-            <Link 
+            <Link
               href="/services/career-tracks/details"
               className="inline-flex items-center gap-2 text-[10px] font-black uppercase tracking-[0.4em] text-emerald-400 hover:text-white transition-colors group"
             >
@@ -67,60 +67,60 @@ export default function CareerTracksClient({ tracks, content }) {
                 className="bg-slate-900/50 backdrop-blur-xl border border-white/10 rounded-[3rem] p-8 md:p-12 relative overflow-hidden group hover:border-white/20 transition-all"
               >
                 <div className={`absolute top-0 right-0 w-full h-2 bg-gradient-to-r ${track.color} opacity-80`}></div>
-                
+
                 <div className="grid lg:grid-cols-12 gap-12">
-                   {/* Left meta info */}
-                   <div className="lg:col-span-5 space-y-6">
-                      <h2 className="text-4xl font-black text-white">{track.title}</h2>
-                      <p className="text-lg text-slate-400 leading-relaxed font-light">{track.description}</p>
-                      
-                      <div className="pt-6 border-t border-white/10 flex flex-col sm:flex-row gap-6">
-                         <div>
-                           <p className="text-xs font-black uppercase tracking-widest text-slate-500 flex items-center gap-2 mb-2"><IoTimerOutline /> Duration</p>
-                           <p className="text-white text-xl font-bold">{track.duration}</p>
-                         </div>
-                         <div>
-                           <p className="text-xs font-black uppercase tracking-widest text-slate-500 flex items-center gap-2 mb-2"><IoBriefcaseOutline /> Outcome</p>
-                           <p className={`text-transparent bg-clip-text bg-gradient-to-r ${track.color} text-xl font-bold`}>{track.outcome}</p>
-                         </div>
-                      </div>
+                  {/* Left meta info */}
+                  <div className="lg:col-span-5 space-y-6">
+                    <h2 className="text-4xl font-black text-white">{track.title}</h2>
+                    <p className="text-lg text-slate-400 leading-relaxed font-light">{track.description}</p>
 
-                      <button className="w-full py-4 mt-8 bg-white/5 border border-white/10 text-white font-bold rounded-xl hover:bg-white/10 transition-colors">
-                         Download Syllabus PDF
-                      </button>
-                   </div>
-
-                   {/* Right Phases Flowchart */}
-                   <div className="lg:col-span-7 bg-black/40 rounded-3xl p-8 border border-white/5 relative">
-                      <div className="space-y-8 relative z-10">
-                         {[
-                           { phase: "Phase 1: Basics", val: track.phase1 },
-                           { phase: "Phase 2: Core", val: track.phase2 },
-                           { phase: "Phase 3: Deep Dive", val: track.phase3 },
-                           { phase: "Phase 4: Launch", val: track.phase4 },
-                         ].map((step, idx) => (
-                            <div key={idx} className="flex gap-4 items-start relative pb-4">
-                               {/* Line connector */}
-                               {idx !== 3 && <div className={`absolute left-4 top-10 bottom-0 w-px ${track.bg} opacity-30`}></div>}
-                               
-                               <div className={`w-8 h-8 rounded-full ${track.bg} flex items-center justify-center shrink-0 z-10 text-white font-black text-sm`}>
-                                 {idx + 1}
-                               </div>
-                               <div>
-                                 <p className="text-xs font-bold text-slate-500 uppercase tracking-wider mb-1">{step.phase}</p>
-                                 <p className="text-white font-medium">{step.val}</p>
-                               </div>
-                            </div>
-                         ))}
+                    <div className="pt-6 border-t border-white/10 flex flex-col sm:flex-row gap-6">
+                      <div>
+                        <p className="text-xs font-black uppercase tracking-widest text-slate-500 flex items-center gap-2 mb-2"><IoTimerOutline /> Duration</p>
+                        <p className="text-white text-xl font-bold">{track.duration}</p>
                       </div>
-                   </div>
+                      <div>
+                        <p className="text-xs font-black uppercase tracking-widest text-slate-500 flex items-center gap-2 mb-2"><IoBriefcaseOutline /> Outcome</p>
+                        <p className={`text-transparent bg-clip-text bg-gradient-to-r ${track.color} text-xl font-bold`}>{track.outcome}</p>
+                      </div>
+                    </div>
+
+                    <button className="w-full py-4 mt-8 bg-white/5 border border-white/10 text-white font-bold rounded-xl hover:bg-white/10 transition-colors">
+                      Download Syllabus PDF
+                    </button>
+                  </div>
+
+                  {/* Right Phases Flowchart */}
+                  <div className="lg:col-span-7 bg-black/40 rounded-3xl p-8 border border-white/5 relative">
+                    <div className="space-y-8 relative z-10">
+                      {[
+                        { phase: "Phase 1: Basics", val: track.phase1 },
+                        { phase: "Phase 2: Core", val: track.phase2 },
+                        { phase: "Phase 3: Deep Dive", val: track.phase3 },
+                        { phase: "Phase 4: Launch", val: track.phase4 },
+                      ].map((step, idx) => (
+                        <div key={idx} className="flex gap-4 items-start relative pb-4">
+                          {/* Line connector */}
+                          {idx !== 3 && <div className={`absolute left-4 top-10 bottom-0 w-px ${track.bg} opacity-30`}></div>}
+
+                          <div className={`w-8 h-8 rounded-full ${track.bg} flex items-center justify-center shrink-0 z-10 text-white font-black text-sm`}>
+                            {idx + 1}
+                          </div>
+                          <div>
+                            <p className="text-xs font-bold text-slate-500 uppercase tracking-wider mb-1">{step.phase}</p>
+                            <p className="text-white font-medium">{step.val}</p>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
                 </div>
               </motion.div>
             ))
           ) : (
             <div className="text-center py-20 bg-white/5 rounded-[3rem] border border-white/10">
-               <IoSearchOutline className="text-5xl text-white/20 mx-auto mb-6" />
-               <p className="text-white/40 font-black uppercase tracking-widest">No Active Tracks Found</p>
+              <IoSearchOutline className="text-5xl text-white/20 mx-auto mb-6" />
+              <p className="text-white/40 font-black uppercase tracking-widest">No Active Tracks Found</p>
             </div>
           )}
         </div>

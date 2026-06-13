@@ -129,7 +129,7 @@ export default function CoursesPage() {
               ? `${filteredCourses.length} Courses Available`
               : "Courses"}
           </span>
-          <h1 className="text-5xl md:text-7xl font-black text-white leading-[1.1] mb-8 tracking-tighter">
+          <h1 className="text-5xl md:text-5xl font-black text-white leading-[1.1] mb-8 tracking-tighter">
             Explore Our <br />
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-indigo-400 to-blue-500 animate-gradient-x">Courses</span>
           </h1>
@@ -170,11 +170,10 @@ export default function CoursesPage() {
             <button
               key={cat.id}
               onClick={() => setCategory(cat.id)}
-              className={`shrink-0 rounded-full px-5 py-2 text-sm font-semibold transition-all ${
-                category === cat.id
+              className={`shrink-0 rounded-full px-5 py-2 text-sm font-semibold transition-all ${category === cat.id
                   ? "bg-blue-600 text-white shadow-md shadow-blue-200"
                   : "bg-neutral-100 text-neutral-600 hover:bg-neutral-200"
-              }`}
+                }`}
             >
               {cat.label}
             </button>

@@ -30,7 +30,7 @@ export default function CertificationsPage() {
     <section className="min-h-screen bg-slate-50 py-20 overflow-hidden relative">
       <div className="container-custom">
         <div className="grid lg:grid-cols-2 gap-16 items-center">
-          
+
           {/* Text Content */}
           <div className="max-w-2xl relative z-10">
             <motion.div
@@ -40,7 +40,7 @@ export default function CertificationsPage() {
             >
               <IoCheckmarkCircle size={18} /> Approvals & Trust
             </motion.div>
-            <h1 className="text-5xl md:text-7xl font-black text-slate-900 leading-[1.1] mb-8 tracking-tighter">
+            <h1 className="text-5xl md:text-5xl font-black text-slate-900 leading-[1.1] mb-8 tracking-tighter">
               Certifi-<br />
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-500 via-teal-500 to-cyan-600 animate-gradient-x">cations.</span>
             </h1>
@@ -103,8 +103,8 @@ export default function CertificationsPage() {
                 <h4 className="font-serif text-xl text-white mb-2">Government Approval</h4>
                 <p className="text-[10px] uppercase tracking-widest text-slate-500 mb-8">Tech Education Board</p>
                 <div className="flex gap-4">
-                   <div className="mt-4 opacity-50"><div className="w-16 h-4 bg-slate-600 rounded"></div></div>
-                   <div className="mt-4 opacity-50"><div className="w-16 h-4 bg-slate-600 rounded"></div></div>
+                  <div className="mt-4 opacity-50"><div className="w-16 h-4 bg-slate-600 rounded"></div></div>
+                  <div className="mt-4 opacity-50"><div className="w-16 h-4 bg-slate-600 rounded"></div></div>
                 </div>
               </div>
             </motion.div>

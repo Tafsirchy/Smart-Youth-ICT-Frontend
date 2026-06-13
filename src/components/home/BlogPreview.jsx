@@ -17,10 +17,12 @@ const FALLBACK = [
 
 export default function BlogPreview() {
   const locale = useLocale();
-  const [posts, setPosts]       = useState(FALLBACK);
+  const [posts, setPosts] = useState(FALLBACK);
   const [selectedId, setSelectedId] = useState(FALLBACK[0]._id);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
+    setIsLoading(true);
     api.get('/blog', { params: { limit: 5, published: true } })
       .then(res => {
         if (res.data?.data?.length) {
@@ -28,51 +30,54 @@ export default function BlogPreview() {
           setSelectedId(res.data.data[0]._id);
         }
       })
-      .catch(() => {});
+      .catch(() => { })
+      .finally(() => setIsLoading(false));
   }, []);
 
   const selectedPost = posts.find(p => p._id === selectedId) || posts[0];
 
   return (
-    <section className="section py-28 overflow-hidden bg-white">
-      <div className="container-custom">
+    <section className="section py-12 md:py-28 overflow-hidden bg-white">
+      <div className="container-custom px-4 sm:px-6">
 
         {/* Section Header */}
         <motion.div
-          initial={{ opacity: 0, y: 24 }}
+          initial={{ opacity: 0, y: 16 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="mb-16"
+          className="mb-8 md:mb-16 text-left"
         >
-          <div className="inline-flex items-center gap-3 px-4 py-1.5 rounded-full bg-slate-900/5 border border-slate-900/10 mb-6">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-slate-900/5 border border-slate-900/10 mb-4">
             <div className="w-1.5 h-1.5 rounded-full bg-brand-pink animate-pulse" />
-            <span className="text-slate-500 font-black text-[10px] uppercase tracking-[0.4em]">The Digital Journal</span>
+            <span className="text-slate-500 font-black text-[9px] uppercase tracking-[0.3em]">The Digital Journal</span>
           </div>
-          <h2 className="text-5xl md:text-7xl font-black text-slate-900 leading-[1.1] mb-8 tracking-tighter uppercase">
-            Learn &amp; <br />
+          <h2 className="text-2xl sm:text-4xl md:text-5xl font-black text-slate-900 leading-[1.15] mb-4 sm:mb-6 md:mb-8 tracking-tighter">
+            Learn &amp; <br className="hidden sm:block" />
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-pink-500 via-rose-500 to-amber-500 animate-gradient-x">Stay Ahead.</span>
           </h2>
         </motion.div>
 
-        {/* ── Master-Detail Container ── */}
-        <div className="flex flex-col lg:flex-row border-[3px] border-slate-900 rounded-[3.5rem] overflow-hidden shadow-[32px_32px_0px_#f1f5f9] min-h-[700px]">
+        {/* Master-Detail Container */}
+        <div className="flex flex-col lg:flex-row border-2 sm:border-[3px] border-slate-900 rounded-2xl md:rounded-[3.5rem] overflow-hidden shadow-md sm:shadow-[16px_16px_0px_#f1f5f9] lg:shadow-[32px_32px_0px_#f1f5f9] min-h-0 lg:min-h-[700px]">
 
-          {/* ── 1. Sidebar (leftmost column, 28%) ── */}
-          <div className="lg:w-[28%] bg-slate-50 border-r-[3px] border-slate-900 overflow-y-auto custom-scrollbar shrink-0">
-            <div className="p-5 space-y-2">
-              <p className="text-[9px] font-black text-slate-400 uppercase tracking-[0.35em] mb-6 px-4">Recent Posts</p>
+          {/* 1. Navigation / Master List */}
+          {/* On Mobile: Rendered as a swipeable tab bar. On Desktop: Rendered as a vertical sidebar */}
+          <div className="w-full lg:w-[28%] bg-slate-50 border-b-2 lg:border-b-0 lg:border-r-[3px] border-slate-900 overflow-x-auto lg:overflow-y-auto custom-scrollbar shrink-0">
+            <div className="flex flex-row lg:flex-col p-3 sm:p-4 lg:p-5 gap-2 lg:space-y-2 whitespace-nowrap lg:whitespace-normal">
               {posts.map((post) => {
                 const isActive = selectedId === post._id;
                 return (
                   <button
                     key={post._id}
                     onClick={() => setSelectedId(post._id)}
-                    className={`w-full text-left p-6 rounded-[1.5rem] transition-all duration-400 ${isActive ? 'bg-slate-900 shadow-2xl' : 'hover:bg-white hover:shadow-md'}`}
+                    className={`inline-block lg:block text-left px-4 py-3 lg:p-5 rounded-xl lg:rounded-[1.5rem] transition-all duration-300 shrink-0 ${
+                      isActive ? 'bg-slate-900 text-white shadow-md lg:shadow-xl' : 'bg-white lg:bg-transparent border border-slate-200 lg:border-0 hover:bg-white hover:shadow-sm'
+                    }`}
                   >
-                    <span className={`text-[9px] font-black uppercase tracking-widest block mb-3 ${isActive ? 'text-brand-pink' : 'text-slate-400'}`}>
+                    <span className={`text-[8px] sm:text-[9px] font-black uppercase tracking-widest block mb-1 lg:mb-2 ${isActive ? 'text-brand-pink' : 'text-slate-400'}`}>
                       {post.category}
                     </span>
-                    <h4 className={`font-black leading-snug text-base ${isActive ? 'text-white' : 'text-slate-900'}`}>
+                    <h4 className={`font-black leading-snug text-xs sm:text-sm lg:text-base ${isActive ? 'text-white' : 'text-slate-900'}`}>
                       {post.title?.en || post.title}
                     </h4>
                   </button>
@@ -81,65 +86,78 @@ export default function BlogPreview() {
             </div>
           </div>
 
-          {/* ── 2. Detail Viewer (72%) — TEXT LEFT, IMAGE RIGHT ── */}
-          <div className="lg:w-[72%] relative overflow-hidden bg-white flex">
+          {/* 2. Detail Viewer */}
+          {/* On Mobile: Visual Image is placed on top of text, maintaining context */}
+          <div className="w-full lg:w-[72%] relative overflow-hidden bg-white flex flex-col md:flex-row">
             <AnimatePresence mode="wait">
               <motion.div
                 key={selectedId}
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 exit={{ opacity: 0 }}
-                transition={{ duration: 0.45 }}
-                className="w-full h-full flex flex-row"
+                transition={{ duration: 0.3 }}
+                className="w-full flex flex-col md:flex-row"
               >
+                {/* Media Image Layer (Top on mobile, Right on tablet/desktop) */}
+                <div className="w-full md:w-1/2 relative h-48 sm:h-60 md:h-auto overflow-hidden shrink-0 order-first md:order-last">
+                  <ImageLoader
+                    src={selectedPost.thumbnail || '/images/marketing.png'}
+                    alt="blog featured image"
+                    fill
+                    sizes="(max-width: 640px) 100vw, (max-width: 768px) 50vw, 36vw"
+                    className="object-cover transition-transform duration-[1500ms] hover:scale-105"
+                    priority
+                  />
+                  {/* Soft gradient edge */}
+                  <div className="absolute inset-x-0 bottom-0 h-20 bg-gradient-to-t from-white to-transparent md:hidden" />
+                  <div className="hidden md:block absolute inset-y-0 left-0 w-24 bg-gradient-to-r from-white via-white/50 to-transparent" />
+                </div>
 
-                {/* TEXT COLUMN ─ left half of detail viewer */}
-                <div className="w-full md:w-1/2 flex flex-col justify-between px-12 py-16 md:px-16 md:py-20 shrink-0 relative z-10 bg-white">
-
-                  {/* Top content */}
+                {/* Text Content Block */}
+                <div className="w-full md:w-1/2 flex flex-col justify-between p-6 sm:p-8 md:p-12 lg:p-16 shrink-0 bg-white">
                   <motion.div
-                    initial={{ x: -24, opacity: 0 }}
-                    animate={{ x: 0, opacity: 1 }}
-                    transition={{ delay: 0.08, duration: 0.5 }}
-                    className="flex flex-col gap-8"
+                    initial={{ y: 12, opacity: 0 }}
+                    animate={{ y: 0, opacity: 1 }}
+                    transition={{ delay: 0.05, duration: 0.4 }}
+                    className="flex flex-col gap-4 sm:gap-6"
                   >
-                    {/* Category + Read-time */}
-                    <div className="flex items-center gap-5 flex-wrap">
-                      <span className="px-4 py-2 bg-brand-pink text-white font-black text-[9px] uppercase tracking-[0.3em] rounded-lg shadow-[4px_4px_0px_#0f172a]">
+                    {/* Meta labels */}
+                    <div className="flex items-center gap-3 flex-wrap">
+                      <span className="px-3 py-1 bg-brand-pink text-white font-black text-[9px] uppercase tracking-[0.2em] rounded shadow-[2px_2px_0px_#0f172a]">
                         {selectedPost.category || 'INSIGHTS'}
                       </span>
-                      <span className="flex items-center gap-2 text-slate-400 font-bold text-[10px] uppercase tracking-widest">
-                        <IoTimeOutline size={13} className="text-brand-pink" />
+                      <span className="flex items-center gap-1.5 text-slate-400 font-bold text-[9px] sm:text-[10px] uppercase tracking-widest">
+                        <IoTimeOutline size={12} className="text-brand-pink" />
                         {selectedPost.readTime || '5 min read'}
                       </span>
                     </div>
 
-                    {/* Bold Headline */}
-                    <h3 className="text-4xl lg:text-5xl font-black text-slate-900 leading-[1.05] tracking-tighter">
+                    {/* Headline */}
+                    <h3 className="text-xl sm:text-2xl lg:text-4xl font-black text-slate-900 leading-tight tracking-tighter">
                       {selectedPost.title?.en || selectedPost.title}
                     </h3>
 
-                    {/* Excerpt */}
-                    <blockquote className="border-l-[5px] border-brand-pink pl-6 py-1">
-                      <p className="text-slate-600 text-base lg:text-lg font-semibold italic leading-relaxed">
+                    {/* Excerpt blockquote */}
+                    <blockquote className="border-l-4 border-brand-pink pl-4 py-0.5">
+                      <p className="text-slate-600 text-sm sm:text-base font-semibold italic leading-relaxed">
                         "{selectedPost.excerpt}"
                       </p>
                     </blockquote>
 
-                    {/* Read Article CTA + Date */}
-                    <div className="flex flex-wrap items-center gap-10 pt-2">
+                    {/* Action buttons with optimized tap target sizes */}
+                    <div className="flex flex-wrap items-center gap-6 pt-2">
                       <Link
                         href={`/${locale}/blog/${selectedPost.slug}`}
-                        className="group flex items-center gap-4 text-slate-900 font-black text-[11px] uppercase tracking-[0.5em] hover:text-brand-pink transition-colors"
+                        className="group flex items-center gap-3 text-slate-900 font-black text-[10px] sm:text-[11px] uppercase tracking-[0.3em] hover:text-brand-pink transition-colors min-h-[44px]"
                       >
                         Read Article
-                        <span className="w-10 h-10 rounded-full border-2 border-slate-900 flex items-center justify-center group-hover:bg-slate-900 group-hover:text-white transition-all">
+                        <span className="w-11 h-11 rounded-full border-2 border-slate-900 flex items-center justify-center group-hover:bg-slate-900 group-hover:text-white transition-all">
                           <IoArrowForwardOutline className="group-hover:translate-x-0.5" />
                         </span>
                       </Link>
 
-                      <span className="flex items-center gap-2 text-slate-400 font-bold text-[10px] uppercase tracking-[0.3em]">
-                        <IoCalendarOutline size={14} className="text-slate-300" />
+                      <span className="flex items-center gap-1.5 text-slate-400 font-bold text-[9px] sm:text-[10px] uppercase tracking-[0.25em]">
+                        <IoCalendarOutline size={13} className="text-slate-300" />
                         {selectedPost.createdAt
                           ? new Date(selectedPost.createdAt).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })
                           : ''}
@@ -147,32 +165,18 @@ export default function BlogPreview() {
                     </div>
                   </motion.div>
 
-                  {/* Browse All Posts — bottom of text column */}
-                  <div className="flex justify-start pt-10">
+                  {/* Browse all posts footer */}
+                  <div className="flex justify-start pt-6 sm:pt-8 border-t border-slate-100 mt-6 md:mt-0">
                     <Link
                       href={`/${locale}/blog`}
-                      className="group flex items-center gap-5 text-slate-900 font-black text-[10px] uppercase tracking-[0.7em] hover:text-brand-pink transition-colors"
+                      className="group flex items-center gap-3 text-slate-900 font-black text-[9px] sm:text-[10px] uppercase tracking-[0.5em] hover:text-brand-pink transition-colors min-h-[44px]"
                     >
-                      Browse All Posts
-                      <span className="w-12 h-12 rounded-full border-2 border-slate-900 flex items-center justify-center group-hover:bg-slate-900 group-hover:text-white transition-all duration-400">
-                        <IoArrowForwardOutline size={20} />
+                      Browse All
+                      <span className="w-11 h-11 rounded-full border-2 border-slate-900 flex items-center justify-center group-hover:bg-slate-900 group-hover:text-white transition-all duration-300">
+                        <IoArrowForwardOutline size={16} />
                       </span>
                     </Link>
                   </div>
-                </div>
-
-                {/* IMAGE COLUMN ─ right half, left edge softly blurred into text */}
-                <div className="hidden md:block w-1/2 relative overflow-hidden shrink-0">
-                  <ImageLoader
-                    src={selectedPost.thumbnail || '/images/marketing.png'}
-                    alt="blog featured image"
-                    fill
-                    sizes="(max-width: 768px) 100vw, 50vw"
-                    className="object-cover transition-transform duration-[1500ms] hover:scale-105"
-                    priority
-                  />
-                  {/* Soft blur/fade on the left edge (the "marked" border) */}
-                  <div className="absolute inset-y-0 left-0 w-40 bg-gradient-to-r from-white via-white/50 to-transparent" />
                 </div>
 
               </motion.div>
@@ -180,17 +184,17 @@ export default function BlogPreview() {
           </div>
         </div>
 
-        {/* Mobile fallback */}
-        <div className="mt-12 text-center md:hidden">
-          <Link href={`/${locale}/blog`} className="text-slate-900 font-black text-xs uppercase tracking-[0.5em] border-b-2 border-slate-900 pb-2">
+        {/* Fallback navigation for Mobile */}
+        <div className="mt-8 text-center md:hidden">
+          <Link href={`/${locale}/blog`} className="text-slate-900 font-black text-xs uppercase tracking-[0.3em] border-b-2 border-slate-900 pb-1.5">
             View All Stories
           </Link>
         </div>
       </div>
 
       <style jsx global>{`
-        .custom-scrollbar::-webkit-scrollbar { width: 3px; }
-        .custom-scrollbar::-webkit-scrollbar-thumb { background: #0f172a; border-radius: 20px; }
+        .custom-scrollbar::-webkit-scrollbar { height: 4px; width: 3px; }
+        .custom-scrollbar::-webkit-scrollbar-thumb { background: #0f172a; border-radius: 10px; }
         .custom-scrollbar::-webkit-scrollbar-track { background: transparent; }
       `}</style>
     </section>

@@ -2,8 +2,8 @@
 
 import { motion } from "framer-motion";
 import Link from "next/link";
-import { 
-  IoArrowBackOutline, 
+import {
+  IoArrowBackOutline,
   IoSparklesOutline,
   IoCheckmarkCircleOutline,
   IoFlashOutline
@@ -37,28 +37,28 @@ export default function SocialCreativesDetailsClient({ data }) {
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-pink-500 via-rose-500 to-indigo-500 animate-gradient-x">{hero.title?.split(' ').slice(1).join(' ')}</span>
           </h1>
           <div className="flex flex-col md:flex-row gap-12 items-start mt-20">
-             <div className="flex-1">
-                <p className="text-slate-600 text-2xl font-light leading-relaxed mb-10 italic">
-                  &quot;{hero.description}&quot;
-                </p>
-                <div className="h-1 w-20 bg-rose-600/20" />
-             </div>
-             <div className="w-full md:w-80 bg-white p-8 rounded-3xl border border-slate-100 shadow-xl">
-                <h4 className="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-6 px-1">Engagement Pulse</h4>
-                <div className="space-y-4">
-                   {["Hook Retention", "Viral Velocity", "Brand Affinity"].map(label => (
-                      <div key={label} className="space-y-1.5">
-                         <div className="flex justify-between text-[9px] font-bold text-slate-500 uppercase">
-                            <span>{label}</span>
-                            <span>92%</span>
-                         </div>
-                         <div className="h-1 bg-slate-50 rounded-full overflow-hidden">
-                            <motion.div initial={{ width: 0 }} whileInView={{ width: "92%" }} transition={{ duration: 1 }} className="h-full bg-rose-500" />
-                         </div>
-                      </div>
-                   ))}
-                </div>
-             </div>
+            <div className="flex-1">
+              <p className="text-slate-600 text-2xl font-light leading-relaxed mb-10 italic">
+                &quot;{hero.description}&quot;
+              </p>
+              <div className="h-1 w-20 bg-rose-600/20" />
+            </div>
+            <div className="w-full md:w-80 bg-white p-8 rounded-3xl border border-slate-100 shadow-xl">
+              <h4 className="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-6 px-1">Engagement Pulse</h4>
+              <div className="space-y-4">
+                {["Hook Retention", "Viral Velocity", "Brand Affinity"].map(label => (
+                  <div key={label} className="space-y-1.5">
+                    <div className="flex justify-between text-[9px] font-bold text-slate-500 uppercase">
+                      <span>{label}</span>
+                      <span>92%</span>
+                    </div>
+                    <div className="h-1 bg-slate-50 rounded-full overflow-hidden">
+                      <motion.div initial={{ width: 0 }} whileInView={{ width: "92%" }} transition={{ duration: 1 }} className="h-full bg-rose-500" />
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
           </div>
         </div>
 
@@ -75,8 +75,8 @@ export default function SocialCreativesDetailsClient({ data }) {
               <div key={idx} className="bg-white p-12 hover:bg-slate-50 transition-all group relative overflow-hidden">
                 <div className="absolute top-0 right-0 p-8 text-4xl font-black text-slate-50 group-hover:text-rose-50 transition-colors select-none">{phase.step}</div>
                 <div className="relative z-10">
-                   <h4 className="text-[10px] font-black text-rose-600 uppercase tracking-[0.4em] mb-4">{phase.stage}</h4>
-                   <p className="text-lg text-slate-500 font-light leading-relaxed">{phase.action}</p>
+                  <h4 className="text-[10px] font-black text-rose-600 uppercase tracking-[0.4em] mb-4">{phase.stage}</h4>
+                  <p className="text-lg text-slate-500 font-light leading-relaxed">{phase.action}</p>
                 </div>
               </div>
             ))}
@@ -85,58 +85,58 @@ export default function SocialCreativesDetailsClient({ data }) {
 
         {/* OPTIMIZATION FRAMEWORKS */}
         <div className="mb-48 px-4 md:px-0">
-           <div className="flex flex-col md:flex-row gap-12 items-baseline mb-20">
-              <h2 className="text-[10px] font-black text-rose-600 uppercase tracking-[0.4em] border-l-4 border-rose-600 pl-4">Optimization Frameworks</h2>
-           </div>
+          <div className="flex flex-col md:flex-row gap-12 items-baseline mb-20">
+            <h2 className="text-[10px] font-black text-rose-600 uppercase tracking-[0.4em] border-l-4 border-rose-600 pl-4">Optimization Frameworks</h2>
+          </div>
 
-           <div className="grid lg:grid-cols-3 gap-8">
-              {(sections.roi || []).map((group, idx) => (
-                 <div key={idx} className="bg-white rounded-[3rem] p-12 border border-slate-100 shadow-xl shadow-slate-200/50 hover:shadow-2xl transition-all group">
-                    <div className="w-12 h-12 bg-rose-50 rounded-xl flex items-center justify-center text-2xl text-rose-600 mb-8 group-hover:scale-110 transition-transform"><IoFlashOutline /></div>
-                    <h3 className="text-xl font-black text-slate-900 mb-8 tracking-tighter uppercase">{group.group}</h3>
-                    <ul className="space-y-4">
-                       {group.items?.map(item => (
-                          <li key={item} className="flex items-center gap-3 text-slate-500 text-[11px] font-bold uppercase tracking-wider">
-                             <IoCheckmarkCircleOutline className="text-rose-500 text-lg shrink-0" /> {item}
-                          </li>
-                       ))}
-                    </ul>
-                 </div>
-              ))}
-           </div>
+          <div className="grid lg:grid-cols-3 gap-8">
+            {(sections.roi || []).map((group, idx) => (
+              <div key={idx} className="bg-white rounded-[3rem] p-12 border border-slate-100 shadow-xl shadow-slate-200/50 hover:shadow-2xl transition-all group">
+                <div className="w-12 h-12 bg-rose-50 rounded-xl flex items-center justify-center text-2xl text-rose-600 mb-8 group-hover:scale-110 transition-transform"><IoFlashOutline /></div>
+                <h3 className="text-xl font-black text-slate-900 mb-8 tracking-tighter uppercase">{group.group}</h3>
+                <ul className="space-y-4">
+                  {group.items?.map(item => (
+                    <li key={item} className="flex items-center gap-3 text-slate-500 text-[11px] font-bold uppercase tracking-wider">
+                      <IoCheckmarkCircleOutline className="text-rose-500 text-lg shrink-0" /> {item}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ))}
+          </div>
         </div>
 
         {/* FINAL CTA RIBBON */}
         <div className="text-center py-40 border-t border-slate-200 px-4 md:px-0">
-           <IoSparklesOutline className="text-7xl text-rose-600 mb-12 mx-auto opacity-20" />
-           <h3 className="text-5xl lg:text-7xl font-black text-slate-900 mb-12 leading-tight">
-              {cta.title?.includes('your ') ? (
-                <>
-                  {cta.title.split('your ')[0]}your <br/>
-                  <span className="text-transparent bg-clip-text bg-gradient-to-r from-rose-600 to-amber-500 font-serif italic font-medium">
-                    {cta.title.split('your ')[1]}
-                  </span>
-                </>
-              ) : (
-                <>
-                  Ready to activate your <br/>
-                  <span className="text-transparent bg-clip-text bg-gradient-to-r from-rose-600 to-amber-500 font-serif italic font-medium">
-                    {cta.title}
-                  </span>
-                </>
-              )}
-           </h3>
-           <div className="flex flex-col sm:flex-row gap-6 justify-center">
-              <button className="w-full sm:w-[280px] px-8 py-6 bg-rose-600 text-white font-black rounded-xl hover:bg-rose-700 transition-all shadow-2xl shadow-rose-600/40 uppercase tracking-widest text-[10px] flex items-center justify-center">
-                Initialize Creative Sprint
-              </button>
-              <Link
-                href="/freelancing"
-                className="w-full sm:w-[280px] px-8 py-6 bg-slate-900 text-white font-black rounded-xl hover:bg-slate-800 transition-all uppercase tracking-widest text-[10px] flex items-center justify-center text-center"
-              >
-                Hire Student Talent
-              </Link>
-           </div>
+          <IoSparklesOutline className="text-7xl text-rose-600 mb-12 mx-auto opacity-20" />
+          <h3 className="text-5xl lg:text-6xl font-black text-slate-900 mb-12 leading-tight">
+            {cta.title?.includes('your ') ? (
+              <>
+                {cta.title.split('your ')[0]}your <br />
+                <span className="text-transparent bg-clip-text bg-gradient-to-r from-rose-600 to-amber-500 font-serif italic font-medium">
+                  {cta.title.split('your ')[1]}
+                </span>
+              </>
+            ) : (
+              <>
+                Ready to activate your <br />
+                <span className="text-transparent bg-clip-text bg-gradient-to-r from-rose-600 to-amber-500 font-serif italic font-medium">
+                  {cta.title}
+                </span>
+              </>
+            )}
+          </h3>
+          <div className="flex flex-col sm:flex-row gap-6 justify-center">
+            <button className="w-full sm:w-[280px] px-8 py-6 bg-rose-600 text-white font-black rounded-xl hover:bg-rose-700 transition-all shadow-2xl shadow-rose-600/40 uppercase tracking-widest text-[10px] flex items-center justify-center">
+              Initialize Creative Sprint
+            </button>
+            <Link
+              href="/freelancing"
+              className="w-full sm:w-[280px] px-8 py-6 bg-slate-900 text-white font-black rounded-xl hover:bg-slate-800 transition-all uppercase tracking-widest text-[10px] flex items-center justify-center text-center"
+            >
+              Hire Student Talent
+            </Link>
+          </div>
         </div>
       </div>
     </section>

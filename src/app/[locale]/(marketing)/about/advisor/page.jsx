@@ -42,7 +42,7 @@ export default function AdvisoryBoardPage() {
               Guidance & Trust
             </p>
           </motion.div>
-          <h1 className="text-5xl md:text-7xl font-black text-white leading-[1.1] mb-8 tracking-tighter">
+          <h1 className="text-5xl md:text-5xl font-black text-white leading-[1.1] mb-8 tracking-tighter">
             Advisory <br />
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-indigo-400 to-blue-500 animate-gradient-x">Board</span>
           </h1>
@@ -58,7 +58,7 @@ export default function AdvisoryBoardPage() {
 
         {loading ? (
           <div className="flex justify-center items-center py-20">
-             <div className="w-12 h-12 border-4 border-slate-800 border-t-blue-500 rounded-full animate-spin"></div>
+            <div className="w-12 h-12 border-4 border-slate-800 border-t-blue-500 rounded-full animate-spin"></div>
           </div>
         ) : (
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-7xl">
@@ -73,7 +73,7 @@ export default function AdvisoryBoardPage() {
                 className="group relative"
               >
                 <div className="absolute inset-0 bg-gradient-to-t from-blue-600/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-[2rem] blur-xl"></div>
-                
+
                 <div className="relative bg-slate-900/50 backdrop-blur-xl border border-white/10 rounded-[2rem] p-6 hover:border-blue-500/50 transition-colors h-full flex flex-col justify-between">
                   <div className="mb-6 overflow-hidden rounded-2xl aspect-square relative">
                     <Image
@@ -84,7 +84,7 @@ export default function AdvisoryBoardPage() {
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-slate-900 via-transparent to-transparent"></div>
                   </div>
-                  
+
                   <div className="relative z-10">
                     <h3 className="text-xl font-bold text-white mb-1 group-hover:text-blue-400 transition-colors">
                       {advisor.name}

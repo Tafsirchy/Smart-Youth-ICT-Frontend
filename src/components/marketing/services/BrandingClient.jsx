@@ -1,9 +1,9 @@
 "use client";
 
-import { 
-  IoColorPaletteOutline, 
-  IoTextOutline, 
-  IoDiamondOutline, 
+import {
+  IoColorPaletteOutline,
+  IoTextOutline,
+  IoDiamondOutline,
   IoFingerPrintOutline,
   IoTriangleOutline,
   IoInfiniteOutline,
@@ -24,9 +24,9 @@ export default function BrandingClient({ content }) {
   return (
     <section className="min-h-screen bg-slate-50 text-slate-900 selection:bg-indigo-600 selection:text-white overflow-hidden relative">
       <div className="absolute top-0 opacity-20 pointer-events-none -z-10 w-full h-full">
-         <div className="absolute top-0 left-1/4 w-[1px] h-full bg-slate-200"></div>
-         <div className="absolute top-0 right-1/4 w-[1px] h-full bg-slate-200"></div>
-         <div className="absolute top-1/2 left-0 w-full h-[1px] bg-slate-200"></div>
+        <div className="absolute top-0 left-1/4 w-[1px] h-full bg-slate-200"></div>
+        <div className="absolute top-0 right-1/4 w-[1px] h-full bg-slate-200"></div>
+        <div className="absolute top-1/2 left-0 w-full h-[1px] bg-slate-200"></div>
       </div>
 
       <div className="container-custom py-20 relative">
@@ -45,7 +45,7 @@ export default function BrandingClient({ content }) {
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, ease: "circOut" }}
-              className="text-5xl md:text-7xl font-black text-slate-900 leading-[1.1] mb-8 tracking-tighter"
+              className="text-5xl md:text-5xl font-black text-slate-900 leading-[1.1] mb-8 tracking-tighter"
             >
               {hero.title?.split('&')[0]} & <br />
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-pink-500 via-rose-500 to-indigo-500 animate-gradient-x">
@@ -79,31 +79,31 @@ export default function BrandingClient({ content }) {
               transition={{ duration: 1 }}
               className="relative p-12 bg-white rounded-[4rem] border border-slate-100 shadow-2xl overflow-hidden group"
             >
-               <div className="absolute inset-0 opacity-10 pointer-events-none" style={{ backgroundImage: "linear-gradient(#6366f1 1px, transparent 1px), linear-gradient(90deg, #6366f1 1px, transparent 1px)", backgroundSize: "40px 40px" }}></div>
-               <div className="absolute inset-0 bg-gradient-to-br from-indigo-50/50 via-transparent to-transparent"></div>
+              <div className="absolute inset-0 opacity-10 pointer-events-none" style={{ backgroundImage: "linear-gradient(#6366f1 1px, transparent 1px), linear-gradient(90deg, #6366f1 1px, transparent 1px)", backgroundSize: "40px 40px" }}></div>
+              <div className="absolute inset-0 bg-gradient-to-br from-indigo-50/50 via-transparent to-transparent"></div>
 
-               <div className="relative aspect-square flex items-center justify-center">
-                  <motion.div 
-                    animate={{ rotate: 360 }}
-                    transition={{ duration: 30, repeat: Infinity, ease: "linear" }}
-                    className="absolute inset-0 border border-indigo-100 rounded-full"
-                  ></motion.div>
-                  <motion.div 
-                    animate={{ rotate: -360 }}
-                    transition={{ duration: 40, repeat: Infinity, ease: "linear" }}
-                    className="absolute inset-20 border border-indigo-200 rounded-full border-dashed"
-                  ></motion.div>
+              <div className="relative aspect-square flex items-center justify-center">
+                <motion.div
+                  animate={{ rotate: 360 }}
+                  transition={{ duration: 30, repeat: Infinity, ease: "linear" }}
+                  className="absolute inset-0 border border-indigo-100 rounded-full"
+                ></motion.div>
+                <motion.div
+                  animate={{ rotate: -360 }}
+                  transition={{ duration: 40, repeat: Infinity, ease: "linear" }}
+                  className="absolute inset-20 border border-indigo-200 rounded-full border-dashed"
+                ></motion.div>
 
-                  <div className="relative z-10 w-48 h-48 bg-slate-900 rounded-[3rem] shadow-2xl flex items-center justify-center group-hover:scale-110 transition-transform">
-                     <IoDiamondOutline className="text-6xl text-white animate-pulse" />
-                     <div className="absolute top-0 left-0 w-8 h-8 border-t-2 border-l-2 border-indigo-500 -translate-x-4 -translate-y-4"></div>
-                     <div className="absolute bottom-0 right-0 w-8 h-8 border-b-2 border-r-2 border-indigo-500 translate-x-4 translate-y-4"></div>
-                  </div>
+                <div className="relative z-10 w-48 h-48 bg-slate-900 rounded-[3rem] shadow-2xl flex items-center justify-center group-hover:scale-110 transition-transform">
+                  <IoDiamondOutline className="text-6xl text-white animate-pulse" />
+                  <div className="absolute top-0 left-0 w-8 h-8 border-t-2 border-l-2 border-indigo-500 -translate-x-4 -translate-y-4"></div>
+                  <div className="absolute bottom-0 right-0 w-8 h-8 border-b-2 border-r-2 border-indigo-500 translate-x-4 translate-y-4"></div>
+                </div>
 
-                  <div className="absolute bottom-4 left-4 font-mono text-[8px] text-slate-400 opacity-50 uppercase tracking-[0.4em]">
-                     Scale::1.618 (Golden Ratio)
-                  </div>
-               </div>
+                <div className="absolute bottom-4 left-4 font-mono text-[8px] text-slate-400 opacity-50 uppercase tracking-[0.4em]">
+                  Scale::1.618 (Golden Ratio)
+                </div>
+              </div>
             </motion.div>
           </div>
         </div>
@@ -113,7 +113,7 @@ export default function BrandingClient({ content }) {
           <div className="flex flex-col md:flex-row justify-between items-end mb-24 gap-8 border-l-4 border-indigo-600 pl-8">
             <div className="max-w-xl">
               <h2 className="text-[10px] font-black text-indigo-600 uppercase tracking-[0.4em] mb-4 font-bold">Design DNA</h2>
-              <p className="text-4xl md:text-6xl font-black text-slate-900 leading-tight">
+              <p className="text-4xl md:text-5xl font-black text-slate-900 leading-tight">
                 The pillars of <span className="text-slate-400 italic font-serif font-light">visual authority.</span>
               </p>
             </div>
@@ -150,66 +150,66 @@ export default function BrandingClient({ content }) {
         {/* BRAND BOOK VISUAL */}
         <div className="mb-48 px-4 md:px-0">
           <div className="grid lg:grid-cols-2 gap-20 items-center bg-white rounded-[4rem] p-12 lg:p-24 border border-slate-100 shadow-2xl shadow-slate-200/50 relative overflow-hidden">
-             <div className="absolute top-0 right-0 w-1/3 h-full bg-indigo-50/30 -skew-x-[20deg] origin-top translate-x-1/2"></div>
-             
-             <div className="relative z-10 space-y-12">
-                <div className="w-16 h-16 bg-indigo-50 rounded-2xl flex items-center justify-center text-3xl text-indigo-600 border border-indigo-100">
-                   <IoSparklesOutline />
-                </div>
-                <h2 className="text-5xl lg:text-7xl font-black text-slate-900 leading-[0.9]">The Corporate <br/><span className="text-indigo-600">Voice API.</span></h2>
-                <p className="text-slate-500 text-xl font-light leading-relaxed">Consistency is absolute. We deliver a comprehensive brand manual documenting every pixel of your identity for flawless global scaling.</p>
-                
-                <div className="grid grid-cols-2 gap-px bg-slate-50 border border-slate-100 rounded-3xl overflow-hidden mt-10">
-                   {metrics?.map((item, idx) => (
-                      <div key={idx} className="p-10 hover:bg-white transition-colors group">
-                         <h4 className="text-[10px] font-black text-indigo-600 uppercase tracking-widest mb-2">{item.t}</h4>
-                         <p className="text-xs text-slate-400 font-bold">{item.d}</p>
-                      </div>
-                   ))}
-                </div>
-             </div>
+            <div className="absolute top-0 right-0 w-1/3 h-full bg-indigo-50/30 -skew-x-[20deg] origin-top translate-x-1/2"></div>
 
-             <motion.div
-               initial={{ opacity: 0, scale: 0.9, rotateX: 5 }}
-               whileInView={{ opacity: 1, scale: 1, rotateX: 0 }}
-               className="relative bg-slate-50 aspect-[4/5] rounded-3xl shadow-2xl p-16 flex flex-col justify-between overflow-hidden border border-slate-200"
-             >
-                <div className="absolute top-0 right-0 w-32 h-32 bg-white rounded-bl-[100px] border-b border-l border-slate-100"></div>
-                <div>
-                   <div className="w-16 h-16 bg-slate-900 mb-12 rounded-2xl shadow-xl flex items-center justify-center"><IoInfiniteOutline className="text-white text-3xl" /></div>
-                   <h4 className="text-5xl font-serif italic text-slate-900 mb-6 font-bold pb-8 border-b border-slate-200 leading-none">Guideline.</h4>
-                   <p className="text-[10px] font-black text-slate-400 uppercase tracking-[0.3em] mb-12">Build 14.2 / Confidential</p>
-                   
-                   <div className="space-y-6">
-                      <div className="h-4 bg-slate-200 rounded-full w-full"></div>
-                      <div className="h-4 bg-slate-200 rounded-full w-4/5"></div>
-                      <div className="flex gap-4 pt-10">
-                         <div className="w-12 h-12 rounded-xl bg-indigo-600 shadow-lg"></div>
-                         <div className="w-12 h-12 rounded-xl bg-purple-600 shadow-lg"></div>
-                         <div className="w-12 h-12 rounded-xl bg-slate-900 shadow-lg"></div>
-                      </div>
-                   </div>
+            <div className="relative z-10 space-y-12">
+              <div className="w-16 h-16 bg-indigo-50 rounded-2xl flex items-center justify-center text-3xl text-indigo-600 border border-indigo-100">
+                <IoSparklesOutline />
+              </div>
+              <h2 className="text-5xl lg:text-6xl font-black text-slate-900 leading-[0.9]">The Corporate <br /><span className="text-indigo-600">Voice API.</span></h2>
+              <p className="text-slate-500 text-xl font-light leading-relaxed">Consistency is absolute. We deliver a comprehensive brand manual documenting every pixel of your identity for flawless global scaling.</p>
+
+              <div className="grid grid-cols-2 gap-px bg-slate-50 border border-slate-100 rounded-3xl overflow-hidden mt-10">
+                {metrics?.map((item, idx) => (
+                  <div key={idx} className="p-10 hover:bg-white transition-colors group">
+                    <h4 className="text-[10px] font-black text-indigo-600 uppercase tracking-widest mb-2">{item.t}</h4>
+                    <p className="text-xs text-slate-400 font-bold">{item.d}</p>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            <motion.div
+              initial={{ opacity: 0, scale: 0.9, rotateX: 5 }}
+              whileInView={{ opacity: 1, scale: 1, rotateX: 0 }}
+              className="relative bg-slate-50 aspect-[4/5] rounded-3xl shadow-2xl p-16 flex flex-col justify-between overflow-hidden border border-slate-200"
+            >
+              <div className="absolute top-0 right-0 w-32 h-32 bg-white rounded-bl-[100px] border-b border-l border-slate-100"></div>
+              <div>
+                <div className="w-16 h-16 bg-slate-900 mb-12 rounded-2xl shadow-xl flex items-center justify-center"><IoInfiniteOutline className="text-white text-3xl" /></div>
+                <h4 className="text-5xl font-serif italic text-slate-900 mb-6 font-bold pb-8 border-b border-slate-200 leading-none">Guideline.</h4>
+                <p className="text-[10px] font-black text-slate-400 uppercase tracking-[0.3em] mb-12">Build 14.2 / Confidential</p>
+
+                <div className="space-y-6">
+                  <div className="h-4 bg-slate-200 rounded-full w-full"></div>
+                  <div className="h-4 bg-slate-200 rounded-full w-4/5"></div>
+                  <div className="flex gap-4 pt-10">
+                    <div className="w-12 h-12 rounded-xl bg-indigo-600 shadow-lg"></div>
+                    <div className="w-12 h-12 rounded-xl bg-purple-600 shadow-lg"></div>
+                    <div className="w-12 h-12 rounded-xl bg-slate-900 shadow-lg"></div>
+                  </div>
                 </div>
-                <div className="text-slate-300 text-[9px] font-black uppercase tracking-[0.4em] text-center border-t border-slate-100 pt-8">SYICT Design Studio Protocol © 2026</div>
-             </motion.div>
+              </div>
+              <div className="text-slate-300 text-[9px] font-black uppercase tracking-[0.4em] text-center border-t border-slate-100 pt-8">SYICT Design Studio Protocol © 2026</div>
+            </motion.div>
           </div>
         </div>
 
         {/* CTA */}
         <div className="text-center py-40 border-t border-slate-200 px-4 md:px-0">
-           <IoGitNetworkOutline className="text-7xl text-indigo-600 mb-12 mx-auto opacity-20" />
-           <h3 className="text-5xl lg:text-7xl font-black text-slate-900 mb-12 leading-tight">{cta.title?.split('. ')[0]}. <br/><span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-600 to-purple-500 font-serif italic font-medium">{cta.title?.split('. ')[1] || "Initialize Architecture."}</span></h3>
-           <div className="flex flex-col sm:flex-row gap-6 justify-center">
-              <button className="w-full sm:w-[280px] px-8 py-6 bg-indigo-600 text-white font-black rounded-xl hover:bg-indigo-700 transition-all shadow-2xl shadow-indigo-600/40 uppercase tracking-widest text-[10px] flex items-center justify-center">
-                Initialize Consultation
-              </button>
-              <Link
-                href="/services/branding/details"
-                className="w-full sm:w-[280px] px-8 py-6 bg-slate-900 text-white font-black rounded-xl hover:bg-slate-800 transition-all uppercase tracking-widest text-[10px] flex items-center justify-center text-center"
-              >
-                Technical Details
-              </Link>
-           </div>
+          <IoGitNetworkOutline className="text-7xl text-indigo-600 mb-12 mx-auto opacity-20" />
+          <h3 className="text-5xl lg:text-6xl font-black text-slate-900 mb-12 leading-tight">{cta.title?.split('. ')[0]}. <br /><span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-600 to-purple-500 font-serif italic font-medium">{cta.title?.split('. ')[1] || "Initialize Architecture."}</span></h3>
+          <div className="flex flex-col sm:flex-row gap-6 justify-center">
+            <button className="w-full sm:w-[280px] px-8 py-6 bg-indigo-600 text-white font-black rounded-xl hover:bg-indigo-700 transition-all shadow-2xl shadow-indigo-600/40 uppercase tracking-widest text-[10px] flex items-center justify-center">
+              Initialize Consultation
+            </button>
+            <Link
+              href="/services/branding/details"
+              className="w-full sm:w-[280px] px-8 py-6 bg-slate-900 text-white font-black rounded-xl hover:bg-slate-800 transition-all uppercase tracking-widest text-[10px] flex items-center justify-center text-center"
+            >
+              Technical Details
+            </Link>
+          </div>
         </div>
       </div>
     </section>

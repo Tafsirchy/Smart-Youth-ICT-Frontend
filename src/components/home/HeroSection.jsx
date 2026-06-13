@@ -7,20 +7,20 @@ import { FaWhatsapp } from 'react-icons/fa';
 
 // ─── Shared animation variants ───────────────────────────────────
 const fadeUp = {
-  hidden:  { opacity: 0, y: 40 },
+  hidden: { opacity: 0, y: 40 },
   visible: (delay = 0) => ({ opacity: 1, y: 0, transition: { duration: 0.6, delay, ease: 'easeOut' } }),
 };
 
 const stat = {
-  hidden:  { opacity: 0, scale: 0.8 },
+  hidden: { opacity: 0, scale: 0.8 },
   visible: (delay = 0) => ({ opacity: 1, scale: 1, transition: { duration: 0.5, delay, ease: 'backOut' } }),
 };
 
 const stats = [
   { value: '5,000+', label: 'Students Trained' },
-  { value: '৳50L+',  label: 'Student Earnings'  },
-  { value: '4',      label: 'Expert Courses'    },
-  { value: '100%',   label: 'Project-Based'     },
+  { value: '৳50L+', label: 'Student Earnings' },
+  { value: '4', label: 'Expert Courses' },
+  { value: '100%', label: 'Project-Based' },
 ];
 
 export default function HeroSection() {
@@ -63,7 +63,7 @@ export default function HeroSection() {
 
         {/* Headline */}
         <motion.h1
-          className="font-display text-3xl sm:text-5xl md:text-6xl font-extrabold text-textPrimary leading-tight mb-6"
+          className="font-display text-3xl sm:text-5xl md:text-5xl font-extrabold text-textPrimary leading-tight mb-6"
           variants={fadeUp} initial={mounted ? "hidden" : "visible"} animate="visible" custom={0.1}
         >
           Learn IT Skills &amp; <br />
