@@ -3,6 +3,9 @@
 import React, { useState, useMemo } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { HiSearch, HiX, HiBriefcase } from 'react-icons/hi';
+import { useQuery } from '@tanstack/react-query';
+import api from '@/lib/api';
+import { ProjectCardSkeleton } from '@/components/ui/Skeleton';
 import ProjectCard from './ProjectCard';
 
 const dummyProjects = [
@@ -56,12 +59,54 @@ const CATEGORIES = [
   'SEO'
 ];
 
+const getDaysLeft = (deadline) => {
+  if (!deadline) return null;
+  const diffTime = new Date(deadline) - new Date();
+  const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+  if (diffDays < 0) return 'Closed';
+  if (diffDays === 0) return 'Ends Today';
+  if (diffDays === 1) return '1 Day Left';
+  return `${diffDays} Days Left`;
+};
+
 export default function FreelancingDirectory() {
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('All Categories');
 
+  const { data: projectsData, isLoading: loading } = useQuery({
+    queryKey: ['freelancing-projects'],
+    queryFn: async () => {
+      const res = await api.get("/projects");
+      return res.data?.data || [];
+    },
+    staleTime: 5 * 60 * 1000,
+    gcTime: 10 * 60 * 1000
+  });
+
+  const projects = projectsData || [];
+
+  const processedProjects = useMemo(() => {
+    const hasData = projects && projects.length > 0;
+    const listToProcess = hasData ? projects : dummyProjects;
+    
+    return listToProcess.map(proj => {
+      const isApiProject = !!proj._id;
+      return {
+        id: proj._id || proj.id,
+        title: proj.title,
+        company: isApiProject ? (proj.client?.name || 'SYICT Client') : proj.company,
+        category: proj.category,
+        budget: typeof proj.budget === 'number' ? `$${proj.budget.toLocaleString()}` : proj.budget,
+        duration: proj.deadline ? getDaysLeft(proj.deadline) : (proj.duration || 'Flexible'),
+        type: proj.type || 'Remote',
+        description: proj.description,
+        slug: proj.slug || proj.title.toLowerCase().replace(/\s+/g, '-'),
+      };
+    });
+  }, [projects]);
+
   const filteredProjects = useMemo(() => {
-    return dummyProjects.filter(project => {
+    return processedProjects.filter(project => {
       const matchesCategory = selectedCategory === 'All Categories' || project.category === selectedCategory;
       const matchesSearch = 
         project.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
@@ -69,7 +114,7 @@ export default function FreelancingDirectory() {
         project.company.toLowerCase().includes(searchQuery.toLowerCase());
       return matchesCategory && matchesSearch;
     });
-  }, [searchQuery, selectedCategory]);
+  }, [processedProjects, searchQuery, selectedCategory]);
 
   return (
     <div className="bg-neutral-50 min-h-screen">
@@ -165,48 +210,56 @@ export default function FreelancingDirectory() {
          </div>
 
          {/* Results */}
-         {filteredProjects.length > 0 ? (
-           <motion.div 
-             layout
-             className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8"
-           >
-             <AnimatePresence mode="popLayout">
-               {filteredProjects.map((project) => (
-                 <motion.div
-                   layout
-                   initial={{ opacity: 0, scale: 0.95 }}
-                   animate={{ opacity: 1, scale: 1 }}
-                   exit={{ opacity: 0, scale: 0.95 }}
-                   transition={{ duration: 0.2 }}
-                   key={project.id}
-                 >
-                   <ProjectCard project={project} />
-                 </motion.div>
-               ))}
-             </AnimatePresence>
-           </motion.div>
-         ) : (
-           <div className="text-center py-16 bg-white rounded-2xl border border-neutral-200 shadow-sm max-w-md mx-auto">
-             <div className="w-12 h-12 rounded-full bg-neutral-100 flex items-center justify-center mx-auto mb-4 text-neutral-400">
-               <HiBriefcase size={24} />
-             </div>
-             <h3 className="text-lg font-bold text-neutral-800 mb-1">No opportunities found</h3>
-             <p className="text-neutral-500 text-sm px-4">We couldn't find any projects matching your filters. Try search keywords or check another category.</p>
-             <button 
-               onClick={() => { setSearchQuery(''); setSelectedCategory('All Categories'); }}
-               className="mt-4 text-sm font-semibold text-orange-500 hover:text-orange-600"
-             >
-               Reset Filters
-             </button>
-           </div>
-         )}
-         
-         <div className="mt-12 text-center">
-             <p className="text-sm text-neutral-500 mb-4">Showing {filteredProjects.length} of {dummyProjects.length} opportunities</p>
-             <button className="bg-white border border-neutral-300 text-neutral-700 hover:bg-neutral-50 font-bold py-2.5 px-6 rounded-xl transition-colors shadow-sm min-h-[44px]">
-               Load More Projects
-             </button>
-         </div>
+          {loading ? (
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+              {[...Array(4)].map((_, i) => (
+                <ProjectCardSkeleton key={i} />
+              ))}
+            </div>
+          ) : filteredProjects.length > 0 ? (
+            <motion.div 
+              layout
+              className="grid grid-cols-1 sm:grid-cols-2 gap-6"
+            >
+              <AnimatePresence mode="popLayout">
+                {filteredProjects.map((project) => (
+                  <motion.div
+                    layout
+                    initial={{ opacity: 0, scale: 0.95 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    exit={{ opacity: 0, scale: 0.95 }}
+                    transition={{ duration: 0.2 }}
+                    key={project.id}
+                  >
+                    <ProjectCard project={project} />
+                  </motion.div>
+                ))}
+              </AnimatePresence>
+            </motion.div>
+          ) : (
+            <div className="text-center py-16 bg-white rounded-2xl border border-neutral-200 shadow-sm max-w-md mx-auto">
+              <div className="w-12 h-12 rounded-full bg-neutral-100 flex items-center justify-center mx-auto mb-4 text-neutral-400">
+                <HiBriefcase size={24} />
+              </div>
+              <h3 className="text-lg font-bold text-neutral-800 mb-1">No opportunities found</h3>
+              <p className="text-neutral-500 text-sm px-4">We couldn't find any projects matching your filters. Try search keywords or check another category.</p>
+              <button 
+                onClick={() => { setSearchQuery(''); setSelectedCategory('All Categories'); }}
+                className="mt-4 text-sm font-semibold text-orange-500 hover:text-orange-600"
+              >
+                Reset Filters
+              </button>
+            </div>
+          )}
+
+          {!loading && (
+            <div className="mt-12 text-center">
+              <p className="text-sm text-neutral-500 mb-4">Showing {filteredProjects.length} of {processedProjects.length} opportunities</p>
+              <button className="bg-white border border-neutral-300 text-neutral-700 hover:bg-neutral-50 font-bold py-2.5 px-6 rounded-xl transition-colors shadow-sm min-h-[44px]">
+                Load More Projects
+              </button>
+            </div>
+          )}
        </section>
     </div>
   );
