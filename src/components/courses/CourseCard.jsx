@@ -7,7 +7,6 @@ import {
   IoPeopleOutline,
   IoLanguageOutline,
   IoVideocamOutline,
-  IoCheckmarkCircle,
 } from "react-icons/io5";
 import { HiArrowLongRight } from "react-icons/hi2";
 
@@ -26,7 +25,6 @@ export default function CourseCard({ course, locale, priority }) {
     isPopular,
   } = course;
 
-  // Use English title by default
   const displayTitle = title?.en || title || "Untitled Course";
 
   return (
@@ -44,79 +42,82 @@ export default function CourseCard({ course, locale, priority }) {
           src={thumbnail || "/images/course-placeholder.jpg"}
           alt={displayTitle}
           fill
-          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+          sizes="(max-width: 640px) 50vw, (max-width: 1200px) 33vw, 25vw"
           priority={priority}
           className="object-cover transition-transform duration-700 group-hover:scale-110"
         />
 
         {/* Floating Badges */}
-        <div className="absolute inset-x-3 top-3 flex justify-between items-start pointer-events-none">
+        <div className="absolute inset-x-2.5 top-2.5 flex justify-between items-start pointer-events-none">
           {category && (
-            <div className="rounded-xl bg-blue-600/90 px-2.5 py-1 text-[9px] font-black uppercase tracking-[0.2em] text-white backdrop-blur-md shadow-lg pointer-events-auto">
+            <div className="rounded-lg bg-blue-600/90 px-2 py-0.5 text-[8px] font-black uppercase tracking-wider text-white backdrop-blur-md shadow-md pointer-events-auto">
               {category}
             </div>
           )}
           {isPopular && (
-            <div className="rounded-xl bg-pink-600/90 px-2.5 py-1 text-[9px] font-black uppercase tracking-[0.2em] text-white backdrop-blur-md shadow-lg pointer-events-auto">
+            <div className="rounded-lg bg-pink-600/90 px-2 py-0.5 text-[8px] font-black uppercase tracking-wider text-white backdrop-blur-md shadow-md pointer-events-auto">
               Popular
             </div>
           )}
         </div>
 
         {/* Bottom Overlays (Glassmorphic) */}
-        <div className="absolute inset-x-0 bottom-0 p-3 flex gap-1.5 justify-end bg-gradient-to-t from-black/60 to-transparent pointer-events-none">
-          <span className="flex items-center gap-1 rounded-lg bg-black/40 px-2 py-1 text-[8px] font-black uppercase tracking-wider text-white backdrop-blur-md">
-            <IoVideocamOutline size={12} className="opacity-70" />
+        {/* On Mobile: smaller icons and text labels */}
+        <div className="absolute inset-x-0 bottom-0 p-2 flex gap-1 justify-end bg-gradient-to-t from-black/60 to-transparent pointer-events-none">
+          <span className="flex items-center gap-1 rounded bg-black/40 px-1.5 py-0.5 text-[7px] font-black uppercase tracking-wider text-white backdrop-blur-md">
+            <IoVideocamOutline size={10} className="opacity-70" />
             {mode}
           </span>
-          <span className="flex items-center gap-1 rounded-lg bg-black/40 px-2 py-1 text-[8px] font-black uppercase tracking-wider text-white backdrop-blur-md">
-            <IoLanguageOutline size={12} className="opacity-70" />
+          <span className="flex items-center gap-1 rounded bg-black/40 px-1.5 py-0.5 text-[7px] font-black uppercase tracking-wider text-white backdrop-blur-md">
+            <IoLanguageOutline size={10} className="opacity-70" />
             {language}
           </span>
         </div>
       </Link>
 
-      {/* Content */}
-      <div className="flex flex-1 flex-col p-6">
+      {/* Content wrapper with responsive padding (p-3.5 sm:p-6) */}
+      <div className="flex flex-1 flex-col p-3.5 sm:p-5 lg:p-6">
+        
         {/* Title */}
-        <Link href={`/${locale}/courses/${slug}`} className="mb-3 block flex-1">
-          <h3 className="line-clamp-2 text-[1.15rem] font-black leading-tight text-neutral-900 group-hover:text-blue-600 transition-colors dark:text-white">
+        <Link href={`/${locale}/courses/${slug}`} className="mb-2 sm:mb-3 block flex-1">
+          <h3 className="line-clamp-2 text-sm sm:text-base lg:text-[1.15rem] font-black leading-snug text-neutral-900 group-hover:text-blue-600 transition-colors dark:text-white">
             {displayTitle}
           </h3>
         </Link>
 
-        {/* Course stats Row (Compact) */}
-        <div className="mb-5 flex items-center gap-4 text-[10px] font-black text-neutral-400 uppercase tracking-widest border-b border-neutral-100 pb-4 dark:border-neutral-800">
-          <div className="flex items-center gap-1.5">
-            <IoTimeOutline size={14} className="text-blue-600" />
-            {duration}
+        {/* Course stats Row (Compact on mobile, wider on desktop) */}
+        <div className="mb-4 sm:mb-5 flex flex-wrap items-center gap-2 sm:gap-4 text-[9px] sm:text-[10px] font-black text-neutral-400 uppercase tracking-wider sm:tracking-widest border-b border-neutral-100 pb-3 sm:pb-4 dark:border-neutral-800">
+          <div className="flex items-center gap-1">
+            <IoTimeOutline size={12} className="text-blue-600 shrink-0" />
+            <span>{duration}</span>
           </div>
-          <div className="flex items-center gap-1.5">
-            <IoPeopleOutline size={14} className="text-blue-600" />
-            {enrolledCount} Students
+          <div className="flex items-center gap-1">
+            <IoPeopleOutline size={12} className="text-blue-600 shrink-0" />
+            <span>{enrolledCount} Studs</span>
           </div>
         </div>
 
         {/* Action Bar (Footer) */}
-        <div className="mt-auto flex items-center justify-between">
-          <div className="flex flex-col">
+        {/* Flex wrap to support small screens, price is set responsively */}
+        <div className="mt-auto flex items-center justify-between gap-1.5">
+          <div className="flex flex-col min-w-0">
             {originalPrice && originalPrice > price && (
-              <span className="text-[0.7rem] font-bold text-neutral-400 line-through decoration-pink-500/50 tracking-tighter mb-[-4px]">
+              <span className="text-[9px] sm:text-[10px] font-bold text-neutral-400 line-through decoration-pink-500/50 tracking-tighter mb-[-3px] truncate">
                 ৳{originalPrice.toLocaleString()}
               </span>
             )}
-            <span className="text-xl font-black text-blue-600 tracking-tighter">
+            <span className="text-base sm:text-lg lg:text-xl font-black text-blue-600 tracking-tighter truncate">
               ৳{price?.toLocaleString()}
             </span>
           </div>
 
-          <motion.div whileHover={{ x: 3 }} whileTap={{ scale: 0.95 }}>
+          <motion.div whileHover={{ x: 2 }} whileTap={{ scale: 0.95 }} className="shrink-0">
             <Link
               href={`/${locale}/courses/${slug}`}
-              className="flex items-center gap-2 rounded-xl bg-neutral-900 px-4 py-2.5 text-[9px] font-black uppercase tracking-widest text-white transition-all hover:bg-blue-600 shadow-xl shadow-transparent hover:shadow-blue-200 dark:bg-blue-700 dark:hover:bg-blue-600"
+              className="inline-flex items-center gap-1 sm:gap-2 rounded-xl bg-neutral-900 px-3 py-2.5 sm:px-4 sm:py-2.5 text-[8px] sm:text-[9px] font-black uppercase tracking-wider sm:tracking-widest text-white transition-all hover:bg-blue-600 shadow-md hover:shadow-blue-200 dark:bg-blue-700 dark:hover:bg-blue-600 min-h-[38px] sm:min-h-[44px]"
             >
               Details
-              <HiArrowLongRight size={14} />
+              <HiArrowLongRight size={12} className="hidden sm:inline" />
             </Link>
           </motion.div>
         </div>

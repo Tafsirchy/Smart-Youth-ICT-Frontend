@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect, useRef, useMemo } from "react";
 import { useQuery } from '@tanstack/react-query';
-import { motion, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence, useScroll, useMotionValueEvent } from "framer-motion";
 import Link from "next/link";
 import { useLocale } from "next-intl";
 import CourseCard from "@/components/courses/CourseCard";
@@ -37,6 +37,18 @@ export default function CoursesPage() {
   const [inputVal, setInputVal] = useState("");
   const debounceRef = useRef(null);
 
+  const { scrollY } = useScroll();
+  const [filtersHidden, setFiltersHidden] = useState(false);
+
+  useMotionValueEvent(scrollY, "change", (latest) => {
+    const previous = scrollY.getPrevious();
+    if (latest > 100 && latest > previous) {
+      setFiltersHidden(true);
+    } else {
+      setFiltersHidden(false);
+    }
+  });
+
   const { data: coursesData, isLoading: loading } = useQuery({
     queryKey: ['courses'],
     queryFn: async () => {
@@ -44,8 +56,8 @@ export default function CoursesPage() {
       const res = await api.get("/courses", { params });
       return res.data?.data || [];
     },
-    staleTime: 5 * 60 * 1000, // 5 minutes freshness for marketing
-    gcTime: 10 * 60 * 1000   // 10 minutes cache retention
+    staleTime: 5 * 60 * 1000,
+    gcTime: 10 * 60 * 1000
   });
 
   const courses = coursesData || [];
@@ -78,7 +90,6 @@ export default function CoursesPage() {
     });
   }, [courses, category, branch, search]);
 
-  // Debounce search input
   const handleSearchChange = (e) => {
     setInputVal(e.target.value);
     clearTimeout(debounceRef.current);
@@ -97,43 +108,42 @@ export default function CoursesPage() {
     >
       {/* ── Hero Banner ───────────────────────────────── */}
       <section
-        className="relative overflow-hidden py-20 text-center"
+        className="relative overflow-hidden py-12 sm:py-20 text-center px-4"
         style={{
           background:
             "linear-gradient(135deg, #0f172a 0%, #1e1b4b 60%, #312e81 100%)",
         }}
       >
-        {/* Blobs */}
         <motion.div
           className="absolute -top-24 -left-20 w-72 h-72 rounded-full opacity-20 blur-3xl pointer-events-none"
           style={{ background: "var(--color-brand-pink)" }}
-          animate={{ scale: [1, 1.15, 1] }}
+          animate={{ scale: [1, 1.12, 1] }}
           transition={{ duration: 8, repeat: Infinity }}
         />
         <motion.div
           className="absolute -bottom-20 -right-20 w-64 h-64 rounded-full opacity-15 blur-3xl pointer-events-none"
           style={{ background: "#818cf8" }}
-          animate={{ scale: [1, 1.2, 1] }}
+          animate={{ scale: [1, 1.18, 1] }}
           transition={{ duration: 7, repeat: Infinity, delay: 1.5 }}
         />
 
         <motion.div
           className="relative z-10 max-w-3xl mx-auto"
-          initial={{ opacity: 0, y: 24 }}
+          initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
+          transition={{ duration: 0.5 }}
         >
-          <span className="inline-block mb-4 px-4 py-1.5 rounded-full text-xs font-bold uppercase tracking-wider text-indigo-200 bg-white/10 border border-white/10">
+          <span className="inline-block mb-3 px-4 py-1.5 rounded-full text-[10px] sm:text-xs font-bold uppercase tracking-wider text-indigo-200 bg-white/10 border border-white/10">
             🎓{" "}
             {filteredCourses.length > 0
               ? `${filteredCourses.length} Courses Available`
               : "Courses"}
           </span>
-          <h1 className="text-5xl md:text-5xl font-black text-white leading-[1.1] mb-8 tracking-tighter">
-            Explore Our <br />
+          <h1 className="text-3xl sm:text-4xl lg:text-5xl font-black text-white leading-[1.15] mb-6 sm:mb-8 tracking-tighter">
+            Explore Our <br className="hidden sm:block" />
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-indigo-400 to-blue-500 animate-gradient-x">Courses</span>
           </h1>
-          <p className="text-indigo-200 text-lg max-w-xl mx-auto mb-8">
+          <p className="text-indigo-200/80 text-sm sm:text-base lg:text-lg max-w-xl mx-auto mb-6 sm:mb-8 leading-relaxed">
             Learn demand-driven skills from industry experts and start earning
             via real client projects.
           </p>
@@ -147,7 +157,7 @@ export default function CoursesPage() {
             <input
               type="text"
               placeholder="Search courses…"
-              className="w-full pl-12 pr-12 py-4 rounded-2xl bg-white/10 backdrop-blur-sm border border-white/20 text-white placeholder-indigo-300/70 focus:outline-none focus:ring-2 focus:ring-indigo-400 transition text-base"
+              className="w-full pl-12 pr-12 py-3.5 sm:py-4 rounded-2xl bg-white/10 backdrop-blur-sm border border-white/20 text-white placeholder-indigo-300/70 focus:outline-none focus:ring-2 focus:ring-indigo-400 transition text-base min-h-[48px]"
               value={inputVal}
               onChange={handleSearchChange}
             />
@@ -163,44 +173,56 @@ export default function CoursesPage() {
         </motion.div>
       </section>
 
-      {/* ── Category Filter Tabs ─────────────────────── */}
-      <section className="sticky top-0 z-20 bg-[var(--color-surface)] border-b border-neutral-200 shadow-sm">
-        <div className="container-custom py-3 flex gap-2 overflow-x-auto scrollbar-hide">
-          {CATEGORIES.map((cat) => (
-            <button
-              key={cat.id}
-              onClick={() => setCategory(cat.id)}
-              className={`shrink-0 rounded-full px-5 py-2 text-sm font-semibold transition-all ${category === cat.id
-                  ? "bg-blue-600 text-white shadow-md shadow-blue-200"
-                  : "bg-neutral-100 text-neutral-600 hover:bg-neutral-200"
+      {/* ── Category Filter Bar ─────────────────────── */}
+      {/* Sticky offset top-[72px] matching the height of the sticky global Navbar, slides up on scroll down */}
+      <section className={`sticky z-20 bg-[var(--color-surface)] border-b border-neutral-200 shadow-sm py-2.5 sm:py-3 transition-all duration-300 ${
+        filtersHidden ? "top-[-100px]" : "top-[72px]"
+      }`}>
+        <div className="container-custom px-4 sm:px-6 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+          
+          {/* Scrollable category tabs with compliant padding */}
+          <div className="flex gap-2 overflow-x-auto scrollbar-hide pb-1.5 sm:pb-0">
+            {CATEGORIES.map((cat) => (
+              <button
+                key={cat.id}
+                onClick={() => setCategory(cat.id)}
+                className={`shrink-0 rounded-full px-5 py-2.5 text-xs sm:text-sm font-semibold transition-all min-h-[40px] flex items-center ${
+                  category === cat.id
+                    ? "bg-blue-600 text-white shadow-md shadow-blue-200"
+                    : "bg-neutral-100 text-neutral-600 hover:bg-neutral-200"
                 }`}
-            >
-              {cat.label}
-            </button>
-          ))}
-
-          <select
-            value={branch}
-            onChange={(e) => setBranch(e.target.value)}
-            className="shrink-0 rounded-full px-4 py-2 text-sm font-semibold bg-white border border-neutral-200 text-neutral-700"
-          >
-            {branchOptions.map((id) => (
-              <option key={id} value={id}>
-                {id === "all"
-                  ? "All Branches"
-                  : id === "master"
-                    ? "Master Catalog"
-                    : `Branch ${id.slice(-6).toUpperCase()}`}
-              </option>
+              >
+                {cat.label}
+              </button>
             ))}
-          </select>
+          </div>
+
+          {/* Branch Selector (Full-width on mobile, auto-width on tablet/desktop) */}
+          <div className="w-full sm:w-auto shrink-0">
+            <select
+              value={branch}
+              onChange={(e) => setBranch(e.target.value)}
+              className="w-full sm:w-auto shrink-0 rounded-full px-4 py-2.5 text-xs sm:text-sm font-semibold bg-white border border-neutral-200 text-neutral-700 min-h-[40px]"
+            >
+              {branchOptions.map((id) => (
+                <option key={id} value={id}>
+                  {id === "all"
+                    ? "All Branches"
+                    : id === "master"
+                      ? "Master Catalog"
+                      : `Branch ${id.slice(-6).toUpperCase()}`}
+                </option>
+              ))}
+            </select>
+          </div>
+
         </div>
       </section>
 
       {/* ── Course Grid ──────────────────────────────── */}
-      <div className="container-custom py-12 md:py-16">
+      <div className="container-custom px-4 sm:px-6 py-10 sm:py-16">
         {loading ? (
-          <div className="grid grid-cols-1 gap-7 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+          <div className="grid grid-cols-2 gap-4 sm:gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
             {[...Array(8)].map((_, i) => (
               <CourseCardSkeleton key={i} />
             ))}
@@ -212,7 +234,7 @@ export default function CoursesPage() {
               variants={stagger}
               initial="initial"
               animate="animate"
-              className="grid grid-cols-1 gap-7 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4"
+              className="grid grid-cols-2 gap-4 sm:gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4"
             >
               {filteredCourses.map((course) => (
                 <motion.div key={course._id} variants={cardVariant}>
@@ -225,21 +247,21 @@ export default function CoursesPage() {
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            className="flex flex-col items-center justify-center py-20 text-center"
+            className="flex flex-col items-center justify-center py-16 text-center"
           >
-            <div className="w-20 h-20 rounded-full bg-blue-50 flex items-center justify-center mb-5">
-              <IoBookOutline size={36} className="text-blue-400" />
+            <div className="w-16 h-16 rounded-full bg-blue-50 flex items-center justify-center mb-4">
+              <IoBookOutline size={30} className="text-blue-400" />
             </div>
-            <h3 className="text-xl font-bold text-neutral-800 mb-2">
+            <h3 className="text-lg font-bold text-neutral-800 mb-1">
               No courses found
             </h3>
-            <p className="text-neutral-500 text-sm">
+            <p className="text-neutral-500 text-xs sm:text-sm">
               Try a different category or clear your search.
             </p>
             {search && (
               <button
                 onClick={clearSearch}
-                className="mt-4 text-sm text-blue-600 hover:underline"
+                className="mt-3 text-sm text-blue-600 hover:underline"
               >
                 Clear search
               </button>

@@ -80,8 +80,13 @@ export default function MobileMenu({ links, session, onClose }) {
     cleanPath === href || (href !== "/" && cleanPath.startsWith(href));
 
   // Filter out the flat service/about links (those are in the accordions below)
+  // Also filter out success-stories and contact to prevent duplicates since they reside in the About accordion
   const topLinks = links.filter(
-    (l) => !l.href.startsWith("/services") && !l.href.startsWith("/about"),
+    (l) =>
+      !l.href.startsWith("/services") &&
+      !l.href.startsWith("/about") &&
+      l.href !== "/success-stories" &&
+      l.href !== "/contact",
   );
 
   return (
