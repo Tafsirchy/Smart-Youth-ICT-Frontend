@@ -23,7 +23,7 @@ export default function CareerTracksClient({ tracks, content }) {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.1 }}
-            className="text-5xl md:text-5xl font-black text-white leading-[1.1] mb-8 tracking-tighter"
+            className="text-3xl sm:text-4xl lg:text-5xl font-black text-white leading-[1.1] mb-8 tracking-tighter"
           >
             {content?.hero?.title || "Career Tracks"} <br />
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-500 via-teal-400 to-cyan-400 animate-gradient-x">
@@ -47,7 +47,7 @@ export default function CareerTracksClient({ tracks, content }) {
           >
             <Link
               href="/services/career-tracks/details"
-              className="inline-flex items-center gap-2 text-[10px] font-black uppercase tracking-[0.4em] text-emerald-400 hover:text-white transition-colors group"
+              className="inline-flex items-center gap-2 text-sm sm:text-xs font-black uppercase tracking-[0.4em] text-emerald-400 hover:text-white transition-colors group"
             >
               View Trajectory Manifest <IoArrowBackOutline className="rotate-180 group-hover:translate-x-2 transition-transform" />
             </Link>
@@ -56,7 +56,7 @@ export default function CareerTracksClient({ tracks, content }) {
       </div>
 
       <div className="container-custom py-16">
-        <div className="space-y-16 max-w-6xl mx-auto">
+        <div className="flex overflow-x-auto snap-x snap-mandatory gap-6 pb-8 lg:flex-col lg:space-y-16 lg:overflow-visible max-w-6xl mx-auto scrollbar-hide">
           {tracks.length > 0 ? (
             tracks.map((track, i) => (
               <motion.div
@@ -64,7 +64,7 @@ export default function CareerTracksClient({ tracks, content }) {
                 initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: "-100px" }}
-                className="bg-slate-900/50 backdrop-blur-xl border border-white/10 rounded-[3rem] p-8 md:p-12 relative overflow-hidden group hover:border-white/20 transition-all"
+                className="min-w-[85vw] sm:min-w-[400px] lg:w-auto snap-center shrink-0 bg-slate-900/50 backdrop-blur-xl border border-white/10 rounded-[3rem] p-8 md:p-12 relative overflow-hidden group hover:border-white/20 transition-all"
               >
                 <div className={`absolute top-0 right-0 w-full h-2 bg-gradient-to-r ${track.color} opacity-80`}></div>
 
@@ -124,6 +124,12 @@ export default function CareerTracksClient({ tracks, content }) {
             </div>
           )}
         </div>
+      </div>
+      {/* Mobile Sticky CTA */}
+      <div className="fixed bottom-0 left-0 right-0 p-4 bg-slate-950/80 backdrop-blur-md border-t border-white/10 z-50 lg:hidden flex justify-center pb-safe">
+        <button className="w-full max-w-sm py-3.5 bg-white text-slate-950 font-bold rounded-xl shadow-lg active:scale-95 transition-transform text-sm uppercase tracking-widest">
+          Download PDF
+        </button>
       </div>
     </section>
   );

@@ -41,7 +41,7 @@ export default function SuccessStoriesPage() {
 
       {/* ── Hero Section ── */}
       <section className="relative pt-20 pb-32 px-4 bg-[#0f172a] overflow-hidden text-center">
-        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-5xl h-[500px] opacity-20 pointer-events-none">
+        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-5xl h-[500px] opacity-20 pointer-events-none hidden md:block">
           <div className="absolute top-20 left-10 w-72 h-72 bg-blue-500 rounded-full mix-blend-screen filter blur-[100px] animate-blob"></div>
           <div className="absolute top-20 right-10 w-72 h-72 bg-purple-500 rounded-full mix-blend-screen filter blur-[100px] animate-blob animation-delay-2000"></div>
           <div className="absolute -bottom-20 left-1/2 w-72 h-72 bg-pink-500 rounded-full mix-blend-screen filter blur-[100px] animate-blob animation-delay-4000"></div>
@@ -107,18 +107,18 @@ export default function SuccessStoriesPage() {
             >
               {[...videoStories, ...videoStories].map((story, i) => (
                 <a key={i} href={story.videoUrl} target="_blank" rel="noopener noreferrer" className="relative rounded-3xl overflow-hidden w-[300px] md:w-[400px] aspect-[4/5] bg-slate-200 cursor-pointer shadow-lg hover:shadow-2xl transition-all shrink-0 group/card">
-                  <Image src={story.videoThumbnail || story.image || "/images/placeholder.png"} alt={story.name} fill className="object-cover group-hover/card:scale-110 transition-transform duration-700" />
+                  <Image src={story.videoThumbnail || story.studentAvatar || "/images/placeholder.png"} alt={story.studentName || "Student"} fill className="object-cover lg:group-hover/card:scale-110 transition-transform duration-700" />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent"></div>
 
                   <div className="absolute inset-0 flex items-center justify-center">
-                    <div className="w-16 h-16 bg-white/20 backdrop-blur-md rounded-full flex items-center justify-center text-white group-hover/card:bg-rose-600 transition-colors shadow-[0_0_20px_rgba(0,0,0,0.3)]">
+                    <div className="w-16 h-16 bg-rose-600 lg:bg-white/20 backdrop-blur-md rounded-full flex items-center justify-center text-white lg:group-hover/card:bg-rose-600 transition-colors shadow-[0_0_20px_rgba(0,0,0,0.3)]">
                       <IoPlayCircleOutline size={40} className="opacity-90 ml-1" />
                     </div>
                   </div>
 
                   <div className="absolute bottom-6 left-6 right-6">
-                    <h3 className="text-white font-bold text-lg leading-snug mb-1 truncate">{story.title}</h3>
-                    <p className="text-slate-300 text-sm font-medium">{story.name} - {story.role}</p>
+                    <h3 className="text-white font-bold text-lg leading-snug mb-1 truncate">{story.resultSummary}</h3>
+                    <p className="text-slate-300 text-sm font-medium">{story.studentName} {story.company ? `- Hired at ${story.company}` : ''}</p>
                   </div>
                 </a>
               ))}
@@ -150,29 +150,31 @@ export default function SuccessStoriesPage() {
                   key={story._id || i} className="bg-slate-50 rounded-3xl p-6 border border-slate-100 hover:border-blue-200 hover:shadow-xl transition-all group">
                   <div className="flex gap-4 items-center mb-6">
                     <div className="relative w-16 h-16 rounded-full overflow-hidden shadow-sm ring-2 ring-white bg-white">
-                      <Image src={story.image || "/images/placeholder.png"} alt={story.name} fill className="object-cover" />
+                      <Image src={story.studentAvatar || "/images/placeholder.png"} alt={story.studentName || "Student"} fill className="object-cover" />
                     </div>
                     <div className="min-w-0">
-                      <h4 className="font-bold text-slate-900 text-lg truncate">{story.name}</h4>
-                      <p className="text-blue-600 font-bold text-sm truncate">{story.role}</p>
+                      <h4 className="font-bold text-slate-900 text-lg truncate">{story.studentName}</h4>
+                      <p className="text-blue-600 font-bold text-sm truncate">{story.resultSummary}</p>
                     </div>
                   </div>
 
                   <div className="space-y-3 mb-6">
-                    <div className="flex items-center gap-3 text-sm text-slate-600 font-medium">
-                      <div className="w-8 h-8 rounded-lg bg-white shadow-sm flex items-center justify-center shrink-0">
-                        <IoBriefcaseOutline className="text-purple-500" size={16} />
+                    {story.company && (
+                      <div className="flex items-center gap-3 text-base sm:text-sm text-slate-600 font-medium">
+                        <div className="w-8 h-8 rounded-lg bg-white shadow-sm flex items-center justify-center shrink-0">
+                          <IoBriefcaseOutline className="text-purple-500" size={16} />
+                        </div>
+                        <span className="truncate">Hired at <strong className="text-slate-900">{story.company}</strong></span>
                       </div>
-                      <span className="truncate">Hired at <strong className="text-slate-900">{story.company}</strong></span>
-                    </div>
-                    <div className="flex items-center gap-3 text-sm text-slate-600 font-medium">
+                    )}
+                    <div className="flex items-center gap-3 text-base sm:text-sm text-slate-600 font-medium">
                       <div className="w-8 h-8 rounded-lg bg-white shadow-sm flex items-center justify-center shrink-0">
                         <IoCheckmarkCircle className="text-emerald-500" size={16} />
                       </div>
-                      <span className="truncate">SYICT <strong className="text-slate-900">{story.course}</strong></span>
+                      <span className="truncate">SYICT <strong className="text-slate-900">{story.courseId?.title?.en || story.course || "Course"}</strong></span>
                     </div>
                     {story.location && (
-                      <div className="flex items-center gap-3 text-sm text-slate-600 font-medium">
+                      <div className="flex items-center gap-3 text-base sm:text-sm text-slate-600 font-medium">
                         <div className="w-8 h-8 rounded-lg bg-white shadow-sm flex items-center justify-center shrink-0">
                           <IoLocationOutline className="text-rose-500" size={16} />
                         </div>
@@ -192,6 +194,13 @@ export default function SuccessStoriesPage() {
           </div>
         </div>
       </section>
+
+    {/* ── Mobile Sticky CTA ── */}
+    <div className="fixed bottom-0 left-0 right-0 p-4 bg-white/80 backdrop-blur-md border-t border-slate-200 z-50 sm:hidden">
+      <Link href="/courses" className="flex items-center justify-center w-full py-3 bg-slate-900 text-white rounded-xl font-bold shadow-lg active:scale-95 transition-transform">
+        Start Your Journey Today
+      </Link>
+    </div>
 
     </div>
   );

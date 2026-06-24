@@ -30,7 +30,7 @@ export default function FreelancingClient({ data, content }) {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.1 }}
-            className="text-5xl md:text-5xl font-black text-white leading-[1.1] mb-8 tracking-tighter"
+            className="text-3xl sm:text-4xl lg:text-5xl font-black text-white leading-[1.1] mb-8 tracking-tighter"
           >
             {content?.hero?.title || "Freelancing"} <br />
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-500 via-teal-500 to-cyan-500 animate-gradient-x">
@@ -54,7 +54,7 @@ export default function FreelancingClient({ data, content }) {
           >
             <Link
               href="/services/freelancing/details"
-              className="inline-flex items-center gap-2 text-[10px] font-black uppercase tracking-[0.4em] text-emerald-400 hover:text-white transition-colors group"
+              className="inline-flex items-center gap-2 text-sm sm:text-xs font-black uppercase tracking-[0.4em] text-emerald-400 hover:text-white transition-colors group"
             >
               View Market Manifest <IoArrowBackOutline className="rotate-180 group-hover:translate-x-2 transition-transform" />
             </Link>
@@ -65,7 +65,7 @@ export default function FreelancingClient({ data, content }) {
           /* Target Classifications */
           <div className="mb-32">
             <h2 className="text-4xl font-black text-white text-center mb-16 uppercase tracking-tighter italic">Marketplace Strategy Hubs</h2>
-            <div className="grid lg:grid-cols-3 gap-8 max-w-7xl mx-auto">
+            <div className="flex overflow-x-auto snap-x snap-mandatory gap-6 pb-8 lg:grid lg:grid-cols-3 lg:gap-8 max-w-7xl mx-auto scrollbar-hide">
               {data.classifications.map((item, i) => (
                 <motion.div
                   key={i}
@@ -73,7 +73,7 @@ export default function FreelancingClient({ data, content }) {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ delay: i * 0.1 }}
-                  className="bg-white/5 backdrop-blur-3xl border border-white/10 rounded-[3rem] p-10 group hover:border-emerald-500/50 transition-all overflow-hidden relative"
+                  className="min-w-[85vw] sm:min-w-[300px] lg:w-auto snap-center shrink-0 bg-white/5 backdrop-blur-3xl border border-white/10 rounded-[3rem] p-10 group hover:border-emerald-500/50 transition-all overflow-hidden relative"
                 >
                   <div className={`absolute -right-10 -bottom-10 w-40 h-40 ${item.color} opacity-10 rounded-full blur-[60px] group-hover:opacity-30 transition-opacity`}></div>
 
@@ -86,7 +86,7 @@ export default function FreelancingClient({ data, content }) {
 
                   <div className="space-y-3 pt-6 border-t border-white/5">
                     {item.features?.map((f, idx) => (
-                      <div key={idx} className="flex items-center gap-3 text-[10px] font-black text-slate-500 uppercase tracking-widest">
+                      <div key={idx} className="flex items-center gap-3 text-sm sm:text-xs font-black text-slate-500 uppercase tracking-widest">
                         <IoCheckmarkCircle className="text-emerald-500 text-lg" />
                         {f}
                       </div>
@@ -138,7 +138,7 @@ export default function FreelancingClient({ data, content }) {
           viewport={{ once: true }}
           className="bg-emerald-600 rounded-[3rem] p-12 lg:p-24 text-center text-white shadow-2xl relative overflow-hidden"
         >
-          <div className="absolute top-0 right-0 w-[400px] h-[400px] bg-white rounded-full blur-[100px] pointer-events-none -translate-y-1/2 translate-x-1/2 opacity-20"></div>
+          <div className="hidden md:block absolute top-0 right-0 w-[400px] h-[400px] bg-white rounded-full blur-[100px] pointer-events-none -translate-y-1/2 translate-x-1/2 opacity-20"></div>
 
           <IoShieldCheckmarkOutline className="text-7xl mb-12 mx-auto" />
           <h2 className="text-4xl lg:text-6xl font-black mb-8 leading-none tracking-tighter">Certified Global <br />Freelance Expert.</h2>
@@ -148,6 +148,12 @@ export default function FreelancingClient({ data, content }) {
           </button>
         </motion.div>
 
+      </div>
+      {/* Mobile Sticky CTA */}
+      <div className="fixed bottom-0 left-0 right-0 p-4 bg-slate-950/80 backdrop-blur-md border-t border-emerald-500/10 z-50 lg:hidden flex justify-center pb-safe">
+        <button className="w-full max-w-sm py-3.5 bg-emerald-600 text-white font-bold rounded-xl shadow-lg active:scale-95 transition-transform text-sm uppercase tracking-widest">
+          Join Next BootCamp
+        </button>
       </div>
     </section>
   );

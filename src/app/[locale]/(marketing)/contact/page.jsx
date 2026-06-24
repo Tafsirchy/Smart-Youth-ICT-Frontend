@@ -51,7 +51,7 @@ export default function ContactPage() {
           <span className="inline-block mb-4 px-4 py-1.5 rounded-full text-xs font-bold uppercase tracking-wider text-indigo-200 bg-white/10 border border-white/10">
             📞 Get In Touch
           </span>
-          <h1 className="text-5xl md:text-5xl font-black text-white leading-[1.1] mb-8 tracking-tighter">
+          <h1 className="text-3xl sm:text-4xl md:text-5xl font-black text-white leading-[1.1] mb-8 tracking-tighter">
             Contact <br />
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-indigo-400 to-blue-500 animate-gradient-x">Us</span>
           </h1>
@@ -75,7 +75,7 @@ export default function ContactPage() {
                       <c.icon size={22} />
                     </div>
                     <div>
-                      <p className="text-xs text-textSecondary font-medium">{c.label}</p>
+                      <p className="text-sm text-textSecondary font-medium">{c.label}</p>
                       {c.href ? (
                         <a href={c.href} target="_blank" rel="noreferrer"
                           className="font-semibold text-textPrimary hover:text-blue-600 transition-colors">{c.value}</a>
@@ -93,20 +93,20 @@ export default function ContactPage() {
               <p className="font-bold mb-1 flex items-center gap-2"><IoLogoWhatsapp size={20} /> Fast Response on WhatsApp</p>
               <p className="text-sm text-emerald-100 mb-4">Message us directly — we typically respond within 30 minutes.</p>
               <a href="https://wa.me/8801822335566" target="_blank" rel="noreferrer"
-                className="inline-flex items-center gap-2 bg-white text-emerald-700 font-bold text-sm px-5 py-2.5 rounded-xl hover:bg-emerald-50 transition">
-                <IoLogoWhatsapp size={16} /> Chat on WhatsApp
+                className="inline-flex items-center gap-2 bg-white text-emerald-700 font-bold text-base min-h-[44px] px-5 py-2.5 rounded-xl hover:bg-emerald-50 transition active:scale-95">
+                <IoLogoWhatsapp size={18} /> Chat on WhatsApp
               </a>
             </div>
 
             {/* Social */}
             <div className="flex gap-3">
               <a href="https://facebook.com" target="_blank" rel="noreferrer"
-                className="flex items-center gap-2 px-4 py-2.5 rounded-xl bg-blue-600 text-white text-sm font-semibold hover:bg-blue-700 transition">
-                <FaFacebook size={15} /> Facebook
+                className="flex items-center gap-2 px-5 py-2.5 rounded-xl bg-blue-600 text-white text-base min-h-[44px] font-semibold hover:bg-blue-700 transition active:scale-95">
+                <FaFacebook size={16} /> Facebook
               </a>
               <a href="https://youtube.com" target="_blank" rel="noreferrer"
-                className="flex items-center gap-2 px-4 py-2.5 rounded-xl bg-red-600 text-white text-sm font-semibold hover:bg-red-700 transition">
-                <FaYoutube size={15} /> YouTube
+                className="flex items-center gap-2 px-5 py-2.5 rounded-xl bg-red-600 text-white text-base min-h-[44px] font-semibold hover:bg-red-700 transition active:scale-95">
+                <FaYoutube size={16} /> YouTube
               </a>
             </div>
           </div>
@@ -128,30 +128,30 @@ export default function ContactPage() {
                   <h3 className="text-xl font-extrabold text-textPrimary mb-1">Send Us a Message</h3>
                   <p className="text-textSecondary text-sm mb-6">We read every message and reply within 24 hours.</p>
                   <form onSubmit={handleSubmit} className="space-y-4">
-                    <div className="grid grid-cols-2 gap-4">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                       <div>
-                        <label className="block text-sm font-medium text-textPrimary mb-1.5">Name *</label>
-                        <input name="name" required type="text" placeholder="Your name" className="input w-full"
+                        <label className="block text-base sm:text-sm font-medium text-textPrimary mb-1.5">Name *</label>
+                        <input name="name" required type="text" placeholder="Your name" autoComplete="name" className="input w-full"
                           value={form.name} onChange={handleChange} />
                       </div>
                       <div>
-                        <label className="block text-sm font-medium text-textPrimary mb-1.5">Phone</label>
-                        <input name="phone" type="tel" placeholder="01XXXXXXXXX" className="input w-full"
+                        <label className="block text-base sm:text-sm font-medium text-textPrimary mb-1.5">Phone</label>
+                        <input name="phone" type="tel" placeholder="01XXXXXXXXX" autoComplete="tel" className="input w-full"
                           value={form.phone} onChange={handleChange} />
                       </div>
                     </div>
                     <div>
-                      <label className="block text-sm font-medium text-textPrimary mb-1.5">Email *</label>
-                      <input name="email" required type="email" placeholder="you@email.com" className="input w-full"
+                      <label className="block text-base sm:text-sm font-medium text-textPrimary mb-1.5">Email *</label>
+                      <input name="email" required type="email" placeholder="you@email.com" autoComplete="email" className="input w-full"
                         value={form.email} onChange={handleChange} />
                     </div>
                     <div>
-                      <label className="block text-sm font-medium text-textPrimary mb-1.5">Subject</label>
+                      <label className="block text-base sm:text-sm font-medium text-textPrimary mb-1.5">Subject</label>
                       <input name="subject" type="text" placeholder="How can we help?" className="input w-full"
                         value={form.subject} onChange={handleChange} />
                     </div>
                     <div>
-                      <label className="block text-sm font-medium text-textPrimary mb-1.5">Message *</label>
+                      <label className="block text-base sm:text-sm font-medium text-textPrimary mb-1.5">Message *</label>
                       <textarea name="message" required rows={4} placeholder="Your message…" className="input w-full resize-none"
                         value={form.message} onChange={handleChange} />
                     </div>

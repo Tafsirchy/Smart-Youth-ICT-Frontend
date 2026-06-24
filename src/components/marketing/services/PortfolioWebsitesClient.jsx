@@ -33,7 +33,7 @@ export default function PortfolioWebsitesClient({ data }) {
             <motion.div
               initial={{ opacity: 0, x: -20 }}
               animate={{ opacity: 1, x: 0 }}
-              className="inline-flex items-center gap-2 px-6 py-2 rounded-full bg-white border border-slate-100 shadow-xl shadow-slate-200/50 text-slate-900 text-[10px] font-black tracking-[0.3em] uppercase mb-10"
+              className="inline-flex items-center gap-2 px-4 sm:px-6 py-2 rounded-full bg-white border border-slate-100 shadow-xl shadow-slate-200/50 text-slate-900 text-xs font-black tracking-[0.3em] uppercase mb-8 sm:mb-10"
             >
               <IoDiamondOutline className="text-rose-500" /> {hero.badge}
             </motion.div>
@@ -41,7 +41,7 @@ export default function PortfolioWebsitesClient({ data }) {
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, ease: "circOut" }}
-              className="text-5xl md:text-5xl font-black text-slate-900 leading-[1.1] mb-8 tracking-tighter"
+              className="text-4xl sm:text-5xl lg:text-6xl font-black text-slate-900 leading-[1.1] mb-6 sm:mb-8 tracking-tighter"
             >
               {hero.title?.split(" ")[0]} <br />
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 via-indigo-500 to-cyan-500 animate-gradient-x">{hero.subtitle}</span>
@@ -50,7 +50,7 @@ export default function PortfolioWebsitesClient({ data }) {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: 0.4 }}
-              className="text-slate-500 text-xl md:text-3xl font-light leading-relaxed max-w-2xl"
+              className="text-slate-500 text-lg sm:text-xl md:text-3xl font-light leading-relaxed max-w-2xl"
             >
               {hero.description}
             </motion.p>
@@ -69,7 +69,7 @@ export default function PortfolioWebsitesClient({ data }) {
                   className="w-full aspect-[4/5] object-cover rounded-[2.8rem] grayscale group-hover:grayscale-0 transition-all duration-1000"
                   alt="Portfolio Concept"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-slate-900/60 to-transparent flex flex-col justify-end p-12 opacity-0 group-hover:opacity-100 transition-opacity">
+                <div className="absolute inset-0 bg-gradient-to-t from-slate-900/60 to-transparent flex flex-col justify-end p-6 sm:p-12 opacity-100 lg:opacity-0 lg:group-hover:opacity-100 transition-opacity">
                   <p className="text-white text-3xl font-black">
                     Visual Poetics.
                   </p>
@@ -94,7 +94,7 @@ export default function PortfolioWebsitesClient({ data }) {
                     100
                   </div>
                   <div>
-                    <p className="text-[10px] font-black uppercase tracking-widest text-slate-400">
+                    <p className="text-xs font-black uppercase tracking-widest text-slate-400">
                       PageSpeed
                     </p>
                     <p className="text-sm font-bold text-slate-900">
@@ -111,10 +111,10 @@ export default function PortfolioWebsitesClient({ data }) {
         <div className="mb-48 px-4 md:px-0">
           <div className="flex flex-col md:flex-row justify-between items-end mb-24 gap-8">
             <div className="max-w-xl">
-              <h2 className="text-[10px] font-black text-rose-500 uppercase tracking-[0.4em] mb-4">
+              <h2 className="text-xs font-black text-rose-500 uppercase tracking-[0.4em] mb-4">
                 Core Methodologies
               </h2>
-              <p className="text-4xl md:text-5xl font-black text-slate-900 leading-tight">
+              <p className="text-3xl sm:text-4xl lg:text-5xl font-black text-slate-900 leading-tight">
                 Design thinking meets{" "}
                 <span className="text-slate-400">technical mastery.</span>
               </p>
@@ -148,7 +148,7 @@ export default function PortfolioWebsitesClient({ data }) {
                     {style.desc}
                   </p>
 
-                  <div className="flex items-center gap-2 text-[10px] font-black uppercase tracking-widest text-slate-400 group-hover:text-rose-500 transition-colors">
+                  <div className="flex items-center gap-2 text-xs font-black uppercase tracking-widest text-slate-400 group-hover:text-rose-500 transition-colors">
                     Learn More <IoInfiniteOutline className="text-sm" />
                   </div>
 
@@ -160,14 +160,14 @@ export default function PortfolioWebsitesClient({ data }) {
         </div>
 
         {/* DIGITAL ALCHEMY (Visual Stepper) */}
-        <div className="relative bg-slate-900 rounded-[5rem] p-12 lg:p-32 overflow-hidden mb-48 mx-4 md:mx-0">
+        <div className="relative bg-slate-900 rounded-3xl sm:rounded-[4rem] lg:rounded-[5rem] p-8 sm:p-12 lg:p-32 overflow-hidden mb-32 sm:mb-48 mx-4 md:mx-0">
           <div className="absolute top-0 right-0 w-full h-full opacity-10 pointer-events-none">
             <div className="absolute top-0 right-0 w-[800px] h-[800px] bg-rose-500 rounded-full blur-[200px]"></div>
           </div>
 
-          <div className="relative z-10 grid lg:grid-cols-2 gap-20">
+          <div className="relative z-10 grid lg:grid-cols-2 gap-12 lg:gap-20">
             <div>
-              <h2 className="text-5xl lg:text-6xl font-black text-white leading-tight mb-10">
+              <h2 className="text-3xl sm:text-4xl lg:text-6xl font-black text-white leading-tight mb-8 sm:mb-10">
                 5-Phase Digital Alchemy.
               </h2>
               <p className="text-slate-400 text-xl font-light leading-relaxed mb-12">
@@ -209,7 +209,7 @@ export default function PortfolioWebsitesClient({ data }) {
                 <p className="text-rose-500 font-serif italic text-7xl">
                   Gold.
                 </p>
-                <p className="text-[10px] font-black uppercase tracking-[0.4em] text-white mt-4">
+                <p className="text-xs font-black uppercase tracking-[0.4em] text-white mt-4">
                   Standard Delivery
                 </p>
               </div>
@@ -219,24 +219,24 @@ export default function PortfolioWebsitesClient({ data }) {
 
         {/* PREMIUM PACKAGES (Creative Cards) */}
         <div className="mb-48 text-center px-4 md:px-0">
-          <div className="max-w-2xl mx-auto mb-20 text-center">
-            <h2 className="text-[10px] font-black text-rose-500 uppercase tracking-[0.4em] mb-4">
+          <div className="max-w-2xl mx-auto mb-16 sm:mb-20 text-center">
+            <h2 className="text-xs font-black text-rose-500 uppercase tracking-[0.4em] mb-4">
               {sections.pricingHeader?.badge || "Select Your Artifact"}
             </h2>
-            <p className="text-4xl md:text-5xl font-black text-slate-900 leading-tight">
+            <p className="text-3xl sm:text-4xl lg:text-5xl font-black text-slate-900 leading-tight">
               {sections.pricingHeader?.title || "Structured tiers for"}{" "}
               <span className="text-slate-400">{sections.pricingHeader?.focus || "every career stage."}</span>
             </p>
           </div>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto text-left">
+          <div className="flex overflow-x-auto snap-x snap-mandatory md:grid md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 max-w-6xl mx-auto text-left pb-8 md:pb-0 -mx-4 px-4 md:mx-auto md:px-0">
             {pricing?.map((tier, idx) => (
               <div
                 key={idx}
-                className={`bg-white rounded-[3rem] p-12 border ${tier.highlight ? "border-rose-500 shadow-2xl shadow-rose-500/10 -translate-y-4" : "border-slate-100 shadow-xl"} flex flex-col h-full relative overflow-hidden group transition-all`}
+                className={`bg-white rounded-3xl sm:rounded-[3rem] p-8 sm:p-12 border min-w-[280px] snap-center shrink-0 w-[85vw] md:w-auto ${tier.highlight ? "border-rose-500 shadow-2xl shadow-rose-500/10 md:-translate-y-4" : "border-slate-100 shadow-xl"} flex flex-col h-full relative overflow-hidden group transition-all`}
               >
                 {tier.highlight && (
-                  <div className="absolute top-0 right-0 bg-rose-500 text-white text-[10px] font-black uppercase tracking-widest px-8 py-2 rounded-bl-3xl">
+                  <div className="absolute top-0 right-0 bg-rose-500 text-white text-xs font-black uppercase tracking-widest px-6 sm:px-8 py-2 rounded-bl-2xl sm:rounded-bl-3xl">
                     Popular
                   </div>
                 )}
@@ -284,22 +284,33 @@ export default function PortfolioWebsitesClient({ data }) {
             className="max-w-4xl mx-auto px-6"
           >
             <IoFingerPrintOutline className="text-7xl text-rose-500 mb-10 mx-auto opacity-20" />
-            <h3 className="text-5xl lg:text-6xl font-black text-slate-900 mb-12 leading-tight">
+            <h3 className="text-4xl sm:text-5xl lg:text-6xl font-black text-slate-900 mb-10 sm:mb-12 leading-tight">
               {cta.title}
             </h3>
-            <div className="flex flex-col sm:flex-row gap-6 justify-center">
-              <button className="w-full sm:w-[280px] px-8 py-6 bg-rose-500 text-white font-black rounded-[2rem] hover:bg-rose-600 transition-all shadow-2xl shadow-rose-600/40 uppercase tracking-widest text-[10px] flex items-center justify-center">
+            <div className="flex flex-col sm:flex-row gap-4 sm:gap-6 justify-center">
+              <button className="w-full sm:w-[280px] px-6 sm:px-8 py-5 sm:py-6 bg-rose-500 text-white font-black rounded-[2rem] hover:bg-rose-600 transition-all shadow-xl shadow-rose-600/40 uppercase tracking-widest text-xs flex items-center justify-center">
                 Consult Portfolio Expert
               </button>
               <Link
                 href="/services/portfolio-websites/details"
-                className="w-full sm:w-[280px] px-8 py-6 bg-slate-900 text-white font-black rounded-[2rem] hover:bg-black transition-all shadow-2xl shadow-slate-900/40 uppercase tracking-widest text-[10px] flex items-center justify-center text-center"
+                className="w-full sm:w-[280px] px-6 sm:px-8 py-5 sm:py-6 bg-slate-900 text-white font-black rounded-[2rem] hover:bg-black transition-all shadow-xl shadow-slate-900/40 uppercase tracking-widest text-xs flex items-center justify-center text-center"
               >
                 Technical Details
               </Link>
             </div>
           </motion.div>
         </div>
+      </div>
+
+      {/* Mobile Sticky CTA */}
+      <div className="fixed bottom-0 left-0 w-full p-4 pb-6 bg-white/90 backdrop-blur-md border-t border-slate-100 z-50 md:hidden flex items-center justify-between shadow-[0_-10px_40px_rgba(0,0,0,0.05)]">
+        <div>
+          <p className="text-[10px] font-black text-slate-500 uppercase tracking-widest">Start Project</p>
+          <p className="text-slate-900 font-bold text-sm">Consult Expert</p>
+        </div>
+        <button className="px-5 py-3 bg-rose-500 text-white font-black rounded-xl text-[10px] uppercase tracking-widest shadow-lg shadow-rose-500/30">
+          Book Now
+        </button>
       </div>
     </section>
   );

@@ -286,7 +286,7 @@ export default function HeroSlider() {
 
           <div className="container-custom grid lg:grid-cols-2 gap-6 lg:gap-8 items-center relative z-20 py-8 lg:py-12">
             {/* Left Texts */}
-            <div className="max-w-2xl mx-auto text-center lg:text-left lg:mx-0 flex flex-col items-center lg:items-start w-full lg:pl-16 xl:pl-20">
+            <div className="max-w-2xl mx-auto text-center lg:text-left lg:mx-0 flex flex-col items-center lg:items-start w-full">
               <motion.div
                 initial={mounted ? { opacity: 0, x: -50 } : false}
                 animate={{ opacity: 1, x: 0 }}
@@ -390,7 +390,7 @@ export default function HeroSlider() {
             </div>
 
             {/* Right Visuals - Hidden on mobile/tablet, shown on desktop (lg and up) */}
-            <div className="hidden lg:flex relative items-center justify-end h-full lg:pr-16 xl:pr-20">
+            <div className="hidden lg:flex relative items-center justify-end h-full">
               <motion.div
                 initial={mounted ? { opacity: 0, scale: 0.95 } : false}
                 animate={{ opacity: 1, scale: 1 }}
@@ -711,22 +711,22 @@ export default function HeroSlider() {
       <div className="hidden lg:flex absolute inset-x-4 xl:inset-x-12 top-1/2 -translate-y-1/2 justify-between pointer-events-none z-30">
         <button
           onClick={prevSlide}
-          className="w-12 h-12 rounded-full bg-white/90 hover:bg-[#2D5A54] text-slate-800 hover:text-white flex items-center justify-center cursor-pointer pointer-events-auto transition-all shadow-lg hover:shadow-xl border border-slate-100 group"
+          className="w-12 h-12 rounded-full hover:bg-[#2D5A54] text-slate-800 hover:text-white flex items-center justify-center cursor-pointer pointer-events-auto transition-all duration-300 hover:scale-110 active:scale-95 group"
           aria-label="Previous slide"
         >
           <HiArrowLeft
             size={20}
-            className="group-hover:-translate-x-0.5 transition-transform"
+            className="group-hover:-translate-x-1.5 transition-transform duration-300 ease-out"
           />
         </button>
         <button
           onClick={nextSlide}
-          className="w-12 h-12 rounded-full bg-white/90 hover:bg-[#2D5A54] text-slate-800 hover:text-white flex items-center justify-center cursor-pointer pointer-events-auto transition-all shadow-lg hover:shadow-xl border border-slate-100 group"
+          className="w-12 h-12 rounded-full hover:bg-[#2D5A54] text-slate-800 hover:text-white flex items-center justify-center cursor-pointer pointer-events-auto transition-all duration-300 hover:scale-110 active:scale-95 group"
           aria-label="Next slide"
         >
           <HiArrowRight
             size={20}
-            className="group-hover:translate-x-0.5 transition-transform"
+            className="group-hover:translate-x-1.5 transition-transform duration-300 ease-out"
           />
         </button>
       </div>
@@ -744,11 +744,10 @@ export default function HeroSlider() {
             className="p-3 focus:outline-none transition-transform hover:scale-110"
           >
             <span
-              className={`block h-2 rounded-full transition-all duration-500 ${
-                current === i
-                  ? "w-8 bg-[#10B981] shadow-md shadow-emerald-200"
-                  : "w-2 bg-slate-300 hover:bg-slate-400"
-              }`}
+              className={`block h-2 rounded-full transition-all duration-500 ${current === i
+                ? "w-8 bg-[#10B981] shadow-md shadow-emerald-200"
+                : "w-2 bg-slate-300 hover:bg-slate-400"
+                }`}
             />
           </button>
         ))}

@@ -66,7 +66,7 @@ function BlogCard({ post, locale }) {
   const color = CATEGORY_COLORS[tag] || "bg-neutral-100 text-neutral-600";
   return (
     <Link href={`/${locale}/blog/${post.slug}`} className="group block">
-      <div className="card h-full flex flex-col overflow-hidden rounded-2xl hover:shadow-xl transition-all hover:-translate-y-1">
+      <div className="card h-full flex flex-col overflow-hidden rounded-2xl hover:shadow-xl transition-all hover:-translate-y-1 active:scale-95">
         {/* Thumbnail */}
         <div className="relative h-48 bg-gradient-to-br from-blue-50 to-indigo-100 overflow-hidden">
           {post.thumbnail ? (
@@ -85,11 +85,11 @@ function BlogCard({ post, locale }) {
         <div className="p-5 flex flex-col flex-1">
           <div className="flex items-center gap-2 mb-3">
             <span
-              className={`text-xs font-semibold px-2.5 py-1 rounded-full ${color}`}
+              className={`text-sm font-semibold px-2.5 py-1 rounded-full ${color}`}
             >
               {tag}
             </span>
-            <span className="flex items-center gap-1 text-xs text-textSecondary ml-auto">
+            <span className="flex items-center gap-1 text-sm text-textSecondary ml-auto">
               <IoCalendarOutline size={12} />
               {post.createdAt
                 ? new Date(post.createdAt).toLocaleDateString("en-BD", {
@@ -103,10 +103,10 @@ function BlogCard({ post, locale }) {
           <h2 className="font-bold text-textPrimary line-clamp-2 text-base leading-snug mb-2 flex-1 group-hover:text-blue-600 transition-colors">
             {title}
           </h2>
-          <p className="text-xs text-textSecondary leading-relaxed line-clamp-2 mb-4">
+          <p className="text-sm text-textSecondary leading-relaxed line-clamp-2 mb-4">
             {excerpt}
           </p>
-          <span className="text-xs font-bold text-blue-600 flex items-center gap-1">
+          <span className="text-sm font-bold text-blue-600 flex items-center gap-1">
             Read More{" "}
             <IoArrowForwardOutline
               size={13}
@@ -152,7 +152,7 @@ export default async function BlogPage({ params, searchParams }) {
           <span className="inline-block mb-4 px-4 py-1.5 rounded-full text-xs font-bold uppercase tracking-wider text-indigo-200 bg-white/10 border border-white/10">
             📝 Free Guides & Tips
           </span>
-          <h1 className="text-5xl md:text-5xl font-black text-white leading-[1.1] mb-8 tracking-tighter">
+          <h1 className="text-3xl sm:text-4xl md:text-5xl font-black text-white leading-[1.1] mb-8 tracking-tighter">
             Blog & <br />
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-pink-400 via-rose-400 to-orange-400 animate-gradient-x">
               Resources
@@ -185,7 +185,7 @@ export default async function BlogPage({ params, searchParams }) {
           <div className="container-lg mx-auto px-4 py-3 flex gap-2 overflow-x-auto scrollbar-hide">
             <Link
               href={`/${locale}/blog`}
-              className={`shrink-0 rounded-full px-4 py-2 text-sm font-semibold transition-all ${!tag ? "bg-blue-600 text-white shadow-md" : "bg-neutral-100 text-neutral-600 hover:bg-neutral-200"}`}
+              className={`shrink-0 rounded-full px-5 py-2.5 text-base min-h-[44px] flex items-center font-semibold transition-all active:scale-95 ${!tag ? "bg-blue-600 text-white shadow-md" : "bg-neutral-100 text-neutral-600 hover:bg-neutral-200"}`}
             >
               All Posts
             </Link>
@@ -193,7 +193,7 @@ export default async function BlogPage({ params, searchParams }) {
               <Link
                 key={t}
                 href={`/${locale}/blog?tag=${encodeURIComponent(t)}`}
-                className={`shrink-0 rounded-full px-4 py-2 text-sm font-semibold transition-all ${tag === t ? "bg-blue-600 text-white shadow-md" : "bg-neutral-100 text-neutral-600 hover:bg-neutral-200"}`}
+                className={`shrink-0 rounded-full px-5 py-2.5 text-base min-h-[44px] flex items-center font-semibold transition-all active:scale-95 ${tag === t ? "bg-blue-600 text-white shadow-md" : "bg-neutral-100 text-neutral-600 hover:bg-neutral-200"}`}
               >
                 {t}
               </Link>
@@ -212,7 +212,7 @@ export default async function BlogPage({ params, searchParams }) {
                 href={`/${locale}/blog/${posts[0].slug}`}
                 className="group block"
               >
-                <div className="flex flex-col md:flex-row bg-[var(--color-surface)] rounded-3xl overflow-hidden shadow-lg border border-neutral-100 hover:shadow-2xl transition-all">
+                <div className="flex flex-col md:flex-row bg-[var(--color-surface)] rounded-3xl overflow-hidden shadow-lg border border-neutral-100 hover:shadow-2xl transition-all active:scale-[0.98]">
                   <div className="md:w-3/5 h-64 md:h-[400px] relative overflow-hidden bg-gradient-to-br from-blue-50 to-indigo-100">
                     {posts[0].thumbnail ? (
                       <Image
@@ -295,7 +295,7 @@ export default async function BlogPage({ params, searchParams }) {
               <Link
                 key={p}
                 href={`/${locale}/blog?page=${p}${tag ? `&tag=${tag}` : ""}${q ? `&q=${q}` : ""}`}
-                className={`w-10 h-10 rounded-xl flex items-center justify-center text-sm font-semibold transition-all ${page === p
+                className={`w-11 h-11 min-w-[44px] min-h-[44px] rounded-xl flex items-center justify-center text-sm font-semibold transition-all active:scale-95 ${page === p
                     ? "bg-blue-600 text-white shadow-md"
                     : "bg-white text-neutral-600 ring-1 ring-neutral-200 hover:bg-neutral-50"
                   }`}

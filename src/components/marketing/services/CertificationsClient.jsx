@@ -23,7 +23,7 @@ export default function CertificationsClient({ programs, content }) {
               initial={{ opacity: 0, x: -20 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ delay: 0.1 }}
-              className="text-5xl md:text-5xl lg:text-8xl font-black text-slate-900 leading-[1.1] mb-8 tracking-tighter"
+              className="text-3xl sm:text-4xl lg:text-8xl font-black text-slate-900 leading-[1.1] mb-8 tracking-tighter"
             >
               {content?.hero?.title || "Certification"} <br />
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-500 via-teal-500 to-cyan-600 animate-gradient-x">
@@ -47,7 +47,7 @@ export default function CertificationsClient({ programs, content }) {
             >
               <Link
                 href="/services/certifications/details"
-                className="inline-flex items-center gap-2 text-[10px] font-black uppercase tracking-[0.4em] text-emerald-600 hover:text-indigo-600 transition-colors group"
+                className="inline-flex items-center gap-2 text-sm sm:text-xs font-black uppercase tracking-[0.4em] text-emerald-600 hover:text-indigo-600 transition-colors group"
               >
                 View Validation Manifest <IoArrowBackOutline className="rotate-180 group-hover:translate-x-2 transition-transform" />
               </Link>
@@ -69,7 +69,7 @@ export default function CertificationsClient({ programs, content }) {
         </div>
 
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div className="flex overflow-x-auto snap-x snap-mandatory gap-6 pb-8 md:grid md:grid-cols-2 lg:grid-cols-3 lg:gap-8 scrollbar-hide">
           {programs?.length > 0 ? (
             programs.map((prog, i) => (
               <motion.div
@@ -78,25 +78,25 @@ export default function CertificationsClient({ programs, content }) {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: i * 0.1 }}
-                className="bg-white rounded-[3rem] p-8 border border-slate-100 shadow-xl shadow-slate-200/50 hover:shadow-2xl transition-all relative overflow-hidden group border-b-[6px] border-b-blue-600"
+                className="min-w-[85vw] sm:min-w-[300px] md:w-auto snap-center shrink-0 bg-white rounded-[3rem] p-8 border border-slate-100 shadow-xl shadow-slate-200/50 hover:shadow-2xl transition-all relative overflow-hidden group border-b-[6px] border-b-blue-600"
               >
                 <div className="w-16 h-16 bg-blue-50 rounded-2xl flex items-center justify-center text-3xl text-blue-600 mb-8 group-hover:rotate-6 transition-transform">
                   <IoRibbonOutline />
                 </div>
-                <p className="text-[10px] font-black uppercase tracking-widest text-blue-500 mb-2">{prog.badgeText}</p>
+                <p className="text-sm sm:text-xs font-black uppercase tracking-widest text-blue-500 mb-2">{prog.badgeText}</p>
                 <h2 className="text-2xl font-black text-slate-900 mb-4 leading-tight">{prog.title}</h2>
                 <p className="text-slate-500 text-sm font-light leading-relaxed mb-8">{prog.description}</p>
 
                 <div className="space-y-3 mb-10 h-32 overflow-hidden">
                   {prog.features?.map((f, idx) => (
-                    <div key={idx} className="flex items-center gap-3 text-[10px] font-black text-slate-400 uppercase tracking-widest">
+                    <div key={idx} className="flex items-center gap-3 text-sm sm:text-xs font-black text-slate-400 uppercase tracking-widest">
                       <IoCheckmarkCircle className="text-blue-500 text-lg shrink-0" />
                       {f}
                     </div>
                   ))}
                 </div>
 
-                <button className="w-full py-4 bg-slate-900 text-white rounded-xl font-black uppercase tracking-widest text-[10px] hover:bg-black transition-all shadow-lg transform hover:-translate-y-1">
+                <button className="w-full py-4 bg-slate-900 text-white rounded-xl font-black uppercase tracking-widest text-sm sm:text-xs hover:bg-black transition-all shadow-lg transform hover:-translate-y-1">
                   Apply for Assessment
                 </button>
               </motion.div>
@@ -112,7 +112,7 @@ export default function CertificationsClient({ programs, content }) {
 
         {/* Unified Verification CTA */}
         <div className="mt-48 text-center bg-white rounded-[4rem] p-12 lg:p-24 shadow-2xl border border-slate-50 relative overflow-hidden">
-          <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-blue-50 rounded-full blur-[150px] opacity-60 -translate-y-1/2 translate-x-1/2"></div>
+          <div className="hidden md:block absolute top-0 right-0 w-[500px] h-[500px] bg-blue-50 rounded-full blur-[150px] opacity-60 -translate-y-1/2 translate-x-1/2"></div>
           <div className="relative z-10">
             <IoShieldCheckmarkOutline className="text-8xl text-blue-600 mb-12 mx-auto" />
             <h3 className="text-4xl lg:text-6xl font-black mb-8 tracking-tighter leading-none text-slate-900">Industry-Grade <br />Verification.</h3>
@@ -122,6 +122,12 @@ export default function CertificationsClient({ programs, content }) {
             </button>
           </div>
         </div>
+      </div>
+      {/* Mobile Sticky CTA */}
+      <div className="fixed bottom-0 left-0 right-0 p-4 bg-white/90 backdrop-blur-md border-t border-slate-200 z-50 lg:hidden flex justify-center pb-safe">
+        <button className="w-full max-w-sm py-3.5 bg-slate-900 text-white font-bold rounded-xl shadow-lg active:scale-95 transition-transform text-sm uppercase tracking-widest">
+          Access Registry
+        </button>
       </div>
     </section>
   );

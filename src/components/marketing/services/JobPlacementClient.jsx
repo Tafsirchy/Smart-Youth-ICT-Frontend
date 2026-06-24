@@ -31,7 +31,7 @@ export default function JobPlacementClient({ data, content }) {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.1 }}
-            className="text-5xl md:text-5xl font-black text-white leading-[1.1] mb-8 tracking-tighter"
+            className="text-3xl sm:text-4xl lg:text-5xl font-black text-white leading-[1.1] mb-8 tracking-tighter"
           >
             {content?.hero?.title || "Job Placement"} <br />
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-500 via-teal-500 to-cyan-600 animate-gradient-x">
@@ -56,7 +56,7 @@ export default function JobPlacementClient({ data, content }) {
           >
             <Link
               href="/services/job-placement/details"
-              className="inline-flex items-center gap-2 text-[10px] font-black uppercase tracking-[0.4em] text-blue-400 hover:text-white transition-colors group"
+              className="inline-flex items-center gap-2 text-sm sm:text-xs font-black uppercase tracking-[0.4em] text-blue-400 hover:text-white transition-colors group"
             >
               View Placement Manifest{" "}
               <IoArrowBackOutline className="rotate-180 group-hover:translate-x-2 transition-transform" />
@@ -70,7 +70,7 @@ export default function JobPlacementClient({ data, content }) {
             <h2 className="text-4xl font-black text-white text-center mb-16 uppercase italic tracking-tighter">
               Placement Track Classifications
             </h2>
-            <div className="grid lg:grid-cols-3 gap-8 max-w-7xl mx-auto">
+            <div className="flex overflow-x-auto snap-x snap-mandatory gap-6 pb-8 lg:grid lg:grid-cols-3 lg:gap-8 max-w-7xl mx-auto scrollbar-hide">
               {data.placements.map((p, i) => (
                 <motion.div
                   key={i}
@@ -78,7 +78,7 @@ export default function JobPlacementClient({ data, content }) {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ delay: i * 0.1 }}
-                  className="bg-white/5 backdrop-blur-3xl border border-white/10 rounded-[3rem] p-10 group hover:border-blue-500/50 transition-all overflow-hidden relative"
+                  className="min-w-[85vw] sm:min-w-[300px] lg:w-auto snap-center shrink-0 bg-white/5 backdrop-blur-3xl border border-white/10 rounded-[3rem] p-10 group hover:border-blue-500/50 transition-all overflow-hidden relative"
                 >
                   <div
                     className={`absolute -right-10 -bottom-10 w-40 h-40 ${p.color} opacity-10 rounded-full blur-[60px] group-hover:opacity-30 transition-opacity`}
@@ -92,7 +92,7 @@ export default function JobPlacementClient({ data, content }) {
                   <h3 className="text-2xl font-black text-white mb-2">
                     {p.title}
                   </h3>
-                  <p className="text-[10px] font-black uppercase tracking-widest text-blue-400 mb-6">
+                  <p className="text-sm sm:text-xs font-black uppercase tracking-widest text-blue-400 mb-6">
                     {p.type}
                   </p>
                   <p className="text-slate-400 leading-relaxed font-light mb-8 text-sm line-clamp-3">
@@ -100,7 +100,7 @@ export default function JobPlacementClient({ data, content }) {
                   </p>
 
                   <div className="pt-6 border-t border-white/5">
-                    <p className="text-[10px] font-black text-slate-500 uppercase tracking-widest mb-2">
+                    <p className="text-sm sm:text-xs font-black text-slate-500 uppercase tracking-widest mb-2">
                       Avg. Entry Package
                     </p>
                     <p className="text-2xl font-black text-white">
@@ -145,7 +145,7 @@ export default function JobPlacementClient({ data, content }) {
                       <h3 className="text-2xl font-black text-white tracking-tight">
                         {l.title}
                       </h3>
-                      <span className="text-[10px] font-black text-blue-500 uppercase tracking-[0.2em] bg-blue-500/10 px-3 py-1 rounded-md">
+                      <span className="text-sm sm:text-xs font-black text-blue-500 uppercase tracking-[0.2em] bg-blue-500/10 px-3 py-1 rounded-md">
                         {l.step}
                       </span>
                     </div>
@@ -166,7 +166,7 @@ export default function JobPlacementClient({ data, content }) {
           viewport={{ once: true }}
           className="bg-white rounded-[3rem] p-12 lg:p-20 flex flex-col lg:flex-row items-center gap-16 shadow-2xl relative overflow-hidden text-slate-900"
         >
-          <div className="absolute top-0 right-0 w-[400px] h-[400px] bg-blue-100 rounded-full blur-[100px] pointer-events-none -translate-y-1/2 translate-x-1/2 opacity-60"></div>
+          <div className="hidden md:block absolute top-0 right-0 w-[400px] h-[400px] bg-blue-100 rounded-full blur-[100px] pointer-events-none -translate-y-1/2 translate-x-1/2 opacity-60"></div>
 
           <div className="flex-1 space-y-8 relative z-10">
             <div className="w-16 h-16 bg-blue-50 text-blue-600 rounded-2xl flex items-center justify-center text-3xl shadow-sm">
@@ -188,7 +188,7 @@ export default function JobPlacementClient({ data, content }) {
                   <IoChatbubblesOutline className="text-blue-500" /> Mock HR
                   Rounds
                 </h4>
-                <p className="text-[10px] text-slate-400 font-black leading-relaxed uppercase tracking-widest">
+                <p className="text-sm sm:text-xs text-slate-400 font-black leading-relaxed uppercase tracking-widest">
                   Live practice with senior tech recruiters.
                 </p>
               </div>
@@ -196,7 +196,7 @@ export default function JobPlacementClient({ data, content }) {
                 <h4 className="font-bold text-slate-900 flex items-center gap-2 mb-2">
                   <IoSearchOutline className="text-blue-500" /> Resume Audit
                 </h4>
-                <p className="text-[10px] text-slate-400 font-black leading-relaxed uppercase tracking-widest">
+                <p className="text-sm sm:text-xs text-slate-400 font-black leading-relaxed uppercase tracking-widest">
                   Personalized refinement to bypass global ATS filters.
                 </p>
               </div>
@@ -221,7 +221,7 @@ export default function JobPlacementClient({ data, content }) {
               <p className="text-blue-500 text-6xl font-black mb-2">
                 {data?.stats?.partners || "0+"}
               </p>
-              <p className="font-black uppercase tracking-[0.2em] text-[10px] text-slate-500">
+              <p className="font-black uppercase tracking-[0.2em] text-sm sm:text-xs text-slate-500">
                 Global Hiring Partners
               </p>
             </div>
@@ -229,15 +229,21 @@ export default function JobPlacementClient({ data, content }) {
               <p className="text-emerald-500 text-6xl font-black mb-2">
                 {data?.stats?.rate || "0%"}
               </p>
-              <p className="font-black uppercase tracking-[0.2em] text-[10px] text-slate-500">
+              <p className="font-black uppercase tracking-[0.2em] text-sm sm:text-xs text-slate-500">
                 Placement Success Rate
               </p>
             </div>
           </div>
-          <button className="px-12 py-6 bg-white text-slate-950 font-black rounded-xl hover:bg-blue-600 hover:text-white transition-all shadow-2xl uppercase tracking-widest text-[10px]">
+          <button className="px-12 py-6 bg-white text-slate-950 font-black rounded-xl hover:bg-blue-600 hover:text-white transition-all shadow-2xl uppercase tracking-widest text-sm sm:text-xs">
             Partner With Our Placement Cell
           </button>
         </div>
+      </div>
+      {/* Mobile Sticky CTA */}
+      <div className="fixed bottom-0 left-0 right-0 p-4 bg-slate-950/80 backdrop-blur-md border-t border-white/10 z-50 lg:hidden flex justify-center pb-safe">
+        <button className="w-full max-w-sm py-3.5 bg-blue-600 text-white font-bold rounded-xl shadow-lg active:scale-95 transition-transform text-sm uppercase tracking-widest">
+          Partner With Us
+        </button>
       </div>
     </section>
   );

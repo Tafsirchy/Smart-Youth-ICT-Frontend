@@ -84,8 +84,8 @@ export default function SkillDevelopmentClient({ locale, courses, pageContent })
     <section className="min-h-screen bg-slate-50 overflow-hidden relative">
       {/* Hero Section */}
       <div className="relative pt-20 pb-20 px-4">
-        <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-indigo-200/50 rounded-full blur-[120px] opacity-60 -translate-y-1/2 translate-x-1/3 pointer-events-none"></div>
-        <div className="absolute bottom-0 left-0 w-[400px] h-[400px] bg-pink-200/40 rounded-full blur-[100px] pointer-events-none"></div>
+        <div className="hidden md:block absolute top-0 right-0 w-[600px] h-[600px] bg-indigo-200/50 rounded-full blur-[120px] opacity-60 -translate-y-1/2 translate-x-1/3 pointer-events-none"></div>
+        <div className="hidden md:block absolute bottom-0 left-0 w-[400px] h-[400px] bg-pink-200/40 rounded-full blur-[100px] pointer-events-none"></div>
 
         <div className="container-custom relative z-10 text-center space-y-6 max-w-4xl mx-auto">
           <motion.div
@@ -102,7 +102,7 @@ export default function SkillDevelopmentClient({ locale, courses, pageContent })
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.1 }}
-            className="text-5xl md:text-5xl font-black text-slate-900 leading-[1.1] mb-8 tracking-tighter"
+            className="text-3xl sm:text-4xl lg:text-5xl font-black text-slate-900 leading-[1.1] mb-8 tracking-tighter"
           >
             {hero.title.split(hero.subtitle)[0]} <br />
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-500 via-teal-500 to-cyan-600 animate-gradient-x">{hero.subtitle}</span>
@@ -139,7 +139,7 @@ export default function SkillDevelopmentClient({ locale, courses, pageContent })
           <div className="mt-16 text-center">
             <Link
               href="/services/skill-development/details"
-              className="inline-flex items-center gap-2 text-[10px] font-black uppercase tracking-[0.4em] text-blue-600 hover:text-indigo-600 transition-colors group"
+              className="inline-flex items-center gap-2 text-sm sm:text-xs font-black uppercase tracking-[0.4em] text-blue-600 hover:text-indigo-600 transition-colors group"
             >
               View Pedagogical Manifest <IoArrowBackOutline className="rotate-180 group-hover:translate-x-2 transition-transform" />
             </Link>
@@ -152,9 +152,9 @@ export default function SkillDevelopmentClient({ locale, courses, pageContent })
         <h2 className="text-4xl font-black text-center mb-16 underline decoration-brand-pink decoration-4 underline-offset-8 uppercase tracking-tighter italic">Our Core Training Programs</h2>
 
         {programsToDisplay.length > 0 ? (
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <div className="flex overflow-x-auto snap-x snap-mandatory gap-6 pb-8 md:grid md:grid-cols-2 lg:grid-cols-3 lg:gap-8 scrollbar-hide">
             {programsToDisplay.map((prog, i) => (
-              <Link key={prog._id} href={`/${locale}/courses/${prog.slug}`}>
+              <Link key={prog._id} href={`/${locale}/courses/${prog.slug}`} className="min-w-[85vw] sm:min-w-[300px] md:w-auto snap-center shrink-0 block">
                 <motion.div
                   initial={{ opacity: 0, y: 30 }}
                   whileInView={{ opacity: 1, y: 0 }}
@@ -169,7 +169,7 @@ export default function SkillDevelopmentClient({ locale, courses, pageContent })
                     <div className={`w-16 h-16 rounded-2xl ${prog.bg} ${prog.text} flex items-center justify-center group-hover:scale-110 transition-transform duration-500`}>
                       {prog.icon}
                     </div>
-                    <span className="px-3 py-1 bg-slate-100 text-slate-600 text-[10px] font-bold uppercase tracking-widest rounded-full">
+                    <span className="px-3 py-1 bg-slate-100 text-slate-600 text-sm sm:text-xs font-bold uppercase tracking-widest rounded-full">
                       {prog.badge}
                     </span>
                   </div>
@@ -181,7 +181,7 @@ export default function SkillDevelopmentClient({ locale, courses, pageContent })
                     <p className="text-xs font-bold text-slate-400 uppercase tracking-widest">Outcomes</p>
                     <div className="flex flex-wrap gap-2">
                       {prog.tech.map(t => (
-                        <span key={t} className="px-3 py-1.5 bg-slate-50 border border-slate-100 rounded-lg text-[10px] font-bold text-slate-700">
+                        <span key={t} className="px-3 py-1.5 bg-slate-50 border border-slate-100 rounded-lg text-sm sm:text-xs font-bold text-slate-700">
                           {t}
                         </span>
                       ))}
@@ -219,6 +219,12 @@ export default function SkillDevelopmentClient({ locale, courses, pageContent })
         </motion.div>
       </div>
 
+      {/* Mobile Sticky CTA */}
+      <div className="fixed bottom-0 left-0 right-0 p-4 bg-white/90 backdrop-blur-md border-t border-slate-200 z-50 lg:hidden flex justify-center pb-safe">
+        <button className="w-full max-w-sm py-3.5 bg-slate-900 text-white font-bold rounded-xl shadow-lg active:scale-95 transition-transform text-sm uppercase tracking-widest">
+          {cta.buttonText}
+        </button>
+      </div>
     </section>
   );
 }
