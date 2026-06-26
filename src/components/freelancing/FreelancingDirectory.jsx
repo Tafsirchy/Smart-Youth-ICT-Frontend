@@ -117,7 +117,7 @@ export default function FreelancingDirectory() {
   }, [processedProjects, searchQuery, selectedCategory]);
 
   return (
-    <div className="bg-neutral-50 min-h-screen">
+    <div className="bg-neutral-50 min-h-screen pb-24 md:pb-0 flex flex-col">
        {/* Hero Section */}
        <section className="bg-neutral-900 py-12 md:py-20 text-center px-4 sm:px-6 lg:px-8 relative overflow-hidden">
          {/* Decorative grid pattern */}
@@ -134,7 +134,7 @@ export default function FreelancingDirectory() {
              initial={{ opacity: 0, y: 15 }}
              animate={{ opacity: 1, y: 0 }}
              transition={{ delay: 0.1 }}
-             className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-white tracking-tight mb-6 leading-tight"
+             className="text-4xl sm:text-5xl md:text-6xl font-extrabold text-white tracking-tight mb-6 leading-tight"
            >
               Learn IT Skills <span className="text-orange-400">&amp; Earn from Real Projects</span>
            </motion.h1>
@@ -178,7 +178,7 @@ export default function FreelancingDirectory() {
                 <input 
                   type="text"
                   placeholder="Search projects..."
-                  className="w-full pl-10 pr-10 py-2.5 rounded-xl border border-neutral-300 bg-white text-neutral-900 text-sm focus:outline-none focus:ring-2 focus:ring-orange-400 focus:border-orange-400 shadow-sm min-h-[44px]"
+                  className="w-full pl-10 pr-10 py-2.5 rounded-xl border border-neutral-300 bg-white text-neutral-900 text-base focus:outline-none focus:ring-2 focus:ring-orange-400 focus:border-orange-400 shadow-sm min-h-[44px]"
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
                 />
@@ -196,7 +196,7 @@ export default function FreelancingDirectory() {
              {/* Select Category */}
              <div className="w-full sm:w-48">
                 <select 
-                  className="w-full bg-white border border-neutral-300 text-neutral-900 text-sm rounded-xl focus:ring-2 focus:ring-orange-400 focus:border-orange-400 block p-2.5 shadow-sm min-h-[44px]"
+                  className="w-full bg-white border border-neutral-300 text-neutral-900 text-base rounded-xl focus:ring-2 focus:ring-orange-400 focus:border-orange-400 block p-2.5 shadow-sm min-h-[44px]"
                   value={selectedCategory}
                   onChange={(e) => setSelectedCategory(e.target.value)}
                   aria-label="Filter by Category"
@@ -259,8 +259,19 @@ export default function FreelancingDirectory() {
                 Load More Projects
               </button>
             </div>
-          )}
+           )}
        </section>
+
+      {/* Mobile Sticky CTA */}
+      <div className="fixed bottom-0 left-0 w-full p-4 bg-white/90 backdrop-blur-md border-t border-neutral-200 z-50 md:hidden flex items-center justify-between shadow-[0_-10px_40px_rgba(0,0,0,0.05)] pb-[max(1rem,env(safe-area-inset-bottom))]">
+        <div>
+          <p className="text-[10px] font-black text-neutral-500 uppercase tracking-widest">Opportunities</p>
+          <p className="text-neutral-900 font-bold text-sm">Find Your Project</p>
+        </div>
+        <button className="px-5 py-3 min-h-[44px] bg-orange-500 text-white font-black rounded-xl text-[10px] uppercase tracking-widest shadow-lg shadow-orange-500/30">
+          Apply Now
+        </button>
+      </div>
     </div>
   );
 }

@@ -133,7 +133,7 @@ export default async function BlogPage({ params, searchParams }) {
 
   return (
     <div
-      className="min-h-screen"
+      className="min-h-screen pb-24 md:pb-0 flex flex-col"
       style={{ background: "var(--color-background)" }}
     >
       {/* ── Hero ── */}
@@ -152,7 +152,7 @@ export default async function BlogPage({ params, searchParams }) {
           <span className="inline-block mb-4 px-4 py-1.5 rounded-full text-xs font-bold uppercase tracking-wider text-indigo-200 bg-white/10 border border-white/10">
             📝 Free Guides & Tips
           </span>
-          <h1 className="text-3xl sm:text-4xl md:text-5xl font-black text-white leading-[1.1] mb-8 tracking-tighter">
+          <h1 className="text-4xl sm:text-5xl md:text-6xl font-black text-white leading-[1.1] mb-8 tracking-tighter">
             Blog & <br />
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-pink-400 via-rose-400 to-orange-400 animate-gradient-x">
               Resources
@@ -173,7 +173,7 @@ export default async function BlogPage({ params, searchParams }) {
               name="q"
               defaultValue={q}
               placeholder="Search articles…"
-              className="w-full pl-12 pr-4 py-3.5 rounded-2xl bg-white/10 border border-white/20 text-white placeholder-indigo-300/70 focus:outline-none focus:ring-2 focus:ring-indigo-400 transition text-sm"
+              className="w-full pl-12 pr-4 py-3.5 rounded-2xl bg-white/10 border border-white/20 text-white placeholder-indigo-300/70 focus:outline-none focus:ring-2 focus:ring-indigo-400 transition text-base"
             />
           </form>
         </div>
@@ -305,6 +305,17 @@ export default async function BlogPage({ params, searchParams }) {
             ))}
           </nav>
         )}
+      </div>
+
+      {/* Mobile Sticky CTA */}
+      <div className="fixed bottom-0 left-0 w-full p-4 bg-white/90 backdrop-blur-md border-t border-slate-200 z-50 md:hidden flex items-center justify-between shadow-[0_-10px_40px_rgba(0,0,0,0.05)] pb-[max(1rem,env(safe-area-inset-bottom))]">
+        <div>
+          <p className="text-[10px] font-black text-slate-500 uppercase tracking-widest">Next Step</p>
+          <p className="text-slate-900 font-bold text-sm">Join the Program</p>
+        </div>
+        <button className="px-5 py-3 min-h-[44px] bg-brand-green text-white font-black rounded-xl text-[10px] uppercase tracking-widest shadow-lg shadow-brand-green/30">
+          Apply Now
+        </button>
       </div>
     </div>
   );
