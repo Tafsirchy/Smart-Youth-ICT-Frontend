@@ -7,15 +7,29 @@ import { HiChevronDown } from "react-icons/hi";
 import { motion, AnimatePresence } from "framer-motion";
 
 const serviceLinks = [
+  // Learning & Career
   { href: "/services/skill-development", label: "Skill Development Programs" },
   { href: "/services/career-tracks", label: "Career Tracks (Web, AI, SMM)" },
+  { href: "/services/certifications", label: "Certification Programs" },
   { href: "/services/freelancing", label: "Freelancing Training" },
+  { href: "/services/job-placement", label: "Job Placement Support" },
+  // Web & Software
+  { href: "/services/portfolio-websites", label: "Portfolio Websites" },
   { href: "/services/business-websites", label: "Business Websites" },
   { href: "/services/ecommerce", label: "E-commerce Development" },
   { href: "/services/custom-apps", label: "Custom Web Applications" },
+  { href: "/services/erp-crm", label: "ERP / CRM / POS Systems" },
+  // Design & Marketing
   { href: "/services/branding", label: "Logo & Brand Identity" },
+  { href: "/services/ui-ux", label: "UI/UX Design" },
+  { href: "/services/social-creatives", label: "Social Media Creatives" },
   { href: "/services/facebook-ads", label: "Facebook Ads Management" },
+  { href: "/services/seo", label: "SEO Optimization" },
+  // AI & Managed
   { href: "/services/chatbot", label: "Chatbot Development" },
+  { href: "/services/automation", label: "Business Automation" },
+  { href: "/services/hosting", label: "Domain & Hosting" },
+  { href: "/services/maintenance", label: "Website Maintenance" },
   { href: "/services/hire-student", label: "Hire a Student (Freelancer)" },
 ];
 
@@ -46,7 +60,7 @@ function MobileAccordion({ label, children }) {
     <li>
       <button
         onClick={() => setOpen(!open)}
-        className="w-full flex items-center justify-between px-3 py-2 rounded-lg text-sm font-medium text-gray-700 hover:text-brand-green hover:bg-brand-green/5 transition-all"
+        className="w-full flex items-center justify-between px-3 py-2 min-h-[44px] rounded-lg text-sm font-medium text-gray-700 hover:text-brand-green hover:bg-brand-green/5 transition-all"
       >
         {label}
         <motion.span
@@ -98,7 +112,7 @@ export default function MobileMenu({ links, session, onClose }) {
             <Link
               href={href}
               onClick={onClose}
-              className={`block px-3 py-2 rounded-lg text-sm font-medium transition-all ${isActive(href)
+              className={`flex items-center min-h-[44px] px-3 py-2 rounded-lg text-sm font-medium transition-all ${isActive(href)
                   ? "text-brand-green bg-brand-green/10 font-semibold border-l-2 border-brand-green pl-4"
                   : "text-gray-700 hover:text-brand-green hover:bg-brand-green/5"
                 }`}
@@ -114,7 +128,7 @@ export default function MobileMenu({ links, session, onClose }) {
             <Link
               href="/services"
               onClick={onClose}
-              className="block px-3 py-1.5 text-xs font-black text-brand-pink uppercase tracking-widest"
+              className="flex items-center min-h-[44px] px-3 py-1.5 text-xs font-black text-brand-pink uppercase tracking-widest"
             >
               View All Services →
             </Link>
@@ -124,7 +138,7 @@ export default function MobileMenu({ links, session, onClose }) {
               <Link
                 href={href}
                 onClick={onClose}
-                className="block px-3 py-1.5 rounded-lg text-sm text-slate-600 hover:text-brand-green hover:bg-brand-green/5 transition-colors"
+                className="flex items-center min-h-[44px] px-3 py-1.5 rounded-lg text-sm text-slate-600 hover:text-brand-green hover:bg-brand-green/5 transition-colors"
               >
                 {label}
               </Link>
@@ -139,7 +153,7 @@ export default function MobileMenu({ links, session, onClose }) {
               <Link
                 href={href}
                 onClick={onClose}
-                className="block px-3 py-1.5 rounded-lg text-sm text-slate-600 hover:text-brand-green hover:bg-brand-green/5 transition-colors"
+                className="flex items-center min-h-[44px] px-3 py-1.5 rounded-lg text-sm text-slate-600 hover:text-brand-green hover:bg-brand-green/5 transition-colors"
               >
                 {label}
               </Link>

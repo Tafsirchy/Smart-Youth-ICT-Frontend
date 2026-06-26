@@ -35,7 +35,7 @@ export default function ErpCrmClient({ data }) {
             <motion.div
               initial={{ opacity: 0, x: -20 }}
               animate={{ opacity: 1, x: 0 }}
-              className="inline-flex items-center gap-2 px-5 py-2 rounded-full bg-indigo-50 border border-indigo-100 text-indigo-700 text-[10px] font-black tracking-[0.4em] uppercase mb-10"
+              className="inline-flex items-center gap-2 px-5 py-2 rounded-full bg-indigo-50 border border-indigo-100 text-indigo-700 text-xs font-black tracking-[0.2em] uppercase mb-10"
             >
               <IoHardwareChipOutline className="text-sm" /> {hero.badge}
             </motion.div>
@@ -60,12 +60,12 @@ export default function ErpCrmClient({ data }) {
             </motion.p>
 
             <div className="flex flex-col sm:flex-row gap-6">
-              <button className="w-full sm:w-[280px] px-8 py-6 bg-indigo-600 text-white font-black rounded-xl hover:bg-indigo-700 transition-all shadow-2xl shadow-indigo-600/20 uppercase tracking-widest text-[10px] flex items-center justify-center">
+              <button className="w-full sm:w-[280px] px-8 py-6 bg-indigo-600 text-white font-bold rounded-xl hover:bg-indigo-700 transition-all shadow-2xl shadow-indigo-600/20 uppercase tracking-wider text-sm flex items-center justify-center">
                 Initialize Enterprise Audit
               </button>
               <Link
                 href="/services/erp-crm/details"
-                className="w-full sm:w-[280px] px-8 py-6 bg-white border border-slate-200 text-slate-900 font-black rounded-xl hover:bg-slate-50 transition-all uppercase tracking-widest text-[10px] flex items-center justify-center text-center"
+                className="w-full sm:w-[280px] px-8 py-6 bg-white border border-slate-200 text-slate-900 font-bold rounded-xl hover:bg-slate-50 transition-all uppercase tracking-wider text-sm flex items-center justify-center text-center"
               >
                 Technical Specifications
               </Link>
@@ -90,12 +90,12 @@ export default function ErpCrmClient({ data }) {
                 <div className="absolute inset-0 flex items-center justify-center">
                   <div className="w-32 h-32 bg-white rounded-3xl border border-slate-100 shadow-2xl flex flex-col items-center justify-center">
                     <IoPulseOutline className="text-4xl text-indigo-600 animate-pulse" />
-                    <span className="text-[8px] font-black text-slate-300 mt-2">LINK_ACTIVE</span>
+                    <span className="text-xs font-black text-slate-300 mt-2">LINK_ACTIVE</span>
                   </div>
                 </div>
               </div>
 
-              <div className="absolute bottom-4 left-1/2 -translate-x-1/2 font-mono text-[8px] text-slate-400 uppercase tracking-widest bg-white px-4">
+              <div className="absolute bottom-4 left-1/2 -translate-x-1/2 font-mono text-xs text-slate-400 uppercase tracking-widest bg-white px-4">
                 ENTERPRISE_OS_v6.4
               </div>
             </motion.div>
@@ -106,7 +106,7 @@ export default function ErpCrmClient({ data }) {
         <div className="mb-48 px-4 md:px-0">
           <div className="flex flex-col md:flex-row justify-between items-end mb-24 gap-8 border-l-4 border-indigo-600 pl-8">
             <div className="max-w-xl">
-              <h2 className="text-[10px] font-black text-indigo-600 uppercase tracking-[0.4em] mb-4 font-bold">Logistics Standard</h2>
+              <h2 className="text-xs font-black text-indigo-600 uppercase tracking-widest mb-4">Logistics Standard</h2>
               <p className="text-4xl md:text-5xl font-black text-slate-900 leading-tight">
                 Architectures built for <span className="text-slate-400 italic font-serif font-light">operational sovereignty.</span>
               </p>
@@ -142,28 +142,47 @@ export default function ErpCrmClient({ data }) {
         </div>
 
         {/* INTEGRATION SECTION */}
-        <div className="mb-48 bg-slate-900 rounded-[5rem] p-12 lg:p-24 relative overflow-hidden text-white mx-4 md:mx-0">
-          <div className="absolute top-0 right-0 w-1/2 h-full bg-indigo-600/10 blur-[150px] -z-10"></div>
+        <div className="mb-24 lg:mb-48 bg-slate-900 rounded-3xl lg:rounded-[5rem] p-6 lg:p-24 relative overflow-hidden text-white mx-4 md:mx-0">
+          <div className="hidden lg:block absolute top-0 right-0 w-1/2 h-full bg-indigo-600/10 blur-[150px] -z-10"></div>
 
-          <div className="grid lg:grid-cols-2 gap-20 items-center relative z-10">
+          <div className="flex flex-col lg:grid lg:grid-cols-2 gap-10 lg:gap-20 items-center relative z-10">
             <div>
               <h2 className="text-5xl lg:text-6xl font-black mb-10 leading-[0.9]">Atomic <br /><span className="text-indigo-500 font-serif italic font-medium">Interconnectivity.</span></h2>
               <p className="text-slate-500 text-xl font-light leading-relaxed mb-12">We eliminate operational friction. Your custom ERP/CRM becomes the central nervous system of your entire business infrastructure.</p>
 
-              <div className="grid grid-cols-2 gap-px bg-white/5 border border-white/5 rounded-3xl overflow-hidden">
-                {integrations?.map((int, i) => (
-                  <div key={i} className="p-10 hover:bg-white/5 transition-colors group">
-                    <h4 className="text-[10px] font-black text-indigo-400 uppercase tracking-widest mb-4">{int.t}</h4>
-                    <p className="text-[10px] text-slate-500 font-bold leading-relaxed">{int.d}</p>
+              <div className="pt-8 lg:pt-10">
+                {/* Mobile Accordion */}
+                <details className="lg:hidden group">
+                  <summary className="cursor-pointer list-none font-bold text-sm text-indigo-400 flex justify-between items-center bg-white/5 p-4 rounded-xl border border-white/10">
+                    View Integrations
+                    <span className="transition group-open:rotate-180 text-xs">▼</span>
+                  </summary>
+                  <div className="grid grid-cols-1 gap-px bg-white/5 border border-white/5 rounded-3xl overflow-hidden mt-6">
+                    {integrations?.map((int, i) => (
+                      <div key={i} className="p-6 hover:bg-white/5 transition-colors group">
+                        <h4 className="text-xs font-black text-indigo-400 uppercase tracking-widest mb-4">{int.t}</h4>
+                        <p className="text-xs text-slate-500 font-bold leading-relaxed">{int.d}</p>
+                      </div>
+                    ))}
                   </div>
-                ))}
+                </details>
+
+                {/* Desktop Grid */}
+                <div className="hidden lg:grid grid-cols-2 gap-px bg-white/5 border border-white/5 rounded-3xl overflow-hidden">
+                  {integrations?.map((int, i) => (
+                    <div key={i} className="p-10 hover:bg-white/5 transition-colors group">
+                      <h4 className="text-xs font-black text-indigo-400 uppercase tracking-widest mb-4">{int.t}</h4>
+                      <p className="text-xs text-slate-500 font-bold leading-relaxed">{int.d}</p>
+                    </div>
+                  ))}
+                </div>
               </div>
             </div>
 
-            <div className="relative group lg:scale-110">
-              <div className="p-12 bg-white/5 rounded-[4rem] border border-white/10 backdrop-blur-sm relative z-20 overflow-hidden">
+            <div className="relative group w-full lg:w-auto lg:scale-110">
+              <div className="p-6 lg:p-12 bg-white/5 rounded-3xl lg:rounded-[4rem] border border-white/10 backdrop-blur-sm relative z-20 overflow-hidden">
                 <div className="absolute inset-0 bg-gradient-to-br from-indigo-500/10 to-transparent pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity"></div>
-                <div className="flex justify-between items-center mb-16 border-b border-white/5 pb-8 font-mono text-[8px] tracking-[0.4em] text-white/40">
+                <div className="flex justify-between items-center mb-16 border-b border-white/5 pb-8 font-mono text-xs tracking-widest text-white/40">
                   <span>SYS_LOGIC_SYNC</span>
                   <span>STATUS::ACTIVE</span>
                 </div>
@@ -192,13 +211,13 @@ export default function ErpCrmClient({ data }) {
         {/* PRICING */}
         <div className="mb-48 px-4 md:px-0">
           <div className="text-center max-w-2xl mx-auto mb-20">
-            <h2 className="text-[10px] font-black text-indigo-600 uppercase tracking-[0.4em] mb-4 font-bold">Scaling Tiers</h2>
+            <h2 className="text-xs font-black text-indigo-600 uppercase tracking-widest mb-4">Scaling Tiers</h2>
             <p className="text-4xl md:text-5xl font-black text-slate-900 leading-tight">Investment for <span className="text-slate-400">sovereignty.</span></p>
           </div>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <div className="flex overflow-x-auto snap-x snap-mandatory md:grid md:grid-cols-2 lg:grid-cols-3 gap-8 pb-8 -mx-4 px-4 md:mx-0 md:px-0 scrollbar-hide">
             {pricing?.map((tier, idx) => (
-              <div key={idx} className={`bg-white rounded-[3rem] p-12 border ${tier.highlight ? "border-indigo-600 shadow-2xl shadow-indigo-600/10 -translate-y-4" : "border-slate-100 shadow-xl shadow-slate-200/50"} flex flex-col h-full relative overflow-hidden group transition-all`}>
+              <div key={idx} className={`snap-center shrink-0 w-[85vw] md:w-auto bg-white rounded-[3rem] p-12 border ${tier.highlight ? "border-indigo-600 shadow-2xl shadow-indigo-600/10 md:-translate-y-4" : "border-slate-100 shadow-xl shadow-slate-200/50"} flex flex-col h-full relative overflow-hidden group transition-all`}>
                 <h4 className="text-3xl font-black text-slate-900 mb-2 uppercase tracking-tighter">{tier.t}</h4>
                 <p className="text-5xl font-black text-slate-900 mb-12">{tier.p}</p>
 
@@ -221,17 +240,24 @@ export default function ErpCrmClient({ data }) {
           <IoLayersOutline className="text-7xl text-indigo-600 mb-12 mx-auto opacity-10" />
           <h3 className="text-5xl lg:text-6xl font-black text-slate-900 mb-12 leading-tight">{cta.title?.split('your ')[0]}your <br /><span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-600 to-purple-700 font-serif italic font-medium">{cta.title?.split('your ')[1]}</span></h3>
           <div className="flex flex-col sm:flex-row gap-6 justify-center">
-            <button className="w-full sm:w-[280px] px-8 py-6 bg-indigo-600 text-white font-black rounded-xl hover:bg-indigo-700 transition-all shadow-2xl shadow-indigo-600/40 uppercase tracking-widest text-[10px] flex items-center justify-center">
+            <button className="w-full sm:w-[280px] px-8 py-6 bg-indigo-600 text-white font-bold rounded-xl hover:bg-indigo-700 transition-all shadow-2xl shadow-indigo-600/40 uppercase tracking-wider text-sm flex items-center justify-center">
               Initialize Build
             </button>
             <Link
               href="/services/erp-crm/details"
-              className="w-full sm:w-[280px] px-8 py-6 bg-slate-900 text-white font-black rounded-xl hover:bg-slate-800 transition-all uppercase tracking-widest text-[10px] flex items-center justify-center text-center"
+              className="w-full sm:w-[280px] px-8 py-6 bg-slate-900 text-white font-bold rounded-xl hover:bg-slate-800 transition-all uppercase tracking-wider text-sm flex items-center justify-center text-center"
             >
               Technical Specifications
             </Link>
           </div>
         </div>
+      </div>
+
+      {/* MOBILE STICKY CTA */}
+      <div className="md:hidden fixed bottom-0 left-0 w-full bg-white/80 backdrop-blur-md border-t border-slate-200 p-4 z-50 shadow-[0_-10px_40px_rgba(0,0,0,0.05)] pb-safe">
+        <button className="w-full py-4 bg-indigo-600 text-white font-bold rounded-xl shadow-lg shadow-indigo-600/30 uppercase tracking-wider text-sm flex items-center justify-center">
+          Initialize Enterprise Audit
+        </button>
       </div>
     </section>
   );
