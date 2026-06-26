@@ -57,9 +57,9 @@ export default function AuditReportsPage() {
   };
 
   return (
-    <div className="space-y-10 max-w-7xl mx-auto pb-20">
+    <div className="space-y-6 max-w-7xl mx-auto px-4 md:px-8 pb-8">
       {/* Header */}
-      <header className="flex flex-col md:flex-row md:items-end justify-between gap-6">
+      <header className="flex flex-col md:flex-row md:items-end justify-between gap-4">
         <div>
           <motion.h1 
             initial={{ opacity: 0, y: 10 }}
@@ -71,7 +71,7 @@ export default function AuditReportsPage() {
             </span>
             System Pulse
           </motion.h1>
-          <p className="mt-4 text-slate-500 font-medium max-w-md">
+          <p className="mt-2 text-slate-500 font-medium max-w-md">
             The definitive audit log for SYICT. Every critical action, configuration change, and administrative movement is recorded here for security oversight.
           </p>
         </div>
@@ -89,7 +89,7 @@ export default function AuditReportsPage() {
       </header>
 
       {/* Main Audit Feed */}
-      <div className="bg-white rounded-[2.5rem] border border-slate-100 shadow-sm relative overflow-hidden">
+      <div className="bg-white rounded-2xl border border-slate-100 shadow-sm relative overflow-hidden">
         <div className="absolute top-0 left-0 w-1 h-full bg-slate-100 ml-[3.5rem] hidden md:block" />
         
         <motion.div 
@@ -106,9 +106,9 @@ export default function AuditReportsPage() {
             <motion.div 
               key={log._id}
               variants={item}
-              className="group p-8 md:p-10 flex flex-col md:flex-row md:items-center gap-6 hover:bg-slate-50/40 transition-all"
+              className="group p-4 md:p-6 flex flex-col md:flex-row md:items-center gap-4 hover:bg-slate-50/40 transition-all"
             >
-              <div className="flex items-center gap-6">
+              <div className="flex items-center gap-4">
                  {/* Timestamp circle */}
                  <div className="w-14 h-14 rounded-2xl bg-white border border-slate-100 shadow-sm flex flex-col items-center justify-center relative z-20">
                     <p className="text-[10px] font-black text-slate-400 uppercase leading-none">{format(new Date(log.createdAt), 'MMM')}</p>
@@ -126,18 +126,18 @@ export default function AuditReportsPage() {
                   <HiOutlineUser className="text-slate-400" />
                   {log.actor?.name || 'System Agent'}
                 </p>
-                <div className="flex items-center gap-4 mt-1 text-xs text-slate-400 font-medium">
+                <div className="flex flex-wrap items-center gap-3 mt-1 text-xs text-slate-400 font-medium">
                   <span className="flex items-center gap-1"><HiOutlineCalendar size={14} />{format(new Date(log.createdAt), 'HH:mm:ss')}</span>
                   <span className="flex items-center gap-1 uppercase tracking-tighter"><HiOutlineBolt size={14}/>{log.entity} #{log.entityId?.slice(-6)}</span>
                 </div>
               </div>
 
-              <div className="hidden lg:flex items-center gap-4">
-                <div className="bg-slate-50 px-4 py-2 rounded-xl flex items-center gap-2 border border-slate-100">
-                  <HiOutlineCommandLine className="text-slate-300" />
-                  <span className="text-[10px] font-mono font-bold text-slate-400">{log.ipAddress || 'Internal'}</span>
+              <div className="flex items-center justify-between w-full md:w-auto mt-2 md:mt-0 gap-4">
+                <div className="bg-slate-50 px-3 py-1.5 rounded-lg flex items-center gap-2 border border-slate-100">
+                  <HiOutlineCommandLine className="text-slate-400" />
+                  <span className="text-[10px] font-mono font-bold text-slate-500">{log.ipAddress || 'Internal'}</span>
                 </div>
-                <button className="text-slate-400 hover:text-slate-900 font-bold text-xs p-2">
+                <button className="text-slate-900 font-bold text-[11px] uppercase tracking-widest px-4 py-2 bg-slate-50 rounded-xl active:scale-95 hover:bg-slate-100 transition-all">
                   Details
                 </button>
               </div>

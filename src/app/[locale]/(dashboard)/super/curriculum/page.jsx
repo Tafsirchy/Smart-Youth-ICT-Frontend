@@ -363,9 +363,9 @@ export default function MasterCurriculumPage() {
   }, [page, totalPages]);
 
   return (
-    <div className="space-y-10 max-w-7xl mx-auto pb-20">
+    <div className="space-y-6 max-w-7xl mx-auto pb-8">
       {/* Dynamic Header */}
-      <header className="flex flex-col md:flex-row md:items-end justify-between gap-6">
+      <header className="flex flex-col md:flex-row md:items-end justify-between gap-4">
         <div>
           <motion.h1
             initial={{ opacity: 0, scale: 0.9 }}
@@ -383,7 +383,7 @@ export default function MasterCurriculumPage() {
           </p>
         </div>
 
-        <div className="flex items-center gap-4">
+        <div className="flex items-center gap-3">
           <div className="relative group">
             <HiOutlineMagnifyingGlass className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 group-focus-within:text-indigo-600 transition-colors" />
             <input
@@ -391,7 +391,7 @@ export default function MasterCurriculumPage() {
               placeholder="Search master courses..."
               value={search}
               onChange={(e) => setSearch(e.target.value)}
-              className="pl-11 pr-6 py-3.5 bg-white border border-slate-200 rounded-2xl w-full md:w-64 focus:ring-4 focus:ring-indigo-500/10 focus:border-indigo-500 transition-all outline-none font-medium text-slate-700 shadow-sm"
+              className="pl-11 pr-4 py-2.5 bg-white border border-slate-200 rounded-xl w-full md:w-64 focus:ring-4 focus:ring-indigo-500/10 focus:border-indigo-500 transition-all outline-none font-medium text-slate-700 shadow-sm"
             />
           </div>
           <motion.button
@@ -446,7 +446,7 @@ export default function MasterCurriculumPage() {
               });
               setShowCourseModal(true);
             }}
-            className="flex items-center gap-2 bg-indigo-600 text-white px-6 py-3.5 rounded-2xl font-bold shadow-xl shadow-indigo-600/20 hover:bg-indigo-700 transition-all text-sm whitespace-nowrap"
+            className="hidden md:flex items-center gap-2 bg-indigo-600 text-white px-6 py-3.5 rounded-2xl font-bold shadow-xl shadow-indigo-600/20 hover:bg-indigo-700 transition-all text-sm whitespace-nowrap"
           >
             <HiOutlinePlus size={20} />
             New Master Course
@@ -458,7 +458,7 @@ export default function MasterCurriculumPage() {
       <motion.div
         initial={{ opacity: 0, y: -10 }}
         animate={{ opacity: 1, y: 0 }}
-        className="rounded-3xl border border-slate-100 bg-white shadow-sm p-6 space-y-5"
+        className="rounded-2xl border border-slate-100 bg-white shadow-sm p-4 space-y-3"
       >
         <div className="flex items-center justify-between">
           <h3 className="text-sm font-black text-slate-900 uppercase tracking-widest">
@@ -476,13 +476,13 @@ export default function MasterCurriculumPage() {
           )}
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
           {/* Category Filter */}
           <div className="space-y-3">
             <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest block">
               Category
             </label>
-            <div className="space-y-2.5">
+            <div className="space-y-1.5">
               {uniqueCategories.map((cat) => (
                 <label
                   key={cat}
@@ -579,22 +579,22 @@ export default function MasterCurriculumPage() {
         variants={container}
         initial="hidden"
         animate="show"
-        className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
+        className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4"
       >
         {loading
           ? [...Array(6)].map((_, i) => (
               <div
                 key={i}
-                className="h-80 bg-slate-100 rounded-[2.5rem] animate-pulse"
+                className="h-72 bg-slate-100 rounded-2xl animate-pulse"
               />
             ))
           : paginatedCourses.map((course) => (
               <motion.div
                 key={course._id}
                 variants={item}
-                className="bg-white group rounded-[2.5rem] border border-slate-100 shadow-sm hover:shadow-2xl hover:-translate-y-2 transition-all duration-500 p-2"
+                className="bg-white group rounded-2xl border border-slate-100 shadow-sm hover:shadow-2xl hover:-translate-y-2 transition-all duration-500 p-2"
               >
-                <div className="relative h-48 rounded-[2rem] overflow-hidden bg-slate-900 mb-4">
+                <div className="relative h-36 rounded-xl overflow-hidden bg-slate-900 mb-3">
                   {course.thumbnail ? (
                     <img
                       src={course.thumbnail}
@@ -622,13 +622,13 @@ export default function MasterCurriculumPage() {
                       setCourseForm(mapCourseToForm(course));
                       setShowCourseModal(true);
                     }}
-                    className="absolute top-4 right-4 p-2 bg-white/90 backdrop-blur-md rounded-xl text-slate-400 hover:text-indigo-600 transition-all opacity-0 group-hover:opacity-100 shadow-sm"
+                    className="absolute top-4 right-4 p-2 bg-white/90 backdrop-blur-md rounded-xl text-slate-400 hover:text-indigo-600 transition-all opacity-100 md:opacity-0 md:group-hover:opacity-100 shadow-sm"
                   >
                     <HiOutlinePencilSquare size={18} />
                   </button>
                 </div>
 
-                <div className="px-5 pb-6">
+                <div className="px-3 pb-4">
                   <div className="flex justify-between items-start mb-2">
                     <span className="text-[10px] font-bold text-slate-400 uppercase tracking-tighter">
                       {course.category || "General"}
@@ -637,12 +637,12 @@ export default function MasterCurriculumPage() {
                       ৳{course.price}
                     </p>
                   </div>
-                  <h3 className="text-xl font-black text-slate-800 leading-tight mb-4 group-hover:text-indigo-600 transition-colors line-clamp-2">
+                  <h3 className="text-xl font-black text-slate-800 leading-tight mb-3 group-hover:text-indigo-600 transition-colors line-clamp-2">
                     {course.title?.en}
                   </h3>
 
-                  <div className="grid grid-cols-2 gap-3 mb-6">
-                    <div className="flex items-center gap-2 bg-slate-50 p-2.5 rounded-xl border border-slate-100/50">
+                  <div className="grid grid-cols-2 gap-2 mb-4">
+                    <div className="flex items-center gap-2 bg-slate-50 p-2 rounded-lg border border-slate-100/50">
                       <HiOutlineRectangleStack className="text-slate-400" />
                       <span className="text-xs font-bold text-slate-600">
                         {course.curriculum?.length || 0} Modules
@@ -680,7 +680,7 @@ export default function MasterCurriculumPage() {
       </motion.div>
 
       {!loading && totalFiltered > 0 && totalPages > 1 && (
-        <div className="rounded-3xl border border-slate-100 bg-white px-6 py-4 md:px-8 md:py-5 shadow-sm flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
+        <div className="rounded-2xl border border-slate-100 bg-white px-4 py-3 md:px-5 md:py-3 shadow-sm flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
           <p className="text-[11px] font-black uppercase tracking-widest text-slate-400">
             Showing{" "}
             <span className="text-slate-900">{(page - 1) * PAGE_SIZE + 1}</span>{" "}
@@ -749,16 +749,32 @@ export default function MasterCurriculumPage() {
         </div>
       )}
 
+      {/* Mobile Sticky CTA */}
+      <div className="md:hidden fixed bottom-0 left-0 right-0 p-4 bg-white/80 backdrop-blur-md border-t border-slate-100 pb-[calc(env(safe-area-inset-bottom)+1rem)] z-40">
+         <button 
+           onClick={() => {
+              setEditingCourse(null);
+              setCourseModalTab("basic");
+              setCourseForm(createBlankCourseForm());
+              setShowCourseModal(true);
+           }}
+           className="w-full py-4 bg-indigo-600 text-white rounded-xl font-black shadow-xl shadow-indigo-600/30 flex items-center justify-center gap-2 active:scale-95 transition-all"
+         >
+           <HiOutlinePlus size={20} />
+           New Master Course
+         </button>
+      </div>
+
       {/* Course Modal */}
       <Portal>
         <AnimatePresence>
           {showCourseModal && (
-            <div className="fixed inset-0 z-[9999] flex items-center justify-center p-6 bg-black/95 backdrop-blur-sm">
+            <div className="fixed inset-0 z-[9999] flex items-end md:items-center justify-center p-0 md:p-6 bg-black/95 backdrop-blur-sm">
               <motion.div
-                initial={{ scale: 0.9, opacity: 0 }}
-                animate={{ scale: 1, opacity: 1 }}
-                exit={{ scale: 0.9, opacity: 0 }}
-                className="bg-white w-full max-w-2xl rounded-[2.5rem] shadow-2xl p-10 max-h-[90vh] overflow-y-auto custom-scrollbar relative z-[10000]"
+                initial={{ scale: 0.95, opacity: 0, y: 40 }}
+                animate={{ scale: 1, opacity: 1, y: 0 }}
+                exit={{ scale: 0.95, opacity: 0, y: 40 }}
+                className="bg-white w-full max-w-2xl rounded-t-[2rem] md:rounded-[2.5rem] shadow-2xl p-6 md:p-10 max-h-[90vh] overflow-y-auto custom-scrollbar relative z-[10000] mt-auto md:mt-0"
               >
                 <div className="flex justify-between items-center mb-8">
                   <h2 className="text-2xl font-black text-slate-900">
@@ -775,7 +791,7 @@ export default function MasterCurriculumPage() {
                 </div>
 
                 {/* Tab Navigation */}
-                <div className="flex gap-2 mb-6 border-b border-slate-200 overflow-x-auto">
+                <div className="flex gap-2 mb-6 border-b border-slate-200 overflow-x-auto [&::-webkit-scrollbar]:hidden pb-2">
                   {[
                     { id: "basic", label: "Basic Info" },
                     { id: "overview", label: "Overview" },
@@ -1301,12 +1317,12 @@ export default function MasterCurriculumPage() {
       <Portal>
         <AnimatePresence>
           {showDeployModal && (
-            <div className="fixed inset-0 z-[9999] flex items-center justify-center p-6 bg-black/95 backdrop-blur-sm">
+            <div className="fixed inset-0 z-[9999] flex items-end md:items-center justify-center p-0 md:p-6 bg-black/95 backdrop-blur-sm">
               <motion.div
-                initial={{ y: 20, opacity: 0 }}
+                initial={{ y: 40, opacity: 0 }}
                 animate={{ y: 0, opacity: 1 }}
-                exit={{ y: 20, opacity: 0 }}
-                className="bg-white w-full max-w-xl rounded-[2.5rem] shadow-2xl p-10 relative z-[10000]"
+                exit={{ y: 40, opacity: 0 }}
+                className="bg-white w-full max-w-xl rounded-t-[2rem] md:rounded-[2.5rem] shadow-2xl p-6 md:p-10 relative z-[10000] max-h-[90vh] overflow-y-auto mt-auto md:mt-0"
               >
                 <h2 className="text-2xl font-black text-slate-900 mb-2">
                   Mass Deployment

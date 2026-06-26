@@ -139,7 +139,7 @@ export default function GlobalUserManagement() {
          </div>
          <button 
            onClick={() => openForm()}
-           className="px-6 py-3 bg-indigo-600 text-white rounded-xl font-black shadow-xl shadow-indigo-600/20 hover:scale-[1.02] active:scale-95 transition-all flex items-center gap-2"
+           className="hidden md:flex px-6 py-3 bg-indigo-600 text-white rounded-xl font-black shadow-xl shadow-indigo-600/20 hover:scale-[1.02] active:scale-95 transition-all items-center gap-2"
          >
            <HiOutlineUserPlus size={20} />
            Provision User
@@ -187,8 +187,69 @@ export default function GlobalUserManagement() {
          </div>
       </div>
 
-      {/* Registry Table */}
-      <div className="bg-white rounded-2xl border border-slate-100 shadow-sm overflow-hidden overflow-x-auto">
+      {/* Mobile Card Grid (Visible on SM) */}
+      <div className="grid grid-cols-1 gap-4 md:hidden">
+         {loading ? (
+            [...Array(3)].map((_, i) => (
+               <div key={i} className="bg-white p-4 rounded-2xl border border-slate-100 shadow-sm h-32 animate-pulse" />
+            ))
+         ) : (
+            users.length > 0 ? users.map(user => (
+               <div key={user._id} className="bg-white p-4 rounded-2xl border border-slate-100 shadow-sm flex flex-col gap-4">
+                  <div className="flex justify-between items-start">
+                     <div className="flex items-center gap-3">
+                        <div className="w-10 h-10 rounded-xl bg-indigo-50 text-indigo-500 font-black flex items-center justify-center border border-indigo-100 shrink-0">
+                           {user.name.charAt(0)}
+                        </div>
+                        <div>
+                           <p className="font-extrabold text-slate-900 leading-none mb-1">{user.name}</p>
+                           <p className="text-xs text-slate-400 font-medium">{user.email}</p>
+                        </div>
+                     </div>
+                     <button onClick={() => openForm(user)} className="p-2 text-indigo-600 bg-indigo-50 rounded-lg shrink-0">
+                        <HiOutlinePencilSquare size={20} />
+                     </button>
+                  </div>
+                  
+                  <div className="flex flex-wrap items-center gap-2 pt-3 border-t border-slate-50">
+                     <span className={`px-2 py-1 rounded-md text-[10px] font-black uppercase tracking-widest ${
+                       user.role === 'super_admin' ? 'bg-pink-100 text-pink-600' :
+                       user.role === 'branch_admin' ? 'bg-blue-100 text-blue-600' :
+                       user.role === 'instructor' ? 'bg-amber-100 text-amber-600' :
+                       'bg-emerald-100 text-emerald-600'
+                     }`}>
+                       {user.role.replace('_', ' ')}
+                     </span>
+                     <div className="flex items-center gap-1.5 text-[10px] font-bold text-slate-500 uppercase tracking-widest">
+                        <HiOutlineBuildingOffice className="text-slate-300" size={14} />
+                        {user.branchId ? (branches.find(b => b._id === user.branchId)?.name || 'Unknown Node') : 'Global HQ'}
+                     </div>
+                     <div className={`ml-auto flex items-center gap-1.5 text-[10px] font-black uppercase tracking-widest ${user.isActive ? 'text-emerald-500' : 'text-rose-500'}`}>
+                        {user.isActive ? <HiOutlineCheckCircle size={14} /> : <HiOutlineXCircle size={14} />}
+                        {user.isActive ? 'Active' : 'Suspended'}
+                     </div>
+                  </div>
+                  
+                  <div className="grid grid-cols-2 gap-2 mt-1">
+                     <button onClick={() => handleDeactivate(user)} className="w-full py-2 bg-slate-50 text-slate-600 rounded-lg text-xs font-bold hover:bg-slate-100 flex justify-center items-center gap-2 transition-all">
+                        <HiOutlineShieldCheck size={16} /> {user.isActive ? 'Deactivate' : 'Activate'}
+                     </button>
+                     <button onClick={() => handleDelete(user)} className="w-full py-2 bg-rose-50 text-rose-600 rounded-lg text-xs font-bold hover:bg-rose-100 flex justify-center items-center gap-2 transition-all">
+                        <HiOutlineTrash size={16} /> Delete
+                     </button>
+                  </div>
+               </div>
+            )) : (
+               <div className="py-10 text-center space-y-2 bg-white rounded-2xl border border-slate-100">
+                  <HiOutlineUserPlus size={40} className="mx-auto text-slate-200" />
+                  <p className="text-slate-400 font-bold uppercase tracking-widest text-[10px]">No biological nodes detected</p>
+               </div>
+            )
+         )}
+      </div>
+
+      {/* Desktop Registry Table (Hidden on SM) */}
+      <div className="hidden md:block bg-white rounded-2xl border border-slate-100 shadow-sm overflow-hidden overflow-x-auto">
          <table className="w-full text-left border-collapse">
             <thead>
                <tr className="bg-slate-50 text-slate-400 uppercase text-[10px] font-black tracking-widest">
@@ -243,7 +304,7 @@ export default function GlobalUserManagement() {
                          </div>
                       </td>
                       <td className="px-6 py-4 text-right font-medium">
-                        <div className="flex justify-end gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
+                        <div className="flex justify-end gap-1 opacity-100 md:opacity-0 md:group-hover:opacity-100 transition-opacity">
                            <button onClick={() => openForm(user)} className="p-1.5 hover:bg-white hover:text-indigo-600 rounded-lg transition-all text-slate-300">
                               <HiOutlinePencilSquare size={18} />
                            </button>
@@ -319,11 +380,22 @@ export default function GlobalUserManagement() {
          )}
       </div>
 
+      {/* Mobile Sticky CTA */}
+      <div className="md:hidden fixed bottom-0 left-0 right-0 p-4 bg-white/80 backdrop-blur-md border-t border-slate-100 pb-[calc(env(safe-area-inset-bottom)+1rem)] z-40">
+         <button 
+           onClick={() => openForm()}
+           className="w-full py-4 bg-indigo-600 text-white rounded-xl font-black shadow-xl shadow-indigo-600/30 flex items-center justify-center gap-2 active:scale-95 transition-all"
+         >
+           <HiOutlineUserPlus size={20} />
+           Provision User
+         </button>
+      </div>
+
       {/* Onboarding / Edit Modal */}
       <Portal>
          <AnimatePresence>
             {showModal && (
-               <div className="fixed inset-0 z-[9999] flex items-center justify-center p-4">
+               <div className="fixed inset-0 z-[9999] flex items-end md:items-center justify-center p-0 md:p-4">
                   <motion.div 
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
@@ -332,12 +404,12 @@ export default function GlobalUserManagement() {
                     className="absolute inset-0 bg-slate-900/95 backdrop-blur-sm"
                   />
                   <motion.div 
-                    initial={{ scale: 0.9, opacity: 0, y: 20 }}
+                    initial={{ scale: 0.95, opacity: 0, y: 40 }}
                     animate={{ scale: 1, opacity: 1, y: 0 }}
-                    exit={{ scale: 0.9, opacity: 0, y: 20 }}
-                    className="relative w-full max-w-2xl bg-white rounded-2xl overflow-hidden shadow-2xl"
+                    exit={{ scale: 0.95, opacity: 0, y: 40 }}
+                    className="relative w-full max-w-2xl bg-white rounded-t-[2rem] md:rounded-2xl max-h-[90vh] overflow-y-auto shadow-2xl"
                   >
-                     <form onSubmit={handleSubmit} className="p-6 space-y-4">
+                     <form onSubmit={handleSubmit} className="p-6 md:p-8 space-y-4 pb-[calc(env(safe-area-inset-bottom)+1.5rem)] md:pb-8">
                         <div className="flex justify-between items-center mb-4">
                            <div>
                               <h3 className="text-2xl font-black text-slate-900 tracking-tighter leading-tight">
