@@ -15,6 +15,7 @@ const nextConfig = {
       { protocol: "https", hostname: "i.ibb.co" },
       { protocol: "https", hostname: "c.saavncdn.com" },
       { protocol: "https", hostname: "img.youtube.com" },
+      { protocol: "https", hostname: "picsum.photos" },
     ],
   },
 

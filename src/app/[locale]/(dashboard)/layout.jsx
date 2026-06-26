@@ -16,7 +16,7 @@ export default function SharedDashboardLayout({ children }) {
   const params = useParams();
   const [sidebarOpen, setSidebarOpen] = useState(false);
   
-  if (status === 'loading') {
+  if (status === 'loading' && !session) {
     return <div className="h-screen w-full flex items-center justify-center bg-slate-50"><div className="w-8 h-8 border-4 border-brand-pink border-t-transparent rounded-full animate-spin"></div></div>;
   }
 

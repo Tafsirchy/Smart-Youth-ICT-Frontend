@@ -42,25 +42,27 @@ export default function ContactPage() {
     <div className="min-h-screen pb-24 md:pb-0 flex flex-col" style={{ background: 'var(--color-background)' }}>
 
       {/* ── Hero ── */}
-      <section className="relative overflow-hidden py-16 px-4 text-center"
+      <section className="relative overflow-hidden py-16 text-center"
         style={{ background: 'linear-gradient(135deg, #0f172a 0%, #1e1b4b 60%, #312e81 100%)' }}>
         <motion.div className="absolute -top-20 -left-20 w-72 h-72 rounded-full opacity-15 blur-3xl pointer-events-none"
           style={{ background: 'var(--color-brand-pink)' }}
           animate={{ scale: [1, 1.15, 1] }} transition={{ duration: 8, repeat: Infinity }} />
-        <div className="relative z-10 max-w-xl mx-auto">
-          <span className="inline-block mb-4 px-4 py-1.5 rounded-full text-xs font-bold uppercase tracking-wider text-indigo-200 bg-white/10 border border-white/10">
-            📞 Get In Touch
-          </span>
-          <h1 className="text-4xl sm:text-5xl md:text-6xl font-black text-white leading-[1.1] mb-8 tracking-tighter">
-            Contact <br />
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-indigo-400 to-blue-500 animate-gradient-x">Us</span>
-          </h1>
-          <p className="text-indigo-200 text-lg">We're here to help. Reach us via WhatsApp, email, or the form below.</p>
+        <div className="container-custom relative z-10">
+          <div className="max-w-xl mx-auto">
+            <span className="inline-block mb-4 px-4 py-1.5 rounded-full text-xs font-bold uppercase tracking-wider text-indigo-200 bg-white/10 border border-white/10">
+              📞 Get In Touch
+            </span>
+            <h1 className="text-4xl sm:text-5xl md:text-6xl font-black text-white leading-[1.1] mb-8 tracking-tighter">
+              Contact <br />
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-indigo-400 to-blue-500 animate-gradient-x">Us</span>
+            </h1>
+            <p className="text-indigo-200 text-lg">We're here to help. Reach us via WhatsApp, email, or the form below.</p>
+          </div>
         </div>
       </section>
 
       {/* ── Content ── */}
-      <div className="container-lg mx-auto px-4 py-14">
+      <div className="container-custom py-14">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
 
           {/* Left — Info */}
@@ -172,14 +174,16 @@ export default function ContactPage() {
       </div>
 
       {/* Mobile Sticky CTA */}
-      <div className="fixed bottom-0 left-0 w-full p-4 bg-white/90 backdrop-blur-md border-t border-slate-200 z-50 md:hidden flex items-center justify-between shadow-[0_-10px_40px_rgba(0,0,0,0.05)] pb-[max(1rem,env(safe-area-inset-bottom))]">
-        <div>
-          <p className="text-[10px] font-black text-slate-500 uppercase tracking-widest">Next Step</p>
-          <p className="text-slate-900 font-bold text-sm">Join the Program</p>
+      <div className="fixed bottom-0 left-0 w-full bg-white/90 backdrop-blur-md border-t border-slate-200 z-50 md:hidden shadow-[0_-10px_40px_rgba(0,0,0,0.05)] pb-[max(1rem,env(safe-area-inset-bottom))]">
+        <div className="container-custom py-4 flex items-center justify-between">
+          <div>
+            <p className="text-[10px] font-black text-slate-500 uppercase tracking-widest">Next Step</p>
+            <p className="text-slate-900 font-bold text-sm">Join the Program</p>
+          </div>
+          <button className="px-5 py-3 min-h-[44px] bg-brand-green text-white font-black rounded-xl text-[10px] uppercase tracking-widest shadow-lg shadow-brand-green/30">
+            Apply Now
+          </button>
         </div>
-        <button className="px-5 py-3 min-h-[44px] bg-brand-green text-white font-black rounded-xl text-[10px] uppercase tracking-widest shadow-lg shadow-brand-green/30">
-          Apply Now
-        </button>
       </div>
     </div>
   );

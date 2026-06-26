@@ -93,9 +93,12 @@ export default function SessionSync() {
     }
   };
 
+  const hasSynced = useRef(false);
+
   useEffect(() => {
-    if (status === 'authenticated') {
-      // Run once on mount/auth
+    if (status === 'authenticated' && !hasSynced.current) {
+      hasSynced.current = true;
+      // Run once on initial mount/auth
       syncSession();
 
       // Poll every 5 minutes (300,000 ms)

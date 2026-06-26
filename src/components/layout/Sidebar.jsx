@@ -25,21 +25,30 @@ function NavItem({ href, Icon, label }) {
   const pathname = usePathname();
   const { branchId } = useParams();
 
-  // Scoped navigation path
-  const fullHref = branchId ? `/${branchId}${href}` : href;
+  // Identify global routes that should not get branchId prepended
+  const isGlobalRoute = href.startsWith("/profile") || href.startsWith("/contact") || href.startsWith("/super");
+  const fullHref = (branchId && !isGlobalRoute) ? `/${branchId}${href}` : href;
+  
+  // Remove locale prefix (e.g. /en, /bn) from pathname for accurate matching
+  const normalizedPathname = pathname.replace(/^\/[a-zA-Z]{2}\b/, '') || '/';
+
   const isActive =
-    pathname === fullHref ||
+    normalizedPathname === fullHref ||
     (href !== "/student" &&
       href !== "/admin" &&
       href !== "/super" &&
-      pathname.startsWith(fullHref));
+      normalizedPathname.startsWith(fullHref));
 
   return (
     <motion.div whileHover={{ x: 4 }} whileTap={{ scale: 0.98 }}>
       <Link
         href={fullHref}
         id={`sidebar-${label.toLowerCase().replace(/\s/g, "-")}`}
-        className={`sidebar-link ${isActive ? "active" : ""}`}
+        className={`sidebar-link flex items-center gap-3 px-4 py-3 rounded-xl transition-all duration-300 ${
+          isActive 
+            ? "bg-white/10 text-white font-bold border-l-2 border-pink-500" 
+            : "text-slate-400 hover:bg-white/5 hover:text-white font-semibold"
+        }`}
       >
         <Icon
           className={`${isActive ? "text-pink-500" : "text-slate-400"} transition-colors`}
