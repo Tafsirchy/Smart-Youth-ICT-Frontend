@@ -320,11 +320,13 @@ export default function Navbar() {
           >
             <Image
               src="/images/logo.png"
-              alt="Smart Youth ICT"
+              alt="Smart Youth ICT Logo"
               width={160}
               height={40}
-              priority
+              priority={true}
+              fetchPriority="high"
               className="h-10 w-auto object-contain"
+              onError={(e) => { e.target.srcset = ''; e.target.src = '/images/placeholder.png'; }}
             />
           </motion.div>
         </Link>

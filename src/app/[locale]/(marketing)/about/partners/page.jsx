@@ -81,6 +81,9 @@ export default function PartnersPage() {
                     alt={partner.name || "Partner logo"}
                     fill
                     sizes="(max-width: 768px) 50vw, 25vw"
+                    loading="lazy"
+                    decoding="async"
+                    onError={(e) => { e.target.srcset = ''; e.target.src = '/images/placeholder.png'; }}
                     className="object-contain group-hover:scale-110 grayscale group-hover:grayscale-0 transition-all duration-500"
                   />
                 </div>

@@ -150,6 +150,9 @@ const MentorCard = ({ mentor }) => {
               alt={mentor.name}
               fill
               sizes="(max-width: 768px) 80vw, 160px"
+              loading="lazy"
+              decoding="async"
+              onError={(e) => { e.target.srcset = ''; e.target.src = '/images/placeholder.png'; }}
               className="object-cover grayscale-[30%] group-hover:grayscale-0 transition-all duration-700 scale-110 group-hover:scale-100"
             />
           </div>
@@ -240,7 +243,7 @@ export default function Mentors() {
       <motion.div className="absolute inset-0 z-0" style={{ y: bgY }}>
         <div
           className="absolute inset-0 bg-cover bg-center brightness-[0.3]"
-          style={{ backgroundImage: "url('/images/mentors_bg.png')" }}
+          style={{ backgroundImage: "url('/images/mentors_bg.png')", backgroundColor: '#f0f0f0' }}
         />
         <div className="absolute inset-0 bg-gradient-to-b from-[#020617] via-transparent to-[#020617]" />
       </motion.div>

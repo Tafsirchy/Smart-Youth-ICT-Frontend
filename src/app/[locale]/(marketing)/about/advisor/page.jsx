@@ -80,6 +80,10 @@ export default function AdvisoryBoardPage() {
                       src={advisor.image || "/images/placeholder.png"}
                       alt={advisor.name}
                       fill
+                      sizes="250px"
+                      loading="lazy"
+                      decoding="async"
+                      onError={(e) => { e.target.srcset = ''; e.target.src = '/images/placeholder.png'; }}
                       className="object-cover group-hover:scale-110 transition-transform duration-700"
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-slate-900 via-transparent to-transparent"></div>

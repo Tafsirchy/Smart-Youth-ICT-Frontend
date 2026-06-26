@@ -289,8 +289,29 @@ export default function PortfolioBuilderPage() {
                   <input type="url" value={projectForm.projectUrl} onChange={(e) => setProjectForm({...projectForm, projectUrl: e.target.value})} className="w-full rounded-xl border border-neutral-300 p-3 outline-none focus:ring-2 focus:ring-blue-500" placeholder="https://..." />
                 </div>
                 <div>
-                  <label className="block text-sm font-medium text-neutral-700 mb-1">Thumbnail Preview URL</label>
-                  <input type="url" value={projectForm.imageUrl} onChange={(e) => setProjectForm({...projectForm, imageUrl: e.target.value})} className="w-full rounded-xl border border-neutral-300 p-3 outline-none focus:ring-2 focus:ring-blue-500" placeholder="Direct link to image" />
+                  <label className="block text-sm font-medium text-neutral-700 mb-1">Thumbnail Image Upload</label>
+                  <input 
+                    type="file" 
+                    accept="image/*" 
+                    onChange={(e) => {
+                      const file = e.target.files?.[0];
+                      if (file) {
+                        const objectUrl = URL.createObjectURL(file);
+                        setProjectForm({...projectForm, imageUrl: objectUrl});
+                      }
+                    }} 
+                    className="w-full rounded-xl border border-neutral-300 p-3 outline-none focus:ring-2 focus:ring-blue-500" 
+                  />
+                  {projectForm.imageUrl && (
+                    <div className="mt-2">
+                      <img 
+                        src={projectForm.imageUrl} 
+                        alt="Preview" 
+                        className="rounded-lg object-cover" 
+                        style={{ maxWidth: '100%', maxHeight: '300px' }} 
+                      />
+                    </div>
+                  )}
                 </div>
 
                 <div className="pt-4 flex gap-3">

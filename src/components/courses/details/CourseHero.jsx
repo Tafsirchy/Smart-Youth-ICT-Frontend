@@ -76,7 +76,7 @@ export default function CourseHero({ course, onEnroll }) {
 
       {course.thumbnail && (
         <div className="absolute inset-0 opacity-10 pointer-events-none">
-          <Image src={course.thumbnail} alt="" fill className="object-cover blur-3xl saturate-200" priority={true} />
+          <Image src={course.thumbnail} alt="" fill sizes="100vw" className="object-cover blur-3xl saturate-200" priority={true} fetchPriority="high" onError={(e) => { e.target.srcset = ''; e.target.src = '/images/placeholder.png'; }} />
         </div>
       )}
 
@@ -125,7 +125,7 @@ export default function CourseHero({ course, onEnroll }) {
             {/* Instructor */}
             <div className="flex items-center gap-2">
               <div className="w-6 h-6 rounded-full bg-indigo-500 overflow-hidden relative border border-indigo-400">
-                <Image src={course?.instructor?.avatar || '/images/default-avatar.png'} alt="Instructor" fill className="object-cover" priority={true} />
+                <Image src={course?.instructor?.avatar || '/images/default-avatar.png'} alt="Instructor" fill sizes="24px" className="object-cover" priority={true} fetchPriority="high" onError={(e) => { e.target.srcset = ''; e.target.src = '/images/placeholder.png'; }} />
               </div>
               <span>By <span className="text-white font-semibold underline underline-offset-4 decoration-indigo-400/50">{instructorName}</span></span>
             </div>

@@ -209,6 +209,9 @@ export default function JobPlacementClient({ data, content }) {
               alt="Interview lab collaboration"
               fill
               sizes="(max-width: 1024px) 100vw, 50vw"
+              loading="lazy"
+              decoding="async"
+              onError={(e) => { e.target.srcset = ''; e.target.src = '/images/placeholder.png'; }}
               className="object-cover grayscale opacity-80"
             />
           </div>

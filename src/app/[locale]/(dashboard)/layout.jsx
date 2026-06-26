@@ -40,8 +40,8 @@ export default function SharedDashboardLayout({ children }) {
       />
       
       {/* Main Content Area */}
-      <div className="dashboard-main">
-        <main className="dashboard-main-content">
+      <div className="dashboard-main w-full max-w-[100vw] overflow-x-hidden">
+        <main className="dashboard-main-content px-[var(--gutter,16px)] pb-[env(safe-area-inset-bottom)]">
           {children}
         </main>
       </div>
@@ -49,7 +49,7 @@ export default function SharedDashboardLayout({ children }) {
       {/* Mobile Drawer Backdrop Overlay */}
       {sidebarOpen && (
         <div 
-          className="fixed inset-0 bg-black/60 backdrop-blur-sm z-[190] lg:hidden"
+          className="fixed inset-0 bg-black/60 backdrop-blur-sm z-[190] lg:hidden transition-opacity duration-300"
           onClick={() => setSidebarOpen(false)}
         />
       )}

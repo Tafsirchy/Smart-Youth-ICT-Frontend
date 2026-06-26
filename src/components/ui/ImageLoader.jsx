@@ -46,13 +46,14 @@ export default function ImageLoader({
       {/* Actual Image */}
       <Image
         src={src}
-        alt={alt || "Image"}
+        alt={alt || ""}
         className={cn(
           !disableTransition && "transition-opacity duration-500 ease-in-out",
           (isLoaded || disableTransition) ? "opacity-100" : "opacity-0",
           className
         )}
         onLoad={() => setIsLoaded(true)}
+        onError={(e) => { e.target.srcset = ''; e.target.src = '/images/placeholder.png'; setIsLoaded(true); }}
         priority={priority}
         fetchPriority={fetchPriority}
         {...props}

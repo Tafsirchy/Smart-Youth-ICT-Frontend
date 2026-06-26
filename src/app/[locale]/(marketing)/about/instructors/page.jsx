@@ -195,6 +195,10 @@ export default function InstructorsPage() {
                       src={instructor.image || "/images/placeholder.png"}
                       alt={instructor.name}
                       fill
+                      sizes="128px"
+                      loading="lazy"
+                      decoding="async"
+                      onError={(e) => { e.target.srcset = ''; e.target.src = '/images/placeholder.png'; }}
                       className="object-cover group-hover:scale-110 transition-transform duration-500"
                     />
                   </div>

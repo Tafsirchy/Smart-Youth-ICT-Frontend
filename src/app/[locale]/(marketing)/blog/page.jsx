@@ -74,6 +74,10 @@ function BlogCard({ post, locale }) {
               src={post.thumbnail}
               alt={title}
               fill
+              sizes="350px"
+              loading="lazy"
+              decoding="async"
+              onError={(e) => { e.target.srcset = ''; e.target.src = '/images/placeholder.png'; }}
               className="object-cover group-hover:scale-105 transition-transform duration-500"
             />
           ) : (
@@ -219,8 +223,11 @@ export default async function BlogPage({ params, searchParams }) {
                         src={posts[0].thumbnail}
                         alt={posts[0].title}
                         fill
+                        sizes="800px"
+                        priority={true}
+                        fetchPriority="high"
+                        onError={(e) => { e.target.srcset = ''; e.target.src = '/images/placeholder.png'; }}
                         className="object-cover group-hover:scale-105 transition-transform duration-700"
-                        priority
                       />
                     ) : (
                       <div className="w-full h-full flex items-center justify-center">
@@ -245,6 +252,9 @@ export default async function BlogPage({ params, searchParams }) {
                           alt="Author"
                           width={40}
                           height={40}
+                          loading="lazy"
+                          decoding="async"
+                          onError={(e) => { e.target.srcset = ''; e.target.src = '/images/placeholder.png'; }}
                           className="w-10 h-10 rounded-full"
                         />
                       ) : (

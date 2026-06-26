@@ -90,12 +90,19 @@ export default function ImageUpload({ value, onChange, label = "Upload Image" })
       
       <div className="relative group">
         {preview ? (
-          <div className="relative w-full aspect-video md:aspect-square md:w-32 rounded-2xl overflow-hidden border-2 border-slate-100 shadow-sm transition-all hover:border-pink-500/50">
-            <img 
-              src={preview} 
-              alt="Preview" 
-              className="w-full h-full object-cover"
-            />
+          <div className="relative w-full aspect-video md:aspect-square md:w-32 rounded-2xl overflow-hidden border-2 border-slate-100 shadow-sm transition-all hover:border-pink-500/50" style={{ backgroundColor: '#f0f0f0' }}>
+            <picture>
+              <img 
+                src={preview} 
+                alt="Upload Preview" 
+                width="128"
+                height="128"
+                className="w-full h-full object-cover"
+                loading="lazy"
+                decoding="async"
+                onError={(e) => { e.target.onerror = null; e.target.src = '/images/placeholder.png'; }}
+              />
+            </picture>
             
             {/* Overlay for actions when image exists */}
             <div className={`absolute inset-0 bg-slate-900/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center gap-2 ${uploading ? 'opacity-100' : ''}`}>

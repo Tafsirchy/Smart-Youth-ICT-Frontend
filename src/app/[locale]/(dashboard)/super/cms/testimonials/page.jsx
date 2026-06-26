@@ -180,6 +180,9 @@ export default function TestimonialManagementPage() {
                     }
                     width={56}
                     height={56}
+                    loading="lazy"
+                    decoding="async"
+                    onError={(e) => { e.target.srcset = ''; e.target.src = '/images/placeholder.png'; }}
                     className="w-full h-full rounded-[1.25rem] object-cover"
                   />
                 </div>

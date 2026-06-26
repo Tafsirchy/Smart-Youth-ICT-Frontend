@@ -889,19 +889,33 @@ export default function MasterCurriculumPage() {
                       </div>
                       <div className="space-y-2">
                         <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest">
-                          Thumbnail URL
+                          Thumbnail Upload
                         </label>
                         <input
-                          value={courseForm.thumbnail}
-                          onChange={(e) =>
-                            setCourseForm({
-                              ...courseForm,
-                              thumbnail: e.target.value,
-                            })
-                          }
-                          placeholder="https://example.com/image.jpg"
+                          type="file"
+                          accept="image/*"
+                          onChange={(e) => {
+                            const file = e.target.files?.[0];
+                            if (file) {
+                              const objectUrl = URL.createObjectURL(file);
+                              setCourseForm({
+                                ...courseForm,
+                                thumbnail: objectUrl,
+                              });
+                            }
+                          }}
                           className="w-full bg-slate-50 border-none rounded-2xl p-4 font-bold text-slate-700 outline-none"
                         />
+                        {courseForm.thumbnail && (
+                          <div className="mt-2">
+                            <img
+                              src={courseForm.thumbnail}
+                              alt="Preview"
+                              className="rounded-lg object-cover"
+                              style={{ maxWidth: '100%', maxHeight: '300px' }}
+                            />
+                          </div>
+                        )}
                       </div>
                       <div className="space-y-2">
                         <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest">

@@ -646,26 +646,55 @@ export default function BusinessCMS() {
 }
 
 function Field({ label, value, onChange, textarea = false, dark = false, small = false, icon = null }) {
+    const isImageField = label && label.toLowerCase().includes("image url");
     return (
         <div className={small ? "w-32" : "w-full"}>
             <label className={`block text-[10px] font-black uppercase mb-1 tracking-widest ${dark ? 'text-slate-500' : 'text-slate-400'}`}>
                 {label}
             </label>
-            <div className={`relative flex items-center ${dark ? 'bg-white/5 border-white/5' : 'bg-slate-50 border-transparent'} border rounded-lg overflow-hidden focus-within:border-blue-500/10 transition-all`}>
-                {icon && <div className="pl-4 text-slate-400">{icon}</div>}
-                {textarea ? (
-                    <textarea 
-                        rows="3" 
-                        className={`w-full px-4 py-2 bg-transparent outline-none font-medium text-[11px] leading-relaxed shrink-0 scrollbar-hide ${dark ? 'text-white' : 'text-slate-900'}`} 
-                        value={value || ""} 
-                        onChange={(e) => onChange(e.target.value)} 
-                    />
-                ) : (
-                    <input 
-                        className={`w-full px-4 py-2 bg-transparent outline-none font-black text-xs ${dark ? 'text-white' : 'text-slate-900'}`} 
-                        value={value || ""} 
-                        onChange={(e) => onChange(e.target.value)} 
-                    />
+            <div className={`relative flex flex-col ${dark ? 'bg-white/5 border-white/5' : 'bg-slate-50 border-transparent'} border rounded-lg overflow-hidden focus-within:border-blue-500/10 transition-all p-2`}>
+                <div className="flex items-center w-full">
+                    {icon && <div className="pl-2 text-slate-400">{icon}</div>}
+                    {isImageField ? (
+                        <input 
+                            type="file"
+                            accept="image/*"
+                            className={`w-full px-4 py-2 bg-transparent outline-none font-black text-xs ${dark ? 'text-white' : 'text-slate-900'}`} 
+                            onChange={(e) => {
+                                const file = e.target.files?.[0];
+                                if (file) {
+                                    const objectUrl = URL.createObjectURL(file);
+                                    onChange(objectUrl);
+                                }
+                            }} 
+                        />
+                    ) : textarea ? (
+                        <textarea 
+                            rows="3" 
+                            className={`w-full px-4 py-2 bg-transparent outline-none font-medium text-[11px] leading-relaxed shrink-0 scrollbar-hide ${dark ? 'text-white' : 'text-slate-900'}`} 
+                            value={value || ""} 
+                            onChange={(e) => onChange(e.target.value)} 
+                        />
+                    ) : (
+                        <input 
+                            className={`w-full px-4 py-2 bg-transparent outline-none font-black text-xs ${dark ? 'text-white' : 'text-slate-900'}`} 
+                            value={value || ""} 
+                            onChange={(e) => onChange(e.target.value)} 
+                        />
+                    )}
+                </div>
+                {isImageField && value && (
+                    <div className="mt-2 w-full flex justify-center">
+                        <img 
+                            src={value} 
+                            alt="Preview" 
+                            loading="lazy"
+                            decoding="async"
+                            onError={(e) => { e.target.src = '/images/placeholder.png'; }}
+                            className="rounded-lg object-cover" 
+                            style={{ maxWidth: '100%', maxHeight: '300px' }} 
+                        />
+                    </div>
                 )}
             </div>
         </div>

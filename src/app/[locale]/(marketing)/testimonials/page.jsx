@@ -96,6 +96,9 @@ export default function TestimonialsPage() {
                         alt={writerName}
                         width={48}
                         height={48}
+                        loading="lazy"
+                        decoding="async"
+                        onError={(e) => { e.target.srcset = ''; e.target.src = '/images/placeholder.png'; }}
                         className="w-full h-full object-cover"
                       />
                     </div>

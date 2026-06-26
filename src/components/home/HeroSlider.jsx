@@ -426,6 +426,7 @@ export default function HeroSlider() {
                           className="w-[600px] h-[600px]"
                           style={{
                             backgroundImage: `url(${slides[current].image})`,
+                            backgroundColor: '#f0f0f0',
                             backgroundSize: "800px auto",
                             backgroundPosition: `${card.bgX - 100}px ${card.bgY}px`,
                           }}
@@ -436,12 +437,13 @@ export default function HeroSlider() {
                         */}
                         <img
                           src={slides[current].image}
-                          alt=""
+                          alt="Preload Image"
                           className="hidden"
                           sizes="(max-width: 768px) 100vw, 50vw"
                           fetchPriority={
                             slides[current].id === 1 ? "high" : "auto"
                           }
+                          onError={(e) => { e.target.onerror = null; e.target.src = '/images/placeholder.png'; }}
                         />
                       </motion.div>
                     ))}
@@ -637,7 +639,7 @@ export default function HeroSlider() {
                               src={slides[current].archImage}
                               alt="Student Left"
                               fill
-                              sizes="(max-width: 768px) 120px, 170px"
+                              sizes="(max-width: 768px) 50vw, 33vw"
                               priority={false}
                               className="w-full h-full object-cover"
                               wrapperClassName="w-full h-full"
@@ -665,7 +667,7 @@ export default function HeroSlider() {
                               src={slides[current].image}
                               alt="Student Right"
                               fill
-                              sizes="(max-width: 768px) 120px, 170px"
+                              sizes="(max-width: 768px) 50vw, 33vw"
                               priority={false}
                               className="w-full h-full object-cover"
                               wrapperClassName="w-full h-full"

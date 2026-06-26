@@ -217,6 +217,9 @@ export default function Testimonials() {
                     alt={video.name || "Video testimonial thumbnail"}
                     fill
                     sizes="300px"
+                    loading="lazy"
+                    decoding="async"
+                    onError={(e) => { e.target.srcset = ''; e.target.src = '/images/placeholder.png'; }}
                     className="object-cover group-hover:scale-110 transition-transform duration-500"
                   />
                   <div className="absolute inset-0 bg-black/40 group-hover:bg-black/20 transition-all flex flex-col items-center justify-center">

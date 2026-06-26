@@ -35,6 +35,10 @@ export default function InstructorSection({ course }) {
               src={instructor.avatar} 
               alt={instructor.name} 
               fill 
+              sizes="160px"
+              loading="lazy"
+              decoding="async"
+              onError={(e) => { e.target.srcset = ''; e.target.src = '/images/placeholder.png'; }}
               className="object-cover bg-slate-100"
             />
           </div>

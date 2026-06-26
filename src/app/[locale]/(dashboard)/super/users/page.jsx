@@ -130,16 +130,16 @@ export default function GlobalUserManagement() {
   };
 
   return (
-    <div className="space-y-10 pb-20 max-w-7xl mx-auto">
+    <div className="space-y-6 pb-10 max-w-7xl mx-auto">
       {/* Dynamic Header */}
-      <header className="flex flex-col md:flex-row justify-between items-start md:items-center gap-6">
+      <header className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
          <div>
-            <h1 className="text-4xl font-black text-slate-900 tracking-tighter">User Registry</h1>
+            <h1 className="text-3xl font-black text-slate-900 tracking-tighter leading-tight">User Registry</h1>
             <p className="text-slate-400 font-medium text-sm mt-1 uppercase tracking-widest text-[10px]">Global Ecosystem Oversight</p>
          </div>
          <button 
            onClick={() => openForm()}
-           className="px-8 py-4 bg-indigo-600 text-white rounded-2xl font-black shadow-xl shadow-indigo-600/20 hover:scale-[1.02] active:scale-95 transition-all flex items-center gap-3"
+           className="px-6 py-3 bg-indigo-600 text-white rounded-xl font-black shadow-xl shadow-indigo-600/20 hover:scale-[1.02] active:scale-95 transition-all flex items-center gap-2"
          >
            <HiOutlineUserPlus size={20} />
            Provision User
@@ -147,21 +147,21 @@ export default function GlobalUserManagement() {
       </header>
 
       {/* Control Bar */}
-      <div className="grid grid-cols-1 lg:grid-cols-4 gap-4 bg-white p-4 rounded-[2.5rem] shadow-sm border border-slate-50">
+      <div className="grid grid-cols-1 lg:grid-cols-4 gap-3 bg-white p-4 rounded-2xl shadow-sm border border-slate-50">
          <div className="lg:col-span-2 relative">
-            <HiOutlineMagnifyingGlass className="absolute left-6 top-1/2 -translate-y-1/2 text-slate-400" size={20} />
+            <HiOutlineMagnifyingGlass className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400" size={20} />
             <input 
               type="text"
               placeholder="Search by name, email, or credentials..."
-              className="w-full pl-16 pr-6 py-4 bg-slate-50 border-none rounded-2xl text-sm font-bold focus:ring-2 focus:ring-indigo-500 transition-all"
+              className="w-full pl-12 pr-4 py-3 bg-slate-50 border-none rounded-xl text-sm font-bold focus:ring-2 focus:ring-indigo-500 transition-all"
               value={search}
               onChange={(e) => setSearch(e.target.value)}
             />
          </div>
          <div className="relative">
-            <HiOutlineFunnel className="absolute left-6 top-1/2 -translate-y-1/2 text-slate-400" size={18} />
+            <HiOutlineFunnel className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400" size={18} />
             <select 
-              className="w-full pl-14 pr-6 py-4 bg-slate-50 border-none rounded-2xl text-sm font-bold focus:ring-2 focus:ring-indigo-500 transition-all appearance-none"
+              className="w-full pl-10 pr-4 py-3 bg-slate-50 border-none rounded-xl text-sm font-bold focus:ring-2 focus:ring-indigo-500 transition-all appearance-none"
               value={filterRole}
               onChange={(e) => setFilterRole(e.target.value)}
             >
@@ -175,9 +175,9 @@ export default function GlobalUserManagement() {
             </select>
          </div>
          <div className="relative">
-            <HiOutlineBuildingOffice className="absolute left-6 top-1/2 -translate-y-1/2 text-slate-400" size={18} />
+            <HiOutlineBuildingOffice className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400" size={18} />
             <select 
-              className="w-full pl-14 pr-6 py-4 bg-slate-50 border-none rounded-2xl text-sm font-bold focus:ring-2 focus:ring-indigo-500 transition-all appearance-none"
+              className="w-full pl-10 pr-4 py-3 bg-slate-50 border-none rounded-xl text-sm font-bold focus:ring-2 focus:ring-indigo-500 transition-all appearance-none"
               value={filterBranch}
               onChange={(e) => setFilterBranch(e.target.value)}
             >
@@ -188,40 +188,40 @@ export default function GlobalUserManagement() {
       </div>
 
       {/* Registry Table */}
-      <div className="bg-white rounded-[3rem] border border-slate-100 shadow-sm overflow-hidden overflow-x-auto">
+      <div className="bg-white rounded-2xl border border-slate-100 shadow-sm overflow-hidden overflow-x-auto">
          <table className="w-full text-left border-collapse">
             <thead>
                <tr className="bg-slate-50 text-slate-400 uppercase text-[10px] font-black tracking-widest">
-                  <th className="px-10 py-6">Identity Node</th>
-                  <th className="px-10 py-6">Access Layer</th>
-                  <th className="px-10 py-6">Branch Assignment</th>
-                  <th className="px-10 py-6">State</th>
-                  <th className="px-10 py-6 text-right">Actions</th>
+                  <th className="px-6 py-4">Identity Node</th>
+                  <th className="px-6 py-4">Access Layer</th>
+                  <th className="px-6 py-4">Branch Assignment</th>
+                  <th className="px-6 py-4">State</th>
+                  <th className="px-6 py-4 text-right">Actions</th>
                </tr>
             </thead>
             <tbody className="divide-y divide-slate-50 text-slate-700">
                {loading ? (
                  [...Array(5)].map((_, i) => (
                    <tr key={i} className="animate-pulse">
-                      <td colSpan={5} className="px-10 py-8 h-20 bg-slate-50/20" />
+                      <td colSpan={5} className="px-6 py-6 h-16 bg-slate-50/20" />
                    </tr>
                  ))
                ) : (
                  users.map(user => (
                    <tr key={user._id} className="group hover:bg-slate-50/50 transition-all">
-                      <td className="px-10 py-6">
-                        <div className="flex items-center gap-4">
-                           <div className="w-12 h-12 rounded-2xl bg-indigo-50 text-indigo-500 font-black flex items-center justify-center border border-indigo-100">
+                      <td className="px-6 py-4">
+                        <div className="flex items-center gap-3">
+                           <div className="w-10 h-10 rounded-xl bg-indigo-50 text-indigo-500 font-black flex items-center justify-center border border-indigo-100">
                               {user.name.charAt(0)}
                            </div>
                            <div>
-                              <p className="font-extrabold text-slate-900 leading-none mb-1.5">{user.name}</p>
+                              <p className="font-extrabold text-slate-900 leading-none mb-1">{user.name}</p>
                               <p className="text-xs text-slate-400 font-medium">{user.email}</p>
                            </div>
                         </div>
                       </td>
-                      <td className="px-10 py-6">
-                        <span className={`px-3 py-1 rounded-lg text-[10px] font-black uppercase tracking-widest ${
+                      <td className="px-6 py-4">
+                        <span className={`px-2 py-1 rounded-md text-[10px] font-black uppercase tracking-widest ${
                           user.role === 'super_admin' ? 'bg-pink-100 text-pink-600' :
                           user.role === 'branch_admin' ? 'bg-blue-100 text-blue-600' :
                           user.role === 'instructor' ? 'bg-amber-100 text-amber-600' :
@@ -230,27 +230,27 @@ export default function GlobalUserManagement() {
                           {user.role.replace('_', ' ')}
                         </span>
                       </td>
-                      <td className="px-10 py-6">
+                      <td className="px-6 py-4">
                          <div className="flex items-center gap-2 text-xs font-bold text-slate-500">
                             <HiOutlineBuildingOffice className="text-slate-300" size={14} />
                             {user.branchId ? (branches.find(b => b._id === user.branchId)?.name || 'Unknown Node') : 'Global HQ'}
                          </div>
                       </td>
-                      <td className="px-10 py-6">
+                      <td className="px-6 py-4">
                          <div className={`flex items-center gap-2 text-[10px] font-black uppercase tracking-widest ${user.isActive ? 'text-emerald-500' : 'text-rose-500'}`}>
                             {user.isActive ? <HiOutlineCheckCircle size={14} /> : <HiOutlineXCircle size={14} />}
                             {user.isActive ? 'Active Node' : 'Suspended'}
                          </div>
                       </td>
-                      <td className="px-10 py-6 text-right font-medium">
+                      <td className="px-6 py-4 text-right font-medium">
                         <div className="flex justify-end gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
-                           <button onClick={() => openForm(user)} className="p-2 hover:bg-white hover:text-indigo-600 rounded-xl transition-all text-slate-300">
+                           <button onClick={() => openForm(user)} className="p-1.5 hover:bg-white hover:text-indigo-600 rounded-lg transition-all text-slate-300">
                               <HiOutlinePencilSquare size={18} />
                            </button>
-                           <button onClick={() => handleDeactivate(user)} className="p-2 hover:bg-white hover:text-amber-600 rounded-xl transition-all text-slate-300">
+                           <button onClick={() => handleDeactivate(user)} className="p-1.5 hover:bg-white hover:text-amber-600 rounded-lg transition-all text-slate-300">
                               <HiOutlineShieldCheck size={18} />
                            </button>
-                           <button onClick={() => handleDelete(user)} className="p-2 hover:bg-white hover:text-rose-600 rounded-xl transition-all text-slate-300">
+                           <button onClick={() => handleDelete(user)} className="p-1.5 hover:bg-white hover:text-rose-600 rounded-lg transition-all text-slate-300">
                               <HiOutlineTrash size={18} />
                            </button>
                         </div>
@@ -263,7 +263,7 @@ export default function GlobalUserManagement() {
 
          {/* Pagination Footer */}
          {!loading && users.length > 0 && (
-           <div className="px-10 py-6 bg-slate-50/50 border-t border-slate-50 flex items-center justify-between">
+           <div className="px-6 py-4 bg-slate-50/50 border-t border-slate-50 flex items-center justify-between">
               <div className="text-[10px] font-black uppercase tracking-widest text-slate-400">
                   {total > 0 ? (
                     <>Showing <span className="text-slate-900">{(page-1)*limit + 1}</span> - <span className="text-slate-900">{Math.min(page*limit, total)}</span> of <span className="text-slate-900">{total}</span> nodes</>
@@ -276,7 +276,7 @@ export default function GlobalUserManagement() {
                    type="button"
                    disabled={page === 1}
                    onClick={() => setPage(p => p - 1)}
-                   className="p-2 rounded-xl bg-white border border-slate-100 text-slate-600 disabled:opacity-30 hover:bg-slate-50 transition-all font-bold text-xs px-4"
+                   className="p-1.5 rounded-lg bg-white border border-slate-100 text-slate-600 disabled:opacity-30 hover:bg-slate-50 transition-all font-bold text-xs px-3"
                  >
                    Previous
                  </button>
@@ -292,7 +292,7 @@ export default function GlobalUserManagement() {
                            key={p}
                            type="button"
                            onClick={() => setPage(p)}
-                           className={`w-8 h-8 rounded-lg text-xs font-black transition-all ${page === p ? 'bg-indigo-600 text-white shadow-lg shadow-indigo-600/20' : 'bg-white text-slate-400 hover:bg-slate-50'}`}
+                           className={`w-8 h-8 rounded-md text-xs font-black transition-all ${page === p ? 'bg-indigo-600 text-white shadow-lg shadow-indigo-600/20' : 'bg-white text-slate-400 hover:bg-slate-50'}`}
                          >
                            {p}
                          </button>
@@ -303,7 +303,7 @@ export default function GlobalUserManagement() {
                    type="button"
                    disabled={page === totalPages}
                    onClick={() => setPage(p => p + 1)}
-                   className="p-2 rounded-xl bg-white border border-slate-100 text-slate-600 disabled:opacity-30 hover:bg-slate-50 transition-all font-bold text-xs px-4"
+                   className="p-1.5 rounded-lg bg-white border border-slate-100 text-slate-600 disabled:opacity-30 hover:bg-slate-50 transition-all font-bold text-xs px-3"
                  >
                    Next
                  </button>
@@ -312,7 +312,7 @@ export default function GlobalUserManagement() {
          )}
 
          {users.length === 0 && !loading && (
-           <div className="py-20 text-center space-y-4">
+           <div className="py-10 text-center space-y-2">
               <HiOutlineUserPlus size={40} className="mx-auto text-slate-200" />
               <p className="text-slate-400 font-bold uppercase tracking-widest text-[10px]">No biological nodes detected with current parameters</p>
            </div>
@@ -335,37 +335,37 @@ export default function GlobalUserManagement() {
                     initial={{ scale: 0.9, opacity: 0, y: 20 }}
                     animate={{ scale: 1, opacity: 1, y: 0 }}
                     exit={{ scale: 0.9, opacity: 0, y: 20 }}
-                    className="relative w-full max-w-2xl bg-white rounded-[3rem] overflow-hidden shadow-2xl"
+                    className="relative w-full max-w-2xl bg-white rounded-2xl overflow-hidden shadow-2xl"
                   >
-                     <form onSubmit={handleSubmit} className="p-10 space-y-8">
+                     <form onSubmit={handleSubmit} className="p-6 space-y-4">
                         <div className="flex justify-between items-center mb-4">
                            <div>
-                              <h3 className="text-3xl font-black text-slate-900 tracking-tighter">
+                              <h3 className="text-2xl font-black text-slate-900 tracking-tighter leading-tight">
                                 {editingUser ? 'Synchronize Identity' : 'Provision New Identity'}
                               </h3>
                               <p className="text-slate-400 font-medium text-xs uppercase tracking-widest mt-1">Ecosystem Node Management</p>
                            </div>
-                           <button type="button" onClick={() => setShowModal(false)} className="w-12 h-12 rounded-2xl bg-slate-50 text-slate-400 flex items-center justify-center hover:bg-slate-100">
+                           <button type="button" onClick={() => setShowModal(false)} className="w-10 h-10 rounded-xl bg-slate-50 text-slate-400 flex items-center justify-center hover:bg-slate-100">
                               <HiOutlineXCircle size={24} />
                            </button>
                         </div>
 
-                        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                           <div className="space-y-2">
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                           <div className="space-y-1">
                               <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest ml-1">Universal Name</label>
                               <input 
                                 required
-                                className="w-full px-6 py-4 bg-slate-50 border-none rounded-2xl text-sm font-bold focus:ring-2 focus:ring-indigo-500 transition-all"
+                                className="w-full px-4 py-3 bg-slate-50 border-none rounded-xl text-sm font-bold focus:ring-2 focus:ring-indigo-500 transition-all"
                                 value={formData.name}
                                 onChange={(e) => setFormData({...formData, name: e.target.value})}
                               />
                            </div>
-                           <div className="space-y-2">
+                           <div className="space-y-1">
                               <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest ml-1">Email Credentials</label>
                               <input 
                                 required
                                 type="email"
-                                className="w-full px-6 py-4 bg-slate-50 border-none rounded-2xl text-sm font-bold focus:ring-2 focus:ring-indigo-500 transition-all"
+                                className="w-full px-4 py-3 bg-slate-50 border-none rounded-xl text-sm font-bold focus:ring-2 focus:ring-indigo-500 transition-all"
                                 value={formData.email}
                                 onChange={(e) => setFormData({...formData, email: e.target.value})}
                               />
@@ -373,23 +373,23 @@ export default function GlobalUserManagement() {
                         </div>
 
                         {!editingUser && (
-                           <div className="space-y-2">
+                           <div className="space-y-1">
                               <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest ml-1">Initial Secure Key (Password)</label>
                               <input 
                                 required
                                 type="password"
-                                className="w-full px-6 py-4 bg-slate-50 border-none rounded-2xl text-sm font-bold focus:ring-2 focus:ring-indigo-500 transition-all"
+                                className="w-full px-4 py-3 bg-slate-50 border-none rounded-xl text-sm font-bold focus:ring-2 focus:ring-indigo-500 transition-all"
                                 value={formData.password}
                                 onChange={(e) => setFormData({...formData, password: e.target.value})}
                               />
                            </div>
                         )}
 
-                        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                           <div className="space-y-2">
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                           <div className="space-y-1">
                               <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest ml-1">Hierarchy Role</label>
                               <select 
-                                className="w-full px-6 py-4 bg-slate-50 border-none rounded-2xl text-sm font-bold focus:ring-2 focus:ring-indigo-500 transition-all disabled:opacity-50"
+                                className="w-full px-4 py-3 bg-slate-50 border-none rounded-xl text-sm font-bold focus:ring-2 focus:ring-indigo-500 transition-all disabled:opacity-50"
                                 value={formData.role}
                                 disabled={editingUser && (editingUser._id === currentUser?.id || administrativeRoles.includes(editingUser.role))}
                                 onChange={(e) => setFormData({...formData, role: e.target.value})}
@@ -407,10 +407,10 @@ export default function GlobalUserManagement() {
                                 </p>
                               )}
                            </div>
-                           <div className="space-y-2">
+                           <div className="space-y-1">
                               <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest ml-1">Geographical Node (Branch)</label>
                               <select 
-                                className="w-full px-6 py-4 bg-slate-50 border-none rounded-2xl text-sm font-bold focus:ring-2 focus:ring-indigo-500 transition-all"
+                                className="w-full px-4 py-3 bg-slate-50 border-none rounded-xl text-sm font-bold focus:ring-2 focus:ring-indigo-500 transition-all"
                                 value={formData.branchId}
                                 onChange={(e) => setFormData({...formData, branchId: e.target.value})}
                               >
@@ -420,7 +420,7 @@ export default function GlobalUserManagement() {
                            </div>
                         </div>
 
-                        <div className="flex items-center justify-between pt-4">
+                        <div className="flex items-center justify-between pt-2">
                            <div className="flex items-center gap-3">
                               <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Active Access Node</p>
                               <button 
@@ -431,7 +431,7 @@ export default function GlobalUserManagement() {
                                  <div className={`absolute top-1 w-6 h-6 bg-white rounded-full transition-all ${formData.isActive ? 'right-1' : 'left-1'}`} />
                               </button>
                            </div>
-                           <button type="submit" className="px-10 py-5 bg-indigo-600 text-white rounded-2xl font-black shadow-xl shadow-indigo-600/30 hover:-translate-y-1 transition-all">
+                           <button type="submit" className="px-6 py-3 bg-indigo-600 text-white rounded-xl font-black shadow-xl shadow-indigo-600/30 hover:-translate-y-1 transition-all">
                               {editingUser ? 'Synchronize Updates' : 'Establish Access Node'}
                            </button>
                         </div>

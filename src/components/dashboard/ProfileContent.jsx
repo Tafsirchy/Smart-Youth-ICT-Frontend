@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useSession } from "next-auth/react";
 import Image from "next/image";
 import { motion } from "framer-motion";
@@ -23,6 +23,7 @@ export default function ProfileContent() {
   const { data: session, update } = useSession();
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
+  const fileInputRef = useRef(null);
   const [passSaving, setPassSaving] = useState(false);
 
   const [form, setForm] = useState({
@@ -97,18 +98,20 @@ export default function ProfileContent() {
     }
   };
 
-  const handleAvatarUpdate = async () => {
-    const url = window.prompt(
-      "Enter cryptographic Avatar URL:",
-      session?.user?.image || "",
-    );
-    if (!url) return;
+  const handleAvatarUpdate = async (e) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
 
+    if (!file.type.startsWith("image/")) {
+      return toast.error("Please upload an image file");
+    }
+
+    const objectUrl = URL.createObjectURL(file);
     setSaving(true);
     try {
-      const res = await api.put("/users/me", { avatar: url });
+      const res = await api.put("/users/me", { avatar: objectUrl });
       if (res.data.success) {
-        await update({ user: { ...session?.user, image: url } });
+        await update({ user: { ...session?.user, image: objectUrl } });
         toast.success("Visual identity updated");
       }
     } catch (err) {
@@ -151,8 +154,15 @@ export default function ProfileContent() {
                 </div>
               )}
             </div>
+            <input
+              type="file"
+              ref={fileInputRef}
+              accept="image/*"
+              className="hidden"
+              onChange={handleAvatarUpdate}
+            />
             <button
-              onClick={handleAvatarUpdate}
+              onClick={() => fileInputRef.current?.click()}
               className="absolute -bottom-2 -right-2 w-10 h-10 bg-pink-600 text-white rounded-xl shadow-lg flex items-center justify-center hover:scale-105 active:scale-95 transition-all ring-2 ring-slate-900"
             >
               <HiOutlineCamera size={18} />

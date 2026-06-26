@@ -159,6 +159,9 @@ export default function MemberManagement({ type, title, subtitle }) {
                   alt={member.name || "Member image"}
                   fill
                   sizes="80px"
+                  loading="lazy"
+                  decoding="async"
+                  onError={(e) => { e.target.srcset = ''; e.target.src = '/images/placeholder.png'; }}
                   className="object-cover"
                 />
               </div>

@@ -193,6 +193,26 @@ export default function AllBranchesPage() {
     }
   };
 
+  const handleEditBranch = (branch) => {
+    setEditingBranch(branch);
+    setFormData({
+      name: branch.name,
+      code: branch.code,
+      type: branch.type,
+      establishedDate: branch.establishedDate?.split("T")[0],
+      logo: branch.logo,
+      website: branch.website,
+      address: branch.address || { street: "", area: "", city: "", country: "Bangladesh" },
+      location: branch.location?.type === "Point" && branch.location.coordinates
+        ? { lat: branch.location.coordinates[1], long: branch.location.coordinates[0], googleMapsUrl: branch.location.googleMapsUrl }
+        : branch.location || { lat: "", long: "", googleMapsUrl: "" },
+      contact: branch.contact || { email: "", phones: [""] },
+      officeHours: branch.officeHours?.length ? branch.officeHours : defaultHours,
+      adminName: "", adminEmail: "", adminPassword: "",
+    });
+    setShowModal(true);
+  };
+
   const filteredBranches = branches.filter(
     (b) =>
       b.name.toLowerCase().includes(search.toLowerCase()) ||
@@ -200,35 +220,35 @@ export default function AllBranchesPage() {
   );
 
   return (
-    <div className="space-y-10 max-w-7xl mx-auto pb-20">
+    <div className="space-y-4 md:space-y-6 max-w-7xl mx-auto pb-4 md:pb-10">
       {/* Header Section */}
-      <header className="flex flex-col md:flex-row md:items-end justify-between gap-6">
+      <header className="flex flex-col md:flex-row md:items-end justify-between gap-4">
         <div>
           <motion.h1
             initial={{ opacity: 0, x: -20 }}
             animate={{ opacity: 1, x: 0 }}
-            className="text-4xl font-black text-slate-900 tracking-tight flex items-center gap-4"
+            className="text-3xl font-black text-slate-900 tracking-tight flex items-center gap-3 leading-tight"
           >
-            <span className="p-3 bg-pink-500 text-white rounded-2xl shadow-lg shadow-pink-500/20">
-              <HiOutlineBuildingOffice size={32} />
+            <span className="p-2 bg-pink-500 text-white rounded-xl shadow-lg shadow-pink-500/20">
+              <HiOutlineBuildingOffice size={28} />
             </span>
             Branch Network
           </motion.h1>
-          <p className="mt-4 text-slate-500 font-medium max-w-md">
+          <p className="mt-2 text-slate-500 font-medium max-w-md leading-snug">
             The infrastructure of SYICT. High-fidelity management of global
             locations, performance metrics, and operational hours.
           </p>
         </div>
 
-        <div className="flex items-center gap-4">
-          <div className="relative group">
-            <HiOutlineMagnifyingGlass className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 group-focus-within:text-pink-500 transition-colors" />
+        <div className="flex items-center gap-3 w-full md:w-auto">
+          <div className="relative group flex-1 md:flex-none">
+            <HiOutlineMagnifyingGlass className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 group-focus-within:text-pink-500 transition-colors" />
             <input
               type="text"
               placeholder="Search network..."
               value={search}
               onChange={(e) => setSearch(e.target.value)}
-              className="pl-11 pr-6 py-3.5 bg-white border border-slate-200 rounded-2xl w-full md:w-64 focus:ring-4 focus:ring-pink-500/10 focus:border-pink-500 transition-all outline-none font-medium text-slate-700 shadow-sm"
+              className="pl-9 pr-4 py-2 bg-white border border-slate-200 rounded-xl w-full md:w-64 focus:ring-4 focus:ring-pink-500/10 focus:border-pink-500 transition-all outline-none font-medium text-slate-700 shadow-sm"
             />
           </div>
           <motion.button
@@ -238,7 +258,7 @@ export default function AllBranchesPage() {
               setFormData({ ...formData, officeHours: defaultHours });
               setShowModal(true);
             }}
-            className="flex items-center gap-2 bg-slate-900 text-white px-6 py-3.5 rounded-2xl font-bold shadow-xl shadow-slate-900/20 hover:bg-slate-800 transition-all text-sm whitespace-nowrap"
+            className="hidden md:flex items-center gap-2 bg-slate-900 text-white px-4 py-2 rounded-xl font-bold shadow-xl shadow-slate-900/20 hover:bg-slate-800 transition-all text-sm whitespace-nowrap"
           >
             <HiOutlinePlus size={20} />
             Onboard Branch
@@ -251,13 +271,13 @@ export default function AllBranchesPage() {
         variants={container}
         initial="hidden"
         animate="show"
-        className="grid grid-cols-1 md:grid-cols-3 gap-6"
+        className="grid grid-cols-1 md:grid-cols-3 gap-4"
       >
         {branches.slice(0, 3).map((branch, idx) => (
           <motion.div
             key={branch._id}
             variants={item}
-            className="relative overflow-hidden group bg-white p-7 rounded-[2.5rem] border border-slate-100 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-500"
+            className="relative overflow-hidden group bg-white p-5 rounded-2xl border border-slate-100 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-500"
           >
             <div
               className={`absolute top-0 right-0 w-32 h-32 -mr-8 -mt-8 rounded-full blur-3xl opacity-10 transition-opacity group-hover:opacity-20 ${idx === 0 ? "bg-pink-500" : idx === 1 ? "bg-blue-500" : "bg-emerald-500"}`}
@@ -265,15 +285,15 @@ export default function AllBranchesPage() {
 
             <div className="flex justify-between items-start">
               <div>
-                <span className="text-[10px] font-black uppercase tracking-widest text-slate-400 bg-slate-50 px-3 py-1 rounded-full mb-3 inline-block">
+                <span className="text-[10px] font-black uppercase tracking-widest text-slate-400 bg-slate-50 px-2 py-1 rounded-md mb-2 inline-block">
                   {branch.code} • {branch.type?.replace("_", " ")}
                 </span>
-                <h3 className="text-xl font-black text-slate-800 group-hover:text-pink-600 transition-colors line-clamp-1">
+                <h3 className="text-lg font-black text-slate-800 group-hover:text-pink-600 transition-colors line-clamp-1 leading-tight">
                   {branch.name}
                 </h3>
               </div>
               <div
-                className={`p-3 rounded-2xl ${branch.isActive ? "bg-emerald-50 text-emerald-600" : "bg-slate-50 text-slate-400"}`}
+                className={`p-2 rounded-xl ${branch.isActive ? "bg-emerald-50 text-emerald-600" : "bg-slate-50 text-slate-400"}`}
               >
                 {branch.isActive ? (
                   <HiOutlineShieldCheck size={20} />
@@ -283,16 +303,16 @@ export default function AllBranchesPage() {
               </div>
             </div>
 
-            <div className="mt-8 pt-6 border-t border-slate-50 flex items-center justify-between">
-              <div className="flex items-center gap-3">
-                <div className="w-8 h-8 rounded-lg bg-slate-50 text-slate-400 flex items-center justify-center group-hover:bg-blue-50 group-hover:text-blue-600 transition-colors">
-                  <HiOutlineMapPin size={16} />
+            <div className="mt-4 pt-3 border-t border-slate-50 flex items-center justify-between">
+              <div className="flex items-center gap-2">
+                <div className="w-6 h-6 rounded-md bg-slate-50 text-slate-400 flex items-center justify-center group-hover:bg-blue-50 group-hover:text-blue-600 transition-colors">
+                  <HiOutlineMapPin size={14} />
                 </div>
                 <div>
                   <p className="text-[9px] font-black text-slate-400 uppercase tracking-widest">
                     Location
                   </p>
-                  <p className="text-xs font-bold text-slate-700">
+                  <p className="text-xs font-bold text-slate-700 leading-snug">
                     {branch.address?.city || "HQ"}
                   </p>
                 </div>
@@ -308,8 +328,8 @@ export default function AllBranchesPage() {
               </a>
             </div>
 
-            <div className="mt-6 flex items-center justify-between">
-              <div className="space-y-1">
+            <div className="mt-3 flex items-center justify-between">
+              <div className="space-y-0.5">
                 <p className="text-[10px] font-bold text-slate-400 uppercase tracking-tighter">
                   Established
                 </p>
@@ -333,17 +353,17 @@ export default function AllBranchesPage() {
       </motion.section>
 
       {/* Main Directory Table */}
-      <section className="bg-white rounded-[2.5rem] border border-slate-100 shadow-sm overflow-hidden">
-        <div className="px-10 py-8 border-b border-slate-50 flex items-center justify-between bg-slate-50/20">
-          <h2 className="text-xl font-black text-slate-900">
+      <section className="bg-white rounded-2xl border border-slate-100 shadow-sm overflow-hidden">
+        <div className="px-6 py-4 border-b border-slate-50 flex items-center justify-between bg-slate-50/20">
+          <h2 className="text-lg font-black text-slate-900 leading-tight">
             Infrastructure Directory
           </h2>
-          <div className="flex items-center gap-4">
-            <div className="flex gap-1.5 p-1 bg-slate-100 rounded-xl">
+          <div className="flex items-center gap-3">
+            <div className="flex gap-1 p-1 bg-slate-100 rounded-lg">
               {["All", "HQ", "Active"].map((f) => (
                 <button
                   key={f}
-                  className={`px-3 py-1.5 rounded-lg text-[10px] font-black uppercase tracking-tight transition-all ${f === "All" ? "bg-white shadow-sm text-slate-900" : "text-slate-400"}`}
+                  className={`px-2 py-1 rounded-md text-[10px] font-black uppercase tracking-tight transition-all ${f === "All" ? "bg-white shadow-sm text-slate-900" : "text-slate-400"}`}
                 >
                   {f}
                 </button>
@@ -352,7 +372,49 @@ export default function AllBranchesPage() {
           </div>
         </div>
 
-        <div className="overflow-x-auto">
+        {/* Mobile View */}
+        <div className="grid grid-cols-1 gap-4 p-4 md:hidden">
+          {loading ? (
+            [...Array(3)].map((_, i) => (
+              <div key={i} className="animate-pulse h-32 bg-slate-50 rounded-2xl" />
+            ))
+          ) : (
+            filteredBranches.map((branch) => (
+              <div key={branch._id} className="p-5 border border-slate-100 rounded-2xl bg-white shadow-sm flex flex-col gap-4 relative">
+                <div className="flex items-center justify-between">
+                   <div className="flex items-center gap-3">
+                      <div className="w-10 h-10 rounded-xl bg-slate-100 flex items-center justify-center text-slate-400 font-bold overflow-hidden">
+                         {branch.logo ? (
+                            <Image src={branch.logo} alt={branch.name} width={40} height={40} className="w-full h-full object-cover" />
+                         ) : ( branch.code )}
+                      </div>
+                      <div>
+                         <p className="font-bold text-slate-800 leading-tight">{branch.name}</p>
+                         <p className="text-[10px] text-slate-400 font-bold uppercase flex items-center gap-1 mt-1">
+                            <HiOutlineMapPin /> {branch.address?.city}
+                         </p>
+                      </div>
+                   </div>
+                   <span className={`px-2 py-1 rounded-md text-[8px] font-black uppercase tracking-widest ${branch.type === "head_office" ? "bg-amber-100 text-amber-600" : "bg-slate-100 text-slate-500"}`}>
+                      {branch.type?.replace("_", " ")}
+                   </span>
+                </div>
+                
+                <div className="flex items-center gap-2 border-t border-slate-50 pt-4">
+                   <button onClick={() => handleEditBranch(branch)} className="flex-1 py-3 bg-slate-50 text-slate-600 rounded-xl text-xs font-bold hover:bg-slate-100 transition-colors flex items-center justify-center gap-2">
+                      <HiOutlinePencilSquare size={16} /> Edit
+                   </button>
+                   <button onClick={() => handleDeactivate(branch)} className="p-3 bg-red-50 text-red-500 rounded-xl hover:bg-red-100 transition-colors">
+                      <HiOutlineTrash size={16} />
+                   </button>
+                </div>
+              </div>
+            ))
+          )}
+        </div>
+
+        {/* Desktop View */}
+        <div className="hidden md:block overflow-x-auto">
           <table className="w-full text-left">
             <thead>
               <tr className="bg-slate-50/50">
@@ -460,49 +522,7 @@ export default function AllBranchesPage() {
                         <td className="px-10 py-6 text-right">
                           <div className="flex justify-end gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
                             <button
-                              onClick={() => {
-                                setEditingBranch(branch);
-                                setFormData({
-                                  name: branch.name,
-                                  code: branch.code,
-                                  type: branch.type,
-                                  establishedDate:
-                                    branch.establishedDate?.split("T")[0],
-                                  logo: branch.logo,
-                                  website: branch.website,
-                                  address: branch.address || {
-                                    street: "",
-                                    area: "",
-                                    city: "",
-                                    country: "Bangladesh",
-                                  },
-                                  location:
-                                    branch.location?.type === "Point" &&
-                                    branch.location.coordinates
-                                      ? {
-                                          lat: branch.location.coordinates[1],
-                                          long: branch.location.coordinates[0],
-                                          googleMapsUrl:
-                                            branch.location.googleMapsUrl,
-                                        }
-                                      : branch.location || {
-                                          lat: "",
-                                          long: "",
-                                          googleMapsUrl: "",
-                                        },
-                                  contact: branch.contact || {
-                                    email: "",
-                                    phones: [""],
-                                  },
-                                  officeHours: branch.officeHours?.length
-                                    ? branch.officeHours
-                                    : defaultHours,
-                                  adminName: "",
-                                  adminEmail: "",
-                                  adminPassword: "",
-                                });
-                                setShowModal(true);
-                              }}
+                              onClick={() => handleEditBranch(branch)}
                               className="p-2 hover:bg-white hover:text-slate-900 rounded-xl text-slate-300 transition-all"
                             >
                               <HiOutlinePencilSquare size={18} />
@@ -523,21 +543,36 @@ export default function AllBranchesPage() {
         </div>
       </section>
 
+      {/* Sticky Bottom CTA for Mobile */}
+      <div className="fixed bottom-0 left-0 right-0 p-4 bg-white/80 backdrop-blur-lg border-t border-slate-100 z-[90] md:hidden pb-[calc(1rem+env(safe-area-inset-bottom))]">
+        <motion.button
+          whileTap={{ scale: 0.98 }}
+          onClick={() => {
+            setFormData({ ...formData, officeHours: defaultHours });
+            setShowModal(true);
+          }}
+          className="w-full flex items-center justify-center gap-2 bg-slate-900 text-white px-6 py-4 rounded-2xl font-bold shadow-xl shadow-slate-900/20 active:bg-slate-800 transition-all text-sm"
+        >
+          <HiOutlinePlus size={20} />
+          Onboard Branch
+        </motion.button>
+      </div>
+
       {/* Premium Onboarding Modal */}
       <Portal>
         <AnimatePresence>
           {showModal && (
-            <div className="fixed inset-0 z-[9999] flex items-center justify-center p-6 bg-black/95 backdrop-blur-sm">
+            <div className="fixed inset-0 z-[9999] flex items-center justify-center p-4 bg-black/95 backdrop-blur-sm">
               <motion.div
                 initial={{ scale: 0.9, opacity: 0, y: 20 }}
                 animate={{ scale: 1, opacity: 1, y: 0 }}
                 exit={{ scale: 0.9, opacity: 0, y: 20 }}
-                className="bg-white w-full max-w-4xl rounded-[3rem] shadow-2xl overflow-hidden flex flex-col max-h-[90vh] relative z-[10000]"
+                className="bg-white w-full max-w-4xl rounded-2xl shadow-2xl overflow-hidden flex flex-col max-h-[90vh] relative z-[10000]"
               >
                 {/* Modal Header */}
-                <div className="p-10 pb-6 border-b border-slate-50 flex justify-between items-start bg-slate-50/10">
+                <div className="p-6 pb-4 border-b border-slate-50 flex justify-between items-start bg-slate-50/10">
                   <div>
-                    <h2 className="text-3xl font-black text-slate-900 tracking-tight">
+                    <h2 className="text-2xl font-black text-slate-900 tracking-tight leading-tight">
                       {editingBranch
                         ? "Refine Infrastructure"
                         : "Onboard Strategic Location"}
@@ -550,14 +585,14 @@ export default function AllBranchesPage() {
                   </div>
                   <button
                     onClick={() => setShowModal(false)}
-                    className="p-3 bg-slate-50 text-slate-400 hover:text-slate-600 rounded-2xl transition-all"
+                    className="p-2 bg-slate-50 text-slate-400 hover:text-slate-600 rounded-xl transition-all"
                   >
                     &times;
                   </button>
                 </div>
 
                 {/* Modal Tabs */}
-                <div className="px-10 py-4 flex gap-8 border-b border-slate-50">
+                <div className="px-6 py-3 flex gap-4 border-b border-slate-50">
                   {[
                     {
                       id: "identity",
@@ -591,11 +626,11 @@ export default function AllBranchesPage() {
                 </div>
 
                 {/* Modal Body */}
-                <div className="flex-1 overflow-y-auto p-10 custom-scrollbar">
+                <div className="flex-1 overflow-y-auto p-6 custom-scrollbar">
                   <form
                     id="onboard-form"
                     onSubmit={handleOnboard}
-                    className="space-y-8"
+                    className="space-y-4"
                   >
                     {activeTab === "identity" && (
                       <motion.div
@@ -603,8 +638,8 @@ export default function AllBranchesPage() {
                         animate={{ opacity: 1, x: 0 }}
                         className="space-y-6"
                       >
-                        <div className="grid grid-cols-2 gap-6">
-                          <div className="space-y-2">
+                        <div className="grid grid-cols-2 gap-4">
+                          <div className="space-y-1">
                             <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest">
                               Branch Name
                             </label>
@@ -617,10 +652,10 @@ export default function AllBranchesPage() {
                                   name: e.target.value,
                                 })
                               }
-                              className="w-full bg-slate-50 border-none rounded-2xl p-4 font-bold text-slate-700 outline-none focus:ring-2 focus:ring-pink-500/20"
+                              className="w-full bg-slate-50 border-none rounded-xl p-3 font-bold text-slate-700 outline-none focus:ring-2 focus:ring-pink-500/20"
                             />
                           </div>
-                          <div className="space-y-2">
+                          <div className="space-y-1">
                             <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest">
                               Branch Code (Unique ID)
                             </label>
@@ -633,12 +668,12 @@ export default function AllBranchesPage() {
                                   code: e.target.value.toUpperCase(),
                                 })
                               }
-                              className="w-full bg-slate-50 border-none rounded-2xl p-4 font-bold text-slate-700 outline-none focus:ring-2 focus:ring-pink-500/20"
+                              className="w-full bg-slate-50 border-none rounded-xl p-3 font-bold text-slate-700 outline-none focus:ring-2 focus:ring-pink-500/20"
                             />
                           </div>
                         </div>
-                        <div className="grid grid-cols-2 gap-6">
-                          <div className="space-y-2">
+                        <div className="grid grid-cols-2 gap-4">
+                          <div className="space-y-1">
                             <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest">
                               Branch Type
                             </label>
@@ -650,14 +685,14 @@ export default function AllBranchesPage() {
                                   type: e.target.value,
                                 })
                               }
-                              className="w-full bg-slate-50 border-none rounded-2xl p-4 font-bold text-slate-700 outline-none focus:ring-2 focus:ring-pink-500/20"
+                              className="w-full bg-slate-50 border-none rounded-xl p-3 font-bold text-slate-700 outline-none focus:ring-2 focus:ring-pink-500/20"
                             >
                               <option value="local">Local Branch</option>
                               <option value="regional">Regional Hub</option>
                               <option value="head_office">Head Office</option>
                             </select>
                           </div>
-                          <div className="space-y-2">
+                          <div className="space-y-1">
                             <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest">
                               Established Date
                             </label>
@@ -670,17 +705,17 @@ export default function AllBranchesPage() {
                                   establishedDate: e.target.value,
                                 })
                               }
-                              className="w-full bg-slate-50 border-none rounded-2xl p-4 font-bold text-slate-700 outline-none focus:ring-2 focus:ring-pink-500/20"
+                              className="w-full bg-slate-50 border-none rounded-xl p-3 font-bold text-slate-700 outline-none focus:ring-2 focus:ring-pink-500/20"
                             />
                           </div>
                         </div>
                         {!editingBranch && (
-                          <div className="p-8 bg-pink-50/50 rounded-[2rem] border border-pink-100/50 space-y-6">
+                          <div className="p-5 bg-pink-50/50 rounded-xl border border-pink-100/50 space-y-4">
                             <h4 className="text-xs font-black text-pink-600 uppercase tracking-widest flex items-center gap-2">
                               <HiOutlineShieldCheck /> Account Security
                             </h4>
-                            <div className="grid grid-cols-2 gap-6">
-                              <div className="space-y-2">
+                            <div className="grid grid-cols-2 gap-4">
+                              <div className="space-y-1">
                                 <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest">
                                   Primary admin name
                                 </label>
@@ -693,10 +728,10 @@ export default function AllBranchesPage() {
                                       adminName: e.target.value,
                                     })
                                   }
-                                  className="w-full bg-white border-none rounded-2xl p-4 font-bold text-slate-700 outline-none focus:ring-2 focus:ring-pink-500/20"
+                                  className="w-full bg-white border-none rounded-xl p-3 font-bold text-slate-700 outline-none focus:ring-2 focus:ring-pink-500/20"
                                 />
                               </div>
-                              <div className="space-y-2">
+                              <div className="space-y-1">
                                 <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest">
                                   Primary admin Email
                                 </label>
@@ -710,11 +745,11 @@ export default function AllBranchesPage() {
                                       adminEmail: e.target.value,
                                     })
                                   }
-                                  className="w-full bg-white border-none rounded-2xl p-4 font-bold text-slate-700 outline-none focus:ring-2 focus:ring-pink-500/20"
+                                  className="w-full bg-white border-none rounded-xl p-3 font-bold text-slate-700 outline-none focus:ring-2 focus:ring-pink-500/20"
                                 />
                               </div>
                             </div>
-                            <div className="space-y-2">
+                            <div className="space-y-1">
                               <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest">
                                 Temporary Access Code (Password)
                               </label>
@@ -728,7 +763,7 @@ export default function AllBranchesPage() {
                                     adminPassword: e.target.value,
                                   })
                                 }
-                                className="w-full bg-white border-none rounded-2xl p-4 font-bold text-slate-700 outline-none focus:ring-2 focus:ring-pink-500/20"
+                                className="w-full bg-white border-none rounded-xl p-3 font-bold text-slate-700 outline-none focus:ring-2 focus:ring-pink-500/20"
                               />
                             </div>
                           </div>
@@ -742,7 +777,7 @@ export default function AllBranchesPage() {
                         animate={{ opacity: 1, x: 0 }}
                         className="space-y-6"
                       >
-                        <div className="space-y-2">
+                        <div className="space-y-1">
                           <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest">
                             Street Address
                           </label>
@@ -755,11 +790,11 @@ export default function AllBranchesPage() {
                                 e.target.value,
                               )
                             }
-                            className="w-full bg-slate-50 border-none rounded-2xl p-4 font-bold text-slate-700 outline-none focus:ring-2 focus:ring-blue-500/20"
+                            className="w-full bg-slate-50 border-none rounded-xl p-3 font-bold text-slate-700 outline-none focus:ring-2 focus:ring-blue-500/20"
                           />
                         </div>
-                        <div className="grid grid-cols-2 gap-6">
-                          <div className="space-y-2">
+                        <div className="grid grid-cols-2 gap-4">
+                          <div className="space-y-1">
                             <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest">
                               Area / Sector
                             </label>
@@ -772,10 +807,10 @@ export default function AllBranchesPage() {
                                   e.target.value,
                                 )
                               }
-                              className="w-full bg-slate-50 border-none rounded-2xl p-4 font-bold text-slate-700 outline-none focus:ring-2 focus:ring-blue-500/20"
+                              className="w-full bg-slate-50 border-none rounded-xl p-3 font-bold text-slate-700 outline-none focus:ring-2 focus:ring-blue-500/20"
                             />
                           </div>
-                          <div className="space-y-2">
+                          <div className="space-y-1">
                             <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest">
                               City
                             </label>
@@ -788,11 +823,11 @@ export default function AllBranchesPage() {
                                   e.target.value,
                                 )
                               }
-                              className="w-full bg-slate-50 border-none rounded-2xl p-4 font-bold text-slate-700 outline-none focus:ring-2 focus:ring-blue-500/20"
+                              className="w-full bg-slate-50 border-none rounded-xl p-3 font-bold text-slate-700 outline-none focus:ring-2 focus:ring-blue-500/20"
                             />
                           </div>
                         </div>
-                        <div className="p-8 bg-blue-50/50 rounded-[3rem] border border-blue-100/50 space-y-8">
+                        <div className="p-5 bg-blue-50/50 rounded-2xl border border-blue-100/50 space-y-4">
                           <div className="flex items-center justify-between">
                             <h4 className="text-xs font-black text-blue-600 uppercase tracking-widest flex items-center gap-2">
                               <HiOutlineMapPin size={18} /> Geospatial
@@ -814,8 +849,8 @@ export default function AllBranchesPage() {
                             }}
                             onChange={handleMapChange}
                           />
-                          <div className="grid grid-cols-2 gap-6">
-                            <div className="space-y-2">
+                          <div className="grid grid-cols-2 gap-4">
+                            <div className="space-y-1">
                               <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest">
                                 Manual Latitude
                               </label>
@@ -828,10 +863,10 @@ export default function AllBranchesPage() {
                                     e.target.value,
                                   )
                                 }
-                                className="w-full bg-white border-none rounded-2xl p-4 font-bold text-slate-700 outline-none focus:ring-2 focus:ring-blue-500/20"
+                                className="w-full bg-white border-none rounded-xl p-3 font-bold text-slate-700 outline-none focus:ring-2 focus:ring-blue-500/20"
                               />
                             </div>
-                            <div className="space-y-2">
+                            <div className="space-y-1">
                               <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest">
                                 Manual Longitude
                               </label>
@@ -844,11 +879,11 @@ export default function AllBranchesPage() {
                                     e.target.value,
                                   )
                                 }
-                                className="w-full bg-white border-none rounded-2xl p-4 font-bold text-slate-700 outline-none focus:ring-2 focus:ring-blue-500/20"
+                                className="w-full bg-white border-none rounded-xl p-3 font-bold text-slate-700 outline-none focus:ring-2 focus:ring-blue-500/20"
                               />
                             </div>
                           </div>
-                          <div className="space-y-2">
+                          <div className="space-y-1">
                             <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest">
                               Google Maps Public URL
                             </label>
@@ -862,7 +897,7 @@ export default function AllBranchesPage() {
                                 )
                               }
                               placeholder="https://maps.app.goo.gl/..."
-                              className="w-full bg-white border-none rounded-2xl p-4 font-bold text-slate-700 outline-none focus:ring-2 focus:ring-blue-500/20"
+                              className="w-full bg-white border-none rounded-xl p-3 font-bold text-slate-700 outline-none focus:ring-2 focus:ring-blue-500/20"
                             />
                           </div>
                         </div>
@@ -879,16 +914,16 @@ export default function AllBranchesPage() {
                           <h4 className="text-xs font-black text-slate-900 uppercase tracking-widest">
                             Weekly Operation Cycle
                           </h4>
-                          <div className="grid grid-cols-1 gap-3">
+                          <div className="grid grid-cols-1 gap-2">
                             {formData.officeHours.map((oh, idx) => (
                               <div
                                 key={oh.day}
-                                className="flex items-center gap-4 bg-slate-50 p-4 rounded-3xl group transition-all hover:bg-white hover:shadow-sm"
+                                className="flex items-center gap-3 bg-slate-50 p-3 rounded-2xl group transition-all hover:bg-white hover:shadow-sm"
                               >
                                 <div className="w-24 font-black text-slate-800 text-xs uppercase tracking-tighter">
                                   {oh.day}
                                 </div>
-                                <div className="flex-1 flex items-center gap-4">
+                                <div className="flex-1 flex items-center gap-3">
                                   <input
                                     type="time"
                                     value={oh.open}
@@ -903,7 +938,7 @@ export default function AllBranchesPage() {
                                         officeHours: newHours,
                                       });
                                     }}
-                                    className="bg-white border-none rounded-xl p-2 text-xs font-bold disabled:opacity-30"
+                                    className="bg-white border-none rounded-lg p-1.5 text-xs font-bold disabled:opacity-30"
                                   />
                                   <span className="text-slate-300">to</span>
                                   <input
@@ -920,7 +955,7 @@ export default function AllBranchesPage() {
                                         officeHours: newHours,
                                       });
                                     }}
-                                    className="bg-white border-none rounded-xl p-2 text-xs font-bold disabled:opacity-30"
+                                    className="bg-white border-none rounded-lg p-1.5 text-xs font-bold disabled:opacity-30"
                                   />
                                 </div>
                                 <button
@@ -934,7 +969,7 @@ export default function AllBranchesPage() {
                                       officeHours: newHours,
                                     });
                                   }}
-                                  className={`px-4 py-2 rounded-xl text-[10px] font-black uppercase tracking-widest transition-all ${oh.isClosed ? "bg-red-50 text-red-500" : "bg-emerald-50 text-emerald-600"}`}
+                                  className={`px-3 py-1.5 rounded-lg text-[10px] font-black uppercase tracking-widest transition-all ${oh.isClosed ? "bg-red-50 text-red-500" : "bg-emerald-50 text-emerald-600"}`}
                                 >
                                   {oh.isClosed ? "Closed" : "Open"}
                                 </button>
@@ -948,7 +983,7 @@ export default function AllBranchesPage() {
                 </div>
 
                 {/* Modal Footer */}
-                <div className="p-10 pt-6 border-t border-slate-50 flex justify-between items-center bg-slate-50/5">
+                <div className="p-6 pt-4 border-t border-slate-50 flex justify-between items-center bg-slate-50/5">
                   <div className="flex gap-2">
                     {["identity", "presence", "operations"].map((t, i) => (
                       <div
@@ -957,21 +992,21 @@ export default function AllBranchesPage() {
                       />
                     ))}
                   </div>
-                  <div className="flex gap-4">
+                  <div className="flex gap-3">
                     <button
                       onClick={() => {
                         setShowModal(false);
                         setEditingBranch(null);
                       }}
                       type="button"
-                      className="px-8 py-4 bg-slate-100 text-slate-600 rounded-2xl font-black text-xs uppercase tracking-widest hover:bg-slate-200 transition-all"
+                      className="px-6 py-3 bg-slate-100 text-slate-600 rounded-xl font-black text-xs uppercase tracking-widest hover:bg-slate-200 transition-all"
                     >
                       Cancel
                     </button>
                     <button
                       form="onboard-form"
                       type="submit"
-                      className="px-8 py-4 bg-pink-600 text-white rounded-2xl font-black text-xs uppercase tracking-widest hover:bg-pink-700 transition-all shadow-xl shadow-pink-600/20"
+                      className="px-6 py-3 bg-pink-600 text-white rounded-xl font-black text-xs uppercase tracking-widest hover:bg-pink-700 transition-all shadow-xl shadow-pink-600/20"
                     >
                       {editingBranch ? "Commit Changes" : "Finalize Onboarding"}
                     </button>

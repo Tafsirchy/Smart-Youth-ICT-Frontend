@@ -743,17 +743,33 @@ export default function CourseForm({ initialData = null, onSuccess }) {
                   />
 
                   <label className="block text-xs font-bold text-neutral-500 uppercase tracking-widest mt-6 mb-2">
-                    Image URL (Unsplash etc)
+                    Image
                   </label>
                   <input
-                    type="text"
-                    placeholder="https://..."
-                    className="w-full border rounded-xl p-3 focus:ring-2 outline-none focus:ring-blue-500 text-sm"
-                    value={proj.image}
-                    onChange={(e) =>
-                      handleObjectArray("projects", i, "image", e.target.value)
-                    }
+                    type="file"
+                    accept="image/*"
+                    className="w-full border rounded-xl p-3 focus:ring-2 outline-none focus:ring-blue-500 text-sm bg-white"
+                    onChange={(e) => {
+                      const file = e.target.files?.[0];
+                      if (file) {
+                        const objectUrl = URL.createObjectURL(file);
+                        handleObjectArray("projects", i, "image", objectUrl);
+                      }
+                    }}
                   />
+                  {proj.image && (
+                    <div className="mt-4">
+                      <img 
+                        src={proj.image} 
+                        alt="Preview" 
+                        loading="lazy"
+                        decoding="async"
+                        onError={(e) => { e.target.src = '/images/placeholder.png'; }}
+                        className="rounded-lg object-cover shadow-sm border border-neutral-100" 
+                        style={{ maxWidth: '100%', maxHeight: '300px' }} 
+                      />
+                    </div>
+                  )}
 
                   <label className="block text-xs font-bold text-neutral-500 uppercase tracking-widest mt-6 mb-2">
                     Technologies Used

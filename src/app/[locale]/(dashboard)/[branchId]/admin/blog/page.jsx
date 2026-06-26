@@ -83,13 +83,29 @@ function PostModal({ post, onClose, onSaved }) {
             onChange={set("excerpt")}
           />
 
-          <label className="form-label">Thumbnail URL</label>
+          <label className="form-label">Thumbnail Upload</label>
           <input
+            type="file"
+            accept="image/*"
             className="form-input"
-            value={form.thumbnail}
-            onChange={set("thumbnail")}
-            placeholder="https://…"
+            onChange={(e) => {
+              const file = e.target.files?.[0];
+              if (file) {
+                const objectUrl = URL.createObjectURL(file);
+                setForm((f) => ({ ...f, thumbnail: objectUrl }));
+              }
+            }}
           />
+          {form.thumbnail && (
+            <div className="mt-2">
+              <img
+                src={form.thumbnail}
+                alt="Preview"
+                className="rounded-lg object-cover"
+                style={{ maxWidth: '100%', maxHeight: '300px' }}
+              />
+            </div>
+          )}
 
           <label className="form-label">Tags (comma-separated)</label>
           <input

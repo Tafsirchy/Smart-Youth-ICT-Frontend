@@ -218,6 +218,9 @@ export default function FeaturedMentorsPage() {
                   alt={mentor.name || "Mentor avatar"}
                   width={80}
                   height={80}
+                  loading="lazy"
+                  decoding="async"
+                  onError={(e) => { e.target.srcset = ''; e.target.src = '/images/placeholder.png'; }}
                   className="w-full h-full object-cover"
                 />
               </div>

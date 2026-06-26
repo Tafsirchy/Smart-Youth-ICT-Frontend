@@ -158,6 +158,9 @@ export default function SuccessStoriesPage() {
                   alt="Proof"
                   fill
                   sizes="(max-width: 768px) 100vw, (max-width: 1280px) 50vw, 33vw"
+                  loading="lazy"
+                  decoding="async"
+                  onError={(e) => { e.target.srcset = ''; e.target.src = '/images/placeholder.png'; }}
                   className="object-cover transition-transform duration-700 group-hover:scale-110"
                 />
               ) : (
@@ -191,6 +194,9 @@ export default function SuccessStoriesPage() {
                       alt={story.studentName || "Student avatar"}
                       width={56}
                       height={56}
+                      loading="lazy"
+                      decoding="async"
+                      onError={(e) => { e.target.srcset = ''; e.target.src = '/images/placeholder.png'; }}
                       className="w-full h-full object-cover"
                     />
                   ) : (
@@ -430,20 +436,36 @@ export default function SuccessStoriesPage() {
                   </div>
                   <div>
                     <label className="block text-[10px] font-black uppercase text-slate-400 mb-1">
-                      Video Thumbnail
+                      Video Thumbnail Upload
                     </label>
                     <input
-                      required
-                      placeholder="Thumbnail URL"
+                      type="file"
+                      accept="image/*"
                       className="w-full px-4 py-3 bg-slate-50 border-2 border-transparent focus:border-indigo-500/20 focus:bg-white transition-all rounded-xl outline-none text-sm"
-                      value={formData.videoThumbnail}
-                      onChange={(e) =>
-                        setFormData({
-                          ...formData,
-                          videoThumbnail: e.target.value,
-                        })
-                      }
+                      onChange={(e) => {
+                        const file = e.target.files?.[0];
+                        if (file) {
+                          const objectUrl = URL.createObjectURL(file);
+                          setFormData({
+                            ...formData,
+                            videoThumbnail: objectUrl,
+                          });
+                        }
+                      }}
                     />
+                    {formData.videoThumbnail && (
+                      <div className="mt-2">
+                        <img
+                          src={formData.videoThumbnail}
+                          alt="Preview"
+                          loading="lazy"
+                          decoding="async"
+                          onError={(e) => { e.target.src = '/images/placeholder.png'; }}
+                          className="rounded-lg object-cover"
+                          style={{ maxWidth: '100%', maxHeight: '300px' }}
+                        />
+                      </div>
+                    )}
                   </div>
                 </motion.div>
               )}

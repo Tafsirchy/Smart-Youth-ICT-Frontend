@@ -83,6 +83,10 @@ export default function BusinessWebsitesClient({ data }) {
               <div className="absolute inset-0 opacity-[0.03] pointer-events-none" style={{ backgroundImage: "linear-gradient(#000 1px, transparent 1px), linear-gradient(90deg, #000 1px, transparent 1px)", backgroundSize: "50px 50px" }}></div>
               <img
                 src={hero.mainImage}
+                width={800}
+                height={800}
+                fetchPriority="high"
+                onError={(e) => { e.target.onerror = null; e.target.src = '/images/placeholder.png'; }}
                 className="w-full aspect-square object-cover rounded-[3rem] grayscale hover:grayscale-0 transition-all duration-1000 shadow-inner"
                 alt="Business Growth"
               />

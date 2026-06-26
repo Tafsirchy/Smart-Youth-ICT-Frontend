@@ -79,6 +79,9 @@ export default function CoreManagementPage() {
                       alt={member.name}
                       width={128}
                       height={128}
+                      loading="lazy"
+                      decoding="async"
+                      onError={(e) => { e.target.srcset = ''; e.target.src = '/images/placeholder.png'; }}
                       className="object-cover w-full h-full group-hover:scale-110 transition-transform duration-500"
                     />
                   </div>

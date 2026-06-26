@@ -56,6 +56,10 @@ export default function CertificationSection() {
                 // Fallback realistic tech certificate placeholder
                 alt="Certificate"
                 fill
+                sizes="400px"
+                loading="lazy"
+                decoding="async"
+                onError={(e) => { e.target.srcset = ''; e.target.src = '/images/placeholder.png'; }}
                 className="object-cover saturate-50 mix-blend-multiply opacity-10"
               />
               <div className="absolute inset-0 flex flex-col items-center justify-center p-6 text-center border-[8px] border-slate-200">

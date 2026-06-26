@@ -94,10 +94,13 @@ export default function Sidebar({ initialRole, initialUser, isOpen, onClose }) {
         <Link href="/" className="flex items-center">
           <Image
             src="/images/logo.png"
-            alt="Smart Youth ICT"
+            alt="Smart Youth ICT Logo"
             width={160}
             height={40}
             className="h-10 w-auto object-contain"
+            priority={true}
+            fetchPriority="high"
+            onError={(e) => { e.target.srcset = ''; e.target.src = '/images/placeholder.png'; }}
           />
         </Link>
         {/* Mobile Close Button */}

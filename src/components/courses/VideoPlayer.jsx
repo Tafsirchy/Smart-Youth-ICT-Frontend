@@ -7,7 +7,7 @@ export default function VideoPlayer({ url, thumbnail }) {
       {/* Background preview img if available */}
       {thumbnail && (
         <div className="absolute inset-0 z-0 opacity-30 mix-blend-luminosity">
-          <Image src={thumbnail} alt="Video Thumbnail" fill className="object-cover" />
+          <Image src={thumbnail} alt="Video Thumbnail" fill sizes="800px" loading="lazy" decoding="async" onError={(e) => { e.target.srcset = ''; e.target.src = '/images/placeholder.png'; }} className="object-cover" />
         </div>
       )}
       

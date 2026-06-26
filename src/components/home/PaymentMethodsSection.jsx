@@ -18,6 +18,7 @@ export default function PaymentMethodsSection() {
       className="section py-12 sm:py-20 relative overflow-hidden flex items-center min-h-0"
       style={{
         backgroundImage: "url('/images/bg.png')",
+        backgroundColor: '#f0f0f0',
         backgroundSize: 'cover',
         backgroundPosition: 'center',
         backgroundAttachment: 'fixed',
@@ -146,7 +147,7 @@ export default function PaymentMethodsSection() {
                   className="flex items-center gap-3 p-3 rounded-xl bg-white border border-white/10 hover:shadow-[0_8px_24px_rgba(255,255,255,0.08)] transition-all duration-300 group"
                 >
                   <div className="w-10 h-8 relative group-hover:scale-105 transition-transform shrink-0">
-                    <Image src={method.logo} alt={method.name} fill className="object-contain" />
+                    <Image src={method.logo} alt={method.name} fill sizes="40px" loading="lazy" decoding="async" onError={(e) => { e.target.srcset = ''; e.target.src = '/images/placeholder.png'; }} className="object-contain" />
                   </div>
                   <div className="flex flex-col min-w-0">
                     <span className="text-xs font-black text-slate-900 truncate">{method.name}</span>

@@ -66,6 +66,10 @@ export default function PortfolioWebsitesClient({ data }) {
               <div className="bg-white rounded-[3.5rem] p-4 shadow-2xl border border-slate-50 relative overflow-hidden transition-transform duration-700 group-hover:scale-[1.02]">
                 <img
                   src={hero.mainImage}
+                  width={800}
+                  height={1000}
+                  fetchPriority="high"
+                  onError={(e) => { e.target.onerror = null; e.target.src = '/images/placeholder.png'; }}
                   className="w-full aspect-[4/5] object-cover rounded-[2.8rem] grayscale group-hover:grayscale-0 transition-all duration-1000"
                   alt="Portfolio Concept"
                 />

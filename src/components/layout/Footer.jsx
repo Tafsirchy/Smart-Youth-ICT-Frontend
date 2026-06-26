@@ -103,10 +103,13 @@ export default function Footer() {
             <Link href={`/${locale}`} className="mb-5 inline-block">
               <Image
                 src="/images/logo.png"
-                alt="Smart Youth ICT"
+                alt="Smart Youth ICT Logo"
                 width={192}
                 height={48}
                 className="h-12 w-auto object-contain brightness-200"
+                loading="lazy"
+                decoding="async"
+                onError={(e) => { e.target.srcset = ''; e.target.src = '/images/placeholder.png'; }}
               />
             </Link>
             <p className="text-sm leading-relaxed text-indigo-300 max-w-xs mb-5">
