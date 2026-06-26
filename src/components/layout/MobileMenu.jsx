@@ -6,61 +6,18 @@ import { usePathname } from "next/navigation";
 import { HiChevronDown } from "react-icons/hi";
 import { motion, AnimatePresence } from "framer-motion";
 
-const serviceLinks = [
-  // Learning & Career
-  { href: "/services/skill-development", label: "Skill Development Programs" },
-  { href: "/services/career-tracks", label: "Career Tracks (Web, AI, SMM)" },
-  { href: "/services/certifications", label: "Certification Programs" },
-  { href: "/services/freelancing", label: "Freelancing Training" },
-  { href: "/services/job-placement", label: "Job Placement Support" },
-  // Web & Software
-  { href: "/services/portfolio-websites", label: "Portfolio Websites" },
-  { href: "/services/business-websites", label: "Business Websites" },
-  { href: "/services/ecommerce", label: "E-commerce Development" },
-  { href: "/services/custom-apps", label: "Custom Web Applications" },
-  { href: "/services/erp-crm", label: "ERP / CRM / POS Systems" },
-  // Design & Marketing
-  { href: "/services/branding", label: "Logo & Brand Identity" },
-  { href: "/services/ui-ux", label: "UI/UX Design" },
-  { href: "/services/social-creatives", label: "Social Media Creatives" },
-  { href: "/services/facebook-ads", label: "Facebook Ads Management" },
-  { href: "/services/seo", label: "SEO Optimization" },
-  // AI & Managed
-  { href: "/services/chatbot", label: "Chatbot Development" },
-  { href: "/services/automation", label: "Business Automation" },
-  { href: "/services/hosting", label: "Domain & Hosting" },
-  { href: "/services/maintenance", label: "Website Maintenance" },
-  { href: "/services/hire-student", label: "Hire a Student (Freelancer)" },
-];
-
-const aboutLinks = [
-  // Foundation
-  { href: "/about/foundation", label: "🧭 SYICT Foundation" },
-  { href: "/about/story", label: "📖 Our Story" },
-  { href: "/about/mission", label: "🎯 Mission & Vision" },
-  { href: "/about/how-it-works", label: "⚙️ How It Works" },
-  // Trust & Proof
-  { href: "/about/core-management", label: "🏛️ Core Management" },
-  { href: "/about/advisor", label: "🎓 Advisory Board" },
-  { href: "/about/instructors", label: "👨‍🏫 Our Mentors" },
-  { href: "/success-stories", label: "🏆 Success Stories" },
-  { href: "/testimonials", label: "💬 Testimonials" },
-  // Brand & Edge
-  { href: "/about/why-choose-us", label: "⭐ Why Choose Us" },
-  { href: "/about/partners", label: "🤝 Our Partners" },
-  { href: "/about/certifications", label: "📜 Certifications" },
-  // Connect
-  { href: "/about/locations", label: "📍 Our Locations" },
-  { href: "/contact", label: "📞 Contact Us" },
-];
-
-function MobileAccordion({ label, children }) {
-  const [open, setOpen] = useState(false);
+import { serviceColumns, aboutColumns } from "./Navbar";
+function MobileAccordion({ label, children, isActiveAccordion }) {
+  const [open, setOpen] = useState(isActiveAccordion || false);
   return (
     <li>
       <button
         onClick={() => setOpen(!open)}
-        className="w-full flex items-center justify-between px-3 py-2 min-h-[44px] rounded-lg text-sm font-medium text-gray-700 hover:text-brand-green hover:bg-brand-green/5 transition-all"
+        className={`w-full flex items-center justify-between py-2 min-h-[44px] rounded-lg text-sm font-medium transition-all ${
+          isActiveAccordion
+            ? "text-brand-green bg-brand-green/10 font-semibold border-l-2 border-brand-green pl-4 pr-3"
+            : "text-gray-700 hover:text-brand-green hover:bg-brand-green/5 px-3"
+        }`}
       >
         {label}
         <motion.span
@@ -89,7 +46,7 @@ function MobileAccordion({ label, children }) {
 
 export default function MobileMenu({ links, session, onClose }) {
   const pathname = usePathname();
-  const cleanPath = pathname.replace(/^\/[a-z]{2}(-[A-Z]{2})?(?=\/|$)/, "");
+  const cleanPath = pathname.replace(/^\/[a-z]{2}(-[A-Z]{2})?(?=\/|$)/, "") || "/";
   const isActive = (href) =>
     cleanPath === href || (href !== "/" && cleanPath.startsWith(href));
 
@@ -123,7 +80,7 @@ export default function MobileMenu({ links, session, onClose }) {
         ))}
 
         {/* Services accordion */}
-        <MobileAccordion label="Services">
+        <MobileAccordion label="Services" isActiveAccordion={isActive("/services")}>
           <li>
             <Link
               href="/services"
@@ -133,30 +90,67 @@ export default function MobileMenu({ links, session, onClose }) {
               View All Services →
             </Link>
           </li>
-          {serviceLinks.map(({ href, label }) => (
-            <li key={href}>
-              <Link
-                href={href}
-                onClick={onClose}
-                className="flex items-center min-h-[44px] px-3 py-1.5 rounded-lg text-sm text-slate-600 hover:text-brand-green hover:bg-brand-green/5 transition-colors"
-              >
-                {label}
-              </Link>
+          {serviceColumns.map((col, idx) => (
+            <li key={`svc-col-${idx}`} className="mb-2">
+              <div className="px-3 py-1 text-[10px] font-black text-slate-400 uppercase tracking-widest">
+                {col.heading}
+              </div>
+              <ul className="flex flex-col">
+                {col.items.map((item) => {
+                  const isItemActive = cleanPath === item.href;
+                  return (
+                    <li key={item.href}>
+                      <Link
+                        href={item.href}
+                        onClick={onClose}
+                        className={`flex items-center justify-between min-h-[44px] px-3 py-1.5 rounded-lg text-sm transition-colors ${
+                          isItemActive ? "text-brand-green font-semibold bg-brand-green/5" : "text-slate-600 hover:text-brand-green hover:bg-brand-green/5"
+                        }`}
+                      >
+                        <span>{item.label}</span>
+                        {item.badge && (
+                          <span className="shrink-0 text-[10px] font-black text-white bg-gradient-to-r from-pink-500 to-rose-500 px-1.5 py-0.5 rounded-sm shadow-sm uppercase tracking-wider">
+                            {item.badge}
+                          </span>
+                        )}
+                      </Link>
+                    </li>
+                  );
+                })}
+              </ul>
             </li>
           ))}
         </MobileAccordion>
 
         {/* About accordion */}
-        <MobileAccordion label="About">
-          {aboutLinks.map(({ href, label }) => (
-            <li key={href}>
-              <Link
-                href={href}
-                onClick={onClose}
-                className="flex items-center min-h-[44px] px-3 py-1.5 rounded-lg text-sm text-slate-600 hover:text-brand-green hover:bg-brand-green/5 transition-colors"
-              >
-                {label}
-              </Link>
+        <MobileAccordion label="About" isActiveAccordion={isActive("/about")}>
+          {aboutColumns.map((col, idx) => (
+            <li key={`abt-col-${idx}`} className="mb-2">
+              <div className="px-3 py-1 flex items-center gap-2">
+                <span className="text-xs">{col.icon}</span>
+                <span className="text-[10px] font-black text-slate-400 uppercase tracking-widest">{col.heading}</span>
+              </div>
+              <ul className="flex flex-col">
+                {col.items.map((item) => {
+                  const isItemActive = cleanPath === item.href;
+                  return (
+                    <li key={item.href}>
+                      <Link
+                        href={item.href}
+                        onClick={onClose}
+                        className={`flex flex-col justify-center min-h-[44px] px-3 py-1.5 rounded-lg transition-colors ${
+                          isItemActive ? "bg-brand-green/5" : "hover:bg-slate-50"
+                        }`}
+                      >
+                        <span className={`text-sm ${isItemActive ? "text-brand-green font-semibold" : "text-slate-600"}`}>
+                          {item.label}
+                        </span>
+                        <span className="text-xs text-slate-400">{item.desc}</span>
+                      </Link>
+                    </li>
+                  );
+                })}
+              </ul>
             </li>
           ))}
         </MobileAccordion>

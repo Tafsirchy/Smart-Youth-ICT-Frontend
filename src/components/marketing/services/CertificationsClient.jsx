@@ -7,7 +7,7 @@ import CertificationIllustration from "@/components/marketing/CertificationIllus
 
 export default function CertificationsClient({ programs, content }) {
   return (
-    <section className="min-h-screen bg-slate-50 py-20 relative overflow-hidden">
+    <section className="min-h-screen bg-slate-50 py-20 relative overflow-hidden flex flex-col">
       <div className="container-custom">
         <div className="flex flex-col lg:flex-row items-center gap-16 mb-32">
           {/* Hero Content */}
@@ -47,7 +47,7 @@ export default function CertificationsClient({ programs, content }) {
             >
               <Link
                 href="/services/certifications/details"
-                className="inline-flex items-center gap-2 text-sm sm:text-xs font-black uppercase tracking-[0.4em] text-emerald-600 hover:text-indigo-600 transition-colors group"
+                className="inline-flex items-center min-h-[44px] gap-2 text-xs sm:text-sm font-black uppercase tracking-[0.2em] text-emerald-600 hover:text-indigo-600 transition-colors group"
               >
                 View Validation Manifest <IoArrowBackOutline className="rotate-180 group-hover:translate-x-2 transition-transform" />
               </Link>
@@ -69,7 +69,7 @@ export default function CertificationsClient({ programs, content }) {
         </div>
 
 
-        <div className="flex overflow-x-auto snap-x snap-mandatory gap-6 pb-8 md:grid md:grid-cols-2 lg:grid-cols-3 lg:gap-8 scrollbar-hide">
+        <div className="flex overflow-x-auto snap-x snap-mandatory gap-6 pb-8 md:grid md:grid-cols-2 lg:grid-cols-3 lg:gap-8 scrollbar-hide -mx-[var(--gutter)] px-[var(--gutter)]">
           {programs?.length > 0 ? (
             programs.map((prog, i) => (
               <motion.div
@@ -83,20 +83,20 @@ export default function CertificationsClient({ programs, content }) {
                 <div className="w-16 h-16 bg-blue-50 rounded-2xl flex items-center justify-center text-3xl text-blue-600 mb-8 group-hover:rotate-6 transition-transform">
                   <IoRibbonOutline />
                 </div>
-                <p className="text-sm sm:text-xs font-black uppercase tracking-widest text-blue-500 mb-2">{prog.badgeText}</p>
+                <p className="text-xs sm:text-sm font-black uppercase tracking-widest text-blue-500 mb-2">{prog.badgeText}</p>
                 <h2 className="text-2xl font-black text-slate-900 mb-4 leading-tight">{prog.title}</h2>
                 <p className="text-slate-500 text-sm font-light leading-relaxed mb-8">{prog.description}</p>
 
                 <div className="space-y-3 mb-10 h-32 overflow-hidden">
                   {prog.features?.map((f, idx) => (
-                    <div key={idx} className="flex items-center gap-3 text-sm sm:text-xs font-black text-slate-400 uppercase tracking-widest">
+                    <div key={idx} className="flex items-center gap-3 text-xs sm:text-sm font-black text-slate-400 uppercase tracking-widest">
                       <IoCheckmarkCircle className="text-blue-500 text-lg shrink-0" />
                       {f}
                     </div>
                   ))}
                 </div>
 
-                <button className="w-full py-4 bg-slate-900 text-white rounded-xl font-black uppercase tracking-widest text-sm sm:text-xs hover:bg-black transition-all shadow-lg transform hover:-translate-y-1">
+                <button className="w-full min-h-[44px] py-4 bg-slate-900 text-white rounded-xl font-black uppercase tracking-widest text-xs sm:text-sm hover:bg-black transition-all shadow-lg transform hover:-translate-y-1">
                   Apply for Assessment
                 </button>
               </motion.div>
@@ -117,15 +117,15 @@ export default function CertificationsClient({ programs, content }) {
             <IoShieldCheckmarkOutline className="text-8xl text-blue-600 mb-12 mx-auto" />
             <h3 className="text-4xl lg:text-6xl font-black mb-8 tracking-tighter leading-none text-slate-900">Industry-Grade <br />Verification.</h3>
             <p className="text-slate-500 text-xl font-light mb-16 max-w-2xl mx-auto">Employers can verify our student credentials directly through our localized, high-authority registry.</p>
-            <button className="px-12 py-6 bg-slate-900 text-white font-black rounded-xl hover:bg-black transition-all uppercase tracking-widest text-xs shadow-2xl">
+            <button className="min-h-[44px] px-12 py-6 bg-slate-900 text-white font-black rounded-xl hover:bg-black transition-all uppercase tracking-widest text-xs sm:text-sm shadow-2xl">
               Access Student Registry
             </button>
           </div>
         </div>
       </div>
       {/* Mobile Sticky CTA */}
-      <div className="fixed bottom-0 left-0 right-0 p-4 bg-white/90 backdrop-blur-md border-t border-slate-200 z-50 lg:hidden flex justify-center pb-safe">
-        <button className="w-full max-w-sm py-3.5 bg-slate-900 text-white font-bold rounded-xl shadow-lg active:scale-95 transition-transform text-sm uppercase tracking-widest">
+      <div className="sticky bottom-0 left-0 right-0 p-4 bg-white/90 backdrop-blur-md border-t border-slate-200 z-50 lg:hidden flex justify-center pb-[max(1rem,env(safe-area-inset-bottom))] mt-auto">
+        <button className="w-full max-w-sm min-h-[44px] py-3.5 bg-slate-900 text-white font-bold rounded-xl shadow-lg active:scale-95 transition-transform text-sm uppercase tracking-widest">
           Access Registry
         </button>
       </div>

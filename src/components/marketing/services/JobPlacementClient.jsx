@@ -14,7 +14,7 @@ import {
 
 export default function JobPlacementClient({ data, content }) {
   return (
-    <section className="min-h-screen bg-slate-950 overflow-hidden relative font-sans text-slate-100">
+    <section className="min-h-screen bg-slate-950 overflow-hidden relative font-sans text-slate-100 flex flex-col">
       <div className="absolute inset-x-0 top-0 h-[800px] bg-gradient-to-b from-blue-900/30 via-transparent to-transparent pointer-events-none"></div>
 
       <div className="container-custom py-20 relative z-10">
@@ -56,7 +56,7 @@ export default function JobPlacementClient({ data, content }) {
           >
             <Link
               href="/services/job-placement/details"
-              className="inline-flex items-center gap-2 text-sm sm:text-xs font-black uppercase tracking-[0.4em] text-blue-400 hover:text-white transition-colors group"
+              className="inline-flex items-center min-h-[44px] gap-2 text-xs sm:text-sm font-black uppercase tracking-[0.2em] text-blue-400 hover:text-white transition-colors group"
             >
               View Placement Manifest{" "}
               <IoArrowBackOutline className="rotate-180 group-hover:translate-x-2 transition-transform" />
@@ -70,7 +70,7 @@ export default function JobPlacementClient({ data, content }) {
             <h2 className="text-4xl font-black text-white text-center mb-16 uppercase italic tracking-tighter">
               Placement Track Classifications
             </h2>
-            <div className="flex overflow-x-auto snap-x snap-mandatory gap-6 pb-8 lg:grid lg:grid-cols-3 lg:gap-8 max-w-7xl mx-auto scrollbar-hide">
+            <div className="flex overflow-x-auto snap-x snap-mandatory gap-6 pb-8 lg:grid lg:grid-cols-3 lg:gap-8 max-w-7xl mx-auto scrollbar-hide -mx-[var(--gutter)] px-[var(--gutter)]">
               {data.placements.map((p, i) => (
                 <motion.div
                   key={i}
@@ -92,7 +92,7 @@ export default function JobPlacementClient({ data, content }) {
                   <h3 className="text-2xl font-black text-white mb-2">
                     {p.title}
                   </h3>
-                  <p className="text-sm sm:text-xs font-black uppercase tracking-widest text-blue-400 mb-6">
+                  <p className="text-xs font-black uppercase tracking-widest text-blue-400 mb-6">
                     {p.type}
                   </p>
                   <p className="text-slate-400 leading-relaxed font-light mb-8 text-sm line-clamp-3">
@@ -100,7 +100,7 @@ export default function JobPlacementClient({ data, content }) {
                   </p>
 
                   <div className="pt-6 border-t border-white/5">
-                    <p className="text-sm sm:text-xs font-black text-slate-500 uppercase tracking-widest mb-2">
+                    <p className="text-xs font-black text-slate-500 uppercase tracking-widest mb-2">
                       Avg. Entry Package
                     </p>
                     <p className="text-2xl font-black text-white">
@@ -145,7 +145,7 @@ export default function JobPlacementClient({ data, content }) {
                       <h3 className="text-2xl font-black text-white tracking-tight">
                         {l.title}
                       </h3>
-                      <span className="text-sm sm:text-xs font-black text-blue-500 uppercase tracking-[0.2em] bg-blue-500/10 px-3 py-1 rounded-md">
+                      <span className="text-xs font-black text-blue-500 uppercase tracking-[0.2em] bg-blue-500/10 px-3 py-1 rounded-md">
                         {l.step}
                       </span>
                     </div>
@@ -188,7 +188,7 @@ export default function JobPlacementClient({ data, content }) {
                   <IoChatbubblesOutline className="text-blue-500" /> Mock HR
                   Rounds
                 </h4>
-                <p className="text-sm sm:text-xs text-slate-400 font-black leading-relaxed uppercase tracking-widest">
+                <p className="text-[10px] sm:text-xs text-slate-400 font-black leading-relaxed uppercase tracking-widest">
                   Live practice with senior tech recruiters.
                 </p>
               </div>
@@ -196,7 +196,7 @@ export default function JobPlacementClient({ data, content }) {
                 <h4 className="font-bold text-slate-900 flex items-center gap-2 mb-2">
                   <IoSearchOutline className="text-blue-500" /> Resume Audit
                 </h4>
-                <p className="text-sm sm:text-xs text-slate-400 font-black leading-relaxed uppercase tracking-widest">
+                <p className="text-[10px] sm:text-xs text-slate-400 font-black leading-relaxed uppercase tracking-widest">
                   Personalized refinement to bypass global ATS filters.
                 </p>
               </div>
@@ -221,7 +221,7 @@ export default function JobPlacementClient({ data, content }) {
               <p className="text-blue-500 text-6xl font-black mb-2">
                 {data?.stats?.partners || "0+"}
               </p>
-              <p className="font-black uppercase tracking-[0.2em] text-sm sm:text-xs text-slate-500">
+              <p className="font-black uppercase tracking-[0.2em] text-xs sm:text-sm text-slate-500">
                 Global Hiring Partners
               </p>
             </div>
@@ -229,19 +229,19 @@ export default function JobPlacementClient({ data, content }) {
               <p className="text-emerald-500 text-6xl font-black mb-2">
                 {data?.stats?.rate || "0%"}
               </p>
-              <p className="font-black uppercase tracking-[0.2em] text-sm sm:text-xs text-slate-500">
+              <p className="font-black uppercase tracking-[0.2em] text-xs sm:text-sm text-slate-500">
                 Placement Success Rate
               </p>
             </div>
           </div>
-          <button className="px-12 py-6 bg-white text-slate-950 font-black rounded-xl hover:bg-blue-600 hover:text-white transition-all shadow-2xl uppercase tracking-widest text-sm sm:text-xs">
+          <button className="min-h-[44px] px-12 py-6 bg-white text-slate-950 font-black rounded-xl hover:bg-blue-600 hover:text-white transition-all shadow-2xl uppercase tracking-widest text-xs sm:text-sm">
             Partner With Our Placement Cell
           </button>
         </div>
       </div>
       {/* Mobile Sticky CTA */}
-      <div className="fixed bottom-0 left-0 right-0 p-4 bg-slate-950/80 backdrop-blur-md border-t border-white/10 z-50 lg:hidden flex justify-center pb-safe">
-        <button className="w-full max-w-sm py-3.5 bg-blue-600 text-white font-bold rounded-xl shadow-lg active:scale-95 transition-transform text-sm uppercase tracking-widest">
+      <div className="sticky bottom-0 left-0 right-0 p-4 bg-slate-950/80 backdrop-blur-md border-t border-white/10 z-50 lg:hidden flex justify-center pb-[max(1rem,env(safe-area-inset-bottom))] mt-auto">
+        <button className="w-full max-w-sm min-h-[44px] py-3.5 bg-blue-600 text-white font-bold rounded-xl shadow-lg active:scale-95 transition-transform text-sm uppercase tracking-widest">
           Partner With Us
         </button>
       </div>

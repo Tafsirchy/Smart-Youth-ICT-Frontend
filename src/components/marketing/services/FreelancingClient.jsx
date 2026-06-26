@@ -12,7 +12,7 @@ import {
 
 export default function FreelancingClient({ data, content }) {
   return (
-    <section className="min-h-screen bg-slate-950 overflow-hidden relative font-sans">
+    <section className="min-h-screen bg-slate-950 overflow-hidden relative font-sans flex flex-col">
       <div className="absolute inset-x-0 top-0 h-[800px] bg-gradient-to-b from-emerald-900/40 via-transparent to-transparent pointer-events-none"></div>
 
       <div className="container-custom py-20 relative z-10">
@@ -54,7 +54,7 @@ export default function FreelancingClient({ data, content }) {
           >
             <Link
               href="/services/freelancing/details"
-              className="inline-flex items-center gap-2 text-sm sm:text-xs font-black uppercase tracking-[0.4em] text-emerald-400 hover:text-white transition-colors group"
+              className="inline-flex items-center min-h-[44px] gap-2 text-xs sm:text-sm font-black uppercase tracking-[0.2em] text-emerald-400 hover:text-white transition-colors group"
             >
               View Market Manifest <IoArrowBackOutline className="rotate-180 group-hover:translate-x-2 transition-transform" />
             </Link>
@@ -65,7 +65,7 @@ export default function FreelancingClient({ data, content }) {
           /* Target Classifications */
           <div className="mb-32">
             <h2 className="text-4xl font-black text-white text-center mb-16 uppercase tracking-tighter italic">Marketplace Strategy Hubs</h2>
-            <div className="flex overflow-x-auto snap-x snap-mandatory gap-6 pb-8 lg:grid lg:grid-cols-3 lg:gap-8 max-w-7xl mx-auto scrollbar-hide">
+            <div className="flex overflow-x-auto snap-x snap-mandatory gap-6 pb-8 lg:grid lg:grid-cols-3 lg:gap-8 max-w-7xl mx-auto scrollbar-hide -mx-[var(--gutter)] px-[var(--gutter)]">
               {data.classifications.map((item, i) => (
                 <motion.div
                   key={i}
@@ -86,7 +86,7 @@ export default function FreelancingClient({ data, content }) {
 
                   <div className="space-y-3 pt-6 border-t border-white/5">
                     {item.features?.map((f, idx) => (
-                      <div key={idx} className="flex items-center gap-3 text-sm sm:text-xs font-black text-slate-500 uppercase tracking-widest">
+                      <div key={idx} className="flex items-center gap-3 text-xs sm:text-sm font-black text-slate-500 uppercase tracking-widest">
                         <IoCheckmarkCircle className="text-emerald-500 text-lg" />
                         {f}
                       </div>
@@ -143,15 +143,15 @@ export default function FreelancingClient({ data, content }) {
           <IoShieldCheckmarkOutline className="text-7xl mb-12 mx-auto" />
           <h2 className="text-4xl lg:text-6xl font-black mb-8 leading-none tracking-tighter">Certified Global <br />Freelance Expert.</h2>
           <p className="text-emerald-100 text-xl font-light mb-12 max-w-2xl mx-auto italic">Receive a high-authority digital credential that proves your proficiency to clients across 180+ countries.</p>
-          <button className="px-12 py-6 bg-white text-emerald-600 font-black rounded-xl hover:scale-105 transition-transform shadow-2xl uppercase tracking-widest text-xs">
+          <button className="min-h-[44px] px-12 py-6 bg-white text-emerald-600 font-black rounded-xl hover:scale-105 transition-transform shadow-2xl uppercase tracking-widest text-xs sm:text-sm">
             Join Next BootCamp
           </button>
         </motion.div>
 
       </div>
       {/* Mobile Sticky CTA */}
-      <div className="fixed bottom-0 left-0 right-0 p-4 bg-slate-950/80 backdrop-blur-md border-t border-emerald-500/10 z-50 lg:hidden flex justify-center pb-safe">
-        <button className="w-full max-w-sm py-3.5 bg-emerald-600 text-white font-bold rounded-xl shadow-lg active:scale-95 transition-transform text-sm uppercase tracking-widest">
+      <div className="sticky bottom-0 left-0 right-0 p-4 bg-slate-950/80 backdrop-blur-md border-t border-emerald-500/10 z-50 lg:hidden flex justify-center pb-[max(1rem,env(safe-area-inset-bottom))] mt-auto">
+        <button className="w-full max-w-sm min-h-[44px] py-3.5 bg-emerald-600 text-white font-bold rounded-xl shadow-lg active:scale-95 transition-transform text-sm uppercase tracking-widest">
           Join Next BootCamp
         </button>
       </div>

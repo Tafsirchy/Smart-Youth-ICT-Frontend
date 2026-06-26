@@ -81,7 +81,7 @@ export default function SkillDevelopmentClient({ locale, courses, pageContent })
   };
 
   return (
-    <section className="min-h-screen bg-slate-50 overflow-hidden relative">
+    <section className="min-h-screen bg-slate-50 overflow-hidden relative flex flex-col">
       {/* Hero Section */}
       <div className="relative pt-20 pb-20 px-4">
         <div className="hidden md:block absolute top-0 right-0 w-[600px] h-[600px] bg-indigo-200/50 rounded-full blur-[120px] opacity-60 -translate-y-1/2 translate-x-1/3 pointer-events-none"></div>
@@ -137,12 +137,12 @@ export default function SkillDevelopmentClient({ locale, courses, pageContent })
           </div>
 
           <div className="mt-16 text-center">
-            <Link
-              href="/services/skill-development/details"
-              className="inline-flex items-center gap-2 text-sm sm:text-xs font-black uppercase tracking-[0.4em] text-blue-600 hover:text-indigo-600 transition-colors group"
-            >
-              View Pedagogical Manifest <IoArrowBackOutline className="rotate-180 group-hover:translate-x-2 transition-transform" />
-            </Link>
+              <Link
+                href="/services/skill-development/details"
+                className="inline-flex items-center min-h-[44px] gap-2 text-xs sm:text-sm font-black uppercase tracking-[0.2em] text-blue-600 hover:text-indigo-600 transition-colors group"
+              >
+                View Pedagogical Manifest <IoArrowBackOutline className="rotate-180 group-hover:translate-x-2 transition-transform" />
+              </Link>
           </div>
         </div>
       </div>
@@ -152,7 +152,7 @@ export default function SkillDevelopmentClient({ locale, courses, pageContent })
         <h2 className="text-4xl font-black text-center mb-16 underline decoration-brand-pink decoration-4 underline-offset-8 uppercase tracking-tighter italic">Our Core Training Programs</h2>
 
         {programsToDisplay.length > 0 ? (
-          <div className="flex overflow-x-auto snap-x snap-mandatory gap-6 pb-8 md:grid md:grid-cols-2 lg:grid-cols-3 lg:gap-8 scrollbar-hide">
+          <div className="flex overflow-x-auto snap-x snap-mandatory gap-6 pb-8 md:grid md:grid-cols-2 lg:grid-cols-3 lg:gap-8 scrollbar-hide -mx-[var(--gutter)] px-[var(--gutter)]">
             {programsToDisplay.map((prog, i) => (
               <Link key={prog._id} href={`/${locale}/courses/${prog.slug}`} className="min-w-[85vw] sm:min-w-[300px] md:w-auto snap-center shrink-0 block">
                 <motion.div
@@ -169,7 +169,7 @@ export default function SkillDevelopmentClient({ locale, courses, pageContent })
                     <div className={`w-16 h-16 rounded-2xl ${prog.bg} ${prog.text} flex items-center justify-center group-hover:scale-110 transition-transform duration-500`}>
                       {prog.icon}
                     </div>
-                    <span className="px-3 py-1 bg-slate-100 text-slate-600 text-sm sm:text-xs font-bold uppercase tracking-widest rounded-full">
+                    <span className="px-3 py-1 bg-slate-100 text-slate-600 text-xs sm:text-sm font-bold uppercase tracking-widest rounded-full">
                       {prog.badge}
                     </span>
                   </div>
@@ -181,7 +181,7 @@ export default function SkillDevelopmentClient({ locale, courses, pageContent })
                     <p className="text-xs font-bold text-slate-400 uppercase tracking-widest">Outcomes</p>
                     <div className="flex flex-wrap gap-2">
                       {prog.tech.map(t => (
-                        <span key={t} className="px-3 py-1.5 bg-slate-50 border border-slate-100 rounded-lg text-sm sm:text-xs font-bold text-slate-700">
+                        <span key={t} className="px-3 py-1.5 bg-slate-50 border border-slate-100 rounded-lg text-xs sm:text-sm font-bold text-slate-700">
                           {t}
                         </span>
                       ))}
@@ -213,15 +213,15 @@ export default function SkillDevelopmentClient({ locale, courses, pageContent })
           <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-full max-w-3xl bg-brand-pink/20 blur-[120px]"></div>
           <h2 className="text-4xl md:text-5xl font-black text-white relative z-10 mb-8">{cta.title}</h2>
           <p className="text-slate-300 text-lg mb-10 max-w-2xl mx-auto relative z-10 font-light">{cta.description}</p>
-          <button className="relative z-10 px-8 py-4 bg-white text-slate-900 font-extrabold rounded-full hover:scale-105 transition-transform shadow-xl uppercase tracking-widest text-xs">
+          <button className="relative z-10 px-8 min-h-[44px] py-4 bg-white text-slate-900 font-extrabold rounded-full hover:scale-105 transition-transform shadow-xl uppercase tracking-widest text-xs sm:text-sm">
             {cta.buttonText}
           </button>
         </motion.div>
       </div>
 
       {/* Mobile Sticky CTA */}
-      <div className="fixed bottom-0 left-0 right-0 p-4 bg-white/90 backdrop-blur-md border-t border-slate-200 z-50 lg:hidden flex justify-center pb-safe">
-        <button className="w-full max-w-sm py-3.5 bg-slate-900 text-white font-bold rounded-xl shadow-lg active:scale-95 transition-transform text-sm uppercase tracking-widest">
+      <div className="sticky bottom-0 left-0 right-0 p-4 bg-white/90 backdrop-blur-md border-t border-slate-200 z-50 lg:hidden flex justify-center pb-[max(1rem,env(safe-area-inset-bottom))] mt-auto">
+        <button className="w-full max-w-sm min-h-[44px] py-3.5 bg-slate-900 text-white font-bold rounded-xl shadow-lg active:scale-95 transition-transform text-sm uppercase tracking-widest">
           {cta.buttonText}
         </button>
       </div>

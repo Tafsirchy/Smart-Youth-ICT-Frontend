@@ -15,7 +15,7 @@ import {
 import MobileMenu from "./MobileMenu";
 
 /* ─── ABOUT MEGA MENU ─────────────────────────────────────────────── */
-const aboutColumns = [
+export const aboutColumns = [
   {
     id: "foundation",
     heading: "Foundation",
@@ -105,7 +105,7 @@ const aboutColumns = [
 ];
 
 /* ─── SERVICES MEGA MENU ─────────────────────────────────────────── */
-const serviceColumns = [
+export const serviceColumns = [
   {
     id: "learn",
     heading: "Learning & Career",
@@ -258,12 +258,6 @@ export default function Navbar() {
   const handleMouseLeave = () => {
     dropdownTimer.current = setTimeout(() => setActiveDropdown(null), 150);
   };
-
-  const allMobileLinks = [
-    ...navLinks,
-    { href: "/services", label: "Services" },
-    ...aboutColumns.flatMap((col) => col.items),
-  ];
 
   const prefetchRoutes = (routes) => {
     routes.forEach((href) => {
@@ -723,7 +717,7 @@ export default function Navbar() {
             style={{ overflowX: "hidden" }}
           >
             <MobileMenu
-              links={allMobileLinks}
+              links={navLinks}
               session={session}
               onClose={() => setMobileOpen(false)}
             />
