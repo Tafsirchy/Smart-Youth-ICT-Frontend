@@ -6,13 +6,13 @@ export const metadata = {
 
 export default function StoryPage() {
   return (
-    <section className="min-h-screen bg-background py-16">
+    <section className="min-h-screen bg-background py-16 flex flex-col">
       <div className="container-custom">
         <div className="max-w-3xl mx-auto text-center mb-16">
           <p className="inline-block text-[11px] font-black uppercase tracking-[0.28em] text-brand-green mb-4">
             About Smart Youth ICT
           </p>
-          <h1 className="text-5xl md:text-5xl font-black text-slate-900 leading-[1.1] mb-8 tracking-tighter">
+          <h1 className="text-4xl sm:text-5xl md:text-6xl font-black text-slate-900 leading-[1.1] mb-8 tracking-tighter">
             Our <br />
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-500 via-teal-500 to-cyan-600 animate-gradient-x">Story.</span>
           </h1>
@@ -73,6 +73,17 @@ export default function StoryPage() {
             </p>
           </div>
         </div>
+      </div>
+
+      {/* Mobile Sticky CTA */}
+      <div className="fixed bottom-0 left-0 w-full p-4 bg-white/90 backdrop-blur-md border-t border-slate-200 z-50 md:hidden flex items-center justify-between shadow-[0_-10px_40px_rgba(0,0,0,0.05)] pb-[max(1rem,env(safe-area-inset-bottom))]">
+        <div>
+          <p className="text-[10px] font-black text-slate-500 uppercase tracking-widest">Next Step</p>
+          <p className="text-slate-900 font-bold text-sm">Join the Program</p>
+        </div>
+        <button className="px-5 py-3 min-h-[44px] bg-brand-green text-white font-black rounded-xl text-[10px] uppercase tracking-widest shadow-lg shadow-brand-green/30">
+          Apply Now
+        </button>
       </div>
     </section>
   );

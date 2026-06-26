@@ -24,7 +24,7 @@ export default function AdvisoryBoardPage() {
   }, []);
 
   return (
-    <section className="min-h-screen bg-slate-950 py-20 overflow-hidden text-white relative">
+    <section className="min-h-screen bg-slate-950 py-20 overflow-hidden text-white relative flex flex-col">
       {/* Deep dark abstract grids & flares */}
       <div className="absolute inset-0 bg-[url('/images/grid-pattern.svg')] bg-[length:40px_40px] opacity-10 pointer-events-none"></div>
       <div className="absolute top-1/4 -right-20 w-96 h-96 bg-blue-600 rounded-full blur-[120px] opacity-50 mix-blend-screen pointer-events-none animate-pulse duration-1000"></div>
@@ -42,7 +42,7 @@ export default function AdvisoryBoardPage() {
               Guidance & Trust
             </p>
           </motion.div>
-          <h1 className="text-5xl md:text-5xl font-black text-white leading-[1.1] mb-8 tracking-tighter">
+          <h1 className="text-4xl sm:text-5xl md:text-6xl font-black text-white leading-[1.1] mb-8 tracking-tighter">
             Advisory <br />
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-indigo-400 to-blue-500 animate-gradient-x">Board</span>
           </h1>
@@ -104,6 +104,17 @@ export default function AdvisoryBoardPage() {
             ))}
           </div>
         )}
+      </div>
+
+      {/* Mobile Sticky CTA */}
+      <div className="fixed bottom-0 left-0 w-full p-4 bg-slate-900/90 backdrop-blur-md border-t border-slate-800 z-50 md:hidden flex items-center justify-between shadow-[0_-10px_40px_rgba(0,0,0,0.2)] pb-[max(1rem,env(safe-area-inset-bottom))]">
+        <div>
+          <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Next Step</p>
+          <p className="text-white font-bold text-sm">Join the Program</p>
+        </div>
+        <button className="px-5 py-3 min-h-[44px] bg-blue-600 text-white font-black rounded-xl text-[10px] uppercase tracking-widest shadow-lg shadow-blue-600/30">
+          Apply Now
+        </button>
       </div>
     </section>
   );

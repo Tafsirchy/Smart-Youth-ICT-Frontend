@@ -25,7 +25,7 @@ export default function CoreManagementPage() {
   }, []);
 
   return (
-    <section className="min-h-screen bg-slate-50 py-20 overflow-hidden relative">
+    <section className="min-h-screen bg-slate-50 py-20 overflow-hidden relative flex flex-col">
       {/* Background blobs */}
       <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-blue-100 rounded-full blur-[100px] opacity-60 -translate-y-1/2 translate-x-1/3 pointer-events-none"></div>
       <div className="absolute bottom-0 left-0 w-[600px] h-[600px] bg-emerald-50 rounded-full blur-[120px] opacity-60 translate-y-1/3 -translate-x-1/4 pointer-events-none"></div>
@@ -39,7 +39,7 @@ export default function CoreManagementPage() {
           >
             Leadership
           </motion.p>
-          <h1 className="text-5xl md:text-5xl font-black text-slate-900 leading-[1.1] mb-8 tracking-tighter">
+          <h1 className="text-4xl sm:text-5xl md:text-6xl font-black text-slate-900 leading-[1.1] mb-8 tracking-tighter">
             Core <br />
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-500 via-indigo-500 to-blue-600 animate-gradient-x">Management</span>
           </h1>
@@ -99,12 +99,12 @@ export default function CoreManagementPage() {
 
                 <div className="flex justify-center gap-4 mt-8 pt-6 border-t border-slate-100">
                   {member.socials?.linkedin && (
-                    <a href={member.socials.linkedin} target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-full bg-slate-50 flex items-center justify-center text-slate-400 hover:bg-blue-600 hover:text-white transition-colors">
+                    <a href={member.socials.linkedin} target="_blank" rel="noopener noreferrer" className="min-w-[44px] min-h-[44px] rounded-full bg-slate-50 flex items-center justify-center text-slate-400 hover:bg-blue-600 hover:text-white transition-colors">
                       <IoLogoLinkedin size={20} />
                     </a>
                   )}
                   {member.socials?.email && (
-                    <a href={`mailto:${member.socials.email}`} className="w-10 h-10 rounded-full bg-slate-50 flex items-center justify-center text-slate-400 hover:bg-rose-500 hover:text-white transition-colors">
+                    <a href={`mailto:${member.socials.email}`} className="min-w-[44px] min-h-[44px] rounded-full bg-slate-50 flex items-center justify-center text-slate-400 hover:bg-rose-500 hover:text-white transition-colors">
                       <IoMailOutline size={20} />
                     </a>
                   )}
@@ -113,6 +113,17 @@ export default function CoreManagementPage() {
             ))}
           </div>
         )}
+      </div>
+
+      {/* Mobile Sticky CTA */}
+      <div className="fixed bottom-0 left-0 w-full p-4 bg-white/90 backdrop-blur-md border-t border-slate-200 z-50 md:hidden flex items-center justify-between shadow-[0_-10px_40px_rgba(0,0,0,0.05)] pb-[max(1rem,env(safe-area-inset-bottom))]">
+        <div>
+          <p className="text-[10px] font-black text-slate-500 uppercase tracking-widest">Next Step</p>
+          <p className="text-slate-900 font-bold text-sm">Join the Program</p>
+        </div>
+        <button className="px-5 py-3 min-h-[44px] bg-brand-green text-white font-black rounded-xl text-[10px] uppercase tracking-widest shadow-lg shadow-brand-green/30">
+          Apply Now
+        </button>
       </div>
     </section>
   );

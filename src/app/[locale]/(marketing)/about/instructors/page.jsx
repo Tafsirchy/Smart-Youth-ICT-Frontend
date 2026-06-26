@@ -80,13 +80,13 @@ export default function InstructorsPage() {
   };
 
   return (
-    <section className="min-h-screen bg-slate-50/50 py-20 overflow-hidden">
+    <section className="min-h-screen bg-slate-50/50 py-20 overflow-hidden flex flex-col">
       <div className="container-custom relative">
         <div className="max-w-3xl mb-12 text-left border-l-4 border-brand-green pl-6 sm:pl-8">
           <motion.h1
             initial={{ opacity: 0, x: -20 }}
             animate={{ opacity: 1, x: 0 }}
-            className="text-5xl md:text-5xl font-black text-slate-900 leading-[1.1] mb-8 tracking-tighter"
+            className="text-4xl sm:text-5xl md:text-6xl font-black text-slate-900 leading-[1.1] mb-8 tracking-tighter"
           >
             Our <br />
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-500 via-indigo-500 to-blue-600 animate-gradient-x">Mentors</span>
@@ -171,7 +171,7 @@ export default function InstructorsPage() {
               </p>
               <button
                 onClick={() => setFilters({ q: "", branchId: "", courseId: "" })}
-                className="mt-6 text-brand-green font-bold hover:underline uppercase text-xs tracking-widest"
+                className="mt-6 min-h-[44px] px-4 text-brand-green font-bold hover:underline uppercase text-xs tracking-widest"
               >
                 Reset all filters
               </button>
@@ -229,6 +229,17 @@ export default function InstructorsPage() {
             </AnimatePresence>
           </div>
         </div>
+      </div>
+
+      {/* Mobile Sticky CTA */}
+      <div className="fixed bottom-0 left-0 w-full p-4 bg-white/90 backdrop-blur-md border-t border-slate-200 z-50 md:hidden flex items-center justify-between shadow-[0_-10px_40px_rgba(0,0,0,0.05)] pb-[max(1rem,env(safe-area-inset-bottom))]">
+        <div>
+          <p className="text-[10px] font-black text-slate-500 uppercase tracking-widest">Next Step</p>
+          <p className="text-slate-900 font-bold text-sm">Join the Program</p>
+        </div>
+        <button className="px-5 py-3 min-h-[44px] bg-brand-green text-white font-black rounded-xl text-[10px] uppercase tracking-widest shadow-lg shadow-brand-green/30">
+          Apply Now
+        </button>
       </div>
     </section>
   );

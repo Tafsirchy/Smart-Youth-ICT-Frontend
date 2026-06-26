@@ -97,6 +97,7 @@ export default function middleware(req) {
     pathname.includes("/about") ||
     pathname.includes("/services") ||
     pathname.includes("/contact") ||
+    pathname.includes("/success-stories") ||
     pathname.includes("/forgot-password") ||
     pathname.includes("/reset-password") ||
     pathname.includes("/auth-redirect");

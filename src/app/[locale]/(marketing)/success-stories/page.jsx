@@ -37,7 +37,7 @@ export default function SuccessStoriesPage() {
   const gridStories = stories;
 
   return (
-    <div className="min-h-screen bg-slate-50 overflow-hidden">
+    <div className="min-h-screen bg-slate-50 overflow-hidden flex flex-col">
 
       {/* ── Hero Section ── */}
       <section className="relative pt-20 pb-32 px-4 bg-[#0f172a] overflow-hidden text-center">
@@ -55,7 +55,7 @@ export default function SuccessStoriesPage() {
           </motion.span>
           <motion.h1
             initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1 }}
-            className="text-5xl md:text-5xl font-black text-white leading-[1.1] mb-8 tracking-tighter">
+            className="text-4xl sm:text-5xl md:text-6xl font-black text-white leading-[1.1] mb-8 tracking-tighter">
             Success <br />
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-pink-500 via-rose-500 to-amber-500 animate-gradient-x">Stories</span>
           </motion.h1>
@@ -196,8 +196,8 @@ export default function SuccessStoriesPage() {
       </section>
 
     {/* ── Mobile Sticky CTA ── */}
-    <div className="fixed bottom-0 left-0 right-0 p-4 bg-white/80 backdrop-blur-md border-t border-slate-200 z-50 sm:hidden">
-      <Link href="/courses" className="flex items-center justify-center w-full py-3 bg-slate-900 text-white rounded-xl font-bold shadow-lg active:scale-95 transition-transform">
+    <div className="fixed bottom-0 left-0 w-full p-4 bg-white/90 backdrop-blur-md border-t border-slate-200 z-50 md:hidden flex items-center justify-between shadow-[0_-10px_40px_rgba(0,0,0,0.05)] pb-[max(1rem,env(safe-area-inset-bottom))]">
+      <Link href="/courses" className="flex items-center justify-center w-full min-h-[44px] py-3 bg-slate-900 text-white rounded-xl font-bold shadow-lg active:scale-95 transition-transform uppercase tracking-widest text-xs">
         Start Your Journey Today
       </Link>
     </div>

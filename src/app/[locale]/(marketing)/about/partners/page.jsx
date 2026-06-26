@@ -24,7 +24,7 @@ export default function PartnersPage() {
   }, []);
 
   return (
-    <section className="min-h-screen bg-slate-950 py-20 overflow-hidden relative">
+    <section className="min-h-screen pb-24 md:pb-0 bg-slate-950 py-20 overflow-hidden relative flex flex-col">
       <div className="absolute inset-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:24px_24px]"></div>
 
       <div className="container-custom relative z-10">
@@ -40,7 +40,7 @@ export default function PartnersPage() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.1 }}
-            className="text-5xl md:text-5xl font-black text-white leading-[1.1] mb-8 tracking-tighter"
+            className="text-4xl sm:text-5xl md:text-6xl font-black text-white leading-[1.1] mb-8 tracking-tighter"
           >
             Our <br />
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-500 via-teal-500 to-cyan-600 animate-gradient-x">
@@ -108,10 +108,21 @@ export default function PartnersPage() {
             We are always open to mutually beneficial relationships with tech
             companies, recruiters, and educational platforms.
           </p>
-          <button className="px-8 py-4 bg-emerald-600 text-white font-black rounded-full hover:scale-105 transition-transform shadow-[0_0_30px_rgba(16,185,129,0.3)]">
+          <button className="min-h-[44px] px-8 py-4 bg-emerald-600 text-white font-black rounded-full hover:scale-105 transition-transform shadow-[0_0_30px_rgba(16,185,129,0.3)]">
             Become a Partner
           </button>
         </motion.div>
+      </div>
+
+      {/* Mobile Sticky CTA */}
+      <div className="fixed bottom-0 left-0 w-full p-4 bg-slate-900/90 backdrop-blur-md border-t border-slate-800 z-50 md:hidden flex items-center justify-between shadow-[0_-10px_40px_rgba(0,0,0,0.2)] pb-[max(1rem,env(safe-area-inset-bottom))]">
+        <div>
+          <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Next Step</p>
+          <p className="text-white font-bold text-sm">Join the Program</p>
+        </div>
+        <button className="px-5 py-3 min-h-[44px] bg-emerald-600 text-white font-black rounded-xl text-[10px] uppercase tracking-widest shadow-lg shadow-emerald-600/30">
+          Apply Now
+        </button>
       </div>
     </section>
   );
