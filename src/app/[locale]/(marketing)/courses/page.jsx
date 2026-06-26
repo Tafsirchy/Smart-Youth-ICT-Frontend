@@ -103,7 +103,7 @@ export default function CoursesPage() {
 
   return (
     <div
-      className="min-h-screen"
+      className="min-h-screen pb-24 md:pb-0 flex flex-col"
       style={{ background: "var(--color-background)" }}
     >
       {/* ── Hero Banner ───────────────────────────────── */}
@@ -139,7 +139,7 @@ export default function CoursesPage() {
               ? `${filteredCourses.length} Courses Available`
               : "Courses"}
           </span>
-          <h1 className="text-3xl sm:text-4xl lg:text-5xl font-black text-white leading-[1.15] mb-6 sm:mb-8 tracking-tighter">
+          <h1 className="text-4xl sm:text-5xl md:text-6xl font-black text-white leading-[1.15] mb-6 sm:mb-8 tracking-tighter">
             Explore Our <br className="hidden sm:block" />
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-indigo-400 to-blue-500 animate-gradient-x">Courses</span>
           </h1>
@@ -186,7 +186,7 @@ export default function CoursesPage() {
               <button
                 key={cat.id}
                 onClick={() => setCategory(cat.id)}
-                className={`shrink-0 rounded-full px-5 py-2.5 text-xs sm:text-sm font-semibold transition-all min-h-[40px] flex items-center ${
+                className={`shrink-0 rounded-full px-5 py-2.5 text-xs sm:text-sm font-semibold transition-all min-h-[44px] flex items-center ${
                   category === cat.id
                     ? "bg-blue-600 text-white shadow-md shadow-blue-200"
                     : "bg-neutral-100 text-neutral-600 hover:bg-neutral-200"
@@ -202,7 +202,7 @@ export default function CoursesPage() {
             <select
               value={branch}
               onChange={(e) => setBranch(e.target.value)}
-              className="w-full sm:w-auto shrink-0 rounded-full px-4 py-2.5 text-xs sm:text-sm font-semibold bg-white border border-neutral-200 text-neutral-700 min-h-[40px]"
+              className="w-full sm:w-auto shrink-0 rounded-full px-4 py-2.5 text-xs sm:text-sm font-semibold bg-white border border-neutral-200 text-neutral-700 min-h-[44px]"
             >
               {branchOptions.map((id) => (
                 <option key={id} value={id}>
@@ -222,7 +222,7 @@ export default function CoursesPage() {
       {/* ── Course Grid ──────────────────────────────── */}
       <div className="container-custom px-4 sm:px-6 py-10 sm:py-16">
         {loading ? (
-          <div className="grid grid-cols-2 gap-4 sm:gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-6">
             {[...Array(8)].map((_, i) => (
               <CourseCardSkeleton key={i} />
             ))}
@@ -234,7 +234,7 @@ export default function CoursesPage() {
               variants={stagger}
               initial="initial"
               animate="animate"
-              className="grid grid-cols-2 gap-4 sm:gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4"
+              className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-6"
             >
               {filteredCourses.map((course) => (
                 <motion.div key={course._id} variants={cardVariant}>
@@ -268,6 +268,17 @@ export default function CoursesPage() {
             )}
           </motion.div>
         )}
+      </div>
+
+      {/* Mobile Sticky CTA */}
+      <div className="fixed bottom-0 left-0 w-full p-4 bg-white/90 backdrop-blur-md border-t border-slate-200 z-50 md:hidden flex items-center justify-between shadow-[0_-10px_40px_rgba(0,0,0,0.05)] pb-[max(1rem,env(safe-area-inset-bottom))]">
+        <div>
+          <p className="text-[10px] font-black text-slate-500 uppercase tracking-widest">Ready to Start?</p>
+          <p className="text-slate-900 font-bold text-sm">Enroll in a Course</p>
+        </div>
+        <button className="px-5 py-3 min-h-[44px] bg-blue-600 text-white font-black rounded-xl text-[10px] uppercase tracking-widest shadow-lg shadow-blue-600/30">
+          Join Now
+        </button>
       </div>
     </div>
   );
