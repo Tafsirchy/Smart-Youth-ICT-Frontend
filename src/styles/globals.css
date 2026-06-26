@@ -70,6 +70,12 @@
   --radius-xl2:  1.5rem;
   --radius-full: 9999px;
 
+  /* — Dashboard Layout Tokens ────────────────────── */
+  --topbar-height: 56px;
+  --sidebar-width-collapsed: 64px;
+  --sidebar-width-expanded: 288px;
+  --content-gutter: 16px;
+
   /* — Transitions ───────────────────────────────── */
   --transition-default: all 250ms cubic-bezier(0.4, 0, 0.2, 1);
   --transition-fast:    all 150ms cubic-bezier(0.4, 0, 0.2, 1);
@@ -317,6 +323,69 @@ a {
   .container-custom {
     padding-inline: var(--gutter);
     @apply w-full max-w-[1440px] mx-auto;
+  }
+
+  /* — Dashboard Layout System ───────────────────── */
+  .dashboard-layout {
+    display: grid;
+    grid-template-rows: var(--topbar-height) 1fr;
+    grid-template-columns: 1fr;
+    height: 100dvh;
+    overflow: hidden;
+    background-color: var(--color-background);
+  }
+  @media (min-width: 1024px) {
+    .dashboard-layout {
+      grid-template-columns: var(--sidebar-width-expanded) 1fr;
+      grid-template-rows: 1fr; /* Topbar is hidden on desktop */
+    }
+  }
+
+  .dashboard-topbar {
+    grid-column: 1 / -1;
+    grid-row: 1 / 2;
+    z-index: 100;
+  }
+  @media (min-width: 1024px) {
+    .dashboard-topbar {
+      grid-column: 2 / -1;
+    }
+  }
+
+  .dashboard-sidebar {
+    grid-column: 1 / 2;
+    grid-row: 1 / -1;
+    z-index: 100;
+    min-height: 0; /* Prevents sidebar content from blowing out the grid height */
+  }
+
+  .dashboard-main {
+    grid-row: 2 / 3;
+    grid-column: 1 / -1;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    height: 100%;
+    min-height: 0; /* Critical for CSS Grid: prevents content from blowing out the row height */
+    min-width: 0;
+  }
+  @media (min-width: 1024px) {
+    .dashboard-main {
+      grid-column: 2 / -1;
+      grid-row: 1 / -1;
+    }
+  }
+
+  .dashboard-main-content {
+    padding: var(--content-gutter);
+    max-width: 1400px;
+    margin-inline: auto;
+    width: 100%;
+  }
+  @media (min-width: 640px) {
+    :root { --content-gutter: 24px; }
+  }
+  @media (min-width: 1024px) {
+    :root { --topbar-height: 64px; --content-gutter: 32px; }
   }
 }
 

@@ -92,7 +92,7 @@ export default function StudentDashboardPage() {
 
       {/* ── Stat Cards ── */}
       <motion.div variants={stagger} initial="initial" animate="animate"
-        className="grid grid-cols-1 sm:grid-cols-3 gap-5">
+        className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5">
         {STAT_CARDS.map(s => (
           <motion.div key={s.label} variants={card}
             className={`rounded-2xl bg-white ring-1 ${s.ring} p-6 flex items-center gap-5 shadow-sm hover:shadow-md transition-shadow`}>
@@ -116,7 +116,7 @@ export default function StudentDashboardPage() {
           {QUICK_LINKS.map((link, i) => (
             <motion.div key={link.href} initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }} transition={{ delay: i * 0.08 }}>
               <Link href={`/${locale}${link.href}`}
-                className={`flex flex-col items-center justify-center gap-2 py-5 rounded-2xl bg-gradient-to-br ${link.color} text-white font-semibold text-sm shadow-md hover:scale-105 hover:shadow-lg transition-all`}>
+                className={`flex flex-col items-center justify-center gap-2 py-5 sm:py-6 rounded-2xl bg-gradient-to-br ${link.color} text-white font-semibold text-sm shadow-md hover:scale-105 hover:shadow-lg transition-all min-h-[80px]`}>
                 <link.icon size={26} />
                 {link.label}
               </Link>
@@ -135,11 +135,11 @@ export default function StudentDashboardPage() {
         </div>
 
         {isDelayedLoading ? (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-5">
             {[1,2,3].map(n => <div key={n} className="h-52 animate-pulse rounded-2xl bg-neutral-200" />)}
           </div>
         ) : courses.length > 0 ? (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-5">
             {courses.slice(0, 3).map((course, i) => {
               const pct = course.progress?.percentage || 0;
               return (
@@ -168,7 +168,7 @@ export default function StudentDashboardPage() {
                           initial={{ width: 0 }} animate={{ width: `${pct}%` }} transition={{ duration: 0.8, delay: 0.3 }} />
                       </div>
                       <Link href={`/${locale}/student/learn/${course.slug}`}
-                        className="flex items-center justify-center gap-2 w-full py-2.5 rounded-xl bg-blue-50 text-blue-700 text-sm font-bold hover:bg-blue-600 hover:text-white transition-colors">
+                        className="flex items-center justify-center gap-2 w-full py-3 sm:py-2.5 rounded-xl bg-blue-50 text-blue-700 text-sm font-bold hover:bg-blue-600 hover:text-white transition-colors min-h-[44px]">
                         <IoPlayCircleOutline size={16} />
                         {pct > 0 ? 'Continue' : 'Start Learning'}
                       </Link>

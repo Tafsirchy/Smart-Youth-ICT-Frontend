@@ -56,7 +56,7 @@ function NavItem({ href, Icon, label }) {
  * Centralized navigation shell that dynamically adjusts menu items based on the user's role.
  * Optimized with server-side props to prevent hydration flickering.
  */
-export default function Sidebar({ initialRole, initialUser }) {
+export default function Sidebar({ initialRole, initialUser, isOpen, onClose }) {
   const { user: clientUser, role: clientRole, isLoading } = useRole();
   const pathname = usePathname();
 
@@ -79,9 +79,9 @@ export default function Sidebar({ initialRole, initialUser }) {
   else if (!role && !isLoading) navItems = NAVIGATION_CONFIG.student; // Final fallback
 
   return (
-    <aside className="sidebar w-72 h-full flex flex-col hidden lg:flex shrink-0">
+    <aside className={`sidebar dashboard-sidebar w-72 h-full flex flex-col shrink-0 fixed inset-y-0 left-0 z-[200] transform transition-transform duration-300 lg:relative lg:translate-x-0 ${isOpen ? 'translate-x-0' : '-translate-x-full'}`}>
       {/* Brand */}
-      <div className="px-8 py-8 flex justify-center">
+      <div className="px-8 py-6 flex justify-between items-center h-[var(--topbar-height)] lg:h-auto lg:py-8 lg:justify-center border-b border-white/5 lg:border-none shrink-0">
         <Link href="/" className="flex items-center">
           <Image
             src="/images/logo.png"
@@ -91,6 +91,15 @@ export default function Sidebar({ initialRole, initialUser }) {
             className="h-10 w-auto object-contain"
           />
         </Link>
+        {/* Mobile Close Button */}
+        <button 
+          onClick={onClose}
+          className="lg:hidden p-2 text-slate-400 hover:text-white transition-colors"
+        >
+          <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+          </svg>
+        </button>
       </div>
 
       {/* User info Card */}
