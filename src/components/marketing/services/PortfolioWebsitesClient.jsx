@@ -19,7 +19,7 @@ export default function PortfolioWebsitesClient({ data }) {
   const pricing = sections.pricing || [];
 
   return (
-    <section className="min-h-screen bg-[#fafafa] overflow-hidden relative selection:bg-rose-500 selection:text-white">
+    <section className="min-h-screen bg-[#fafafa] overflow-hidden relative selection:bg-rose-500 selection:text-white flex flex-col">
       {/* Decorative Background Elements */}
       <div className="absolute top-0 left-0 w-full h-[800px] pointer-events-none -z-10">
         <div className="absolute top-[-200px] left-[-200px] w-[800px] h-[800px] bg-rose-200/40 rounded-full blur-[160px] animate-pulse"></div>
@@ -229,7 +229,7 @@ export default function PortfolioWebsitesClient({ data }) {
             </p>
           </div>
 
-          <div className="flex overflow-x-auto snap-x snap-mandatory md:grid md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 max-w-6xl mx-auto text-left pb-8 md:pb-0 -mx-4 px-4 md:mx-auto md:px-0">
+          <div className="flex overflow-x-auto snap-x snap-mandatory md:grid md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 max-w-6xl mx-auto text-left pb-8 md:pb-0 -mx-[var(--gutter)] px-[var(--gutter)] md:mx-auto md:px-0">
             {pricing?.map((tier, idx) => (
               <div
                 key={idx}
@@ -266,7 +266,7 @@ export default function PortfolioWebsitesClient({ data }) {
                 </div>
 
                 <button
-                  className={`w-full py-5 rounded-2xl font-black uppercase tracking-widest text-xs transition-all ${tier.highlight ? "bg-rose-500 text-white shadow-xl shadow-rose-500/30" : "bg-slate-900 text-white hover:bg-rose-500"}`}
+                  className={`w-full min-h-[44px] py-5 rounded-2xl font-black uppercase tracking-widest text-xs transition-all ${tier.highlight ? "bg-rose-500 text-white shadow-xl shadow-rose-500/30" : "bg-slate-900 text-white hover:bg-rose-500"}`}
                 >
                   Select {tier.t}
                 </button>
@@ -288,12 +288,12 @@ export default function PortfolioWebsitesClient({ data }) {
               {cta.title}
             </h3>
             <div className="flex flex-col sm:flex-row gap-4 sm:gap-6 justify-center">
-              <button className="w-full sm:w-[280px] px-6 sm:px-8 py-5 sm:py-6 bg-rose-500 text-white font-black rounded-[2rem] hover:bg-rose-600 transition-all shadow-xl shadow-rose-600/40 uppercase tracking-widest text-xs flex items-center justify-center">
+              <button className="w-full sm:w-[280px] min-h-[44px] px-6 sm:px-8 py-5 sm:py-6 bg-rose-500 text-white font-black rounded-[2rem] hover:bg-rose-600 transition-all shadow-xl shadow-rose-600/40 uppercase tracking-widest text-xs flex items-center justify-center">
                 Consult Portfolio Expert
               </button>
               <Link
                 href="/services/portfolio-websites/details"
-                className="w-full sm:w-[280px] px-6 sm:px-8 py-5 sm:py-6 bg-slate-900 text-white font-black rounded-[2rem] hover:bg-black transition-all shadow-xl shadow-slate-900/40 uppercase tracking-widest text-xs flex items-center justify-center text-center"
+                className="w-full sm:w-[280px] min-h-[44px] px-6 sm:px-8 py-5 sm:py-6 bg-slate-900 text-white font-black rounded-[2rem] hover:bg-black transition-all shadow-xl shadow-slate-900/40 uppercase tracking-widest text-xs flex items-center justify-center text-center"
               >
                 Technical Details
               </Link>
@@ -303,12 +303,12 @@ export default function PortfolioWebsitesClient({ data }) {
       </div>
 
       {/* Mobile Sticky CTA */}
-      <div className="fixed bottom-0 left-0 w-full p-4 pb-6 bg-white/90 backdrop-blur-md border-t border-slate-100 z-50 md:hidden flex items-center justify-between shadow-[0_-10px_40px_rgba(0,0,0,0.05)]">
+      <div className="sticky bottom-0 left-0 w-full p-4 bg-white/90 backdrop-blur-md border-t border-slate-100 z-50 md:hidden flex items-center justify-between shadow-[0_-10px_40px_rgba(0,0,0,0.05)] pb-[max(1rem,env(safe-area-inset-bottom))] mt-auto">
         <div>
           <p className="text-[10px] font-black text-slate-500 uppercase tracking-widest">Start Project</p>
           <p className="text-slate-900 font-bold text-sm">Consult Expert</p>
         </div>
-        <button className="px-5 py-3 bg-rose-500 text-white font-black rounded-xl text-[10px] uppercase tracking-widest shadow-lg shadow-rose-500/30">
+        <button className="px-5 py-3 min-h-[44px] bg-rose-500 text-white font-black rounded-xl text-[10px] uppercase tracking-widest shadow-lg shadow-rose-500/30">
           Book Now
         </button>
       </div>

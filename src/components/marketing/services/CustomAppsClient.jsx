@@ -21,7 +21,7 @@ export default function CustomAppsClient({ data }) {
   const pricing = sections.pricing || [];
 
   return (
-    <section className="min-h-screen bg-slate-50 text-slate-900 selection:bg-violet-600 selection:text-white overflow-hidden relative font-sans">
+    <section className="min-h-screen bg-slate-50 text-slate-900 selection:bg-violet-600 selection:text-white overflow-hidden relative font-sans flex flex-col">
       {/* INDUSTRIAL OVERLAY */}
       <div className="absolute top-0 opacity-10 pointer-events-none -z-10 w-full h-full">
         <div className="absolute top-0 left-1/4 w-[1px] h-full bg-slate-200"></div>
@@ -61,12 +61,12 @@ export default function CustomAppsClient({ data }) {
             </motion.p>
 
             <div className="flex flex-col sm:flex-row gap-6">
-              <button className="w-full sm:w-[280px] px-8 py-6 bg-violet-600 text-white font-bold rounded-xl hover:bg-violet-700 transition-all shadow-2xl shadow-violet-600/20 uppercase tracking-wider text-sm flex items-center justify-center">
+              <button className="w-full sm:w-[280px] min-h-[44px] px-8 py-6 bg-violet-600 text-white font-bold rounded-xl hover:bg-violet-700 transition-all shadow-2xl shadow-violet-600/20 uppercase tracking-wider text-sm flex items-center justify-center">
                 Initialize Product Brief
               </button>
               <Link
                 href="/services/custom-apps/details"
-                className="w-full sm:w-[280px] px-8 py-6 bg-white border border-slate-200 text-slate-900 font-bold rounded-xl hover:bg-slate-50 transition-all uppercase tracking-wider text-sm flex items-center justify-center text-center"
+                className="w-full sm:w-[280px] min-h-[44px] px-8 py-6 bg-white border border-slate-200 text-slate-900 font-bold rounded-xl hover:bg-slate-50 transition-all uppercase tracking-wider text-sm flex items-center justify-center text-center"
               >
                 Technical Specifications
               </Link>
@@ -163,7 +163,7 @@ export default function CustomAppsClient({ data }) {
               <div className="pt-8 lg:pt-10 border-t border-slate-200">
                 {/* Mobile Accordion */}
                 <details className="lg:hidden group">
-                  <summary className="cursor-pointer list-none font-bold text-sm text-violet-600 flex justify-between items-center bg-violet-50 p-4 rounded-xl border border-violet-100">
+                  <summary className="cursor-pointer min-h-[44px] list-none font-bold text-sm text-violet-600 flex justify-between items-center bg-violet-50 p-4 rounded-xl border border-violet-100">
                     View Full Tech Stack
                     <span className="transition group-open:rotate-180 text-xs">▼</span>
                   </summary>
@@ -171,7 +171,7 @@ export default function CustomAppsClient({ data }) {
                     {integrations?.map((int, i) => (
                       <div key={i} className="space-y-4">
                         <h4 className="text-xs font-black text-slate-900 uppercase tracking-widest">{int.group}</h4>
-                        <div className="flex overflow-x-auto snap-x scrollbar-hide gap-2 pb-2 -mb-2">
+                        <div className="flex overflow-x-auto snap-x scrollbar-hide gap-2 pb-2 -mb-2 -mx-[var(--gutter)] px-[var(--gutter)]">
                           {int.tags?.map(tag => (
                             <span key={tag} className="shrink-0 snap-start px-3 py-1 bg-slate-50 border border-slate-100 rounded-full text-xs font-bold text-slate-500">{tag}</span>
                           ))}
@@ -230,7 +230,7 @@ export default function CustomAppsClient({ data }) {
             <p className="text-4xl md:text-5xl font-black text-slate-900 leading-tight">Structured for <span className="text-slate-400">every evolution.</span></p>
           </div>
 
-          <div className="flex overflow-x-auto snap-x snap-mandatory md:grid md:grid-cols-2 lg:grid-cols-3 gap-8 pb-8 -mx-4 px-4 md:mx-0 md:px-0 scrollbar-hide">
+          <div className="flex overflow-x-auto snap-x snap-mandatory md:grid md:grid-cols-2 lg:grid-cols-3 gap-8 pb-8 -mx-[var(--gutter)] px-[var(--gutter)] md:mx-0 md:px-0 scrollbar-hide">
             {pricing?.map((tier, idx) => (
               <div key={idx} className={`snap-center shrink-0 w-[85vw] md:w-auto bg-white rounded-[3rem] p-12 border ${tier.highlight ? "border-violet-600 shadow-2xl shadow-violet-600/10 md:-translate-y-4" : "border-slate-100 shadow-xl shadow-slate-200/50"} flex flex-col h-full relative overflow-hidden group transition-all`}>
                 <h4 className="text-3xl font-black text-slate-900 mb-2 uppercase tracking-tighter">{tier.t}</h4>
@@ -244,7 +244,7 @@ export default function CustomAppsClient({ data }) {
                   ))}
                 </div>
 
-                <button className={`w-full py-6 rounded-2xl font-black uppercase tracking-widest text-xs transition-all shadow-xl shadow-slate-200/50 ${tier.highlight ? "bg-violet-600 text-white shadow-violet-600/30" : "bg-slate-900 text-white hover:bg-violet-600 font-black"}`}>Initialize Build</button>
+                <button className={`w-full min-h-[44px] py-6 rounded-2xl font-black uppercase tracking-widest text-xs transition-all shadow-xl shadow-slate-200/50 ${tier.highlight ? "bg-violet-600 text-white shadow-violet-600/30" : "bg-slate-900 text-white hover:bg-violet-600 font-black"}`}>Initialize Build</button>
               </div>
             ))}
           </div>
@@ -255,12 +255,12 @@ export default function CustomAppsClient({ data }) {
           <IoCubeOutline className="text-7xl text-violet-600 mb-12 mx-auto opacity-10" />
           <h3 className="text-5xl lg:text-6xl font-black text-slate-900 mb-12 leading-tight">{cta.title?.split('your ')[0]}your <br /><span className="text-transparent bg-clip-text bg-gradient-to-r from-violet-600 to-indigo-600 font-serif italic font-medium">{cta.title?.split('your ')[1]}</span></h3>
           <div className="flex flex-col sm:flex-row gap-6 justify-center">
-            <button className="w-full sm:w-[280px] px-8 py-6 bg-violet-600 text-white font-bold rounded-xl hover:bg-violet-700 transition-all shadow-2xl shadow-violet-600/40 uppercase tracking-wider text-sm flex items-center justify-center">
+            <button className="w-full sm:w-[280px] min-h-[44px] px-8 py-6 bg-violet-600 text-white font-bold rounded-xl hover:bg-violet-700 transition-all shadow-2xl shadow-violet-600/40 uppercase tracking-wider text-sm flex items-center justify-center">
               Initialize Build
             </button>
-            <Link
+              <Link
               href="/services/custom-apps/details"
-              className="w-full sm:w-[280px] px-8 py-6 bg-slate-900 text-white font-bold rounded-xl hover:bg-slate-800 transition-all uppercase tracking-wider text-sm flex items-center justify-center text-center"
+              className="w-full sm:w-[280px] min-h-[44px] px-8 py-6 bg-slate-900 text-white font-bold rounded-xl hover:bg-slate-800 transition-all uppercase tracking-wider text-sm flex items-center justify-center text-center"
             >
               Technical Specifications
             </Link>
@@ -269,8 +269,8 @@ export default function CustomAppsClient({ data }) {
       </div>
 
       {/* MOBILE STICKY CTA */}
-      <div className="md:hidden fixed bottom-0 left-0 w-full bg-white/80 backdrop-blur-md border-t border-slate-200 p-4 z-50 shadow-[0_-10px_40px_rgba(0,0,0,0.05)] pb-safe">
-        <button className="w-full py-4 bg-violet-600 text-white font-bold rounded-xl shadow-lg shadow-violet-600/30 uppercase tracking-wider text-sm flex items-center justify-center">
+      <div className="md:hidden sticky bottom-0 left-0 w-full bg-white/80 backdrop-blur-md border-t border-slate-200 p-4 z-50 shadow-[0_-10px_40px_rgba(0,0,0,0.05)] pb-[max(1rem,env(safe-area-inset-bottom))] mt-auto">
+        <button className="w-full min-h-[44px] py-4 bg-violet-600 text-white font-bold rounded-xl shadow-lg shadow-violet-600/30 uppercase tracking-wider text-sm flex items-center justify-center">
           Initialize Product Brief
         </button>
       </div>

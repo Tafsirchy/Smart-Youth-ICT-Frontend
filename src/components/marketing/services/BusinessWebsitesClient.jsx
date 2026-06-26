@@ -21,7 +21,7 @@ export default function BusinessWebsitesClient({ data }) {
   const pricing = sections.pricing || [];
 
   return (
-    <section className="min-h-screen bg-white selection:bg-blue-600 selection:text-white overflow-hidden relative">
+    <section className="min-h-screen bg-white selection:bg-blue-600 selection:text-white overflow-hidden relative flex flex-col">
       {/* INDUSTRIAL OVERLAY */}
       <div className="absolute top-0 opacity-10 pointer-events-none -z-10 w-full h-full">
         <div className="absolute top-0 left-1/4 w-[1px] h-full bg-slate-200"></div>
@@ -61,12 +61,12 @@ export default function BusinessWebsitesClient({ data }) {
             </motion.p>
 
             <div className="flex flex-col sm:flex-row gap-4 sm:gap-6">
-              <button className="w-full sm:w-[280px] px-6 sm:px-8 py-5 sm:py-6 bg-blue-600 text-white font-black rounded-xl hover:bg-blue-700 transition-all shadow-xl shadow-blue-600/20 uppercase tracking-widest text-xs flex items-center justify-center">
+              <button className="w-full sm:w-[280px] min-h-[44px] px-6 sm:px-8 py-5 sm:py-6 bg-blue-600 text-white font-black rounded-xl hover:bg-blue-700 transition-all shadow-xl shadow-blue-600/20 uppercase tracking-widest text-xs flex items-center justify-center">
                 Initialize Consultation
               </button>
               <Link
                 href="/services/business-websites/details"
-                className="w-full sm:w-[280px] px-6 sm:px-8 py-5 sm:py-6 bg-white border border-slate-200 text-slate-900 font-black rounded-xl hover:bg-slate-50 transition-all uppercase tracking-widest text-xs flex items-center justify-center text-center"
+                className="w-full sm:w-[280px] min-h-[44px] px-6 sm:px-8 py-5 sm:py-6 bg-white border border-slate-200 text-slate-900 font-black rounded-xl hover:bg-slate-50 transition-all uppercase tracking-widest text-xs flex items-center justify-center text-center"
               >
                 Technical Specifications
               </Link>
@@ -104,7 +104,7 @@ export default function BusinessWebsitesClient({ data }) {
             </div>
           </div>
 
-          <div className="flex overflow-x-auto snap-x snap-mandatory lg:grid lg:grid-cols-3 gap-6 sm:gap-8 pb-8 lg:pb-0 -mx-4 px-4 lg:mx-0 lg:px-0">
+          <div className="flex overflow-x-auto snap-x snap-mandatory lg:grid lg:grid-cols-3 gap-6 sm:gap-8 pb-8 lg:pb-0 -mx-[var(--gutter)] px-[var(--gutter)] lg:mx-0 lg:px-0">
             {verticals?.map((item, i) => (
               <motion.div
                 key={i}
@@ -191,7 +191,7 @@ export default function BusinessWebsitesClient({ data }) {
             <p className="text-3xl sm:text-4xl md:text-5xl font-black text-slate-900 leading-tight">{sections.pricingHeader?.title || "Bespoke investment"} <span className="text-slate-400">{sections.pricingHeader?.focus || "for results."}</span></p>
           </div>
 
-          <div className="flex overflow-x-auto snap-x snap-mandatory md:grid md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 pb-8 md:pb-0 -mx-4 px-4 md:mx-0 md:px-0">
+          <div className="flex overflow-x-auto snap-x snap-mandatory md:grid md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 pb-8 md:pb-0 -mx-[var(--gutter)] px-[var(--gutter)] md:mx-0 md:px-0">
             {pricing?.map((tier, idx) => (
               <div key={idx} className={`bg-white rounded-3xl sm:rounded-[3rem] p-8 sm:p-12 border min-w-[280px] snap-center shrink-0 w-[85vw] md:w-auto ${tier.highlight ? "border-blue-600 shadow-xl shadow-blue-600/10 md:-translate-y-4" : "border-slate-100 shadow-lg shadow-slate-200/50"} flex flex-col h-full relative overflow-hidden group transition-all`}>
                 <h4 className="text-2xl sm:text-3xl font-black text-slate-900 mb-2 uppercase tracking-tighter">{tier.t}</h4>
@@ -205,7 +205,7 @@ export default function BusinessWebsitesClient({ data }) {
                   ))}
                 </div>
 
-                <button className={`w-full py-5 sm:py-6 rounded-2xl font-black uppercase tracking-widest text-xs transition-all shadow-md sm:shadow-xl shadow-slate-200/50 ${tier.highlight ? "bg-blue-600 text-white shadow-blue-600/30" : "bg-slate-900 text-white hover:bg-blue-600"}`}>Select Deployment</button>
+                <button className={`w-full min-h-[44px] py-5 sm:py-6 rounded-2xl font-black uppercase tracking-widest text-xs transition-all shadow-md sm:shadow-xl shadow-slate-200/50 ${tier.highlight ? "bg-blue-600 text-white shadow-blue-600/30" : "bg-slate-900 text-white hover:bg-blue-600"}`}>Select Deployment</button>
               </div>
             ))}
           </div>
@@ -216,12 +216,12 @@ export default function BusinessWebsitesClient({ data }) {
           <IoBriefcaseOutline className="text-7xl text-blue-600 mb-10 sm:mb-12 mx-auto opacity-10" />
           <h3 className="text-4xl sm:text-5xl lg:text-6xl font-black text-slate-900 mb-10 sm:mb-12 leading-tight">{cta.title?.split('your ')[0]}your <br /><span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-indigo-600 font-serif italic font-medium">{cta.title?.split('your ')[1]}</span></h3>
           <div className="flex flex-col sm:flex-row gap-4 sm:gap-6 justify-center">
-            <button className="w-full sm:w-[280px] px-6 sm:px-8 py-5 sm:py-6 bg-blue-600 text-white font-black rounded-xl hover:bg-blue-700 transition-all shadow-xl shadow-blue-600/40 uppercase tracking-widest text-xs flex items-center justify-center">
+            <button className="w-full sm:w-[280px] min-h-[44px] px-6 sm:px-8 py-5 sm:py-6 bg-blue-600 text-white font-black rounded-xl hover:bg-blue-700 transition-all shadow-xl shadow-blue-600/40 uppercase tracking-widest text-xs flex items-center justify-center">
               Initialize Build
             </button>
-            <Link
+              <Link
               href="/services/business-websites/details"
-              className="w-full sm:w-[280px] px-6 sm:px-8 py-5 sm:py-6 bg-slate-900 text-white font-black rounded-xl hover:bg-slate-800 transition-all uppercase tracking-widest text-xs flex items-center justify-center text-center"
+              className="w-full sm:w-[280px] min-h-[44px] px-6 sm:px-8 py-5 sm:py-6 bg-slate-900 text-white font-black rounded-xl hover:bg-slate-800 transition-all uppercase tracking-widest text-xs flex items-center justify-center text-center"
             >
               Technical Specifications
             </Link>
@@ -230,12 +230,12 @@ export default function BusinessWebsitesClient({ data }) {
       </div>
 
       {/* Mobile Sticky CTA */}
-      <div className="fixed bottom-0 left-0 w-full p-4 pb-6 bg-white/90 backdrop-blur-md border-t border-slate-200 z-50 md:hidden flex items-center justify-between shadow-[0_-10px_40px_rgba(0,0,0,0.05)]">
+      <div className="sticky bottom-0 left-0 w-full p-4 bg-white/90 backdrop-blur-md border-t border-slate-200 z-50 md:hidden flex items-center justify-between shadow-[0_-10px_40px_rgba(0,0,0,0.05)] pb-[max(1rem,env(safe-area-inset-bottom))] mt-auto">
         <div>
           <p className="text-xs font-black text-slate-500 uppercase tracking-widest">Start Project</p>
           <p className="text-slate-900 font-bold text-sm">Consult Expert</p>
         </div>
-        <button className="px-5 py-3 bg-blue-600 text-white font-black rounded-xl text-xs uppercase tracking-widest shadow-lg shadow-blue-600/30">
+        <button className="px-5 py-3 min-h-[44px] bg-blue-600 text-white font-black rounded-xl text-xs uppercase tracking-widest shadow-lg shadow-blue-600/30">
           Book Now
         </button>
       </div>
