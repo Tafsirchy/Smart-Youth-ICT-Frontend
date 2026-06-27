@@ -15,7 +15,8 @@ import {
   HiOutlineTrash,
   HiOutlineCheckBadge,
   HiOutlineEye,
-  HiOutlineEyeSlash
+  HiOutlineEyeSlash,
+  HiOutlineXMark
 } from 'react-icons/hi2';
 import { AnimatePresence } from 'framer-motion';
 import Portal from '@/components/ui/Portal';
@@ -109,15 +110,15 @@ export default function SystemSettingsPage() {
   };
 
   return (
-    <div className="space-y-10 max-w-7xl mx-auto pb-20">
+    <div className="space-y-6 max-w-7xl mx-auto pb-10">
       {/* Header */}
       <header>
           <motion.h1 
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
-            className="text-4xl font-black text-slate-900 tracking-tight flex items-center gap-4"
+            className="text-2xl sm:text-3xl lg:text-4xl font-black text-slate-900 flex items-center gap-3"
           >
-            <span className="p-3 bg-rose-500 text-white rounded-2xl shadow-lg shadow-rose-500/20">
+            <span className="p-2 bg-rose-500 text-white rounded-2xl shadow-lg shadow-rose-500/20">
               <HiOutlineCog6Tooth size={32} />
             </span>
             System Core
@@ -128,23 +129,23 @@ export default function SystemSettingsPage() {
         variants={container}
         initial="hidden"
         animate="show"
-        className="grid grid-cols-1 lg:grid-cols-3 gap-8"
+        className="grid grid-cols-1 lg:grid-cols-3 gap-3"
       >
         {/* Left Column: Toggles & Flags */}
-        <div className="lg:col-span-2 space-y-8">
-           <motion.div variants={item} className="bg-white p-10 rounded-[2.5rem] border border-slate-100 shadow-sm">
-              <h3 className="text-xl font-black text-slate-900 mb-8 flex items-center gap-2">
+        <div className="lg:col-span-2 space-y-5">
+           <motion.div variants={item} className="bg-white p-6 rounded-[2.5rem] border border-slate-100 shadow-sm">
+              <h3 className="text-xl font-black text-slate-900 mb-4 flex items-center gap-2">
                 <HiOutlineShieldCheck className="text-rose-500" /> Security & Access
               </h3>
-              <div className="space-y-6">
+              <div className="space-y-3">
                 {[
                   { key: 'maintenanceMode', label: 'Maintenance Mode', desc: 'Take the entire platform offline for updates.' },
                   { key: 'registrationOpen', label: 'New Registrations', desc: 'Allow new students to create accounts globally.' },
                 ].map((s) => (
-                  <div key={s.key} className="flex items-center justify-between p-6 bg-slate-50/50 rounded-3xl border border-slate-100/50">
+                  <div key={s.key} className="flex items-center justify-between p-4 bg-slate-50/50 rounded-3xl border border-slate-100/50">
                     <div className="max-w-md">
-                       <p className="font-black text-slate-800 text-sm tracking-tight">{s.label}</p>
-                       <p className="text-xs text-slate-400 font-medium">{s.desc}</p>
+                       <p className="font-black text-slate-800 text-sm leading-[1.4]">{s.label}</p>
+                       <p className="text-xs text-slate-400 font-medium leading-[1.6]">{s.desc}</p>
                     </div>
                     <button 
                       onClick={() => toggleSetting(s.key)}
@@ -157,24 +158,24 @@ export default function SystemSettingsPage() {
               </div>
            </motion.div>
 
-           <motion.div variants={item} className="bg-slate-900 p-10 rounded-[2.5rem] shadow-2xl relative overflow-hidden">
-              <div className="absolute top-0 right-0 p-10 opacity-5 text-white">
+           <motion.div variants={item} className="bg-slate-900 p-6 rounded-[2.5rem] shadow-2xl relative overflow-hidden">
+              <div className="absolute top-0 right-0 p-6 opacity-5 text-white">
                  <HiOutlineGlobeAlt size={160} />
               </div>
-              <h3 className="text-xl font-black text-white mb-8 flex items-center gap-2 relative z-10">
+              <h3 className="text-xl font-black text-white mb-4 flex items-center gap-2 relative z-10">
                 <HiOutlineEnvelope className="text-rose-400" /> Global Communication
               </h3>
-              <div className="space-y-4 relative z-10">
-                 <label className="text-[10px] font-black text-slate-500 uppercase tracking-widest">Broadcast Message</label>
+              <div className="space-y-2 relative z-10">
+                 <label className="text-[10px] font-black text-slate-500 uppercase tracking-widest leading-[1.4]">Broadcast Message</label>
                  <textarea 
-                   className="w-full bg-slate-800 border-none rounded-2xl p-6 text-white font-medium focus:ring-2 focus:ring-rose-500 transition-all outline-none min-h-[120px]"
+                   className="w-full bg-slate-800 border-none rounded-2xl p-3 text-white font-medium leading-[1.6] focus:ring-2 focus:ring-rose-500 transition-all outline-none min-h-[120px]"
                    placeholder="Announce something to all users..."
                    value={settings.globalMessage || ''}
                    onChange={e => setSettings({...settings, globalMessage: e.target.value})}
                  />
                  <button 
                   onClick={saveBroadcast}
-                  className="bg-rose-600 text-white px-8 py-3 rounded-xl font-black text-xs uppercase tracking-widest hover:bg-rose-700 transition-all shadow-xl shadow-rose-900/40"
+                  className="bg-rose-600 text-white px-5 py-2 rounded-xl font-black text-xs uppercase tracking-widest leading-[1.4] hover:bg-rose-700 transition-all shadow-xl shadow-rose-900/40"
                  >
                    Broadcast Now
                  </button>
@@ -184,8 +185,8 @@ export default function SystemSettingsPage() {
 
         {/* Right Column: Help Center Manager */}
         <motion.div variants={item} className="bg-white rounded-[2.5rem] border border-slate-100 shadow-sm flex flex-col overflow-hidden">
-           <div className="p-10 border-b border-slate-50 flex items-center justify-between">
-              <h3 className="text-xl font-black text-slate-900">Help Center</h3>
+           <div className="p-6 border-b border-slate-50 flex items-center justify-between">
+              <h3 className="text-xl font-black text-slate-900 leading-[1.4]">Help Center</h3>
               <button 
                 onClick={() => {
                   setEditingArticle(null);
@@ -197,31 +198,31 @@ export default function SystemSettingsPage() {
                 <HiOutlinePlus size={20} />
               </button>
            </div>
-           <div className="flex-1 overflow-y-auto p-4 space-y-4 custom-scrollbar">
+           <div className="flex-1 overflow-y-auto p-3 space-y-2 custom-scrollbar">
               {articles.map((art) => (
-                <div key={art._id} className="p-6 bg-slate-50/50 hover:bg-slate-50 rounded-3xl border border-slate-100/50 flex items-center justify-between group transition-all">
-                  <div className="flex items-center gap-4">
+                <div key={art._id} className="p-4 bg-slate-50/50 hover:bg-slate-50 rounded-3xl border border-slate-100/50 flex items-center justify-between group transition-all">
+                  <div className="flex items-center gap-3">
                      <div className="w-10 h-10 rounded-xl bg-white border border-slate-100 flex items-center justify-center text-slate-300 group-hover:text-rose-500 transition-all">
                         {art.isPublished ? <HiOutlineEye className="text-emerald-500" /> : <HiOutlineEyeSlash />}
                      </div>
                      <div>
-                        <p className="font-bold text-slate-700 text-sm line-clamp-1">{art.title}</p>
-                        <p className="text-[10px] font-black text-slate-400 uppercase tracking-tighter">{art.category}</p>
+                        <p className="font-bold text-slate-700 text-sm line-clamp-1 leading-[1.4]">{art.title}</p>
+                        <p className="text-[10px] font-black text-slate-400 uppercase leading-[1.4]">{art.category}</p>
                      </div>
                   </div>
-                  <div className="flex gap-1 opacity-0 group-hover:opacity-100 transition-all">
+                  <div className="flex gap-1 opacity-100 lg:opacity-0 lg:group-hover:opacity-100 transition-all">
                     <button 
                       onClick={() => {
                         setEditingArticle(art);
                         setArticleForm({ title: art.title, category: art.category, content: art.content, isPublished: art.isPublished });
                         setShowArticleModal(true);
                       }}
-                      className="p-2 text-slate-400 hover:text-slate-900"
+                      className="w-11 h-11 flex items-center justify-center text-slate-400 hover:text-slate-900 active:bg-slate-100 rounded-xl transition-all"
                     >
-                      <HiOutlinePencilSquare size={18} />
+                      <HiOutlinePencilSquare size={20} />
                     </button>
-                    <button onClick={() => deleteArticle(art._id)} className="p-2 text-slate-400 hover:text-red-500">
-                      <HiOutlineTrash size={18} />
+                    <button onClick={() => deleteArticle(art._id)} className="w-11 h-11 flex items-center justify-center text-slate-400 hover:text-red-500 active:bg-red-50 rounded-xl transition-all">
+                      <HiOutlineTrash size={20} />
                     </button>
                   </div>
                 </div>
@@ -234,22 +235,32 @@ export default function SystemSettingsPage() {
       <Portal>
         <AnimatePresence>
           {showArticleModal && (
-            <div className="fixed inset-0 z-[9999] flex items-center justify-center p-6 bg-black/95 backdrop-blur-sm">
+            <div className="fixed inset-0 z-[9999] flex items-end sm:items-center justify-center p-0 sm:p-4 bg-black/95 backdrop-blur-sm">
               <motion.div 
-                initial={{ scale: 0.9, opacity: 0 }}
-                animate={{ scale: 1, opacity: 1 }}
-                exit={{ scale: 0.9, opacity: 0 }}
-                className="bg-white w-full max-w-2xl rounded-[2.5rem] shadow-2xl p-10 overflow-hidden relative z-[10000]"
+                initial={{ scale: 0.9, opacity: 0, y: 50 }}
+                animate={{ scale: 1, opacity: 1, y: 0 }}
+                exit={{ scale: 0.9, opacity: 0, y: 50 }}
+                className="bg-white w-full max-w-2xl rounded-t-[2.5rem] sm:rounded-[2.5rem] shadow-2xl p-6 overflow-hidden relative z-[10000] max-h-[90vh] overflow-y-auto"
               >
-              <h2 className="text-2xl font-black text-slate-900 mb-8">{editingArticle ? 'Update Logic' : 'Establish Article'}</h2>
-              <form onSubmit={handleArticleSubmit} className="space-y-6">
-                <div className="space-y-2">
-                  <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Title</label>
-                  <input required value={articleForm.title} onChange={e => setArticleForm({...articleForm, title: e.target.value})} className="w-full bg-slate-50 border-none rounded-2xl p-4 font-bold text-slate-700 outline-none focus:ring-2 focus:ring-rose-500/20" />
+              <div className="flex items-center justify-between mb-4">
+                <h2 className="text-2xl font-black text-slate-900">{editingArticle ? 'Update Logic' : 'Establish Article'}</h2>
+                <button 
+                  type="button" 
+                  onClick={() => setShowArticleModal(false)}
+                  className="w-11 h-11 flex items-center justify-center bg-slate-100 text-slate-500 hover:bg-slate-200 hover:text-slate-800 active:bg-slate-300 rounded-full transition-all"
+                  aria-label="Close modal"
+                >
+                  <HiOutlineXMark size={20} />
+                </button>
+              </div>
+              <form onSubmit={handleArticleSubmit} className="space-y-4">
+                <div className="space-y-1">
+                  <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest leading-[1.4]">Title</label>
+                  <input required value={articleForm.title} onChange={e => setArticleForm({...articleForm, title: e.target.value})} className="w-full bg-slate-50 border-none rounded-2xl p-3 font-bold text-slate-700 outline-none focus:ring-2 focus:ring-rose-500/20 leading-[1.4]" />
                 </div>
-                <div className="space-y-2">
-                  <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Category</label>
-                  <select value={articleForm.category} onChange={e => setArticleForm({...articleForm, category: e.target.value})} className="w-full bg-slate-50 border-none rounded-2xl p-4 font-bold text-slate-700 outline-none focus:ring-2 focus:ring-rose-500/20">
+                <div className="space-y-1">
+                  <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest leading-[1.4]">Category</label>
+                  <select value={articleForm.category} onChange={e => setArticleForm({...articleForm, category: e.target.value})} className="w-full bg-slate-50 border-none rounded-2xl p-3 font-bold text-slate-700 outline-none focus:ring-2 focus:ring-rose-500/20 leading-[1.4]">
                     <option value="getting-started">Getting Started</option>
                     <option value="billing">Billing & Finance</option>
                     <option value="courses">Course Management</option>
@@ -257,12 +268,12 @@ export default function SystemSettingsPage() {
                     <option value="other">Other</option>
                   </select>
                 </div>
-                <div className="space-y-2">
-                  <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Content</label>
-                  <textarea required value={articleForm.content} onChange={e => setArticleForm({...articleForm, content: e.target.value})} className="w-full bg-slate-50 border-none rounded-2xl p-4 font-medium text-slate-700 outline-none focus:ring-2 focus:ring-rose-500/20 min-h-[150px]" />
+                <div className="space-y-1">
+                  <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest leading-[1.4]">Content</label>
+                  <textarea required value={articleForm.content} onChange={e => setArticleForm({...articleForm, content: e.target.value})} className="w-full bg-slate-50 border-none rounded-2xl p-3 font-medium text-slate-700 outline-none focus:ring-2 focus:ring-rose-500/20 min-h-[150px] leading-[1.6]" />
                 </div>
-                <div className="flex items-center justify-between p-4 bg-slate-50 rounded-2xl">
-                   <span className="text-xs font-black text-slate-800 uppercase tracking-widest">Publish Immediately</span>
+                <div className="flex items-center justify-between p-3 bg-slate-50 rounded-2xl">
+                   <span className="text-xs font-black text-slate-800 uppercase tracking-widest leading-[1.4]">Publish Immediately</span>
                    <button 
                     type="button"
                     onClick={() => setArticleForm({...articleForm, isPublished: !articleForm.isPublished})}
@@ -271,16 +282,16 @@ export default function SystemSettingsPage() {
                      <div className={`absolute top-1 left-1 w-4 h-4 bg-white rounded-full transition-all ${articleForm.isPublished ? 'translate-x-6' : ''}`} />
                    </button>
                 </div>
-                <div className="pt-4 flex gap-4">
-                  <button type="submit" className="flex-1 bg-rose-600 text-white py-4 rounded-2xl font-black text-xs uppercase tracking-widest hover:bg-rose-700 transition-all">
+                <div className="pt-2 flex gap-3">
+                  <button type="submit" className="flex-1 bg-rose-600 text-white py-3 rounded-2xl font-black text-xs uppercase tracking-widest leading-[1.4] hover:bg-rose-700 transition-all">
                     {editingArticle ? 'Commit Changes' : 'Initialize Article'}
                   </button>
-                  <button type="button" onClick={() => setShowArticleModal(false)} className="px-8 bg-slate-100 text-slate-600 rounded-2xl font-black text-xs uppercase tracking-widest">Cancel</button>
+                  <button type="button" onClick={() => setShowArticleModal(false)} className="px-5 bg-slate-100 text-slate-600 rounded-2xl font-black text-xs uppercase tracking-widest leading-[1.4]">Cancel</button>
                 </div>
               </form>
-            </motion.div>
-          </div>
-        )}
+              </motion.div>
+            </div>
+          )}
         </AnimatePresence>
       </Portal>
     </div>

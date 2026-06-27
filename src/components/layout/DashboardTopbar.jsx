@@ -15,7 +15,7 @@ export default function DashboardTopbar({ user, toggleSidebar }) {
         <button
           type="button"
           onClick={toggleSidebar}
-          className="p-3 -ml-3 text-slate-500 hover:text-brand-pink transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-pink rounded-lg"
+          className="w-11 h-11 flex items-center justify-center text-slate-500 hover:text-brand-pink active:scale-95 transition-all focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-pink rounded-lg"
           aria-label="Open sidebar"
         >
           <HiMenuAlt2 size={24} />

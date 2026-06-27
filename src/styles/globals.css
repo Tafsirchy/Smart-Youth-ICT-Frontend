@@ -876,3 +876,24 @@ select.form-input { cursor: pointer; }
   will-change: transform, opacity;
 }
 
+/* ============================================
+   MASTER SCROLLBAR HIDER
+   Hides scrollbars visually but keeps scroll
+   functionality intact everywhere.
+   ============================================ */
+
+/* Firefox */
+* {
+  scrollbar-width: none;
+}
+
+/* Chrome, Safari, Edge, Opera */
+*::-webkit-scrollbar {
+  display: none;
+}
+
+/* IE / Edge Legacy (fallback) */
+* {
+  -ms-overflow-style: none;
+}
+

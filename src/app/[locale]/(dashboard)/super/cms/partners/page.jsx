@@ -95,35 +95,35 @@ export default function PartnersPage() {
   };
 
   return (
-    <div className="p-8">
-      <div className="flex justify-between items-center mb-12">
+    <div className="py-4 sm:py-5">
+      <div className="flex justify-between items-center gap-4 mb-6 sm:mb-8">
         <div>
-          <h1 className="text-3xl font-black text-slate-900 mb-2">
+          <h1 className="text-2xl sm:text-3xl font-black text-slate-900 mb-1 leading-[1.4]">
             Our Partners
           </h1>
-          <p className="text-slate-500">
+          <p className="text-sm sm:text-base text-slate-500 leading-[1.6]">
             Manage industry affiliations and logo cloud displays.
           </p>
         </div>
         <button
           onClick={() => handleOpenModal()}
-          className="bg-indigo-600 text-white px-6 py-3 rounded-2xl font-bold flex items-center gap-2 hover:bg-indigo-700 transition-all shadow-lg shadow-indigo-600/20"
+          className="bg-indigo-600 text-white px-4 py-2.5 rounded-xl font-bold flex items-center justify-center gap-1.5 hover:bg-indigo-700 transition-all shadow-lg shadow-indigo-600/20 shrink-0"
         >
-          <LuPlus className="w-5 h-5" />
-          Add Partner
+          <LuPlus className="w-5 h-5 shrink-0" />
+          <span className="hidden sm:inline">Add Partner</span>
         </button>
       </div>
 
-      <div className="grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 xxl:grid-cols-5 gap-6">
+      <div className="grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3 sm:gap-4">
         {partners.map((partner, index) => (
           <motion.div
             key={partner._id}
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ delay: index * 0.03 }}
-            className="bg-white p-6 rounded-[2.5rem] border border-slate-100 flex flex-col items-center gap-4 group relative hover:shadow-2xl hover:shadow-indigo-500/10 hover:border-indigo-500/20 transition-all"
+            className="bg-white p-4 sm:p-5 rounded-2xl border border-slate-100 flex flex-col items-center gap-3 group relative hover:shadow-2xl hover:shadow-indigo-500/10 hover:border-indigo-500/20 transition-all"
           >
-            <div className="w-full aspect-video rounded-2xl bg-slate-50 flex items-center justify-center p-6 grayscale group-hover:grayscale-0 transition-all duration-500 group-hover:bg-indigo-50/30">
+            <div className="w-full aspect-video rounded-xl bg-slate-50 flex items-center justify-center p-4 grayscale group-hover:grayscale-0 transition-all duration-500 group-hover:bg-indigo-50/30">
               <div className="relative w-full h-full">
                 <Image
                   src={partner.logo}
@@ -138,29 +138,28 @@ export default function PartnersPage() {
               </div>
             </div>
 
-            <div className="text-center">
-              <h4 className="font-bold text-slate-900 text-sm group-hover:text-indigo-600 transition-colors uppercase tracking-tight">
+            <div className="text-center w-full min-w-0">
+              <h4 className="font-bold text-slate-900 text-sm group-hover:text-indigo-600 transition-colors uppercase tracking-tight truncate leading-[1.4]">
                 {partner.name}
               </h4>
-              <p className="text-[10px] text-slate-500 font-bold mt-0.5 uppercase tracking-wide italic">
+              <p className="text-[10px] text-slate-500 font-bold mt-0.5 uppercase tracking-normal italic truncate leading-[1.4]">
                 {partner.partnerType || "Affiliate Partner"}
               </p>
-              <p className="text-[10px] text-slate-300 font-black mt-1 uppercase tracking-widest">
+              <p className="text-[10px] text-slate-300 font-black mt-1 uppercase tracking-widest leading-[1.4]">
                 {partner.isActive ? "Active Partner" : "Inactive"}
               </p>
             </div>
 
-            <div className="absolute top-4 right-4 flex flex-col gap-2 opacity-0 -translate-y-2 group-hover:opacity-100 group-hover:translate-y-0 transition-all">
+            <div className="flex gap-2 w-full mt-auto pt-3 border-t border-slate-50">
               <button
                 onClick={() => handleOpenModal(partner)}
-                className="p-2.5 bg-white/90 backdrop-blur-sm text-slate-400 hover:text-indigo-600 shadow-xl border border-slate-100 rounded-xl transition-all"
-                title="Edit Partner"
+                className="flex-1 h-11 flex items-center justify-center bg-slate-50 text-slate-400 active:bg-indigo-50 active:text-indigo-600 lg:hover:text-indigo-600 lg:hover:bg-indigo-50 rounded-xl font-bold text-[10px] uppercase tracking-normal transition-all leading-[1.4]"
               >
-                <LuPencil className="w-4 h-4" />
+                Edit
               </button>
               <button
                 onClick={() => handleDelete(partner._id)}
-                className="p-2.5 bg-white/90 backdrop-blur-sm text-slate-400 hover:text-rose-600 shadow-xl border border-slate-100 rounded-xl transition-all"
+                className="w-11 h-11 shrink-0 flex items-center justify-center bg-slate-50 text-slate-400 active:bg-rose-50 active:text-rose-600 lg:hover:text-rose-600 lg:hover:bg-rose-50 rounded-xl transition-all"
                 title="Remove Partner"
               >
                 <LuTrash2 className="w-4 h-4" />
@@ -169,7 +168,7 @@ export default function PartnersPage() {
 
             {/* Link Indicator */}
             {partner.websiteUrl && (
-              <div className="absolute bottom-4 right-6 text-slate-200 group-hover:text-indigo-200 transition-colors">
+              <div className="absolute top-2 right-2 p-1.5 bg-white/80 backdrop-blur rounded-lg text-slate-300 group-hover:text-indigo-400 transition-colors pointer-events-none">
                 <LuLink className="w-3 h-3" />
               </div>
             )}
@@ -178,45 +177,46 @@ export default function PartnersPage() {
       </div>
 
       {showModal && (
-        <div className="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+        <div className="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 flex items-end sm:items-center justify-center p-0 sm:p-2">
           <motion.div
-            initial={{ scale: 0.9, opacity: 0 }}
-            animate={{ scale: 1, opacity: 1 }}
-            className="bg-white w-full max-w-lg rounded-[2.5rem] p-10 shadow-2xl relative max-h-[90vh] overflow-y-auto"
+            initial={{ scale: 0.95, opacity: 0, y: 20 }}
+            animate={{ scale: 1, opacity: 1, y: 0 }}
+            className="bg-white w-full max-w-lg rounded-t-2xl sm:rounded-2xl p-4 sm:p-6 shadow-2xl relative max-h-[90vh] overflow-y-auto flex flex-col custom-scrollbar"
           >
-            <button
-              onClick={() => setShowModal(false)}
-              className="absolute top-8 right-8 p-2 text-slate-400 hover:text-rose-600 hover:bg-rose-50 rounded-full transition-all"
-            >
-              <LuX className="w-5 h-5" />
-            </button>
-            <div className="flex justify-between items-start mb-8">
+            <div className="flex items-center justify-between mb-4 shrink-0">
               <div>
-                <h3 className="text-2xl font-black text-slate-900 tracking-tight">
+                <h3 className="text-xl font-black text-slate-900 leading-[1.4]">
                   {editingPartner ? "Update Partner" : "New Affiliate Partner"}
                 </h3>
-                <p className="text-xs text-slate-400 font-bold uppercase tracking-widest mt-1">
+                <p className="text-[10px] text-slate-400 font-bold uppercase tracking-widest mt-0.5 leading-[1.4]">
                   Logo Cloud Management
                 </p>
               </div>
+              <button
+                onClick={() => setShowModal(false)}
+                className="w-11 h-11 flex items-center justify-center bg-slate-50 text-slate-500 rounded-full active:bg-slate-100 lg:hover:bg-slate-200 transition-all shrink-0"
+                aria-label="Close"
+              >
+                <LuX className="w-5 h-5" />
+              </button>
             </div>
 
-            <form onSubmit={handleSubmit} className="space-y-6">
+            <form onSubmit={handleSubmit} className="space-y-4">
               <ImageUpload
                 value={formData.logo}
                 onChange={(url) => setFormData({ ...formData, logo: url })}
-                label="Partner Logo (SVG/PNG Preferred)"
+                label="Partner Logo (SVG/PNG)"
               />
 
-              <div className="space-y-4">
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div className="space-y-3">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
                   <div>
-                    <label className="block text-[10px] font-black uppercase text-slate-400 mb-1.5">
+                    <label className="block text-[10px] font-black uppercase text-slate-400 mb-0.5 leading-[1.4]">
                       Company Name
                     </label>
                     <input
                       required
-                      className="w-full px-5 py-3.5 bg-slate-50 border-2 border-transparent focus:border-indigo-500/20 focus:bg-white transition-all rounded-2xl outline-none text-sm font-bold shadow-inner"
+                      className="w-full px-3 py-2 bg-slate-50 border-2 border-transparent focus:border-indigo-500/20 focus:bg-white transition-all rounded-lg outline-none text-sm font-bold shadow-inner leading-[1.4]"
                       value={formData.name}
                       onChange={(e) =>
                         setFormData({ ...formData, name: e.target.value })
@@ -224,12 +224,12 @@ export default function PartnersPage() {
                     />
                   </div>
                   <div>
-                    <label className="block text-[10px] font-black uppercase text-slate-400 mb-1.5">
+                    <label className="block text-[10px] font-black uppercase text-slate-400 mb-0.5 leading-[1.4]">
                       Partner Type
                     </label>
                     <input
                       placeholder="e.g. Hiring Partner"
-                      className="w-full px-5 py-3.5 bg-slate-50 border-2 border-transparent focus:border-indigo-500/20 focus:bg-white transition-all rounded-2xl outline-none text-sm font-bold shadow-inner"
+                      className="w-full px-3 py-2 bg-slate-50 border-2 border-transparent focus:border-indigo-500/20 focus:bg-white transition-all rounded-lg outline-none text-sm font-bold shadow-inner leading-[1.4]"
                       value={formData.partnerType}
                       onChange={(e) =>
                         setFormData({
@@ -242,13 +242,15 @@ export default function PartnersPage() {
                 </div>
 
                 <div>
-                  <label className="block text-[10px] font-black uppercase text-slate-400 mb-1.5">
+                  <label className="block text-[10px] font-black uppercase text-slate-400 mb-0.5 leading-[1.4]">
                     Official Website
                   </label>
                   <div className="relative">
-                    <LuLink className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-300 w-4 h-4" />
+                    <LuLink className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-300 w-4 h-4" />
                     <input
-                      className="w-full pl-11 pr-5 py-3.5 bg-slate-50 border-2 border-transparent focus:border-indigo-500/20 focus:bg-white transition-all rounded-2xl outline-none text-sm shadow-inner"
+                      type="url"
+                      inputMode="url"
+                      className="w-full pl-9 pr-3 py-2 bg-slate-50 border-2 border-transparent focus:border-indigo-500/20 focus:bg-white transition-all rounded-lg outline-none text-sm shadow-inner leading-[1.4]"
                       placeholder="https://company.com"
                       value={formData.websiteUrl}
                       onChange={(e) =>
@@ -258,36 +260,36 @@ export default function PartnersPage() {
                   </div>
                 </div>
 
-                <div className="flex items-center gap-3 pt-2">
-                  <label className="flex items-center gap-2.5 cursor-pointer group">
+                <div className="flex items-center gap-3 pt-1 sm:pt-2">
+                  <label className="flex items-center gap-2 cursor-pointer group">
                     <input
                       type="checkbox"
-                      className="w-5 h-5 rounded-lg border-2 border-slate-200 text-indigo-600 focus:ring-transparent transition-all"
+                      className="w-4 h-4 rounded border-2 border-slate-200 text-indigo-600 focus:ring-transparent transition-all"
                       checked={formData.isActive}
                       onChange={(e) =>
                         setFormData({ ...formData, isActive: e.target.checked })
                       }
                     />
-                    <span className="text-[10px] font-black uppercase text-slate-500 group-hover:text-indigo-600 transition-colors">
+                    <span className="text-[10px] font-black uppercase text-slate-500 group-hover:text-indigo-600 transition-colors leading-[1.4]">
                       Visible in Logo Cloud
                     </span>
                   </label>
                 </div>
               </div>
 
-              <div className="flex gap-4 pt-6 border-t border-slate-50">
+              <div className="flex gap-2 pt-4 pb-2 sm:pb-0 sticky bottom-0 bg-white z-10 border-t border-slate-50 sm:border-none mt-4">
                 <button
                   type="button"
                   onClick={() => setShowModal(false)}
-                  className="flex-1 py-4 font-black text-slate-400 hover:text-slate-600 uppercase tracking-widest text-[10px] transition-colors"
+                  className="flex-1 py-2.5 font-black text-slate-400 active:text-slate-600 lg:hover:text-slate-600 uppercase tracking-widest text-[10px] transition-colors leading-[1.4]"
                 >
                   Cancel
                 </button>
                 <button
                   type="submit"
-                  className="flex-[2] py-4 bg-slate-900 text-white font-black rounded-2xl shadow-xl shadow-slate-900/20 hover:bg-black transition-all flex items-center justify-center gap-3 group"
+                  className="flex-[2] py-2.5 bg-slate-900 text-white font-black rounded-xl shadow-xl shadow-slate-900/10 hover:bg-black transition-all flex items-center justify-center gap-1.5 leading-[1.4]"
                 >
-                  <LuCheck className="w-5 h-5 group-hover:scale-125 transition-transform" />
+                  <LuCheck className="w-5 h-5" />
                   {editingPartner ? "Update Partner" : "Save Association"}
                 </button>
               </div>
