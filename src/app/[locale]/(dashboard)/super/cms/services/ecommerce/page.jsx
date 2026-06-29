@@ -114,31 +114,31 @@ export default function EcommerceCMS() {
   };
 
   if (loading) return (
-    <div className="min-h-screen bg-slate-50 flex flex-col items-center justify-center p-20 text-center space-y-4">
+    <div className="min-h-screen bg-slate-50 flex flex-col items-center justify-center p-10 text-center space-y-2">
         <IoRefreshOutline className="animate-spin text-4xl text-rose-600" />
         <span className="font-black text-slate-900 uppercase tracking-widest text-xs">Initializing Commerce Engine...</span>
     </div>
   );
 
   return (
-    <div className="min-h-screen bg-slate-50 p-6 max-w-7xl mx-auto pb-24 text-slate-900 selection:bg-rose-600 selection:text-white">
+    <div className="min-h-screen bg-slate-50 p-4 max-w-7xl mx-auto pb-6 text-slate-900 selection:bg-rose-600 selection:text-white">
       {/* HEADER PROTOCOL */}
-      <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-6">
+      <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-3 mb-6">
         <div>
           <div className="flex items-center gap-2 text-rose-600 mb-1">
             <IoCartOutline className="text-lg" />
-            <span className="text-[10px] font-black uppercase tracking-[0.4em]">Service_Tier_Transaction_Core</span>
+            <span className="text-[9px] font-black uppercase tracking-[0.4em]">Service_Tier_Transaction_Core</span>
           </div>
           <h1 className="text-3xl font-black text-slate-900 tracking-tighter leading-none">E-commerce Development</h1>
-          <p className="text-slate-400 font-bold uppercase tracking-widest text-[10px] mt-1.5 ml-1">Centralized Sales Node</p>
+          <p className="text-slate-400 font-bold uppercase tracking-widest text-[9px] mt-1">Centralized Sales Node</p>
         </div>
         <button 
           onClick={handleSave}
           disabled={saving}
-          className="group relative overflow-hidden px-8 py-3.5 bg-slate-900 text-white rounded-xl font-black uppercase tracking-widest text-[10px] flex items-center gap-3 hover:shadow-xl hover:shadow-rose-950/20 transition-all active:scale-95 disabled:opacity-50"
+          className="hidden md:flex group relative overflow-hidden px-4 py-2 bg-slate-900 text-white rounded-xl font-black uppercase tracking-widest text-[10px] items-center gap-2 hover:shadow-xl hover:shadow-rose-950/20 transition-all active:scale-95 disabled:opacity-50"
         >
           <div className="absolute inset-0 bg-gradient-to-r from-rose-600 to-pink-600 opacity-0 group-hover:opacity-100 transition-opacity" />
-          <div className="relative flex items-center gap-3">
+          <div className="relative flex items-center gap-2">
             {saving ? <IoRefreshOutline className="animate-spin" /> : <IoSaveOutline className="group-hover:rotate-12 transition-transform" />}
             Deploy Transaction Logic
           </div>
@@ -154,9 +154,9 @@ export default function EcommerceCMS() {
           <button
             key={tab.id}
             onClick={() => setActiveTab(tab.id)}
-            className={`flex items-center gap-2 px-5 py-2 rounded-lg font-black uppercase tracking-widest text-[9px] transition-all ${activeTab === tab.id ? 'bg-slate-900 text-white shadow-md' : 'text-slate-400 hover:text-slate-600 hover:bg-slate-50'}`}
+            className={`flex items-center gap-2 px-3 py-1.5 rounded-lg font-black uppercase tracking-widest text-[9px] transition-all ${activeTab === tab.id ? 'bg-slate-900 text-white shadow-md' : 'text-slate-400 hover:text-slate-600 hover:bg-slate-50'}`}
           >
-            <tab.icon size={15} className={activeTab === tab.id ? 'text-rose-400' : tab.color} />
+            <tab.icon size={16} className={activeTab === tab.id ? 'text-rose-400' : tab.color} />
             {tab.label}
           </button>
         ))}
@@ -164,17 +164,17 @@ export default function EcommerceCMS() {
 
       <AnimatePresence mode="wait">
         {activeTab === "landing" ? (
-          <motion.div key="landing" initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -10 }} className="space-y-8">
+          <motion.div key="landing" initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -10 }} className="space-y-6">
             
             {/* HERO SECTION */}
-            <section className="bg-white p-6 rounded-3xl border border-slate-100 shadow-lg shadow-slate-200/30">
-                <div className="flex justify-between items-center mb-4 pb-3 border-b border-slate-100">
-                    <h2 className="text-xl font-black tracking-tighter flex items-center gap-3">
+            <section className="bg-white p-5 rounded-3xl border border-slate-100 shadow-lg shadow-slate-200/30">
+                <div className="flex justify-between items-center mb-4 pb-2 border-b border-slate-100">
+                    <h2 className="text-xl font-black tracking-tighter flex items-center gap-2">
                         <div className="w-8 h-8 bg-rose-50 rounded-lg flex items-center justify-center text-rose-600"><IoPrismOutline /></div>
                         Hero Protocol
                     </h2>
                 </div>
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
                     <Field label="Badge" value={content.landing.hero.badge} onChange={(v) => updateNested("landing", "hero.badge", v)} />
                     <Field label="Title" value={content.landing.hero.title} onChange={(v) => updateNested("landing", "hero.title", v)} />
                     <Field label="Subtitle" value={content.landing.hero.subtitle} onChange={(v) => updateNested("landing", "hero.subtitle", v)} />
@@ -185,21 +185,21 @@ export default function EcommerceCMS() {
             </section>
 
             {/* VERTICALS */}
-            <section className="bg-white p-6 rounded-3xl border border-slate-100 shadow-lg shadow-slate-200/30">
-                <div className="flex justify-between items-center mb-4 pb-3 border-b border-slate-100">
-                    <h2 className="text-xl font-black tracking-tighter flex items-center gap-3">
+            <section className="bg-white p-5 rounded-3xl border border-slate-100 shadow-lg shadow-slate-200/30">
+                <div className="flex justify-between items-center mb-4 pb-2 border-b border-slate-100">
+                    <h2 className="text-xl font-black tracking-tighter flex items-center gap-2">
                         <div className="w-8 h-8 bg-rose-50 rounded-lg flex items-center justify-center text-rose-600"><IoCartOutline /></div>
                         Commerce Verticals
                     </h2>
                 </div>
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
                     {content.landing.sections.verticals?.map((item, idx) => (
                         <CardWrapper key={idx} onRemove={() => {
                             const newArr = content.landing.sections.verticals.filter((_, i) => i !== idx);
                             updateNested("landing", "sections.verticals", newArr);
                         }}>
-                             <div className="flex gap-4 mb-4">
-                                <select className="bg-slate-50 border border-slate-100 rounded-lg p-2 text-[9px] font-black uppercase tracking-widest outline-none text-rose-600" value={item.icon} onChange={(e) => {
+                             <div className="flex gap-3 mb-3">
+                                <select className="bg-slate-50 border border-slate-100 rounded-lg p-1 text-[9px] font-black uppercase tracking-widest outline-none text-rose-600" value={item.icon} onChange={(e) => {
                                     const newArr = [...content.landing.sections.verticals];
                                     newArr[idx].icon = e.target.value;
                                     updateNested("landing", "sections.verticals", newArr);
@@ -207,12 +207,12 @@ export default function EcommerceCMS() {
                                     {ICON_OPTIONS.map(o => <option key={o} value={o}>{o}</option>)}
                                 </select>
                                 <div className="flex-1">
-                                    <input placeholder="Title" className="w-full bg-transparent border-none outline-none font-black text-sm uppercase tracking-tighter" value={item.title} onChange={(e) => {
+                                    <input placeholder="Title" className="w-full bg-transparent border-none outline-none font-black text-base md:text-sm uppercase tracking-tighter" value={item.title} onChange={(e) => {
                                         const newArr = [...content.landing.sections.verticals];
                                         newArr[idx].title = e.target.value;
                                         updateNested("landing", "sections.verticals", newArr);
                                     }} />
-                                    <div className="flex items-center gap-1.5 mt-1">
+                                    <div className="flex items-center gap-1 mt-1">
                                         <IoColorPaletteOutline className="text-slate-300 text-xs" />
                                         <select className="bg-transparent border-none outline-none text-[8px] font-bold text-slate-400 uppercase" value={item.color} onChange={(e) => {
                                             const newArr = [...content.landing.sections.verticals];
@@ -224,7 +224,7 @@ export default function EcommerceCMS() {
                                     </div>
                                 </div>
                             </div>
-                            <textarea placeholder="Description" rows="3" className="w-full bg-slate-50 border border-transparent focus:bg-white focus:border-slate-100 rounded-xl p-3 text-[11px] text-slate-500 leading-relaxed outline-none transition-all" value={item.desc} onChange={(e) => {
+                            <textarea placeholder="Description" rows="3" className="w-full bg-slate-50 border border-transparent focus:bg-white focus:border-slate-100 rounded-xl p-2 text-base md:text-[11px] text-slate-500 leading-relaxed outline-none transition-all" value={item.desc} onChange={(e) => {
                                 const newArr = [...content.landing.sections.verticals];
                                 newArr[idx].desc = e.target.value;
                                 updateNested("landing", "sections.verticals", newArr);
@@ -239,38 +239,38 @@ export default function EcommerceCMS() {
             </section>
 
             {/* INTEGRATIONS */}
-            <section className="bg-slate-900 p-6 rounded-3xl text-white shadow-xl">
-                <div className="flex justify-between items-center mb-4 pb-3 border-b border-white/10">
-                    <h2 className="text-xl font-black tracking-tighter flex items-center gap-3">
+            <section className="bg-slate-900 p-5 rounded-3xl text-white shadow-xl">
+                <div className="flex justify-between items-center mb-4 pb-2 border-b border-white/10">
+                    <h2 className="text-xl font-black tracking-tighter flex items-center gap-2">
                         <div className="w-8 h-8 bg-white/10 rounded-lg flex items-center justify-center text-rose-400"><IoGitNetworkOutline /></div>
                         Logistics & Payments
                     </h2>
                 </div>
-                <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-2 gap-4">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
                     {content.landing.sections.integrations?.map((item, idx) => (
-                        <div key={idx} className="bg-white/5 border border-white/10 p-4 rounded-xl relative group hover:bg-white/10 transition-all flex items-start gap-4 min-h-[90px]">
+                        <div key={idx} className="bg-white/5 border border-white/10 p-3 rounded-xl relative group hover:bg-white/10 transition-all flex items-start gap-3 min-h-[70px]">
                              <button onClick={() => {
                                 const newArr = content.landing.sections.integrations.filter((_, i) => i !== idx);
                                 updateNested("landing", "sections.integrations", newArr);
-                            }} className="absolute top-4 right-4 text-white/10 hover:text-rose-500 opacity-0 group-hover:opacity-100 transition-all z-10 p-1.5 bg-white/5 rounded-lg"><IoTrashOutline size={16}/></button>
+                            }} className="absolute top-2 right-2 text-white/10 hover:text-rose-500 opacity-0 group-hover:opacity-100 transition-all z-10 p-1 bg-white/5 rounded-lg"><IoTrashOutline size={14}/></button>
                             
                             <div className="shrink-0 relative group/icon">
-                                <div className="w-12 h-12 rounded-xl bg-white/5 flex items-center justify-center text-rose-400 text-2xl group-hover/node:bg-rose-600/10 group-hover:scale-105 transition-all shadow-inner border border-white/5">
-                                    {item.icon === "Rocket" && <IoRocketOutline size={24} />}
-                                    {item.icon === "Business" && <IoBriefcaseOutline size={24} />}
-                                    {item.icon === "Briefcase" && <IoBriefcaseOutline size={24} />}
-                                    {item.icon === "GitNetwork" && <IoGitNetworkOutline size={24} />}
-                                    {item.icon === "Globe" && <IoGlobeOutline size={24} />}
-                                    {item.icon === "Analytics" && <IoAnalyticsOutline size={24} />}
-                                    {item.icon === "Shield" && <IoShieldOutline size={24} />}
-                                    {item.icon === "Stats" && <IoStatsChartOutline size={24} />}
-                                    {item.icon === "Chip" && <IoHardwareChipOutline size={24} />}
-                                    {item.icon === "Sparkles" && <IoSparklesOutline size={24} />}
-                                    {item.icon === "Cart" && <IoCartOutline size={24} />}
-                                    {item.icon === "Card" && <IoCardOutline size={24} />}
-                                    {item.icon === "BagCheck" && <IoBagCheckOutline size={24} />}
-                                    {item.icon === "People" && <IoPeopleOutline size={24} />}
-                                    {item.icon === "Flash" && <IoFlashOutline size={24} />}
+                                <div className="w-10 h-10 rounded-xl bg-white/5 flex items-center justify-center text-rose-400 text-xl group-hover:scale-105 transition-all shadow-inner border border-white/5">
+                                    {item.icon === "Rocket" && <IoRocketOutline />}
+                                    {item.icon === "Business" && <IoBriefcaseOutline />}
+                                    {item.icon === "Briefcase" && <IoBriefcaseOutline />}
+                                    {item.icon === "GitNetwork" && <IoGitNetworkOutline />}
+                                    {item.icon === "Globe" && <IoGlobeOutline />}
+                                    {item.icon === "Analytics" && <IoAnalyticsOutline />}
+                                    {item.icon === "Shield" && <IoShieldOutline />}
+                                    {item.icon === "Stats" && <IoStatsChartOutline />}
+                                    {item.icon === "Chip" && <IoHardwareChipOutline />}
+                                    {item.icon === "Sparkles" && <IoSparklesOutline />}
+                                    {item.icon === "Cart" && <IoCartOutline />}
+                                    {item.icon === "Card" && <IoCardOutline />}
+                                    {item.icon === "BagCheck" && <IoBagCheckOutline />}
+                                    {item.icon === "People" && <IoPeopleOutline />}
+                                    {item.icon === "Flash" && <IoFlashOutline />}
                                     
                                     <select 
                                         className="absolute inset-0 opacity-0 cursor-pointer w-full h-full" 
@@ -286,13 +286,13 @@ export default function EcommerceCMS() {
                                 </div>
                             </div>
 
-                            <div className="flex-1 min-w-0 py-1">
-                                <input placeholder="Gateway" className="bg-transparent border-none outline-none font-black text-sm uppercase text-white w-full mb-1 tracking-tighter" value={item.t} onChange={(e) => {
+                            <div className="flex-1 min-w-0">
+                                <input placeholder="Gateway" className="bg-transparent border-none outline-none font-black text-base md:text-sm uppercase text-white w-full tracking-tighter" value={item.t} onChange={(e) => {
                                     const newArr = [...content.landing.sections.integrations];
                                     newArr[idx].t = e.target.value;
                                     updateNested("landing", "sections.integrations", newArr);
                                 }} />
-                                <input placeholder="Sync Detail" className="bg-transparent border-none outline-none text-[11px] text-slate-400 font-bold w-full uppercase tracking-wide" value={item.d} onChange={(e) => {
+                                <input placeholder="Sync Detail" className="bg-transparent border-none outline-none text-base md:text-[11px] text-slate-400 font-bold w-full uppercase tracking-wide mt-1" value={item.d} onChange={(e) => {
                                     const newArr = [...content.landing.sections.integrations];
                                     newArr[idx].d = e.target.value;
                                     updateNested("landing", "sections.integrations", newArr);
@@ -303,22 +303,22 @@ export default function EcommerceCMS() {
                     <button onClick={() => {
                         const newArr = [...(content.landing.sections.integrations || []), { t: "New Node", d: "Description", icon: "Card" }];
                         updateNested("landing", "sections.integrations", newArr);
-                    }} className="h-full min-h-[90px] border-2 border-dashed border-white/10 rounded-2xl flex flex-col items-center justify-center gap-2 text-white/20 hover:text-rose-400 hover:border-rose-400/30 hover:bg-white/5 transition-all">
-                        <IoAddOutline size={20} />
+                    }} className="h-full min-h-[70px] border-2 border-dashed border-white/10 rounded-xl flex flex-col items-center justify-center gap-1 text-white/20 hover:text-rose-400 hover:border-rose-400/30 hover:bg-white/5 transition-all p-2">
+                        <IoAddOutline size={18} />
                         <span className="text-[9px] font-black uppercase tracking-widest">Add Integration</span>
                     </button>
                 </div>
             </section>
 
              {/* PRICING */}
-             <section className="bg-white p-6 rounded-3xl border border-slate-100 shadow-lg shadow-slate-200/30">
-                <div className="flex justify-between items-center mb-4 pb-3 border-b border-slate-100">
-                    <h2 className="text-xl font-black tracking-tighter flex items-center gap-3">
+             <section className="bg-white p-5 rounded-3xl border border-slate-100 shadow-lg shadow-slate-200/30">
+                <div className="flex justify-between items-center mb-4 pb-2 border-b border-slate-100">
+                    <h2 className="text-xl font-black tracking-tighter flex items-center gap-2">
                         <div className="w-8 h-8 bg-emerald-50 rounded-lg flex items-center justify-center text-emerald-600"><IoStatsChartOutline /></div>
                         Scaling Tiers
                     </h2>
                 </div>
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
                     {content.landing.sections.pricing?.map((tier, idx) => (
                         <CardWrapper 
                             key={idx} 
@@ -327,9 +327,8 @@ export default function EcommerceCMS() {
                                 const newArr = content.landing.sections.pricing.filter((_, i) => i !== idx);
                                 updateNested("landing", "sections.pricing", newArr);
                             }}
-                            compact
                         >
-                            <div className="flex justify-between items-start mb-4">
+                            <div className="flex justify-between items-start mb-2">
                                 <input placeholder="Tier Name" className="text-lg font-black uppercase tracking-tighter bg-transparent outline-none w-full text-slate-900" value={tier.t} onChange={(e) => {
                                     const newArr = [...content.landing.sections.pricing];
                                     newArr[idx].t = e.target.value;
@@ -341,17 +340,17 @@ export default function EcommerceCMS() {
                                     updateNested("landing", "sections.pricing", newArr);
                                 }} className={`p-1.5 rounded-lg transition-all ${tier.highlight ? 'bg-rose-600 text-white shadow-lg' : 'bg-slate-50 text-slate-300 hover:text-rose-500'}`}><IoSparklesOutline size={12}/></button>
                             </div>
-                            <input placeholder="Price" className="text-3xl font-black text-slate-900 mb-6 bg-transparent outline-none w-full" value={tier.p} onChange={(e) => {
+                            <input placeholder="Price" className="text-3xl font-black text-slate-900 mb-4 bg-transparent outline-none w-full" value={tier.p} onChange={(e) => {
                                 const newArr = [...content.landing.sections.pricing];
                                 newArr[idx].p = e.target.value;
                                 updateNested("landing", "sections.pricing", newArr);
                             }} />
-                            <div className="space-y-2 mb-8 min-h-[140px]">
-                                <label className="text-[8px] font-black uppercase text-slate-400 tracking-widest block mb-2">Payload Features</label>
+                            <div className="space-y-1 mb-6 min-h-[80px]">
+                                <label className="text-[8px] font-black uppercase text-slate-400 tracking-widest block mb-1">Payload Features</label>
                                 {tier.list?.map((feature, fIdx) => (
                                     <div key={fIdx} className="flex gap-2 group/feat items-center">
                                         <IoCheckmarkOutline className="text-rose-500 shrink-0 text-xs" />
-                                        <input className="text-[11px] font-bold text-slate-600 bg-transparent outline-none w-full border-b border-transparent focus:border-slate-100" value={feature} onChange={(e) => {
+                                        <input className="text-base md:text-[11px] font-bold text-slate-600 bg-transparent outline-none w-full border-b border-transparent focus:border-slate-100" value={feature} onChange={(e) => {
                                             const newArr = [...content.landing.sections.pricing];
                                             newArr[idx].list[fIdx] = e.target.value;
                                             updateNested("landing", "sections.pricing", newArr);
@@ -380,17 +379,17 @@ export default function EcommerceCMS() {
 
           </motion.div>
         ) : (
-          <motion.div key="details" initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -10 }} className="space-y-8">
+          <motion.div key="details" initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -10 }} className="space-y-6">
             
             {/* DETAILS HERO */}
-            <section className="bg-white p-6 rounded-3xl border border-slate-100 shadow-lg shadow-slate-200/30">
-                <div className="flex justify-between items-center mb-4 pb-3 border-b border-slate-100">
-                    <h2 className="text-xl font-black tracking-tighter flex items-center gap-3">
+            <section className="bg-white p-5 rounded-3xl border border-slate-100 shadow-lg shadow-slate-200/30">
+                <div className="flex justify-between items-center mb-4 pb-2 border-b border-slate-100">
+                    <h2 className="text-xl font-black tracking-tighter flex items-center gap-2">
                         <div className="w-8 h-8 bg-indigo-50 rounded-lg flex items-center justify-center text-indigo-600"><IoCodeSlashOutline /></div>
                         Technical Specifications
                     </h2>
                 </div>
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-3">
                     <Field label="Technical Badge" value={content.details.hero.badge} onChange={(v) => updateNested("details", "hero.badge", v)} />
                     <Field label="Hero Title" value={content.details.hero.title} onChange={(v) => updateNested("details", "hero.title", v)} />
                     <div className="lg:col-span-4">
@@ -400,9 +399,9 @@ export default function EcommerceCMS() {
             </section>
 
             {/* ROI VISUALIZER */}
-            <section className="bg-white p-6 rounded-3xl border border-slate-100 shadow-lg shadow-slate-200/30">
-                <div className="flex justify-between items-center mb-4 pb-3 border-b border-slate-100">
-                    <h2 className="text-xl font-black tracking-tighter flex items-center gap-3">
+            <section className="bg-white p-5 rounded-3xl border border-slate-100 shadow-lg shadow-slate-200/30">
+                <div className="flex justify-between items-center mb-4 pb-2 border-b border-slate-100">
+                    <h2 className="text-xl font-black tracking-tighter flex items-center gap-2">
                         <div className="w-8 h-8 bg-rose-50 rounded-lg flex items-center justify-center text-rose-600"><IoFlashOutline /></div>
                         Performance Visualizer
                     </h2>
@@ -411,16 +410,16 @@ export default function EcommerceCMS() {
                         updateNested("details", "sections.roi", newArr);
                     }} small />
                 </div>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
                     {content.details.sections.roi?.map((spec, idx) => (
-                        <div key={idx} className="p-5 bg-slate-50 rounded-2xl relative group border border-transparent hover:border-rose-100 transition-all">
+                        <div key={idx} className="p-4 bg-slate-50 rounded-2xl relative group border border-transparent hover:border-rose-100 transition-all">
                             <button onClick={() => {
                                 const newArr = content.details.sections.roi.filter((_, i) => i !== idx);
                                 updateNested("details", "sections.roi", newArr);
-                            }} className="absolute top-4 right-4 text-slate-200 hover:text-rose-500 transition-all opacity-0 group-hover:opacity-100 z-10 p-1.5 bg-white/5 rounded-lg"><IoTrashOutline size={16}/></button>
-                            <div className="flex gap-4 mb-4">
+                            }} className="absolute top-2 right-2 text-slate-200 hover:text-rose-500 transition-all opacity-0 group-hover:opacity-100 z-10 p-1 bg-white/5 rounded-lg"><IoTrashOutline size={14}/></button>
+                            <div className="flex gap-3 mb-3">
                                 <div className="shrink-0 relative group/icon">
-                                    <div className="w-12 h-12 rounded-xl bg-white flex items-center justify-center text-rose-600 text-2xl shadow-inner border border-slate-100 group-hover:scale-105 transition-transform">
+                                    <div className="w-10 h-10 rounded-xl bg-white flex items-center justify-center text-rose-600 text-xl shadow-inner border border-slate-100 group-hover:scale-105 transition-transform">
                                         {spec.icon === "Rocket" && <IoRocketOutline />}
                                         {spec.icon === "Business" && <IoBriefcaseOutline />}
                                         {spec.icon === "Briefcase" && <IoBriefcaseOutline />}
@@ -451,12 +450,12 @@ export default function EcommerceCMS() {
                                     </div>
                                 </div>
                                 <div className="flex-1 min-w-0">
-                                    <input placeholder="Metric Title" className="w-full bg-transparent border-none outline-none font-black text-lg tracking-tighter mb-0.5 uppercase text-slate-800 focus:text-rose-600 transition-colors" value={spec.title} onChange={(e) => {
+                                    <input placeholder="Metric Title" className="w-full bg-transparent border-none outline-none font-black text-base md:text-lg tracking-tighter mb-0.5 uppercase text-slate-800 focus:text-rose-600 transition-colors" value={spec.title} onChange={(e) => {
                                         const newArr = [...content.details.sections.roi];
                                         newArr[idx].title = e.target.value;
                                         updateNested("details", "sections.roi", newArr);
                                     }} />
-                                    <textarea placeholder="ROI Description" rows="3" className="w-full bg-transparent border-none outline-none text-[11px] text-slate-400 font-medium leading-relaxed scrollbar-hide" value={spec.desc} onChange={(e) => {
+                                    <textarea placeholder="ROI Description" rows="3" className="w-full bg-transparent border-none outline-none text-base md:text-[11px] text-slate-400 font-medium leading-relaxed scrollbar-hide" value={spec.desc} onChange={(e) => {
                                         const newArr = [...content.details.sections.roi];
                                         newArr[idx].desc = e.target.value;
                                         updateNested("details", "sections.roi", newArr);
@@ -469,20 +468,20 @@ export default function EcommerceCMS() {
             </section>
 
              {/* INFRASTRUCTURE MANIFEST */}
-             <section className="bg-slate-900 p-6 rounded-3xl text-white shadow-xl">
-                <div className="flex items-center gap-3 mb-6 pb-3 border-b border-white/10">
+             <section className="bg-slate-900 p-5 rounded-3xl text-white shadow-xl">
+                <div className="flex items-center gap-2 mb-4 pb-2 border-b border-white/10">
                     <div className="w-8 h-8 bg-white/10 rounded-lg flex items-center justify-center text-rose-400"><IoHardwareChipOutline /></div>
                     <h2 className="text-xl font-black tracking-tighter">Infrastructure Manifest</h2>
                 </div>
-                <div className="grid grid-cols-1 xl:grid-cols-2 gap-y-2 gap-x-16">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-y-1 gap-x-8">
                      {content.details.sections.manifest?.map((item, idx) => (
-                         <div key={idx} className="flex justify-between items-center py-2 border-b border-white/5 last:border-0 group relative text-white gap-4">
-                              <input className="bg-transparent border-none outline-none text-[10px] uppercase font-black tracking-widest text-slate-500 w-[40%]" value={item.label} onChange={(e) => {
+                         <div key={idx} className="flex justify-between items-center py-1.5 border-b border-white/5 last:border-0 group relative text-white gap-2">
+                              <input className="bg-transparent border-none outline-none text-[9px] uppercase font-black tracking-widest text-slate-500 w-[40%]" value={item.label} onChange={(e) => {
                                  const newArr = [...content.details.sections.manifest];
                                  newArr[idx].label = e.target.value;
                                  updateNested("details", "sections.manifest", newArr);
                               }} />
-                              <input className="bg-transparent border-none outline-none text-right font-bold text-[11px] w-[60%] focus:text-rose-400 transition-colors" value={item.value} onChange={(e) => {
+                              <input className="bg-transparent border-none outline-none text-right font-bold text-base md:text-[11px] w-[60%] focus:text-rose-400 transition-colors" value={item.value} onChange={(e) => {
                                  const newArr = [...content.details.sections.manifest];
                                  newArr[idx].value = e.target.value;
                                  updateNested("details", "sections.manifest", newArr);
@@ -496,13 +495,29 @@ export default function EcommerceCMS() {
                      <button onClick={() => {
                         const newArr = [...(content.details.sections.manifest || []), { label: "NEW_LAYER", value: "VALUE" }];
                         updateNested("details", "sections.manifest", newArr);
-                     }} className="py-3 border border-dashed border-white/10 rounded-xl text-[9px] font-black uppercase text-rose-400 hover:bg-white/5 transition-all">+ Add Layer</button>
+                     }} className="py-2 border border-dashed border-white/10 rounded-xl text-[9px] font-black uppercase text-rose-400 hover:bg-white/5 transition-all w-full mt-2 md:mt-0 col-span-1">+ Add Layer</button>
                 </div>
             </section>
 
           </motion.div>
         )}
       </AnimatePresence>
+
+      {/* Mobile Sticky Bottom CTA */}
+      <div className="md:hidden sticky bottom-0 left-0 w-full pt-4 pb-[calc(1rem+env(safe-area-inset-bottom))] bg-slate-50/90 backdrop-blur-md z-[90]">
+        <button 
+          onClick={handleSave}
+          disabled={saving}
+          className="w-full relative overflow-hidden px-4 py-4 bg-slate-900 text-white rounded-xl font-black uppercase tracking-widest text-[12px] flex items-center justify-center gap-2 active:scale-95 transition-transform disabled:opacity-50 shadow-xl shadow-slate-900/20"
+        >
+          <div className="absolute inset-0 bg-gradient-to-r from-rose-600 to-pink-600 opacity-0 hover:opacity-100 transition-opacity" />
+          <div className="relative flex items-center gap-2">
+            {saving ? <IoRefreshOutline className="animate-spin" /> : <IoSaveOutline />}
+            Deploy Transaction Logic
+          </div>
+        </button>
+      </div>
+
     </div>
   );
 }
@@ -510,21 +525,21 @@ export default function EcommerceCMS() {
 function Field({ label, value, onChange, textarea = false, dark = false, small = false, icon = null }) {
     return (
         <div className={small ? "w-48" : "w-full"}>
-            <label className={`block text-[10px] font-black uppercase mb-1 tracking-widest ${dark ? 'text-slate-500' : 'text-slate-400'}`}>
+            <label className={`block text-[9px] font-black uppercase mb-1 tracking-widest ${dark ? 'text-slate-500' : 'text-slate-400'}`}>
                 {label}
             </label>
             <div className={`relative flex items-center ${dark ? 'bg-white/5 border-white/5' : 'bg-slate-50 border-transparent'} border rounded-xl overflow-hidden focus-within:border-rose-500/10 transition-all`}>
-                {icon && <div className="pl-4 text-slate-400">{icon}</div>}
+                {icon && <div className="pl-3 text-slate-400">{icon}</div>}
                 {textarea ? (
                     <textarea 
                         rows="3" 
-                        className={`w-full px-4 py-2 bg-transparent outline-none font-medium text-[11px] leading-relaxed shrink-0 scrollbar-hide ${dark ? 'text-white' : 'text-slate-900'}`} 
+                        className={`w-full px-3 py-1.5 bg-transparent outline-none font-medium text-base md:text-[11px] leading-relaxed shrink-0 scrollbar-hide ${dark ? 'text-white' : 'text-slate-900'}`} 
                         value={value || ""} 
                         onChange={(e) => onChange(e.target.value)} 
                     />
                 ) : (
                     <input 
-                        className={`w-full px-4 py-2 bg-transparent outline-none font-black text-xs ${dark ? 'text-white' : 'text-slate-900'}`} 
+                        className={`w-full px-3 py-1.5 bg-transparent outline-none font-black text-base md:text-xs ${dark ? 'text-white' : 'text-slate-900'}`} 
                         value={value || ""} 
                         onChange={(e) => onChange(e.target.value)} 
                     />
@@ -534,15 +549,15 @@ function Field({ label, value, onChange, textarea = false, dark = false, small =
     );
 }
 
-function CardWrapper({ children, onRemove, highlight = false, compact = false }) {
+function CardWrapper({ children, onRemove, highlight = false }) {
     return (
-        <div className={`${compact ? 'p-4' : 'p-6'} bg-white border border-slate-100 rounded-2xl shadow-sm hover:shadow-lg transition-all relative group ${highlight ? 'ring-2 ring-rose-600 shadow-rose-600/10' : ''}`}>
+        <div className={`p-4 bg-white border border-slate-100 rounded-2xl shadow-sm hover:shadow-lg transition-all relative group ${highlight ? 'ring-2 ring-rose-600 shadow-rose-600/10' : ''}`}>
             {onRemove && (
                 <button 
                     onClick={onRemove} 
-                    className="absolute top-4 right-4 text-slate-200 hover:text-rose-500 transition-colors opacity-0 group-hover:opacity-100 z-10"
+                    className="absolute top-2 right-2 text-slate-200 hover:text-rose-500 transition-colors opacity-0 group-hover:opacity-100 z-10 p-1"
                 >
-                    <IoTrashOutline size={16} />
+                    <IoTrashOutline size={14} />
                 </button>
             )}
             {children}
@@ -552,14 +567,14 @@ function CardWrapper({ children, onRemove, highlight = false, compact = false })
 
 function AddButton({ onClick, label = "Add", small = false }) {
     if (small) return (
-        <button onClick={onClick} className="p-2 bg-rose-50 text-rose-600 rounded-lg hover:bg-rose-600 hover:text-white transition-all">
-            <IoAddOutline size={18} />
+        <button onClick={onClick} className="p-1.5 bg-rose-50 text-rose-600 rounded-lg hover:bg-rose-600 hover:text-white transition-all">
+            <IoAddOutline size={16} />
         </button>
     );
     return (
         <button 
             onClick={onClick}
-            className="h-full min-h-[140px] border-2 border-dashed border-slate-100 rounded-2xl flex flex-col items-center justify-center gap-2 text-slate-300 hover:text-rose-500 hover:border-rose-200 hover:bg-rose-50/30 transition-all group"
+            className="h-full min-h-[80px] border-2 border-dashed border-slate-100 rounded-2xl flex flex-col items-center justify-center gap-1 text-slate-300 hover:text-rose-500 hover:border-rose-200 hover:bg-rose-50/30 transition-all group p-2"
         >
             <div className="w-10 h-10 rounded-full border-2 border-dashed border-slate-200 flex items-center justify-center group-hover:scale-110 transition-transform">
                 <IoAddOutline size={18} />

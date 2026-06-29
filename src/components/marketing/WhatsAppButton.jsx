@@ -1,8 +1,16 @@
 'use client';
 
 import { FaWhatsapp } from 'react-icons/fa';
+import { usePathname } from 'next/navigation';
 
 export default function WhatsAppButton() {
+  const pathname = usePathname();
+
+  // Hide the WhatsApp button on dashboard/admin routes
+  if (pathname && (pathname.includes('/admin') || pathname.includes('/super'))) {
+    return null;
+  }
+
   const number  = process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || '8801000000000';
   const message = encodeURIComponent('Hi SYICT! I\'d like to know more about your courses.');
 

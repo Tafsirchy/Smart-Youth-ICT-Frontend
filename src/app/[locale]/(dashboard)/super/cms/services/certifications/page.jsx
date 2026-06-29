@@ -78,39 +78,37 @@ export default function CertificationsCMS() {
   };
 
   if (loading) return (
-    <div className="min-h-screen bg-slate-50 flex flex-col items-center justify-center p-20 text-center space-y-4">
+    <div className="min-h-screen bg-slate-50 flex flex-col items-center justify-center p-10 text-center space-y-2">
         <IoRefreshOutline className="animate-spin text-4xl text-indigo-600" />
         <span className="font-black text-slate-900 uppercase tracking-widest text-xs">Initializing Authentication Node...</span>
     </div>
   );
 
   return (
-    <div className="min-h-screen bg-slate-50 p-6 max-w-7xl mx-auto pb-24 text-slate-900 selection:bg-indigo-600 selection:text-white">
-      {/* HEADER PROTOCOL */}
-      <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-8">
+    <div className="min-h-screen bg-slate-50 p-4 max-w-7xl mx-auto pb-6 text-slate-900 selection:bg-indigo-600 selection:text-white">
+      <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-3 mb-6">
         <div>
           <div className="flex items-center gap-2 text-indigo-600 mb-1">
             <IoRibbonOutline className="text-lg" />
             <span className="text-[9px] font-black uppercase tracking-[0.4em]">Service_Tier_Credentials</span>
           </div>
-          <h1 className="text-3xl font-black text-slate-900 tracking-tighter leading-none">Certifications</h1>
-          <p className="text-slate-400 font-bold uppercase tracking-widest text-[9px] mt-2 ml-1">Centralized Validation Node</p>
+          <h1 className="text-3xl font-black text-slate-900 leading-none">Certifications</h1>
+          <p className="text-slate-400 font-bold uppercase tracking-widest text-[9px] mt-1">Centralized Validation Node</p>
         </div>
         <button 
           onClick={handleSave}
           disabled={saving}
-          className="group relative overflow-hidden px-8 py-3.5 bg-slate-900 text-white rounded-xl font-black uppercase tracking-widest text-[10px] flex items-center gap-3 hover:shadow-xl hover:shadow-indigo-950/20 transition-all active:scale-95 disabled:opacity-50"
+          className="hidden md:flex group relative overflow-hidden px-4 py-2 bg-slate-900 text-white rounded-xl font-black uppercase tracking-widest text-[10px] items-center gap-2 hover:shadow-xl hover:shadow-indigo-950/20 transition-all active:scale-95 disabled:opacity-50"
         >
           <div className="absolute inset-0 bg-gradient-to-r from-indigo-600 to-rose-600 opacity-0 group-hover:opacity-100 transition-opacity" />
-          <div className="relative flex items-center gap-3">
+          <div className="relative flex items-center gap-2">
             {saving ? <IoRefreshOutline className="animate-spin" /> : <IoSaveOutline className="group-hover:rotate-12 transition-transform" />}
             Deploy Validation Protocol
           </div>
         </button>
       </div>
 
-       {/* TIER SELECTOR */}
-       <div className="flex gap-1 mb-8 bg-white p-1.5 rounded-xl border border-slate-200 w-fit shadow-sm">
+       <div className="flex gap-1 mb-6 bg-white p-1 rounded-xl border border-slate-200 w-fit shadow-sm">
         {[
           { id: "landing", label: "Credential Landing", icon: IoLayersOutline, color: "text-indigo-500" },
           { id: "methodology", label: "Protocol Config", icon: IoSettingsOutline, color: "text-slate-500" },
@@ -118,7 +116,7 @@ export default function CertificationsCMS() {
           <button
             key={tab.id}
             onClick={() => setActiveTab(tab.id)}
-            className={`flex items-center gap-2.5 px-6 py-2.5 rounded-lg font-black uppercase tracking-widest text-[9px] transition-all ${activeTab === tab.id ? 'bg-slate-900 text-white shadow-md' : 'text-slate-400 hover:text-slate-600 hover:bg-slate-50'}`}
+            className={`flex items-center gap-2 px-3 py-1.5 rounded-lg font-black uppercase tracking-widest text-[9px] transition-all ${activeTab === tab.id ? 'bg-slate-900 text-white shadow-md' : 'text-slate-400 hover:text-slate-600 hover:bg-slate-50'}`}
           >
             <tab.icon size={16} className={activeTab === tab.id ? 'text-indigo-400' : tab.color} />
             {tab.label}
@@ -128,17 +126,16 @@ export default function CertificationsCMS() {
 
       <AnimatePresence mode="wait">
         {activeTab === "landing" ? (
-          <motion.div key="landing" initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -10 }} className="space-y-8">
+          <motion.div key="landing" initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -10 }} className="space-y-6">
             
-            {/* HERO SECTION */}
-            <section className="bg-white p-8 rounded-3xl border border-slate-100 shadow-lg shadow-slate-200/30">
-                <div className="flex justify-between items-center mb-6 pb-4 border-b border-slate-100">
-                    <h2 className="text-xl font-black tracking-tighter flex items-center gap-3">
+            <section className="bg-white p-5 rounded-3xl border border-slate-100 shadow-lg shadow-slate-200/30">
+                <div className="flex justify-between items-center mb-4 pb-2 border-b border-slate-100">
+                    <h2 className="text-xl font-black flex items-center gap-2">
                         <div className="w-8 h-8 bg-indigo-50 rounded-lg flex items-center justify-center text-indigo-600"><IoPrismOutline /></div>
                         Hero Architecture
                     </h2>
                 </div>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
                     <Field label="Badge" value={content.hero.badge} onChange={(v) => updateNested("hero.badge", v)} />
                     <Field label="Title" value={content.hero.title} onChange={(v) => updateNested("hero.title", v)} />
                     <Field label="Subtitle" value={content.hero.subtitle} onChange={(v) => updateNested("hero.subtitle", v)} />
@@ -148,16 +145,15 @@ export default function CertificationsCMS() {
                 </div>
             </section>
 
-             {/* CTA CARD */}
-             <section className="bg-slate-900 p-8 rounded-3xl text-white shadow-xl relative overflow-hidden">
+             <section className="bg-slate-900 p-5 rounded-3xl text-white shadow-xl relative overflow-hidden">
                 <div className="absolute top-0 right-0 w-32 h-32 bg-rose-500/10 blur-3xl rounded-full translate-x-10 -translate-y-10"></div>
-                <div className="flex justify-between items-center mb-6 pb-4 border-b border-white/10">
-                    <h2 className="text-xl font-black tracking-tighter flex items-center gap-3">
+                <div className="flex justify-between items-center mb-4 pb-2 border-b border-white/10">
+                    <h2 className="text-xl font-black flex items-center gap-2">
                         <div className="w-8 h-8 bg-white/10 rounded-lg flex items-center justify-center text-rose-400"><IoShieldCheckmarkOutline /></div>
                         Validation Protocol (CTA)
                     </h2>
                 </div>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6 relative z-10">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-3 relative z-10">
                     <Field label="CTA Title" value={content.cta.title} onChange={(v) => updateNested("cta.title", v)} dark />
                     <Field label="Button Text" value={content.cta.buttonText} onChange={(v) => updateNested("cta.buttonText", v)} dark />
                     <div className="md:col-span-2">
@@ -168,12 +164,11 @@ export default function CertificationsCMS() {
 
           </motion.div>
         ) : (
-          <motion.div key="methodology" initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -10 }} className="space-y-8">
+          <motion.div key="methodology" initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -10 }} className="space-y-6">
             
-            {/* METHODOLOGY PILLARS */}
-            <section className="bg-white p-8 rounded-3xl border border-slate-100 shadow-lg shadow-slate-200/30">
-                <div className="flex justify-between items-center mb-6 pb-4 border-b border-slate-100">
-                    <h2 className="text-xl font-black tracking-tighter flex items-center gap-3">
+            <section className="bg-white p-5 rounded-3xl border border-slate-100 shadow-lg shadow-slate-200/30">
+                <div className="flex justify-between items-center mb-4 pb-2 border-b border-slate-100">
+                    <h2 className="text-xl font-black flex items-center gap-2">
                         <div className="w-8 h-8 bg-indigo-50 rounded-lg flex items-center justify-center text-indigo-600"><IoFlashOutline /></div>
                         Institutional Validation Pillars
                     </h2>
@@ -182,22 +177,22 @@ export default function CertificationsCMS() {
                         updateNested("methodology", newArr);
                     }} small />
                 </div>
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
                     {content.methodology?.map((item, idx) => (
-                        <div key={idx} className="p-8 bg-slate-50 rounded-3xl relative group border border-transparent hover:border-indigo-100 transition-all flex flex-col h-full">
+                        <div key={idx} className="p-4 bg-slate-50 rounded-3xl relative group border border-transparent hover:border-indigo-100 transition-all flex flex-col h-full">
                             <button onClick={() => {
                                 const newArr = content.methodology.filter((_, i) => i !== idx);
                                 updateNested("methodology", newArr);
-                            }} className="absolute top-4 right-4 text-slate-200 hover:text-rose-500 transition-all opacity-0 group-hover:opacity-100"><IoTrashOutline size={16}/></button>
+                            }} className="absolute top-2 right-2 text-slate-200 hover:text-rose-500 transition-all opacity-0 group-hover:opacity-100 p-2"><IoTrashOutline size={16}/></button>
                             
-                            <div className="w-10 h-10 rounded-xl bg-indigo-600 text-white flex items-center justify-center font-black text-sm mb-6 shadow-lg shadow-indigo-600/20">
+                            <div className="w-10 h-10 rounded-xl bg-indigo-600 text-white flex items-center justify-center font-black text-sm mb-3 shadow-lg shadow-indigo-600/20">
                                 {String(idx + 1).padStart(2, '0')}
                             </div>
                             
-                            <div className="flex-1 space-y-4">
+                            <div className="flex-1 space-y-2">
                                 <div>
                                     <label className="text-[8px] font-black uppercase text-slate-400 tracking-widest mb-1 block">Credential_Logic</label>
-                                    <input placeholder="Validation Node" className="w-full bg-white px-4 py-2 rounded-xl border border-slate-100 outline-none font-black text-sm uppercase tracking-tighter text-slate-900" value={item.title} onChange={(e) => {
+                                    <input placeholder="Validation Node" className="w-full bg-white px-2 py-1 rounded-xl border border-slate-100 outline-none font-black text-base md:text-sm uppercase text-slate-900" value={item.title} onChange={(e) => {
                                         const newArr = [...content.methodology];
                                         newArr[idx].title = e.target.value;
                                         updateNested("methodology", newArr);
@@ -205,7 +200,7 @@ export default function CertificationsCMS() {
                                 </div>
                                 <div>
                                     <label className="text-[8px] font-black uppercase text-slate-400 tracking-widest mb-1 block">Process_Description</label>
-                                    <textarea placeholder="Legal/Technical progression" rows="4" className="w-full bg-white px-4 py-3 rounded-xl border border-slate-100 outline-none text-[11px] text-slate-500 font-medium leading-relaxed resize-none" value={item.description} onChange={(e) => {
+                                    <textarea placeholder="Legal/Technical progression" rows="4" className="w-full bg-white px-2 py-1.5 rounded-xl border border-slate-100 outline-none text-base md:text-[11px] text-slate-500 font-medium leading-normal resize-none" value={item.description} onChange={(e) => {
                                         const newArr = [...content.methodology];
                                         newArr[idx].description = e.target.value;
                                         updateNested("methodology", newArr);
@@ -214,7 +209,7 @@ export default function CertificationsCMS() {
                             </div>
                         </div>
                     ))}
-                    {content.methodology?.length === 0 && <div className="md:col-span-3 py-20 border-2 border-dashed border-slate-100 rounded-3xl flex flex-col items-center justify-center gap-4 text-slate-300">
+                    {content.methodology?.length === 0 && <div className="md:col-span-3 py-10 border-2 border-dashed border-slate-100 rounded-3xl flex flex-col items-center justify-center gap-2 text-slate-300">
                         <IoRibbonOutline size={48} />
                         <p className="text-[10px] font-black uppercase tracking-[0.3em]">Initialize Validation architecture</p>
                     </div>}
@@ -224,6 +219,21 @@ export default function CertificationsCMS() {
           </motion.div>
         )}
       </AnimatePresence>
+
+      {/* Mobile Sticky Bottom CTA */}
+      <div className="md:hidden sticky bottom-0 left-0 w-full pt-4 pb-[calc(1rem+env(safe-area-inset-bottom))] bg-slate-50/90 backdrop-blur-md z-[90]">
+        <button 
+          onClick={handleSave}
+          disabled={saving}
+          className="w-full relative overflow-hidden px-4 py-4 bg-slate-900 text-white rounded-xl font-black uppercase tracking-widest text-[12px] flex items-center justify-center gap-2 active:scale-95 transition-transform disabled:opacity-50 shadow-xl shadow-slate-900/20"
+        >
+          <div className="absolute inset-0 bg-gradient-to-r from-indigo-600 to-rose-600 opacity-0 hover:opacity-100 transition-opacity" />
+          <div className="relative flex items-center gap-2">
+            {saving ? <IoRefreshOutline className="animate-spin" /> : <IoSaveOutline />}
+            Deploy Validation Protocol
+          </div>
+        </button>
+      </div>
     </div>
   );
 }
@@ -231,21 +241,21 @@ export default function CertificationsCMS() {
 function Field({ label, value, onChange, textarea = false, dark = false, small = false, icon = null }) {
     return (
         <div className={small ? "w-48" : "w-full"}>
-            <label className={`block text-[9px] font-black uppercase mb-1.5 tracking-widest ${dark ? 'text-slate-500' : 'text-slate-400'}`}>
+            <label className={`block text-[9px] font-black uppercase mb-1 tracking-widest ${dark ? 'text-slate-500' : 'text-slate-400'}`}>
                 {label}
             </label>
             <div className={`relative flex items-center ${dark ? 'bg-white/5 border-white/5' : 'bg-slate-50 border-transparent'} border rounded-xl overflow-hidden focus-within:border-indigo-500/10 transition-all`}>
-                {icon && <div className="pl-4 text-slate-400">{icon}</div>}
+                {icon && <div className="pl-2 text-slate-400">{icon}</div>}
                 {textarea ? (
                     <textarea 
                         rows="3" 
-                        className={`w-full px-4 py-2.5 bg-transparent outline-none font-medium text-[11px] leading-relaxed shrink-0 ${dark ? 'text-white' : 'text-slate-900'}`} 
+                        className={`w-full px-2 py-1.5 bg-transparent outline-none font-medium text-base md:text-[11px] leading-normal shrink-0 ${dark ? 'text-white' : 'text-slate-900'}`} 
                         value={value || ""} 
                         onChange={(e) => onChange(e.target.value)} 
                     />
                 ) : (
                     <input 
-                        className={`w-full px-4 py-2.5 bg-transparent outline-none font-black text-xs ${dark ? 'text-white' : 'text-slate-900'}`} 
+                        className={`w-full px-2 py-1.5 bg-transparent outline-none font-black text-base md:text-xs ${dark ? 'text-white' : 'text-slate-900'}`} 
                         value={value || ""} 
                         onChange={(e) => onChange(e.target.value)} 
                     />
@@ -257,14 +267,14 @@ function Field({ label, value, onChange, textarea = false, dark = false, small =
 
 function AddButton({ onClick, label = "Add", small = false }) {
     if (small) return (
-        <button onClick={onClick} className="p-2 bg-indigo-50 text-indigo-600 rounded-lg hover:bg-indigo-600 hover:text-white transition-all">
+        <button onClick={onClick} className="p-1 bg-indigo-50 text-indigo-600 rounded-lg hover:bg-indigo-600 hover:text-white transition-all">
             <IoAddOutline size={18} />
         </button>
     );
     return (
         <button 
             onClick={onClick}
-            className="h-full min-h-[140px] border-2 border-dashed border-slate-100 rounded-2xl flex flex-col items-center justify-center gap-2 text-slate-300 hover:text-indigo-500 hover:border-indigo-200 hover:bg-indigo-50/30 transition-all group"
+            className="h-full min-h-[80px] border-2 border-dashed border-slate-100 rounded-2xl flex flex-col items-center justify-center gap-1 text-slate-300 hover:text-indigo-500 hover:border-indigo-200 hover:bg-indigo-50/30 transition-all group"
         >
             <div className="w-10 h-10 rounded-full border-2 border-dashed border-slate-200 flex items-center justify-center group-hover:scale-110 transition-transform">
                 <IoAddOutline size={18} />

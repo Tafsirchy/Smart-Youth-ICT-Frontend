@@ -8,9 +8,9 @@ import { authService } from "@/services/authService";
 import { motion, AnimatePresence } from "framer-motion";
 import {
   IoMailOutline,
-  IoArrowBackOutline,
   IoCheckmarkCircle,
 } from "react-icons/io5";
+import { FaArrowLeft } from "react-icons/fa";
 
 export default function ForgotPasswordPage() {
   const locale = useLocale();
@@ -33,65 +33,100 @@ export default function ForgotPasswordPage() {
     }
   };
 
+  const inputClass =
+    "w-full bg-slate-50/80 border border-slate-200 text-slate-800 placeholder-slate-400 text-base md:text-sm py-2.5 md:py-2 px-3 rounded-xl outline-none focus:bg-white focus:border-brand-accent focus:shadow-[0_0_15px_rgba(34,211,238,0.2)] transition-all";
+  const labelClass =
+    "block text-[10px] font-bold text-slate-500 uppercase tracking-wider mb-1";
+
   return (
-    <div
-      className="min-h-screen flex items-center justify-center p-6"
-      style={{
-        background:
-          "linear-gradient(135deg, #0f172a 0%, #1e1b4b 60%, #312e81 100%)",
-      }}
-    >
-      {/* Blobs */}
+    <div className="relative min-h-[100dvh] w-full flex items-center justify-center p-4 bg-slate-50 overflow-hidden">
+      {/* ── Immersive Animated Orbs (Rainbow 7 Colors) ──────────────────────────── */}
       <motion.div
-        className="fixed -top-32 -left-32 w-80 h-80 rounded-full opacity-20 blur-3xl pointer-events-none"
-        style={{ background: "var(--color-brand-pink)" }}
-        animate={{ scale: [1, 1.2, 1] }}
-        transition={{ duration: 9, repeat: Infinity }}
+        className="absolute w-[600px] h-[600px] rounded-full blur-[100px] pointer-events-none opacity-80"
+        animate={{ 
+          backgroundColor: ["#EF4444", "#F97316", "#EAB308", "#10B981", "#3B82F6", "#4F46E5", "#8B5CF6", "#EF4444"],
+          x: ["-40px", "40px", "-40px"], 
+          y: ["-30px", "30px", "-30px"], 
+          scale: [1, 1.1, 1] 
+        }}
+        transition={{ duration: 14, repeat: Infinity, ease: "linear" }}
       />
       <motion.div
-        className="fixed -bottom-32 -right-32 w-72 h-72 rounded-full opacity-15 blur-3xl pointer-events-none"
-        style={{ background: "#818cf8" }}
-        animate={{ scale: [1, 1.15, 1] }}
-        transition={{ duration: 7, repeat: Infinity, delay: 1.5 }}
+        className="absolute w-[550px] h-[550px] rounded-full blur-[100px] pointer-events-none opacity-80"
+        animate={{ 
+          backgroundColor: ["#EAB308", "#10B981", "#3B82F6", "#4F46E5", "#8B5CF6", "#EF4444", "#F97316", "#EAB308"],
+          x: ["40px", "-40px", "40px"], 
+          y: ["40px", "-20px", "40px"], 
+          scale: [1, 1.15, 1] 
+        }}
+        transition={{ duration: 16, repeat: Infinity, ease: "linear" }}
+      />
+      <motion.div
+        className="absolute w-[500px] h-[500px] rounded-full blur-[100px] pointer-events-none opacity-80"
+        animate={{ 
+          backgroundColor: ["#3B82F6", "#4F46E5", "#8B5CF6", "#EF4444", "#F97316", "#EAB308", "#10B981", "#3B82F6"],
+          x: ["0px", "-30px", "0px"], 
+          y: ["-40px", "20px", "-40px"], 
+          scale: [1, 1.05, 1] 
+        }}
+        transition={{ duration: 18, repeat: Infinity, ease: "linear" }}
       />
 
-      <motion.div
-        className="relative bg-white/10 backdrop-blur-xl rounded-3xl shadow-2xl border border-white/20 p-10 w-full max-w-md text-center"
-        initial={{ opacity: 0, y: 32 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.55, ease: "easeOut" }}
+      {/* ── Top Left Back Button ────────────────────────────── */}
+      <Link
+        href={`/${locale}/login`}
+        className="absolute top-6 left-6 z-20 flex items-center gap-2 text-slate-500 hover:text-slate-800 transition-colors text-sm font-medium"
       >
+        <FaArrowLeft /> Back to Login
+      </Link>
+
+      {/* ── Solid White Form Card ─────────────────────────────── */}
+      <div className="relative w-full max-w-[420px] bg-white border border-white/40 rounded-3xl p-5 sm:p-6 shadow-[0_20px_50px_rgba(0,0,0,0.1)] z-10 text-center">
+        
+        {/* Header & Logo */}
+        <div className="flex flex-col items-center mb-5">
+          <Link href="/">
+            <Image
+              src="/images/logo.png"
+              alt="SYICT"
+              width={140}
+              height={36}
+              priority
+              className="h-8 w-auto object-contain mb-3"
+            />
+          </Link>
+          <h1 className="text-lg sm:text-xl font-bold text-slate-800 mb-0.5">
+            Reset Password
+          </h1>
+          <p className="text-slate-500 text-[11px] sm:text-xs text-center leading-relaxed max-w-[280px]">
+            Enter your registered email and we'll send you a secure reset link.
+          </p>
+        </div>
+
         <AnimatePresence mode="wait">
           {sent ? (
             <motion.div
               key="success"
-              initial={{ opacity: 0, scale: 0.9 }}
+              initial={{ opacity: 0, scale: 0.95 }}
               animate={{ opacity: 1, scale: 1 }}
               exit={{ opacity: 0 }}
             >
-              <div className="flex justify-center mb-5">
-                <div className="w-16 h-16 rounded-full bg-emerald-500/20 flex items-center justify-center">
-                  <IoCheckmarkCircle size={36} className="text-emerald-400" />
+              <div className="flex justify-center mb-4 mt-2">
+                <div className="w-14 h-14 rounded-full bg-emerald-50 border border-emerald-100 flex items-center justify-center">
+                  <IoCheckmarkCircle size={28} className="text-emerald-500" />
                 </div>
               </div>
-              <h1 className="text-2xl font-bold text-white mb-3">
+              <h2 className="text-lg font-bold text-slate-800 mb-2">
                 Check your inbox!
-              </h1>
-              <p className="text-indigo-200 text-sm leading-relaxed mb-8">
+              </h2>
+              <p className="text-slate-500 text-xs sm:text-sm leading-relaxed mb-6 px-4">
                 We sent a password reset link to{" "}
-                <strong className="text-white">{email}</strong>. The link
+                <strong className="text-slate-700">{email}</strong>. The link
                 expires in 1 hour.
               </p>
-              <p className="text-indigo-300 text-xs mb-6">
-                Didn't receive it? Check your spam folder or try again with the
-                correct email.
-              </p>
-              <Link
-                href={`/${locale}/login`}
-                className="inline-flex items-center gap-2 text-sm text-indigo-200 hover:text-white transition-colors"
-              >
-                <IoArrowBackOutline size={16} /> Back to Login
-              </Link>
+              <div className="bg-slate-50 p-3 rounded-xl border border-slate-100 text-[11px] text-slate-500 mb-2">
+                Didn't receive it? Check your spam folder or try again.
+              </div>
             </motion.div>
           ) : (
             <motion.div
@@ -99,65 +134,33 @@ export default function ForgotPasswordPage() {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
+              className="text-left"
             >
-              {/* Icon */}
-              <div className="flex justify-center mb-6">
-                <div className="w-16 h-16 rounded-full bg-white/10 flex items-center justify-center">
-                  <IoMailOutline size={32} className="text-indigo-200" />
-                </div>
-              </div>
-
-              <Link href="/" className="flex justify-center mb-4">
-                <Image
-                  src="/images/logo.png"
-                  alt="SYICT"
-                  width={128}
-                  height={32}
-                  className="h-8 w-auto object-contain brightness-200"
-                />
-              </Link>
-
-              <h1 className="text-2xl font-bold text-white mb-2">
-                Forgot Password?
-              </h1>
-              <p className="text-indigo-200 text-sm mb-8 leading-relaxed">
-                Enter your registered email and we'll send you a secure reset
-                link.
-              </p>
-
               {error && (
-                <motion.div
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  className="mb-5 p-3 rounded-xl bg-red-500/20 border border-red-400/30 text-red-300 text-sm"
-                >
+                <div className="mb-4 flex items-start gap-2 p-3 rounded-xl text-xs text-brand-pink bg-brand-pink/5 border border-brand-pink/10">
                   ⚠️ {error}
-                </motion.div>
+                </div>
               )}
 
-              <form onSubmit={handleSubmit} className="space-y-4 text-left">
+              <form onSubmit={handleSubmit} className="space-y-4">
                 <div>
-                  <label className="block text-sm font-medium text-indigo-200 mb-1.5">
-                    Email address
-                  </label>
+                  <label className={labelClass}>Email Address</label>
                   <input
                     id="forgot-email"
                     type="email"
                     required
-                    className="w-full px-4 py-3 rounded-xl bg-white/10 border border-white/20 text-white placeholder-indigo-300/60 focus:outline-none focus:ring-2 focus:ring-indigo-400 transition"
+                    className={inputClass}
                     placeholder="you@example.com"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                   />
                 </div>
 
-                <motion.button
+                <button
                   id="forgot-submit"
                   type="submit"
                   disabled={loading}
-                  className="w-full py-3 rounded-xl bg-gradient-to-r from-pink-500 to-indigo-500 text-white font-semibold text-base hover:opacity-90 transition disabled:opacity-50"
-                  whileHover={{ scale: 1.01 }}
-                  whileTap={{ scale: 0.97 }}
+                  className="w-full py-2.5 mt-2 text-sm font-bold text-white rounded-xl shadow-[0_4px_14px_0_rgba(255,44,109,0.39)] bg-gradient-to-r from-brand-pink to-brand-accent hover:shadow-[0_6px_20px_rgba(255,44,109,0.23)] active:scale-[0.98] transition-all disabled:opacity-60"
                 >
                   {loading ? (
                     <span className="flex items-center justify-center gap-2">
@@ -185,19 +188,12 @@ export default function ForgotPasswordPage() {
                   ) : (
                     "Send Reset Link"
                   )}
-                </motion.button>
+                </button>
               </form>
-
-              <Link
-                href={`/${locale}/login`}
-                className="mt-6 inline-flex items-center gap-1.5 text-sm text-indigo-300 hover:text-white transition-colors"
-              >
-                <IoArrowBackOutline size={15} /> Back to Login
-              </Link>
             </motion.div>
           )}
         </AnimatePresence>
-      </motion.div>
+      </div>
     </div>
   );
 }

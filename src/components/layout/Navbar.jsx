@@ -566,7 +566,7 @@ export default function Navbar() {
         {/* Mobile hamburger */}
         <motion.button
           id="nav-mobile-toggle"
-          className="md:hidden text-gray-800 p-2.5 min-h-[44px] min-w-[44px] flex items-center justify-center -mr-2"
+          className="md:hidden text-gray-800 p-0 min-h-[44px] min-w-[44px] flex items-center justify-end"
           onClick={() => {
             setMobileOpen(!mobileOpen);
             setHidden(false);
