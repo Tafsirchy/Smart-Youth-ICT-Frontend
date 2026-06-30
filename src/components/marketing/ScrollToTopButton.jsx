@@ -66,9 +66,10 @@ export default function ScrollToTopButton() {
           className="fixed bottom-28 right-0 z-50 group"
         >
           {/* The Magnetic Slider Track (Tank) */}
-          <div 
+          <button 
             onClick={handleTankClick}
-            className="relative flex items-center justify-center w-12 h-32 cursor-pointer bg-white/90 backdrop-blur-xl border-y border-l border-pink-100 rounded-l-xl shadow-[0_8px_30px_rgba(236,72,153,0.15)] overflow-hidden transition-all duration-300 hover:w-14 hover:bg-white"
+            aria-label="Scroll to top of page"
+            className="relative flex items-center justify-center w-11 h-28 sm:w-12 sm:h-32 cursor-pointer bg-white/90 backdrop-blur-xl border-y border-l border-pink-100 rounded-l-xl shadow-[0_8px_30px_rgba(236,72,153,0.15)] overflow-hidden transition-all duration-300 hover:w-12 sm:hover:w-14 hover:bg-white focus-visible:outline-none focus-visible:bg-white focus-visible:shadow-[inset_0_0_0_2px_rgba(236,72,153,1)]"
           >
             {/* Waving Liquid Fill */}
             <motion.div 
@@ -83,7 +84,7 @@ export default function ScrollToTopButton() {
               
               {/* Wave Layer 1 (Back - Indigo) */}
               <motion.div 
-                className="absolute -top-[2px] w-[200%] h-3 flex text-indigo-400/40 fill-current"
+                className="absolute -top-[2px] w-[200%] h-2 sm:h-3 flex text-indigo-400/40 fill-current"
                 animate={{ x: ["0%", "-50%"] }}
                 transition={{ repeat: Infinity, duration: 2, ease: "linear" }}
               >
@@ -94,7 +95,7 @@ export default function ScrollToTopButton() {
 
               {/* Wave Layer 2 (Front - Pink) */}
               <motion.div 
-                className="absolute -top-1 w-[200%] h-4 flex text-pink-400/50 fill-current"
+                className="absolute -top-1 w-[200%] h-3 sm:h-4 flex text-pink-400/50 fill-current"
                 animate={{ x: ["-50%", "0%"] }}
                 transition={{ repeat: Infinity, duration: 3, ease: "linear" }}
               >
@@ -106,16 +107,16 @@ export default function ScrollToTopButton() {
 
             {/* The Glowing Thumb (Arrow) */}
             <div
-              className={`absolute w-8 h-8 rounded-lg bg-gradient-to-br from-pink-500 to-indigo-600 shadow-[0_4px_15px_rgba(236,72,153,0.4)] flex items-center justify-center transition-all duration-500 ease-[cubic-bezier(0.34,1.56,0.64,1)] z-10 ${
-                isFilling ? 'bottom-[5.5rem]' : 'bottom-2 group-hover:bottom-[5.5rem]'
+              className={`absolute left-1/2 -translate-x-1/2 w-7 h-7 sm:w-8 sm:h-8 rounded-lg bg-gradient-to-br from-pink-500 to-indigo-600 shadow-[0_4px_15px_rgba(236,72,153,0.4)] flex items-center justify-center transition-all duration-500 ease-[cubic-bezier(0.34,1.56,0.64,1)] z-10 ${
+                isFilling ? 'bottom-[4.5rem] sm:bottom-[5.5rem]' : 'bottom-1.5 sm:bottom-2 group-hover:bottom-[4.5rem] sm:group-hover:bottom-[5.5rem]'
               }`}
             >
-              <FaArrowUp size={14} className="text-white group-hover:animate-bounce drop-shadow-md" />
+              <FaArrowUp className="text-[12px] sm:text-[14px] text-white group-hover:animate-bounce drop-shadow-md" />
             </div>
             
             {/* Subtle inner glow on hover */}
             <div className="absolute inset-0 bg-gradient-to-t from-pink-500/0 to-indigo-500/0 group-hover:from-pink-500/5 group-hover:to-indigo-500/5 transition-colors duration-500 pointer-events-none z-20" />
-          </div>
+          </button>
         </motion.div>
       )}
     </AnimatePresence>
