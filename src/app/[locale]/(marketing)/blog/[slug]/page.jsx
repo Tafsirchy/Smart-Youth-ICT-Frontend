@@ -85,7 +85,6 @@ export default async function BlogPostPage({ params }) {
               fill
               priority={true}
               fetchPriority="high"
-              onError={(e) => { e.target.srcset = ''; e.target.src = '/images/placeholder.png'; }}
               className="object-cover blur-xl"
             />
           </div>
@@ -124,7 +123,6 @@ export default async function BlogPostPage({ params }) {
                 height={36}
                 loading="lazy"
                 decoding="async"
-                onError={(e) => { e.target.srcset = ''; e.target.src = '/images/placeholder.png'; }}
                 className="rounded-full ring-2 ring-white/20"
               />
             )}
@@ -159,7 +157,6 @@ export default async function BlogPostPage({ params }) {
               fill
               priority={true}
               fetchPriority="high"
-              onError={(e) => { e.target.srcset = ''; e.target.src = '/images/placeholder.png'; }}
               className="object-cover"
             />
           </div>

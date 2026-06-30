@@ -7,6 +7,7 @@ import Providers from "@/providers/Providers";
 import { Suspense } from "react";
 import FacebookPixel from "@/components/marketing/FacebookPixel";
 import WhatsAppButton from "@/components/marketing/WhatsAppButton";
+import ScrollToTopButton from "@/components/marketing/ScrollToTopButton";
 import GoogleAnalytics from "@/components/marketing/GoogleAnalytics";
 import NextTopLoader from "nextjs-toploader";
 import { getServerSession } from "next-auth";
@@ -81,6 +82,7 @@ async function AppContent({ children }) {
         <FacebookPixel />
         {children}
         <WhatsAppButton />
+        <ScrollToTopButton />
         <Toaster position="top-right" toastOptions={{ duration: 4000 }} />
       </Providers>
     </NextIntlClientProvider>
