@@ -24,7 +24,7 @@ const stats = [
 ];
 
 export default function HeroSection() {
-  const waNumber = process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || '8801000000000';
+  const waNumber = process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || '01822-335566';
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {

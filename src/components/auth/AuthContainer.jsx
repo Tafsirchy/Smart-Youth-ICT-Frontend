@@ -18,7 +18,7 @@ import toast from "react-hot-toast";
 import { authService } from "@/services/authService";
 
 const GOOGLE_AUTH_ENABLED =
-  process.env.NEXT_PUBLIC_GOOGLE_AUTH_ENABLED === "true";
+  process.env.NEXT_PUBLIC_GOOGLE_AUTH_ENABLED?.trim() === "true";
 
 const PW_RULES = [
   { label: "8+ chars", test: (pw) => pw.length >= 8 },
@@ -132,37 +132,40 @@ export default function AuthContainer({ defaultTab = "login" }) {
 
   return (
     <div className="relative min-h-[100dvh] w-full flex items-center justify-center p-4 bg-slate-50 overflow-hidden">
-      {/* ── Immersive Animated Orbs (Rainbow 7 Colors) ──────────────────────────── */}
-      <motion.div
-        className="absolute w-[600px] h-[600px] rounded-full blur-[100px] pointer-events-none opacity-80"
-        animate={{ 
-          backgroundColor: ["#EF4444", "#F97316", "#EAB308", "#10B981", "#3B82F6", "#4F46E5", "#8B5CF6", "#EF4444"],
-          x: ["-40px", "40px", "-40px"], 
-          y: ["-30px", "30px", "-30px"], 
-          scale: [1, 1.1, 1] 
-        }}
-        transition={{ duration: 14, repeat: Infinity, ease: "linear" }}
-      />
-      <motion.div
-        className="absolute w-[550px] h-[550px] rounded-full blur-[100px] pointer-events-none opacity-80"
-        animate={{ 
-          backgroundColor: ["#EAB308", "#10B981", "#3B82F6", "#4F46E5", "#8B5CF6", "#EF4444", "#F97316", "#EAB308"],
-          x: ["40px", "-40px", "40px"], 
-          y: ["40px", "-20px", "40px"], 
-          scale: [1, 1.15, 1] 
-        }}
-        transition={{ duration: 16, repeat: Infinity, ease: "linear" }}
-      />
-      <motion.div
-        className="absolute w-[500px] h-[500px] rounded-full blur-[100px] pointer-events-none opacity-80"
-        animate={{ 
-          backgroundColor: ["#3B82F6", "#4F46E5", "#8B5CF6", "#EF4444", "#F97316", "#EAB308", "#10B981", "#3B82F6"],
-          x: ["0px", "-30px", "0px"], 
-          y: ["-40px", "20px", "-40px"], 
-          scale: [1, 1.05, 1] 
-        }}
-        transition={{ duration: 18, repeat: Infinity, ease: "linear" }}
-      />
+      {/* ── Futuristic Infinite Marquee Background ──────────────────────────── */}
+      <div className="absolute inset-0 z-0 flex items-center justify-center pointer-events-none opacity-[0.04]">
+        <div className="absolute w-[200%] h-[200%] -rotate-12 flex flex-col justify-center gap-10">
+          <motion.div 
+            className="flex whitespace-nowrap text-[140px] font-black uppercase tracking-tighter text-slate-900"
+            animate={{ x: [0, -1030] }}
+            transition={{ repeat: Infinity, ease: "linear", duration: 20 }}
+          >
+            {[...Array(5)].map((_, i) => (
+              <span key={i} className="mr-8">INNOVATION • TECHNOLOGY • FUTURE • AI • CYBERNETICS •</span>
+            ))}
+          </motion.div>
+          
+          <motion.div 
+            className="flex whitespace-nowrap text-[140px] font-black uppercase tracking-tighter text-slate-900"
+            animate={{ x: [-1030, 0] }}
+            transition={{ repeat: Infinity, ease: "linear", duration: 25 }}
+          >
+            {[...Array(5)].map((_, i) => (
+              <span key={i} className="mr-8">ROBOTICS • AUTOMATION • CLOUD • DATA • MACHINE LEARNING •</span>
+            ))}
+          </motion.div>
+
+          <motion.div 
+            className="flex whitespace-nowrap text-[140px] font-black uppercase tracking-tighter text-slate-900"
+            animate={{ x: [0, -1030] }}
+            transition={{ repeat: Infinity, ease: "linear", duration: 22 }}
+          >
+            {[...Array(5)].map((_, i) => (
+              <span key={i} className="mr-8">WEB3 • DESIGN • ENGINEERING • NEURAL NETWORKS • SYSTEM •</span>
+            ))}
+          </motion.div>
+        </div>
+      </div>
 
       {/* ── Top Left Back Button ────────────────────────────── */}
       <Link

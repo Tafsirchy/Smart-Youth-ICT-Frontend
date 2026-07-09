@@ -7,15 +7,15 @@ function stripTrailingSlash(value) {
 
 function getExplicitApiUrl() {
   return (
-    process.env.NEXT_PUBLIC_API_URL ||
-    process.env.NEXT_PUBLIC_BACKEND_URL ||
-    process.env.NEXT_PUBLIC_API_BASE_URL ||
+    process.env.NEXT_PUBLIC_API_URL?.trim() ||
+    process.env.NEXT_PUBLIC_BACKEND_URL?.trim() ||
+    process.env.NEXT_PUBLIC_API_BASE_URL?.trim() ||
     ""
   );
 }
 
 function getDeploymentOrigin() {
-  return process.env.NEXT_PUBLIC_APP_URL || "";
+  return process.env.NEXT_PUBLIC_APP_URL?.trim() || "";
 }
 
 export function getApiBaseUrl({ absolute = false } = {}) {
