@@ -46,12 +46,12 @@ export default function CourseEnrollmentWrapper({ course, locale, children }) {
       <CourseHero course={course} onEnroll={handleEnroll} />
       
       <div className="container-custom mt-12 grid grid-cols-1 lg:grid-cols-12 gap-x-12 gap-y-16 relative">
-        <div className="lg:col-span-8 space-y-20 xl:space-y-24">
+        <div className="lg:col-span-8 space-y-16 lg:space-y-24 pb-24 lg:pb-0">
            {children}
         </div>
 
-        {/* Pricing Sidebar (Client-side interactivity) */}
-        <div className="lg:col-span-4 relative">
+        {/* Pricing Sidebar (Desktop Only) */}
+        <div className="hidden lg:block lg:col-span-4 relative">
           <PricingSidebar 
             course={course} 
             onEnroll={handleEnroll} 
@@ -59,6 +59,27 @@ export default function CourseEnrollmentWrapper({ course, locale, children }) {
             session={session} 
             onShowManualBank={() => setShowManualBank(true)} 
           />
+        </div>
+      </div>
+
+      {/* Sticky Bottom CTA for Mobile */}
+      <div className="lg:hidden sticky bottom-0 left-0 w-full bg-white/95 backdrop-blur-md border-t border-slate-200 p-3 z-[90] pb-[max(0.75rem,env(safe-area-inset-bottom))]">
+        <div className="flex items-center justify-between gap-3 max-w-lg mx-auto">
+          <div className="flex flex-col">
+            <span className="text-xs text-slate-500 font-medium line-through">
+              ৳{course?.price ? Math.round(course.price * 1.5) : 0}
+            </span>
+            <span className="text-lg font-black text-slate-900 leading-none">
+              ৳{course?.price || 0}
+            </span>
+          </div>
+          <button 
+            onClick={handleEnroll}
+            disabled={enrolling}
+            className="flex-1 bg-indigo-600 text-white font-bold h-11 rounded-xl active:scale-[0.98] transition-transform disabled:opacity-60 shadow-md shadow-indigo-500/20"
+          >
+            {enrolling ? 'Initiating...' : session ? '⚡ Enroll Now' : '🔐 Login'}
+          </button>
         </div>
       </div>
 

@@ -7,56 +7,57 @@ import { IoTimerOutline, IoBriefcaseOutline, IoSearchOutline, IoArrowBackOutline
 export default function CareerTracksClient({ tracks, content }) {
   return (
     <section className="min-h-screen bg-slate-950 overflow-hidden relative flex flex-col">
-      {/* Heavy grid background */}
       <div className="absolute inset-0 bg-[linear-gradient(to_right,#ffffff08_1px,transparent_1px),linear-gradient(to_bottom,#ffffff08_1px,transparent_1px)] bg-[size:40px_40px]"></div>
 
-      <div className="relative pt-20 pb-20 px-4">
-        <div className="container-custom relative z-10 text-center max-w-4xl mx-auto">
-          <motion.div
-            initial={{ opacity: 0, scale: 0.9 }}
-            animate={{ opacity: 1, scale: 1 }}
-            className="px-4 py-2 border border-white/20 rounded-full inline-block text-white/70 text-xs font-mono uppercase tracking-widest mb-8 bg-white/5 backdrop-blur-md"
-          >
-            {content?.hero?.badge || "Zero To Hero"}
-          </motion.div>
-          <motion.h1
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.1 }}
-            className="text-3xl sm:text-4xl lg:text-5xl font-black text-white leading-[1.1] mb-8 tracking-tighter"
-          >
-            {content?.hero?.title || "Career Tracks"} <br />
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-500 via-teal-400 to-cyan-400 animate-gradient-x">
-              {content?.hero?.subtitle || "(Web, AI, SMM)"}
-            </span>
-          </motion.h1>
-          <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.2 }}
-            className="text-slate-400 text-xl md:text-2xl leading-relaxed font-light"
-          >
-            {content?.hero?.description || "Select a track, follow our rigorously tested curriculum, and launch your tech career methodically."}
-          </motion.p>
-
-          <motion.div
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.3 }}
-            className="pt-10"
-          >
-            <Link
-              href="/services/career-tracks/details"
-              className="inline-flex items-center min-h-[44px] gap-2 text-xs sm:text-sm font-black uppercase tracking-[0.2em] text-emerald-400 hover:text-white transition-colors group"
+      <div className="relative pt-20 pb-20">
+        <div className="container-custom relative z-10 flex flex-col items-center text-center">
+          <div className="max-w-4xl w-full">
+            <motion.div
+              initial={{ opacity: 0, scale: 0.9 }}
+              animate={{ opacity: 1, scale: 1 }}
+              className="px-4 py-2 border border-white/20 rounded-full inline-block text-white/70 text-xs font-mono uppercase tracking-widest mb-8 bg-white/5 backdrop-blur-md"
             >
-              View Trajectory Manifest <IoArrowBackOutline className="rotate-180 group-hover:translate-x-2 transition-transform" />
-            </Link>
-          </motion.div>
+              {content?.hero?.badge || "Zero To Hero"}
+            </motion.div>
+            <motion.h1
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.1 }}
+              className="text-3xl sm:text-4xl lg:text-5xl font-black text-white leading-[1.1] mb-8 tracking-tighter"
+            >
+              {content?.hero?.title || "Career Tracks"} <br />
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-500 via-teal-400 to-cyan-400 animate-gradient-x">
+                {content?.hero?.subtitle || "(Web, AI, SMM)"}
+              </span>
+            </motion.h1>
+            <motion.p
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.2 }}
+              className="text-slate-400 text-xl md:text-2xl leading-relaxed font-light mx-auto"
+            >
+              {content?.hero?.description || "Select a track, follow our rigorously tested curriculum, and launch your tech career methodically."}
+            </motion.p>
+
+            <motion.div
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.3 }}
+              className="pt-10"
+            >
+              <Link
+                href="/services/career-tracks/details"
+                className="inline-flex items-center min-h-[44px] gap-2 text-xs sm:text-sm font-black uppercase tracking-[0.2em] text-emerald-400 hover:text-white transition-colors group"
+              >
+                View Trajectory Manifest <IoArrowBackOutline className="rotate-180 group-hover:translate-x-2 transition-transform" />
+              </Link>
+            </motion.div>
+          </div>
         </div>
       </div>
 
       <div className="container-custom py-16">
-        <div className="flex overflow-x-auto snap-x snap-mandatory gap-6 pb-8 lg:flex-col lg:space-y-16 lg:overflow-visible max-w-6xl mx-auto scrollbar-hide -mx-[var(--gutter)] px-[var(--gutter)]">
+        <div className="flex flex-col gap-8 lg:gap-16 pb-8">
           {tracks.length > 0 ? (
             tracks.map((track, i) => (
               <motion.div
@@ -64,12 +65,11 @@ export default function CareerTracksClient({ tracks, content }) {
                 initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: "-100px" }}
-                className="min-w-[85vw] sm:min-w-[400px] lg:w-auto snap-center shrink-0 bg-slate-900/50 backdrop-blur-xl border border-white/10 rounded-[3rem] p-8 md:p-12 relative overflow-hidden group hover:border-white/20 transition-all"
+                className="w-full bg-slate-900/50 backdrop-blur-xl border border-white/10 rounded-[3rem] p-8 md:p-12 relative overflow-hidden group hover:border-white/20 transition-all"
               >
                 <div className={`absolute top-0 right-0 w-full h-2 bg-gradient-to-r ${track.color} opacity-80`}></div>
 
                 <div className="grid lg:grid-cols-12 gap-12">
-                  {/* Left meta info */}
                   <div className="lg:col-span-5 space-y-6">
                     <h2 className="text-4xl font-black text-white">{track.title}</h2>
                     <p className="text-lg text-slate-400 leading-relaxed font-light">{track.description}</p>
@@ -90,7 +90,6 @@ export default function CareerTracksClient({ tracks, content }) {
                     </button>
                   </div>
 
-                  {/* Right Phases Flowchart */}
                   <div className="lg:col-span-7 bg-black/40 rounded-3xl p-8 border border-white/5 relative">
                     <div className="space-y-8 relative z-10">
                       {[
@@ -100,7 +99,6 @@ export default function CareerTracksClient({ tracks, content }) {
                         { phase: "Phase 4: Launch", val: track.phase4 },
                       ].map((step, idx) => (
                         <div key={idx} className="flex gap-4 items-start relative pb-4">
-                          {/* Line connector */}
                           {idx !== 3 && <div className={`absolute left-4 top-10 bottom-0 w-px ${track.bg} opacity-30`}></div>}
 
                           <div className={`w-8 h-8 rounded-full ${track.bg} flex items-center justify-center shrink-0 z-10 text-white font-black text-sm`}>
@@ -118,18 +116,20 @@ export default function CareerTracksClient({ tracks, content }) {
               </motion.div>
             ))
           ) : (
-            <div className="text-center py-20 bg-white/5 rounded-[3rem] border border-white/10">
+            <div className="text-center py-20 bg-white/5 rounded-[3rem] border border-white/10 w-full">
               <IoSearchOutline className="text-5xl text-white/20 mx-auto mb-6" />
               <p className="text-white/40 font-black uppercase tracking-widest">No Active Tracks Found</p>
             </div>
           )}
         </div>
       </div>
-      {/* Mobile Sticky CTA */}
-      <div className="sticky bottom-0 left-0 right-0 p-4 bg-slate-950/80 backdrop-blur-md border-t border-white/10 z-50 lg:hidden flex justify-center pb-[max(1rem,env(safe-area-inset-bottom))] mt-auto">
-        <button className="w-full max-w-sm min-h-[44px] py-3.5 bg-white text-slate-950 font-bold rounded-xl shadow-lg active:scale-95 transition-transform text-sm uppercase tracking-widest">
-          Download PDF
-        </button>
+      
+      <div className="sticky bottom-0 left-0 right-0 bg-slate-950/80 backdrop-blur-md border-t border-white/10 z-50 lg:hidden pb-[max(1rem,env(safe-area-inset-bottom))] mt-auto">
+        <div className="container-custom py-4 flex justify-center">
+          <button className="w-full min-h-[44px] py-3.5 bg-white text-slate-950 font-bold rounded-xl shadow-lg active:scale-95 transition-transform text-sm uppercase tracking-widest">
+            Download PDF
+          </button>
+        </div>
       </div>
     </section>
   );

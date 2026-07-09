@@ -67,7 +67,7 @@ export default function CourseHero({ course, onEnroll }) {
   };
 
   return (
-    <section className="relative overflow-hidden bg-slate-900 pt-20 pb-28 lg:pt-28 lg:pb-36 px-4"
+    <section className="relative overflow-hidden bg-slate-900 pt-20 pb-28 lg:pt-28 lg:pb-36"
              style={{ background: 'linear-gradient(135deg, #0f172a 0%, #1e1b4b 50%, #312e81 100%)' }}>
       
       {/* Decorative Blur Orbs */}
@@ -136,28 +136,31 @@ export default function CourseHero({ course, onEnroll }) {
             initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ delay: 0.4 }}
-            className="flex flex-col sm:flex-row gap-4"
+            className="flex flex-col sm:flex-row gap-3"
           >
             <button 
               onClick={onEnroll}
-              className="flex items-center justify-center gap-2 px-8 py-4 rounded-xl bg-gradient-to-r from-blue-600 to-indigo-600 text-white font-bold text-lg shadow-[0_0_30px_rgba(79,70,229,0.3)] hover:shadow-[0_0_40px_rgba(79,70,229,0.5)] hover:scale-[1.02] active:scale-[0.98] transition-all"
+              className="flex-1 sm:flex-none flex items-center justify-center gap-2 px-8 py-4 sm:h-14 rounded-xl bg-gradient-to-r from-blue-600 to-indigo-600 text-white font-bold text-lg shadow-[0_0_30px_rgba(79,70,229,0.3)] hover:shadow-[0_0_40px_rgba(79,70,229,0.5)] hover:scale-[1.02] active:scale-[0.98] transition-all"
             >
               <span>🎓 Enroll Now</span>
             </button>
-            <a 
-              href="#contact"
-              className="flex items-center justify-center gap-2 px-8 py-4 rounded-xl bg-white/10 hover:bg-white/15 border border-white/20 text-white font-semibold text-lg backdrop-blur-md transition-all"
-            >
-              <IoCallOutline className="text-indigo-300" />
-              <span>Free Consultation</span>
-            </a>
-            <button 
-              onClick={handleDownloadPdf}
-              className="flex items-center justify-center gap-2 px-6 py-4 rounded-xl bg-white/10 hover:bg-white/15 border border-white/20 text-white font-semibold text-lg backdrop-blur-md transition-all"
-            >
-              <IoDocumentTextOutline className="text-indigo-300 shadow-sm" />
-              <span>Download Curriculum</span>
-            </button>
+            
+            <div className="grid grid-cols-2 gap-3 w-full sm:w-auto sm:flex sm:flex-row">
+              <a 
+                href="#contact"
+                className="flex items-center justify-center gap-2 px-4 py-4 sm:h-14 rounded-xl bg-white/10 hover:bg-white/15 border border-white/20 text-white font-semibold text-sm sm:text-base backdrop-blur-md transition-all text-center"
+              >
+                <IoCallOutline className="text-indigo-300 hidden sm:block" />
+                <span>Contact</span>
+              </a>
+              <button 
+                onClick={handleDownloadPdf}
+                className="flex items-center justify-center gap-2 px-4 py-4 sm:h-14 rounded-xl bg-white/10 hover:bg-white/15 border border-white/20 text-white font-semibold text-sm sm:text-base backdrop-blur-md transition-all text-center"
+              >
+                <IoDocumentTextOutline className="text-indigo-300 hidden sm:block shadow-sm" />
+                <span>Syllabus</span>
+              </button>
+            </div>
           </motion.div>
 
         </div>
