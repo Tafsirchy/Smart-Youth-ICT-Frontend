@@ -137,7 +137,7 @@ export default function SeoClient({ content }) {
             </div>
           </div>
 
-          <div className="flex overflow-x-auto snap-x snap-mandatory lg:grid lg:grid-cols-3 gap-6 lg:gap-8 pb-8 -mx-[var(--gutter)] px-[var(--gutter)] lg:mx-0 lg:px-0 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
+          <div className="flex overflow-x-auto snap-x snap-mandatory lg:grid lg:grid-cols-3 gap-6 lg:gap-8 pb-8 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
             {pillars?.map((item, i) => (
               <motion.div
                 key={i}

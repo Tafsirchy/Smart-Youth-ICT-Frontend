@@ -138,7 +138,7 @@ export default function ErpCrmClient({ data }) {
           </div>
         </div>
 
-        <div className="mb-6 bg-slate-900 rounded-2xl lg:rounded-3xl p-4 lg:p-6 relative overflow-hidden text-white -mx-4 sm:mx-0">
+        <div className="mb-6 bg-slate-900 rounded-2xl lg:rounded-3xl p-4 lg:p-6 relative overflow-hidden text-white">
           <div className="hidden lg:block absolute top-0 right-0 w-1/2 h-full bg-indigo-600/10 blur-[100px] -z-10"></div>
 
           <div className="flex flex-col lg:grid lg:grid-cols-2 gap-4 lg:gap-6 items-center relative z-10">
@@ -208,7 +208,7 @@ export default function ErpCrmClient({ data }) {
             <p className="text-2xl md:text-4xl font-black text-slate-900 leading-tight">Investment for <span className="text-slate-400">sovereignty.</span></p>
           </div>
 
-          <div className="flex overflow-x-auto snap-x snap-mandatory md:grid md:grid-cols-2 lg:grid-cols-3 gap-3 pb-2 -mx-4 px-4 sm:mx-0 sm:px-0 scrollbar-hide">
+          <div className="flex overflow-x-auto snap-x snap-mandatory md:grid md:grid-cols-2 lg:grid-cols-3 gap-3 pb-2 scrollbar-hide">
             {pricing?.map((tier, idx) => (
               <div key={idx} className={`snap-center shrink-0 w-[85vw] md:w-auto bg-white rounded-2xl p-4 border ${tier.highlight ? "border-indigo-600 shadow-md md:-translate-y-1" : "border-slate-100 shadow-sm"} flex flex-col h-full relative overflow-hidden group transition-all`}>
                 <h4 className="text-xl font-black text-slate-900 mb-0.5 uppercase tracking-tight">{tier.t}</h4>

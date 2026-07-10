@@ -28,7 +28,7 @@ export default function PortfolioWebsitesClient({ data }) {
 
       <div className="container-custom py-10 lg:py-12 relative">
         {/* STRUCTURALLY CREATIVE HERO */}
-        <div className="flex flex-col lg:flex-row items-center gap-8 lg:gap-12 mb-20 lg:mb-24 pt-10 px-4 md:px-0">
+        <div className="flex flex-col lg:flex-row items-center gap-8 lg:gap-12 mb-20 lg:mb-24 pt-10">
           <div className="flex-1 text-left">
             <motion.div
               initial={{ opacity: 0, x: -20 }}
@@ -112,7 +112,7 @@ export default function PortfolioWebsitesClient({ data }) {
         </div>
 
         {/* DESIGN PHILOSOPHIES (Creative Grid) */}
-        <div className="mb-24 lg:mb-32 px-4 md:px-0">
+        <div className="mb-24 lg:mb-32">
           <div className="flex flex-col md:flex-row justify-between items-end mb-12 lg:mb-16 gap-4 lg:gap-6">
             <div className="max-w-xl">
               <h2 className="text-xs font-black text-rose-500 uppercase tracking-widest mb-2 lg:mb-3 leading-[1.4]">
@@ -164,7 +164,7 @@ export default function PortfolioWebsitesClient({ data }) {
         </div>
 
         {/* DIGITAL ALCHEMY (Visual Stepper) */}
-        <div className="relative bg-slate-900 rounded-3xl sm:rounded-[4rem] lg:rounded-[5rem] p-6 sm:p-8 lg:p-16 overflow-hidden mb-16 sm:mb-24 mx-4 md:mx-0">
+        <div className="relative bg-slate-900 rounded-3xl sm:rounded-[4rem] lg:rounded-[5rem] p-6 sm:p-8 lg:p-16 overflow-hidden mb-16 sm:mb-24">
           <div className="absolute top-0 right-0 w-full h-full opacity-10 pointer-events-none">
             <div className="absolute top-0 right-0 w-[800px] h-[800px] bg-rose-500 rounded-full blur-[200px]"></div>
           </div>
@@ -224,7 +224,7 @@ export default function PortfolioWebsitesClient({ data }) {
         </div>
 
         {/* PREMIUM PACKAGES (Creative Cards) */}
-        <div className="mb-24 lg:mb-32 text-center px-4 md:px-0">
+        <div className="mb-24 lg:mb-32 text-center">
           <div className="max-w-2xl mx-auto mb-8 sm:mb-12 text-center flex flex-col gap-2 lg:gap-4">
             <h2 className="text-xs font-black text-rose-500 uppercase tracking-widest leading-[1.4]">
               {sections.pricingHeader?.badge || "Select Your Artifact"}
@@ -235,7 +235,7 @@ export default function PortfolioWebsitesClient({ data }) {
             </p>
           </div>
 
-          <div className="flex overflow-x-auto snap-x snap-mandatory md:grid md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 max-w-6xl mx-auto text-left pb-8 md:pb-0 -mx-[var(--gutter)] px-[var(--gutter)] md:mx-auto md:px-0">
+          <div className="flex overflow-x-auto snap-x snap-mandatory md:grid md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 max-w-6xl mx-auto text-left pb-8 md:pb-0 -mx-[var(--gutter)] px-[var(--gutter)] md:mx-0 md:px-0">
             {pricing?.map((tier, idx) => (
               <div
                 key={idx}
@@ -282,7 +282,7 @@ export default function PortfolioWebsitesClient({ data }) {
         </div>
 
         {/* CALL TO ACTION (Immersive) */}
-        <div className="text-center py-16 lg:py-24 border-t border-slate-100 mt-10 lg:mt-12 relative overflow-hidden rounded-[3rem] lg:rounded-[5rem] bg-white mx-4 md:mx-0">
+        <div className="text-center py-16 lg:py-24 border-t border-slate-100 mt-10 lg:mt-12 relative overflow-hidden rounded-[3rem] lg:rounded-[5rem] bg-white">
           <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full bg-slate-50/50 -z-10 blur-3xl opacity-50"></div>
           <motion.div
             initial={{ opacity: 0, scale: 0.95 }}

@@ -36,7 +36,7 @@ export default function SkillDevelopmentDetailsClient({ data }) {
 
          <div className="container-custom pt-10 lg:pt-16">
             {/* TECH HEADER */}
-            <div className="max-w-5xl mb-16 px-4 md:px-0">
+            <div className="max-w-5xl mb-16">
                <motion.div
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
@@ -55,7 +55,7 @@ export default function SkillDevelopmentDetailsClient({ data }) {
             </div>
 
             {/* 6-PHASE PEDAGOGY GRID */}
-            <div className="mb-24 px-4 md:px-0">
+            <div className="mb-24">
                <div className="flex items-center gap-4 lg:gap-6 mb-10 lg:mb-12">
                   <h2 className="text-2xl lg:text-3xl font-black text-slate-900 uppercase leading-[1.1]">The Learning Lifecycle</h2>
                   <div className="h-[1px] flex-1 bg-slate-200"></div>
@@ -76,7 +76,7 @@ export default function SkillDevelopmentDetailsClient({ data }) {
             </div>
 
             {/* CURRICULUM INTEGRITY SECTION */}
-            <div className="grid lg:grid-cols-2 gap-10 lg:gap-16 items-start mb-24 px-4 md:px-0">
+            <div className="grid lg:grid-cols-2 gap-10 lg:gap-16 items-start mb-24">
                <div className="lg:sticky lg:top-24 flex flex-col gap-6 lg:gap-8">
                   <div className="w-12 h-12 bg-blue-50 rounded-xl flex items-center justify-center text-2xl text-blue-600 border border-blue-100">
                      <IoBookOutline />
@@ -113,7 +113,7 @@ export default function SkillDevelopmentDetailsClient({ data }) {
             </div>
 
             {/* MENTOR MESH SECTION */}
-            <div className="bg-white rounded-[2rem] lg:rounded-[3rem] p-6 lg:p-12 border border-slate-100 shadow-xl shadow-slate-200/50 relative overflow-hidden mb-24 px-4 md:px-0">
+            <div className="bg-white rounded-[2rem] lg:rounded-[3rem] p-6 lg:p-12 border border-slate-100 shadow-xl shadow-slate-200/50 relative overflow-hidden mb-24">
                <div className="absolute top-0 right-0 w-1/3 h-full bg-slate-50/50 border-l border-slate-100 skew-x-12 translate-x-12 hidden lg:block"></div>
                <div className="grid lg:grid-cols-2 gap-10 lg:gap-16 relative z-10">
                   <div className="flex flex-col gap-6 lg:gap-8">
@@ -179,7 +179,7 @@ export default function SkillDevelopmentDetailsClient({ data }) {
             </div>
 
             {/* CTA */}
-            <div className="text-center py-16 lg:py-24 border-t border-slate-200 px-4 md:px-0 flex flex-col items-center gap-6 lg:gap-8">
+            <div className="text-center py-16 lg:py-24 border-t border-slate-200 flex flex-col items-center gap-6 lg:gap-8">
                <IoPulseOutline className="text-5xl lg:text-6xl text-blue-600 opacity-20" />
                <h3 className="text-3xl lg:text-5xl font-black text-slate-900 leading-[1.1]">Ready to activate your <br /><span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-indigo-600 font-serif italic font-medium">Knowledge Sovereignty?</span></h3>
                <div className="flex flex-col sm:flex-row gap-4 w-full sm:w-auto">

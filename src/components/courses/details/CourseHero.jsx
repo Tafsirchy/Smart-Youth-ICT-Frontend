@@ -67,7 +67,7 @@ export default function CourseHero({ course, onEnroll }) {
   };
 
   return (
-    <section className="relative overflow-hidden bg-slate-900 pt-20 pb-28 lg:pt-28 lg:pb-36"
+    <section className="relative overflow-hidden bg-slate-900 pt-10 pb-28 lg:pt-16 lg:pb-36"
              style={{ background: 'linear-gradient(135deg, #0f172a 0%, #1e1b4b 50%, #312e81 100%)' }}>
       
       {/* Decorative Blur Orbs */}

@@ -300,12 +300,12 @@ export default function Navbar() {
 
   return (
     <motion.header
-      className="bg-white shadow-sm sticky top-0 z-[100]"
+      className="bg-white shadow-sm fixed top-0 left-0 right-0 w-full z-[100] h-[var(--navbar-height)]"
       variants={{ visible: { y: 0 }, hidden: { y: "-100%" } }}
       animate={hidden ? "hidden" : "visible"}
       transition={{ duration: 0.35, ease: "easeInOut" }}
     >
-      <nav className="container-custom relative flex items-center justify-between py-4">
+      <nav className="container-custom relative flex items-center justify-between h-full">
         {/* Logo */}
         <Link
           href="/"

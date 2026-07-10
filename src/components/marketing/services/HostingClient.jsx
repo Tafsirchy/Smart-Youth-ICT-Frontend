@@ -218,7 +218,7 @@ export default function HostingClient({ data }) {
                </div>
 
                {/* Full-bleed Mobile Carousel */}
-               <div className="-mx-[var(--gutter)] px-[var(--gutter)] overflow-x-auto snap-x snap-mandatory hide-scrollbar pb-8 lg:pb-0 lg:mx-0 lg:px-0 lg:overflow-visible lg:snap-none">
+               <div className="overflow-x-auto snap-x snap-mandatory hide-scrollbar pb-8 lg:pb-0 lg:overflow-visible lg:snap-none">
                   <div className="flex lg:grid lg:grid-cols-3 gap-6 lg:gap-8 min-w-max lg:min-w-0 w-max lg:w-auto max-w-7xl mx-auto">
                      {(data.sections.plans || []).map((plan, i) => (
                         <motion.div
@@ -269,7 +269,7 @@ export default function HostingClient({ data }) {
                </div>
                
                {/* Full-bleed Mobile Carousel */}
-               <div className="-mx-[var(--gutter)] px-[var(--gutter)] overflow-x-auto snap-x snap-mandatory hide-scrollbar pb-8 lg:pb-0 lg:mx-0 lg:px-0 lg:overflow-visible lg:snap-none">
+               <div className="overflow-x-auto snap-x snap-mandatory hide-scrollbar pb-8 lg:pb-0 lg:overflow-visible lg:snap-none">
                   <div className="flex lg:grid lg:grid-cols-3 gap-6 lg:gap-12 min-w-max lg:min-w-0 w-max lg:w-auto">
                      {(data.sections.pillars || []).map((p, i) => (
                         <motion.div key={i} className="text-center group snap-center w-[85vw] max-w-[320px] lg:w-auto lg:max-w-none whitespace-normal bg-white lg:bg-transparent p-8 lg:p-0 rounded-3xl border border-slate-100 lg:border-none shadow-xl lg:shadow-none">

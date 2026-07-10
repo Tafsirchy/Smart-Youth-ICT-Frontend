@@ -55,7 +55,7 @@ export default function ServicesDirectoryClient() {
          <div className="absolute top-0 right-1/3 w-[1px] h-full bg-slate-300"></div>
       </div>
 
-      <div className="container-custom pt-20">
+      <div className="container-custom pt-8 lg:pt-16">
         {/* HEADER */}
         <div className="max-w-4xl mb-32 px-4 md:px-0">
           <motion.div

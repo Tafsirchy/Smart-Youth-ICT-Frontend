@@ -11,7 +11,7 @@ export default function MarketingLayout({ children }) {
     <>
       {!hasSeenSplash && <PageLoader />}
       <Navbar />
-      <main>{children}</main>
+      <main className="pt-[var(--navbar-height)]">{children}</main>
       <Footer />
     </>
   );

@@ -36,7 +36,7 @@ export default function CertificationsDetailsClient({ data }) {
 
          <div className="container-custom pt-8">
             {/* TECH HEADER */}
-            <div className="max-w-5xl mb-8 px-4 md:px-0">
+            <div className="max-w-5xl mb-8">
                <motion.div
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
@@ -55,7 +55,7 @@ export default function CertificationsDetailsClient({ data }) {
             </div>
 
             {/* 6-PHASE VALIDATION GRID */}
-            <div className="mb-12 px-4 md:px-0">
+            <div className="mb-12">
                <div className="flex items-center gap-4 mb-6">
                   <h2 className="text-3xl font-black text-slate-900 uppercase leading-none">The Validation Lifecycle</h2>
                   <div className="h-[1px] flex-1 bg-slate-200"></div>
@@ -76,7 +76,7 @@ export default function CertificationsDetailsClient({ data }) {
             </div>
 
             {/* SECURITY SECTION */}
-            <div className="grid lg:grid-cols-2 gap-8 items-start mb-12 px-4 md:px-0">
+            <div className="grid lg:grid-cols-2 gap-8 items-start mb-12">
                <div className="relative lg:sticky lg:top-20">
                   <div className="w-12 h-12 bg-emerald-50 rounded-xl flex items-center justify-center text-2xl text-emerald-600 mb-4 border border-emerald-100">
                      <IoFingerPrintOutline />
@@ -113,7 +113,7 @@ export default function CertificationsDetailsClient({ data }) {
             </div>
 
             {/* BLOCKCHAIN SECTION */}
-            <div className="bg-white rounded-3xl p-6 lg:p-10 border border-slate-100 shadow-lg relative overflow-hidden mb-12 px-4 md:px-0">
+            <div className="bg-white rounded-3xl p-6 lg:p-10 border border-slate-100 shadow-lg relative overflow-hidden mb-12">
                <div className="absolute top-0 right-0 w-1/3 h-full bg-slate-50/50 border-l border-slate-100 skew-x-12 translate-x-6"></div>
                <div className="grid lg:grid-cols-2 gap-8 relative z-10">
                   <div>
@@ -179,7 +179,7 @@ export default function CertificationsDetailsClient({ data }) {
             </div>
 
             {/* CTA */}
-            <div className="text-center py-12 border-t border-slate-200 px-4 md:px-0">
+            <div className="text-center py-12 border-t border-slate-200">
                <IoRibbonOutline className="text-5xl text-emerald-600 mb-6 mx-auto opacity-20" />
                <h3 className="text-4xl lg:text-5xl font-black text-slate-900 mb-6 leading-[1.1]">Ready to command your <br /><span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-600 to-indigo-700 font-serif italic font-medium">Technical Authority?</span></h3>
                <div className="flex flex-col sm:flex-row gap-3 justify-center">

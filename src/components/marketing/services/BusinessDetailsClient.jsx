@@ -33,7 +33,7 @@ export default function BusinessDetailsClient({ data }) {
 
          <div className="container-custom pt-6 md:pt-10 pb-[max(3rem,env(safe-area-inset-bottom))] md:pb-0">
             {/* TECH HEADER */}
-            <div className="max-w-5xl mb-12 md:mb-16 px-4 md:px-0">
+            <div className="max-w-5xl mb-12 md:mb-16">
                <motion.div
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
@@ -52,7 +52,7 @@ export default function BusinessDetailsClient({ data }) {
             </div>
 
             {/* ROI VISUALIZER BENTO */}
-            <div className="grid md:grid-cols-2 gap-px mb-12 lg:mb-24 px-4 lg:px-0 bg-white border border-slate-100 rounded-2xl md:rounded-[2rem] overflow-hidden shadow-xl shadow-slate-200/50">
+            <div className="grid md:grid-cols-2 gap-px mb-12 lg:mb-24 bg-white border border-slate-100 rounded-2xl md:rounded-[2rem] overflow-hidden shadow-xl shadow-slate-200/50">
                {roi?.map((spec, idx) => (
                   <div key={idx} className="p-6 md:p-8 border-b border-r border-slate-100 flex flex-col justify-between hover:bg-slate-50 transition-colors group">
                      <div className="flex justify-between items-start mb-8 md:mb-10">
@@ -75,7 +75,7 @@ export default function BusinessDetailsClient({ data }) {
             </div>
 
             {/* TECHNICAL MANIFEST SECTION */}
-            <div className="grid lg:grid-cols-2 gap-8 lg:gap-16 items-center mb-12 lg:mb-24 px-4 lg:px-0">
+            <div className="grid lg:grid-cols-2 gap-8 lg:gap-16 items-center mb-12 lg:mb-24">
                <div className="relative group">
                   <div className="p-6 md:p-10 bg-slate-900 rounded-3xl md:rounded-[3rem] text-white overflow-hidden relative shadow-2xl">
                      <div className="absolute top-0 right-0 w-32 h-32 bg-blue-600/20 blur-[80px]"></div>
@@ -107,7 +107,7 @@ export default function BusinessDetailsClient({ data }) {
             </div>
 
             {/* PREREQUISITES GRID */}
-            <div className="mb-12 lg:mb-24 px-4 md:px-0">
+            <div className="mb-12 lg:mb-24">
                <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-8 md:mb-12 gap-4 md:gap-6">
                   <h2 className="text-3xl md:text-4xl font-black text-slate-900 tracking-tighter leading-[1.1]">{sections.checklistHeader?.title || "Corporate"} <span className="text-slate-400">{sections.checklistHeader?.focus || "Handover Assets."}</span></h2>
                   <div className="h-[1px] flex-1 bg-slate-100 hidden md:block"></div>
@@ -127,7 +127,7 @@ export default function BusinessDetailsClient({ data }) {
             </div>
 
             {/* CTA */}
-            <div className="text-center py-12 lg:py-20 border-t border-slate-100 px-4 md:px-0">
+            <div className="text-center py-12 lg:py-20 border-t border-slate-100">
                <IoStatsChartOutline className="text-5xl lg:text-6xl text-blue-600 mb-6 md:mb-8 mx-auto opacity-10" />
                <h3 className="text-3xl sm:text-4xl lg:text-5xl font-black text-slate-900 mb-6 md:mb-8 leading-[1.1]">{cta.title}</h3>
                <div className="flex flex-col sm:flex-row gap-3 md:gap-4 justify-center">

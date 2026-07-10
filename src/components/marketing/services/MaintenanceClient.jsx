@@ -153,7 +153,7 @@ export default function MaintenanceClient({ content }) {
           </div>
 
           {/* Full-bleed Mobile Carousel */}
-          <div className="-mx-[var(--gutter)] px-[var(--gutter)] overflow-x-auto snap-x snap-mandatory hide-scrollbar pb-8 lg:pb-0 lg:mx-0 lg:px-0 lg:overflow-visible lg:snap-none">
+          <div className="overflow-x-auto snap-x snap-mandatory hide-scrollbar pb-8 lg:pb-0 lg:overflow-visible lg:snap-none">
             <div className="flex lg:grid lg:grid-cols-3 gap-6 lg:gap-8 min-w-max lg:min-w-0 w-max lg:w-auto">
               {(data.sections.pillars || []).map((item, i) => (
                 <motion.div

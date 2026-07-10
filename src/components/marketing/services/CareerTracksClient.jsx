@@ -9,7 +9,7 @@ export default function CareerTracksClient({ tracks, content }) {
     <section className="min-h-screen bg-slate-950 overflow-hidden relative flex flex-col">
       <div className="absolute inset-0 bg-[linear-gradient(to_right,#ffffff08_1px,transparent_1px),linear-gradient(to_bottom,#ffffff08_1px,transparent_1px)] bg-[size:40px_40px]"></div>
 
-      <div className="relative pt-20 pb-20">
+      <div className="relative pt-8 lg:pt-16 pb-20">
         <div className="container-custom relative z-10 flex flex-col items-center text-center">
           <div className="max-w-4xl w-full">
             <motion.div

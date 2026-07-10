@@ -31,7 +31,7 @@ export default function BusinessWebsitesClient({ data }) {
 
       <div className="container-custom py-10 lg:py-20 relative z-10">
         {/* BUSINESS HERO */}
-        <div className="flex flex-col lg:flex-row items-center gap-10 lg:gap-16 mb-24 lg:mb-32 px-4 md:px-0">
+        <div className="flex flex-col lg:flex-row items-center gap-10 lg:gap-16 mb-24 lg:mb-32">
           <div className="flex-1 text-left">
             <motion.div
               initial={{ opacity: 0, x: -20 }}
@@ -98,7 +98,7 @@ export default function BusinessWebsitesClient({ data }) {
         </div>
 
         {/* SERVICE VERTICALS */}
-        <div className="mb-24 lg:mb-32 px-4 md:px-0">
+        <div className="mb-24 lg:mb-32">
           <div className="flex flex-col md:flex-row justify-between items-end mb-8 sm:mb-12 gap-4 md:gap-6 border-l-4 border-blue-600 pl-4 sm:pl-6">
             <div className="max-w-xl">
               <h2 className="text-[10px] sm:text-xs font-black text-blue-600 uppercase tracking-widest mb-2 leading-[1.4]">{sections.verticalsHeader?.badge || "Industrial Standard"}</h2>
@@ -108,7 +108,7 @@ export default function BusinessWebsitesClient({ data }) {
             </div>
           </div>
 
-          <div className="flex overflow-x-auto snap-x snap-mandatory lg:grid lg:grid-cols-3 gap-4 sm:gap-6 pb-8 lg:pb-0 -mx-[var(--gutter)] px-[var(--gutter)] lg:mx-0 lg:px-0">
+          <div className="flex overflow-x-auto snap-x snap-mandatory lg:grid lg:grid-cols-3 gap-4 sm:gap-6 pb-8 lg:pb-0">
             {verticals?.map((item, i) => (
               <motion.div
                 key={i}
@@ -141,7 +141,7 @@ export default function BusinessWebsitesClient({ data }) {
         </div>
 
         {/* LOGISTICS & INTEGRATION HUB */}
-        <div className="mb-16 sm:mb-24 bg-slate-900 rounded-3xl sm:rounded-[4rem] lg:rounded-[5rem] p-6 sm:p-8 lg:p-16 relative overflow-hidden text-white mx-4 md:mx-0">
+        <div className="mb-16 sm:mb-24 bg-slate-900 rounded-3xl sm:rounded-[4rem] lg:rounded-[5rem] p-6 sm:p-8 lg:p-16 relative overflow-hidden text-white">
           <div className="absolute top-0 right-0 w-1/2 h-full bg-blue-600/10 blur-[150px] -z-10"></div>
 
           <div className="grid lg:grid-cols-2 gap-8 lg:gap-16 items-center relative z-10">
@@ -189,13 +189,13 @@ export default function BusinessWebsitesClient({ data }) {
         </div>
 
         {/* PRICING SELECTOR */}
-        <div className="mb-24 lg:mb-32 px-4 md:px-0">
+        <div className="mb-24 lg:mb-32">
           <div className="text-center max-w-2xl mx-auto mb-8 sm:mb-12">
             <h2 className="text-[10px] sm:text-xs font-black text-blue-600 uppercase tracking-widest mb-2 leading-[1.4]">{sections.pricingHeader?.badge || "Scaling Tiers"}</h2>
             <p className="text-2xl sm:text-4xl md:text-5xl font-black text-slate-900 leading-[1.1]">{sections.pricingHeader?.title || "Bespoke investment"} <span className="text-slate-400">{sections.pricingHeader?.focus || "for results."}</span></p>
           </div>
 
-          <div className="flex overflow-x-auto snap-x snap-mandatory md:grid md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 pb-8 md:pb-0 -mx-[var(--gutter)] px-[var(--gutter)] md:mx-0 md:px-0">
+          <div className="flex overflow-x-auto snap-x snap-mandatory md:grid md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 pb-8 md:pb-0">
             {pricing?.map((tier, idx) => (
               <div key={idx} className={`bg-white rounded-3xl sm:rounded-[3rem] p-6 sm:p-8 border min-w-[280px] snap-center shrink-0 w-[85vw] md:w-auto ${tier.highlight ? "border-blue-600 shadow-xl shadow-blue-600/10 md:-translate-y-4" : "border-slate-100 shadow-lg shadow-slate-200/50"} flex flex-col h-full relative overflow-hidden group transition-all`}>
                 <h4 className="text-xl sm:text-2xl font-black text-slate-900 mb-1 uppercase tracking-tighter leading-[1.1]">{tier.t}</h4>
@@ -216,7 +216,7 @@ export default function BusinessWebsitesClient({ data }) {
         </div>
 
         {/* CTA */}
-        <div className="text-center py-16 lg:py-24 border-t border-slate-100 px-4 md:px-0">
+        <div className="text-center py-16 lg:py-24 border-t border-slate-100">
           <IoBriefcaseOutline className="text-5xl sm:text-6xl lg:text-7xl text-blue-600 mb-6 sm:mb-8 mx-auto opacity-10" />
           <h3 className="text-3xl sm:text-4xl lg:text-5xl font-black text-slate-900 mb-6 sm:mb-8 leading-[1.1]">{cta.title?.split('your ')[0]}your <br /><span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-indigo-600 font-serif italic font-medium">{cta.title?.split('your ')[1]}</span></h3>
           <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center">

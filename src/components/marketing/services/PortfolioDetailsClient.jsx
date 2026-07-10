@@ -32,7 +32,7 @@ export default function PortfolioDetailsClient({ data }) {
          </div>
 
          <div className="container-custom pt-6 md:pt-10 pb-[max(3rem,env(safe-area-inset-bottom))] md:pb-0">
-            <div className="max-w-5xl mb-8 lg:mb-16 px-4 md:px-0">
+            <div className="max-w-5xl mb-8 lg:mb-16">
                <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="flex items-center gap-2 md:gap-3 text-emerald-600 mb-4">
                   <div className="w-8 md:w-12 h-[1px] bg-emerald-600"></div>
                   <span className="text-[10px] font-black uppercase tracking-widest leading-[1.4]">{hero.badge}</span>
@@ -47,7 +47,7 @@ export default function PortfolioDetailsClient({ data }) {
             </div>
 
             {/* TECH STACK BENTO */}
-            <div className="grid md:grid-cols-3 gap-px bg-slate-100 border border-slate-100 rounded-2xl md:rounded-[2rem] overflow-hidden shadow-xl shadow-slate-200/50 mb-8 lg:mb-16 mx-4 md:mx-0">
+            <div className="grid md:grid-cols-3 gap-px bg-slate-100 border border-slate-100 rounded-2xl md:rounded-[2rem] overflow-hidden shadow-xl shadow-slate-200/50 mb-8 lg:mb-16">
                {techStack?.map((tech, idx) => (
                   <div key={idx} className={`${tech.color} ${tech.colSpan || ""} p-4 sm:p-6 lg:p-8 flex flex-col justify-between group hover:grayscale transition-all duration-700 min-h-[180px] md:min-h-0`}>
                      <div className="text-white/20 text-3xl md:text-4xl mb-6 lg:mb-10 group-hover:text-white transition-colors">
@@ -62,7 +62,7 @@ export default function PortfolioDetailsClient({ data }) {
             </div>
 
             {/* CODE & CHECKLIST SECTION */}
-            <div className="grid lg:grid-cols-2 gap-6 lg:gap-10 items-start mb-12 lg:mb-24 px-4 md:px-0">
+            <div className="grid lg:grid-cols-2 gap-6 lg:gap-10 items-start mb-12 lg:mb-24">
                <div className="lg:sticky lg:top-24">
                   <div className="w-10 h-10 md:w-12 md:h-12 bg-slate-50 rounded-xl flex items-center justify-center text-xl md:text-2xl text-slate-900 mb-4 md:mb-6 border border-slate-100 shadow-sm">
                      <IoCodeSlashOutline />
@@ -79,7 +79,7 @@ export default function PortfolioDetailsClient({ data }) {
                   </div>
                </div>
 
-               <div className="bg-slate-900 rounded-2xl md:rounded-[2.5rem] p-1 shadow-xl -mx-4 md:mx-0 overflow-hidden">
+               <div className="bg-slate-900 rounded-2xl md:rounded-[2.5rem] p-1 shadow-xl overflow-hidden">
                   <div className="bg-slate-800 rounded-[1rem] md:rounded-[2.2rem] p-4 sm:p-6 lg:p-8 overflow-hidden relative">
                      <div className="flex items-center justify-between mb-4 border-b border-white/10 pb-3">
                         <span className="text-[10px] font-black text-rose-500 uppercase leading-[1.4]">{codeSnippet.fileName || "portfolio-config.ts"}</span>
@@ -102,7 +102,7 @@ export default function PortfolioDetailsClient({ data }) {
             </div>
 
             {/* CLIENT PREPARATION (CHECKLIST) */}
-            <div className="mb-12 lg:mb-24 px-4 md:px-0">
+            <div className="mb-12 lg:mb-24">
                <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-6 md:mb-10 gap-3 md:gap-6">
                   <h2 className="text-2xl md:text-3xl font-black text-slate-900 tracking-tighter leading-[1.1]">Prerequisites for <span className="text-slate-400">Production.</span></h2>
                   <div className="h-[1px] flex-1 bg-slate-100 hidden md:block"></div>
@@ -124,7 +124,7 @@ export default function PortfolioDetailsClient({ data }) {
             </div>
 
             {/* CTA */}
-            <div className="text-center py-10 lg:py-20 border-t border-slate-100 px-4 md:px-0">
+            <div className="text-center py-10 lg:py-20 border-t border-slate-100">
                <IoShieldCheckmarkOutline className="text-4xl lg:text-5xl text-slate-900 mb-6 mx-auto opacity-10" />
                <h3 className="text-2xl sm:text-4xl lg:text-5xl font-black text-slate-900 mb-6 lg:mb-8 leading-[1.1]">{cta.title}</h3>
                <div className="flex flex-col sm:flex-row gap-3 lg:gap-4 justify-center">

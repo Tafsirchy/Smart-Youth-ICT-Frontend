@@ -29,7 +29,7 @@ export default function EcommerceClient({ data }) {
 
       <div className="container-custom py-20 relative z-10">
         {/* ECOMMERCE HERO */}
-        <div className="flex flex-col lg:flex-row items-center gap-20 mb-48 px-4 md:px-0">
+        <div className="flex flex-col lg:flex-row items-center gap-20 mb-48">
           <div className="flex-1 text-left">
             <motion.div
               initial={{ opacity: 0, x: -20 }}
@@ -105,7 +105,7 @@ export default function EcommerceClient({ data }) {
         </div>
 
         {/* SERVICE VERTICALS */}
-        <div className="mb-48 px-4 md:px-0">
+        <div className="mb-48">
           <div className="flex flex-col md:flex-row justify-between items-end mb-12 sm:mb-24 gap-8 border-l-4 border-rose-600 pl-6 sm:pl-8">
             <div className="max-w-xl">
               <h2 className="text-xs font-black text-rose-600 uppercase tracking-[0.4em] mb-4 font-bold">Commerce Standard</h2>
@@ -115,7 +115,7 @@ export default function EcommerceClient({ data }) {
             </div>
           </div>
 
-          <div className="flex overflow-x-auto snap-x snap-mandatory lg:grid lg:grid-cols-3 gap-6 sm:gap-8 pb-8 lg:pb-0 -mx-[var(--gutter)] px-[var(--gutter)] lg:mx-0 lg:px-0">
+          <div className="flex overflow-x-auto snap-x snap-mandatory lg:grid lg:grid-cols-3 gap-6 sm:gap-8 pb-8 lg:pb-0">
             {verticals?.map((item, i) => (
               <motion.div
                 key={i}
@@ -144,7 +144,7 @@ export default function EcommerceClient({ data }) {
         </div>
 
         {/* INTEGRATION HUB */}
-        <div className="mb-32 sm:mb-48 bg-white rounded-3xl sm:rounded-[4rem] lg:rounded-[5rem] p-8 sm:p-12 lg:p-24 border border-slate-100 shadow-2xl shadow-slate-200/50 relative overflow-hidden mx-4 md:mx-0">
+        <div className="mb-32 sm:mb-48 bg-white rounded-3xl sm:rounded-[4rem] lg:rounded-[5rem] p-8 sm:p-12 lg:p-24 border border-slate-100 shadow-2xl shadow-slate-200/50 relative overflow-hidden">
           <div className="absolute top-0 right-0 w-1/3 h-full bg-rose-50/50 -skew-x-[20deg] origin-top translate-x-1/2 opacity-50"></div>
 
           <div className="grid lg:grid-cols-2 gap-16 lg:gap-20 items-center relative z-10">
@@ -195,13 +195,13 @@ export default function EcommerceClient({ data }) {
         </div>
 
         {/* PRICING */}
-        <div className="mb-48 px-4 md:px-0">
+        <div className="mb-48">
           <div className="text-center max-w-2xl mx-auto mb-16 sm:mb-20">
             <h2 className="text-xs font-black text-rose-600 uppercase tracking-[0.4em] mb-4 font-bold">Commerce Tiers</h2>
             <p className="text-3xl sm:text-4xl md:text-5xl font-black text-slate-900 leading-tight">Select your <span className="text-slate-400">market engine.</span></p>
           </div>
 
-          <div className="flex overflow-x-auto snap-x snap-mandatory md:grid md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 pb-8 md:pb-0 -mx-[var(--gutter)] px-[var(--gutter)] md:mx-0 md:px-0">
+          <div className="flex overflow-x-auto snap-x snap-mandatory md:grid md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 pb-8 md:pb-0">
             {pricing?.map((tier, idx) => (
               <div key={idx} className={`bg-white rounded-3xl sm:rounded-[3rem] p-8 sm:p-12 border min-w-[280px] snap-center shrink-0 w-[85vw] md:w-auto ${tier.highlight ? "border-rose-500 shadow-xl shadow-rose-500/10 md:-translate-y-4" : "border-slate-100 shadow-lg shadow-slate-200/50"} flex flex-col h-full relative overflow-hidden group transition-all`}>
                 <h4 className="text-2xl sm:text-3xl font-black text-slate-900 mb-2 uppercase tracking-tighter">{tier.t}</h4>
@@ -222,7 +222,7 @@ export default function EcommerceClient({ data }) {
         </div>
 
         {/* CTA */}
-        <div className="text-center py-40 border-t border-slate-100 px-4 md:px-0">
+        <div className="text-center py-40 border-t border-slate-100">
           <IoBagCheckOutline className="text-7xl text-rose-600 mb-10 sm:mb-12 mx-auto opacity-10" />
           <h3 className="text-4xl sm:text-5xl lg:text-6xl font-black text-slate-900 mb-10 sm:mb-12 leading-tight">{cta.title?.split('your ')[0]}your <br /><span className="text-transparent bg-clip-text bg-gradient-to-r from-rose-600 to-indigo-600 font-serif italic font-medium">{cta.title?.split('your ')[1]}</span></h3>
           <div className="flex flex-col sm:flex-row gap-4 sm:gap-6 justify-center">

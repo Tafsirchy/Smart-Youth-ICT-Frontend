@@ -76,9 +76,20 @@
   --sidebar-width-expanded: 288px;
   --content-gutter: 16px;
 
+  /* — Navbar Alignment Tokens ────────────────────── */
+  --navbar-height-sm: 76px;
+  --navbar-height-md: 72px;
+  --navbar-height: var(--navbar-height-sm);
+
   /* — Transitions ───────────────────────────────── */
   --transition-default: all 250ms cubic-bezier(0.4, 0, 0.2, 1);
   --transition-fast:    all 150ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+@media (min-width: 768px) {
+  :root {
+    --navbar-height: var(--navbar-height-md);
+  }
 }
 
 
