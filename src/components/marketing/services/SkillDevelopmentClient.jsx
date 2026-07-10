@@ -14,31 +14,31 @@ import {
 
 const CATEGORY_STYLE_MAP = {
   "web-dev": {
-    icon: <IoHardwareChipOutline size={32} />,
+    icon: <IoHardwareChipOutline size={28} />,
     color: "from-blue-500 to-indigo-600",
     bg: "bg-blue-50",
     text: "text-blue-600",
   },
   "graphic-design": {
-    icon: <IoColorPaletteOutline size={32} />,
+    icon: <IoColorPaletteOutline size={28} />,
     color: "from-pink-500 to-rose-600",
     bg: "bg-pink-50",
     text: "text-pink-600",
   },
   smm: {
-    icon: <IoMegaphoneOutline size={32} />,
+    icon: <IoMegaphoneOutline size={28} />,
     color: "from-amber-400 to-orange-500",
     bg: "bg-amber-50",
     text: "text-amber-600",
   },
   ai: {
-    icon: <IoCodeWorkingOutline size={32} />,
+    icon: <IoCodeWorkingOutline size={28} />,
     color: "from-emerald-500 to-teal-600",
     bg: "bg-emerald-50",
     text: "text-emerald-600",
   },
   other: {
-    icon: <IoLayersOutline size={32} />,
+    icon: <IoLayersOutline size={28} />,
     color: "from-slate-700 to-slate-900",
     bg: "bg-slate-100",
     text: "text-slate-800",
@@ -83,17 +83,17 @@ export default function SkillDevelopmentClient({ locale, courses, pageContent })
   return (
     <section className="min-h-screen bg-slate-50 overflow-hidden relative flex flex-col">
       {/* Hero Section */}
-      <div className="relative pt-20 pb-20 px-4">
+      <div className="relative pt-10 pb-10 px-4">
         <div className="hidden md:block absolute top-0 right-0 w-[600px] h-[600px] bg-indigo-200/50 rounded-full blur-[120px] opacity-60 -translate-y-1/2 translate-x-1/3 pointer-events-none"></div>
         <div className="hidden md:block absolute bottom-0 left-0 w-[400px] h-[400px] bg-pink-200/40 rounded-full blur-[100px] pointer-events-none"></div>
 
-        <div className="container-custom relative z-10 text-center space-y-6 max-w-4xl mx-auto">
+        <div className="container-custom relative z-10 text-center flex flex-col gap-4 max-w-4xl mx-auto">
           <motion.div
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
-            className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-white border border-slate-200 shadow-sm text-sm font-bold text-slate-800"
+            className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white border border-slate-200 shadow-sm text-xs md:text-sm font-bold text-slate-800 leading-[1.4] self-center"
           >
-            <span className="flex h-2 w-2 rounded-full bg-brand-pink relative">
+            <span className="flex h-2 w-2 rounded-full bg-brand-pink relative shrink-0">
               <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-brand-pink opacity-75"></span>
             </span>
             {hero.badge}
@@ -102,7 +102,7 @@ export default function SkillDevelopmentClient({ locale, courses, pageContent })
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.1 }}
-            className="text-3xl sm:text-4xl lg:text-5xl font-black text-slate-900 leading-[1.1] mb-8 tracking-tighter"
+            className="text-3xl sm:text-4xl lg:text-5xl font-black text-slate-900 leading-[1.1] mb-2"
           >
             {hero.title.split(hero.subtitle)[0]} <br />
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-500 via-teal-500 to-cyan-600 animate-gradient-x">{hero.subtitle}</span>
@@ -111,7 +111,7 @@ export default function SkillDevelopmentClient({ locale, courses, pageContent })
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.2 }}
-            className="text-slate-600 text-xl md:text-2xl leading-relaxed max-w-3xl mx-auto font-light"
+            className="text-slate-600 text-base md:text-lg leading-[1.6] max-w-2xl mx-auto font-light"
           >
             {hero.description}
           </motion.p>
@@ -119,27 +119,27 @@ export default function SkillDevelopmentClient({ locale, courses, pageContent })
       </div>
 
       {/* Methodology Section */}
-      <div className="bg-white py-20 border-y border-slate-100">
+      <div className="bg-white py-10 border-y border-slate-100">
         <div className="container-custom">
-          <div className="grid md:grid-cols-3 gap-12 text-center">
+          <div className="grid md:grid-cols-3 gap-6 md:gap-8 text-center">
             {methods.map((mod, i) => (
               <motion.div
                 key={i}
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                className="space-y-4"
+                className="flex flex-col gap-2"
               >
-                <h3 className="text-2xl font-extrabold text-slate-900">{mod.title}</h3>
-                <p className="text-slate-600 leading-relaxed max-w-sm mx-auto">{mod.description}</p>
+                <h3 className="text-lg md:text-xl font-extrabold text-slate-900 leading-[1.1]">{mod.title}</h3>
+                <p className="text-slate-600 leading-[1.6] max-w-sm mx-auto text-sm md:text-base">{mod.description}</p>
               </motion.div>
             ))}
           </div>
 
-          <div className="mt-16 text-center">
+          <div className="mt-8 text-center">
               <Link
                 href="/services/skill-development/details"
-                className="inline-flex items-center min-h-[44px] gap-2 text-xs sm:text-sm font-black uppercase tracking-[0.2em] text-blue-600 hover:text-indigo-600 transition-colors group"
+                className="inline-flex items-center min-h-[44px] gap-2 text-xs sm:text-sm font-black uppercase tracking-widest text-blue-600 hover:text-indigo-600 transition-colors group leading-[1.4]"
               >
                 View Pedagogical Manifest <IoArrowBackOutline className="rotate-180 group-hover:translate-x-2 transition-transform" />
               </Link>
@@ -148,11 +148,11 @@ export default function SkillDevelopmentClient({ locale, courses, pageContent })
       </div>
 
       {/* Detailed Programs Grid */}
-      <div className="container-custom py-20">
-        <h2 className="text-4xl font-black text-center mb-16 underline decoration-brand-pink decoration-4 underline-offset-8 uppercase tracking-tighter italic">Our Core Training Programs</h2>
+      <div className="container-custom py-12">
+        <h2 className="text-2xl md:text-3xl lg:text-4xl font-black text-center mb-8 underline decoration-brand-pink decoration-4 underline-offset-8 uppercase italic leading-[1.1]">Our Core Training Programs</h2>
 
         {programsToDisplay.length > 0 ? (
-          <div className="flex overflow-x-auto snap-x snap-mandatory gap-6 pb-8 md:grid md:grid-cols-2 lg:grid-cols-3 lg:gap-8 scrollbar-hide -mx-[var(--gutter)] px-[var(--gutter)]">
+          <div className="flex overflow-x-auto snap-x snap-mandatory gap-4 pb-4 md:grid md:grid-cols-2 lg:grid-cols-3 lg:gap-6 scrollbar-hide -mx-[var(--gutter)] px-[var(--gutter)]">
             {programsToDisplay.map((prog, i) => (
               <Link key={prog._id} href={`/${locale}/courses/${prog.slug}`} className="min-w-[85vw] sm:min-w-[300px] md:w-auto snap-center shrink-0 block">
                 <motion.div
@@ -160,28 +160,28 @@ export default function SkillDevelopmentClient({ locale, courses, pageContent })
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true, margin: "-50px" }}
                   transition={{ delay: i * 0.1, duration: 0.5 }}
-                  whileHover={{ y: -10 }}
-                  className="bg-white rounded-[2rem] p-8 border border-slate-100 shadow-xl shadow-slate-200/40 relative overflow-hidden group flex flex-col h-full cursor-pointer"
+                  whileHover={{ y: -5 }}
+                  className="bg-white rounded-[1.5rem] p-6 border border-slate-100 shadow-xl shadow-slate-200/40 relative overflow-hidden group flex flex-col h-full cursor-pointer"
                 >
-                  <div className={`absolute top-0 left-0 w-full h-2 bg-gradient-to-r ${prog.color}`}></div>
+                  <div className={`absolute top-0 left-0 w-full h-1.5 bg-gradient-to-r ${prog.color}`}></div>
 
-                  <div className="flex justify-between items-start mb-6">
-                    <div className={`w-16 h-16 rounded-2xl ${prog.bg} ${prog.text} flex items-center justify-center group-hover:scale-110 transition-transform duration-500`}>
+                  <div className="flex justify-between items-start mb-4">
+                     <div className={`w-12 h-12 rounded-xl ${prog.bg} ${prog.text} flex items-center justify-center group-hover:scale-110 transition-transform duration-500`}>
                       {prog.icon}
                     </div>
-                    <span className="px-3 py-1 bg-slate-100 text-slate-600 text-xs sm:text-sm font-bold uppercase tracking-widest rounded-full">
+                    <span className="px-3 py-1 bg-slate-100 text-slate-600 text-[10px] sm:text-xs font-bold uppercase tracking-widest rounded-full leading-[1.4]">
                       {prog.badge}
                     </span>
                   </div>
 
-                  <h3 className="text-2xl font-bold text-slate-900 mb-3 group-hover:text-blue-600 transition-colors">{prog.title}</h3>
-                  <p className="text-slate-600 leading-relaxed mb-6 flex-1 text-sm line-clamp-3">{prog.description}</p>
+                  <h3 className="text-lg md:text-xl font-bold text-slate-900 mb-2 group-hover:text-blue-600 transition-colors leading-[1.1]">{prog.title}</h3>
+                  <p className="text-slate-600 leading-[1.6] mb-4 flex-1 text-sm line-clamp-3">{prog.description}</p>
 
-                  <div className="space-y-4 border-t border-slate-100 pt-6">
-                    <p className="text-xs font-bold text-slate-400 uppercase tracking-widest">Outcomes</p>
+                  <div className="flex flex-col gap-3 border-t border-slate-100 pt-4">
+                    <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest leading-[1.4]">Outcomes</p>
                     <div className="flex flex-wrap gap-2">
                       {prog.tech.map(t => (
-                        <span key={t} className="px-3 py-1.5 bg-slate-50 border border-slate-100 rounded-lg text-xs sm:text-sm font-bold text-slate-700">
+                        <span key={t} className="px-2 py-1 bg-slate-50 border border-slate-100 rounded-md text-xs font-bold text-slate-700 leading-[1.4]">
                           {t}
                         </span>
                       ))}
@@ -192,36 +192,36 @@ export default function SkillDevelopmentClient({ locale, courses, pageContent })
             ))}
           </div>
         ) : (
-          <div className="text-center py-20 bg-white rounded-[3rem] shadow-sm border border-slate-100">
-            <div className="inline-flex items-center justify-center w-20 h-20 rounded-full bg-slate-50 text-slate-300 mb-6">
-              <IoSearchOutline size={40} />
+          <div className="text-center py-12 bg-white rounded-[2rem] shadow-sm border border-slate-100">
+            <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-slate-50 text-slate-300 mb-4">
+              <IoSearchOutline size={32} />
             </div>
-            <h3 className="text-xl font-black text-slate-900 mb-2">Programs Coming Soon</h3>
-            <p className="text-slate-500 font-medium">We are currently updating our course catalog. Please check back later.</p>
+            <h3 className="text-lg font-black text-slate-900 mb-2 leading-[1.1]">Programs Coming Soon</h3>
+            <p className="text-slate-500 font-medium text-sm leading-[1.6]">We are currently updating our course catalog. Please check back later.</p>
           </div>
         )}
       </div>
 
       {/* CTA Bottom */}
-      <div className="container-custom pb-24">
+      <div className="container-custom pb-12">
         <motion.div
           initial={{ opacity: 0, scale: 0.95 }}
           whileInView={{ opacity: 1, scale: 1 }}
           viewport={{ once: true }}
-          className="bg-slate-900 rounded-[3rem] p-12 md:p-20 text-center relative overflow-hidden shadow-2xl"
+          className="bg-slate-900 rounded-[2rem] p-8 md:p-12 text-center relative overflow-hidden shadow-2xl flex flex-col gap-4 md:gap-6 items-center"
         >
           <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-full max-w-3xl bg-brand-pink/20 blur-[120px]"></div>
-          <h2 className="text-4xl md:text-5xl font-black text-white relative z-10 mb-8">{cta.title}</h2>
-          <p className="text-slate-300 text-lg mb-10 max-w-2xl mx-auto relative z-10 font-light">{cta.description}</p>
-          <button className="relative z-10 px-8 min-h-[44px] py-4 bg-white text-slate-900 font-extrabold rounded-full hover:scale-105 transition-transform shadow-xl uppercase tracking-widest text-xs sm:text-sm">
+          <h2 className="text-3xl md:text-4xl font-black text-white relative z-10 leading-[1.1]">{cta.title}</h2>
+          <p className="text-slate-300 text-base md:text-lg max-w-2xl mx-auto relative z-10 font-light leading-[1.6]">{cta.description}</p>
+          <button className="relative z-10 px-6 min-h-[44px] py-3 bg-white text-slate-900 font-extrabold rounded-full hover:scale-105 transition-transform shadow-lg uppercase tracking-widest text-[10px] sm:text-xs leading-[1.4]">
             {cta.buttonText}
           </button>
         </motion.div>
       </div>
 
       {/* Mobile Sticky CTA */}
-      <div className="sticky bottom-0 left-0 right-0 p-4 bg-white/90 backdrop-blur-md border-t border-slate-200 z-50 lg:hidden flex justify-center pb-[max(1rem,env(safe-area-inset-bottom))] mt-auto">
-        <button className="w-full max-w-sm min-h-[44px] py-3.5 bg-slate-900 text-white font-bold rounded-xl shadow-lg active:scale-95 transition-transform text-sm uppercase tracking-widest">
+      <div className="sticky bottom-0 left-0 right-0 p-3 bg-white/90 backdrop-blur-md border-t border-slate-200 z-50 lg:hidden flex justify-center pb-[max(0.75rem,env(safe-area-inset-bottom))] mt-auto">
+        <button className="w-full max-w-sm min-h-[48px] px-6 py-3 bg-slate-900 text-white font-bold rounded-xl shadow-lg active:scale-95 transition-transform text-xs uppercase tracking-widest leading-[1.4]">
           {cta.buttonText}
         </button>
       </div>
