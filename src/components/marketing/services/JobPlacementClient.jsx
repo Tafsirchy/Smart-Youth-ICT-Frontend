@@ -213,7 +213,7 @@ export default function JobPlacementClient({ data, content }) {
               loading="lazy"
               decoding="async"
               onError={(e) => { e.target.srcset = ''; e.target.src = '/images/placeholder.png'; }}
-              className="object-cover grayscale opacity-80"
+              className="object-cover grayscale opacity-80 bg-[#f0f0f0]"
             />
           </div>
         </motion.div>

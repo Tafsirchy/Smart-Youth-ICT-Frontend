@@ -99,7 +99,7 @@ export default function TestimonialsPage() {
                         loading="lazy"
                         decoding="async"
                         onError={(e) => { e.target.srcset = ''; e.target.src = '/images/placeholder.png'; }}
-                        className="w-full h-full object-cover"
+                        className="w-full h-full object-cover bg-[#f0f0f0]"
                       />
                     </div>
                     <div>

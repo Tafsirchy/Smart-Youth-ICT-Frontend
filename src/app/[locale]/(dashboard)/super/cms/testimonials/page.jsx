@@ -182,7 +182,7 @@ export default function TestimonialManagementPage() {
                     loading="lazy"
                     decoding="async"
                     onError={(e) => { e.target.srcset = ''; e.target.src = '/images/placeholder.png'; }}
-                    className="w-full h-full rounded-[0.6rem] object-cover"
+                    className="w-full h-full rounded-[0.6rem] object-cover bg-[#f0f0f0]"
                   />
                 </div>
                 <div className="min-w-0 flex-1">

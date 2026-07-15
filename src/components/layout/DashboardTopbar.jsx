@@ -27,11 +27,12 @@ export default function DashboardTopbar({ user, toggleSidebar }) {
             alt="Smart Youth ICT Logo"
             width={120}
             height={30}
-            className="h-6 w-auto object-contain"
+            className="h-6 w-auto object-contain bg-[#f0f0f0]"
             priority={true}
             fetchPriority="high"
             onError={(e) => { e.target.srcset = ''; e.target.src = '/images/placeholder.png'; }}
-          />
+          
+decoding="async"/>
         </Link>
       </div>
 

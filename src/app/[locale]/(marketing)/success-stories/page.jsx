@@ -107,7 +107,7 @@ export default function SuccessStoriesPage() {
             >
               {[...videoStories, ...videoStories].map((story, i) => (
                 <a key={i} href={story.videoUrl} target="_blank" rel="noopener noreferrer" className="relative rounded-3xl overflow-hidden w-[300px] md:w-[400px] aspect-[4/5] bg-slate-200 cursor-pointer shadow-lg hover:shadow-2xl transition-all shrink-0 group/card">
-                  <Image src={story.videoThumbnail || story.studentAvatar || "/images/placeholder.png"} alt={story.studentName || "Student"} fill sizes="400px" loading="lazy" decoding="async" onError={(e) => { e.target.srcset = ''; e.target.src = '/images/placeholder.png'; }} className="object-cover lg:group-hover/card:scale-110 transition-transform duration-700" />
+                  <Image src={story.videoThumbnail || story.studentAvatar || "/images/placeholder.png"} alt={story.studentName || "Student"} fill sizes="400px" loading="lazy" decoding="async" onError={(e) => { e.target.srcset = ''; e.target.src = '/images/placeholder.png'; }} className="object-cover lg:group-hover/card:scale-110 transition-transform duration-700 bg-[#f0f0f0]" />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent"></div>
 
                   <div className="absolute inset-0 flex items-center justify-center">
@@ -150,7 +150,7 @@ export default function SuccessStoriesPage() {
                   key={story._id || i} className="bg-slate-50 rounded-3xl p-6 border border-slate-100 hover:border-blue-200 hover:shadow-xl transition-all group">
                   <div className="flex gap-4 items-center mb-6">
                     <div className="relative w-16 h-16 rounded-full overflow-hidden shadow-sm ring-2 ring-white bg-white">
-                      <Image src={story.studentAvatar || "/images/placeholder.png"} alt={story.studentName || "Student"} fill sizes="64px" loading="lazy" decoding="async" onError={(e) => { e.target.srcset = ''; e.target.src = '/images/placeholder.png'; }} className="object-cover" />
+                      <Image src={story.studentAvatar || "/images/placeholder.png"} alt={story.studentName || "Student"} fill sizes="64px" loading="lazy" decoding="async" onError={(e) => { e.target.srcset = ''; e.target.src = '/images/placeholder.png'; }} className="object-cover bg-[#f0f0f0]" />
                     </div>
                     <div className="min-w-0">
                       <h4 className="font-bold text-slate-900 text-lg truncate">{story.studentName}</h4>

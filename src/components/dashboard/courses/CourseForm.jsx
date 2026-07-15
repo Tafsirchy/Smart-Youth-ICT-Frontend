@@ -465,8 +465,11 @@ export default function CourseForm({ initialData = null, onSuccess }) {
                 <img
                   src={initialData.thumbnail}
                   alt="Thumbnail preview"
-                  className="h-40 mx-auto rounded-xl object-cover mb-4 shadow-sm"
-                />
+                  className="h-40 mx-auto rounded-xl object-cover mb-4 shadow-sm bg-[#f0f0f0]"
+                
+loading="lazy"
+onError={(e) => { e.target.onerror = null; e.target.srcset = ''; e.target.src = '/assets/fallback.png'; }}
+decoding="async"/>
               ) : (
                 <div className="text-neutral-500 font-medium">
                   Click instantly or drag image file here for Course Thumbnail
@@ -765,7 +768,7 @@ export default function CourseForm({ initialData = null, onSuccess }) {
                         loading="lazy"
                         decoding="async"
                         onError={(e) => { e.target.src = '/images/placeholder.png'; }}
-                        className="rounded-lg object-cover shadow-sm border border-neutral-100" 
+                        className="rounded-lg object-cover shadow-sm border border-neutral-100 bg-[#f0f0f0]" 
                         style={{ maxWidth: '100%', maxHeight: '300px' }} 
                       />
                     </div>

@@ -385,7 +385,7 @@ export default function AllBranchesPage() {
                    <div className="flex items-center gap-3">
                       <div className="w-10 h-10 rounded-xl bg-slate-100 flex items-center justify-center text-slate-400 font-bold overflow-hidden">
                          {branch.logo ? (
-                            <Image src={branch.logo} alt={branch.name} width={40} height={40} className="w-full h-full object-cover" />
+                            <Image src={branch.logo} alt={branch.name} width={40} height={40} className="w-full h-full object-cover bg-[#f0f0f0]"  loading="lazy" onError={(e) => { e.target.onerror = null; e.target.srcset = ''; e.target.src = '/assets/fallback.png'; }} decoding="async"/>
                          ) : ( branch.code )}
                       </div>
                       <div>
@@ -460,8 +460,11 @@ export default function AllBranchesPage() {
                                   alt={branch.name || "Branch logo"}
                                   width={48}
                                   height={48}
-                                  className="w-full h-full object-cover"
-                                />
+                                  className="w-full h-full object-cover bg-[#f0f0f0]"
+                                
+loading="lazy"
+onError={(e) => { e.target.onerror = null; e.target.srcset = ''; e.target.src = '/assets/fallback.png'; }}
+decoding="async"/>
                               ) : (
                                 branch.code
                               )}

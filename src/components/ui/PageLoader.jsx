@@ -76,11 +76,12 @@ export default function PageLoader() {
             alt="Smart Youth ICT Logo"
             fill
             sizes="96px"
-            className="object-contain drop-shadow-lg"
+            className="object-contain drop-shadow-lg bg-[#f0f0f0]"
             priority={true}
             fetchPriority="high"
             onError={(e) => { e.target.srcset = ''; e.target.src = '/images/placeholder.png'; }}
-          />
+          
+decoding="async"/>
         </div>
       </div>
 

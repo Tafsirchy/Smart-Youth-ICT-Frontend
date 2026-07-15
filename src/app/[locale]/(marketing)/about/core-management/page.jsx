@@ -82,7 +82,7 @@ export default function CoreManagementPage() {
                       loading="lazy"
                       decoding="async"
                       onError={(e) => { e.target.srcset = ''; e.target.src = '/images/placeholder.png'; }}
-                      className="object-cover w-full h-full group-hover:scale-110 transition-transform duration-500"
+                      className="object-cover w-full h-full group-hover:scale-110 transition-transform duration-500 bg-[#f0f0f0]"
                     />
                   </div>
                 </div>

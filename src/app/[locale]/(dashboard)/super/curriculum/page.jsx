@@ -599,8 +599,11 @@ export default function MasterCurriculumPage() {
                     <img
                       src={course.thumbnail}
                       alt=""
-                      className="w-full h-full object-cover opacity-80 group-hover:scale-110 transition-transform duration-700"
-                    />
+                      className="w-full h-full object-cover opacity-80 group-hover:scale-110 transition-transform duration-700 bg-[#f0f0f0]"
+                    
+loading="lazy"
+onError={(e) => { e.target.onerror = null; e.target.srcset = ''; e.target.src = '/assets/fallback.png'; }}
+decoding="async"/>
                   ) : (
                     <div className="w-full h-full flex items-center justify-center bg-gradient-to-br from-indigo-500/20 to-purple-500/20">
                       <HiOutlineCube
@@ -927,9 +930,12 @@ export default function MasterCurriculumPage() {
                             <img
                               src={courseForm.thumbnail}
                               alt="Preview"
-                              className="rounded-lg object-cover"
+                              className="rounded-lg object-cover bg-[#f0f0f0]"
                               style={{ maxWidth: '100%', maxHeight: '300px' }}
-                            />
+                            
+loading="lazy"
+onError={(e) => { e.target.onerror = null; e.target.srcset = ''; e.target.src = '/assets/fallback.png'; }}
+decoding="async"/>
                           </div>
                         )}
                       </div>

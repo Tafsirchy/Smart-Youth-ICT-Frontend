@@ -220,7 +220,7 @@ export default function Testimonials() {
                     loading="lazy"
                     decoding="async"
                     onError={(e) => { e.target.srcset = ''; e.target.src = '/images/placeholder.png'; }}
-                    className="object-cover group-hover:scale-110 transition-transform duration-500"
+                    className="object-cover group-hover:scale-110 transition-transform duration-500 bg-[#f0f0f0]"
                   />
                   <div className="absolute inset-0 bg-black/40 group-hover:bg-black/20 transition-all flex flex-col items-center justify-center">
                     <div className="w-12 h-12 bg-pink-600 rounded-full flex items-center justify-center text-white shadow-lg group-hover:scale-125 transition-transform">

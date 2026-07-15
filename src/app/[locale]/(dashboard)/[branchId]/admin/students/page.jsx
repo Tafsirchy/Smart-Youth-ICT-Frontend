@@ -196,8 +196,11 @@ export default function AdminStudentsPage() {
                               alt={user.name || "User avatar"}
                               width={32}
                               height={32}
-                              className="w-8 h-8 rounded-full object-cover"
-                            />
+                              className="w-8 h-8 rounded-full object-cover bg-[#f0f0f0]"
+                            
+loading="lazy"
+onError={(e) => { e.target.onerror = null; e.target.srcset = ''; e.target.src = '/assets/fallback.png'; }}
+decoding="async"/>
                           ) : (
                             <IoPersonOutline
                               className="text-blue-600"

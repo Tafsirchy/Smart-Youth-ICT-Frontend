@@ -54,7 +54,7 @@ export default function MyCoursesPage() {
               className="group flex flex-col overflow-hidden rounded-2xl bg-white shadow-sm ring-1 ring-neutral-200 hover:shadow-xl transition-all"
             >
               <div className="relative aspect-video w-full bg-neutral-100">
-                <Image src={course.thumbnail || '/images/course-placeholder.jpg'} alt={course.title?.en || course.title} fill className="object-cover" />
+                <Image src={course.thumbnail || '/images/course-placeholder.jpg'} alt={course.title?.en || course.title} fill className="object-cover bg-[#f0f0f0]"  loading="lazy" onError={(e) => { e.target.onerror = null; e.target.srcset = ''; e.target.src = '/assets/fallback.png'; }} decoding="async"/>
                 <div className="absolute top-3 left-3 rounded-md bg-blue-600/90 px-2.5 py-1 text-xs font-semibold text-white backdrop-blur-sm">
                   {course.category || 'Course'}
                 </div>

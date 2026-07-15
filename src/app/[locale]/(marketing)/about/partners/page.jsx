@@ -84,7 +84,7 @@ export default function PartnersPage() {
                     loading="lazy"
                     decoding="async"
                     onError={(e) => { e.target.srcset = ''; e.target.src = '/images/placeholder.png'; }}
-                    className="object-contain group-hover:scale-110 grayscale group-hover:grayscale-0 transition-all duration-500"
+                    className="object-contain group-hover:scale-110 grayscale group-hover:grayscale-0 transition-all duration-500 bg-[#f0f0f0]"
                   />
                 </div>
                 <h3 className="text-white font-bold text-lg group-hover:text-slate-900 transition-colors truncate w-full px-2">

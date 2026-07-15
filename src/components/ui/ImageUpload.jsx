@@ -97,7 +97,7 @@ export default function ImageUpload({ value, onChange, label = "Upload Image" })
                 alt="Upload Preview" 
                 width="128"
                 height="128"
-                className="w-full h-full object-cover"
+                className="w-full h-full object-cover bg-[#f0f0f0]"
                 loading="lazy"
                 decoding="async"
                 onError={(e) => { e.target.onerror = null; e.target.src = '/images/placeholder.png'; }}

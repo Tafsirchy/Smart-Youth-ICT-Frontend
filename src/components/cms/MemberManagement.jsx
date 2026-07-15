@@ -161,7 +161,7 @@ export default function MemberManagement({ type, title, subtitle }) {
                   loading="lazy"
                   decoding="async"
                   onError={(e) => { e.target.srcset = ''; e.target.src = '/images/placeholder.png'; }}
-                  className="object-cover"
+                  className="object-cover bg-[#f0f0f0]"
                 />
               </div>
             </div>

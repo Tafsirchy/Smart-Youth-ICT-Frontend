@@ -380,7 +380,10 @@ export default function AdminPaymentsPage() {
                         height={128}
                         sizes="(max-width: 768px) 100vw, 420px"
                         className="w-full h-32 object-contain bg-neutral-50 rounded"
-                      />
+                      
+loading="lazy"
+onError={(e) => { e.target.onerror = null; e.target.srcset = ''; e.target.src = '/assets/fallback.png'; }}
+decoding="async"/>
                     </a>
                   </div>
                 )}

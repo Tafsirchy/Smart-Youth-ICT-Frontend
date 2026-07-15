@@ -438,13 +438,14 @@ export default function HeroSlider() {
                         <img
                           src={slides[current].image}
                           alt="Preload Image"
-                          className="hidden"
+                          className="hidden object-cover bg-[#f0f0f0]"
                           sizes="(max-width: 768px) 100vw, 50vw"
                           fetchPriority={
                             slides[current].id === 1 ? "high" : "auto"
                           }
                           onError={(e) => { e.target.onerror = null; e.target.src = '/images/placeholder.png'; }}
-                        />
+                        
+decoding="async"/>
                       </motion.div>
                     ))}
 

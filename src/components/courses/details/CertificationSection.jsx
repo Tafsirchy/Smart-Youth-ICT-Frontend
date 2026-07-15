@@ -60,7 +60,7 @@ export default function CertificationSection() {
                 loading="lazy"
                 decoding="async"
                 onError={(e) => { e.target.srcset = ''; e.target.src = '/images/placeholder.png'; }}
-                className="object-cover saturate-50 mix-blend-multiply opacity-10"
+                className="object-cover saturate-50 mix-blend-multiply opacity-10 bg-[#f0f0f0]"
               />
               <div className="absolute inset-0 flex flex-col items-center justify-center p-6 text-center border-[8px] border-slate-200">
                  <IoRibbonOutline className="text-emerald-600 mb-2" size={48} />

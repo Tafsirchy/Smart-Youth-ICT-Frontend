@@ -97,11 +97,12 @@ export default function Sidebar({ initialRole, initialUser, isOpen, onClose }) {
             alt="Smart Youth ICT Logo"
             width={160}
             height={40}
-            className="h-10 w-auto object-contain"
+            className="h-10 w-auto object-contain bg-[#f0f0f0]"
             priority={true}
             fetchPriority="high"
             onError={(e) => { e.target.srcset = ''; e.target.src = '/images/placeholder.png'; }}
-          />
+          
+decoding="async"/>
         </Link>
         {/* Mobile Close Button */}
         <button 

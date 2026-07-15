@@ -101,9 +101,12 @@ function PostModal({ post, onClose, onSaved }) {
               <img
                 src={form.thumbnail}
                 alt="Preview"
-                className="rounded-lg object-cover"
+                className="rounded-lg object-cover bg-[#f0f0f0]"
                 style={{ maxWidth: '100%', maxHeight: '300px' }}
-              />
+              
+loading="lazy"
+onError={(e) => { e.target.onerror = null; e.target.srcset = ''; e.target.src = '/assets/fallback.png'; }}
+decoding="async"/>
             </div>
           )}
 

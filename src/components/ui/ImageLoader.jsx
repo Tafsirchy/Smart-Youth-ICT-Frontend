@@ -50,12 +50,14 @@ export default function ImageLoader({
         className={cn(
           !disableTransition && "transition-opacity duration-500 ease-in-out",
           (isLoaded || disableTransition) ? "opacity-100" : "opacity-0",
-          className
+          className,
+          "object-cover bg-[#f0f0f0]"
         )}
         onLoad={() => setIsLoaded(true)}
-        onError={(e) => { e.target.srcset = ''; e.target.src = '/images/placeholder.png'; setIsLoaded(true); }}
+        onError={(e) => { e.target.srcset = ''; e.target.src = '/assets/fallback.png'; setIsLoaded(true); }}
         priority={priority}
         fetchPriority={fetchPriority}
+        decoding="async"
         {...props}
       />
     </div>

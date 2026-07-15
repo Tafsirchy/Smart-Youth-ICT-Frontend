@@ -78,8 +78,11 @@ export default function InstructorCoursesPage() {
                         }
                         fill
                         sizes="64px"
-                        className="object-cover"
-                      />
+                        className="object-cover bg-[#f0f0f0]"
+                      
+loading="lazy"
+onError={(e) => { e.target.onerror = null; e.target.srcset = ''; e.target.src = '/assets/fallback.png'; }}
+decoding="async"/>
                     </div>
                   ) : (
                     <HiOutlineAcademicCap size={32} />

@@ -70,9 +70,10 @@ export default function PortfolioWebsitesClient({ data }) {
                   height={1000}
                   fetchPriority="high"
                   onError={(e) => { e.target.onerror = null; e.target.src = '/images/placeholder.png'; }}
-                  className="w-full aspect-[4/5] object-cover rounded-[2.8rem] grayscale group-hover:grayscale-0 transition-all duration-1000"
+                  className="w-full aspect-[4/5] object-cover rounded-[2.8rem] grayscale group-hover:grayscale-0 transition-all duration-1000 bg-[#f0f0f0]"
                   alt="Portfolio Concept"
-                />
+                
+decoding="async"/>
                 <div className="absolute inset-0 bg-gradient-to-t from-slate-900/60 to-transparent flex flex-col justify-end p-6 sm:p-8 opacity-100 lg:opacity-0 lg:group-hover:opacity-100 transition-opacity">
                   <p className="text-white text-3xl font-black leading-[1.1]">
                     Visual Poetics.

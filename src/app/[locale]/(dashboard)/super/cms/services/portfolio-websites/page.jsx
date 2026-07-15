@@ -565,7 +565,7 @@ function Field({ label, value, onChange, textarea = false, dark = false, small =
                             loading="lazy"
                             decoding="async"
                             onError={(e) => { e.target.src = '/images/placeholder.png'; }}
-                            className="rounded-lg object-cover" 
+                            className="rounded-lg object-cover bg-[#f0f0f0]" 
                             style={{ maxWidth: '100%', maxHeight: '300px' }} 
                         />
                     </div>

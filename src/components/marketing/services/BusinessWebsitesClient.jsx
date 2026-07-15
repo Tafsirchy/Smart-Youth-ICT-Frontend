@@ -87,9 +87,10 @@ export default function BusinessWebsitesClient({ data }) {
                 height={800}
                 fetchPriority="high"
                 onError={(e) => { e.target.onerror = null; e.target.src = '/images/placeholder.png'; }}
-                className="w-full aspect-square object-cover rounded-2xl lg:rounded-[3rem] grayscale hover:grayscale-0 transition-all duration-1000 shadow-inner"
+                className="w-full aspect-square object-cover rounded-2xl lg:rounded-[3rem] grayscale hover:grayscale-0 transition-all duration-1000 shadow-inner bg-[#f0f0f0]"
                 alt="Business Growth"
-              />
+              
+decoding="async"/>
               <div className="absolute top-4 left-1/2 -translate-x-1/2 font-mono text-[8px] text-slate-400 uppercase tracking-widest bg-white px-3 leading-[1.4]">
                 OPERATIONAL_GRID_v4.0
               </div>

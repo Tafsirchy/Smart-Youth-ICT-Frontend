@@ -161,7 +161,7 @@ export default function SuccessStoriesPage() {
                   loading="lazy"
                   decoding="async"
                   onError={(e) => { e.target.srcset = ''; e.target.src = '/images/placeholder.png'; }}
-                  className="object-cover transition-transform duration-700 group-hover:scale-110"
+                  className="object-cover transition-transform duration-700 group-hover:scale-110 bg-[#f0f0f0]"
                 />
               ) : (
                 <div className="w-full h-full flex flex-col items-center justify-center text-slate-300 gap-2">
@@ -197,7 +197,7 @@ export default function SuccessStoriesPage() {
                       loading="lazy"
                       decoding="async"
                       onError={(e) => { e.target.srcset = ''; e.target.src = '/images/placeholder.png'; }}
-                      className="w-full h-full object-cover"
+                      className="w-full h-full object-cover bg-[#f0f0f0]"
                     />
                   ) : (
                     <div className="w-full h-full flex items-center justify-center bg-indigo-50 text-indigo-600 font-black text-lg">
@@ -467,7 +467,7 @@ export default function SuccessStoriesPage() {
                           loading="lazy"
                           decoding="async"
                           onError={(e) => { e.target.src = '/images/placeholder.png'; }}
-                          className="rounded-lg object-cover"
+                          className="rounded-lg object-cover bg-[#f0f0f0]"
                           style={{ maxWidth: '100%', maxHeight: '160px' }}
                         />
                       </div>

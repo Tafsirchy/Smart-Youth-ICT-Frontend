@@ -143,8 +143,11 @@ export default function AdminCoursesPage() {
                     alt={course.title?.en || course.title || "Course thumbnail"}
                     fill
                     sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 25vw"
-                    className="object-cover"
-                  />
+                    className="object-cover bg-[#f0f0f0]"
+                  
+loading="lazy"
+onError={(e) => { e.target.onerror = null; e.target.srcset = ''; e.target.src = '/assets/fallback.png'; }}
+decoding="async"/>
                 </div>
               ) : (
                 <div className="w-full h-40 bg-neutral-100 flex items-center justify-center border-b">

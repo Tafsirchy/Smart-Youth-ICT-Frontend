@@ -77,8 +77,9 @@ function BlogCard({ post, locale }) {
               sizes="350px"
               loading="lazy"
               decoding="async"
-              className="object-cover group-hover:scale-105 transition-transform duration-500"
-            />
+              className="object-cover group-hover:scale-105 transition-transform duration-500 bg-[#f0f0f0]"
+            
+onError={(e) => { e.target.onerror = null; e.target.srcset = ''; e.target.src = '/assets/fallback.png'; }}/>
           ) : (
             <div className="w-full h-full flex items-center justify-center">
               <IoBookOutline size={48} className="text-blue-200" />
@@ -225,8 +226,10 @@ export default async function BlogPage({ params, searchParams }) {
                         sizes="800px"
                         priority={true}
                         fetchPriority="high"
-                        className="object-cover group-hover:scale-105 transition-transform duration-700"
-                      />
+                        className="object-cover group-hover:scale-105 transition-transform duration-700 bg-[#f0f0f0]"
+                      
+onError={(e) => { e.target.onerror = null; e.target.srcset = ''; e.target.src = '/assets/fallback.png'; }}
+decoding="async"/>
                     ) : (
                       <div className="w-full h-full flex items-center justify-center">
                         <IoBookOutline size={64} className="text-blue-200" />
@@ -252,8 +255,9 @@ export default async function BlogPage({ params, searchParams }) {
                           height={40}
                           loading="lazy"
                           decoding="async"
-                          className="w-10 h-10 rounded-full"
-                        />
+                          className="w-10 h-10 rounded-full object-cover bg-[#f0f0f0]"
+                        
+onError={(e) => { e.target.onerror = null; e.target.srcset = ''; e.target.src = '/assets/fallback.png'; }}/>
                       ) : (
                         <div className="w-10 h-10 rounded-full bg-indigo-100 flex items-center justify-center text-indigo-700 font-bold text-sm">
                           SY

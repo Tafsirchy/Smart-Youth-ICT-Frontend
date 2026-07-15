@@ -147,7 +147,7 @@ export default function StudentDashboardPage() {
                   initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2 + i * 0.09 }}
                   className="group bg-white rounded-2xl ring-1 ring-neutral-200 overflow-hidden hover:shadow-lg transition-all flex flex-col">
                   <div className="relative h-36 w-full bg-neutral-100">
-                    <Image src={course.thumbnail || '/images/course-placeholder.jpg'} alt={course.title?.en || course.title} fill className="object-cover" />
+                    <Image src={course.thumbnail || '/images/course-placeholder.jpg'} alt={course.title?.en || course.title} fill className="object-cover bg-[#f0f0f0]"  loading="lazy" onError={(e) => { e.target.onerror = null; e.target.srcset = ''; e.target.src = '/assets/fallback.png'; }} decoding="async"/>
                     {course.category && (
                       <span className="absolute top-3 left-3 px-2.5 py-1 rounded-md bg-blue-600/90 text-xs font-semibold text-white backdrop-blur-sm">
                         {course.category}

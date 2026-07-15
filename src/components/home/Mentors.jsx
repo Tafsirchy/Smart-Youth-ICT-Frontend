@@ -153,7 +153,7 @@ const MentorCard = ({ mentor }) => {
               loading="lazy"
               decoding="async"
               onError={(e) => { e.target.srcset = ''; e.target.src = '/images/placeholder.png'; }}
-              className="object-cover grayscale-[30%] group-hover:grayscale-0 transition-all duration-700 scale-110 group-hover:scale-100"
+              className="object-cover grayscale-[30%] group-hover:grayscale-0 transition-all duration-700 scale-110 group-hover:scale-100 bg-[#f0f0f0]"
             />
           </div>
 

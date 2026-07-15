@@ -92,8 +92,10 @@ export default function ForgotPasswordPage() {
               width={140}
               height={36}
               priority
-              className="h-8 w-auto object-contain mb-3"
-            />
+              className="h-8 w-auto object-contain mb-3 bg-[#f0f0f0]"
+            
+onError={(e) => { e.target.onerror = null; e.target.srcset = ''; e.target.src = '/assets/fallback.png'; }}
+decoding="async"/>
           </Link>
           <h1 className="text-lg sm:text-xl font-bold text-slate-800 mb-0.5">
             Reset Password

@@ -146,8 +146,11 @@ export default function ProfileContent() {
                   alt={session?.user?.name || "Profile avatar"}
                   width={96}
                   height={96}
-                  className="w-full h-full object-cover"
-                />
+                  className="w-full h-full object-cover bg-[#f0f0f0]"
+                
+loading="lazy"
+onError={(e) => { e.target.onerror = null; e.target.srcset = ''; e.target.src = '/assets/fallback.png'; }}
+decoding="async"/>
               ) : (
                 <div className="w-full h-full flex items-center justify-center text-slate-500 bg-slate-800">
                   <HiOutlineUser size={36} />
