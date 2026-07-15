@@ -47,6 +47,7 @@ export const NAVIGATION_CONFIG = {
     { href: '/super/users',       Icon: HiUsers,        label: 'Global Users' },
     { href: '/super/curriculum',  Icon: HiAcademicCap,  label: 'Master Courses'},
     { href: '/super/finance',     Icon: HiCreditCard,   label: 'Global Finance'},
+    { href: '/super/payments',    Icon: HiCreditCard,   label: 'Global Payments'},
     { href: '/super/reports',     Icon: HiClipboardList,label: 'Audit Reports'},
   ],
 
@@ -57,6 +58,7 @@ export const NAVIGATION_CONFIG = {
     { href: '/super/cms/success-stories', Icon: HiBadgeCheck,    label: 'Success Stories' },
     { href: '/super/cms/testimonials',    Icon: HiAnnotation,   label: 'Testimonials' },
     { href: '/super/cms/partners',        Icon: HiCollection,   label: 'Our Partners' },
+    { href: '/super/cms/blogs',           Icon: HiAnnotation,   label: 'Blog Posts' },
   ],
 
   services_cms: [

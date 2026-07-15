@@ -158,8 +158,9 @@ export default function SuccessStoriesPage() {
                   alt="Proof"
                   fill
                   sizes="(max-width: 768px) 100vw, (max-width: 1280px) 50vw, 33vw"
-                  loading="lazy"
-                  decoding="async"
+                  priority={index <= 1}
+                  loading={index <= 1 ? undefined : "lazy"}
+                  decoding={index <= 1 ? undefined : "async"}
                   onError={(e) => { e.target.srcset = ''; e.target.src = '/images/placeholder.png'; }}
                   className="object-cover transition-transform duration-700 group-hover:scale-110 bg-[#f0f0f0]"
                 />
@@ -249,7 +250,7 @@ export default function SuccessStoriesPage() {
       </div>
 
       {showModal && (
-        <div className="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 flex items-end sm:items-center justify-center p-0 sm:p-2">
+        <div className="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-[999] flex items-end sm:items-center justify-center p-0 sm:p-2">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}

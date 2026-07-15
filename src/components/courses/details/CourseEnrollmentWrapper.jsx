@@ -6,7 +6,7 @@ import { useSession } from "next-auth/react";
 import toast from "react-hot-toast";
 import { AnimatePresence } from "framer-motion";
 import api from "@/lib/api";
-import ManualBankModal from "@/components/payments/ManualBankModal";
+import ManualPaymentModal from "@/components/payments/ManualPaymentModal";
 import CourseHero from "./CourseHero";
 import PricingSidebar from "./PricingSidebar";
 import FinalCTABanner from "./FinalCTABanner";
@@ -45,8 +45,8 @@ export default function CourseEnrollmentWrapper({ course, locale, children }) {
     <>
       <CourseHero course={course} onEnroll={handleEnroll} />
       
-      <div className="container-custom mt-12 grid grid-cols-1 lg:grid-cols-12 gap-x-12 gap-y-16 relative">
-        <div className="lg:col-span-8 space-y-16 lg:space-y-24 pb-24 lg:pb-0">
+      <div className="container-custom mt-6 grid grid-cols-1 lg:grid-cols-12 gap-x-8 gap-y-8 relative">
+        <div className="lg:col-span-8 space-y-8 lg:space-y-12 pb-12 lg:pb-0">
            {children}
         </div>
 
@@ -83,14 +83,14 @@ export default function CourseEnrollmentWrapper({ course, locale, children }) {
         </div>
       </div>
 
-      <div className="container-custom mt-24">
+      <div className="container-custom mt-12">
         <FinalCTABanner onEnroll={handleEnroll} enrolling={enrolling} />
       </div>
 
-      {/* Manual Bank Modal */}
+      {/* Manual Payment Modal */}
       <AnimatePresence>
         {showManualBank && (
-          <ManualBankModal 
+          <ManualPaymentModal 
             courseId={course._id} 
             amount={course.price} 
             onClose={() => setShowManualBank(false)} 

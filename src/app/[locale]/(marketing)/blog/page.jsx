@@ -59,7 +59,7 @@ const CATEGORY_COLORS = {
   Freelancing: "bg-amber-100 text-amber-700",
 };
 
-function BlogCard({ post, locale }) {
+function BlogCard({ post, locale, priority = false }) {
   const title = post.title?.en || post.title;
   const excerpt = post.excerpt || "";
   const tag = post.tags?.[0] || post.category || "Blog";
@@ -75,11 +75,11 @@ function BlogCard({ post, locale }) {
               alt={title}
               fill
               sizes="350px"
-              loading="lazy"
-              decoding="async"
-              className="object-cover group-hover:scale-105 transition-transform duration-500"
-            
-/>
+              priority={priority}
+              loading={priority ? undefined : "lazy"}
+              decoding={priority ? undefined : "async"}
+              className="object-cover group-hover:scale-105 transition-transform duration-500 bg-[#f0f0f0]"
+            />
           ) : (
             <div className="w-full h-full flex items-center justify-center">
               <IoBookOutline size={48} className="text-blue-200" />
@@ -280,8 +280,8 @@ decoding="async"/>
 
             {/* Standard Grid */}
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-7">
-              {posts.slice(page === 1 && !tag && !q ? 1 : 0).map((post) => (
-                <BlogCard key={post._id} post={post} locale={locale} />
+              {posts.slice(page === 1 && !tag && !q ? 1 : 0).map((post, index) => (
+                <BlogCard key={post._id} post={post} locale={locale} priority={index <= 2} />
               ))}
             </div>
           </div>

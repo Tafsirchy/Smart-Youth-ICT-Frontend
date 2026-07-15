@@ -23,7 +23,7 @@ export default function BlogPreview() {
 
   useEffect(() => {
     setIsLoading(true);
-    api.get('/blog', { params: { limit: 5, published: true } })
+    api.get('/blog', { params: { limit: 5, isFeatured: true } })
       .then(res => {
         if (res.data?.data?.length) {
           setPosts(res.data.data);

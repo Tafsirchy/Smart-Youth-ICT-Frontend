@@ -327,8 +327,8 @@ export default function Navbar() {
               fetchPriority="high"
               className="h-16 w-auto object-contain"
               onError={(e) => { e.target.srcset = ''; e.target.src = '/images/placeholder.png'; }}
-            
-decoding="async"/>
+
+              decoding="async" />
           </motion.div>
         </Link>
 
@@ -351,8 +351,8 @@ decoding="async"/>
                   prefetchRoutes([href]);
                 }}
                 className={`px-3 py-2 rounded-lg text-sm font-medium transition-all ${isActive(href)
-                    ? "text-brand-green bg-brand-green/10 font-semibold"
-                    : "text-gray-700 hover:text-brand-green hover:bg-brand-green/5"
+                  ? "text-brand-green bg-brand-green/10 font-semibold"
+                  : "text-gray-700 hover:text-brand-green hover:bg-brand-green/5"
                   }`}
               >
                 {label}
@@ -371,8 +371,8 @@ decoding="async"/>
               onMouseEnter={() => handleMouseEnter("services")}
               onMouseLeave={handleMouseLeave}
               className={`flex items-center gap-1 px-3 py-2 rounded-lg text-sm font-medium transition-all ${isActive("/services") || activeDropdown === "services"
-                  ? "text-brand-green bg-brand-green/10 font-semibold"
-                  : "text-gray-700 hover:text-brand-green hover:bg-brand-green/5"
+                ? "text-brand-green bg-brand-green/10 font-semibold"
+                : "text-gray-700 hover:text-brand-green hover:bg-brand-green/5"
                 }`}
             >
               Services
@@ -396,8 +396,8 @@ decoding="async"/>
               onMouseEnter={() => handleMouseEnter("about")}
               onMouseLeave={handleMouseLeave}
               className={`flex items-center gap-1 px-3 py-2 rounded-lg text-sm font-medium transition-all ${isActive("/about") || activeDropdown === "about"
-                  ? "text-brand-green bg-brand-green/10 font-semibold"
-                  : "text-gray-700 hover:text-brand-green hover:bg-brand-green/5"
+                ? "text-brand-green bg-brand-green/10 font-semibold"
+                : "text-gray-700 hover:text-brand-green hover:bg-brand-green/5"
                 }`}
             >
               About

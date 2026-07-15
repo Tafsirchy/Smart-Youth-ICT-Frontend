@@ -36,13 +36,13 @@ export default async function CourseDetailPage({ params }) {
     if (!course) return notFound();
 
     return (
-      <main className="min-h-screen pb-24 bg-white selection:bg-indigo-500/30 selection:text-indigo-900">
+      <main className="min-h-screen pb-12 bg-white selection:bg-indigo-500/30 selection:text-indigo-900">
         <CourseEnrollmentWrapper course={course} locale={locale}>
           {/* 
             The following components are passed as children to the wrapper.
             They are "Passive" segments that benefit from RSC rendering.
           */}
-          <div className="space-y-16 pb-12 border-b border-slate-100">
+          <div className="space-y-8 pb-6 border-b border-slate-100">
             <CourseOverview course={course} />
             <CourseFeatures />
           </div>
