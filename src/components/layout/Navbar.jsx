@@ -325,7 +325,7 @@ export default function Navbar() {
               height={40}
               priority={true}
               fetchPriority="high"
-              className="h-10 w-auto object-contain bg-[#f0f0f0]"
+              className="h-10 w-auto object-contain"
               onError={(e) => { e.target.srcset = ''; e.target.src = '/images/placeholder.png'; }}
             
 decoding="async"/>

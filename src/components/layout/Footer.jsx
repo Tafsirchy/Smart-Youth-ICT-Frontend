@@ -106,7 +106,7 @@ export default function Footer() {
                 alt="Smart Youth ICT Logo"
                 width={192}
                 height={48}
-                className="h-12 w-auto object-contain brightness-200 bg-[#f0f0f0]"
+                className="h-12 w-auto object-contain brightness-200"
                 loading="lazy"
                 decoding="async"
                 onError={(e) => { e.target.srcset = ''; e.target.src = '/images/placeholder.png'; }}
