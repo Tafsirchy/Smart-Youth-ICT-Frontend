@@ -85,9 +85,9 @@ export default async function BlogPostPage({ params }) {
               fill
               priority={true}
               fetchPriority="high"
-              className="object-cover blur-xl bg-[#f0f0f0]"
+              className="object-cover blur-xl"
             
-onError={(e) => { e.target.onerror = null; e.target.srcset = ''; e.target.src = '/assets/fallback.png'; }}
+
 decoding="async"/>
           </div>
         )}
@@ -125,9 +125,9 @@ decoding="async"/>
                 height={36}
                 loading="lazy"
                 decoding="async"
-                className="rounded-full ring-2 ring-white/20 object-cover bg-[#f0f0f0]"
+                className="rounded-full ring-2 ring-white/20 object-cover"
               
-onError={(e) => { e.target.onerror = null; e.target.srcset = ''; e.target.src = '/assets/fallback.png'; }}/>
+/>
             )}
             <span className="font-semibold text-white">
               {post.author?.name || "SYICT Team"}
@@ -160,9 +160,9 @@ onError={(e) => { e.target.onerror = null; e.target.srcset = ''; e.target.src = 
               fill
               priority={true}
               fetchPriority="high"
-              className="object-cover bg-[#f0f0f0]"
+              className="object-cover"
             
-onError={(e) => { e.target.onerror = null; e.target.srcset = ''; e.target.src = '/assets/fallback.png'; }}
+
 decoding="async"/>
           </div>
         )}
