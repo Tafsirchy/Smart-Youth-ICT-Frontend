@@ -205,6 +205,9 @@ export default function Navbar() {
   const [hidden, setHidden] = useState(false);
   const { scrollY } = useScroll();
 
+  const localeMatch = pathname.match(/^\/([a-z]{2}(-[A-Z]{2})?)(?=\/|$)/);
+  const localePrefix = localeMatch ? `/${localeMatch[1]}` : "";
+
   // Unified Dropdown State Orchestrator
   const [activeDropdown, setActiveDropdown] = useState(null);
   const dropdownTimer = useRef(null);
@@ -517,7 +520,7 @@ export default function Navbar() {
                   const dashboardPath = redirectMap[role] || "student";
                   return (
                     <Link
-                      href={`/${branchId}/${dashboardPath}`}
+                      href={`${localePrefix}/${branchId}/${dashboardPath}`}
                       id="nav-dashboard"
                       className="btn-primary text-sm px-4 py-2"
                     >

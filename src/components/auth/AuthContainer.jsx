@@ -187,7 +187,7 @@ export default function AuthContainer({ defaultTab = "login" }) {
               width={240}
               height={60}
               priority
-              className="h-14 w-auto object-contain mb-3"
+              className="h-14 w-auto object-contain mb-3 mix-blend-multiply"
             
 onError={(e) => { e.target.onerror = null; e.target.srcset = ''; e.target.src = '/assets/fallback.png'; }}
 decoding="async"/>
