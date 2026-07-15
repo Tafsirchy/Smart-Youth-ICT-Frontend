@@ -42,11 +42,11 @@ export default function PageLoader() {
       setFadeOut(true);
       // Mark as seen in session cookie (clears on browser/tab close)
       Cookies.set("syict_splash_seen", "true", { path: "/" });
-    }, 300);
+    }, 2000);
 
     const hideTimer = setTimeout(() => {
       setVisible(false);
-    }, 600);
+    }, 2500);
 
     return () => {
       clearTimeout(fadeTimer);
@@ -109,7 +109,7 @@ export default function PageLoader() {
           }
         }
         .animate-progress {
-          animation: progress 0.4s ease-in-out forwards;
+          animation: progress 2s ease-in-out forwards;
         }
       `}</style>
     </div>
