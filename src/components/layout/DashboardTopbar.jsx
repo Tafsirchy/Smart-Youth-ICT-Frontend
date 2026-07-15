@@ -25,9 +25,9 @@ export default function DashboardTopbar({ user, toggleSidebar }) {
           <Image
             src="/images/logo.png"
             alt="Smart Youth ICT Logo"
-            width={120}
-            height={30}
-            className="h-6 w-auto object-contain bg-[#f0f0f0]"
+            width={240}
+            height={60}
+            className="h-12 w-auto object-contain"
             priority={true}
             fetchPriority="high"
             onError={(e) => { e.target.srcset = ''; e.target.src = '/images/placeholder.png'; }}

@@ -1,7 +1,7 @@
 "use client";
 
 import { motion, useScroll, useTransform, useSpring } from "framer-motion";
-import { useRef } from "react";
+import { useRef, useState, useEffect } from "react";
 import Image from "next/image";
 import {
   IoLogoLinkedin,
@@ -10,44 +10,14 @@ import {
   IoBriefcaseOutline,
   IoExpandOutline,
 } from "react-icons/io5";
+import api from "@/lib/api";
 
-const mentors = [
-  {
-    id: 1,
-    name: "Asraful Shanto",
-    role: "Lead Web Instructor",
-    expertise: "Full Stack Development",
-    experience: "8+ Years Exp.",
-    bio: "Ex-Senior Engineer at leading tech firms. Specialized in React, Node.js and scalable architecture.",
-    image:
-      "https://images.unsplash.com/photo-1599566150163-29194dcaad36?auto=format&fit=crop&q=80&w=400&h=400",
-    color: "from-pink-500 to-rose-600",
-    glowColor: "bg-pink-500/30",
-  },
-  {
-    id: 2,
-    name: "Sazzad Hossain",
-    role: "Marketing Expert",
-    expertise: "Social Media & Ads",
-    experience: "6+ Years Exp.",
-    bio: "Guided 100+ brands to 7-figure revenue. Master of Facebook Ads & Growth Hacking.",
-    image:
-      "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&q=80&w=400&h=400",
-    color: "from-emerald-400 to-teal-600",
-    glowColor: "bg-emerald-500/30",
-  },
-  {
-    id: 3,
-    name: "Muntasir Billah",
-    role: "Design Mentor",
-    expertise: "UI/UX & Branding",
-    experience: "5+ Years Exp.",
-    bio: "Art Director with a passion for minimal and functional design. Top Rated on Upwork.",
-    image:
-      "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&q=80&w=400&h=400",
-    color: "from-blue-500 to-indigo-600",
-    glowColor: "bg-blue-500/30",
-  },
+const MENTOR_COLORS = [
+  { color: "from-pink-500 to-rose-600", glowColor: "bg-pink-500/30" },
+  { color: "from-emerald-400 to-teal-600", glowColor: "bg-emerald-500/30" },
+  { color: "from-blue-500 to-indigo-600", glowColor: "bg-blue-500/30" },
+  { color: "from-amber-400 to-orange-500", glowColor: "bg-amber-500/30" },
+  { color: "from-purple-500 to-violet-600", glowColor: "bg-purple-500/30" },
 ];
 
 const FloatingLines = () => (
@@ -146,7 +116,7 @@ const MentorCard = ({ mentor }) => {
           />
           <div className="relative w-full h-full rounded-[44px] overflow-hidden border-4 border-white/10 shadow-2xl">
             <Image
-              src={mentor.image}
+              src={mentor.avatar || "/images/placeholder.png"}
               alt={mentor.name}
               fill
               sizes="(max-width: 768px) 80vw, 160px"
@@ -158,11 +128,13 @@ const MentorCard = ({ mentor }) => {
           </div>
 
           {/* Top Rated Badge */}
-          <div className="absolute -top-4 -right-4 bg-white/10 backdrop-blur-md border border-white/20 rounded-2xl p-2 px-3 shadow-xl transform translate-z-10 group-hover:scale-110 transition-transform">
-            <span className="text-xs font-black text-white uppercase tracking-tighter flex items-center gap-1">
-              <IoSchoolOutline className="text-pink-400" /> Professional
-            </span>
-          </div>
+          {mentor.badge && (
+            <div className="absolute -top-4 -right-4 bg-white/10 backdrop-blur-md border border-white/20 rounded-2xl p-2 px-3 shadow-xl transform translate-z-10 group-hover:scale-110 transition-transform">
+              <span className="text-xs font-black text-white uppercase tracking-tighter flex items-center gap-1">
+                <IoSchoolOutline className="text-pink-400" /> {mentor.badge}
+              </span>
+            </div>
+          )}
         </div>
 
         {/* Content with 3D Depth */}
@@ -179,17 +151,21 @@ const MentorCard = ({ mentor }) => {
             </p>
           </div>
 
-          <p className="text-white/40 text-sm leading-relaxed max-w-[260px] mx-auto group-hover:text-white/70 transition-colors">
-            {mentor.bio}
+          <p className="text-white/40 text-sm leading-relaxed max-w-[260px] mx-auto group-hover:text-white/70 transition-colors line-clamp-3">
+            {mentor.featuredBio || mentor.bio}
           </p>
 
           <div className="flex flex-wrap justify-center gap-2">
-            <span className="px-3 py-1 rounded-full bg-white/5 border border-white/10 text-xs font-black text-white/60 uppercase">
-              {mentor.expertise}
-            </span>
-            <span className="px-3 py-1 rounded-full bg-white/5 border border-white/10 text-xs font-black text-white/60 uppercase">
-              {mentor.experience}
-            </span>
+            {mentor.expertise && mentor.expertise[0] && (
+              <span className="px-3 py-1 rounded-full bg-white/5 border border-white/10 text-xs font-black text-white/60 uppercase">
+                {mentor.expertise[0]}
+              </span>
+            )}
+            {mentor.experience && (
+              <span className="px-3 py-1 rounded-full bg-white/5 border border-white/10 text-xs font-black text-white/60 uppercase">
+                {mentor.experience}
+              </span>
+            )}
           </div>
         </div>
 
@@ -199,20 +175,28 @@ const MentorCard = ({ mentor }) => {
           style={{ transform: "translateZ(20px)" }}
         >
           <div className="flex gap-3">
-            <a
-              href="#"
-              className="w-11 h-11 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center text-white/40 hover:bg-white hover:text-slate-900 transition-all duration-300 min-h-[44px] min-w-[44px]"
-              aria-label="LinkedIn"
-            >
-              <IoLogoLinkedin size={20} />
-            </a>
-            <a
-              href="#"
-              className="w-11 h-11 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center text-white/40 hover:bg-white hover:text-slate-900 transition-all duration-300 min-h-[44px] min-w-[44px]"
-              aria-label="Twitter"
-            >
-              <IoLogoTwitter size={20} />
-            </a>
+            {mentor.socials?.linkedin && (
+              <a
+                href={mentor.socials.linkedin}
+                target="_blank"
+                rel="noreferrer"
+                className="w-11 h-11 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center text-white/40 hover:bg-white hover:text-slate-900 transition-all duration-300 min-h-[44px] min-w-[44px]"
+                aria-label="LinkedIn"
+              >
+                <IoLogoLinkedin size={20} />
+              </a>
+            )}
+            {mentor.socials?.twitter && (
+              <a
+                href={mentor.socials.twitter}
+                target="_blank"
+                rel="noreferrer"
+                className="w-11 h-11 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center text-white/40 hover:bg-white hover:text-slate-900 transition-all duration-300 min-h-[44px] min-w-[44px]"
+                aria-label="Twitter"
+              >
+                <IoLogoTwitter size={20} />
+              </a>
+            )}
           </div>
 
           <button className="flex items-center gap-2 text-xs font-black text-white/40 uppercase tracking-widest hover:text-white transition-colors group/btn min-h-[44px] py-2 px-3">
@@ -227,6 +211,28 @@ const MentorCard = ({ mentor }) => {
 
 export default function Mentors() {
   const containerRef = useRef(null);
+  const [mentors, setMentors] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchMentors = async () => {
+      try {
+        const res = await api.get("/cms/mentors");
+        const featured = res.data.data.filter(m => m.isFeaturedMentor);
+        const formatted = featured.map((m, i) => ({
+          ...m,
+          ...MENTOR_COLORS[i % MENTOR_COLORS.length]
+        }));
+        setMentors(formatted);
+      } catch (err) {
+        console.error("Failed to load featured mentors", err);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchMentors();
+  }, []);
+
   const { scrollYProgress } = useScroll({
     target: containerRef,
     offset: ["start end", "end start"],
@@ -285,18 +291,28 @@ export default function Mentors() {
         </motion.div>
 
         {/* Mentor Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8 md:gap-10 xl:gap-16">
-          {mentors.map((mentor, index) => (
-            <motion.div
-              key={mentor.id}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: index * 0.1, duration: 0.6 }}
-            >
-              <MentorCard mentor={mentor} />
-            </motion.div>
-          ))}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8 md:gap-10 xl:gap-16 min-h-[400px]">
+          {loading ? (
+            <div className="col-span-1 md:col-span-3 flex justify-center items-center h-full">
+               <div className="w-10 h-10 border-4 border-white/10 border-t-brand-pink rounded-full animate-spin"></div>
+            </div>
+          ) : mentors.length > 0 ? (
+            mentors.map((mentor, index) => (
+              <motion.div
+                key={mentor._id || index}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: index * 0.1, duration: 0.6 }}
+              >
+                <MentorCard mentor={mentor} />
+              </motion.div>
+            ))
+          ) : (
+            <div className="col-span-1 md:col-span-3 text-center text-white/50 text-sm">
+              No featured mentors at the moment.
+            </div>
+          )}
         </div>
 
         {/* Bottom Decorative Line */}

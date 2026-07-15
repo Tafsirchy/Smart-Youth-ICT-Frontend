@@ -95,9 +95,9 @@ export default function Sidebar({ initialRole, initialUser, isOpen, onClose }) {
           <Image
             src="/images/logo.png"
             alt="Smart Youth ICT Logo"
-            width={160}
-            height={40}
-            className="h-10 w-auto object-contain bg-[#f0f0f0]"
+            width={300}
+            height={75}
+            className="h-20 w-auto object-contain"
             priority={true}
             fetchPriority="high"
             onError={(e) => { e.target.srcset = ''; e.target.src = '/images/placeholder.png'; }}

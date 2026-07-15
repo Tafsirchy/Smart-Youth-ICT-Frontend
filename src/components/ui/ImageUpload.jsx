@@ -37,23 +37,18 @@ export default function ImageUpload({ value, onChange, label = "Upload Image" })
     }
 
     setUploading(true);
-    
+
     // 2. Immediate local preview
     const reader = new FileReader();
     reader.onloadend = () => setPreview(reader.result);
     reader.readAsDataURL(file);
 
     try {
-      // 3. ImgBB Upload
-      const apiKey = process.env.NEXT_PUBLIC_IMGBB_API_KEY;
-      if (!apiKey) {
-        throw new Error("ImgBB API Key is missing. Check .env.local");
-      }
-
+      // 3. Local Upload (Bypassing ImgBB completely)
       const formData = new FormData();
       formData.append("image", file);
 
-      const response = await fetch(`https://api.imgbb.com/1/upload?key=${apiKey}`, {
+      const response = await fetch('/api/upload', {
         method: "POST",
         body: formData,
       });
@@ -62,7 +57,7 @@ export default function ImageUpload({ value, onChange, label = "Upload Image" })
 
       if (data.success) {
         const imageUrl = data.data.url;
-        setPreview(imageUrl);
+        setPreview(imageUrl); // Update preview to use the actual URL
         onChange(imageUrl);
         toast.success("Image uploaded successfully");
       } else {
@@ -70,7 +65,7 @@ export default function ImageUpload({ value, onChange, label = "Upload Image" })
       }
     } catch (err) {
       console.error("[ImageUpload Error]", err);
-      toast.error(err.message || "Failed to upload to ImgBB");
+      toast.error(err.message || "Failed to upload image");
       setPreview(value); // Revert preview on failure
     } finally {
       setUploading(false);
@@ -141,8 +136,35 @@ export default function ImageUpload({ value, onChange, label = "Upload Image" })
           </label>
         )}
       </div>
+
+      {!preview && (
+        <input
+          type="text"
+          placeholder="Or paste image URL here..."
+          className="w-full mt-2 px-3 py-1.5 bg-slate-50 border-2 border-transparent focus:border-pink-500/20 focus:bg-white transition-all rounded-lg outline-none text-[10px]"
+          onBlur={(e) => {
+            const val = e.target.value;
+            if (val) {
+              setPreview(val);
+              onChange(val);
+              e.target.value = "";
+            }
+          }}
+          onKeyDown={(e) => {
+            if (e.key === "Enter") {
+              e.preventDefault();
+              const val = e.currentTarget.value;
+              if (val) {
+                setPreview(val);
+                onChange(val);
+                e.currentTarget.value = "";
+              }
+            }
+          }}
+        />
+      )}
       
-      <p className="text-[9px] text-slate-400 font-medium">JPG, PNG or WEBP (Max 5MB)</p>
+      <p className="text-[9px] text-slate-400 font-medium mt-1">JPG, PNG or WEBP (Max 5MB)</p>
     </div>
   );
 }

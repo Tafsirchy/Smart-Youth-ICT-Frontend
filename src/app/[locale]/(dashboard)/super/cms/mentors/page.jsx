@@ -35,6 +35,9 @@ export default function FeaturedMentorsPage() {
     expertise: [],
     bio: "",
     featuredBio: "",
+    badge: "",
+    experience: "",
+    socials: { linkedin: "", twitter: "", website: "" },
     isFeaturedMentor: false,
     isActive: true,
   });
@@ -66,6 +69,9 @@ export default function FeaturedMentorsPage() {
         expertise: mentor.expertise || [],
         bio: mentor.bio || "",
         featuredBio: mentor.featuredBio || "",
+        badge: mentor.badge || "",
+        experience: mentor.experience || "",
+        socials: mentor.socials || { linkedin: "", twitter: "", website: "" },
         isFeaturedMentor: mentor.isFeaturedMentor || false,
         isActive: mentor.isActive ?? true,
       });
@@ -79,6 +85,9 @@ export default function FeaturedMentorsPage() {
         expertise: [],
         bio: "",
         featuredBio: "",
+        badge: "",
+        experience: "",
+        socials: { linkedin: "", twitter: "", website: "" },
         isFeaturedMentor: false,
         isActive: true,
       });
@@ -388,6 +397,56 @@ export default function FeaturedMentorsPage() {
                               .map((t) => t.trim()),
                           })
                         }
+                      />
+                    </div>
+                  </div>
+
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                    <div>
+                      <label className="block text-[10px] font-black uppercase text-slate-400 mb-0.5 leading-[1.4]">
+                        Badge (e.g. Expert)
+                      </label>
+                      <input
+                        className="w-full px-3 py-2 bg-slate-50 border-2 border-transparent focus:border-indigo-500/20 focus:bg-white transition-all rounded-lg outline-none text-sm font-bold leading-[1.4]"
+                        value={formData.badge}
+                        onChange={(e) => setFormData({ ...formData, badge: e.target.value })}
+                      />
+                    </div>
+                    <div>
+                      <label className="block text-[10px] font-black uppercase text-slate-400 mb-0.5 leading-[1.4]">
+                        Experience
+                      </label>
+                      <input
+                        className="w-full px-3 py-2 bg-slate-50 border-2 border-transparent focus:border-indigo-500/20 focus:bg-white transition-all rounded-lg outline-none text-sm font-bold leading-[1.4]"
+                        value={formData.experience}
+                        onChange={(e) => setFormData({ ...formData, experience: e.target.value })}
+                      />
+                    </div>
+                  </div>
+
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                    <div>
+                      <label className="block text-[10px] font-black uppercase text-slate-400 mb-0.5 leading-[1.4]">
+                        LinkedIn
+                      </label>
+                      <input
+                        inputMode="url"
+                        placeholder="https://linkedin.com/..."
+                        className="w-full px-3 py-2 bg-slate-50 border-2 border-transparent focus:border-indigo-500/20 focus:bg-white transition-all rounded-lg outline-none text-sm font-bold leading-[1.4]"
+                        value={formData.socials?.linkedin || ""}
+                        onChange={(e) => setFormData({ ...formData, socials: { ...formData.socials, linkedin: e.target.value } })}
+                      />
+                    </div>
+                    <div>
+                      <label className="block text-[10px] font-black uppercase text-slate-400 mb-0.5 leading-[1.4]">
+                        Twitter
+                      </label>
+                      <input
+                        inputMode="url"
+                        placeholder="https://twitter.com/..."
+                        className="w-full px-3 py-2 bg-slate-50 border-2 border-transparent focus:border-indigo-500/20 focus:bg-white transition-all rounded-lg outline-none text-sm font-bold leading-[1.4]"
+                        value={formData.socials?.twitter || ""}
+                        onChange={(e) => setFormData({ ...formData, socials: { ...formData.socials, twitter: e.target.value } })}
                       />
                     </div>
                   </div>

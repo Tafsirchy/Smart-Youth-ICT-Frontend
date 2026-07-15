@@ -104,9 +104,9 @@ export default function Footer() {
               <Image
                 src="/images/logo.png"
                 alt="Smart Youth ICT Logo"
-                width={192}
-                height={48}
-                className="h-12 w-auto object-contain brightness-200"
+                width={360}
+                height={90}
+                className="h-24 w-auto object-contain brightness-200"
                 loading="lazy"
                 decoding="async"
                 onError={(e) => { e.target.srcset = ''; e.target.src = '/images/placeholder.png'; }}

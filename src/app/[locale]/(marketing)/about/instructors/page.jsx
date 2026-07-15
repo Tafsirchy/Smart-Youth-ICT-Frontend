@@ -5,6 +5,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
 import api from "@/lib/api";
 import { LuSearch as Search, LuMapPin as MapPin, LuBookOpen as BookOpen, LuUser as UserIcon } from "react-icons/lu";
+import MentorModal from "./MentorModal";
 
 export default function InstructorsPage() {
   const [allMentors, setAllMentors] = useState([]);
@@ -17,6 +18,7 @@ export default function InstructorsPage() {
     courseId: "",
   });
   const [loading, setLoading] = useState(true);
+  const [selectedMentor, setSelectedMentor] = useState(null);
 
   // Fetch initial data
   useEffect(() => {
@@ -26,7 +28,7 @@ export default function InstructorsPage() {
         const [bRes, cRes, mRes] = await Promise.all([
           api.get("/branches/public/list"),
           api.get("/courses"),
-          api.get("/cms/team?type=instructor")
+          api.get("/cms/mentors")
         ]);
         setBranches(bRes.data.data || []);
         setCourses(cRes.data.data || []);
@@ -49,7 +51,7 @@ export default function InstructorsPage() {
       const q = filters.q.toLowerCase();
       filtered = filtered.filter(m =>
         m.name.toLowerCase().includes(q) ||
-        m.role.toLowerCase().includes(q) ||
+        (m.badge || "").toLowerCase().includes(q) ||
         m.expertise?.some(skill => skill.toLowerCase().includes(q))
       );
     }
@@ -67,7 +69,7 @@ export default function InstructorsPage() {
         const courseTitle = (selectedCourse.title?.en || selectedCourse.title).toLowerCase();
         filtered = filtered.filter(m =>
           m.expertise?.some(skill => skill.toLowerCase().includes(courseTitle)) ||
-          m.role.toLowerCase().includes(courseTitle)
+          (m.badge || "").toLowerCase().includes(courseTitle)
         );
       }
     }
@@ -188,11 +190,12 @@ export default function InstructorsPage() {
                   animate={{ opacity: 1, scale: 1 }}
                   exit={{ opacity: 0, scale: 0.95 }}
                   transition={{ duration: 0.2 }}
-                  className="bg-white flex items-center gap-6 p-4 rounded-[2.5rem] hover:ring-2 hover:ring-brand-green/10 transition-all group border border-slate-100 hover:shadow-xl hover:shadow-brand-green/5"
+                  onClick={() => setSelectedMentor(instructor)}
+                  className="bg-white flex items-center gap-6 p-4 rounded-[2.5rem] hover:ring-2 hover:ring-brand-green/10 transition-all group border border-slate-100 hover:shadow-xl hover:shadow-brand-green/5 cursor-pointer"
                 >
                   <div className="relative w-24 h-24 sm:w-32 sm:h-32 shrink-0 rounded-[2rem] overflow-hidden shadow-sm bg-slate-50">
                     <Image
-                      src={instructor.image || "/images/placeholder.png"}
+                      src={instructor.avatar || "/images/placeholder.png"}
                       alt={instructor.name}
                       fill
                       sizes="128px"
@@ -207,7 +210,7 @@ export default function InstructorsPage() {
                     <h3 className="text-xl font-bold text-slate-900 group-hover:text-brand-green transition-colors truncate px-1">
                       {instructor.name}
                     </h3>
-                    <p className="text-[10px] font-black uppercase text-brand-green mb-1 px-1">{instructor.role}</p>
+                    <p className="text-[10px] font-black uppercase text-brand-green mb-1 px-1">{instructor.badge || instructor.role}</p>
                     <p className="text-[10px] font-bold text-slate-400 mb-3 flex items-center gap-1 px-1">
                       <MapPin className="w-3 h-3 text-slate-300" />
                       {instructor.branchId?.name || "Global Faculty"}
@@ -245,6 +248,16 @@ export default function InstructorsPage() {
           Apply Now
         </button>
       </div>
+
+      {/* Mentor Modal */}
+      <AnimatePresence>
+        {selectedMentor && (
+          <MentorModal 
+            mentor={selectedMentor} 
+            onClose={() => setSelectedMentor(null)} 
+          />
+        )}
+      </AnimatePresence>
     </section>
   );
 }

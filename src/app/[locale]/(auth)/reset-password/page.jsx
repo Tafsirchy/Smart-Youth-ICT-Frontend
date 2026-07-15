@@ -103,10 +103,10 @@ function ResetForm() {
               <Image
                 src="/images/logo.png"
                 alt="SYICT"
-                width={140}
-                height={36}
+                width={240}
+                height={60}
                 priority
-                className="h-8 w-auto object-contain mb-3 bg-[#f0f0f0]"
+                className="h-14 w-auto object-contain mb-3"
               
 onError={(e) => { e.target.onerror = null; e.target.srcset = ''; e.target.src = '/assets/fallback.png'; }}
 decoding="async"/>

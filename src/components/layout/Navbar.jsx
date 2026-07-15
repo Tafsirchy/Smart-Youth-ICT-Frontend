@@ -321,11 +321,11 @@ export default function Navbar() {
             <Image
               src="/images/logo.png"
               alt="Smart Youth ICT Logo"
-              width={160}
-              height={40}
+              width={240}
+              height={60}
               priority={true}
               fetchPriority="high"
-              className="h-10 w-auto object-contain"
+              className="h-16 w-auto object-contain"
               onError={(e) => { e.target.srcset = ''; e.target.src = '/images/placeholder.png'; }}
             
 decoding="async"/>

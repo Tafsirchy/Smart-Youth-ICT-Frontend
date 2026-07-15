@@ -6,77 +6,7 @@ import Image from "next/image";
 import { IoStar, IoChatbubblesOutline, IoLogoYoutube } from "react-icons/io5";
 import api from "@/lib/api";
 
-const STATIC_TEXT = [
-  {
-    _id: "1",
-    name: "Nusrat Jahan",
-    role: "Web Dev Student",
-    rating: 5,
-    text: "Best decision of my life! The instructors are very supportive and the projects are real. I landed my first client within a month.",
-  },
-  {
-    _id: "2",
-    name: "Ariful Islam",
-    role: "SMM Student",
-    rating: 5,
-    text: "I learned more in 3 months here than in 3 years of self-study. The hands-on approach is absolutely unmatched.",
-  },
-  {
-    _id: "3",
-    name: "Sadia Khanam",
-    role: "Design Student",
-    rating: 5,
-    text: "Got my first Fiverr order within 2 weeks of finishing the Graphic Design course. The portfolio projects were a game-changer!",
-  },
-  {
-    _id: "4",
-    name: "Milon Ahmed",
-    role: "AI Student",
-    rating: 5,
-    text: "The installment option made it possible for me to join without financial stress. Worth every taka invested!",
-  },
-  {
-    _id: "5",
-    name: "Fatema Begum",
-    role: "Web Dev Student",
-    rating: 5,
-    text: "From zero coding knowledge to building full-stack apps in 6 months. The mentors are incredibly dedicated.",
-  },
-  {
-    _id: "6",
-    name: "Rakib Hasan",
-    role: "SMM Student",
-    rating: 5,
-    text: "My agency earns ৳50,000+ per month. This course literally changed my financial life. Highly recommend to everyone.",
-  },
-];
-
-const STATIC_VIDEOS = [
-  {
-    _id: "v1",
-    name: "Tanvir Hossain",
-    youtubeId: "dQw4w9WgXcQ",
-    thumbnail: "https://img.youtube.com/vi/dQw4w9WgXcQ/hqdefault.jpg",
-  },
-  {
-    _id: "v2",
-    name: "Mehndi Hasan",
-    youtubeId: "M7lc1UVf-VE",
-    thumbnail: "https://img.youtube.com/vi/M7lc1UVf-VE/hqdefault.jpg",
-  },
-  {
-    _id: "v3",
-    name: "Sumit Saha",
-    youtubeId: "R9I85RhI7Cg",
-    thumbnail: "https://img.youtube.com/vi/R9I85RhI7Cg/hqdefault.jpg",
-  },
-  {
-    _id: "v4",
-    name: "Jhankar Mahbub",
-    youtubeId: "SqcY0GlETPk",
-    thumbnail: "https://img.youtube.com/vi/SqcY0GlETPk/hqdefault.jpg",
-  },
-];
+// Dynamic Testimonials from CMS
 
 function StarRating({ count = 5 }) {
   return (
@@ -107,16 +37,19 @@ const AVATAR_GRADIENTS = [
 ];
 
 export default function Testimonials() {
-  const [reviews, setReviews] = useState(STATIC_TEXT);
+  const [textReviews, setTextReviews] = useState([]);
+  const [videoReviews, setVideoReviews] = useState([]);
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
     setMounted(true);
     api
-      .get("/testimonials", { params: { status: "approved", limit: 12 } })
+      .get("/cms/stories")
       .then((res) => {
-        if (res.data?.data?.length) {
-          setReviews([...res.data.data, ...STATIC_TEXT]);
+        if (res.data?.data) {
+          const stories = res.data.data;
+          setTextReviews(stories.filter(s => s.storyType === "text" || !s.videoUrl));
+          setVideoReviews(stories.filter(s => s.storyType === "video" || s.videoUrl));
         }
       })
       .catch(() => { });
@@ -160,94 +93,104 @@ export default function Testimonials() {
         </div>
 
         {/* Scrolling Row 1: Text Reviews (Left to Right) */}
-        <div className="mb-8 relative grayscale hover:grayscale-0 transition-all duration-500">
-          <div
-            className="scroll-container animate-scroll-right motion-gpu"
-            style={{ "--scroll-duration": "60s" }}
-          >
-            {[...reviews, ...reviews].map((review, idx) => (
-              <div
-                key={`${review._id}-${idx}`}
-                className="w-[350px] mx-3 p-6 bg-white border border-slate-100 rounded-2xl shadow-sm hover:shadow-xl transition-all duration-300 group"
-              >
-                <div className="flex justify-between items-start mb-4">
-                  <StarRating count={review.rating} />
-                  <IoChatbubblesOutline
-                    className="text-slate-200 group-hover:text-pink-400 transition-colors"
-                    size={20}
-                  />
-                </div>
-                <p className="text-slate-700 text-sm leading-relaxed mb-6 italic">
-                  &ldquo;{review.text}&rdquo;
-                </p>
-                <div className="flex items-center gap-3">
-                  <div
-                    className={`w-10 h-10 rounded-full bg-gradient-to-br ${AVATAR_GRADIENTS[idx % AVATAR_GRADIENTS.length]} flex items-center justify-center text-white text-xs font-bold`}
-                  >
-                    {getInitials(review.name)}
-                  </div>
-                  <div>
-                    <h4 className="text-xs font-bold text-slate-900">
-                      {review.name}
-                    </h4>
-                    <p className="text-xs text-slate-500 uppercase tracking-wider">
-                      {review.role || "SYICT Graduate"}
-                    </p>
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-
-        {/* Scrolling Row 2: Video Reviews (Right to Left) */}
-        <div className="relative">
-          <div
-            className="scroll-container animate-scroll-left motion-gpu"
-            style={{ "--scroll-duration": "50s" }}
-          >
-            {[...STATIC_VIDEOS, ...STATIC_VIDEOS, ...STATIC_VIDEOS].map(
-              (video, idx) => (
+        {textReviews.length > 0 && (
+          <div className="mb-8 relative grayscale hover:grayscale-0 transition-all duration-500">
+            <div
+              className="scroll-container animate-scroll-right motion-gpu"
+              style={{ "--scroll-duration": "60s" }}
+            >
+              {Array.from({ length: 6 }).flatMap(() => textReviews).map((review, idx) => (
                 <div
-                  key={`${video._id}-${idx}`}
-                  className="w-[300px] mx-3 aspect-video relative rounded-2xl overflow-hidden group shadow-lg border-2 border-transparent hover:border-pink-500 transition-all duration-300"
+                  key={`${review._id}-${idx}`}
+                  className="w-[350px] shrink-0 mx-3 p-6 bg-white border border-slate-100 rounded-2xl shadow-sm hover:shadow-xl transition-all duration-300 group flex flex-col"
                 >
-                  <Image
-                    src={video.thumbnail}
-                    alt={video.name || "Video testimonial thumbnail"}
-                    fill
-                    sizes="300px"
-                    loading="lazy"
-                    decoding="async"
-                    onError={(e) => { e.target.srcset = ''; e.target.src = '/images/placeholder.png'; }}
-                    className="object-cover group-hover:scale-110 transition-transform duration-500 bg-[#f0f0f0]"
-                  />
-                  <div className="absolute inset-0 bg-black/40 group-hover:bg-black/20 transition-all flex flex-col items-center justify-center">
-                    <div className="w-12 h-12 bg-pink-600 rounded-full flex items-center justify-center text-white shadow-lg group-hover:scale-125 transition-transform">
-                      <IoLogoYoutube size={24} />
-                    </div>
-                    <div className="absolute bottom-3 left-4 right-4">
-                      <p className="text-white text-xs font-bold uppercase tracking-widest bg-black/60 backdrop-blur-md px-2 py-1 rounded inline-block">
-                        {video.name}
+                  <div className="flex justify-between items-start mb-4">
+                    <StarRating count={5} />
+                    <IoChatbubblesOutline
+                      className="text-slate-200 group-hover:text-pink-400 transition-colors"
+                      size={20}
+                    />
+                  </div>
+                  <p className="text-slate-700 text-sm leading-relaxed mb-6 italic line-clamp-4">
+                    &ldquo;{review.description || review.resultSummary}&rdquo;
+                  </p>
+                  <div className="flex items-center gap-3 mt-auto pt-4 border-t border-slate-50">
+                    {review.studentAvatar ? (
+                      <div className="w-10 h-10 rounded-full overflow-hidden shrink-0 bg-slate-50">
+                        <Image src={review.studentAvatar} alt={review.studentName} width={40} height={40} className="w-full h-full object-cover" />
+                      </div>
+                    ) : (
+                      <div
+                        className={`w-10 h-10 rounded-full bg-gradient-to-br ${AVATAR_GRADIENTS[idx % AVATAR_GRADIENTS.length]} flex items-center justify-center text-white text-xs font-bold shrink-0`}
+                      >
+                        {getInitials(review.studentName)}
+                      </div>
+                    )}
+                    <div className="min-w-0">
+                      <h4 className="text-xs font-bold text-slate-900 truncate">
+                        {review.studentName}
+                      </h4>
+                      <p className="text-[10px] text-slate-500 uppercase tracking-wider truncate">
+                        {review.courseId?.title?.en || review.courseId?.title || "SYICT Graduate"}
                       </p>
                     </div>
                   </div>
-                  <a
-                    href={`https://youtube.com/watch?v=${video.youtubeId}`}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="absolute inset-0 z-10"
-                    aria-label={`Watch ${video.name}'s review`}
-                  />
                 </div>
-              ),
-            )}
+              ))}
+            </div>
           </div>
+        )}
 
-          {/* Side Gradients for fading effect */}
-          <div className="absolute inset-y-0 left-0 w-32 bg-gradient-to-r from-white to-transparent pointer-events-none z-20" />
-          <div className="absolute inset-y-0 right-0 w-32 bg-gradient-to-l from-white to-transparent pointer-events-none z-20" />
-        </div>
+        {/* Scrolling Row 2: Video Reviews (Right to Left) */}
+        {videoReviews.length > 0 && (
+          <div className="relative mt-12">
+            <div
+              className="scroll-container animate-scroll-left motion-gpu"
+              style={{ "--scroll-duration": "50s" }}
+            >
+              {Array.from({ length: 6 }).flatMap(() => videoReviews).map(
+                (video, idx) => (
+                  <div
+                    key={`${video._id}-${idx}`}
+                    className="w-[300px] shrink-0 mx-3 aspect-video relative rounded-2xl overflow-hidden group shadow-lg border-2 border-transparent hover:border-pink-500 transition-all duration-300"
+                  >
+                    <Image
+                      src={video.videoThumbnail || video.studentAvatar || "/images/placeholder.png"}
+                      alt={video.studentName || "Video testimonial thumbnail"}
+                      fill
+                      sizes="300px"
+                      loading="lazy"
+                      decoding="async"
+                      onError={(e) => { e.target.srcset = ''; e.target.src = '/images/placeholder.png'; }}
+                      className="object-cover group-hover:scale-110 transition-transform duration-500 bg-[#f0f0f0]"
+                    />
+                    <div className="absolute inset-0 bg-black/40 group-hover:bg-black/20 transition-all flex flex-col items-center justify-center">
+                      <div className="w-12 h-12 bg-pink-600 rounded-full flex items-center justify-center text-white shadow-lg group-hover:scale-125 transition-transform">
+                        <IoLogoYoutube size={24} />
+                      </div>
+                      <div className="absolute bottom-3 left-4 right-4">
+                        <p className="text-white text-[10px] font-bold uppercase tracking-widest bg-black/60 backdrop-blur-md px-2 py-1 rounded inline-block truncate max-w-full">
+                          {video.studentName}
+                        </p>
+                      </div>
+                    </div>
+                    <a
+                      href={video.videoUrl || "#"}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="absolute inset-0 z-10"
+                      aria-label={`Watch ${video.studentName}'s review`}
+                    />
+                  </div>
+                ),
+              )}
+            </div>
+
+            {/* Side Gradients for fading effect */}
+            <div className="absolute inset-y-0 left-0 w-32 bg-gradient-to-r from-white to-transparent pointer-events-none z-20" />
+            <div className="absolute inset-y-0 right-0 w-32 bg-gradient-to-l from-white to-transparent pointer-events-none z-20" />
+          </div>
+        )}
       </div>
 
       {/* Stats Summary Section */}

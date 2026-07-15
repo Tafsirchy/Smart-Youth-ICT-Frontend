@@ -70,18 +70,18 @@ export default function PageLoader() {
       <div className="relative flex items-center justify-center mb-8">
         <div className="absolute w-40 h-40 rounded-full border-4 border-transparent border-t-pink-500 border-r-green-500 animate-spin" />
         <div className="absolute w-32 h-32 rounded-full bg-gradient-to-br from-pink-100 to-green-100 animate-pulse" />
-        <div className="relative w-24 h-24 z-10" style={{ backgroundColor: 'transparent' }}>
+        <div className="relative flex items-center justify-center z-10" style={{ backgroundColor: 'transparent' }}>
           <Image
             src="/images/logo.png"
             alt="Smart Youth ICT Logo"
-            fill
-            sizes="96px"
-            className="object-contain drop-shadow-lg bg-[#f0f0f0]"
+            width={400}
+            height={100}
+            className="h-32 w-auto object-contain drop-shadow-lg"
             priority={true}
             fetchPriority="high"
             onError={(e) => { e.target.srcset = ''; e.target.src = '/images/placeholder.png'; }}
-          
-decoding="async"/>
+            decoding="async"
+          />
         </div>
       </div>
 
