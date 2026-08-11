@@ -1,6 +1,4 @@
 import { NextResponse } from 'next/server';
-import fs from 'fs';
-import path from 'path';
 
 export async function POST(request) {
   try {
@@ -12,28 +10,33 @@ export async function POST(request) {
     }
 
     const buffer = Buffer.from(await file.arrayBuffer());
-    const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9);
-    const filename = file.name.replace(/[^a-zA-Z0-9.\-_]/g, '');
-    const finalName = `${uniqueSuffix}-${filename}`;
-
-    // Target the public/uploads directory in the Next.js app
-    const uploadDir = path.join(process.cwd(), 'public', 'uploads');
     
-    // Create directory if it doesn't exist
-    if (!fs.existsSync(uploadDir)) {
-      fs.mkdirSync(uploadDir, { recursive: true });
+    // Upload to ImgBB directly instead of local filesystem
+    const imgbbFormData = new FormData();
+    imgbbFormData.append('image', buffer.toString('base64'));
+
+    const apiKey = process.env.NEXT_PUBLIC_IMGBB_API_KEY;
+    if (!apiKey) {
+      throw new Error('ImgBB API key is missing');
     }
 
-    const filePath = path.join(uploadDir, finalName);
-    fs.writeFileSync(filePath, buffer);
-
-    // Return the URL that can be used directly in <img> tags
-    return NextResponse.json({
-      success: true,
-      data: { url: `/uploads/${finalName}` }
+    const imgbbRes = await fetch(`https://api.imgbb.com/1/upload?key=${apiKey}`, {
+      method: 'POST',
+      body: imgbbFormData,
     });
+
+    const data = await imgbbRes.json();
+
+    if (data.success) {
+      return NextResponse.json({
+        success: true,
+        data: { url: data.data.url }
+      });
+    } else {
+      throw new Error(data.error?.message || 'ImgBB upload failed');
+    }
   } catch (error) {
-    console.error('Local Upload Error:', error);
+    console.error('Upload Error:', error);
     return NextResponse.json({ success: false, error: { message: 'Upload failed on server' } }, { status: 500 });
   }
 }
