@@ -159,9 +159,28 @@ export default function CourseForm({ initialData = null, onSuccess }) {
         "faqs",
         JSON.stringify(formData.faqs.filter((x) => x.question.trim())),
       );
+      const projectsToSubmit = [...formData.projects];
+      for (let i = 0; i < projectsToSubmit.length; i++) {
+        if (projectsToSubmit[i].imageFile) {
+          const imgData = new FormData();
+          imgData.append("image", projectsToSubmit[i].imageFile);
+          
+          try {
+            const uploadRes = await api.post("/courses/upload-image", imgData);
+            if (uploadRes.data.success) {
+              projectsToSubmit[i].image = uploadRes.data.data.url;
+            }
+          } catch (imgErr) {
+            console.error("Failed to upload project image:", imgErr);
+            throw new Error(`Failed to upload image for project: ${projectsToSubmit[i].title}`);
+          }
+          delete projectsToSubmit[i].imageFile;
+        }
+      }
+
       data.append(
         "projects",
-        JSON.stringify(formData.projects.filter((x) => x.title.trim())),
+        JSON.stringify(projectsToSubmit.filter((x) => x.title.trim())),
       );
       data.append(
         "curriculum",
@@ -171,12 +190,8 @@ export default function CourseForm({ initialData = null, onSuccess }) {
       data.append("installmentPlan", JSON.stringify(formData.installmentPlan));
 
       const res = initialData
-        ? await api.put(`/courses/${initialData._id}`, data, {
-            headers: { "Content-Type": "multipart/form-data" },
-          })
-        : await api.post("/courses", data, {
-            headers: { "Content-Type": "multipart/form-data" },
-          });
+        ? await api.put(`/courses/${initialData._id}`, data)
+        : await api.post("/courses", data);
 
       if (res.data.success) {
         if (onSuccess) onSuccess(res.data.data);
@@ -757,6 +772,7 @@ decoding="async"/>
                       if (file) {
                         const objectUrl = URL.createObjectURL(file);
                         handleObjectArray("projects", i, "image", objectUrl);
+                        handleObjectArray("projects", i, "imageFile", file);
                       }
                     }}
                   />
