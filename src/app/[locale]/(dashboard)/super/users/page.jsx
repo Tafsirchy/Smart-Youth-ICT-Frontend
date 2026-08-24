@@ -13,6 +13,7 @@ import {
   HiOutlineFunnel,
   HiOutlineEllipsisHorizontal,
   HiOutlineEnvelope,
+  HiOutlineLockClosed,
   HiOutlinePhone,
   HiOutlineShieldCheck,
   HiOutlineTrash,
@@ -34,6 +35,7 @@ export default function GlobalUserManagement() {
   const [formData, setFormData] = useState({
     name: '', email: '', password: '', role: 'student', branchId: '', phone: '', isActive: true
   });
+  const [setupMode, setSetupMode] = useState('invite'); // 'invite' (email link) | 'password' (set now)
   
   const [search, setSearch] = useState('');
   const [filterRole, setFilterRole] = useState('');
@@ -82,6 +84,12 @@ export default function GlobalUserManagement() {
       if (editingUser) {
         await api.put(`/users/${editingUser._id}`, formData);
         toast.success('Cognitive node updated', { id: loadingToast });
+      } else if (setupMode === 'invite') {
+        await api.post('/users/invite', {
+          name: formData.name, email: formData.email, role: formData.role,
+          branchId: formData.branchId, phone: formData.phone
+        });
+        toast.success('Invitation email sent — the staff member will set their own password', { id: loadingToast });
       } else {
         await api.post('/users', formData);
         toast.success('New user established', { id: loadingToast });
@@ -124,6 +132,7 @@ export default function GlobalUserManagement() {
       });
     } else {
       setEditingUser(null);
+      setSetupMode('invite');
       setFormData({ name: '', email: '', password: '', role: 'student', branchId: '', phone: '', isActive: true });
     }
     setShowModal(true);
@@ -445,15 +454,42 @@ export default function GlobalUserManagement() {
                         </div>
 
                         {!editingUser && (
-                           <div className="space-y-1">
-                              <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest ml-1">Initial Secure Key (Password)</label>
-                              <input 
-                                required
-                                type="password"
-                                className="w-full px-4 py-3 bg-slate-50 border-none rounded-xl text-sm font-bold focus:ring-2 focus:ring-indigo-500 transition-all"
-                                value={formData.password}
-                                onChange={(e) => setFormData({...formData, password: e.target.value})}
-                              />
+                           <div className="bg-slate-50 rounded-2xl p-4 space-y-3">
+                              <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Account Setup Method</p>
+                              <div className="grid grid-cols-2 gap-2">
+                                 <button
+                                   type="button"
+                                   onClick={() => setSetupMode('invite')}
+                                   className={`px-4 py-3 rounded-xl text-xs font-bold transition-all flex items-center justify-center gap-2 ${setupMode === 'invite' ? 'bg-indigo-600 text-white shadow-lg shadow-indigo-600/20' : 'bg-white text-slate-500 hover:bg-slate-100'}`}
+                                 >
+                                    <HiOutlineEnvelope size={16} /> Email Invite Link
+                                 </button>
+                                 <button
+                                   type="button"
+                                   onClick={() => setSetupMode('password')}
+                                   className={`px-4 py-3 rounded-xl text-xs font-bold transition-all flex items-center justify-center gap-2 ${setupMode === 'password' ? 'bg-indigo-600 text-white shadow-lg shadow-indigo-600/20' : 'bg-white text-slate-500 hover:bg-slate-100'}`}
+                                 >
+                                    <HiOutlineLockClosed size={16} /> Set Password Now
+                                 </button>
+                              </div>
+
+                              {setupMode === 'invite' ? (
+                                 <p className="text-[11px] font-medium text-slate-400 leading-relaxed">
+                                    The staff member receives an email with their role and branch pre-assigned. They set their own secure password via a link (valid 72 hours). Recommended for Instructor / Branch Admin / Branch Management.
+                                 </p>
+                              ) : (
+                                 <div className="space-y-1">
+                                    <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest ml-1">Initial Secure Key (Password)</label>
+                                    <input
+                                      required
+                                      type="password"
+                                      minLength={8}
+                                      className="w-full px-4 py-3 bg-white border-none rounded-xl text-sm font-bold focus:ring-2 focus:ring-indigo-500 transition-all"
+                                      value={formData.password}
+                                      onChange={(e) => setFormData({...formData, password: e.target.value})}
+                                    />
+                                 </div>
+                              )}
                            </div>
                         )}
 
@@ -464,9 +500,13 @@ export default function GlobalUserManagement() {
                                 className="w-full px-4 py-3 bg-slate-50 border-none rounded-xl text-sm font-bold focus:ring-2 focus:ring-indigo-500 transition-all disabled:opacity-50"
                                 value={formData.role}
                                 disabled={editingUser && (editingUser._id === currentUser?.id || administrativeRoles.includes(editingUser.role))}
-                                onChange={(e) => setFormData({...formData, role: e.target.value})}
+                                onChange={(e) => {
+                                  let nextRole = e.target.value;
+                                  if (setupMode === 'invite' && !editingUser && nextRole === 'student') nextRole = 'instructor';
+                                  setFormData({...formData, role: nextRole});
+                                }}
                               >
-                                <option value="student">Student</option>
+                                <option value="student" disabled={!editingUser && setupMode === 'invite'}>Student</option>
                                 <option value="instructor">Instructor</option>
                                 <option value="branch_admin">Branch Admin</option>
                                 <option value="branch_management">Branch Management</option>
