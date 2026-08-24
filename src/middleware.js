@@ -19,6 +19,7 @@ const authMiddleware = withAuth(
     const { pathname } = req.nextUrl;
     const role = token?.role;
     const userBranchId = token?.branchId;
+    const secondaryBranches = token?.secondaryBranches || [];
 
     // 1. Path Parsing
     const isSuperPath = pathname.includes("/super");
@@ -56,9 +57,10 @@ const authMiddleware = withAuth(
       }
 
       // c. Branch ID Validation (Strict Isolation)
-      if (userBranchId && userBranchId !== targetBranchId) {
+      const allowedBranches = [userBranchId, ...secondaryBranches].filter(Boolean);
+      if (allowedBranches.length > 0 && !allowedBranches.includes(targetBranchId)) {
         console.warn(
-          `[Middleware] Branch mismatch. User branch ${userBranchId} attempted to access branch ${targetBranchId}.`,
+          `[Middleware] Branch mismatch. Allowed branches [${allowedBranches.join(',')}] attempted to access branch ${targetBranchId}.`,
         );
         return NextResponse.redirect(new URL("/auth-redirect", req.url));
       }
@@ -94,6 +96,7 @@ export default function middleware(req) {
     pathname.includes("/register") ||
     pathname.includes("/freelancing") ||
     pathname.includes("/courses") ||
+    pathname.includes("/branches") ||
     pathname.includes("/blog") ||
     pathname.includes("/about") ||
     pathname.includes("/services") ||
@@ -102,6 +105,7 @@ export default function middleware(req) {
     pathname.includes("/testimonials") ||
     pathname.includes("/forgot-password") ||
     pathname.includes("/reset-password") ||
+    pathname.includes("/accept-invite") ||
     pathname.includes("/auth-redirect");
 
   if (isPublicPath) {
