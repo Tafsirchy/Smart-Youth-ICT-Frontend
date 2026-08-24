@@ -190,7 +190,7 @@ export const serviceColumns = [
 const navLinks = [
   { href: "/", label: "Home" },
   { href: "/courses", label: "Courses" },
-  { href: "/freelancing", label: "Freelancing" },
+  { href: "/branches", label: "Branches" },
   { href: "/success-stories", label: "Success" },
   { href: "/blog", label: "Blog" },
   { href: "/contact", label: "Contact" },
