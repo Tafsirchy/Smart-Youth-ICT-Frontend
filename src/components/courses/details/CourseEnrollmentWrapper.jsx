@@ -10,6 +10,7 @@ import ManualPaymentModal from "@/components/payments/ManualPaymentModal";
 import CourseHero from "./CourseHero";
 import PricingSidebar from "./PricingSidebar";
 import FinalCTABanner from "./FinalCTABanner";
+import BranchSelectionModal from "./BranchSelectionModal";
 
 /**
  * A Client Component wrapper for the Course Detail page.
@@ -20,6 +21,7 @@ export default function CourseEnrollmentWrapper({ course, locale, children }) {
   const { data: session } = useSession();
   const router = useRouter();
   const [showManualBank, setShowManualBank] = useState(false);
+  const [showBranchModal, setShowBranchModal] = useState(false);
   const [enrolling, setEnrolling] = useState(false);
 
   const handleEnroll = async () => {
@@ -28,10 +30,22 @@ export default function CourseEnrollmentWrapper({ course, locale, children }) {
       return;
     }
 
+    // Multi-branch logic: If it's a master course, they must select a branch first
+    if (course.isMaster) {
+      setShowBranchModal(true);
+      return;
+    }
+
+    executeEnrollment();
+  };
+
+  const executeEnrollment = async (targetBranchId = null) => {
     setEnrolling(true);
     try {
-      await api.post(`/courses/${course._id}/enroll`);
+      const payload = targetBranchId ? { targetBranchId } : {};
+      await api.post(`/courses/${course._id}/enroll`, payload);
       toast.success("Enrollment initiated! Please complete your payment.");
+      setShowBranchModal(false);
     } catch (err) {
       toast.error(err?.response?.data?.message || "Enrollment failed.");
     } finally {
@@ -94,6 +108,16 @@ export default function CourseEnrollmentWrapper({ course, locale, children }) {
             courseId={course._id} 
             amount={course.price} 
             onClose={() => setShowManualBank(false)} 
+          />
+        )}
+
+        {/* Branch Selection Modal */}
+        {showBranchModal && (
+          <BranchSelectionModal
+            onClose={() => setShowBranchModal(false)}
+            onConfirm={(branchId) => executeEnrollment(branchId)}
+            availableBranches={course.availableBranches}
+            enrolling={enrolling}
           />
         )}
       </AnimatePresence>
