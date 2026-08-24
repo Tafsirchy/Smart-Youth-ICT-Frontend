@@ -23,6 +23,7 @@ export default function CourseCard({ course, locale, priority }) {
     language = "Bengali",
     category,
     isPopular,
+    instructor,
   } = course;
 
   const displayTitle = title?.en || title || "Untitled Course";
@@ -97,6 +98,23 @@ export default function CourseCard({ course, locale, priority }) {
           </div>
         </div>
 
+        {/* Instructor Info */}
+        {instructor && (
+          <div className="mb-4 sm:mb-5 flex items-center gap-2">
+            <div className="relative w-6 h-6 shrink-0 rounded-full overflow-hidden bg-neutral-200">
+              <ImageLoader
+                src={instructor.avatar || "/images/avatar-placeholder.png"}
+                alt={instructor.name}
+                fill
+                className="object-cover"
+              />
+            </div>
+            <span className="text-xs font-semibold text-neutral-700 dark:text-neutral-300 truncate">
+              {instructor.name}
+            </span>
+          </div>
+        )}
+
         {/* Action Bar (Footer) */}
         {/* Flex wrap to support small screens, price is set responsively */}
         <div className="mt-auto flex items-center justify-between gap-1.5">
@@ -116,7 +134,7 @@ export default function CourseCard({ course, locale, priority }) {
               href={`/${locale}/courses/${slug}`}
               className="inline-flex items-center gap-1 sm:gap-2 rounded-xl bg-neutral-900 px-3 py-2.5 sm:px-4 sm:py-2.5 text-[8px] sm:text-[9px] font-black uppercase tracking-wider sm:tracking-widest text-white transition-all hover:bg-blue-600 shadow-md hover:shadow-blue-200 dark:bg-blue-700 dark:hover:bg-blue-600 min-h-[38px] sm:min-h-[44px]"
             >
-              Details
+              View Details
               <HiArrowLongRight size={12} className="hidden sm:inline" />
             </Link>
           </motion.div>
