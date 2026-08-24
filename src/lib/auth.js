@@ -22,6 +22,7 @@ const toSessionUser = (authData) => ({
   image: authData.user.avatar || null,
   role: authData.user.role,
   branchId: authData.user.branchId || null,
+  secondaryBranches: authData.user.secondaryBranches || [],
   providers: authData.user.providers || [],
   accessToken: authData.accessToken || authData.token,
 });
@@ -100,6 +101,7 @@ export const authOptions = {
         token.id = user.id;
         token.role = user.role;
         token.branchId = user.branchId;
+        token.secondaryBranches = user.secondaryBranches || [];
         token.providers = user.providers || [];
         token.accessToken = user.accessToken;
         token.picture = user.image || token.picture;
@@ -117,6 +119,7 @@ export const authOptions = {
       session.user.id = token.id;
       session.user.role = token.role;
       session.user.branchId = token.branchId;
+      session.user.secondaryBranches = token.secondaryBranches || [];
       session.user.providers = token.providers || [];
       session.user.accessToken = token.accessToken;
       session.user.token = token.accessToken;
