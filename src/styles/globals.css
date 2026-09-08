@@ -323,9 +323,19 @@ a {
     @apply max-w-6xl mx-auto;
   }
   :root {
-    --gutter: 24px;
+    --gutter: 16px;
   }
-  @media (min-width: 768px) {
+  @media (min-width: 640px) {
+    :root {
+      --gutter: 24px;
+    }
+  }
+  @media (min-width: 1024px) {
+    :root {
+      --gutter: 32px;
+    }
+  }
+  @media (min-width: 1280px) {
     :root {
       --gutter: 48px;
     }
