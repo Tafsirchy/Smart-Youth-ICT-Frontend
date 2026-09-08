@@ -155,12 +155,12 @@ const MapPicker = React.memo(({ value, onChange }) => {
         </button>
       </form>
 
-      {/* Map Container */}
-      <div className="h-[400px] w-full rounded-[32px] overflow-hidden border-4 border-slate-50 relative group shadow-inner">
+      {/* Map Container with Mobile-First Responsive Height */}
+      <div className="h-[220px] sm:h-[300px] md:h-[380px] w-full rounded-2xl sm:rounded-[32px] overflow-hidden border-2 sm:border-4 border-slate-100 dark:border-slate-800 relative group shadow-inner">
         <MapContainer 
           center={position} 
           zoom={zoom} 
-          scrollWheelZoom={true}
+          scrollWheelZoom={false}
           style={{ height: '100%', width: '100%' }}
         >
           <TileLayer
