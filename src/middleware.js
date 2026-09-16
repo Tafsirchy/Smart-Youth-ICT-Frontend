@@ -87,36 +87,18 @@ const authMiddleware = withAuth(
 export default function middleware(req) {
   const { pathname } = req.nextUrl;
 
-  // 1. High-Performance Public Route Detection
-  // These paths bypass the expensive Auth logic immediately.
-  const isPublicPath =
-    pathname === "/" ||
-    locales.some((locale) => pathname === `/${locale}`) ||
-    pathname.includes("/login") ||
-    pathname.includes("/register") ||
-    pathname.includes("/freelancing") ||
-    pathname.includes("/courses") ||
-    pathname.includes("/branches") ||
-    pathname.includes("/blog") ||
-    pathname.includes("/about") ||
-    pathname.includes("/services") ||
-    pathname.includes("/contact") ||
-    pathname.includes("/success-stories") ||
-    pathname.includes("/testimonials") ||
-    pathname.includes("/seminar") ||
-    pathname.includes("/affiliate") ||
-    pathname.includes("/gallery") ||
-    pathname.includes("/verify-certificate") ||
-    pathname.includes("/forgot-password") ||
-    pathname.includes("/reset-password") ||
-    pathname.includes("/accept-invite") ||
-    pathname.includes("/auth-redirect");
+  // Protected Dashboard & Role Route Detection
+  const isProtectedPath =
+    pathname.includes("/super") ||
+    pathname.includes("/profile") ||
+    /^\/(?:en|bn)?\/?([a-zA-Z0-9_-]+)\/(student|admin|instructor)/i.test(pathname);
 
-  if (isPublicPath) {
+  // Non-protected routes (marketing, auth, 404s, etc.) run intlMiddleware directly
+  if (!isProtectedPath) {
     return intlMiddleware(req);
   }
 
-  // 2. Auth & Dashboard Protection
+  // Auth & Dashboard Protection for private routes
   return authMiddleware(req, req.nextUrl);
 }
 
