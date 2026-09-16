@@ -83,7 +83,11 @@ async function AppContent({ children }) {
         {children}
         <WhatsAppButton />
         <ScrollToTopButton />
-        <Toaster position="top-right" toastOptions={{ duration: 4000 }} />
+        <Toaster 
+          position="top-right" 
+          containerStyle={{ zIndex: 99999999 }}
+          toastOptions={{ duration: 4000 }} 
+        />
       </Providers>
     </NextIntlClientProvider>
   );

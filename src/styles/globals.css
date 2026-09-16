@@ -918,3 +918,15 @@ select.form-input { cursor: pointer; }
   -ms-overflow-style: none;
 }
 
+/* ============================================
+   TOAST NOTIFICATIONS HIGH STACKING CONTEXT
+   Ensures notifications always render above all modals
+   ============================================ */
+div[data-toaster],
+.react-hot-toast,
+#_next-toaster,
+div:has(> [data-toaster]) {
+  z-index: 99999999 !important;
+}
+
+

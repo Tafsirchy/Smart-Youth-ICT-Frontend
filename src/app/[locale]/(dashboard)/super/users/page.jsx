@@ -404,7 +404,7 @@ export default function GlobalUserManagement() {
       <Portal>
          <AnimatePresence>
             {showModal && (
-               <div className="fixed inset-0 z-[9999] flex items-end md:items-center justify-center p-0 md:p-4">
+               <div className="fixed inset-0 z-[1000] flex items-end md:items-center justify-center p-0 md:p-4">
                   <motion.div 
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
