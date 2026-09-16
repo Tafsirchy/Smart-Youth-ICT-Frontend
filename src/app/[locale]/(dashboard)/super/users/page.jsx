@@ -133,7 +133,7 @@ export default function GlobalUserManagement() {
     } else {
       setEditingUser(null);
       setSetupMode('invite');
-      setFormData({ name: '', email: '', password: '', role: 'student', branchId: '', phone: '', isActive: true });
+      setFormData({ name: '', email: '', password: '', role: 'instructor', branchId: '', phone: '', isActive: true });
     }
     setShowModal(true);
   };
@@ -500,16 +500,12 @@ export default function GlobalUserManagement() {
                                 className="w-full px-4 py-3 bg-slate-50 border-none rounded-xl text-sm font-bold focus:ring-2 focus:ring-indigo-500 transition-all disabled:opacity-50"
                                 value={formData.role}
                                 disabled={editingUser && (editingUser._id === currentUser?.id || administrativeRoles.includes(editingUser.role))}
-                                onChange={(e) => {
-                                  let nextRole = e.target.value;
-                                  if (setupMode === 'invite' && !editingUser && nextRole === 'student') nextRole = 'instructor';
-                                  setFormData({...formData, role: nextRole});
-                                }}
+                                onChange={(e) => setFormData({...formData, role: e.target.value})}
                               >
-                                <option value="student" disabled={!editingUser && setupMode === 'invite'}>Student</option>
                                 <option value="instructor">Instructor</option>
                                 <option value="branch_admin">Branch Admin</option>
                                 <option value="branch_management">Branch Management</option>
+                                <option value="student">Student</option>
                                 <option value="super_admin">Super Admin</option>
                                 <option value="super_management">Super Management</option>
                               </select>
