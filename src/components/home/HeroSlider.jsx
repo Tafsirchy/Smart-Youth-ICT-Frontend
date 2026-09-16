@@ -139,7 +139,7 @@ const slides = [
     description:
       "We bring students and teachers together to create a more personalized learning experience and foster growth.",
     primaryBtn: { text: "Get started", href: "/courses" },
-    secondaryBtn: { text: "Now it's free", href: "/courses" },
+    secondaryBtn: { text: "Free Seminar 🎓", href: "/seminar" },
     image: "/images/hero-slide-1.png",
     type: "collage",
   },
@@ -355,7 +355,7 @@ export default function HeroSlider() {
                       {slides[current].primaryBtn.text}
                     </Link>
                     <Link
-                      href="/courses"
+                      href={slides[current].secondaryBtn.href || "/seminar"}
                       className="px-6 py-4 sm:px-10 sm:py-5 text-center bg-[#2D5A54] text-white rounded-[18px] sm:rounded-full font-black text-sm shadow-xl hover:translate-y-[-1px] transition-transform"
                     >
                       {slides[current].secondaryBtn.text}

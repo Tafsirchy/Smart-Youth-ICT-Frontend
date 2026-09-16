@@ -142,7 +142,7 @@ export default function SeminarPage() {
                       <label className="block text-sm font-medium text-textPrimary mb-1.5">Choose Seminar *</label>
                       <select name="seminar" required className="input w-full" value={form.seminar} onChange={handleChange}>
                         <option value="">— Select a seminar —</option>
-                        {SEMINARS.map(s => <option key={s.id} value={s.id}>{s.label}</option>)}
+                        {SEMINARS.map(s => <option key={s.id} value={s.label}>{s.label}</option>)}
                       </select>
                     </div>
                     <div>

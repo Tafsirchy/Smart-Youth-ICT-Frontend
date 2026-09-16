@@ -1,5 +1,6 @@
 import HeroSlider from "@/components/home/HeroSlider";
 import TrustedBrandsStrip from "@/components/home/TrustedBrandsStrip";
+import UpcomingSeminarStrip from "@/components/home/UpcomingSeminarStrip";
 import WhyChooseUs from "@/components/home/WhyChooseUs";
 import PopularCourses from "@/components/home/PopularCourses";
 import HowItWorks from "@/components/home/HowItWorks";
@@ -20,6 +21,7 @@ export default function HomePage() {
     <>
       <HeroSlider />
       <TrustedBrandsStrip />
+      <UpcomingSeminarStrip />
       <WhyChooseUs />
       <PopularCourses />
       <HowItWorks />

@@ -113,6 +113,11 @@ export const serviceColumns = [
     icon: "🎓",
     items: [
       {
+        label: "Free Career Seminar",
+        href: "/seminar",
+        badge: "🆓 Free",
+      },
+      {
         label: "Skill Development Programs",
         href: "/services/skill-development",
         badge: "🔥 Popular ",
@@ -274,6 +279,7 @@ export default function Navbar() {
     // Warm up the most common navigation targets so first click is faster.
     prefetchRoutes([
       ...navLinks.map((item) => item.href),
+      "/seminar",
       "/services",
       "/about",
       "/login",
@@ -502,6 +508,18 @@ export default function Navbar() {
           transition={{ delay: 0.3 }}
           onMouseEnter={() => handleMouseEnter(null)}
         >
+          <Link
+            href="/seminar"
+            id="nav-seminar-badge"
+            onMouseEnter={() => prefetchRoutes(["/seminar"])}
+            className="group relative hidden lg:inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-black tracking-wide text-rose-600 bg-rose-50 border border-rose-200/80 hover:bg-rose-100 hover:border-rose-300 transition-all shadow-sm shrink-0"
+          >
+            <span className="relative flex h-2 w-2">
+              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-rose-400 opacity-75"></span>
+              <span className="relative inline-flex rounded-full h-2 w-2 bg-rose-500"></span>
+            </span>
+            <span>Free Seminar</span>
+          </Link>
           {session ? (
             <div className="flex items-center gap-3">
               <motion.div

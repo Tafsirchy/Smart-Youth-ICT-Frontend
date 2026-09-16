@@ -63,6 +63,26 @@ export default function MobileMenu({ links, session, onClose }) {
   return (
     <div className="md:hidden bg-white border-t border-gray-100 px-4 pb-4">
       <ul className="flex flex-col gap-1 pt-3">
+        {/* Featured Free Seminar CTA */}
+        <li className="mb-2">
+          <Link
+            href="/seminar"
+            onClick={onClose}
+            className="flex items-center justify-between p-3 rounded-xl bg-gradient-to-r from-rose-500/10 via-pink-500/10 to-indigo-500/10 border border-rose-200/80 text-slate-800 font-bold text-sm"
+          >
+            <div className="flex items-center gap-2.5">
+              <span className="text-xl">🎓</span>
+              <div className="text-left">
+                <span className="block text-[10px] font-black text-rose-600 uppercase tracking-widest leading-none mb-0.5">Free Live Session</span>
+                <span className="text-xs font-extrabold text-slate-900">Join Free Career Seminar</span>
+              </div>
+            </div>
+            <span className="px-2.5 py-1 bg-rose-600 text-white rounded-lg text-[10px] font-black uppercase tracking-wider shadow-sm">
+              Free
+            </span>
+          </Link>
+        </li>
+
         {/* Regular top-level links */}
         {topLinks.map(({ href, label }) => (
           <li key={href}>

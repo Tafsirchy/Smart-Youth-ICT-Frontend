@@ -103,6 +103,10 @@ export default function middleware(req) {
     pathname.includes("/contact") ||
     pathname.includes("/success-stories") ||
     pathname.includes("/testimonials") ||
+    pathname.includes("/seminar") ||
+    pathname.includes("/affiliate") ||
+    pathname.includes("/gallery") ||
+    pathname.includes("/verify-certificate") ||
     pathname.includes("/forgot-password") ||
     pathname.includes("/reset-password") ||
     pathname.includes("/accept-invite") ||
