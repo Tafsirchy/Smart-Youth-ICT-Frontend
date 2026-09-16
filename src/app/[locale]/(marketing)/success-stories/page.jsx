@@ -6,6 +6,7 @@ import Image from 'next/image';
 import { IoPlayCircleOutline, IoBriefcaseOutline, IoLocationOutline, IoCheckmarkCircle } from 'react-icons/io5';
 import Link from 'next/link';
 import api from '@/lib/api';
+import VideoStoryModal from '@/components/marketing/VideoStoryModal';
 
 const STATS = [
   { number: '15,000+', label: 'Students Trained' },
@@ -17,6 +18,7 @@ const STATS = [
 export default function SuccessStoriesPage() {
   const [stories, setStories] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [selectedStory, setSelectedStory] = useState(null);
 
   useEffect(() => {
     const fetchStories = async () => {
@@ -106,7 +108,12 @@ export default function SuccessStoriesPage() {
               className="flex gap-6 px-3 w-max"
             >
               {[...videoStories, ...videoStories].map((story, i) => (
-                <a key={i} href={story.videoUrl} target="_blank" rel="noopener noreferrer" className="relative rounded-3xl overflow-hidden w-[300px] md:w-[400px] aspect-[4/5] bg-slate-200 cursor-pointer shadow-lg hover:shadow-2xl transition-all shrink-0 group/card">
+                <button
+                  type="button"
+                  key={i}
+                  onClick={() => setSelectedStory(story)}
+                  className="relative rounded-3xl overflow-hidden w-[300px] md:w-[400px] aspect-[4/5] bg-slate-200 cursor-pointer shadow-lg hover:shadow-2xl transition-all shrink-0 group/card text-left focus:outline-none focus:ring-4 focus:ring-pink-500/40"
+                >
                   <Image src={story.videoThumbnail || story.studentAvatar || "/images/placeholder.png"} alt={story.studentName || "Student"} fill sizes="400px" loading="lazy" decoding="async" onError={(e) => { e.target.srcset = ''; e.target.src = '/images/placeholder.png'; }} className="object-cover lg:group-hover/card:scale-110 transition-transform duration-700 bg-[#f0f0f0]" />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent"></div>
 
@@ -120,7 +127,7 @@ export default function SuccessStoriesPage() {
                     <h3 className="text-white font-bold text-lg leading-snug mb-1 truncate">{story.resultSummary}</h3>
                     <p className="text-slate-300 text-sm font-medium">{story.studentName} {story.company ? `- Hired at ${story.company}` : ''}</p>
                   </div>
-                </a>
+                </button>
               ))}
             </motion.div>
 
@@ -182,6 +189,18 @@ export default function SuccessStoriesPage() {
                       </div>
                     )}
                   </div>
+
+                  {/* Watch Video Button if Video is available */}
+                  {story.videoUrl && (
+                    <button
+                      type="button"
+                      onClick={() => setSelectedStory(story)}
+                      className="w-full py-2.5 px-4 rounded-xl bg-gradient-to-r from-rose-50 to-pink-50 hover:from-rose-100 hover:to-pink-100 text-rose-600 hover:text-rose-700 font-bold text-xs flex items-center justify-center gap-2 transition-all border border-rose-100/80 shadow-sm active:scale-[0.98]"
+                    >
+                      <IoPlayCircleOutline size={20} className="text-rose-500" />
+                      <span>Watch Video Story</span>
+                    </button>
+                  )}
                 </motion.div>
               ))}
             </div>
@@ -201,6 +220,14 @@ export default function SuccessStoriesPage() {
         Start Your Journey Today
       </Link>
     </div>
+
+    {/* ── In-Site Video Story Modal ── */}
+    {selectedStory && (
+      <VideoStoryModal
+        story={selectedStory}
+        onClose={() => setSelectedStory(null)}
+      />
+    )}
 
     </div>
   );

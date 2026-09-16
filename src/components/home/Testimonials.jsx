@@ -5,6 +5,7 @@ import { motion } from "framer-motion";
 import Image from "next/image";
 import { IoStar, IoChatbubblesOutline, IoLogoYoutube } from "react-icons/io5";
 import api from "@/lib/api";
+import VideoStoryModal from "@/components/marketing/VideoStoryModal";
 
 // Dynamic Testimonials from CMS
 
@@ -39,6 +40,7 @@ const AVATAR_GRADIENTS = [
 export default function Testimonials() {
   const [textReviews, setTextReviews] = useState([]);
   const [videoReviews, setVideoReviews] = useState([]);
+  const [selectedVideo, setSelectedVideo] = useState(null);
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
@@ -174,11 +176,10 @@ export default function Testimonials() {
                         </p>
                       </div>
                     </div>
-                    <a
-                      href={video.videoUrl || "#"}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="absolute inset-0 z-10"
+                    <button
+                      type="button"
+                      onClick={() => setSelectedVideo(video)}
+                      className="absolute inset-0 z-10 w-full h-full cursor-pointer focus:outline-none focus:ring-4 focus:ring-pink-500/40 rounded-2xl"
                       aria-label={`Watch ${video.studentName}'s review`}
                     />
                   </div>
@@ -229,6 +230,14 @@ export default function Testimonials() {
           will-change: transform;
         }
       `}} />
+
+      {/* In-Site Video Story Modal */}
+      {selectedVideo && (
+        <VideoStoryModal
+          story={selectedVideo}
+          onClose={() => setSelectedVideo(null)}
+        />
+      )}
     </section>
   );
 }
