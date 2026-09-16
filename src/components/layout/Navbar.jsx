@@ -18,15 +18,10 @@ import MobileMenu from "./MobileMenu";
 export const aboutColumns = [
   {
     id: "foundation",
-    heading: "Foundation",
+    heading: "Overview",
     icon: "🧭",
     iconTheme: "bg-emerald-100 text-emerald-600",
     items: [
-      {
-        label: "SYICT Foundation",
-        href: "/about/foundation",
-        desc: "Our foundation pillars",
-      },
       { label: "Our Story", href: "/about/story", desc: "How we started" },
       { label: "Mission & Vision", href: "/about/mission", desc: "Our goal" },
       {
@@ -342,7 +337,7 @@ export default function Navbar() {
         </Link>
 
         {/* Desktop links */}
-        <ul className="hidden md:flex items-center gap-1">
+        <ul className="hidden md:flex items-center gap-0.5">
           {navLinks.map(({ href, label }, i) => (
             <motion.li
               key={href}
@@ -359,7 +354,7 @@ export default function Navbar() {
                   handleMouseEnter(null);
                   prefetchRoutes([href]);
                 }}
-                className={`px-3 py-2 rounded-lg text-sm font-medium transition-all ${isActive(href)
+                className={`px-2.5 py-1.5 rounded-lg text-sm font-medium transition-all ${isActive(href)
                   ? "text-brand-green bg-brand-green/10 font-semibold"
                   : "text-gray-700 hover:text-brand-green hover:bg-brand-green/5"
                   }`}
@@ -379,7 +374,7 @@ export default function Navbar() {
             <button
               onMouseEnter={() => handleMouseEnter("services")}
               onMouseLeave={handleMouseLeave}
-              className={`flex items-center gap-1 px-3 py-2 rounded-lg text-sm font-medium transition-all ${isActive("/services") || activeDropdown === "services"
+              className={`flex items-center gap-1 px-2.5 py-1.5 rounded-lg text-sm font-medium transition-all ${isActive("/services") || activeDropdown === "services"
                 ? "text-brand-green bg-brand-green/10 font-semibold"
                 : "text-gray-700 hover:text-brand-green hover:bg-brand-green/5"
                 }`}
@@ -404,7 +399,7 @@ export default function Navbar() {
             <button
               onMouseEnter={() => handleMouseEnter("about")}
               onMouseLeave={handleMouseLeave}
-              className={`flex items-center gap-1 px-3 py-2 rounded-lg text-sm font-medium transition-all ${isActive("/about") || activeDropdown === "about"
+              className={`flex items-center gap-1 px-2.5 py-1.5 rounded-lg text-sm font-medium transition-all ${isActive("/about") || activeDropdown === "about"
                 ? "text-brand-green bg-brand-green/10 font-semibold"
                 : "text-gray-700 hover:text-brand-green hover:bg-brand-green/5"
                 }`}
@@ -502,7 +497,7 @@ export default function Navbar() {
 
         {/* CTA / Auth */}
         <motion.div
-          className="hidden md:flex items-center gap-3"
+          className="hidden md:flex items-center gap-2"
           initial={{ opacity: 0, x: 20 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ delay: 0.3 }}
@@ -512,7 +507,7 @@ export default function Navbar() {
             href="/seminar"
             id="nav-seminar-badge"
             onMouseEnter={() => prefetchRoutes(["/seminar"])}
-            className="group relative hidden lg:inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-black tracking-wide text-rose-600 bg-rose-50 border border-rose-200/80 hover:bg-rose-100 hover:border-rose-300 transition-all shadow-sm shrink-0"
+            className="group relative hidden lg:inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-black tracking-wide text-rose-600 bg-rose-50 border border-rose-200/80 hover:bg-rose-100 hover:border-rose-300 transition-all shadow-sm shrink-0"
           >
             <span className="relative flex h-2 w-2">
               <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-rose-400 opacity-75"></span>
