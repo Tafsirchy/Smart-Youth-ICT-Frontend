@@ -111,6 +111,10 @@ export const authOptions = {
         if (session?.user?.name) token.name = session.user.name;
         if (session?.user?.image) token.picture = session.user.image;
         if (session?.name) token.name = session.name;
+        if (session?.user?.role) token.role = session.user.role;
+        if (session?.user?.branchId !== undefined) token.branchId = session.user.branchId;
+        if (session?.user?.secondaryBranches) token.secondaryBranches = session.user.secondaryBranches;
+        if (session?.user?.accessToken) token.accessToken = session.user.accessToken;
       }
 
       return token;
