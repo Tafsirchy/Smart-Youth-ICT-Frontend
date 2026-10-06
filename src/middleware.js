@@ -67,7 +67,7 @@ const authMiddleware = withAuth(
     }
 
     // 3. Super Stats Protection
-    if (isSuperPath && role !== "super_admin") {
+    if (isSuperPath && !["super_admin", "super_management"].includes(role)) {
       return NextResponse.redirect(new URL("/auth-redirect", req.url));
     }
 
