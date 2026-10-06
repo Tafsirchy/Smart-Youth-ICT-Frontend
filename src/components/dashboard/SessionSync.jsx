@@ -87,6 +87,11 @@ export default function SessionSync() {
         }
       }
     } catch (error) {
+      if (error?.response?.status === 401) {
+        toast.error('Session permissions updated. Please sign in again.', { duration: 4000 });
+        signOut({ callbackUrl: '/login' });
+        return;
+      }
       console.error('[SessionSync] Synchronization error:', error);
     } finally {
       isSyncing.current = false;
