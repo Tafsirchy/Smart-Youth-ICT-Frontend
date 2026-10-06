@@ -254,7 +254,47 @@ export default function AllBranchesPage() {
         : "/super/onboard-branch";
       const method = editingBranch ? "put" : "post";
 
-      const res = await api[method](endpoint, formData);
+      // `code` is unique per branch. Check it against the list we already hold
+      // so the admin gets an instant, readable message instead of a server error.
+      const requestedCode = (formData.code || "").trim().toUpperCase();
+
+      if (!requestedCode) {
+        toast.error("Branch code is required", { id: loadingToast });
+        return;
+      }
+
+      const clash = branches.find(
+        (branch) =>
+          (branch.code || "").toUpperCase() === requestedCode &&
+          branch._id !== editingBranch?._id
+      );
+
+      if (clash) {
+        toast.error(`Code "${requestedCode}" is already used by "${clash.name}"`, {
+          id: loadingToast,
+        });
+        return;
+      }
+
+      // Only send a location when the admin actually picked a point on the map.
+      // An empty `{ lat: "", long: "" }` payload used to be persisted as a
+      // coordinate-less GeoJSON Point, which MongoDB's 2dsphere index rejects.
+      const payload = { ...formData, code: requestedCode };
+      const hasCoordinates =
+        formData.location?.lat !== "" &&
+        formData.location?.lat !== null &&
+        formData.location?.lat !== undefined &&
+        formData.location?.long !== "" &&
+        formData.location?.long !== null &&
+        formData.location?.long !== undefined;
+
+      if (!hasCoordinates) {
+        // `null` tells the API there is intentionally no location, so it can drop
+        // the field instead of storing a coordinate-less GeoJSON Point.
+        payload.location = null;
+      }
+
+      const res = await api[method](endpoint, payload);
       if (res.data?.success) {
         toast.success(
           editingBranch ? "Campus properties updated successfully" : "New campus onboarded!",
@@ -395,6 +435,34 @@ export default function AllBranchesPage() {
       return true;
     });
   }, [branches, search, filterType]);
+
+  // Branch codes already taken + the next free suggestion. `code` is unique, so
+  // surfacing this inline avoids a round-trip that used to end in a raw
+  // "E11000 duplicate key error" toast.
+  const { usedCodes, suggestedCode } = useMemo(() => {
+    const taken = branches
+      .map((b) => (b.code || "").toUpperCase())
+      .filter(Boolean)
+      .sort();
+
+    const takenSet = new Set(taken);
+
+    let suggestion = "SYICT-001";
+    let n = 1;
+    while (takenSet.has(suggestion)) {
+      n += 1;
+      suggestion = `SYICT-${String(n).padStart(3, "0")}`;
+    }
+
+    return { usedCodes: taken, suggestedCode: suggestion };
+  }, [branches]);
+
+  const codeAlreadyUsed =
+    branches.some(
+      (b) =>
+        (b.code || "").toUpperCase() === (formData.code || "").trim().toUpperCase() &&
+        b._id !== editingBranch?._id
+    ) && (formData.code || "").trim() !== "";
 
   // Counts for tabs
   const tabCounts = useMemo(() => {
@@ -976,13 +1044,37 @@ export default function AllBranchesPage() {
                             </label>
                             <input
                               required
+                              list="branch-code-suggestions"
                               value={formData.code}
                               onChange={(e) =>
                                 setFormData({ ...formData, code: e.target.value.toUpperCase() })
                               }
-                              placeholder="e.g. SYICT-001"
-                              className="w-full bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-3 font-bold text-sm text-slate-800 dark:text-white outline-none focus:ring-2 focus:ring-pink-500/20"
+                              placeholder={`e.g. ${suggestedCode}`}
+                              className={`w-full bg-slate-50 dark:bg-slate-800 rounded-xl p-3 font-bold text-sm text-slate-800 dark:text-white outline-none focus:ring-2 focus:ring-pink-500/20 ${
+                                codeAlreadyUsed
+                                  ? "border border-red-400 dark:border-red-500"
+                                  : "border border-slate-200 dark:border-slate-700"
+                              }`}
                             />
+                            <datalist id="branch-code-suggestions">
+                              <option value={suggestedCode} />
+                              {usedCodes.map((code) => (
+                                <option key={code} value={code} />
+                              ))}
+                            </datalist>
+                            <p
+                              className={`text-[10px] font-bold uppercase tracking-wider ${
+                                codeAlreadyUsed ? "text-red-500" : "text-slate-400"
+                              }`}
+                            >
+                              {codeAlreadyUsed
+                                ? `Code "${formData.code.trim().toUpperCase()}" is already taken`
+                                : usedCodes.length > 0
+                                  ? `Taken: ${usedCodes.slice(0, 5).join(", ")}${
+                                      usedCodes.length > 5 ? "…" : ""
+                                    } · next free: ${suggestedCode}`
+                                  : `Next free: ${suggestedCode}`}
+                            </p>
                           </div>
                         </div>
 
