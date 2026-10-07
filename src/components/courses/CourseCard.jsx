@@ -5,10 +5,7 @@ import { motion } from "framer-motion";
 import {
   IoTimeOutline,
   IoPeopleOutline,
-  IoLanguageOutline,
-  IoVideocamOutline,
 } from "react-icons/io5";
-import { HiArrowLongRight } from "react-icons/hi2";
 
 export default function CourseCard({ course, locale, priority }) {
   const {
@@ -19,8 +16,6 @@ export default function CourseCard({ course, locale, priority }) {
     originalPrice,
     duration = "3 Months",
     enrolledCount = 0,
-    mode = "Online",
-    language = "Bengali",
     category,
     isPopular,
     instructor,
@@ -28,117 +23,131 @@ export default function CourseCard({ course, locale, priority }) {
 
   const displayTitle = title?.en || title || "Untitled Course";
 
+  const formatMode = (modeStr) => {
+    if (!modeStr) return "Online";
+    const lower = modeStr.toLowerCase();
+    const hasOnline = lower.includes("online") || lower.includes("live");
+    const hasOffline = lower.includes("offline") || lower.includes("physical") || lower.includes("campus");
+    
+    if (hasOnline && hasOffline) return "Online & Offline";
+    if (hasOffline) return "Offline";
+    return "Online";
+  };
+
   return (
     <motion.div
-      whileHover={{ y: -6 }}
+      whileHover={{ y: -4 }}
       transition={{ type: "spring", stiffness: 300, damping: 20 }}
-      className="group flex h-full flex-col overflow-hidden rounded-2xl bg-white shadow-sm ring-1 ring-neutral-200 transition-all hover:shadow-2xl dark:bg-neutral-900 dark:ring-neutral-800"
+      className="group flex h-full flex-col bg-white rounded-[2rem] border border-slate-100 overflow-hidden shadow-sm hover:shadow-xl transition-all duration-500"
     >
-      {/* Thumbnail + Overlays */}
-      <Link
-        href={`/${locale}/courses/${slug}`}
-        className="relative aspect-video w-full overflow-hidden bg-neutral-100"
-      >
-        <ImageLoader
-          src={thumbnail || "/images/course-placeholder.jpg"}
-          alt={displayTitle}
-          fill
-          sizes="(max-width: 640px) 50vw, (max-width: 1200px) 33vw, 25vw"
-          priority={priority}
-          className="object-cover transition-transform duration-700 group-hover:scale-110"
-        />
+      {/* Thumbnail Area - Premium Product Look */}
+      <div className="relative w-full aspect-[4/3] sm:aspect-video bg-white overflow-hidden p-2">
+        <Link
+          href={`/${locale}/courses/${slug}`}
+          className="relative block w-full h-full rounded-[1.5rem] overflow-hidden bg-slate-50 border border-slate-100"
+        >
+          <ImageLoader
+            src={thumbnail || "/images/course-placeholder.jpg"}
+            alt={displayTitle}
+            fill
+            sizes="(max-width: 640px) 100vw, (max-width: 1200px) 33vw, 25vw"
+            priority={priority}
+            className="object-cover transition-transform duration-700 group-hover:scale-105"
+          />
+          
+          {/* Top Badges */}
+          <div className="absolute top-3 left-3 flex flex-col gap-1.5 z-10 pointer-events-none">
+            {isPopular && (
+              <div className="inline-flex items-center rounded-full bg-brand-pink text-white px-2.5 py-0.5 text-[9px] font-black uppercase tracking-widest shadow-md">
+                Popular
+              </div>
+            )}
+            {category && (
+              <div className="inline-flex items-center rounded-full bg-white/95 backdrop-blur-sm text-slate-800 px-2.5 py-0.5 text-[9px] font-black uppercase tracking-widest shadow-md">
+                {category}
+              </div>
+            )}
+          </div>
+        </Link>
+      </div>
 
-        {/* Floating Badges */}
-        <div className="absolute inset-x-2.5 top-2.5 flex justify-between items-start pointer-events-none">
-          {category && (
-            <div className="rounded-lg bg-blue-600/90 px-2 py-0.5 text-[8px] font-black uppercase tracking-wider text-white backdrop-blur-md shadow-md pointer-events-auto">
-              {category}
-            </div>
-          )}
-          {isPopular && (
-            <div className="rounded-lg bg-pink-600/90 px-2 py-0.5 text-[8px] font-black uppercase tracking-wider text-white backdrop-blur-md shadow-md pointer-events-auto">
-              Popular
-            </div>
-          )}
-        </div>
-
-        {/* Bottom Overlays (Glassmorphic) */}
-        {/* On Mobile: smaller icons and text labels */}
-        <div className="absolute inset-x-0 bottom-0 p-2 flex gap-1 justify-end bg-gradient-to-t from-black/60 to-transparent pointer-events-none">
-          <span className="flex items-center gap-1 rounded bg-black/40 px-1.5 py-0.5 text-[7px] font-black uppercase tracking-wider text-white backdrop-blur-md">
-            <IoVideocamOutline size={10} className="opacity-70" />
-            {mode}
-          </span>
-          <span className="flex items-center gap-1 rounded bg-black/40 px-1.5 py-0.5 text-[7px] font-black uppercase tracking-wider text-white backdrop-blur-md">
-            <IoLanguageOutline size={10} className="opacity-70" />
-            {language}
-          </span>
-        </div>
-      </Link>
-
-      {/* Content wrapper with responsive padding (p-3.5 sm:p-6) */}
-      <div className="flex flex-1 flex-col p-3.5 sm:p-5 lg:p-6">
+      {/* Content Area */}
+      <div className="flex flex-col flex-grow p-4 sm:p-5 pt-1.5">
         
         {/* Title */}
-        <Link href={`/${locale}/courses/${slug}`} className="mb-2 sm:mb-3 block flex-1">
-          <h3 className="line-clamp-2 text-sm sm:text-base lg:text-[1.15rem] font-black leading-snug text-neutral-900 group-hover:text-blue-600 transition-colors dark:text-white">
+        <Link href={`/${locale}/courses/${slug}`} className="mb-3 block flex-grow mt-1.5">
+          <h3 className="line-clamp-2 text-lg sm:text-[1.15rem] font-black leading-tight text-slate-900 group-hover:text-blue-600 transition-colors">
             {displayTitle}
           </h3>
         </Link>
 
-        {/* Course stats Row (Compact on mobile, wider on desktop) */}
-        <div className="mb-4 sm:mb-5 flex flex-wrap items-center gap-2 sm:gap-4 text-[9px] sm:text-[10px] font-black text-neutral-400 uppercase tracking-wider sm:tracking-widest border-b border-neutral-100 pb-3 sm:pb-4 dark:border-neutral-800">
-          <div className="flex items-center gap-1">
-            <IoTimeOutline size={12} className="text-blue-600 shrink-0" />
-            <span>{duration}</span>
+        {/* Stats Grid */}
+        <div className="grid grid-cols-2 gap-3 mb-4 pb-4 border-b border-slate-100">
+          <div className="flex items-center gap-1.5 text-[9px] sm:text-[10px] font-bold text-slate-500 uppercase tracking-widest">
+            <IoTimeOutline size={14} className="text-blue-500 shrink-0" />
+            <span className="truncate">{duration}</span>
           </div>
-          <div className="flex items-center gap-1">
-            <IoPeopleOutline size={12} className="text-blue-600 shrink-0" />
-            <span>{enrolledCount} Studs</span>
+          <div className="flex items-center gap-1.5 text-[9px] sm:text-[10px] font-bold text-slate-500 uppercase tracking-widest">
+            <IoPeopleOutline size={14} className="text-blue-500 shrink-0" />
+            <span className="truncate">{enrolledCount} Students</span>
           </div>
         </div>
 
-        {/* Instructor Info */}
-        {instructor && (
-          <div className="mb-4 sm:mb-5 flex items-center gap-2">
-            <div className="relative w-6 h-6 shrink-0 rounded-full overflow-hidden bg-neutral-200">
-              <ImageLoader
-                src={instructor.avatar || "/images/avatar-placeholder.png"}
-                alt={instructor.name}
-                fill
-                className="object-cover"
-              />
-            </div>
-            <span className="text-xs font-semibold text-neutral-700 dark:text-neutral-300 truncate">
-              {instructor.name}
-            </span>
-          </div>
-        )}
-
-        {/* Action Bar (Footer) */}
-        {/* Flex wrap to support small screens, price is set responsively */}
-        <div className="mt-auto flex items-center justify-between gap-1.5">
-          <div className="flex flex-col min-w-0">
+        {/* Commercial Footer: Price + Instructor */}
+        <div className="flex flex-row items-end justify-between gap-4 mt-auto">
+          
+          {/* Pricing (Left Aligned) */}
+          <div className="flex flex-col text-left shrink-0">
             {originalPrice && originalPrice > price && (
-              <span className="text-[9px] sm:text-[10px] font-bold text-neutral-400 line-through decoration-pink-500/50 tracking-tighter mb-[-3px] truncate">
+              <span className="text-[10px] font-bold text-slate-400 line-through decoration-brand-pink/50 tracking-wider mb-[-2px]">
                 ৳{originalPrice.toLocaleString()}
               </span>
             )}
-            <span className="text-base sm:text-lg lg:text-xl font-black text-blue-600 tracking-tighter truncate">
+            <span className="text-xl font-black text-blue-600 tracking-tight">
               ৳{price?.toLocaleString()}
             </span>
           </div>
 
-          <motion.div whileHover={{ x: 2 }} whileTap={{ scale: 0.95 }} className="shrink-0">
-            <Link
-              href={`/${locale}/courses/${slug}`}
-              className="inline-flex items-center gap-1 sm:gap-2 rounded-xl bg-neutral-900 px-3 py-2.5 sm:px-4 sm:py-2.5 text-[8px] sm:text-[9px] font-black uppercase tracking-wider sm:tracking-widest text-white transition-all hover:bg-blue-600 shadow-md hover:shadow-blue-200 dark:bg-blue-700 dark:hover:bg-blue-600 min-h-[38px] sm:min-h-[44px]"
-            >
-              View Details
-              <HiArrowLongRight size={12} className="hidden sm:inline" />
-            </Link>
-          </motion.div>
+          {/* Instructor OR Course Mode Status (Right Aligned) */}
+          {instructor ? (
+            <div className="flex items-center gap-2 text-right min-w-0 ml-2">
+              <div className="flex flex-col min-w-0">
+                <span className="text-[8px] font-bold text-slate-400 uppercase tracking-widest">By</span>
+                <span className="text-xs font-black text-slate-900 truncate max-w-[80px] sm:max-w-[100px]">
+                  {instructor.name}
+                </span>
+              </div>
+              <div className="relative w-8 h-8 rounded-full overflow-hidden border border-slate-200 bg-slate-50 shrink-0">
+                <ImageLoader
+                  src={instructor.avatar || "/images/avatar-placeholder.png"}
+                  alt={instructor.name}
+                  fill
+                  className="object-cover"
+                />
+              </div>
+            </div>
+          ) : (
+            <div className="flex items-center justify-end min-w-0 ml-2">
+              <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-emerald-50 border border-emerald-100/50 min-w-0">
+                <span className="relative flex h-2 w-2 shrink-0">
+                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+                  <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
+                </span>
+                <span className="text-[9px] font-black uppercase tracking-widest text-emerald-700 truncate max-w-[100px]">
+                  {formatMode(course.mode)}
+                </span>
+              </div>
+            </div>
+          )}
         </div>
+        
+        {/* Commercial Full-Width CTA Button */}
+        <Link
+          href={`/${locale}/courses/${slug}`}
+          className="mt-4 w-full flex justify-center items-center gap-2 bg-slate-50 hover:bg-slate-900 text-slate-900 hover:text-white border border-slate-200 hover:border-slate-900 transition-all duration-300 py-3 rounded-[1rem] text-[10px] font-black uppercase tracking-[0.2em] shadow-sm hover:shadow-xl hover:-translate-y-0.5"
+        >
+          Enroll Now
+        </Link>
       </div>
     </motion.div>
   );
