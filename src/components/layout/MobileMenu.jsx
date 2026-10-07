@@ -174,6 +174,31 @@ export default function MobileMenu({ links, session, onClose }) {
             </li>
           ))}
         </MobileAccordion>
+
+        {/* Partnership & Membership accordion */}
+        <MobileAccordion
+          label="Partnership & Membership"
+          isActiveAccordion={isActive("/about/partnership-membership")}
+        >
+          <li>
+            <Link
+              href="/about/partnership-membership#memberships"
+              onClick={onClose}
+              className="flex items-center min-h-[44px] px-3 py-1.5 rounded-lg text-sm text-slate-600 hover:text-brand-green hover:bg-brand-green/5"
+            >
+              Our Memberships
+            </Link>
+          </li>
+          <li>
+            <Link
+              href="/about/partnership-membership#partners"
+              onClick={onClose}
+              className="flex items-center min-h-[44px] px-3 py-1.5 rounded-lg text-sm text-slate-600 hover:text-brand-green hover:bg-brand-green/5"
+            >
+              Our Partnerships
+            </Link>
+          </li>
+        </MobileAccordion>
       </ul>
 
       {/* Auth CTA */}
