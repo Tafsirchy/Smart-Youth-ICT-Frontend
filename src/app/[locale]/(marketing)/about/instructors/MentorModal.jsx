@@ -2,107 +2,134 @@
 
 import { motion } from "framer-motion";
 import Image from "next/image";
-import { LuLinkedin, LuTwitter, LuMaximize, LuX } from "react-icons/lu";
+import { IoLogoLinkedin, IoMailOutline, IoLogoTwitter } from "react-icons/io5";
+import { LuX, LuUser } from "react-icons/lu";
 
 export default function MentorModal({ mentor, onClose }) {
   if (!mentor) return null;
 
+  // Simple parser to handle **bold** markdown in bio text
+  const parseBio = (text) => {
+    if (!text) return null;
+    const parts = text.split(/(\*\*.*?\*\*)/g);
+    return parts.map((part, i) => {
+      if (part.startsWith("**") && part.endsWith("**")) {
+        return <strong key={i} className="text-slate-900 font-bold">{part.slice(2, -2)}</strong>;
+      }
+      return <span key={i}>{part}</span>;
+    });
+  };
+
   return (
-    <div className="fixed inset-0 z-[100] flex items-center justify-center p-4">
+    <div className="fixed inset-0 z-[100] flex">
       {/* Backdrop */}
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         exit={{ opacity: 0 }}
         onClick={onClose}
-        className="absolute inset-0 bg-slate-900/60 backdrop-blur-md"
+        className="absolute inset-0 bg-slate-900/40 backdrop-blur-sm"
       />
 
-      {/* Modal Content */}
+      {/* Slide-in Drawer */}
       <motion.div
-        initial={{ opacity: 0, scale: 0.95, y: 20 }}
-        animate={{ opacity: 1, scale: 1, y: 0 }}
-        exit={{ opacity: 0, scale: 0.95, y: 20 }}
-        className="relative w-full max-w-sm bg-[#1e1a29] rounded-[2.5rem] border border-white/5 overflow-hidden shadow-[0_0_80px_rgba(139,92,246,0.15)] flex flex-col p-8 items-center text-center z-10"
-        style={{
-          background: "linear-gradient(180deg, #2a1f3d 0%, #17151f 100%)"
-        }}
+        initial={{ opacity: 0, x: "100%" }}
+        animate={{ opacity: 1, x: 0 }}
+        exit={{ opacity: 0, x: "100%" }}
+        transition={{ type: "spring", damping: 25, stiffness: 200 }}
+        className="fixed top-0 right-0 h-full w-full max-w-2xl bg-white shadow-2xl z-[101] overflow-y-auto custom-scrollbar flex flex-col"
       >
         <button
           onClick={onClose}
-          className="absolute top-4 right-4 w-8 h-8 flex items-center justify-center rounded-full bg-white/5 hover:bg-white/10 text-white/50 hover:text-white transition-colors"
+          className="absolute top-6 right-6 w-12 h-12 bg-slate-100 hover:bg-slate-200 rounded-full flex items-center justify-center text-slate-600 transition-colors z-20"
         >
-          <LuX className="w-4 h-4" />
+          <LuX size={20} />
         </button>
 
-        {/* Avatar Section */}
-        <div className="relative mt-4 mb-6">
-          {/* Badge */}
-          {mentor.badge && (
-            <div className="absolute -top-3 left-1/2 -translate-x-1/2 z-10 bg-white/10 backdrop-blur-md border border-white/20 text-white text-[9px] font-black uppercase tracking-widest px-4 py-1.5 rounded-full whitespace-nowrap shadow-lg flex items-center gap-1.5">
-              <span className="w-2 h-2 rounded-sm bg-brand-pink/80 inline-block rotate-45" />
-              {mentor.badge}
+        <div className="p-8 md:p-12 flex-1 flex flex-col pt-16 md:pt-20">
+          <div className="flex flex-col sm:flex-row gap-6 md:gap-8 items-start mb-10">
+            <div className="relative w-40 h-40 md:w-56 md:h-56 shrink-0 bg-slate-100 rounded-2xl border-4 border-slate-50 shadow-xl shadow-slate-200/50 overflow-hidden flex items-center justify-center">
+              {mentor.avatar ? (
+                <Image
+                  src={mentor.avatar}
+                  alt={mentor.name}
+                  fill
+                  unoptimized={true}
+                  onError={(e) => { e.target.style.opacity = '0'; }}
+                  className="object-cover object-top z-10 relative"
+                />
+              ) : null}
+              <LuUser className="w-20 h-20 text-slate-300 absolute z-0" />
             </div>
-          )}
-
-          {/* Image */}
-          <div className="relative w-32 h-32 rounded-[2.5rem] overflow-hidden shadow-[0_0_40px_rgba(236,72,153,0.3)] border-2 border-white/10">
-            <Image
-              src={mentor.avatar || "/images/placeholder.png"}
-              alt={mentor.name}
-              fill
-              className="object-cover"
-            />
+            
+            <div className="pt-2 md:pt-6">
+              {mentor.badge && (
+                <div className="inline-block px-3 py-1 bg-brand-green/10 text-brand-green rounded-full text-[10px] font-black uppercase tracking-widest mb-3">
+                  {mentor.badge}
+                </div>
+              )}
+              <h2 className="text-3xl md:text-4xl font-black text-slate-900 uppercase tracking-tighter mb-2 leading-[1.1]">
+                {mentor.name}
+              </h2>
+              <p className="text-brand-green font-bold text-xs md:text-sm tracking-[0.2em] uppercase mb-4">
+                {mentor.role || "Industry Expert"}
+              </p>
+              
+              <div className="flex flex-wrap gap-2">
+                {(mentor.expertise || []).map((t) => (
+                  <span
+                    key={t}
+                    className="px-2 py-1 bg-slate-100 text-slate-500 text-[10px] font-bold uppercase tracking-wider rounded-md"
+                  >
+                    {t}
+                  </span>
+                ))}
+              </div>
+            </div>
           </div>
-        </div>
 
-        {/* Info Section */}
-        <h2 className="text-3xl font-black text-white mb-2 tracking-tight">
-          {mentor.name}
-        </h2>
-        
-        <div className="inline-block bg-white/5 border border-white/10 rounded-xl px-4 py-2 mb-6">
-          <p className="text-[10px] font-black uppercase text-slate-300 tracking-[0.2em]">
-            {mentor.role}
-          </p>
-        </div>
+          <div className="mb-12">
+            <h4 className="text-xs font-black text-slate-400 uppercase tracking-widest mb-4 border-b border-slate-100 pb-2">
+              Biography
+            </h4>
+            <div className="prose prose-slate prose-sm md:prose-base max-w-none text-slate-600 whitespace-pre-wrap leading-[1.8]">
+              {mentor.bio ? parseBio(mentor.bio) : <p className="text-slate-400 italic">No biography provided.</p>}
+            </div>
+          </div>
 
-        <p className="text-sm text-slate-300 leading-relaxed mb-8 max-w-[260px]">
-          {mentor.bio}
-        </p>
-
-        {/* Tags */}
-        <div className="flex flex-wrap justify-center gap-2 mb-8 w-full">
-          {mentor.expertise && mentor.expertise[0] && (
-            <span className="px-4 py-2 bg-white/5 border border-white/10 text-white/70 text-[9px] font-black uppercase tracking-widest rounded-xl">
-              {mentor.expertise[0]}
-            </span>
-          )}
-          {mentor.experience && (
-            <span className="px-4 py-2 bg-white/5 border border-white/10 text-white/70 text-[9px] font-black uppercase tracking-widest rounded-xl">
-              {mentor.experience}
-            </span>
-          )}
-        </div>
-
-        {/* Footer Actions */}
-        <div className="w-full flex items-center justify-between pt-6 border-t border-white/10 mt-auto">
-          <div className="flex gap-2">
+          <div className="mt-auto pt-8 border-t border-slate-100 flex items-center gap-4">
             {mentor.socials?.linkedin && (
-              <a href={mentor.socials.linkedin} target="_blank" rel="noreferrer" className="w-10 h-10 rounded-xl bg-white/5 hover:bg-white/10 border border-white/5 flex items-center justify-center text-white/50 hover:text-white transition-all">
-                <LuLinkedin className="w-4 h-4" />
+              <a
+                href={mentor.socials.linkedin}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center gap-2 px-5 py-3 bg-slate-50 hover:bg-[#0077b5] text-slate-600 hover:text-white rounded-none border border-slate-200 hover:border-[#0077b5] transition-all font-bold text-xs uppercase tracking-wider"
+              >
+                <IoLogoLinkedin size={18} />
+                LinkedIn
               </a>
             )}
             {mentor.socials?.twitter && (
-              <a href={mentor.socials.twitter} target="_blank" rel="noreferrer" className="w-10 h-10 rounded-xl bg-white/5 hover:bg-white/10 border border-white/5 flex items-center justify-center text-white/50 hover:text-white transition-all">
-                <LuTwitter className="w-4 h-4" />
+              <a
+                href={mentor.socials.twitter}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center gap-2 px-5 py-3 bg-slate-50 hover:bg-[#1DA1F2] text-slate-600 hover:text-white rounded-none border border-slate-200 hover:border-[#1DA1F2] transition-all font-bold text-xs uppercase tracking-wider"
+              >
+                <IoLogoTwitter size={18} />
+                Twitter
+              </a>
+            )}
+            {mentor.email && (
+              <a
+                href={`mailto:${mentor.email}`}
+                className="flex items-center gap-2 px-5 py-3 bg-slate-50 hover:bg-rose-500 text-slate-600 hover:text-white rounded-none border border-slate-200 hover:border-rose-500 transition-all font-bold text-xs uppercase tracking-wider"
+              >
+                <IoMailOutline size={18} />
+                Contact
               </a>
             )}
           </div>
-          
-          <button className="flex items-center gap-2 text-[10px] font-black text-white/50 hover:text-white uppercase tracking-widest transition-colors">
-            VIEW PROFILE <LuMaximize className="w-3 h-3" />
-          </button>
         </div>
       </motion.div>
     </div>

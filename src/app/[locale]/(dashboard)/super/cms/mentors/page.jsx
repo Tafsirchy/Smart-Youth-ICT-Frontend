@@ -221,17 +221,20 @@ export default function FeaturedMentorsPage() {
                 </div>
               )}
 
-              <div className="w-16 h-16 rounded-2xl bg-slate-50 border-2 border-white shadow-sm mb-3 overflow-hidden group-hover:scale-105 transition-transform">
-                <Image
-                  src={mentor.avatar || "/images/placeholder.png"}
-                  alt={mentor.name || "Mentor avatar"}
-                  width={64}
-                  height={64}
-                  loading="lazy"
-                  decoding="async"
-                  onError={(e) => { e.target.srcset = ''; e.target.src = '/images/placeholder.png'; }}
-                  className="w-full h-full object-cover bg-[#f0f0f0]"
-                />
+              <div className="w-16 h-16 rounded-2xl bg-slate-100 border-2 border-white shadow-sm mb-3 overflow-hidden group-hover:scale-105 transition-transform flex items-center justify-center relative">
+                {mentor.avatar ? (
+                  <Image
+                    src={mentor.avatar}
+                    alt={mentor.name || "Mentor avatar"}
+                    fill
+                    loading="lazy"
+                    decoding="async"
+                    unoptimized={true}
+                    onError={(e) => { e.target.style.opacity = '0'; }}
+                    className="object-cover bg-[#f0f0f0] z-10 relative"
+                  />
+                ) : null}
+                <LuUser className="w-8 h-8 text-slate-300 absolute z-0" />
               </div>
 
               <h4 className="font-bold text-slate-900 truncate w-full leading-[1.4]">

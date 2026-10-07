@@ -82,46 +82,59 @@ export default function InstructorsPage() {
   };
 
   return (
-    <section className="min-h-screen bg-slate-50/50 py-20 overflow-hidden flex flex-col">
-      <div className="container-custom relative">
-        <div className="max-w-3xl mb-12 text-left border-l-4 border-brand-green pl-6 sm:pl-8">
-          <motion.h1
+    <section className="min-h-screen bg-white py-24 overflow-hidden relative flex flex-col font-sans">
+      {/* Very subtle architectural grid background */}
+      <div className="absolute inset-0 bg-[linear-gradient(to_right,#slate-200_1px,transparent_1px),linear-gradient(to_bottom,#slate-200_1px,transparent_1px)] bg-[size:32px_32px] opacity-[0.03] pointer-events-none"></div>
+
+      <div className="container-custom relative z-10">
+        <div className="max-w-4xl mb-16">
+          <motion.div
             initial={{ opacity: 0, x: -20 }}
             animate={{ opacity: 1, x: 0 }}
-            className="text-4xl sm:text-5xl md:text-6xl font-black text-slate-900 leading-[1.1] mb-8 tracking-tighter"
+            className="flex items-center gap-4 mb-6"
           >
-            Our <br />
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-500 via-indigo-500 to-blue-600 animate-gradient-x">Mentors</span>
-          </motion.h1>
-          <motion.p
-            initial={{ opacity: 0, y: 10 }}
+            <div className="w-12 h-[2px] bg-brand-green"></div>
+            <p className="text-[11px] font-black uppercase tracking-[0.3em] text-slate-400">
+              Industry Experts
+            </p>
+          </motion.div>
+          <motion.h1
+            initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.1 }}
-            className="text-slate-600 text-lg leading-relaxed"
+            className="text-4xl sm:text-5xl md:text-7xl font-black text-slate-900 leading-[1.05] mb-8 tracking-tighter"
           >
-            Learn directly from active professionals currently building real-world solutions.
-            Filtered and curated via CMS to ensure the highest quality mentorship for your journey.
+            Our <br />
+            <span className="text-slate-400">Mentors</span>
+          </motion.h1>
+          <motion.p
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.2 }}
+            className="text-slate-600 text-lg md:text-xl leading-relaxed max-w-2xl border-l-2 border-brand-green pl-6"
+          >
+            Learn directly from active professionals currently building real-world solutions. Filtered and curated to ensure the highest quality mentorship for your journey.
           </motion.p>
         </div>
 
         {/* Filter Bar */}
-        <div className="bg-white p-6 rounded-[2rem] shadow-sm border border-slate-100 mb-12 flex flex-col md:flex-row gap-4 items-center">
-          <div className="relative flex-1 w-full">
-            <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 w-5 h-5" />
+        <div className="bg-white p-6 rounded-none shadow-xl shadow-slate-200/40 border border-slate-100 mb-16 flex flex-col md:flex-row gap-4 items-center">
+          <div className="relative flex-1 w-full border-b md:border-b-0 md:border-r border-slate-100 pb-4 md:pb-0 md:pr-4">
+            <Search className="absolute left-2 top-1/2 -translate-y-1/2 text-slate-400 w-5 h-5" />
             <input
               type="text"
               placeholder="Search by name or skill (e.g. React, UI/UX)..."
-              className="w-full pl-12 pr-4 py-3 bg-slate-50 border-none rounded-2xl focus:ring-2 focus:ring-brand-green/20 text-slate-900 transition-all font-bold text-sm outline-none"
+              className="w-full pl-10 pr-4 py-3 bg-transparent border-none focus:ring-0 text-slate-900 transition-all font-bold text-sm outline-none placeholder:text-slate-400"
               value={filters.q}
               onChange={(e) => handleFilterChange("q", e.target.value)}
             />
           </div>
 
-          <div className="flex gap-4 w-full md:w-auto">
-            <div className="relative flex-1 md:w-56">
-              <MapPin className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 w-4 h-4" />
+          <div className="flex flex-col sm:flex-row gap-4 w-full md:w-auto">
+            <div className="relative flex-1 md:w-56 sm:border-r border-slate-100 sm:pr-4">
+              <MapPin className="absolute left-2 top-1/2 -translate-y-1/2 text-slate-400 w-4 h-4" />
               <select
-                className="w-full pl-10 pr-4 py-3 bg-slate-50 border-none rounded-2xl focus:ring-2 focus:ring-brand-green/20 text-slate-700 text-xs font-bold appearance-none cursor-pointer outline-none"
+                className="w-full pl-8 pr-4 py-3 bg-transparent border-none focus:ring-0 text-slate-700 text-xs font-bold appearance-none cursor-pointer outline-none"
                 value={filters.branchId}
                 onChange={(e) => handleFilterChange("branchId", e.target.value)}
               >
@@ -132,10 +145,10 @@ export default function InstructorsPage() {
               </select>
             </div>
 
-            <div className="relative flex-1 md:w-64">
-              <BookOpen className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 w-4 h-4" />
+            <div className="relative flex-1 md:w-56">
+              <BookOpen className="absolute left-2 top-1/2 -translate-y-1/2 text-slate-400 w-4 h-4" />
               <select
-                className="w-full pl-10 pr-4 py-3 bg-slate-50 border-none rounded-2xl focus:ring-2 focus:ring-brand-green/20 text-slate-700 text-xs font-bold appearance-none cursor-pointer outline-none"
+                className="w-full pl-8 pr-4 py-3 bg-transparent border-none focus:ring-0 text-slate-700 text-xs font-bold appearance-none cursor-pointer outline-none"
                 value={filters.courseId}
                 onChange={(e) => handleFilterChange("courseId", e.target.value)}
               >
@@ -180,7 +193,7 @@ export default function InstructorsPage() {
             </motion.div>
           )}
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-x-4 sm:gap-x-6 gap-y-10 sm:gap-y-12">
             <AnimatePresence mode="popLayout">
               {instructors.map((instructor, i) => (
                 <motion.div
@@ -191,41 +204,53 @@ export default function InstructorsPage() {
                   exit={{ opacity: 0, scale: 0.95 }}
                   transition={{ duration: 0.2 }}
                   onClick={() => setSelectedMentor(instructor)}
-                  className="bg-white flex items-center gap-6 p-4 rounded-[2.5rem] hover:ring-2 hover:ring-brand-green/10 transition-all group border border-slate-100 hover:shadow-xl hover:shadow-brand-green/5 cursor-pointer"
+                  className="group cursor-pointer flex flex-col"
                 >
-                  <div className="relative w-24 h-24 sm:w-32 sm:h-32 shrink-0 rounded-[2rem] overflow-hidden shadow-sm bg-slate-50">
-                    <Image
-                      src={instructor.avatar || "/images/placeholder.png"}
-                      alt={instructor.name}
-                      fill
-                      sizes="128px"
-                      loading="lazy"
-                      decoding="async"
-                      onError={(e) => { e.target.srcset = ''; e.target.src = '/images/placeholder.png'; }}
-                      className="object-cover group-hover:scale-110 transition-transform duration-500 bg-[#f0f0f0]"
-                    />
+                  <div className="relative w-full aspect-[3/4] mb-4 overflow-hidden bg-slate-100 border border-slate-200 flex items-center justify-center">
+                    {instructor.avatar ? (
+                      <Image
+                        src={instructor.avatar}
+                        alt={instructor.name}
+                        fill
+                        sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 20vw"
+                        loading="lazy"
+                        decoding="async"
+                        unoptimized={true}
+                        onError={(e) => { e.target.style.opacity = '0'; }}
+                        className="object-cover w-full h-full grayscale group-hover:grayscale-0 group-hover:scale-105 transition-all duration-700 z-10 relative"
+                      />
+                    ) : null}
+                    <UserIcon className="w-12 h-12 sm:w-16 sm:h-16 text-slate-300 absolute z-0" />
+                    
+                    <div className="absolute inset-0 bg-gradient-to-t from-slate-900/60 via-slate-900/0 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-20"></div>
                   </div>
 
-                  <div className="flex-1 min-w-0">
-                    <h3 className="text-xl font-bold text-slate-900 group-hover:text-brand-green transition-colors truncate px-1">
+                  <div className="flex-1 flex flex-col">
+                    <h3 className="text-base sm:text-lg font-black text-slate-900 uppercase tracking-tight mb-1 group-hover:text-brand-green transition-colors line-clamp-2 leading-snug">
                       {instructor.name}
                     </h3>
-                    <p className="text-[10px] font-black uppercase text-brand-green mb-1 px-1">{instructor.badge || instructor.role}</p>
-                    <p className="text-[10px] font-bold text-slate-400 mb-3 flex items-center gap-1 px-1">
-                      <MapPin className="w-3 h-3 text-slate-300" />
-                      {instructor.branchId?.name || "Global Faculty"}
+                    <p className="text-slate-500 font-bold text-[9px] sm:text-[10px] tracking-[0.2em] uppercase mb-1 line-clamp-2">
+                      {instructor.badge || instructor.role}
                     </p>
-                    <div className="flex flex-wrap gap-2 px-1">
+                    
+                    <div className="flex items-center gap-1.5 mb-3 mt-1.5">
+                      <MapPin className="w-3 h-3 text-brand-green shrink-0" />
+                      <p className="text-slate-400 text-[10px] font-black tracking-widest uppercase">
+                        {instructor.branchId?.name || "Global Faculty"}
+                      </p>
+                    </div>
+                    
+                    <div className="flex flex-wrap gap-2 mb-4">
                       {(instructor.expertise || []).slice(0, 3).map((t) => (
                         <span
                           key={t}
-                          className="px-2 py-1 bg-slate-50 text-slate-500 border border-slate-100 text-[9px] font-bold uppercase tracking-wider rounded-lg"
+                          className="px-2 py-1 bg-slate-100 text-slate-500 text-[9px] font-bold uppercase tracking-wider rounded-md"
                         >
                           {t}
                         </span>
                       ))}
                       {instructor.expertise?.length > 3 && (
-                        <span className="text-[9px] text-slate-400 font-bold self-center">
+                        <span className="text-[9px] text-slate-400 font-bold self-center uppercase tracking-widest">
                           +{instructor.expertise.length - 3}
                         </span>
                       )}

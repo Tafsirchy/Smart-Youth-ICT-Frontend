@@ -27,7 +27,7 @@ const authMiddleware = withAuth(
     // Regex matches /[locale]/[branchId]/[dashboardType] e.g. /en/BR123/student
     // Group 2: branchId, Group 3: dashboardType
     const dashboardMatch = pathname.match(
-      /^\/(?:en|bn)?\/?([a-zA-Z0-9_-]+)\/(student|admin|instructor)/i,
+      /^\/(?:en|bn)?\/?([a-zA-Z0-9_-]+)\/(student|admin|instructor)(?:\/|$)/i,
     );
 
     // 2. Role-Path Protection
@@ -91,7 +91,7 @@ export default function middleware(req) {
   const isProtectedPath =
     pathname.includes("/super") ||
     pathname.includes("/profile") ||
-    /^\/(?:en|bn)?\/?([a-zA-Z0-9_-]+)\/(student|admin|instructor)/i.test(pathname);
+    /^\/(?:en|bn)?\/?([a-zA-Z0-9_-]+)\/(student|admin|instructor)(?:\/|$)/i.test(pathname);
 
   // Non-protected routes (marketing, auth, 404s, etc.) run intlMiddleware directly
   if (!isProtectedPath) {
