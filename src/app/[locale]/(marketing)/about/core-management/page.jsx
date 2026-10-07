@@ -3,7 +3,7 @@
 import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
 import { IoLogoLinkedin, IoMailOutline } from "react-icons/io5";
-import { LuArrowRight, LuX } from "react-icons/lu";
+import { LuArrowRight, LuX, LuUser } from "react-icons/lu";
 import { useEffect, useState } from "react";
 import api from "@/lib/api";
 
@@ -113,21 +113,29 @@ export default function CoreManagementPage() {
                 onClick={() => setSelectedMember(member)}
               >
                 {/* Magazine style portrait */}
-                <div className="relative w-full aspect-[3/4] mb-5 overflow-hidden bg-slate-100 border border-slate-200">
-                  <Image
-                    src={member.image || "/images/placeholder.png"}
-                    alt={member.name}
-                    fill
-                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                    loading="lazy"
-                    decoding="async"
-                    unoptimized={true}
-                    onError={(e) => { e.target.srcset = ''; e.target.src = '/images/placeholder.png'; }}
-                    className="object-cover w-full h-full grayscale group-hover:grayscale-0 group-hover:scale-105 transition-all duration-700"
-                  />
+                <div className="relative w-full aspect-[3/4] mb-5 overflow-hidden bg-slate-100 border border-slate-200 flex items-center justify-center">
+                  {member.image ? (
+                    <Image
+                      src={member.image}
+                      alt={member.name}
+                      fill
+                      sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                      loading="lazy"
+                      decoding="async"
+                      unoptimized={true}
+                      onError={(e) => { e.target.style.opacity = '0'; }}
+                      onLoad={(e) => {
+                        if (e.target.src.includes('ibb.co') && e.target.naturalWidth === 180 && e.target.naturalHeight === 180) {
+                          e.target.style.opacity = '0';
+                        }
+                      }}
+                      className="object-cover w-full h-full grayscale group-hover:grayscale-0 group-hover:scale-105 transition-all duration-700 z-10 relative"
+                    />
+                  ) : null}
+                  <LuUser className="w-20 h-20 text-slate-300 absolute z-0" />
                   
                   {/* Subtle gradient overlay */}
-                  <div className="absolute inset-0 bg-gradient-to-t from-slate-900/60 via-slate-900/0 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                  <div className="absolute inset-0 bg-gradient-to-t from-slate-900/60 via-slate-900/0 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-20"></div>
                 </div>
 
                 <div className="flex-1 flex flex-col">
@@ -178,14 +186,23 @@ export default function CoreManagementPage() {
 
               <div className="p-8 md:p-12 flex-1 flex flex-col pt-16 md:pt-20">
                 <div className="flex flex-col sm:flex-row gap-6 md:gap-8 items-start mb-10">
-                  <div className="relative w-40 h-40 md:w-56 md:h-56 shrink-0 bg-slate-100 rounded-2xl border-4 border-slate-50 shadow-xl shadow-slate-200/50 overflow-hidden">
-                    <Image
-                      src={selectedMember.image || "/images/placeholder.png"}
-                      alt={selectedMember.name}
-                      fill
-                      unoptimized={true}
-                      className="object-cover object-top"
-                    />
+                  <div className="relative w-40 h-40 md:w-56 md:h-56 shrink-0 bg-slate-100 rounded-2xl border-4 border-slate-50 shadow-xl shadow-slate-200/50 overflow-hidden flex items-center justify-center">
+                    {selectedMember.image ? (
+                      <Image
+                        src={selectedMember.image}
+                        alt={selectedMember.name}
+                        fill
+                        unoptimized={true}
+                        onError={(e) => { e.target.style.opacity = '0'; }}
+                        onLoad={(e) => {
+                          if (e.target.src.includes('ibb.co') && e.target.naturalWidth === 180 && e.target.naturalHeight === 180) {
+                            e.target.style.opacity = '0';
+                          }
+                        }}
+                        className="object-cover object-top z-10 relative"
+                      />
+                    ) : null}
+                    <LuUser className="w-20 h-20 text-slate-300 absolute z-0" />
                   </div>
                   <div className="pt-2 md:pt-6">
                     <h2 className="text-3xl md:text-4xl font-black text-slate-900 uppercase tracking-tighter mb-2 leading-[1.1]">

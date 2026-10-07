@@ -217,6 +217,11 @@ export default function InstructorsPage() {
                         decoding="async"
                         unoptimized={true}
                         onError={(e) => { e.target.style.opacity = '0'; }}
+                        onLoad={(e) => {
+                          if (e.target.src.includes('ibb.co') && e.target.naturalWidth === 180 && e.target.naturalHeight === 180) {
+                            e.target.style.opacity = '0';
+                          }
+                        }}
                         className="object-cover w-full h-full grayscale group-hover:grayscale-0 group-hover:scale-105 transition-all duration-700 z-10 relative"
                       />
                     ) : null}
