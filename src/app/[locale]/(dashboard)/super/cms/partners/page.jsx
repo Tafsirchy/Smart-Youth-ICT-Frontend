@@ -115,9 +115,26 @@ export default function PartnersPage() {
       </div>
 
       <div className="grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3 sm:gap-4">
-        {partners.map((partner, index) => (
-          <motion.div
-            key={partner._id}
+        {loading ? (
+          [...Array(4)].map((_, i) => (
+            <div
+              key={i}
+              className="bg-slate-50 animate-pulse rounded-2xl h-48 border border-slate-100 flex flex-col items-center justify-center gap-3 p-4"
+            >
+              <div className="w-full aspect-video bg-slate-200 rounded-xl" />
+              <div className="w-3/4 h-4 bg-slate-200 rounded-md" />
+              <div className="w-1/2 h-3 bg-slate-200 rounded-md" />
+            </div>
+          ))
+        ) : partners.length === 0 ? (
+          <div className="col-span-full py-12 flex flex-col items-center justify-center text-slate-400">
+            <LuImage className="w-12 h-12 mb-3 text-slate-200" />
+            <p className="font-bold">No partners added yet</p>
+          </div>
+        ) : (
+          partners.map((partner, index) => (
+            <motion.div
+              key={partner._id}
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ delay: index * 0.03 }}
@@ -132,6 +149,7 @@ export default function PartnersPage() {
                   sizes="(max-width: 768px) 50vw, 25vw"
                   loading="lazy"
                   decoding="async"
+                  unoptimized={true}
                   onError={(e) => { e.target.srcset = ''; e.target.src = '/images/placeholder.png'; }}
                   className="object-contain group-hover:scale-110 transition-transform duration-500 bg-[#f0f0f0]"
                 />
@@ -173,7 +191,8 @@ export default function PartnersPage() {
               </div>
             )}
           </motion.div>
-        ))}
+          ))
+        )}
       </div>
 
       {showModal && (

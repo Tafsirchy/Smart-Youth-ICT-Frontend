@@ -117,7 +117,7 @@ export default function PaymentMethodsSection() {
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" className="text-emerald-500">
                   <path d="M20 6L9 17l-5-5" strokeLinecap="round" strokeLinejoin="round"/>
                 </svg>
-                <span className="text-slate-500 text-xs font-bold tracking-wide">256-bit SSL Encryption Applied</span>
+                <span className="text-slate-500 text-xs font-bold tracking-wide">100% Secure & Trusted Payment</span>
               </div>
             </motion.div>
           </div>

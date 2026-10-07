@@ -38,6 +38,8 @@ export default function SystemSettingsPage() {
   const [showArticleModal, setShowArticleModal] = useState(false);
   const [editingArticle, setEditingArticle] = useState(null);
   const [articleForm, setArticleForm] = useState({ title: '', category: 'getting-started', content: '', isPublished: false });
+  const [newBroadcast, setNewBroadcast] = useState({ text: '', type: 'general' });
+  const [editingBroadcastId, setEditingBroadcastId] = useState(null);
 
   useEffect(() => {
     fetchData();
@@ -69,14 +71,33 @@ export default function SystemSettingsPage() {
     }
   };
 
-  const saveBroadcast = async () => {
-    const msg = settings.globalMessage;
+  const updateGlobalMessages = async (newMessages) => {
     try {
-      await api.put('/super/settings', { key: 'globalMessage', value: msg });
-      toast.success('Broadcast message published');
+      await api.put('/super/settings', { key: 'globalMessage', value: newMessages });
+      setSettings({ ...settings, globalMessage: newMessages });
+      toast.success('Broadcast updated');
     } catch (err) {
       toast.error('Failed to update broadcast');
     }
+  };
+
+  const addBroadcast = () => {
+    if (!newBroadcast.text.trim()) return;
+    const current = Array.isArray(settings.globalMessage) ? settings.globalMessage : (settings.globalMessage ? [{ id: '1', text: settings.globalMessage, type: 'general' }] : []);
+    
+    if (editingBroadcastId) {
+      updateGlobalMessages(current.map(m => m.id === editingBroadcastId ? { ...m, text: newBroadcast.text, type: newBroadcast.type } : m));
+      setEditingBroadcastId(null);
+    } else {
+      const msg = { id: Date.now().toString(), text: newBroadcast.text, type: newBroadcast.type };
+      updateGlobalMessages([...current, msg]);
+    }
+    setNewBroadcast({ text: '', type: 'general' });
+  };
+
+  const removeBroadcast = (id) => {
+    const current = Array.isArray(settings.globalMessage) ? settings.globalMessage : [];
+    updateGlobalMessages(current.filter(m => m.id !== id));
   };
 
   const handleArticleSubmit = async (e) => {
@@ -158,26 +179,84 @@ export default function SystemSettingsPage() {
               </div>
            </motion.div>
 
-           <motion.div variants={item} className="bg-slate-900 p-6 rounded-[2.5rem] shadow-2xl relative overflow-hidden">
-              <div className="absolute top-0 right-0 p-6 opacity-5 text-white">
+           <motion.div variants={item} className="bg-slate-900 p-6 rounded-[2.5rem] shadow-2xl relative overflow-hidden flex flex-col">
+              <div className="absolute top-0 right-0 p-6 opacity-5 text-white pointer-events-none">
                  <HiOutlineGlobeAlt size={160} />
               </div>
-              <h3 className="text-xl font-black text-white mb-4 flex items-center gap-2 relative z-10">
+              <h3 className="text-xl font-black text-white mb-4 flex items-center gap-2 relative z-10 shrink-0">
                 <HiOutlineEnvelope className="text-rose-400" /> Global Communication
               </h3>
-              <div className="space-y-2 relative z-10">
-                 <label className="text-[10px] font-black text-slate-500 uppercase tracking-widest leading-[1.4]">Broadcast Message</label>
-                 <textarea 
-                   className="w-full bg-slate-800 border-none rounded-2xl p-3 text-white font-medium leading-[1.6] focus:ring-2 focus:ring-rose-500 transition-all outline-none min-h-[120px]"
-                   placeholder="Announce something to all users..."
-                   value={settings.globalMessage || ''}
-                   onChange={e => setSettings({...settings, globalMessage: e.target.value})}
-                 />
+              
+              {/* Ongoing Broadcasts */}
+              <div className="relative z-10 mb-6 flex-1 flex flex-col min-h-0">
+                 <label className="text-[10px] font-black text-slate-500 uppercase tracking-widest leading-[1.4] mb-2 block">Ongoing Broadcasts</label>
+                 <div className="space-y-2 overflow-y-auto custom-scrollbar pr-1 flex-1">
+                   {(() => {
+                     const msgs = Array.isArray(settings.globalMessage) ? settings.globalMessage : (settings.globalMessage ? [{ id: '1', text: settings.globalMessage, type: 'general' }] : []);
+                     if (msgs.length === 0) return <p className="text-xs font-medium text-slate-500 italic py-2">No active broadcasts.</p>;
+                     return msgs.map((msg) => (
+                       <div key={msg.id} className="bg-slate-800/80 border border-slate-700 p-3 rounded-xl flex items-start gap-3 group">
+                         <span className="text-xl shrink-0 mt-0.5">
+                           {msg.type === 'hiring' ? '💼' : msg.type === 'holiday' ? '🎉' : msg.type === 'warning' ? '⚠️' : '📢'}
+                         </span>
+                         <div className="flex-1 min-w-0">
+                           <p className="text-white text-sm font-medium leading-snug">{msg.text}</p>
+                           <p className="text-[10px] text-slate-500 uppercase font-black tracking-widest mt-1">{msg.type}</p>
+                         </div>
+                         <div className="flex gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
+                           <button 
+                             onClick={() => {
+                               setEditingBroadcastId(msg.id);
+                               setNewBroadcast({ text: msg.text, type: msg.type });
+                             }}
+                             className="w-8 h-8 rounded-lg flex items-center justify-center text-slate-500 hover:text-blue-400 hover:bg-blue-400/10 transition-colors shrink-0"
+                           >
+                             <HiOutlinePencilSquare size={16} />
+                           </button>
+                           <button onClick={() => removeBroadcast(msg.id)} className="w-8 h-8 rounded-lg flex items-center justify-center text-slate-500 hover:text-red-400 hover:bg-red-400/10 transition-colors shrink-0">
+                             <HiOutlineTrash size={16} />
+                           </button>
+                         </div>
+                       </div>
+                     ));
+                   })()}
+                 </div>
+              </div>
+
+              {/* Add New Broadcast */}
+              <div className="space-y-2 relative z-10 shrink-0 bg-slate-800/50 p-4 rounded-2xl border border-slate-700/50 mt-auto">
+                 <div className="flex justify-between items-center mb-1">
+                   <label className="text-[10px] font-black text-slate-500 uppercase tracking-widest leading-[1.4]">{editingBroadcastId ? 'Edit Message' : 'Add New Message'}</label>
+                   {editingBroadcastId && (
+                     <button onClick={() => { setEditingBroadcastId(null); setNewBroadcast({ text: '', type: 'general' }); }} className="text-[10px] text-rose-500 hover:text-rose-400 font-bold uppercase tracking-widest">Cancel Edit</button>
+                   )}
+                 </div>
+                 <div className="flex gap-2">
+                   <select 
+                     value={newBroadcast.type}
+                     onChange={e => setNewBroadcast({...newBroadcast, type: e.target.value})}
+                     className="bg-slate-900 border border-slate-700 rounded-xl px-3 text-white text-xs font-medium outline-none focus:border-rose-500 w-28 shrink-0"
+                   >
+                     <option value="general">General</option>
+                     <option value="hiring">Hiring</option>
+                     <option value="holiday">Holiday</option>
+                     <option value="warning">Warning</option>
+                   </select>
+                   <input 
+                     type="text"
+                     className="flex-1 bg-slate-900 border border-slate-700 rounded-xl px-3 py-2.5 text-white text-sm font-medium focus:ring-2 focus:ring-rose-500 transition-all outline-none"
+                     placeholder="Type announcement here..."
+                     value={newBroadcast.text}
+                     onChange={e => setNewBroadcast({...newBroadcast, text: e.target.value})}
+                     onKeyDown={e => e.key === 'Enter' && addBroadcast()}
+                   />
+                 </div>
                  <button 
-                  onClick={saveBroadcast}
-                  className="bg-rose-600 text-white px-5 py-2 rounded-xl font-black text-xs uppercase tracking-widest leading-[1.4] hover:bg-rose-700 transition-all shadow-xl shadow-rose-900/40"
+                  onClick={addBroadcast}
+                  disabled={!newBroadcast.text.trim()}
+                  className="w-full mt-2 bg-rose-600 text-white px-5 py-2.5 rounded-xl font-black text-xs uppercase tracking-widest leading-[1.4] hover:bg-rose-700 disabled:opacity-50 disabled:hover:bg-rose-600 transition-all shadow-lg shadow-rose-900/40"
                  >
-                   Broadcast Now
+                   {editingBroadcastId ? 'Save Changes' : 'Broadcast'}
                  </button>
               </div>
            </motion.div>

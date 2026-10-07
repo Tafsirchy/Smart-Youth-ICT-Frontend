@@ -38,12 +38,12 @@ export default function PopularCourses() {
   const [page, setPage] = useState(1);
 
   const CATEGORY_LABELS = {
-    all: "All",
-    "web-dev": "Web Dev",
-    "graphic-design": "Graphic Design",
-    smm: "Marketing",
-    ai: "AI",
-    other: "Other",
+    all: "🌐 All Courses",
+    "web-dev": "💻 Web Dev",
+    "graphic-design": "🎨 Design",
+    smm: "📣 Marketing",
+    ai: "🤖 AI & Tools",
+    other: "🧩 Other",
   };
 
   const PAGE_SIZE = 8;
@@ -140,33 +140,37 @@ export default function PopularCourses() {
         <div
           className={`max-w-6xl mx-auto ${isEmptyState ? "mb-6" : "mb-8 sm:mb-12 md:mb-16"} space-y-6 sm:space-y-8`}
         >
-          {/* Search Bar */}
+          {/* Enhanced Search Bar */}
           <div className="relative max-w-2xl mx-auto group">
-            <IoSearchOutline
-              size={20}
-              className="absolute left-5 top-1/2 -translate-y-1/2 text-slate-400 group-focus-within:text-blue-600 transition-colors"
-            />
-            <input
-              type="text"
-              value={searchInput}
-              onChange={(e) => {
-                const value = e.target.value;
-                setSearchInput(value);
-              }}
-              placeholder="Search by course title or category"
-              className="w-full rounded-[2rem] border-none bg-white py-5 pl-14 pr-14 text-sm font-black text-slate-700 outline-none focus:ring-4 focus:ring-blue-100 shadow-2xl shadow-slate-100 transition-all placeholder:text-slate-300"
-            />
-            {searchInput && (
-              <button
-                onClick={() => {
-                  setSearchInput("");
-                }}
-                className="absolute right-5 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-700"
-                aria-label="Clear search"
+            <div className="flex items-center bg-white rounded-[2rem] p-2 border border-slate-200 shadow-sm hover:shadow-lg hover:-translate-y-0.5 transition-all duration-300 focus-within:border-blue-400 focus-within:ring-4 focus-within:ring-blue-500/10 focus-within:-translate-y-0.5 focus-within:shadow-lg">
+              <div className="pl-4 pr-3">
+                <IoSearchOutline
+                  size={20}
+                  className="text-slate-400 group-focus-within:text-blue-600 transition-colors"
+                />
+              </div>
+              <input
+                type="text"
+                value={searchInput}
+                onChange={(e) => setSearchInput(e.target.value)}
+                placeholder="What do you want to learn today?"
+                className="w-full border-none bg-transparent py-2.5 pl-0 pr-4 text-sm font-bold text-slate-700 outline-none placeholder:text-slate-400"
+              />
+              {searchInput && (
+                <button
+                  onClick={() => setSearchInput("")}
+                  className="p-2 mr-2 text-slate-400 hover:text-slate-700 transition-colors"
+                  aria-label="Clear search"
+                >
+                  <IoCloseOutline size={20} />
+                </button>
+              )}
+              <button 
+                className="hidden sm:block px-8 py-3.5 bg-slate-900 text-white text-[10px] font-black uppercase tracking-[0.2em] rounded-full hover:bg-blue-600 transition-colors shrink-0 shadow-sm"
               >
-                <IoCloseOutline size={22} />
+                Search
               </button>
-            )}
+            </div>
           </div>
 
           {/* Filters Bar */}
@@ -177,9 +181,9 @@ export default function PopularCourses() {
                   <button
                     key={cat}
                     onClick={() => setCategory(cat)}
-                    className={`rounded-full px-5 py-3.5 text-xs font-black uppercase tracking-[0.05em] transition-all shadow-sm min-h-[44px] flex items-center justify-center ${category === cat
-                        ? "bg-slate-900 text-white shadow-xl shadow-slate-200"
-                        : "bg-white text-slate-600 hover:bg-slate-50 border border-slate-100"
+                    className={`rounded-full px-5 py-3 text-[11px] font-black tracking-wide transition-all min-h-[44px] flex items-center justify-center border ${category === cat
+                        ? "bg-blue-600 text-white border-blue-600 shadow-md shadow-blue-500/20"
+                        : "bg-slate-50 text-slate-600 hover:bg-slate-100 border-slate-200"
                       }`}
                   >
                     {CATEGORY_LABELS[cat] || cat}

@@ -12,6 +12,8 @@ import {
   useScroll,
   useMotionValueEvent,
 } from "framer-motion";
+import { useQuery } from "@tanstack/react-query";
+import api from "@/lib/api";
 import MobileMenu from "./MobileMenu";
 
 /* ─── ABOUT MEGA MENU ─────────────────────────────────────────────── */
@@ -205,6 +207,20 @@ export default function Navbar() {
   const [hidden, setHidden] = useState(false);
   const { scrollY } = useScroll();
 
+  const { data: globalMessage } = useQuery({
+    queryKey: ['globalMessage'],
+    queryFn: async () => {
+      try {
+        const res = await api.get("/cms/settings/globalMessage");
+        return res.data?.data || null;
+      } catch (e) {
+        return null;
+      }
+    },
+    staleTime: 0,
+    refetchOnWindowFocus: true,
+  });
+
   const localeMatch = pathname.match(/^\/([a-z]{2}(-[A-Z]{2})?)(?=\/|$)/);
   const localePrefix = localeMatch ? `/${localeMatch[1]}` : "";
 
@@ -305,12 +321,56 @@ export default function Navbar() {
 
   return (
     <motion.header
-      className="bg-white shadow-sm fixed top-0 left-0 right-0 w-full z-[100] h-[var(--navbar-height)]"
+      className="bg-white shadow-sm fixed top-0 left-0 right-0 w-full z-[100]"
+      style={{ minHeight: "var(--navbar-height)" }}
       variants={{ visible: { y: 0 }, hidden: { y: "-100%" } }}
       animate={hidden ? "hidden" : "visible"}
       transition={{ duration: 0.35, ease: "easeInOut" }}
     >
-      <nav className="container-custom relative flex items-center justify-between h-full">
+      {/* ── Announcement Banner ── */}
+      <AnimatePresence>
+        {globalMessage && (!Array.isArray(globalMessage) || globalMessage.length > 0) && (
+          <motion.div
+            initial={{ height: 0, opacity: 0 }}
+            animate={{ height: "auto", opacity: 1 }}
+            exit={{ height: 0, opacity: 0 }}
+            className="bg-gradient-to-r from-emerald-600 via-green-600 to-teal-600 text-white w-full overflow-hidden relative"
+          >
+            <style>{`
+              @keyframes marquee {
+                0% { transform: translateX(100vw); }
+                100% { transform: translateX(-100%); }
+              }
+              .animate-marquee {
+                display: inline-flex;
+                white-space: nowrap;
+                animation: marquee 30s linear infinite;
+              }
+              .animate-marquee:hover {
+                animation-play-state: paused;
+              }
+            `}</style>
+
+            <div className="py-2 flex items-center overflow-hidden whitespace-nowrap group">
+              <div className="animate-marquee w-full min-w-full">
+                {(Array.isArray(globalMessage) ? globalMessage : globalMessage.split('\n').filter(Boolean).map((msg, i) => ({ id: i, text: msg.trim(), type: 'general' }))).map((msg) => (
+                  <span key={msg.id} className="text-xs sm:text-sm font-bold tracking-wide mx-8 inline-flex items-center gap-2">
+                    <span className="animate-pulse text-green-200">
+                      {msg.type === 'hiring' ? '💼' : msg.type === 'holiday' ? '🎉' : msg.type === 'warning' ? '⚠️' : '✨'}
+                    </span>
+                    {msg.text}
+                    <span className="animate-pulse text-green-200">
+                      {msg.type === 'hiring' ? '💼' : msg.type === 'holiday' ? '🎉' : msg.type === 'warning' ? '⚠️' : '✨'}
+                    </span>
+                  </span>
+                ))}
+              </div>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      <nav className="container-custom relative flex items-center justify-between h-[var(--navbar-height)]">
         {/* Logo */}
         <Link
           href="/"
@@ -428,51 +488,48 @@ export default function Navbar() {
                     scale: 0.98,
                     transition: { duration: 0.15 },
                   }}
-                  className="absolute top-full right-4 2xl:right-0 w-full max-w-[800px] bg-white rounded-2xl shadow-2xl border border-slate-100 overflow-hidden z-50 origin-top-right"
+                  className="absolute top-full right-4 2xl:right-0 w-full max-w-[800px] bg-white rounded-2xl shadow-xl border border-slate-100 overflow-hidden z-50 origin-top-right"
                 >
-                  {/* Header */}
-                  <div className="bg-slate-900 px-6 py-4 flex items-center justify-between border-b border-slate-800">
-                    <div className="flex items-center gap-2.5">
-                      <div className="w-6 h-6 rounded-md bg-white/10 flex items-center justify-center backdrop-blur-sm border border-white/5">
-                        <span className="text-white text-sm">📖</span>
-                      </div>
-                      <span className="text-white text-xs font-black uppercase tracking-[0.2em]">
+                  {/* Minimalist Editorial Top Bar */}
+                  <div className="bg-white px-6 py-5 flex items-center justify-between border-b border-slate-100">
+                    <div className="flex items-center gap-3">
+                      <span className="text-xl">📖</span>
+                      <p className="text-slate-900 text-sm font-black uppercase tracking-[0.15em]">
                         About Smart Youth ICT
-                      </span>
+                      </p>
                     </div>
                   </div>
 
-                  <div className="grid grid-cols-4 divide-x divide-slate-100/60 p-2 bg-slate-50/30">
+                  {/* 4-column minimal grid */}
+                  <div className="grid grid-cols-4 gap-2 p-3 bg-white">
                     {aboutColumns.map((col) => (
                       <div
                         key={col.heading}
-                        className="px-4 py-3.5 group/col hover:bg-white rounded-xl transition-colors duration-300"
+                        className="px-4 py-4 rounded-xl hover:bg-slate-50 transition-colors duration-300"
                       >
-                        <div className="flex items-center gap-2 mb-2.5">
-                          <div
-                            className={`w-7 h-7 rounded-lg flex items-center justify-center shrink-0 shadow-sm transition-transform duration-300 group-hover/col:scale-110 ${col.iconTheme}`}
-                          >
-                            <span className="text-xs">{col.icon}</span>
+                        <div className="flex items-center gap-2 mb-4">
+                          <div className="w-7 h-7 bg-brand-pink/10 text-brand-pink rounded-lg flex items-center justify-center shrink-0">
+                            <span className="text-sm">{col.icon}</span>
                           </div>
-                          <p className="text-xs font-black text-slate-800 uppercase tracking-widest leading-tight">
+                          <p className="text-[11px] font-black text-slate-800 uppercase tracking-widest leading-tight">
                             {col.heading}
                           </p>
                         </div>
-                        <ul className="space-y-0.5">
+                        <ul className="space-y-1">
                           {col.items.map((item) => {
                             const isItemActive = cleanPath === item.href;
                             return (
                               <li key={item.href}>
                                 <Link
                                   href={item.href}
-                                  className="flex flex-col gap-0.5 px-2 py-1.5 -mx-2 rounded-md hover:bg-slate-50 group/item transition-colors"
+                                  className="flex flex-col gap-0.5 px-3 py-2 -mx-3 rounded-xl hover:bg-white hover:shadow-[0_2px_10px_-4px_rgba(0,0,0,0.1)] group/item transition-all"
                                 >
                                   <span
-                                    className={`text-xs font-bold group-hover/item:text-brand-pink transition-colors leading-tight ${isItemActive ? "text-brand-green" : "text-slate-700"}`}
+                                    className={`text-xs font-bold transition-all transform group-hover/item:translate-x-1 leading-tight ${isItemActive ? "text-brand-pink" : "text-slate-700 group-hover/item:text-brand-pink"}`}
                                   >
                                     {item.label}
                                   </span>
-                                  <span className="text-xs text-slate-400 group-hover/item:text-slate-500 transition-colors">
+                                  <span className="text-[10px] text-slate-400 group-hover/item:text-slate-500 transition-colors transform group-hover/item:translate-x-1">
                                     {item.desc}
                                   </span>
                                 </Link>
@@ -485,8 +542,8 @@ export default function Navbar() {
                   </div>
 
                   {/* Trust Badge / Footer */}
-                  <div className="border-t border-slate-100 bg-white px-6 py-3 flex items-center justify-center">
-                    <p className="text-xs text-slate-400 font-bold uppercase tracking-[0.2em] italic">
+                  <div className="border-t border-slate-100 bg-slate-50/50 px-6 py-4 flex items-center justify-center">
+                    <p className="text-[10px] text-slate-400 font-bold uppercase tracking-[0.2em] italic">
                       From Learning to Earning • Built for Real-World Skills
                     </p>
                   </div>
@@ -527,31 +584,33 @@ export default function Navbar() {
                   initial={{ opacity: 0, y: 10, scale: 0.98 }}
                   animate={{ opacity: 1, y: 0, scale: 1 }}
                   exit={{ opacity: 0, y: 10, scale: 0.98, transition: { duration: 0.15 } }}
-                  className="absolute top-full left-1/2 -translate-x-1/2 mt-1 w-full max-w-[320px] bg-white rounded-2xl shadow-2xl border border-slate-100 overflow-hidden z-50 origin-top"
+                  className="absolute top-full left-1/2 -translate-x-1/2 mt-1 w-full max-w-[300px] bg-white rounded-2xl shadow-xl border border-slate-100 overflow-hidden z-50 origin-top"
                 >
-                  <div className="bg-slate-900 px-5 py-3 flex items-center gap-2.5 border-b border-slate-800">
-                    <span className="text-sm">🤝</span>
-                    <span className="text-white text-xs font-black uppercase tracking-[0.2em]">
+                  <div className="bg-white px-5 py-4 flex items-center gap-2.5 border-b border-slate-100">
+                    <div className="w-7 h-7 bg-brand-pink/10 text-brand-pink rounded-lg flex items-center justify-center shrink-0">
+                      <span className="text-sm">🤝</span>
+                    </div>
+                    <span className="text-slate-900 text-[11px] font-black uppercase tracking-[0.15em]">
                       Network &amp; Affiliations
                     </span>
                   </div>
-                  <ul className="p-2 bg-slate-50/30">
+                  <ul className="p-3 bg-white space-y-1">
                     <li>
                       <Link
                         href="/about/partnership-membership#memberships"
-                        className="flex flex-col gap-0.5 px-3 py-2 rounded-md hover:bg-slate-50 transition-colors"
+                        className="flex flex-col gap-0.5 px-4 py-2.5 rounded-xl hover:bg-slate-50 hover:shadow-[0_2px_10px_-4px_rgba(0,0,0,0.1)] transition-all group/item"
                       >
-                        <span className="text-xs font-bold text-slate-700">Our Memberships</span>
-                        <span className="text-xs text-slate-400">Organisations we belong to</span>
+                        <span className="text-xs font-bold text-slate-700 group-hover/item:text-brand-pink transition-all transform group-hover/item:translate-x-1">Our Memberships</span>
+                        <span className="text-[10px] text-slate-400 transition-all transform group-hover/item:translate-x-1">Organisations we belong to</span>
                       </Link>
                     </li>
                     <li>
                       <Link
                         href="/about/partnership-membership#partners"
-                        className="flex flex-col gap-0.5 px-3 py-2 rounded-md hover:bg-slate-50 transition-colors"
+                        className="flex flex-col gap-0.5 px-4 py-2.5 rounded-xl hover:bg-slate-50 hover:shadow-[0_2px_10px_-4px_rgba(0,0,0,0.1)] transition-all group/item"
                       >
-                        <span className="text-xs font-bold text-slate-700">Our Partnerships</span>
-                        <span className="text-xs text-slate-400">Who we work with</span>
+                        <span className="text-xs font-bold text-slate-700 group-hover/item:text-brand-pink transition-all transform group-hover/item:translate-x-1">Our Partnerships</span>
+                        <span className="text-[10px] text-slate-400 transition-all transform group-hover/item:translate-x-1">Who we work with</span>
                       </Link>
                     </li>
                   </ul>
@@ -698,61 +757,56 @@ export default function Navbar() {
               }}
               // Positioned absolutely within the container-custom.
               // right-4 ensures it bounds to the right side of the screen minus container padding. No more left overflow!
-              className="absolute top-[100%] right-4 2xl:right-0 w-full max-w-[800px] bg-white rounded-2xl shadow-2xl border border-slate-100 overflow-hidden z-50 origin-top-right"
+              className="absolute top-[100%] right-4 2xl:right-0 w-full max-w-[800px] bg-white rounded-2xl shadow-xl border border-slate-100 overflow-hidden z-50 origin-top-right"
             >
-              {/* Premium Top Bar */}
-              <div className="bg-gradient-to-r from-slate-950 via-slate-900 to-slate-800 px-6 py-4 flex items-center justify-between border-b border-white/10 relative overflow-hidden">
-                <div className="absolute top-0 right-0 w-64 h-full bg-brand-pink/20 blur-3xl rounded-full" />
-                <div className="relative z-10 flex items-center gap-2">
-                  <div className="w-6 h-6 rounded-md bg-white/10 flex items-center justify-center backdrop-blur-sm border border-white/5">
-                    <span className="text-white text-sm">💡</span>
-                  </div>
-                  <p className="text-white text-xs font-black uppercase tracking-[0.2em]">
+              {/* Minimalist Editorial Top Bar */}
+              <div className="bg-white px-6 py-5 flex items-center justify-between border-b border-slate-100">
+                <div className="flex items-center gap-3">
+                  <span className="text-xl">💡</span>
+                  <p className="text-slate-900 text-sm font-black uppercase tracking-[0.15em]">
                     Our Expert Services
                   </p>
                 </div>
                 <Link
                   href="/services"
-                  className="relative z-10 text-brand-pink text-xs font-bold hover:text-white transition-colors bg-white/5 hover:bg-brand-pink border border-white/10 hover:border-brand-pink px-3 py-1.5 rounded-full flex items-center gap-1"
+                  className="text-brand-pink text-xs font-bold hover:text-rose-500 transition-colors flex items-center gap-1 group/link"
                 >
-                  View full catalog <span className="text-xs">→</span>
+                  View full catalog <span className="transition-transform group-hover/link:translate-x-1">→</span>
                 </Link>
               </div>
 
-              {/* 4-column glass grid */}
-              <div className="grid grid-cols-4 divide-x divide-slate-100/60 p-2 bg-slate-50/30">
+              {/* 4-column minimal grid */}
+              <div className="grid grid-cols-4 gap-2 p-3 bg-white">
                 {serviceColumns.map((col) => (
                   <div
                     key={col.heading}
-                    className="px-4 py-3.5 group/col hover:bg-white rounded-xl transition-colors duration-300"
+                    className="px-4 py-4 rounded-xl hover:bg-slate-50 transition-colors duration-300"
                   >
-                    <div className="flex items-center gap-2 mb-2.5">
-                      <div
-                        className={`w-7 h-7 rounded-lg flex items-center justify-center shrink-0 shadow-sm transition-transform duration-300 group-hover/col:scale-110 ${col.iconTheme}`}
-                      >
-                        <span className="text-xs">{col.icon}</span>
+                    <div className="flex items-center gap-2 mb-4">
+                      <div className="w-7 h-7 bg-brand-pink/10 text-brand-pink rounded-lg flex items-center justify-center shrink-0">
+                        <span className="text-sm">{col.icon}</span>
                       </div>
-                      <p className="text-xs font-black text-slate-800 uppercase tracking-widest leading-tight">
+                      <p className="text-[11px] font-black text-slate-800 uppercase tracking-widest leading-tight">
                         {col.heading}
                       </p>
                     </div>
                     <div>
-                      <ul className="space-y-0.5">
+                      <ul className="space-y-1">
                         {col.items.map((item) => {
                           const isItemActive = cleanPath === item.href;
                           return (
                             <li key={item.href}>
                               <Link
                                 href={item.href}
-                                className="flex items-center justify-between gap-1 px-2 py-1 -mx-2 rounded-md hover:bg-slate-50 group transition-colors"
+                                className="flex items-center justify-between gap-1 px-3 py-2 -mx-3 rounded-xl hover:bg-white hover:shadow-[0_2px_10px_-4px_rgba(0,0,0,0.1)] group/item transition-all"
                               >
                                 <span
-                                  className={`text-xs font-medium group-hover:text-brand-pink transition-colors leading-tight ${isItemActive ? "text-brand-green" : "text-slate-600"}`}
+                                  className={`text-xs font-bold transition-all transform group-hover/item:translate-x-1 leading-tight ${isItemActive ? "text-brand-pink" : "text-slate-700 group-hover/item:text-brand-pink"}`}
                                 >
                                   {item.label}
                                 </span>
                                 {item.badge && (
-                                  <span className="shrink-0 text-xs font-black text-white bg-gradient-to-r from-pink-500 to-rose-500 px-1 py-0.5 rounded-sm shadow-sm uppercase tracking-wider">
+                                  <span className="shrink-0 text-[10px] font-black text-rose-500 bg-rose-50 px-1.5 py-0.5 rounded-sm uppercase tracking-wider transition-all transform group-hover/item:-translate-x-1">
                                     {item.badge}
                                   </span>
                                 )}
@@ -767,9 +821,9 @@ export default function Navbar() {
               </div>
 
               {/* Bottom CTA */}
-              <div className="border-t border-slate-100 bg-white px-6 py-4 flex items-center justify-between">
+              <div className="border-t border-slate-100 bg-slate-50/50 px-6 py-4 flex items-center justify-between">
                 <div className="flex items-center gap-3">
-                  <span className="text-xl">💬</span>
+                  <span className="text-lg">💬</span>
                   <p className="text-xs text-slate-600 font-medium tracking-wide">
                     Not sure what you need?{" "}
                     <strong className="text-slate-900 border-b border-slate-300 pb-0.5 ml-1">
@@ -779,7 +833,7 @@ export default function Navbar() {
                 </div>
                 <Link
                   href="/contact"
-                  className="text-xs font-black text-white bg-slate-900 hover:bg-brand-pink px-5 py-2 rounded-full transition-colors flex items-center gap-2"
+                  className="text-[11px] font-black text-slate-900 border border-slate-200 hover:border-brand-pink hover:text-brand-pink px-4 py-1.5 rounded-full transition-colors flex items-center gap-2"
                 >
                   Get a Free Quote
                 </Link>

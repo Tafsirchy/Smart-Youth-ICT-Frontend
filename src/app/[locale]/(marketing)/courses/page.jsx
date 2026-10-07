@@ -60,6 +60,19 @@ export default function CoursesPage() {
     gcTime: 10 * 60 * 1000
   });
 
+  const { data: heroConfig } = useQuery({
+    queryKey: ['courses_hero_config'],
+    queryFn: async () => {
+      try {
+        const res = await api.get("/cms/settings/courses_hero_config");
+        return res.data?.data || { mode: 'text_and_search', imageUrl: null };
+      } catch (e) {
+        return { mode: 'text_and_search', imageUrl: null };
+      }
+    },
+    staleTime: 10 * 60 * 1000,
+  });
+
   const courses = coursesData || [];
 
   const branchOptions = useMemo(() => {
@@ -108,69 +121,84 @@ export default function CoursesPage() {
     >
       {/* ── Hero Banner ───────────────────────────────── */}
       <section
-        className="relative overflow-hidden py-12 sm:py-20 text-center px-4"
+        className={`relative w-full overflow-hidden ${
+          heroConfig?.mode === 'image_only' 
+            ? 'h-[250px] sm:h-[350px] md:h-[450px]' 
+            : 'py-12 sm:py-20 text-center px-4'
+        }`}
         style={{
-          background:
-            "linear-gradient(135deg, #0f172a 0%, #1e1b4b 60%, #312e81 100%)",
+          background: heroConfig?.imageUrl 
+            ? `url(${heroConfig.imageUrl}) center/cover no-repeat` 
+            : "linear-gradient(135deg, #0f172a 0%, #1e1b4b 60%, #312e81 100%)",
         }}
       >
-        <motion.div
-          className="absolute -top-24 -left-20 w-72 h-72 rounded-full opacity-20 blur-3xl pointer-events-none"
-          style={{ background: "var(--color-brand-pink)" }}
-          animate={{ scale: [1, 1.12, 1] }}
-          transition={{ duration: 8, repeat: Infinity }}
-        />
-        <motion.div
-          className="absolute -bottom-20 -right-20 w-64 h-64 rounded-full opacity-15 blur-3xl pointer-events-none"
-          style={{ background: "#818cf8" }}
-          animate={{ scale: [1, 1.18, 1] }}
-          transition={{ duration: 7, repeat: Infinity, delay: 1.5 }}
-        />
-
-        <motion.div
-          className="relative z-10 max-w-3xl mx-auto"
-          initial={{ opacity: 0, y: 16 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
-        >
-          <span className="inline-block mb-3 px-4 py-1.5 rounded-full text-[10px] sm:text-xs font-bold uppercase tracking-wider text-indigo-200 bg-white/10 border border-white/10">
-            🎓{" "}
-            {filteredCourses.length > 0
-              ? `${filteredCourses.length} Courses Available`
-              : "Courses"}
-          </span>
-          <h1 className="text-4xl sm:text-5xl md:text-6xl font-black text-white leading-[1.15] mb-6 sm:mb-8 tracking-tighter">
-            Explore Our <br className="hidden sm:block" />
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-indigo-400 to-blue-500 animate-gradient-x">Courses</span>
-          </h1>
-          <p className="text-indigo-200/80 text-sm sm:text-base lg:text-lg max-w-xl mx-auto mb-6 sm:mb-8 leading-relaxed">
-            Learn demand-driven skills from industry experts and start earning
-            via real client projects.
-          </p>
-
-          {/* Search Bar */}
-          <div className="relative max-w-lg mx-auto">
-            <IoSearchOutline
-              size={20}
-              className="absolute left-4 top-1/2 -translate-y-1/2 text-indigo-300"
-            />
-            <input
-              type="text"
-              placeholder="Search courses…"
-              className="w-full pl-12 pr-12 py-3.5 sm:py-4 rounded-2xl bg-white/10 backdrop-blur-sm border border-white/20 text-white placeholder-indigo-300/70 focus:outline-none focus:ring-2 focus:ring-indigo-400 transition text-base min-h-[48px]"
-              value={inputVal}
-              onChange={handleSearchChange}
-            />
-            {inputVal && (
-              <button
-                onClick={clearSearch}
-                className="absolute right-4 top-1/2 -translate-y-1/2 text-indigo-300 hover:text-white"
-              >
-                <IoCloseOutline size={20} />
-              </button>
+        {heroConfig?.mode !== 'image_only' && (
+          <>
+            {heroConfig?.imageUrl && <div className="absolute inset-0 bg-slate-900/60 backdrop-blur-[2px] z-0" />}
+            
+            {!heroConfig?.imageUrl && (
+              <>
+                <motion.div
+                  className="absolute -top-24 -left-20 w-72 h-72 rounded-full opacity-20 blur-3xl pointer-events-none"
+                  style={{ background: "var(--color-brand-pink)" }}
+                  animate={{ scale: [1, 1.12, 1] }}
+                  transition={{ duration: 8, repeat: Infinity }}
+                />
+                <motion.div
+                  className="absolute -bottom-20 -right-20 w-64 h-64 rounded-full opacity-15 blur-3xl pointer-events-none"
+                  style={{ background: "#818cf8" }}
+                  animate={{ scale: [1, 1.18, 1] }}
+                  transition={{ duration: 7, repeat: Infinity, delay: 1.5 }}
+                />
+              </>
             )}
-          </div>
-        </motion.div>
+
+            <motion.div
+              className="relative z-10 max-w-3xl mx-auto"
+              initial={{ opacity: 0, y: 16 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5 }}
+            >
+              <span className="inline-block mb-3 px-4 py-1.5 rounded-full text-[10px] sm:text-xs font-bold uppercase tracking-wider text-indigo-200 bg-white/10 border border-white/10 backdrop-blur-md">
+                🎓{" "}
+                {filteredCourses.length > 0
+                  ? `${filteredCourses.length} Courses Available`
+                  : "Courses"}
+              </span>
+              <h1 className="text-4xl sm:text-5xl md:text-6xl font-black text-white leading-[1.15] mb-6 sm:mb-8 tracking-tighter">
+                Explore Our <br className="hidden sm:block" />
+                <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-indigo-400 to-blue-500 animate-gradient-x">Courses</span>
+              </h1>
+              <p className="text-indigo-200/90 text-sm sm:text-base lg:text-lg max-w-xl mx-auto mb-6 sm:mb-8 leading-relaxed font-medium">
+                Learn demand-driven skills from industry experts and start earning
+                via real client projects.
+              </p>
+
+              {/* Search Bar */}
+              <div className="relative max-w-lg mx-auto shadow-2xl shadow-black/20 rounded-2xl">
+                <IoSearchOutline
+                  size={20}
+                  className="absolute left-4 top-1/2 -translate-y-1/2 text-indigo-300"
+                />
+                <input
+                  type="text"
+                  placeholder="Search courses…"
+                  className="w-full pl-12 pr-12 py-3.5 sm:py-4 rounded-2xl bg-white/15 backdrop-blur-md border border-white/20 text-white placeholder-indigo-200 focus:outline-none focus:ring-2 focus:ring-indigo-400 focus:bg-white/20 transition-all text-base min-h-[48px]"
+                  value={inputVal}
+                  onChange={handleSearchChange}
+                />
+                {inputVal && (
+                  <button
+                    onClick={clearSearch}
+                    className="absolute right-4 top-1/2 -translate-y-1/2 text-indigo-300 hover:text-white"
+                  >
+                    <IoCloseOutline size={20} />
+                  </button>
+                )}
+              </div>
+            </motion.div>
+          </>
+        )}
       </section>
 
       {/* ── Category Filter Bar ─────────────────────── */}

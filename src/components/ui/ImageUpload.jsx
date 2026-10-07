@@ -176,9 +176,9 @@ export default function ImageUpload({
                   <span className="text-xs font-bold">Uploading...</span>
                 </div>
               ) : (
-                <div className="flex items-center gap-2.5">
-                  <label className="min-h-[44px] px-4 py-2.5 bg-white text-slate-800 rounded-xl active:scale-95 transition-transform shadow-lg cursor-pointer text-xs font-black uppercase tracking-wider flex items-center gap-1.5 select-none">
-                    <LuUpload size={16} />
+                <div className="flex flex-col items-stretch w-full max-w-[120px] gap-2">
+                  <label className="min-h-[36px] w-full px-2 py-1.5 bg-white text-slate-800 rounded-lg active:scale-95 transition-transform shadow-lg cursor-pointer text-[10px] font-black uppercase tracking-wider flex items-center justify-center gap-1.5 select-none">
+                    <LuUpload size={14} />
                     <span>Replace</span>
                     <input
                       type="file"
@@ -193,9 +193,10 @@ export default function ImageUpload({
                     onClick={removeImage}
                     title="Remove Image"
                     aria-label="Remove Image"
-                    className="min-h-[44px] min-w-[44px] p-2.5 bg-rose-600 hover:bg-rose-700 text-white rounded-xl active:scale-95 transition-transform shadow-lg flex items-center justify-center"
+                    className="min-h-[36px] w-full p-1.5 bg-rose-600 hover:bg-rose-700 text-white rounded-lg active:scale-95 transition-transform shadow-lg flex items-center justify-center gap-1.5"
                   >
-                    <LuX size={18} />
+                    <LuX size={14} />
+                    <span className="text-[10px] uppercase font-black">Delete</span>
                   </button>
                 </div>
               )}

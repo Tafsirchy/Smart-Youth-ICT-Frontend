@@ -106,7 +106,7 @@ export default function Mentors() {
             transition={{ duration: 0.6 }}
           >
             <span className="inline-block text-brand-pink text-xs font-black uppercase tracking-[0.3em] mb-2">
-              Board of Directors
+              Expert Mentors
             </span>
             <h2 className="text-4xl sm:text-5xl md:text-6xl font-black text-slate-900 leading-[1.1] tracking-tighter">
               Learn from the <br/> Best in Industry.
