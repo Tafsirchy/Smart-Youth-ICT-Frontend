@@ -95,6 +95,7 @@ export const aboutColumns = [
         desc: "Find our branches",
       },
       { label: "Contact Us", href: "/contact", desc: "Get in touch" },
+      { label: "Blog", href: "/blog", desc: "News & updates" },
     ],
   },
 ];
@@ -192,7 +193,6 @@ const navLinks = [
   { href: "/courses", label: "Courses" },
   { href: "/branches", label: "Branches" },
   { href: "/success-stories", label: "Success" },
-  { href: "/blog", label: "Blog" },
   { href: "/contact", label: "Contact" },
 ];
 
@@ -277,6 +277,7 @@ export default function Navbar() {
       "/seminar",
       "/services",
       "/about",
+      "/about/partnership-membership",
       "/login",
       "/register",
     ]);
@@ -337,7 +338,7 @@ export default function Navbar() {
         </Link>
 
         {/* Desktop links */}
-        <ul className="hidden md:flex items-center gap-0.5">
+        <ul className="hidden md:flex items-center gap-0">
           {navLinks.map(({ href, label }, i) => (
             <motion.li
               key={href}
@@ -354,7 +355,7 @@ export default function Navbar() {
                   handleMouseEnter(null);
                   prefetchRoutes([href]);
                 }}
-                className={`px-2.5 py-1.5 rounded-lg text-sm font-medium transition-all ${isActive(href)
+                className={`px-2 py-1.5 rounded-lg text-sm font-medium transition-all ${isActive(href)
                   ? "text-brand-green bg-brand-green/10 font-semibold"
                   : "text-gray-700 hover:text-brand-green hover:bg-brand-green/5"
                   }`}
@@ -374,7 +375,7 @@ export default function Navbar() {
             <button
               onMouseEnter={() => handleMouseEnter("services")}
               onMouseLeave={handleMouseLeave}
-              className={`flex items-center gap-1 px-2.5 py-1.5 rounded-lg text-sm font-medium transition-all ${isActive("/services") || activeDropdown === "services"
+              className={`flex items-center gap-1 px-2 py-1.5 rounded-lg text-sm font-medium transition-all ${isActive("/services") || activeDropdown === "services"
                 ? "text-brand-green bg-brand-green/10 font-semibold"
                 : "text-gray-700 hover:text-brand-green hover:bg-brand-green/5"
                 }`}
@@ -399,7 +400,7 @@ export default function Navbar() {
             <button
               onMouseEnter={() => handleMouseEnter("about")}
               onMouseLeave={handleMouseLeave}
-              className={`flex items-center gap-1 px-2.5 py-1.5 rounded-lg text-sm font-medium transition-all ${isActive("/about") || activeDropdown === "about"
+              className={`flex items-center gap-1 px-2 py-1.5 rounded-lg text-sm font-medium transition-all ${(isActive("/about") && !cleanPath.startsWith("/about/partnership-membership")) || activeDropdown === "about"
                 ? "text-brand-green bg-brand-green/10 font-semibold"
                 : "text-gray-700 hover:text-brand-green hover:bg-brand-green/5"
                 }`}
@@ -493,6 +494,71 @@ export default function Navbar() {
               )}
             </AnimatePresence>
           </motion.li>
+
+          {/* Partnership & Membership Trigger */}
+          <motion.li
+            initial={{ opacity: 0, y: -8 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.5 }}
+            className="static"
+          >
+            <button
+              onMouseEnter={() => handleMouseEnter("partnership")}
+              onMouseLeave={handleMouseLeave}
+              className={`flex items-center gap-1 px-2 py-1.5 rounded-lg text-sm font-medium transition-all ${isActive("/about/partnership-membership") || activeDropdown === "partnership"
+                ? "text-brand-green bg-brand-green/10 font-semibold"
+                : "text-gray-700 hover:text-brand-green hover:bg-brand-green/5"
+                }`}
+            >
+              Partnership &amp; Membership
+              <motion.span
+                animate={{ rotate: activeDropdown === "partnership" ? 180 : 0 }}
+                transition={{ duration: 0.2 }}
+              >
+                <HiChevronDown size={14} />
+              </motion.span>
+            </button>
+
+            <AnimatePresence>
+              {activeDropdown === "partnership" && (
+                <motion.div
+                  onMouseEnter={() => handleMouseEnter("partnership")}
+                  onMouseLeave={handleMouseLeave}
+                  initial={{ opacity: 0, y: 10, scale: 0.98 }}
+                  animate={{ opacity: 1, y: 0, scale: 1 }}
+                  exit={{ opacity: 0, y: 10, scale: 0.98, transition: { duration: 0.15 } }}
+                  className="absolute top-full left-1/2 -translate-x-1/2 mt-1 w-full max-w-[320px] bg-white rounded-2xl shadow-2xl border border-slate-100 overflow-hidden z-50 origin-top"
+                >
+                  <div className="bg-slate-900 px-5 py-3 flex items-center gap-2.5 border-b border-slate-800">
+                    <span className="text-sm">🤝</span>
+                    <span className="text-white text-xs font-black uppercase tracking-[0.2em]">
+                      Network &amp; Affiliations
+                    </span>
+                  </div>
+                  <ul className="p-2 bg-slate-50/30">
+                    <li>
+                      <Link
+                        href="/about/partnership-membership#memberships"
+                        className="flex flex-col gap-0.5 px-3 py-2 rounded-md hover:bg-slate-50 transition-colors"
+                      >
+                        <span className="text-xs font-bold text-slate-700">Our Memberships</span>
+                        <span className="text-xs text-slate-400">Organisations we belong to</span>
+                      </Link>
+                    </li>
+                    <li>
+                      <Link
+                        href="/about/partnership-membership#partners"
+                        className="flex flex-col gap-0.5 px-3 py-2 rounded-md hover:bg-slate-50 transition-colors"
+                      >
+                        <span className="text-xs font-bold text-slate-700">Our Partnerships</span>
+                        <span className="text-xs text-slate-400">Who we work with</span>
+                      </Link>
+                    </li>
+                  </ul>
+                </motion.div>
+              )}
+            </AnimatePresence>
+          </motion.li>
         </ul>
 
         {/* CTA / Auth */}
@@ -507,11 +573,11 @@ export default function Navbar() {
             href="/seminar"
             id="nav-seminar-badge"
             onMouseEnter={() => prefetchRoutes(["/seminar"])}
-            className="group relative hidden lg:inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-black tracking-wide text-rose-600 bg-rose-50 border border-rose-200/80 hover:bg-rose-100 hover:border-rose-300 transition-all shadow-sm shrink-0"
+            className="group relative hidden lg:inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-black tracking-wide text-rose-600 bg-rose-50 border border-rose-200/80 hover:bg-rose-100 hover:border-rose-300 transition-all shadow-sm shrink-0"
           >
-            <span className="relative flex h-2 w-2">
+            <span className="relative flex h-1.5 w-1.5">
               <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-rose-400 opacity-75"></span>
-              <span className="relative inline-flex rounded-full h-2 w-2 bg-rose-500"></span>
+              <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-rose-500"></span>
             </span>
             <span>Free Seminar</span>
           </Link>
