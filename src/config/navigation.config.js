@@ -58,6 +58,7 @@ export const NAVIGATION_CONFIG = {
     { href: '/super/cms/success-stories', Icon: HiBadgeCheck,    label: 'Success Stories' },
     { href: '/super/cms/testimonials',    Icon: HiAnnotation,   label: 'Testimonials' },
     { href: '/super/cms/partners',        Icon: HiCollection,   label: 'Our Partners' },
+    { href: '/super/cms/memberships',     Icon: HiPuzzle,       label: 'Memberships' },
     { href: '/super/cms/blogs',           Icon: HiAnnotation,   label: 'Blog Posts' },
   ],
 
