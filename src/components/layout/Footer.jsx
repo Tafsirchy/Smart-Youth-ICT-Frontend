@@ -209,7 +209,6 @@ export default function Footer() {
  >
  Terms of Service
  </Link>
- <span>Made with ❤️ in Bangladesh 🇧🇩</span>
  </div>
  </div>
  </div>
