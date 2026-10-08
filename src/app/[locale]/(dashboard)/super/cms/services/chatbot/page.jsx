@@ -326,7 +326,7 @@ export default function ChatbotCMS() {
  <button onClick={() => {
  const newArr = content.landing.sections.metrics.filter((_, i) => i !== idx);
  updateNested("landing", "sections.metrics", newArr);
- }} className="absolute top-2 right-2 text-white/10 hover:text-rose-500 opacity-0 group-hover:opacity-100 transition-all p-1 bg-white/5 "><IoTrashOutline size={14}/></button>
+ }} className="absolute top-2 right-2 text-white/10 hover:text-rose-500 opacity-0 group-hover:opacity-100 transition-all p-1 bg-white/5"><IoTrashOutline size={14}/></button>
  <input className="bg-transparent border-none outline-none font-black text-base md:text-xs uppercase text-white w-full" value={metric.t} onChange={(e) => {
  const newArr = [...content.landing.sections.metrics];
  newArr[idx].t = e.target.value;
@@ -384,7 +384,7 @@ export default function ChatbotCMS() {
  updateNested("details", "sections.phases", newArr);
  }} compact>
  <div className="flex gap-2 mb-2">
- <input placeholder="01" className="w-10 bg-slate-50 border-none outline-none font-mono text-base md:text-[10px] text-amber-600 font-bold px-2 py-1 " value={phase.step} onChange={(e) => {
+ <input placeholder="01" className="w-10 bg-slate-50 border-none outline-none font-mono text-base md:text-[10px] text-amber-600 font-bold px-2 py-1" value={phase.step} onChange={(e) => {
  const newArr = [...content.details.sections.phases];
  newArr[idx].step = e.target.value;
  updateNested("details", "sections.phases", newArr);
@@ -423,7 +423,7 @@ export default function ChatbotCMS() {
  <button onClick={() => {
  const newArr = content.details.sections.roi.filter((_, i) => i !== idx);
  updateNested("details", "sections.roi", newArr);
- }} className="absolute top-2 right-2 text-slate-200 hover:text-rose-500 transition-all opacity-0 group-hover:opacity-100 z-10 p-1 bg-white/5 "><IoTrashOutline size={14}/></button>
+ }} className="absolute top-2 right-2 text-slate-200 hover:text-rose-500 transition-all opacity-0 group-hover:opacity-100 z-10 p-1 bg-white/5"><IoTrashOutline size={14}/></button>
  
  <div className="mb-3">
  <label className="text-[8px] font-black uppercase text-indigo-600 mb-1 block">Framework Group</label>

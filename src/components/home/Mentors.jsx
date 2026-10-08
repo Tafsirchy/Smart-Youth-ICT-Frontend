@@ -46,12 +46,12 @@ const PortraitMentorCard = ({ mentor }) => {
  <div className="w-full pt-3 border-t border-slate-100 flex items-center justify-between mt-auto">
  <div className="flex items-center gap-1 -ml-1">
  {mentor.socials?.linkedin && (
- <a href={mentor.socials.linkedin} target="_blank" rel="noreferrer" className="text-slate-400 hover:text-[#0A66C2] transition-colors p-1.5 hover:bg-slate-50 ">
+ <a href={mentor.socials.linkedin} target="_blank" rel="noreferrer" className="text-slate-400 hover:text-[#0A66C2] transition-colors p-1.5 hover:bg-slate-50">
  <IoLogoLinkedin size={16} />
  </a>
  )}
  {mentor.socials?.twitter && (
- <a href={mentor.socials.twitter} target="_blank" rel="noreferrer" className="text-slate-400 hover:text-[#1DA1F2] transition-colors p-1.5 hover:bg-slate-50 ">
+ <a href={mentor.socials.twitter} target="_blank" rel="noreferrer" className="text-slate-400 hover:text-[#1DA1F2] transition-colors p-1.5 hover:bg-slate-50">
  <IoLogoTwitter size={16} />
  </a>
  )}

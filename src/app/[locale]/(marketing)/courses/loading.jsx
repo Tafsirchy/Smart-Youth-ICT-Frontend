@@ -21,7 +21,7 @@ export default function CoursesLoading() {
  <div className="sticky top-0 z-20 bg-[var(--color-surface)] border-b border-neutral-200 shadow-sm">
  <div className="container-custom py-3 flex gap-2 overflow-hidden">
  {[100, 88, 72, 96, 80, 76].map((w, i) => (
- <Skeleton key={i} className="h-9 shrink-0 " style={{ width: w }} />
+ <Skeleton key={i} className="h-9 shrink-0" style={{ width: w }} />
  ))}
  </div>
  </div>

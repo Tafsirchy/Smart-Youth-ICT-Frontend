@@ -351,7 +351,7 @@ export default function SystemSettingsPage() {
  <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest leading-[1.4]">Content</label>
  <textarea required value={articleForm.content} onChange={e => setArticleForm({...articleForm, content: e.target.value})} className="w-full bg-slate-50 border-none p-3 font-medium text-slate-700 outline-none focus:ring-2 focus:ring-rose-500/20 min-h-[150px] leading-[1.6]" />
  </div>
- <div className="flex items-center justify-between p-3 bg-slate-50 ">
+ <div className="flex items-center justify-between p-3 bg-slate-50">
  <span className="text-xs font-black text-slate-800 uppercase tracking-widest leading-[1.4]">Publish Immediately</span>
  <button 
  type="button"

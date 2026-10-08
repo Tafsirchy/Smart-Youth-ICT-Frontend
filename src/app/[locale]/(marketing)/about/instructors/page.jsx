@@ -249,7 +249,7 @@ export default function InstructorsPage() {
  {(instructor.expertise || []).slice(0, 3).map((t) => (
  <span
  key={t}
- className="px-2 py-1 bg-slate-100 text-slate-500 text-[9px] font-bold uppercase tracking-wider "
+ className="px-2 py-1 bg-slate-100 text-slate-500 text-[9px] font-bold uppercase tracking-wider"
  >
  {t}
  </span>

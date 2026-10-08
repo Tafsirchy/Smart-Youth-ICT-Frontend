@@ -458,7 +458,7 @@ export default function MasterCurriculumPage() {
  <motion.div
  initial={{ opacity: 0, y: -10 }}
  animate={{ opacity: 1, y: 0 }}
- className=" border border-slate-100 bg-white shadow-sm p-4 space-y-3"
+ className="border border-slate-100 bg-white shadow-sm p-4 space-y-3"
  >
  <div className="flex items-center justify-between">
  <h3 className="text-sm font-black text-slate-900 uppercase tracking-widest">
@@ -683,7 +683,7 @@ decoding="async"/>
  </motion.div>
 
  {!loading && totalFiltered > 0 && totalPages > 1 && (
- <div className=" border border-slate-100 bg-white px-4 py-3 md:px-5 md:py-3 shadow-sm flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
+ <div className="border border-slate-100 bg-white px-4 py-3 md:px-5 md:py-3 shadow-sm flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
  <p className="text-[11px] font-black uppercase tracking-widest text-slate-400">
  Showing{" "}
  <span className="text-slate-900">{(page - 1) * PAGE_SIZE + 1}</span>{" "}
@@ -930,7 +930,7 @@ decoding="async"/>
  <img
  src={courseForm.thumbnail}
  alt="Preview"
- className=" object-cover bg-[#f0f0f0]"
+ className="object-cover bg-[#f0f0f0]"
  style={{ maxWidth: '100%', maxHeight: '300px' }}
  
 loading="lazy"

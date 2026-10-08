@@ -36,7 +36,7 @@ export default function BusinessWebsitesClient({ data }) {
             <motion.div
               initial={{ opacity: 0, x: -20 }}
               animate={{ opacity: 1, x: 0 }}
-              className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-blue-50 border border-blue-100 text-blue-700 text-[10px] sm:text-xs font-black tracking-widest uppercase mb-4 sm:mb-6 leading-[1.4]"
+              className="inline-flex items-center gap-2 px-4 py-2 bg-blue-50 border border-blue-100 text-blue-700 text-[10px] sm:text-xs font-black tracking-widest uppercase mb-4 sm:mb-6 leading-[1.4]"
             >
               <IoRocketOutline className="text-sm" /> {hero.badge}
             </motion.div>
@@ -61,12 +61,12 @@ export default function BusinessWebsitesClient({ data }) {
             </motion.p>
 
             <div className="flex flex-col sm:flex-row gap-3 sm:gap-4">
-              <button className="w-full sm:w-[280px] min-h-[48px] px-5 py-3 sm:py-4 bg-blue-600 text-white font-black rounded-xl hover:bg-blue-700 transition-all shadow-xl shadow-blue-600/20 uppercase text-[10px] sm:text-xs flex items-center justify-center leading-[1.4]">
+              <button className="w-full sm:w-[280px] min-h-[48px] px-5 py-3 sm:py-4 bg-blue-600 text-white font-black hover:bg-blue-700 transition-all shadow-xl shadow-blue-600/20 uppercase text-[10px] sm:text-xs flex items-center justify-center leading-[1.4]">
                 Initialize Consultation
               </button>
               <Link
                 href="/services/business-websites/details"
-                className="w-full sm:w-[280px] min-h-[48px] px-5 py-3 sm:py-4 bg-white border border-slate-200 text-slate-900 font-black rounded-xl hover:bg-slate-50 transition-all uppercase text-[10px] sm:text-xs flex items-center justify-center text-center leading-[1.4]"
+                className="w-full sm:w-[280px] min-h-[48px] px-5 py-3 sm:py-4 bg-white border border-slate-200 text-slate-900 font-black hover:bg-slate-50 transition-all uppercase text-[10px] sm:text-xs flex items-center justify-center text-center leading-[1.4]"
               >
                 Technical Specifications
               </Link>
@@ -78,7 +78,7 @@ export default function BusinessWebsitesClient({ data }) {
               initial={{ opacity: 0, scale: 0.9, rotate: 5 }}
               animate={{ opacity: 1, scale: 1, rotate: 0 }}
               transition={{ duration: 1 }}
-              className="relative p-6 lg:p-8 bg-white rounded-3xl lg:rounded-[4rem] border border-slate-100 shadow-2xl overflow-hidden"
+              className="relative p-6 lg:p-8 bg-white lg:-[4rem] border border-slate-100 shadow-2xl overflow-hidden"
             >
               <div className="absolute inset-0 opacity-[0.03] pointer-events-none" style={{ backgroundImage: "linear-gradient(#000 1px, transparent 1px), linear-gradient(90deg, #000 1px, transparent 1px)", backgroundSize: "50px 50px" }}></div>
               <img
@@ -87,7 +87,7 @@ export default function BusinessWebsitesClient({ data }) {
                 height={800}
                 fetchPriority="high"
                 onError={(e) => { e.target.onerror = null; e.target.src = '/images/placeholder.png'; }}
-                className="w-full aspect-square object-cover rounded-2xl lg:rounded-[3rem] grayscale hover:grayscale-0 transition-all duration-1000 shadow-inner bg-[#f0f0f0]"
+                className="w-full aspect-square object-cover lg:-[3rem] grayscale hover:grayscale-0 transition-all duration-1000 shadow-inner bg-[#f0f0f0]"
                 alt="Business Growth"
               
 decoding="async"/>
@@ -142,7 +142,7 @@ decoding="async"/>
         </div>
 
         {/* LOGISTICS & INTEGRATION HUB */}
-        <div className="mb-16 sm:mb-24 bg-slate-900 rounded-3xl sm:rounded-[4rem] lg:rounded-[5rem] p-6 sm:p-8 lg:p-16 relative overflow-hidden text-white">
+        <div className="mb-16 sm:mb-24 bg-slate-900 sm:-[4rem] lg:-[5rem] p-6 sm:p-8 lg:p-16 relative overflow-hidden text-white">
           <div className="absolute top-0 right-0 w-1/2 h-full bg-blue-600/10 blur-[150px] -z-10"></div>
 
           <div className="grid lg:grid-cols-2 gap-8 lg:gap-16 items-center relative z-10">
@@ -150,7 +150,7 @@ decoding="async"/>
               <h2 className="text-3xl sm:text-4xl lg:text-7xl font-black mb-4 sm:mb-6 leading-[1.1] tracking-tighter">{sections.logistics?.title || "Unified Logistics."}</h2>
               <p className="text-slate-400 text-base sm:text-lg font-light leading-[1.6] mb-6 sm:mb-10">{sections.logistics?.description || "We eliminate technical silos. Your website becomes the central node for your CRM, payments, and marketing automation."}</p>
 
-              <div className="grid grid-cols-2 gap-px bg-white/5 border border-white/5 rounded-2xl overflow-hidden">
+              <div className="grid grid-cols-2 gap-px bg-white/5 border border-white/5 overflow-hidden">
                 {integrations?.map((int, i) => (
                   <div key={i} className="p-4 sm:p-6 hover:bg-white/5 transition-colors group">
                     <div className="text-blue-500 text-2xl mb-3 sm:mb-4 lg:group-hover:scale-110 transition-transform">{getIcon(int.icon)}</div>
@@ -162,7 +162,7 @@ decoding="async"/>
             </div>
 
             <div className="relative group lg:scale-105">
-              <div className="p-6 sm:p-8 bg-white/5 rounded-3xl sm:rounded-[3rem] border border-white/10 backdrop-blur-sm relative z-20 overflow-hidden">
+              <div className="p-6 sm:p-8 bg-white/5 sm:-[3rem] border border-white/10 backdrop-blur-sm relative z-20 overflow-hidden">
                 <div className="flex justify-between items-center mb-6 sm:mb-8 border-b border-white/5 pb-4 sm:pb-6">
                   <p className="text-[10px] font-black uppercase tracking-widest text-blue-500 leading-[1.4]">{sections.logistics?.badge || "Infrastructure_Health"}</p>
                   <IoGlobeOutline className="text-emerald-500 animate-[spin_10s_linear_infinite]" />
@@ -170,21 +170,21 @@ decoding="async"/>
 
                 <div className="space-y-4">
                   <div className="flex items-center gap-4">
-                    <div className="w-16 h-1 bg-white/10 rounded-full overflow-hidden flex-1"><motion.div initial={{ width: 0 }} whileInView={{ width: "94%" }} className="h-full bg-blue-500" /></div>
+                    <div className="w-16 h-1 bg-white/10 overflow-hidden flex-1"><motion.div initial={{ width: 0 }} whileInView={{ width: "94%" }} className="h-full bg-blue-500" /></div>
                     <span className="text-[10px] sm:text-xs font-mono text-blue-400 leading-[1.4]">94.8%</span>
                   </div>
                   <div className="flex items-center gap-4">
-                    <div className="w-16 h-1 bg-white/10 rounded-full overflow-hidden flex-1"><motion.div initial={{ width: 0 }} whileInView={{ width: "100%" }} className="h-full bg-emerald-500" /></div>
+                    <div className="w-16 h-1 bg-white/10 overflow-hidden flex-1"><motion.div initial={{ width: 0 }} whileInView={{ width: "100%" }} className="h-full bg-emerald-500" /></div>
                     <span className="text-[10px] sm:text-xs font-mono text-emerald-400 leading-[1.4]">100%_UP</span>
                   </div>
                 </div>
 
                 <div className="mt-8 pt-6 border-t border-white/5 flex gap-3">
-                  <div className="w-8 h-8 rounded-lg bg-slate-800 flex items-center justify-center text-blue-400"><IoAnalyticsOutline /></div>
-                  <div className="w-8 h-8 rounded-lg bg-slate-800 flex items-center justify-center text-emerald-400"><IoShieldOutline /></div>
+                  <div className="w-8 h-8 bg-slate-800 flex items-center justify-center text-blue-400"><IoAnalyticsOutline /></div>
+                  <div className="w-8 h-8 bg-slate-800 flex items-center justify-center text-emerald-400"><IoShieldOutline /></div>
                 </div>
               </div>
-              <div className="absolute -inset-10 bg-blue-600/20 blur-[100px] rounded-full -z-10 group-hover:bg-blue-600/30 transition-all"></div>
+              <div className="absolute -inset-10 bg-blue-600/20 blur-[100px] -z-10 group-hover:bg-blue-600/30 transition-all"></div>
             </div>
           </div>
         </div>
@@ -221,12 +221,12 @@ decoding="async"/>
           <IoBriefcaseOutline className="text-5xl sm:text-6xl lg:text-7xl text-blue-600 mb-6 sm:mb-8 mx-auto opacity-10" />
           <h3 className="text-3xl sm:text-4xl lg:text-5xl font-black text-slate-900 mb-6 sm:mb-8 leading-[1.1]">{cta.title?.split('your ')[0]}your <br /><span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-indigo-600 font-serif italic font-medium">{cta.title?.split('your ')[1]}</span></h3>
           <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center">
-            <button className="w-full sm:w-[280px] min-h-[48px] px-5 sm:px-6 py-4 bg-blue-600 text-white font-black rounded-xl hover:bg-blue-700 transition-all shadow-xl shadow-blue-600/40 uppercase tracking-widest text-[10px] sm:text-xs flex items-center justify-center leading-[1.4]">
+            <button className="w-full sm:w-[280px] min-h-[48px] px-5 sm:px-6 py-4 bg-blue-600 text-white font-black hover:bg-blue-700 transition-all shadow-xl shadow-blue-600/40 uppercase tracking-widest text-[10px] sm:text-xs flex items-center justify-center leading-[1.4]">
               Initialize Build
             </button>
               <Link
               href="/services/business-websites/details"
-              className="w-full sm:w-[280px] min-h-[48px] px-5 sm:px-6 py-4 bg-slate-900 text-white font-black rounded-xl hover:bg-slate-800 transition-all uppercase tracking-widest text-[10px] sm:text-xs flex items-center justify-center text-center leading-[1.4]"
+              className="w-full sm:w-[280px] min-h-[48px] px-5 sm:px-6 py-4 bg-slate-900 text-white font-black hover:bg-slate-800 transition-all uppercase tracking-widest text-[10px] sm:text-xs flex items-center justify-center text-center leading-[1.4]"
             >
               Technical Specifications
             </Link>
@@ -240,7 +240,7 @@ decoding="async"/>
           <p className="text-[10px] font-black text-slate-500 uppercase tracking-widest leading-[1.4]">Start Project</p>
           <p className="text-slate-900 font-bold text-sm leading-[1.4]">Consult Expert</p>
         </div>
-        <button className="px-5 py-3 min-h-[48px] bg-blue-600 text-white font-black rounded-xl text-[10px] uppercase tracking-widest shadow-lg shadow-blue-600/30 leading-[1.4] flex items-center justify-center">
+        <button className="px-5 py-3 min-h-[48px] bg-blue-600 text-white font-black text-[10px] uppercase tracking-widest shadow-lg shadow-blue-600/30 leading-[1.4] flex items-center justify-center">
           Book Now
         </button>
       </div>

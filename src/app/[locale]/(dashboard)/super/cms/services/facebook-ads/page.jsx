@@ -265,7 +265,7 @@ export default function FacebookAdsCMS() {
  <button onClick={() => {
  const newArr = content.landing.sections.metrics.filter((_, i) => i !== idx);
  updateNested("landing", "sections.metrics", newArr);
- }} className="absolute top-2 right-2 text-white/10 hover:text-rose-500 opacity-0 group-hover:opacity-100 transition-all p-1 bg-white/5 "><IoTrashOutline size={14}/></button>
+ }} className="absolute top-2 right-2 text-white/10 hover:text-rose-500 opacity-0 group-hover:opacity-100 transition-all p-1 bg-white/5"><IoTrashOutline size={14}/></button>
  <input className="bg-transparent border-none outline-none font-black text-base md:text-xs uppercase text-white w-full" value={metric.t} onChange={(e) => {
  const newArr = [...content.landing.sections.metrics];
  newArr[idx].t = e.target.value;
@@ -333,7 +333,7 @@ export default function FacebookAdsCMS() {
  <button onClick={() => {
  const newArr = content.details.sections.phases.filter((_, i) => i !== idx);
  updateNested("details", "sections.phases", newArr);
- }} className="absolute top-2 right-2 text-slate-200 hover:text-rose-500 transition-all opacity-0 group-hover:opacity-100 z-10 p-1 bg-white/5 "><IoTrashOutline size={14}/></button>
+ }} className="absolute top-2 right-2 text-slate-200 hover:text-rose-500 transition-all opacity-0 group-hover:opacity-100 z-10 p-1 bg-white/5"><IoTrashOutline size={14}/></button>
  <div className="flex gap-2 mb-2">
  <input placeholder="ID" className="w-16 bg-white border border-slate-100 px-2 py-1 text-base md:text-[9px] font-black text-emerald-600 uppercase" value={phase.step} onChange={(e) => {
  const newArr = [...content.details.sections.phases];
@@ -374,7 +374,7 @@ export default function FacebookAdsCMS() {
  <button onClick={() => {
  const newArr = content.details.sections.roi.filter((_, i) => i !== idx);
  updateNested("details", "sections.roi", newArr);
- }} className="absolute top-2 right-2 text-slate-200 hover:text-rose-500 transition-all opacity-0 group-hover:opacity-100 z-10 p-1 bg-white/5 "><IoTrashOutline size={14}/></button>
+ }} className="absolute top-2 right-2 text-slate-200 hover:text-rose-500 transition-all opacity-0 group-hover:opacity-100 z-10 p-1 bg-white/5"><IoTrashOutline size={14}/></button>
  <input className="w-full bg-transparent border-none outline-none font-black text-base md:text-sm tracking-tighter mb-3 uppercase text-slate-900" value={group.group} onChange={(e) => {
  const newArr = [...content.details.sections.roi];
  newArr[idx].group = e.target.value;

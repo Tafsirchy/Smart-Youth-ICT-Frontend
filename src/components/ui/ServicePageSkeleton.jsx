@@ -39,11 +39,11 @@ export default function ServicePageSkeleton() {
  <div className="grid lg:grid-cols-3 gap-8">
  {[1, 2, 3].map((i) => (
  <div key={i} className="bg-white -[3rem] p-12 h-64 border border-slate-100 animate-pulse space-y-6">
- <div className="w-14 h-14 bg-slate-100 " />
- <div className="h-8 w-3/4 bg-slate-100 " />
+ <div className="w-14 h-14 bg-slate-100" />
+ <div className="h-8 w-3/4 bg-slate-100" />
  <div className="space-y-2">
- <div className="h-3 w-full bg-slate-50 " />
- <div className="h-3 w-5/6 bg-slate-50 " />
+ <div className="h-3 w-full bg-slate-50" />
+ <div className="h-3 w-5/6 bg-slate-50" />
  </div>
  </div>
  ))}

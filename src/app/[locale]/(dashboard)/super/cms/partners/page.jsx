@@ -121,9 +121,9 @@ export default function PartnersPage() {
  key={i}
  className="bg-slate-50 animate-pulse h-48 border border-slate-100 flex flex-col items-center justify-center gap-3 p-4"
  >
- <div className="w-full aspect-video bg-slate-200 " />
- <div className="w-3/4 h-4 bg-slate-200 " />
- <div className="w-1/2 h-3 bg-slate-200 " />
+ <div className="w-full aspect-video bg-slate-200" />
+ <div className="w-3/4 h-4 bg-slate-200" />
+ <div className="w-1/2 h-3 bg-slate-200" />
  </div>
  ))
  ) : partners.length === 0 ? (

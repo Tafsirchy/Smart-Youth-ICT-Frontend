@@ -22,8 +22,8 @@ export default function PortfolioWebsitesClient({ data }) {
     <section className="min-h-screen bg-[#fafafa] overflow-hidden relative selection:bg-rose-500 selection:text-white flex flex-col">
       {/* Decorative Background Elements */}
       <div className="absolute top-0 left-0 w-full h-[800px] pointer-events-none -z-10">
-        <div className="absolute top-[-200px] left-[-200px] w-[800px] h-[800px] bg-rose-200/40 rounded-full blur-[160px] animate-pulse"></div>
-        <div className="absolute top-[100px] right-[-300px] w-[700px] h-[700px] bg-emerald-100/30 rounded-full blur-[140px]"></div>
+        <div className="absolute top-[-200px] left-[-200px] w-[800px] h-[800px] bg-rose-200/40 blur-[160px] animate-pulse"></div>
+        <div className="absolute top-[100px] right-[-300px] w-[700px] h-[700px] bg-emerald-100/30 blur-[140px]"></div>
       </div>
 
       <div className="container-custom py-10 lg:py-12 relative">
@@ -33,7 +33,7 @@ export default function PortfolioWebsitesClient({ data }) {
             <motion.div
               initial={{ opacity: 0, x: -20 }}
               animate={{ opacity: 1, x: 0 }}
-              className="inline-flex items-center gap-2 px-4 sm:px-6 py-2 rounded-full bg-white border border-slate-100 shadow-xl shadow-slate-200/50 text-slate-900 text-xs font-black tracking-widest uppercase mb-4 sm:mb-6 leading-[1.4]"
+              className="inline-flex items-center gap-2 px-4 sm:px-6 py-2 bg-white border border-slate-100 shadow-xl shadow-slate-200/50 text-slate-900 text-xs font-black tracking-widest uppercase mb-4 sm:mb-6 leading-[1.4]"
             >
               <IoDiamondOutline className="text-rose-500" /> {hero.badge}
             </motion.div>
@@ -63,14 +63,14 @@ export default function PortfolioWebsitesClient({ data }) {
               transition={{ duration: 1, ease: "backOut" }}
               className="relative z-20 group"
             >
-              <div className="bg-white rounded-[3.5rem] p-4 shadow-2xl border border-slate-50 relative overflow-hidden transition-transform duration-700 group-hover:scale-[1.02]">
+              <div className="bg-white -[3.5rem] p-4 shadow-2xl border border-slate-50 relative overflow-hidden transition-transform duration-700 group-hover:scale-[1.02]">
                 <img
                   src={hero.mainImage}
                   width={800}
                   height={1000}
                   fetchPriority="high"
                   onError={(e) => { e.target.onerror = null; e.target.src = '/images/placeholder.png'; }}
-                  className="w-full aspect-[4/5] object-cover rounded-[2.8rem] grayscale group-hover:grayscale-0 transition-all duration-1000 bg-[#f0f0f0]"
+                  className="w-full aspect-[4/5] object-cover -[2.8rem] grayscale group-hover:grayscale-0 transition-all duration-1000 bg-[#f0f0f0]"
                   alt="Portfolio Concept"
                 
 decoding="async"/>
@@ -92,10 +92,10 @@ decoding="async"/>
                   repeat: Infinity,
                   ease: "easeInOut",
                 }}
-                className="absolute -top-10 -right-10 bg-white p-4 lg:p-6 rounded-3xl shadow-2xl border border-slate-100 z-30 hidden md:block"
+                className="absolute -top-10 -right-10 bg-white p-4 lg:p-6 shadow-2xl border border-slate-100 z-30 hidden md:block"
               >
                 <div className="flex items-center gap-3">
-                  <div className="w-12 h-12 bg-emerald-50 rounded-xl flex items-center justify-center text-emerald-500 font-black text-xl italic leading-[1.1]">
+                  <div className="w-12 h-12 bg-emerald-50 flex items-center justify-center text-emerald-500 font-black text-xl italic leading-[1.1]">
                     100
                   </div>
                   <div className="flex flex-col gap-1">
@@ -140,7 +140,7 @@ decoding="async"/>
                 transition={{ delay: i * 0.1 }}
                 className="group relative h-full"
               >
-                <div className="bg-white rounded-[3rem] p-6 lg:p-8 h-full border border-slate-100 hover:border-rose-100 hover:shadow-2xl transition-all duration-500 group-hover:-translate-y-2 relative overflow-hidden flex flex-col">
+                <div className="bg-white -[3rem] p-6 lg:p-8 h-full border border-slate-100 hover:border-rose-100 hover:shadow-2xl transition-all duration-500 group-hover:-translate-y-2 relative overflow-hidden flex flex-col">
                   <div
                     className={`w-12 h-12 lg:w-14 lg:h-14 rounded-2xl bg-gradient-to-br ${style.color} text-white flex items-center justify-center text-2xl mb-4 lg:mb-6 ${style.shadow} group-hover:scale-110 transition-transform shrink-0`}
                   >
@@ -157,7 +157,7 @@ decoding="async"/>
                     Learn More <IoInfiniteOutline className="text-sm shrink-0" />
                   </div>
 
-                  <div className="absolute bottom-[-20%] right-[-10%] w-40 h-40 bg-slate-50 rounded-full blur-3xl opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                  <div className="absolute bottom-[-20%] right-[-10%] w-40 h-40 bg-slate-50 blur-3xl opacity-0 group-hover:opacity-100 transition-opacity"></div>
                 </div>
               </motion.div>
             ))}
@@ -165,9 +165,9 @@ decoding="async"/>
         </div>
 
         {/* DIGITAL ALCHEMY (Visual Stepper) */}
-        <div className="relative bg-slate-900 rounded-3xl sm:rounded-[4rem] lg:rounded-[5rem] p-6 sm:p-8 lg:p-16 overflow-hidden mb-16 sm:mb-24">
+        <div className="relative bg-slate-900 sm:-[4rem] lg:-[5rem] p-6 sm:p-8 lg:p-16 overflow-hidden mb-16 sm:mb-24">
           <div className="absolute top-0 right-0 w-full h-full opacity-10 pointer-events-none">
-            <div className="absolute top-0 right-0 w-[800px] h-[800px] bg-rose-500 rounded-full blur-[200px]"></div>
+            <div className="absolute top-0 right-0 w-[800px] h-[800px] bg-rose-500 blur-[200px]"></div>
           </div>
 
           <div className="relative z-10 grid lg:grid-cols-2 gap-8 lg:gap-12">
@@ -206,13 +206,13 @@ decoding="async"/>
             </div>
 
             <div className="hidden lg:flex items-center justify-center relative">
-              <div className="w-full aspect-square border border-white/10 rounded-full flex items-center justify-center p-10 lg:p-12 animate-[spin_60s_linear_infinite]">
-                <div className="w-full aspect-square border-2 border-dashed border-rose-500/30 rounded-full flex items-center justify-center relative">
+              <div className="w-full aspect-square border border-white/10 flex items-center justify-center p-10 lg:p-12 animate-[spin_60s_linear_infinite]">
+                <div className="w-full aspect-square border-2 border-dashed border-rose-500/30 flex items-center justify-center relative">
                   <div className="absolute -top-4 text-rose-500 text-3xl">✦</div>
                   <IoInfiniteOutline className="absolute -bottom-4 text-emerald-500 text-3xl" />
                 </div>
               </div>
-              <div className="absolute text-center bg-slate-900 p-8 lg:p-10 rounded-full z-20 flex flex-col gap-2">
+              <div className="absolute text-center bg-slate-900 p-8 lg:p-10 z-20 flex flex-col gap-2">
                 <p className="text-rose-500 font-serif italic text-5xl lg:text-7xl leading-[1.1]">
                   Gold.
                 </p>
@@ -243,7 +243,7 @@ decoding="async"/>
                 className={`bg-white rounded-3xl sm:rounded-[3rem] p-6 sm:p-8 border min-w-[280px] snap-center shrink-0 w-[85vw] md:w-auto ${tier.highlight ? "border-rose-500 shadow-2xl shadow-rose-500/10 md:-translate-y-4" : "border-slate-100 shadow-xl"} flex flex-col h-full relative overflow-hidden group transition-all`}
               >
                 {tier.highlight && (
-                  <div className="absolute top-0 right-0 bg-rose-500 text-white text-[10px] sm:text-xs font-black uppercase tracking-widest px-4 sm:px-6 py-2 rounded-bl-2xl sm:rounded-bl-3xl leading-[1.4]">
+                  <div className="absolute top-0 right-0 bg-rose-500 text-white text-[10px] sm:text-xs font-black uppercase tracking-widest px-4 sm:px-6 py-2 sm: leading-[1.4]">
                     Popular
                   </div>
                 )}
@@ -283,7 +283,7 @@ decoding="async"/>
         </div>
 
         {/* CALL TO ACTION (Immersive) */}
-        <div className="text-center py-16 lg:py-24 border-t border-slate-100 mt-10 lg:mt-12 relative overflow-hidden rounded-[3rem] lg:rounded-[5rem] bg-white">
+        <div className="text-center py-16 lg:py-24 border-t border-slate-100 mt-10 lg:mt-12 relative overflow-hidden -[3rem] lg:-[5rem] bg-white">
           <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full bg-slate-50/50 -z-10 blur-3xl opacity-50"></div>
           <motion.div
             initial={{ opacity: 0, scale: 0.95 }}
@@ -295,12 +295,12 @@ decoding="async"/>
               {cta.title}
             </h3>
             <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center w-full sm:w-auto">
-              <button className="w-full sm:w-[280px] min-h-[48px] px-6 sm:px-8 py-4 sm:py-5 bg-rose-500 text-white font-black rounded-[2rem] hover:bg-rose-600 transition-all shadow-lg shadow-rose-600/40 uppercase tracking-widest text-[10px] sm:text-xs flex items-center justify-center leading-[1.4]">
+              <button className="w-full sm:w-[280px] min-h-[48px] px-6 sm:px-8 py-4 sm:py-5 bg-rose-500 text-white font-black -[2rem] hover:bg-rose-600 transition-all shadow-lg shadow-rose-600/40 uppercase tracking-widest text-[10px] sm:text-xs flex items-center justify-center leading-[1.4]">
                 Consult Portfolio Expert
               </button>
               <Link
                 href="/services/portfolio-websites/details"
-                className="w-full sm:w-[280px] min-h-[48px] px-6 sm:px-8 py-4 sm:py-5 bg-slate-900 text-white font-black rounded-[2rem] hover:bg-black transition-all shadow-lg shadow-slate-900/40 uppercase tracking-widest text-[10px] sm:text-xs flex items-center justify-center text-center leading-[1.4]"
+                className="w-full sm:w-[280px] min-h-[48px] px-6 sm:px-8 py-4 sm:py-5 bg-slate-900 text-white font-black -[2rem] hover:bg-black transition-all shadow-lg shadow-slate-900/40 uppercase tracking-widest text-[10px] sm:text-xs flex items-center justify-center text-center leading-[1.4]"
               >
                 Technical Details
               </Link>
@@ -315,7 +315,7 @@ decoding="async"/>
           <p className="text-[10px] font-black text-slate-500 uppercase tracking-widest leading-[1.4]">Start Project</p>
           <p className="text-slate-900 font-bold text-sm leading-[1.4]">Consult Expert</p>
         </div>
-        <button className="px-5 py-3 min-h-[48px] bg-rose-500 text-white font-black rounded-xl text-[10px] uppercase tracking-widest shadow-lg shadow-rose-500/30 leading-[1.4] flex items-center justify-center">
+        <button className="px-5 py-3 min-h-[48px] bg-rose-500 text-white font-black text-[10px] uppercase tracking-widest shadow-lg shadow-rose-500/30 leading-[1.4] flex items-center justify-center">
           Book Now
         </button>
       </div>

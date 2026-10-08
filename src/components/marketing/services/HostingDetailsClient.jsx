@@ -61,11 +61,11 @@ export default function HostingDetailsClient({ data }) {
                   <div className="h-[1px] flex-1 bg-slate-200"></div>
                </div>
 
-               <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-px bg-slate-200 border border-slate-200 rounded-2xl md:rounded-[3rem] overflow-hidden shadow-2xl">
+               <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-px bg-slate-200 border border-slate-200 md:-[3rem] overflow-hidden shadow-2xl">
                   {(data.sections.phases || []).map((item, i) => (
                      <div key={i} className="bg-white p-6 md:p-10 hover:bg-slate-50 transition-colors group">
                         <div className="text-blue-600 font-mono text-xs mb-4 md:mb-6 flex items-center gap-2">
-                           <span className="w-2 h-2 rounded-full bg-blue-600"></span>
+                           <span className="w-2 h-2 bg-blue-600"></span>
                            {item.step} // NODE_PROVISION_SYNC
                         </div>
                         <h3 className="text-lg md:text-xl font-black text-slate-900 mb-2 md:mb-4 tracking-tight group-hover:text-blue-600 transition-colors uppercase leading-[1.4]">{item.stage}</h3>
@@ -78,15 +78,15 @@ export default function HostingDetailsClient({ data }) {
             {/* HARDWARE SPECS SECTION */}
             <div className="grid lg:grid-cols-2 gap-8 lg:gap-16 items-start mb-12 lg:mb-24">
                <div className="relative lg:sticky lg:top-32 mb-8 lg:mb-0">
-                  <div className="w-12 h-12 md:w-16 md:h-16 bg-blue-50 rounded-xl md:rounded-2xl flex items-center justify-center text-2xl md:text-3xl text-blue-600 mb-6 md:mb-8 border border-blue-100">
+                  <div className="w-12 h-12 md:w-16 md:h-16 bg-blue-50 md: flex items-center justify-center text-2xl md:text-3xl text-blue-600 mb-6 md:mb-8 border border-blue-100">
                      <IoHardwareChipOutline />
                   </div>
                   <h2 className="text-3xl md:text-5xl font-black text-slate-900 mb-4 md:mb-6 tracking-tighter leading-[1.1]">Pure <br /> NVMe <span className="text-blue-600">Architecture.</span></h2>
                   <p className="text-slate-500 text-base md:text-lg font-light leading-[1.6] mb-6 md:mb-8">Every site we host sits on Gen4 NVMe storage, ensuring 50x faster read/write speeds than traditional hosting environments.</p>
 
-                  <div className="p-6 md:p-8 bg-slate-900 rounded-2xl md:rounded-3xl border border-slate-800 shadow-2xl flex items-center justify-between group cursor-default">
+                  <div className="p-6 md:p-8 bg-slate-900 md: border border-slate-800 shadow-2xl flex items-center justify-between group cursor-default">
                      <div className="flex gap-3 md:gap-4 items-center">
-                        <div className="w-10 h-10 md:w-12 md:h-12 rounded-xl bg-blue-500 flex items-center justify-center text-white shadow-lg"><IoFlashOutline className="text-xl md:text-2xl" /></div>
+                        <div className="w-10 h-10 md:w-12 md:h-12 bg-blue-500 flex items-center justify-center text-white shadow-lg"><IoFlashOutline className="text-xl md:text-2xl" /></div>
                         <div>
                            <p className="text-[9px] md:text-[10px] font-black text-white/40 uppercase tracking-widest leading-[1.4]">Hardware Audit</p>
                            <p className="text-[10px] md:text-xs font-bold text-white tracking-tight leading-[1.4]">LATENCY::SUB_10MS</p>
@@ -98,7 +98,7 @@ export default function HostingDetailsClient({ data }) {
 
                <div className="space-y-4 md:space-y-6">
                   {(data.sections.roi || []).map((spec, idx) => (
-                     <div key={idx} className="bg-white rounded-2xl md:rounded-[2.5rem] p-6 md:p-8 border border-slate-200 shadow-sm hover:shadow-xl transition-all">
+                     <div key={idx} className="bg-white md:-[2.5rem] p-6 md:p-8 border border-slate-200 shadow-sm hover:shadow-xl transition-all">
                         <h4 className="text-[10px] font-black text-blue-600 uppercase tracking-[0.4em] mb-4 md:mb-6 leading-[1.4]">{spec.group} Framework</h4>
                         <div className="grid grid-cols-2 gap-3 md:gap-4">
                            {spec.items?.map(item => (
@@ -114,7 +114,7 @@ export default function HostingDetailsClient({ data }) {
             </div>
 
             {/* SECURITY PROTOCOL SECTION */}
-            <div className="bg-white rounded-3xl md:rounded-[4rem] p-6 md:p-12 lg:p-24 border border-slate-100 shadow-2xl shadow-slate-200/50 relative overflow-hidden mb-12 lg:mb-24">
+            <div className="bg-white md:-[4rem] p-6 md:p-12 lg:p-24 border border-slate-100 shadow-2xl shadow-slate-200/50 relative overflow-hidden mb-12 lg:mb-24">
                <div className="absolute top-0 right-0 w-1/3 h-full bg-slate-50/50 border-l border-slate-100 skew-x-12 translate-x-12"></div>
                <div className="grid lg:grid-cols-2 gap-8 md:gap-12 lg:gap-20 relative z-10">
                   <div>
@@ -131,7 +131,7 @@ export default function HostingDetailsClient({ data }) {
                            { i: <IoShieldCheckmarkOutline />, t: "WAF Protection", d: "Deep packet inspection to neutralize SQLi and XSS threats." },
                            { i: <IoTerminalOutline />, t: "Isolated Cage", d: "Containerized hosting nodes for maximum cross-site security." }
                         ].map((feat, i) => (
-                           <div key={i} className="flex gap-3 md:gap-4 p-4 md:p-6 bg-slate-50 rounded-xl md:rounded-2xl border border-slate-100 items-start">
+                           <div key={i} className="flex gap-3 md:gap-4 p-4 md:p-6 bg-slate-50 md: border border-slate-100 items-start">
                               <div className="text-xl md:text-2xl text-blue-600 shrink-0 mt-0.5">{feat.i}</div>
                               <div>
                                  <h5 className="text-[9px] md:text-[10px] font-black text-slate-900 uppercase tracking-widest leading-[1.4] mb-1">{feat.t}</h5>
@@ -143,7 +143,7 @@ export default function HostingDetailsClient({ data }) {
                   </div>
 
                   <div className="relative mt-8 lg:mt-0">
-                     <div className="bg-slate-900 rounded-2xl md:rounded-[3rem] p-6 md:p-10 border border-slate-800 shadow-2xl aspect-auto md:aspect-[3/4] flex flex-col justify-between group overflow-hidden">
+                     <div className="bg-slate-900 md:-[3rem] p-6 md:p-10 border border-slate-800 shadow-2xl aspect-auto md:aspect-[3/4] flex flex-col justify-between group overflow-hidden">
                         <div className="absolute inset-0 bg-gradient-to-br from-blue-500/10 to-transparent pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity"></div>
                         <div className="space-y-6 md:space-y-8 relative z-10 mb-8 md:mb-0">
                            <div className="flex justify-between items-center text-white/30 font-mono text-[8px] tracking-[0.4em] leading-[1.4]">
@@ -154,21 +154,21 @@ export default function HostingDetailsClient({ data }) {
                            <div className="space-y-4">
                               <div className="h-[1px] w-full bg-white/10"></div>
                               <div className="flex items-center gap-3 md:gap-4">
-                                 <div className="w-10 h-10 md:w-12 md:h-12 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center text-blue-400 font-black text-xs shrink-0"><IoGlobeOutline /></div>
+                                 <div className="w-10 h-10 md:w-12 md:h-12 bg-white/5 border border-white/10 flex items-center justify-center text-blue-400 font-black text-xs shrink-0"><IoGlobeOutline /></div>
                                  <div className="flex-1 space-y-2">
-                                    <div className="h-1.5 bg-white/10 rounded-full w-full"></div>
-                                    <div className="h-1.5 bg-white/5 rounded-full w-1/3"></div>
+                                    <div className="h-1.5 bg-white/10 w-full"></div>
+                                    <div className="h-1.5 bg-white/5 w-1/3"></div>
                                  </div>
                               </div>
                            </div>
 
-                           <div className="p-4 md:p-6 bg-white/5 rounded-xl md:rounded-2xl border border-white/5">
+                           <div className="p-4 md:p-6 bg-white/5 md: border border-white/5">
                               <p className="text-[8px] md:text-[9px] font-mono text-emerald-400 mb-2 tracking-tighter leading-[1.4]">SSL_HANDSHAKE::VERIFIED</p>
                               <p className="text-[8px] md:text-[9px] font-mono text-slate-500 leading-[1.4]">PLATFORM: ANYCAST_CDN<br />ENCRYPTION: AES_256<br />STATUS: SECURE</p>
                            </div>
                         </div>
 
-                        <div className="bg-white/5 rounded-xl md:rounded-3xl border border-white/10 p-6 md:p-8 relative overflow-hidden group/m hover:bg-white/10 transition-all mt-auto relative z-10">
+                        <div className="bg-white/5 md: border border-white/10 p-6 md:p-8 relative overflow-hidden group/m hover:bg-white/10 transition-all mt-auto relative z-10">
                            <IoCloudDownloadOutline className="text-3xl md:text-4xl text-blue-600/30 mb-3 md:mb-4 group-hover/m:rotate-12 transition-transform" />
                            <p className="text-[8px] md:text-[9px] font-black text-white/50 uppercase tracking-widest mb-2 leading-[1.4]">Protocol: REDUNDANCY_QA</p>
                            <p className="text-[10px] md:text-xs font-bold text-white tracking-tight leading-[1.4]">System ready for global scale.</p>
@@ -184,12 +184,12 @@ export default function HostingDetailsClient({ data }) {
                <IoPulseOutline className="text-5xl lg:text-7xl text-blue-600 mb-6 md:mb-8 mx-auto opacity-20" />
                <h3 className="text-3xl sm:text-4xl lg:text-6xl font-black text-slate-900 mb-6 md:mb-8 leading-[1.1]">Ready to command your <br /><span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-indigo-600 font-serif italic font-medium">Infrastructure Sovereignty?</span></h3>
                <div className="flex flex-col sm:flex-row gap-3 md:gap-4 justify-center">
-                  <button className="w-full sm:w-[240px] min-h-[48px] px-4 py-3 md:py-4 bg-blue-600 text-white font-black rounded-xl hover:bg-indigo-700 transition-all shadow-xl shadow-blue-600/40 uppercase tracking-widest text-[10px] flex items-center justify-center leading-[1.4]">
+                  <button className="w-full sm:w-[240px] min-h-[48px] px-4 py-3 md:py-4 bg-blue-600 text-white font-black hover:bg-indigo-700 transition-all shadow-xl shadow-blue-600/40 uppercase tracking-widest text-[10px] flex items-center justify-center leading-[1.4]">
                      {data.cta.title}
                   </button>
                   <Link
                      href="/freelancing"
-                     className="w-full sm:w-[240px] min-h-[48px] px-4 py-3 md:py-4 bg-slate-900 text-white font-black rounded-xl hover:bg-slate-800 transition-all uppercase tracking-widest text-[10px] flex items-center justify-center text-center leading-[1.4]"
+                     className="w-full sm:w-[240px] min-h-[48px] px-4 py-3 md:py-4 bg-slate-900 text-white font-black hover:bg-slate-800 transition-all uppercase tracking-widest text-[10px] flex items-center justify-center text-center leading-[1.4]"
                   >
                      Hire Student Talent
                   </Link>
@@ -203,7 +203,7 @@ export default function HostingDetailsClient({ data }) {
                <p className="text-[10px] font-black text-slate-500 uppercase tracking-widest leading-[1.4]">Ready?</p>
                <p className="text-slate-900 font-bold text-sm leading-[1.4]">Start Hosting</p>
             </div>
-            <button className="px-5 py-3 min-h-[48px] bg-blue-600 text-white font-black rounded-xl text-[10px] uppercase tracking-widest shadow-md shadow-blue-600/30 leading-[1.4] flex items-center justify-center">
+            <button className="px-5 py-3 min-h-[48px] bg-blue-600 text-white font-black text-[10px] uppercase tracking-widest shadow-md shadow-blue-600/30 leading-[1.4] flex items-center justify-center">
                Initialize
             </button>
          </div>

@@ -268,7 +268,7 @@ export default function BrandingCMS() {
  <button onClick={() => {
  const newArr = content.landing.sections.metrics.filter((_, i) => i !== idx);
  updateNested("landing", "sections.metrics", newArr);
- }} className="absolute top-2 right-2 text-white/10 hover:text-rose-500 opacity-0 group-hover:opacity-100 transition-all p-1 bg-white/5 "><IoTrashOutline size={14}/></button>
+ }} className="absolute top-2 right-2 text-white/10 hover:text-rose-500 opacity-0 group-hover:opacity-100 transition-all p-1 bg-white/5"><IoTrashOutline size={14}/></button>
  <input placeholder="Deliverable" className="bg-transparent border-none outline-none font-black text-base md:text-xs uppercase text-white w-full mb-1" value={metric.t} onChange={(e) => {
  const newArr = [...content.landing.sections.metrics];
  newArr[idx].t = e.target.value;
@@ -308,7 +308,7 @@ export default function BrandingCMS() {
  <button onClick={() => {
  const newArr = content.details.sections.phases.filter((_, i) => i !== idx);
  updateNested("details", "sections.phases", newArr);
- }} className="absolute top-2 right-2 text-slate-200 hover:text-rose-500 transition-all opacity-0 group-hover:opacity-100 p-1 bg-white/5 "><IoTrashOutline size={14}/></button>
+ }} className="absolute top-2 right-2 text-slate-200 hover:text-rose-500 transition-all opacity-0 group-hover:opacity-100 p-1 bg-white/5"><IoTrashOutline size={14}/></button>
  <div className="flex items-center gap-3 mb-3">
  <span className="text-[9px] font-black text-indigo-500 bg-indigo-50 px-2 py-1 shrink-0">{phase.step}</span>
  <input placeholder="Stage Title" className="bg-transparent border-none outline-none font-black text-base md:text-sm uppercase text-slate-900 flex-1 min-w-0" value={phase.stage} onChange={(e) => {
@@ -352,7 +352,7 @@ export default function BrandingCMS() {
  <button onClick={() => {
  const newArr = content.details.sections.roi.filter((_, i) => i !== idx);
  updateNested("details", "sections.roi", newArr);
- }} className="absolute top-2 right-2 text-slate-200 hover:text-rose-500 transition-all opacity-0 group-hover:opacity-100 p-1 bg-white/5 "><IoTrashOutline size={14}/></button>
+ }} className="absolute top-2 right-2 text-slate-200 hover:text-rose-500 transition-all opacity-0 group-hover:opacity-100 p-1 bg-white/5"><IoTrashOutline size={14}/></button>
  <input placeholder="Group Heading" className="bg-transparent border-none outline-none font-black text-base md:text-[10px] uppercase tracking-widest text-indigo-900 mb-3 block w-full" value={spec.group} onChange={(e) => {
  const newArr = [...content.details.sections.roi];
  newArr[idx].group = e.target.value;
@@ -433,7 +433,7 @@ export default function BrandingCMS() {
  <button onClick={() => {
  const newArr = content.details.sections.manifest.filter((_, i) => i !== idx);
  updateNested("details", "sections.manifest", newArr);
- }} className="absolute -left-6 opacity-0 group-hover:opacity-100 text-rose-500 transition-all p-1 hover:bg-white/5 "><IoTrashOutline size={12}/></button>
+ }} className="absolute -left-6 opacity-0 group-hover:opacity-100 text-rose-500 transition-all p-1 hover:bg-white/5"><IoTrashOutline size={12}/></button>
  </div>
  ))}
  <button onClick={() => {

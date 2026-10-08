@@ -32,7 +32,7 @@ export default function DetailedCurriculum({ course, isEnrolled }) {
  <h2 className="text-2xl font-extrabold text-slate-900 tracking-tight">Course Curriculum</h2>
  <p className="text-sm text-slate-500 font-medium mt-1">Master your craft through comprehensive modules</p>
  </div>
- <div className="flex gap-4 text-xs font-bold text-slate-500 uppercase tracking-widest bg-slate-50 px-4 py-2 ">
+ <div className="flex gap-4 text-xs font-bold text-slate-500 uppercase tracking-widest bg-slate-50 px-4 py-2">
  <span className="flex items-center gap-1.5"><IoTimeOutline size={16} className="text-indigo-500" /> {course?.duration || '3 Months'}</span>
  <span className="w-px h-4 bg-slate-300 mx-1" />
  <span className="flex items-center gap-1.5"><IoPlayCircleOutline size={16} className="text-indigo-500" /> {totalLessons} Lessons</span>

@@ -43,7 +43,7 @@ export default function UiUxDetailsClient({ data }) {
               </p>
               <div className="h-1 w-12 md:w-20 bg-cyan-600/20" />
             </div>
-            <div className="w-full md:w-80 bg-white p-6 md:p-8 rounded-2xl md:rounded-3xl border border-slate-100 shadow-xl">
+            <div className="w-full md:w-80 bg-white p-6 md:p-8 md: border border-slate-100 shadow-xl">
               <h4 className="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-4 md:mb-6 px-1 leading-[1.4]">Cognitive Pulse</h4>
               <div className="space-y-3 md:space-y-4">
                 {["Usability Score", "Conversion Logic", "Atomic Scaling"].map(label => (
@@ -52,7 +52,7 @@ export default function UiUxDetailsClient({ data }) {
                       <span>{label}</span>
                       <span>98%</span>
                     </div>
-                    <div className="h-1 bg-slate-50 rounded-full overflow-hidden">
+                    <div className="h-1 bg-slate-50 overflow-hidden">
                       <motion.div initial={{ width: 0 }} whileInView={{ width: "98%" }} transition={{ duration: 1 }} className="h-full bg-cyan-500" />
                     </div>
                   </div>
@@ -70,7 +70,7 @@ export default function UiUxDetailsClient({ data }) {
             <span className="text-[10px] font-black text-slate-400 uppercase tracking-widest leading-[1.4]">v4.2 Lifecycle</span>
           </div>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-px bg-slate-200 border border-slate-200 rounded-2xl md:rounded-[3.5rem] overflow-hidden shadow-2xl">
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-px bg-slate-200 border border-slate-200 md:-[3.5rem] overflow-hidden shadow-2xl">
             {(sections.phases || []).map((phase, idx) => (
               <div key={idx} className="bg-white p-6 md:p-10 hover:bg-slate-50 transition-all group relative overflow-hidden">
                 <div className="absolute top-0 right-0 p-4 md:p-8 text-3xl md:text-4xl font-black text-slate-50 group-hover:text-cyan-50 transition-colors select-none leading-none">{phase.step}</div>
@@ -91,8 +91,8 @@ export default function UiUxDetailsClient({ data }) {
 
           <div className="grid lg:grid-cols-3 gap-4 md:gap-8">
             {(sections.roi || []).map((group, idx) => (
-              <div key={idx} className="bg-white rounded-2xl md:rounded-[3rem] p-6 md:p-10 border border-slate-100 shadow-xl shadow-slate-200/50 hover:shadow-2xl transition-all group">
-                <div className="w-10 h-10 md:w-12 md:h-12 bg-cyan-50 rounded-xl flex items-center justify-center text-xl md:text-2xl text-cyan-600 mb-6 md:mb-8 group-hover:scale-110 transition-transform"><IoFlashOutline /></div>
+              <div key={idx} className="bg-white md:-[3rem] p-6 md:p-10 border border-slate-100 shadow-xl shadow-slate-200/50 hover:shadow-2xl transition-all group">
+                <div className="w-10 h-10 md:w-12 md:h-12 bg-cyan-50 flex items-center justify-center text-xl md:text-2xl text-cyan-600 mb-6 md:mb-8 group-hover:scale-110 transition-transform"><IoFlashOutline /></div>
                 <h3 className="text-lg md:text-xl font-black text-slate-900 mb-4 md:mb-6 tracking-tighter uppercase leading-[1.1]">{group.group}</h3>
                 <ul className="space-y-2 md:space-y-4">
                   {group.items?.map(item => (
@@ -127,12 +127,12 @@ export default function UiUxDetailsClient({ data }) {
             )}
           </h3>
           <div className="flex flex-col sm:flex-row gap-3 md:gap-4 justify-center">
-            <button className="w-full sm:w-[240px] min-h-[48px] px-4 py-3 md:py-4 bg-cyan-600 text-white font-black rounded-xl hover:bg-cyan-700 transition-all shadow-xl shadow-cyan-600/40 uppercase tracking-widest text-[10px] flex items-center justify-center leading-[1.4]">
+            <button className="w-full sm:w-[240px] min-h-[48px] px-4 py-3 md:py-4 bg-cyan-600 text-white font-black hover:bg-cyan-700 transition-all shadow-xl shadow-cyan-600/40 uppercase tracking-widest text-[10px] flex items-center justify-center leading-[1.4]">
               Initialize Product Audit
             </button>
             <Link
               href="/freelancing"
-              className="w-full sm:w-[240px] min-h-[48px] px-4 py-3 md:py-4 bg-slate-900 text-white font-black rounded-xl hover:bg-slate-800 transition-all uppercase tracking-widest text-[10px] flex items-center justify-center text-center leading-[1.4]"
+              className="w-full sm:w-[240px] min-h-[48px] px-4 py-3 md:py-4 bg-slate-900 text-white font-black hover:bg-slate-800 transition-all uppercase tracking-widest text-[10px] flex items-center justify-center text-center leading-[1.4]"
             >
               Hire Student Talent
             </Link>
@@ -146,7 +146,7 @@ export default function UiUxDetailsClient({ data }) {
             <p className="text-[10px] font-black text-slate-500 uppercase tracking-widest leading-[1.4]">Ready?</p>
             <p className="text-slate-900 font-bold text-sm leading-[1.4]">Start Designing</p>
          </div>
-         <button className="px-5 py-3 min-h-[48px] bg-cyan-600 text-white font-black rounded-xl text-[10px] uppercase tracking-widest shadow-md shadow-cyan-600/30 leading-[1.4] flex items-center justify-center">
+         <button className="px-5 py-3 min-h-[48px] bg-cyan-600 text-white font-black text-[10px] uppercase tracking-widest shadow-md shadow-cyan-600/30 leading-[1.4] flex items-center justify-center">
             Initialize Audit
          </button>
       </div>

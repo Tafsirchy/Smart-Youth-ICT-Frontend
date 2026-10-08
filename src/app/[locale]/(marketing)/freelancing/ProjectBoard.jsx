@@ -108,8 +108,8 @@ export default function ProjectBoard() {
  ))}
  </div>
  ) : (
- <div className=" border-2 border-dashed border-neutral-200 bg-white py-20 text-center flex flex-col items-center">
- <div className=" bg-blue-50 p-6 mb-4">
+ <div className="border-2 border-dashed border-neutral-200 bg-white py-20 text-center flex flex-col items-center">
+ <div className="bg-blue-50 p-6 mb-4">
  <HiOutlineBriefcase size={48} className="text-blue-500 opacity-80" />
  </div>
  <h3 className="text-xl font-bold text-neutral-900 mb-2">No open projects right now</h3>
@@ -138,8 +138,8 @@ export default function ProjectBoard() {
  <h3 className="font-bold text-lg text-neutral-900 mb-2">{selectedProject.title}</h3>
  <p className="text-sm text-neutral-600 mb-4">{selectedProject.description}</p>
  <div className="flex flex-wrap gap-4 text-sm font-medium">
- <span className="text-blue-700 bg-blue-100 px-3 py-1 ">Budget: ৳ {selectedProject.budget}</span>
- <span className="text-neutral-600 bg-neutral-200 px-3 py-1 ">Deadline: {new Date(selectedProject.deadline).toLocaleDateString()}</span>
+ <span className="text-blue-700 bg-blue-100 px-3 py-1">Budget: ৳ {selectedProject.budget}</span>
+ <span className="text-neutral-600 bg-neutral-200 px-3 py-1">Deadline: {new Date(selectedProject.deadline).toLocaleDateString()}</span>
  </div>
  </div>
 

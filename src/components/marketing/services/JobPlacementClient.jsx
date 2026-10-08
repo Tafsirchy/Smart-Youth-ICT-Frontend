@@ -23,7 +23,7 @@ export default function JobPlacementClient({ data, content }) {
           <motion.div
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
-            className="inline-flex items-center gap-2 px-3 py-1.5 lg:px-4 lg:py-2 rounded-full bg-blue-500/10 text-blue-400 text-xs font-black tracking-widest uppercase mb-4 lg:mb-6 border border-blue-500/20 leading-[1.4]"
+            className="inline-flex items-center gap-2 px-3 py-1.5 lg:px-4 lg:py-2 bg-blue-500/10 text-blue-400 text-xs font-black tracking-widest uppercase mb-4 lg:mb-6 border border-blue-500/20 leading-[1.4]"
           >
             {content?.hero?.badge || "Your Career Launchpad"}
           </motion.div>
@@ -78,7 +78,7 @@ export default function JobPlacementClient({ data, content }) {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ delay: i * 0.1 }}
-                  className="min-w-[85vw] sm:min-w-[300px] lg:w-auto snap-center shrink-0 bg-white/5 backdrop-blur-3xl border border-white/10 rounded-[2rem] p-6 group hover:border-blue-500/50 transition-all overflow-hidden relative flex flex-col gap-4"
+                  className="min-w-[85vw] sm:min-w-[300px] lg:w-auto snap-center shrink-0 bg-white/5 backdrop-blur-3xl border border-white/10 -[2rem] p-6 group hover:border-blue-500/50 transition-all overflow-hidden relative flex flex-col gap-4"
                 >
                   <div
                     className={`absolute -right-10 -bottom-10 w-40 h-40 ${p.color} opacity-10 rounded-full blur-[60px] group-hover:opacity-30 transition-opacity`}
@@ -114,7 +114,7 @@ export default function JobPlacementClient({ data, content }) {
             </div>
           </div>
         ) : (
-          <div className="text-left lg:text-center py-8 lg:py-12 bg-white/5 rounded-[2rem] border border-white/10 mb-10 lg:mb-20 flex flex-col items-start lg:items-center gap-4 px-6">
+          <div className="text-left lg:text-center py-8 lg:py-12 bg-white/5 -[2rem] border border-white/10 mb-10 lg:mb-20 flex flex-col items-start lg:items-center gap-4 px-6">
             <IoPulseOutline className="text-4xl lg:text-5xl text-white/20 animate-pulse" />
             <p className="text-white/40 text-xs lg:text-sm font-black uppercase tracking-widest leading-[1.4]">
               Job Channels Ready
@@ -139,7 +139,7 @@ export default function JobPlacementClient({ data, content }) {
                   transition={{ delay: i * 0.1 }}
                   className="flex flex-col md:flex-row gap-4 lg:gap-6 items-start relative z-10"
                 >
-                  <div className="w-10 h-10 bg-blue-600 rounded-xl flex items-center justify-center text-white font-black shrink-0 shadow-lg shadow-blue-600/30">
+                  <div className="w-10 h-10 bg-blue-600 flex items-center justify-center text-white font-black shrink-0 shadow-lg shadow-blue-600/30">
                     {i + 1}
                   </div>
                   <div className="flex-1 flex flex-col gap-2">
@@ -147,7 +147,7 @@ export default function JobPlacementClient({ data, content }) {
                       <h3 className="text-lg lg:text-xl font-black text-white leading-[1.4]">
                         {l.title}
                       </h3>
-                      <span className="text-[10px] font-black text-blue-500 uppercase tracking-widest bg-blue-500/10 px-2 py-1 rounded-md self-start md:self-auto leading-[1.4]">
+                      <span className="text-[10px] font-black text-blue-500 uppercase tracking-widest bg-blue-500/10 px-2 py-1 self-start md:self-auto leading-[1.4]">
                         {l.step}
                       </span>
                     </div>
@@ -166,12 +166,12 @@ export default function JobPlacementClient({ data, content }) {
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="bg-white rounded-[2rem] p-6 lg:p-16 flex flex-col lg:flex-row items-center gap-8 lg:gap-12 shadow-xl relative overflow-hidden text-slate-900"
+          className="bg-white -[2rem] p-6 lg:p-16 flex flex-col lg:flex-row items-center gap-8 lg:gap-12 shadow-xl relative overflow-hidden text-slate-900"
         >
-          <div className="hidden md:block absolute top-0 right-0 w-[300px] h-[300px] bg-blue-100 rounded-full blur-[80px] pointer-events-none -translate-y-1/2 translate-x-1/2 opacity-60"></div>
+          <div className="hidden md:block absolute top-0 right-0 w-[300px] h-[300px] bg-blue-100 blur-[80px] pointer-events-none -translate-y-1/2 translate-x-1/2 opacity-60 hidden"></div>
 
           <div className="flex-1 flex flex-col gap-6 relative z-10">
-            <div className="w-14 h-14 bg-blue-50 text-blue-600 rounded-xl flex items-center justify-center text-3xl shadow-sm">
+            <div className="w-14 h-14 bg-blue-50 text-blue-600 flex items-center justify-center text-3xl shadow-sm">
               <IoFlaskOutline />
             </div>
             <h2 className="text-3xl lg:text-5xl font-black text-slate-900 leading-[1.1] uppercase italic">
@@ -204,7 +204,7 @@ export default function JobPlacementClient({ data, content }) {
             </div>
           </div>
 
-          <div className="flex-1 w-full lg:w-auto relative hidden lg:block overflow-hidden rounded-[2rem] aspect-square">
+          <div className="flex-1 w-full lg:w-auto relative hidden lg:block overflow-hidden -[2rem] aspect-square">
             <Image
               src="https://images.unsplash.com/photo-1542744173-8e7e53415bb0?w=800&h=800&fit=crop"
               alt="Interview lab collaboration"
@@ -238,14 +238,14 @@ export default function JobPlacementClient({ data, content }) {
               </p>
             </div>
           </div>
-          <button className="hidden lg:inline-flex items-center justify-center min-h-[48px] px-8 py-4 bg-white text-slate-950 font-black rounded-xl hover:bg-blue-600 hover:text-white transition-all shadow-lg uppercase tracking-widest text-xs sm:text-sm leading-[1.4]">
+          <button className="hidden lg:inline-flex items-center justify-center min-h-[48px] px-8 py-4 bg-white text-slate-950 font-black hover:bg-blue-600 hover:text-white transition-all shadow-lg uppercase tracking-widest text-xs sm:text-sm leading-[1.4]">
             Partner With Our Placement Cell
           </button>
         </div>
       </div>
       {/* Mobile Sticky CTA */}
       <div className="sticky bottom-0 left-0 right-0 p-[var(--gutter,16px)] bg-slate-950/90 backdrop-blur-md border-t border-white/10 z-50 lg:hidden flex justify-center pb-[max(1rem,env(safe-area-inset-bottom))] mt-auto">
-        <button className="w-full min-h-[48px] py-3 px-4 bg-blue-600 text-white font-bold rounded-xl shadow-lg active:scale-95 transition-transform text-sm uppercase tracking-widest leading-[1.4]">
+        <button className="w-full min-h-[48px] py-3 px-4 bg-blue-600 text-white font-bold shadow-lg active:scale-95 transition-transform text-sm uppercase tracking-widest leading-[1.4]">
           Partner With Us
         </button>
       </div>

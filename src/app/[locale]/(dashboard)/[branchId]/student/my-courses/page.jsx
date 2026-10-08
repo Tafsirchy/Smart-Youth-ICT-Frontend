@@ -72,7 +72,7 @@ export default function MyCoursesPage() {
  <span className="text-emerald-600 font-bold">0%</span>
  </div>
  <div className="w-full bg-neutral-100 h-2">
- <div className="bg-emerald-500 h-2 " style={{ width: '0%' }}></div>
+ <div className="bg-emerald-500 h-2" style={{ width: '0%' }}></div>
  </div>
  </div>
  
@@ -85,8 +85,8 @@ export default function MyCoursesPage() {
  ))}
  </div>
  ) : (
- <div className=" border-2 border-dashed border-neutral-200 bg-white py-20 text-center flex flex-col items-center mt-6">
- <div className=" bg-blue-50 p-6 mb-4">
+ <div className="border-2 border-dashed border-neutral-200 bg-white py-20 text-center flex flex-col items-center mt-6">
+ <div className="bg-blue-50 p-6 mb-4">
  <HiOutlineBookOpen size={48} className="text-blue-500 opacity-80" />
  </div>
  <h3 className="text-xl font-bold text-neutral-900 mb-2">Your learning journey begins here</h3>

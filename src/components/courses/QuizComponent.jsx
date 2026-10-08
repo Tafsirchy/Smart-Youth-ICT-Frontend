@@ -92,7 +92,7 @@ export default function QuizComponent({ quiz, onComplete }) {
  <h3 className="font-bold text-neutral-900">{quiz.title}</h3>
  <p className="text-sm text-neutral-500">Passing Score: {quiz.passingScore}%</p>
  </div>
- <div className="text-sm font-semibold text-blue-600 bg-blue-50 px-3 py-1.5 ">
+ <div className="text-sm font-semibold text-blue-600 bg-blue-50 px-3 py-1.5">
  Question {currentIdx + 1} of {quiz.questions.length}
  </div>
  </div>

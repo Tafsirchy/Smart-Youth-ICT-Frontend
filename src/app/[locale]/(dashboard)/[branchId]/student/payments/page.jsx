@@ -51,7 +51,7 @@ export default function PaymentsPage() {
  {loading ? (
  <div className="space-y-8 animate-pulse">
  <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
- {[1, 2, 3].map(i => <div key={i} className="h-32 bg-neutral-100 "></div>)}
+ {[1, 2, 3].map(i => <div key={i} className="h-32 bg-neutral-100"></div>)}
  </div>
  <div className="h-64 bg-neutral-100 w-full"></div>
  </div>

@@ -17,8 +17,8 @@ export default function FinalCTABanner({ onEnroll, enrolling }) {
  className="bg-indigo-600 -[2rem] p-10 md:p-16 text-center relative overflow-hidden group shadow-2xl shadow-indigo-500/20"
  style={{ backgroundImage: 'radial-gradient(circle at top right, #6366f1, #4f46e5)' }}
  >
- <div className="absolute top-0 right-0 w-80 h-80 bg-white/10 blur-[80px] group-hover:bg-white/20 transition-colors pointer-events-none" />
- <div className="absolute -bottom-20 -left-20 w-80 h-80 bg-pink-500/20 blur-[80px] pointer-events-none" />
+ <div className="absolute top-0 right-0 w-80 h-80 bg-white/10 blur-[80px] group-hover:bg-white/20 transition-colors pointer-events-none hidden" />
+ <div className="absolute -bottom-20 -left-20 w-80 h-80 bg-pink-500/20 blur-[80px] pointer-events-none hidden" />
 
  <div className="relative z-10 max-w-2xl mx-auto space-y-6">
  <h2 className="text-4xl md:text-5xl font-extrabold text-white tracking-tight text-balance leading-tight">

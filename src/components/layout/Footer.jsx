@@ -64,8 +64,8 @@ export default function Footer() {
   return (
     <footer className="bg-[#0B101E] pt-20 pb-8 text-slate-400 font-sans border-t border-slate-800 relative overflow-hidden">
       {/* Decorative Blobs */}
-      <div className="absolute top-0 left-1/4 w-96 h-96 bg-brand-pink/10 blur-[120px] pointer-events-none"></div>
-      <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-brand-green/10 blur-[120px] pointer-events-none"></div>
+      <div className="absolute top-0 left-1/4 w-96 h-96 bg-brand-pink/10 blur-[120px] pointer-events-none hidden"></div>
+      <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-brand-green/10 blur-[120px] pointer-events-none hidden"></div>
 
       <div className="container-custom relative z-10">
         
@@ -97,7 +97,7 @@ export default function Footer() {
                   target="_blank"
                   rel="noreferrer"
                   aria-label={label}
-                  className="w-10 h-10 rounded-full border border-white/10 flex items-center justify-center text-slate-400 hover:text-white hover:bg-brand-pink hover:border-brand-pink hover:shadow-[0_0_20px_rgba(255,44,109,0.3)] transition-all group"
+                  className="w-10 h-10 border border-white/10 flex items-center justify-center text-slate-400 hover:text-white hover:bg-brand-pink hover:border-brand-pink hover:shadow-[0_0_20px_rgba(255,44,109,0.3)] transition-all group"
                 >
                   <Icon size={16} className="group-hover:scale-110 transition-transform" />
                 </a>
@@ -130,8 +130,8 @@ export default function Footer() {
         </div>
 
         {/* Newsletter Section */}
-        <div className="rounded-3xl border border-white/10 p-8 md:p-10 mb-16 flex flex-col lg:flex-row items-center justify-between gap-8 bg-slate-800/20 backdrop-blur-sm relative overflow-hidden shadow-2xl">
-          <div className="absolute top-0 right-0 w-64 h-64 bg-brand-accent/10 blur-[80px] pointer-events-none"></div>
+        <div className="border border-white/10 p-8 md:p-10 mb-16 flex flex-col lg:flex-row items-center justify-between gap-8 bg-slate-800/20 backdrop-blur-sm relative overflow-hidden shadow-2xl">
+          <div className="absolute top-0 right-0 w-64 h-64 bg-brand-accent/10 blur-[80px] pointer-events-none hidden"></div>
           <div className="text-center lg:text-left flex-1 max-w-xl relative z-10">
             <h4 className="text-2xl font-extrabold text-white mb-2">
               Intelligence in your inbox.
@@ -143,7 +143,7 @@ export default function Footer() {
           
           <div className="w-full lg:w-auto flex-1 max-w-md relative z-10">
             {subscribed ? (
-              <div className="h-14 rounded-2xl border border-brand-green/30 bg-brand-green/10 flex items-center justify-center gap-3 text-brand-green font-bold text-sm">
+              <div className="h-14 border border-brand-green/30 bg-brand-green/10 flex items-center justify-center gap-3 text-brand-green font-bold text-sm">
                 <IoCheckmarkCircle size={20} /> Subscription Complete
               </div>
             ) : (
@@ -152,14 +152,14 @@ export default function Footer() {
                   type="email"
                   required
                   placeholder="Enter your email address"
-                  className="flex-1 h-14 rounded-2xl px-6 bg-white/5 border border-white/10 text-white placeholder-slate-500 text-sm font-medium focus:outline-none focus:border-brand-pink focus:bg-white/10 transition-all shadow-inner"
+                  className="flex-1 h-14 px-6 bg-white/5 border border-white/10 text-white placeholder-slate-500 text-sm font-medium focus:outline-none focus:border-brand-pink focus:bg-white/10 transition-all shadow-inner"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                 />
                 <button
                   type="submit"
                   disabled={subLoading}
-                  className="h-14 rounded-2xl px-8 bg-brand-pink text-white font-extrabold shadow-[0_0_20px_rgba(255,44,109,0.2)] hover:bg-brand-pink-light hover:shadow-[0_0_30px_rgba(255,44,109,0.4)] transition-all disabled:opacity-70 flex items-center justify-center gap-2 shrink-0"
+                  className="h-14 px-8 bg-brand-pink text-white font-extrabold shadow-[0_0_20px_rgba(255,44,109,0.2)] hover:bg-brand-pink-light hover:shadow-[0_0_30px_rgba(255,44,109,0.4)] transition-all disabled:opacity-70 flex items-center justify-center gap-2 shrink-0"
                 >
                   {subLoading ? "Processing..." : "Subscribe"}
                 </button>

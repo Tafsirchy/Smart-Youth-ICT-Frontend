@@ -673,7 +673,7 @@ export default function Navbar() {
  signOut({ callbackUrl: "/" }),
  )
  }
- className="text-sm font-medium text-gray-700 hover:text-red-500 transition-colors bg-gray-100 hover:bg-red-50 px-3 py-2 "
+ className="text-sm font-medium text-gray-700 hover:text-red-500 transition-colors bg-gray-100 hover:bg-red-50 px-3 py-2"
  >
  Sign Out
  </button>

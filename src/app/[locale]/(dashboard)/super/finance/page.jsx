@@ -94,7 +94,7 @@ export default function GlobalFinancePage() {
  <p className="text-emerald-400 font-black text-xs uppercase tracking-[0.2em] mb-2">Total Revenue Collected</p>
  <h2 className="text-5xl font-black text-white tracking-tighter">৳{paidTotal.toLocaleString()}</h2>
  <div className="mt-4 flex items-center gap-2 text-emerald-400 font-bold text-sm">
- <span className="bg-emerald-500/20 px-2 py-1 ">+12.4%</span>
+ <span className="bg-emerald-500/20 px-2 py-1">+12.4%</span>
  <span className="text-slate-500 font-medium uppercase text-[10px]">From last month</span>
  </div>
  </motion.div>

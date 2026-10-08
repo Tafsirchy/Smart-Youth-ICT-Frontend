@@ -18,7 +18,7 @@ export default function CertificationSection() {
  className="bg-slate-900 -[2rem] p-8 md:p-12 relative overflow-hidden"
  style={{ background: 'linear-gradient(135deg, #0f172a 0%, #1e1b4b 50%, #312e81 100%)' }}
  >
- <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-[500px] bg-emerald-500/10 blur-[100px] pointer-events-none" />
+ <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-[500px] bg-emerald-500/10 blur-[100px] pointer-events-none hidden" />
 
  <div className="relative z-10 flex flex-col lg:flex-row items-center gap-10">
  
@@ -67,11 +67,11 @@ export default function CertificationSection() {
  <h4 className="font-serif text-2xl text-slate-800 font-bold mb-1 border-b border-slate-300 pb-2 w-full">CERTIFICATE</h4>
  <p className="text-[10px] text-slate-500 uppercase tracking-widest mt-1">of Completion</p>
  <div className="mt-4 flex-1 flex items-center justify-center">
- <div className="w-32 h-1 bg-slate-300 " />
+ <div className="w-32 h-1 bg-slate-300" />
  </div>
  <div className="flex justify-between w-full mt-4 px-4 gap-4">
- <div className="w-16 h-0.5 bg-slate-300 " />
- <div className="w-16 h-0.5 bg-slate-300 " />
+ <div className="w-16 h-0.5 bg-slate-300" />
+ <div className="w-16 h-0.5 bg-slate-300" />
  </div>
  </div>
  </div>

@@ -13,7 +13,7 @@ export function CourseCardSkeleton() {
  return (
  <div className="flex flex-col overflow-hidden bg-white shadow-sm ring-1 ring-neutral-200">
  {/* Thumbnail Skeleton */}
- <Skeleton className="aspect-video w-full " />
+ <Skeleton className="aspect-video w-full" />
  
  {/* Content Skeleton */}
  <div className="flex flex-1 flex-col p-5">
@@ -32,7 +32,7 @@ export function CourseCardSkeleton() {
  {/* Footer Skeleton */}
  <div className="mt-auto flex items-center justify-between border-t border-neutral-100 pt-4">
  <div className="flex items-center gap-2">
- <Skeleton className="h-8 w-8 " />
+ <Skeleton className="h-8 w-8" />
  <Skeleton className="h-4 w-20" />
  </div>
  <Skeleton className="h-6 w-16" />
@@ -48,8 +48,8 @@ export function ProjectCardSkeleton() {
  <div className="p-6 flex-1 flex flex-col">
  {/* Header Badges */}
  <div className="flex justify-between items-start mb-6">
- <Skeleton className="h-6 w-24 " />
- <Skeleton className="h-6 w-16 " />
+ <Skeleton className="h-6 w-24" />
+ <Skeleton className="h-6 w-16" />
  </div>
 
  {/* Title & Company */}
@@ -61,11 +61,11 @@ export function ProjectCardSkeleton() {
  {/* Details Grid */}
  <div className="grid grid-cols-2 gap-3 mb-6 mt-auto border-t border-neutral-100 pt-4">
  <div className="flex items-center gap-2">
- <Skeleton className="h-5 w-5 " />
+ <Skeleton className="h-5 w-5" />
  <Skeleton className="h-4 w-16" />
  </div>
  <div className="flex items-center gap-2">
- <Skeleton className="h-5 w-5 " />
+ <Skeleton className="h-5 w-5" />
  <Skeleton className="h-4 w-16" />
  </div>
  </div>
@@ -79,7 +79,7 @@ export function ProjectCardSkeleton() {
  </div>
 
  <div className="p-6 pt-0 mt-auto">
- <Skeleton className="h-[44px] w-full " />
+ <Skeleton className="h-[44px] w-full" />
  </div>
  </div>
  );

@@ -44,7 +44,7 @@ export function Modal({ isOpen, onClose, title, children, maxWidth = 'max-w-md' 
  {title && <h2 className="text-xl font-semibold text-neutral-900">{title}</h2>}
  <button
  onClick={onClose}
- className=" p-1.5 text-neutral-500 transition-colors hover:bg-neutral-100 hover:text-neutral-900"
+ className="p-1.5 text-neutral-500 transition-colors hover:bg-neutral-100 hover:text-neutral-900"
  >
  <IoClose size={20} />
  </button>

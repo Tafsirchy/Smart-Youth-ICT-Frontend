@@ -459,7 +459,7 @@ export default function PortfolioCMS() {
  <Field label="Description" value={content.details.sections.codeSnippet?.description} onChange={(v) => updateNested("details", "sections.codeSnippet.description", v)} textarea dark />
  <div>
  <label className="block text-[9px] font-black uppercase mb-1 tracking-widest text-slate-500">Atomic Tags</label>
- <div className="flex flex-wrap gap-2 p-3 bg-white/5 border border-white/10 ">
+ <div className="flex flex-wrap gap-2 p-3 bg-white/5 border border-white/10">
  {content.details.sections.codeSnippet?.tags?.map((tag, i) => (
  <div key={i} className="flex items-center bg-white/10 px-2 py-1 gap-1">
  <input className="bg-transparent border-none outline-none font-bold text-[10px] text-blue-400 w-20" value={tag} onChange={(e) => {
@@ -565,7 +565,7 @@ function Field({ label, value, onChange, textarea = false, dark = false, small =
  loading="lazy"
  decoding="async"
  onError={(e) => { e.target.src = '/images/placeholder.png'; }}
- className=" object-cover bg-[#f0f0f0]" 
+ className="object-cover bg-[#f0f0f0]" 
  style={{ maxWidth: '100%', maxHeight: '300px' }} 
  />
  </div>

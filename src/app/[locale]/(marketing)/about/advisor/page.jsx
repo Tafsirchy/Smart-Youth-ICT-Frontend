@@ -77,7 +77,7 @@ export default function AdvisoryBoardPage() {
  {loading ? (
  <div className="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
  {[...Array(8)].map((_, i) => (
- <div key={i} className="aspect-[3/4] bg-slate-50 animate-pulse border border-slate-100 "></div>
+ <div key={i} className="aspect-[3/4] bg-slate-50 animate-pulse border border-slate-100"></div>
  ))}
  </div>
  ) : (

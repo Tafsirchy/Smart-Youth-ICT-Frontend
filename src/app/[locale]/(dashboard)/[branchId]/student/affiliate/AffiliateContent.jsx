@@ -92,11 +92,11 @@ export default function AffiliateContent() {
  if (loading) {
  return (
  <div className="py-6 max-w-6xl animate-pulse space-y-4">
- <div className="h-8 w-1/4 bg-neutral-100 "></div>
+ <div className="h-8 w-1/4 bg-neutral-100"></div>
  <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
- {[1, 2, 3].map(n => <div key={n} className="h-24 bg-neutral-100 "></div>)}
+ {[1, 2, 3].map(n => <div key={n} className="h-24 bg-neutral-100"></div>)}
  </div>
- <div className="h-64 bg-neutral-100 "></div>
+ <div className="h-64 bg-neutral-100"></div>
  </div>
  );
  }

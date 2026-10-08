@@ -31,7 +31,7 @@ export default function InstructorDashboard() {
  if (loading) {
  return (
  <div className="py-8 max-w-6xl animate-pulse space-y-8">
- <div className="h-10 w-1/4 bg-neutral-100 "></div>
+ <div className="h-10 w-1/4 bg-neutral-100"></div>
  <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
  {[1, 2, 3].map(n => <div key={n} className="h-32 bg-neutral-100 -[32px]"></div>)}
  </div>

@@ -492,7 +492,7 @@ export default function FeaturedMentorsPage() {
  </div>
  </div>
 
- <div className="flex items-center justify-between p-3 bg-slate-50 ">
+ <div className="flex items-center justify-between p-3 bg-slate-50">
  <div className="flex items-center gap-3">
  <label className="flex items-center gap-2 cursor-pointer group">
  <input

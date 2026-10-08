@@ -475,7 +475,7 @@ decoding="async"/>
  repeat: Infinity,
  ease: "easeInOut",
  }}
- className="w-[3px] bg-slate-900 "
+ className="w-[3px] bg-slate-900"
  />
  ),
  )}

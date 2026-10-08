@@ -113,8 +113,8 @@ export default function CertificationsPage() {
  <h4 className="font-serif text-xl font-medium text-slate-800 mb-3 tracking-tight">Government Approval</h4>
  <p className="text-[10px] uppercase tracking-widest text-slate-400 mb-10">Tech Education Board</p>
  <div className="flex gap-4">
- <div className="w-20 h-1 bg-slate-300 "></div>
- <div className="w-20 h-1 bg-slate-300 "></div>
+ <div className="w-20 h-1 bg-slate-300"></div>
+ <div className="w-20 h-1 bg-slate-300"></div>
  </div>
  </div>
  </motion.div>

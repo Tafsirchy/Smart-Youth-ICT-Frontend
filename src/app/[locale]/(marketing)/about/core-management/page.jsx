@@ -98,7 +98,7 @@ export default function CoreManagementPage() {
  <div className="flex flex-col gap-8 w-full">
  {[...Array(4)].map((_, i) => (
  <div key={i} className={`flex flex-col md:flex-row gap-8 ${i % 2 !== 0 ? 'md:flex-row-reverse' : ''} bg-slate-50 border border-slate-100 p-6 md:p-8 animate-pulse w-full`}>
- <div className="w-full md:w-1/3 aspect-[4/3] md:aspect-square bg-slate-200 "></div>
+ <div className="w-full md:w-1/3 aspect-[4/3] md:aspect-square bg-slate-200"></div>
  <div className="flex-1 flex flex-col justify-center gap-4 py-4">
  <div className="h-8 bg-slate-200 w-1/2"></div>
  <div className="h-4 bg-slate-200 w-1/4"></div>

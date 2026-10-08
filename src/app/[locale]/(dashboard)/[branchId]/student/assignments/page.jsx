@@ -93,7 +93,7 @@ export default function AssignmentsPage() {
 
  {loading ? (
  <div className="grid grid-cols-1 md:grid-cols-2 gap-6 animate-pulse">
- {[1, 2, 3, 4].map(n => <div key={n} className="h-40 bg-neutral-100 " />)}
+ {[1, 2, 3, 4].map(n => <div key={n} className="h-40 bg-neutral-100" />)}
  </div>
  ) : activeTab === 'pending' ? (
  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -161,7 +161,7 @@ export default function AssignmentsPage() {
  </motion.div>
  ))
  ) : (
- <div className=" border border-neutral-100 bg-white p-16 text-center flex flex-col items-center">
+ <div className="border border-neutral-100 bg-white p-16 text-center flex flex-col items-center">
  <HiOutlineDocumentText className="text-neutral-300 h-16 w-16 mb-4" />
  <h3 className="text-xl font-bold text-neutral-400">No submissions yet</h3>
  <p className="text-neutral-400 text-sm mt-1">Start submitting your assignments to see your history here.</p>

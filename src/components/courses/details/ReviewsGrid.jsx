@@ -45,7 +45,7 @@ export default function ReviewsGrid({ course }) {
  <IoStar size={14} className="text-amber-400 shrink-0" />
  <div className="flex-1 bg-slate-200 h-2 overflow-hidden">
  <div 
- className="bg-amber-400 h-2 " 
+ className="bg-amber-400 h-2" 
  style={{ width: star === 5 ? '75%' : star === 4 ? '15%' : star === 3 ? '5%' : '0%' }} 
  />
  </div>

@@ -556,7 +556,7 @@ export default function AllBranchesPage() {
  {summary?.activeBranches ?? branches.filter((b) => b.isActive).length} Live Campuses
  </p>
  </div>
- <div className="p-3 bg-pink-50 dark:bg-pink-900/20 text-pink-600 ">
+ <div className="p-3 bg-pink-50 dark:bg-pink-900/20 text-pink-600">
  <HiOutlineBuildingOffice size={22} />
  </div>
  </div>
@@ -578,7 +578,7 @@ export default function AllBranchesPage() {
  Offline & hybrid enrollments
  </p>
  </div>
- <div className="p-3 bg-blue-50 dark:bg-blue-900/20 text-blue-600 ">
+ <div className="p-3 bg-blue-50 dark:bg-blue-900/20 text-blue-600">
  <HiOutlineUsers size={22} />
  </div>
  </div>
@@ -600,7 +600,7 @@ export default function AllBranchesPage() {
  Active syllabus allocations
  </p>
  </div>
- <div className="p-3 bg-violet-50 dark:bg-violet-900/20 text-violet-600 ">
+ <div className="p-3 bg-violet-50 dark:bg-violet-900/20 text-violet-600">
  <HiOutlineAcademicCap size={22} />
  </div>
  </div>
@@ -622,7 +622,7 @@ export default function AllBranchesPage() {
  All hubs synced with database
  </p>
  </div>
- <div className="p-3 bg-emerald-50 dark:bg-emerald-900/20 text-emerald-600 ">
+ <div className="p-3 bg-emerald-50 dark:bg-emerald-900/20 text-emerald-600">
  <HiOutlineShieldCheck size={22} />
  </div>
  </div>
@@ -893,7 +893,7 @@ export default function AllBranchesPage() {
  <div className="grid grid-cols-1 gap-4 p-4 md:hidden">
  {loading ? (
  [...Array(3)].map((_, i) => (
- <div key={i} className="animate-pulse h-32 bg-slate-100 dark:bg-slate-800 " />
+ <div key={i} className="animate-pulse h-32 bg-slate-100 dark:bg-slate-800" />
  ))
  ) : (
  filteredBranches.map((branch) => (

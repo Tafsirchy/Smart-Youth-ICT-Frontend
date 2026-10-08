@@ -71,8 +71,8 @@ export default function CourseHero({ course, onEnroll }) {
  style={{ background: 'linear-gradient(135deg, #0f172a 0%, #1e1b4b 50%, #312e81 100%)' }}>
  
  {/* Decorative Blur Orbs */}
- <div className="absolute top-0 right-0 w-96 h-96 bg-blue-600/20 blur-[100px] pointer-events-none" />
- <div className="absolute bottom-0 left-10 w-80 h-80 bg-pink-500/20 blur-[100px] pointer-events-none" />
+ <div className="absolute top-0 right-0 w-96 h-96 bg-blue-600/20 blur-[100px] pointer-events-none hidden" />
+ <div className="absolute bottom-0 left-10 w-80 h-80 bg-pink-500/20 blur-[100px] pointer-events-none hidden" />
 
  {course.thumbnail && (
  <div className="absolute inset-0 opacity-10 pointer-events-none">

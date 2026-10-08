@@ -46,17 +46,17 @@ export default function EcommerceDetailsClient({ data }) {
                   {hero.title?.split(' ')[0]} <br />
                   <span className="text-slate-200">{hero.title?.split(' ').slice(1).join(' ')}</span>
                </h1>
-               <p className="text-slate-500 text-lg md:text-xl font-light leading-[1.6] max-w-2xl bg-slate-50 p-6 md:p-8 border-l-4 border-rose-600 rounded-r-2xl">
+               <p className="text-slate-500 text-lg md:text-xl font-light leading-[1.6] max-w-2xl bg-slate-50 p-6 md:p-8 border-l-4 border-rose-600">
                   {hero.description}
                </p>
             </div>
 
             {/* ROI VISUALIZER BENTO */}
-            <div className="grid md:grid-cols-2 gap-px mb-12 lg:mb-24 bg-white border border-slate-100 rounded-2xl md:rounded-[2rem] overflow-hidden shadow-xl shadow-slate-200/50">
+            <div className="grid md:grid-cols-2 gap-px mb-12 lg:mb-24 bg-white border border-slate-100 md:-[2rem] overflow-hidden shadow-xl shadow-slate-200/50">
                {roi?.map((spec, idx) => (
                   <div key={idx} className="p-6 md:p-8 border-b border-r border-slate-100 flex flex-col justify-between hover:bg-slate-50 transition-colors group">
                      <div className="flex justify-between items-start mb-8 md:mb-10">
-                        <div className="w-12 h-12 md:w-16 md:h-16 bg-rose-50 rounded-xl md:rounded-2xl flex items-center justify-center text-2xl md:text-3xl text-rose-600 border border-rose-100 group-hover:bg-rose-600 group-hover:text-white transition-all">
+                        <div className="w-12 h-12 md:w-16 md:h-16 bg-rose-50 md: flex items-center justify-center text-2xl md:text-3xl text-rose-600 border border-rose-100 group-hover:bg-rose-600 group-hover:text-white transition-all">
                            {getIcon(spec.icon)}
                         </div>
                         <span className="text-[10px] font-black text-slate-300 group-hover:text-rose-200 transition-colors leading-[1.4]">KPI_SYNC_ACTIVE</span>
@@ -66,7 +66,7 @@ export default function EcommerceDetailsClient({ data }) {
                         <p className="text-slate-500 text-sm font-light leading-[1.6] mb-4 md:mb-6">{spec.desc}</p>
                         <div className="flex flex-wrap gap-2">
                            {spec.features?.map(f => (
-                              <span key={f} className="px-2 md:px-3 py-1 bg-white border border-slate-200 rounded-full text-[10px] font-bold text-slate-500 leading-[1.4]">{f}</span>
+                              <span key={f} className="px-2 md:px-3 py-1 bg-white border border-slate-200 text-[10px] font-bold text-slate-500 leading-[1.4]">{f}</span>
                            ))}
                         </div>
                      </div>
@@ -77,7 +77,7 @@ export default function EcommerceDetailsClient({ data }) {
             {/* TECHNICAL MANIFEST SECTION */}
             <div className="grid lg:grid-cols-2 gap-8 lg:gap-16 items-center mb-12 lg:mb-24">
                <div className="relative group">
-                  <div className="p-6 md:p-10 bg-slate-900 rounded-3xl md:rounded-[3rem] text-white overflow-hidden relative shadow-2xl">
+                  <div className="p-6 md:p-10 bg-slate-900 md:-[3rem] text-white overflow-hidden relative shadow-2xl">
                      <div className="absolute top-0 right-0 w-32 h-32 bg-rose-600/20 blur-[80px]"></div>
                      <h3 className="text-2xl md:text-3xl font-black mb-6 md:mb-8 tracking-tighter flex items-center gap-3 md:gap-4 leading-[1.1]">
                         <IoHardwareChipOutline className="text-rose-500 shrink-0" /> Commerce Manifest
@@ -96,8 +96,8 @@ export default function EcommerceDetailsClient({ data }) {
                <div>
                   <h2 className="text-3xl sm:text-4xl md:text-5xl font-black text-slate-900 mb-4 md:mb-6 tracking-tighter leading-[1.1]">Conversion <br /> <span className="text-rose-600 font-serif italic font-medium">Optimization.</span></h2>
                   <p className="text-slate-500 text-sm md:text-base font-light leading-[1.6] mb-6 md:mb-8">We deliver more than a store. We deliver a high-velocity transaction engine isolated from the common friction of monolithic commerce platforms.</p>
-                  <div className="flex items-center gap-4 p-4 md:p-6 bg-rose-50 rounded-2xl md:rounded-3xl border border-rose-100">
-                     <div className="w-10 h-10 md:w-12 md:h-12 bg-rose-600 rounded-lg md:rounded-xl flex items-center justify-center text-white text-lg md:text-xl shrink-0"><IoShieldCheckmarkOutline /></div>
+                  <div className="flex items-center gap-4 p-4 md:p-6 bg-rose-50 md: border border-rose-100">
+                     <div className="w-10 h-10 md:w-12 md:h-12 bg-rose-600 md: flex items-center justify-center text-white text-lg md:text-xl shrink-0"><IoShieldCheckmarkOutline /></div>
                      <div>
                         <p className="text-[10px] md:text-xs font-black text-rose-900 uppercase tracking-widest leading-[1.4]">Transaction Shield</p>
                         <p className="text-xs md:text-sm text-rose-600 font-bold leading-[1.4]">PCI-DSS Level 1 Logic Active</p>
@@ -113,7 +113,7 @@ export default function EcommerceDetailsClient({ data }) {
                   <div className="h-[1px] flex-1 bg-slate-100 hidden md:block"></div>
                </div>
 
-               <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-px bg-slate-100 border border-slate-100 rounded-2xl md:rounded-[2rem] overflow-hidden shadow-xl">
+               <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-px bg-slate-100 border border-slate-100 md:-[2rem] overflow-hidden shadow-xl">
                   {checklist?.map((item, i) => (
                      <div key={i} className="p-6 md:p-8 bg-white flex flex-col justify-between hover:bg-slate-50 transition-colors group">
                         <IoCheckmarkCircleOutline className="text-emerald-500 text-xl md:text-2xl mb-6 md:mb-8 group-hover:scale-110 transition-transform" />
@@ -131,12 +131,12 @@ export default function EcommerceDetailsClient({ data }) {
                <IoFlashOutline className="text-5xl lg:text-6xl text-rose-600 mb-6 md:mb-8 mx-auto opacity-10" />
                <h3 className="text-3xl sm:text-4xl lg:text-5xl font-black text-slate-900 mb-6 md:mb-8 leading-[1.1]">{cta.title}</h3>
                <div className="flex flex-col sm:flex-row gap-3 md:gap-4 justify-center">
-                  <button className="w-full sm:w-[240px] min-h-[48px] px-4 py-3 md:py-4 bg-rose-600 text-white font-black rounded-xl hover:bg-rose-700 transition-all shadow-xl shadow-rose-600/40 uppercase tracking-widest text-[10px] flex items-center justify-center leading-[1.4]">
+                  <button className="w-full sm:w-[240px] min-h-[48px] px-4 py-3 md:py-4 bg-rose-600 text-white font-black hover:bg-rose-700 transition-all shadow-xl shadow-rose-600/40 uppercase tracking-widest text-[10px] flex items-center justify-center leading-[1.4]">
                      Initialize Build
                   </button>
                   <Link
                      href="/freelancing"
-                     className="w-full sm:w-[240px] min-h-[48px] px-4 py-3 md:py-4 bg-slate-900 text-white font-black rounded-xl hover:bg-slate-800 transition-all uppercase tracking-widest text-[10px] flex items-center justify-center text-center leading-[1.4]"
+                     className="w-full sm:w-[240px] min-h-[48px] px-4 py-3 md:py-4 bg-slate-900 text-white font-black hover:bg-slate-800 transition-all uppercase tracking-widest text-[10px] flex items-center justify-center text-center leading-[1.4]"
                   >
                      Hire Student Talent
                   </Link>
@@ -150,7 +150,7 @@ export default function EcommerceDetailsClient({ data }) {
                <p className="text-[10px] font-black text-slate-500 uppercase tracking-widest leading-[1.4]">Ready?</p>
                <p className="text-slate-900 font-bold text-sm leading-[1.4]">Start Building</p>
             </div>
-            <button className="px-5 py-3 min-h-[48px] bg-rose-600 text-white font-black rounded-xl text-[10px] uppercase tracking-widest shadow-md shadow-rose-600/30 leading-[1.4] flex items-center justify-center">
+            <button className="px-5 py-3 min-h-[48px] bg-rose-600 text-white font-black text-[10px] uppercase tracking-widest shadow-md shadow-rose-600/30 leading-[1.4] flex items-center justify-center">
                Initialize Build
             </button>
          </div>

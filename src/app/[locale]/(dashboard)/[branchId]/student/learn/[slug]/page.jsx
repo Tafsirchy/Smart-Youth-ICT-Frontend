@@ -71,10 +71,10 @@ export default function CourseLearningInterface({ params }) {
  if (loading) {
  return (
  <div className="animate-pulse space-y-6">
- <div className="h-10 w-1/3 bg-neutral-200 "></div>
+ <div className="h-10 w-1/3 bg-neutral-200"></div>
  <div className="flex flex-col lg:flex-row gap-6">
- <div className="flex-1 h-[500px] bg-neutral-200 "></div>
- <div className="w-full lg:w-80 h-[500px] bg-neutral-200 "></div>
+ <div className="flex-1 h-[500px] bg-neutral-200"></div>
+ <div className="w-full lg:w-80 h-[500px] bg-neutral-200"></div>
  </div>
  </div>
  );
@@ -101,7 +101,7 @@ export default function CourseLearningInterface({ params }) {
  
  {/* Main Content Area */}
  <div className="flex-1 flex flex-col min-w-0 overflow-y-auto pr-2">
- <div className=" overflow-hidden bg-black shadow-lg ring-1 ring-neutral-200">
+ <div className="overflow-hidden bg-black shadow-lg ring-1 ring-neutral-200">
  <VideoPlayer url={activeLesson?.videoUrl || null} thumbnail={course.thumbnail} />
  </div>
 
@@ -121,7 +121,7 @@ export default function CourseLearningInterface({ params }) {
  </button>
  )}
  {activeLesson && completedIds.has(activeLesson._id.toString()) && (
- <span className="flex items-center gap-2 text-sm font-semibold text-emerald-600 bg-emerald-50 px-4 py-2 ">
+ <span className="flex items-center gap-2 text-sm font-semibold text-emerald-600 bg-emerald-50 px-4 py-2">
  <IoCheckmarkCircle size={18} /> Completed ✓
  </span>
  )}

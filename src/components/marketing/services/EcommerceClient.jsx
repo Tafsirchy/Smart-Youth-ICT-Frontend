@@ -34,7 +34,7 @@ export default function EcommerceClient({ data }) {
             <motion.div
               initial={{ opacity: 0, x: -20 }}
               animate={{ opacity: 1, x: 0 }}
-              className="inline-flex items-center gap-2 px-4 sm:px-5 py-2 rounded-full bg-rose-50 border border-rose-100 text-rose-700 text-xs font-black tracking-[0.4em] uppercase mb-8 sm:mb-10"
+              className="inline-flex items-center gap-2 px-4 sm:px-5 py-2 bg-rose-50 border border-rose-100 text-rose-700 text-xs font-black tracking-[0.4em] uppercase mb-8 sm:mb-10"
             >
               <IoCartOutline className="text-sm" /> {hero.badge}
             </motion.div>
@@ -59,12 +59,12 @@ export default function EcommerceClient({ data }) {
             </motion.p>
 
             <div className="flex flex-col sm:flex-row gap-4 sm:gap-6">
-              <button className="w-full sm:w-[280px] min-h-[44px] px-6 sm:px-8 py-5 sm:py-6 bg-rose-600 text-white font-black rounded-xl hover:bg-rose-700 transition-all shadow-xl shadow-rose-600/20 uppercase tracking-widest text-xs flex items-center justify-center">
+              <button className="w-full sm:w-[280px] min-h-[44px] px-6 sm:px-8 py-5 sm:py-6 bg-rose-600 text-white font-black hover:bg-rose-700 transition-all shadow-xl shadow-rose-600/20 uppercase tracking-widest text-xs flex items-center justify-center">
                 Initialize Storefront
               </button>
               <Link
                 href="/services/ecommerce/details"
-                className="w-full sm:w-[280px] min-h-[44px] px-6 sm:px-8 py-5 sm:py-6 bg-white border border-slate-200 text-slate-900 font-black rounded-xl hover:bg-slate-50 transition-all uppercase tracking-widest text-xs flex items-center justify-center text-center"
+                className="w-full sm:w-[280px] min-h-[44px] px-6 sm:px-8 py-5 sm:py-6 bg-white border border-slate-200 text-slate-900 font-black hover:bg-slate-50 transition-all uppercase tracking-widest text-xs flex items-center justify-center text-center"
               >
                 Technical Specifications
               </Link>
@@ -76,28 +76,28 @@ export default function EcommerceClient({ data }) {
               initial={{ opacity: 0, scale: 0.9, rotate: -5 }}
               animate={{ opacity: 1, scale: 1, rotate: 0 }}
               transition={{ duration: 1 }}
-              className="relative p-12 bg-white rounded-[4rem] border border-slate-100 shadow-2xl overflow-hidden"
+              className="relative p-12 bg-white -[4rem] border border-slate-100 shadow-2xl overflow-hidden"
             >
               <div className="absolute inset-x-0 top-1/2 h-[1px] bg-slate-100"></div>
               <div className="absolute inset-y-0 left-1/2 w-[1px] bg-slate-100"></div>
 
               <div className="grid grid-cols-2 gap-8 relative z-10 aspect-square">
-                <motion.div animate={{ y: [0, -10, 0] }} transition={{ duration: 4, repeat: Infinity }} className="p-8 bg-rose-50 rounded-3xl border border-rose-100 flex flex-col justify-between shadow-sm shadow-rose-100">
-                  <div className="w-10 h-10 bg-rose-600 rounded-xl"></div>
+                <motion.div animate={{ y: [0, -10, 0] }} transition={{ duration: 4, repeat: Infinity }} className="p-8 bg-rose-50 border border-rose-100 flex flex-col justify-between shadow-sm shadow-rose-100">
+                  <div className="w-10 h-10 bg-rose-600"></div>
                   <div className="space-y-2">
-                    <div className="h-1.5 w-full bg-rose-200 rounded-full"></div>
-                    <div className="h-1.5 w-3/4 bg-rose-200 rounded-full"></div>
+                    <div className="h-1.5 w-full bg-rose-200"></div>
+                    <div className="h-1.5 w-3/4 bg-rose-200"></div>
                   </div>
                 </motion.div>
-                <motion.div animate={{ y: [10, 0, 10] }} transition={{ duration: 4, repeat: Infinity }} className="p-8 bg-slate-900 rounded-3xl flex flex-col justify-end">
-                  <div className="h-10 bg-white/10 rounded-full flex items-center justify-center text-xs font-black text-rose-400">SECURE_SYNC</div>
+                <motion.div animate={{ y: [10, 0, 10] }} transition={{ duration: 4, repeat: Infinity }} className="p-8 bg-slate-900 flex flex-col justify-end">
+                  <div className="h-10 bg-white/10 flex items-center justify-center text-xs font-black text-rose-400">SECURE_SYNC</div>
                 </motion.div>
-                <motion.div className="col-span-2 p-8 bg-white rounded-3xl border border-slate-100 shadow-xl flex items-center justify-between">
+                <motion.div className="col-span-2 p-8 bg-white border border-slate-100 shadow-xl flex items-center justify-between">
                   <div className="flex gap-2">
-                    <div className="w-8 h-8 rounded-full bg-rose-100"></div>
-                    <div className="w-8 h-8 rounded-full bg-slate-100"></div>
+                    <div className="w-8 h-8 bg-rose-100"></div>
+                    <div className="w-8 h-8 bg-slate-100"></div>
                   </div>
-                  <div className="w-32 h-6 bg-slate-50 rounded-full"></div>
+                  <div className="w-32 h-6 bg-slate-50"></div>
                 </motion.div>
               </div>
             </motion.div>
@@ -144,7 +144,7 @@ export default function EcommerceClient({ data }) {
         </div>
 
         {/* INTEGRATION HUB */}
-        <div className="mb-32 sm:mb-48 bg-white rounded-3xl sm:rounded-[4rem] lg:rounded-[5rem] p-8 sm:p-12 lg:p-24 border border-slate-100 shadow-2xl shadow-slate-200/50 relative overflow-hidden">
+        <div className="mb-32 sm:mb-48 bg-white sm:-[4rem] lg:-[5rem] p-8 sm:p-12 lg:p-24 border border-slate-100 shadow-2xl shadow-slate-200/50 relative overflow-hidden">
           <div className="absolute top-0 right-0 w-1/3 h-full bg-rose-50/50 -skew-x-[20deg] origin-top translate-x-1/2 opacity-50"></div>
 
           <div className="grid lg:grid-cols-2 gap-16 lg:gap-20 items-center relative z-10">
@@ -155,7 +155,7 @@ export default function EcommerceClient({ data }) {
               <div className="grid grid-cols-2 gap-4 sm:gap-6 pt-8 sm:pt-10 border-t border-slate-200">
                 {integrations?.map((int, i) => (
                   <div key={i} className="flex flex-col sm:flex-row items-start sm:items-center gap-3 sm:gap-4 group">
-                    <div className="w-10 h-10 sm:w-12 sm:h-12 shrink-0 rounded-xl bg-slate-50 flex items-center justify-center text-rose-500 border border-slate-100 lg:group-hover:bg-rose-500 lg:group-hover:text-white transition-all transform lg:group-hover:rotate-6">
+                    <div className="w-10 h-10 sm:w-12 sm:h-12 shrink-0 bg-slate-50 flex items-center justify-center text-rose-500 border border-slate-100 lg:group-hover:bg-rose-500 lg:group-hover:text-white transition-all transform lg:group-hover:rotate-6">
                       {getIcon(int.icon)}
                     </div>
                     <div>
@@ -168,7 +168,7 @@ export default function EcommerceClient({ data }) {
             </div>
 
             <div className="relative group lg:scale-110">
-              <div className="p-8 sm:p-12 bg-slate-900 rounded-3xl sm:rounded-[4rem] text-white shadow-2xl relative overflow-hidden">
+              <div className="p-8 sm:p-12 bg-slate-900 sm:-[4rem] text-white shadow-2xl relative overflow-hidden">
                 <div className="flex justify-between items-center mb-10 sm:mb-16 border-b border-white/5 pb-6 sm:pb-8 font-mono text-[10px] tracking-[0.4em] text-white/40">
                   <span>HUB_ID_PROX_88</span>
                   <span>CORE_STATUS::UP</span>
@@ -176,16 +176,16 @@ export default function EcommerceClient({ data }) {
 
                 <div className="space-y-6 sm:space-y-8">
                   <div className="flex items-center gap-4 sm:gap-6">
-                    <div className="w-10 h-10 sm:w-12 sm:h-12 bg-rose-500 rounded-2xl flex items-center justify-center text-white text-xl sm:text-2xl"><IoGitNetworkOutline /></div>
+                    <div className="w-10 h-10 sm:w-12 sm:h-12 bg-rose-500 flex items-center justify-center text-white text-xl sm:text-2xl"><IoGitNetworkOutline /></div>
                     <div className="flex-1 space-y-2">
-                      <div className="h-1.5 bg-white/10 rounded-full w-full"></div>
-                      <div className="h-1.5 bg-white/5 rounded-full w-1/2"></div>
+                      <div className="h-1.5 bg-white/10 w-full"></div>
+                      <div className="h-1.5 bg-white/5 w-1/2"></div>
                     </div>
                   </div>
-                  <div className="p-6 sm:p-8 bg-white/5 rounded-3xl border border-white/5">
+                  <div className="p-6 sm:p-8 bg-white/5 border border-white/5">
                     <p className="text-emerald-400 font-mono text-[10px] sm:text-xs mb-4 tracking-tighter">DATALOAD::VERIFIED</p>
                     <div className="flex gap-2 sm:gap-4">
-                      {[1, 2, 3, 4].map(i => <div key={i} className="h-6 sm:h-8 flex-1 bg-white/5 rounded-lg border border-white/5"></div>)}
+                      {[1, 2, 3, 4].map(i => <div key={i} className="h-6 sm:h-8 flex-1 bg-white/5 border border-white/5"></div>)}
                     </div>
                   </div>
                 </div>
@@ -226,12 +226,12 @@ export default function EcommerceClient({ data }) {
           <IoBagCheckOutline className="text-7xl text-rose-600 mb-10 sm:mb-12 mx-auto opacity-10" />
           <h3 className="text-4xl sm:text-5xl lg:text-6xl font-black text-slate-900 mb-10 sm:mb-12 leading-tight">{cta.title?.split('your ')[0]}your <br /><span className="text-transparent bg-clip-text bg-gradient-to-r from-rose-600 to-indigo-600 font-serif italic font-medium">{cta.title?.split('your ')[1]}</span></h3>
           <div className="flex flex-col sm:flex-row gap-4 sm:gap-6 justify-center">
-            <button className="w-full sm:w-[280px] min-h-[44px] px-6 sm:px-8 py-5 sm:py-6 bg-rose-600 text-white font-black rounded-xl hover:bg-rose-700 transition-all shadow-xl shadow-rose-600/40 uppercase tracking-widest text-xs flex items-center justify-center">
+            <button className="w-full sm:w-[280px] min-h-[44px] px-6 sm:px-8 py-5 sm:py-6 bg-rose-600 text-white font-black hover:bg-rose-700 transition-all shadow-xl shadow-rose-600/40 uppercase tracking-widest text-xs flex items-center justify-center">
               Initialize Build
             </button>
               <Link
               href="/services/ecommerce/details"
-              className="w-full sm:w-[280px] min-h-[44px] px-6 sm:px-8 py-5 sm:py-6 bg-slate-900 text-white font-black rounded-xl hover:bg-slate-800 transition-all uppercase tracking-widest text-xs flex items-center justify-center text-center"
+              className="w-full sm:w-[280px] min-h-[44px] px-6 sm:px-8 py-5 sm:py-6 bg-slate-900 text-white font-black hover:bg-slate-800 transition-all uppercase tracking-widest text-xs flex items-center justify-center text-center"
             >
               Technical Specifications
             </Link>
@@ -245,7 +245,7 @@ export default function EcommerceClient({ data }) {
           <p className="text-xs font-black text-slate-500 uppercase tracking-widest">Start Store</p>
           <p className="text-slate-900 font-bold text-sm">Consult Expert</p>
         </div>
-        <button className="px-5 py-3 min-h-[44px] bg-rose-600 text-white font-black rounded-xl text-xs uppercase tracking-widest shadow-lg shadow-rose-600/30">
+        <button className="px-5 py-3 min-h-[44px] bg-rose-600 text-white font-black text-xs uppercase tracking-widest shadow-lg shadow-rose-600/30">
           Build Now
         </button>
       </div>

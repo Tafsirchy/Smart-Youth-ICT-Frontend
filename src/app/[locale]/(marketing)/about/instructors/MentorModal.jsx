@@ -84,7 +84,7 @@ export default function MentorModal({ mentor, onClose }) {
  {(mentor.expertise || []).map((t) => (
  <span
  key={t}
- className="px-2 py-1 bg-slate-100 text-slate-500 text-[10px] font-bold uppercase tracking-wider "
+ className="px-2 py-1 bg-slate-100 text-slate-500 text-[10px] font-bold uppercase tracking-wider"
  >
  {t}
  </span>

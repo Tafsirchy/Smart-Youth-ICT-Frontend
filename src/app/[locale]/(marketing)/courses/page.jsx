@@ -139,13 +139,13 @@ export default function CoursesPage() {
  {!heroConfig?.imageUrl && (
  <>
  <motion.div
- className="absolute -top-24 -left-20 w-72 h-72 opacity-20 blur-3xl pointer-events-none"
+ className="absolute -top-24 -left-20 w-72 h-72 opacity-20 blur-3xl pointer-events-none hidden"
  style={{ background: "var(--color-brand-pink)" }}
  animate={{ scale: [1, 1.12, 1] }}
  transition={{ duration: 8, repeat: Infinity }}
  />
  <motion.div
- className="absolute -bottom-20 -right-20 w-64 h-64 opacity-15 blur-3xl pointer-events-none"
+ className="absolute -bottom-20 -right-20 w-64 h-64 opacity-15 blur-3xl pointer-events-none hidden"
  style={{ background: "#818cf8" }}
  animate={{ scale: [1, 1.18, 1] }}
  transition={{ duration: 7, repeat: Infinity, delay: 1.5 }}
@@ -175,7 +175,7 @@ export default function CoursesPage() {
  </p>
 
  {/* Search Bar */}
- <div className="relative max-w-lg mx-auto shadow-2xl shadow-black/20 ">
+ <div className="relative max-w-lg mx-auto shadow-2xl shadow-black/20">
  <IoSearchOutline
  size={20}
  className="absolute left-4 top-1/2 -translate-y-1/2 text-indigo-300"

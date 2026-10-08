@@ -252,7 +252,7 @@ export default function EcommerceCMS() {
  <button onClick={() => {
  const newArr = content.landing.sections.integrations.filter((_, i) => i !== idx);
  updateNested("landing", "sections.integrations", newArr);
- }} className="absolute top-2 right-2 text-white/10 hover:text-rose-500 opacity-0 group-hover:opacity-100 transition-all z-10 p-1 bg-white/5 "><IoTrashOutline size={14}/></button>
+ }} className="absolute top-2 right-2 text-white/10 hover:text-rose-500 opacity-0 group-hover:opacity-100 transition-all z-10 p-1 bg-white/5"><IoTrashOutline size={14}/></button>
  
  <div className="shrink-0 relative group/icon">
  <div className="w-10 h-10 bg-white/5 flex items-center justify-center text-rose-400 text-xl group-hover:scale-105 transition-all shadow-inner border border-white/5">
@@ -416,7 +416,7 @@ export default function EcommerceCMS() {
  <button onClick={() => {
  const newArr = content.details.sections.roi.filter((_, i) => i !== idx);
  updateNested("details", "sections.roi", newArr);
- }} className="absolute top-2 right-2 text-slate-200 hover:text-rose-500 transition-all opacity-0 group-hover:opacity-100 z-10 p-1 bg-white/5 "><IoTrashOutline size={14}/></button>
+ }} className="absolute top-2 right-2 text-slate-200 hover:text-rose-500 transition-all opacity-0 group-hover:opacity-100 z-10 p-1 bg-white/5"><IoTrashOutline size={14}/></button>
  <div className="flex gap-3 mb-3">
  <div className="shrink-0 relative group/icon">
  <div className="w-10 h-10 bg-white flex items-center justify-center text-rose-600 text-xl shadow-inner border border-slate-100 group-hover:scale-105 transition-transform">
@@ -489,7 +489,7 @@ export default function EcommerceCMS() {
  <button onClick={() => {
  const newArr = content.details.sections.manifest.filter((_, i) => i !== idx);
  updateNested("details", "sections.manifest", newArr);
- }} className="absolute -left-6 opacity-0 group-hover:opacity-100 text-rose-500 transition-all p-1 hover:bg-white/5 "><IoTrashOutline size={12}/></button>
+ }} className="absolute -left-6 opacity-0 group-hover:opacity-100 text-rose-500 transition-all p-1 hover:bg-white/5"><IoTrashOutline size={12}/></button>
  </div>
  ))}
  <button onClick={() => {

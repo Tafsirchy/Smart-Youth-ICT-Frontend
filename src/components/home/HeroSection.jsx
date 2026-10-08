@@ -39,7 +39,7 @@ export default function HeroSection() {
  {/* Animated blob — pink */}
  <motion.div
  aria-hidden="true"
- className="absolute -top-32 -left-32 w-96 h-96 opacity-20 blur-3xl pointer-events-none"
+ className="absolute -top-32 -left-32 w-96 h-96 opacity-20 blur-3xl pointer-events-none hidden"
  style={{ background: 'var(--color-brand-pink)' }}
  animate={{ scale: [1, 1.15, 1], x: [0, 20, 0] }}
  transition={{ duration: 8, repeat: Infinity, ease: 'easeInOut' }}
@@ -47,7 +47,7 @@ export default function HeroSection() {
  {/* Animated blob — green */}
  <motion.div
  aria-hidden="true"
- className="absolute -bottom-32 -right-32 w-96 h-96 opacity-20 blur-3xl pointer-events-none"
+ className="absolute -bottom-32 -right-32 w-96 h-96 opacity-20 blur-3xl pointer-events-none hidden"
  style={{ background: 'var(--color-brand-green-light)' }}
  animate={{ scale: [1, 1.2, 1], y: [0, -20, 0] }}
  transition={{ duration: 10, repeat: Infinity, ease: 'easeInOut', delay: 1 }}

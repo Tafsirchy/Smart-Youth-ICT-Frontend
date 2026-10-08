@@ -262,7 +262,7 @@ export default function MaintenanceCMS() {
  <button onClick={() => {
  const newArr = content.landing.sections.metrics.filter((_, i) => i !== idx);
  updateNested("landing", "sections.metrics", newArr);
- }} className="absolute top-2 right-2 text-white/10 hover:text-rose-500 opacity-0 group-hover:opacity-100 transition-all p-1 bg-white/5 "><IoTrashOutline size={14}/></button>
+ }} className="absolute top-2 right-2 text-white/10 hover:text-rose-500 opacity-0 group-hover:opacity-100 transition-all p-1 bg-white/5"><IoTrashOutline size={14}/></button>
  <input 
  placeholder="Metric Label"
  className="bg-transparent border-none outline-none font-black text-[10px] md:text-[11px] uppercase text-teal-400 w-full mb-1" 
@@ -393,7 +393,7 @@ export default function MaintenanceCMS() {
  <button onClick={() => {
  const newArr = content.details.sections.roi.filter((_, i) => i !== idx);
  updateNested("details", "sections.roi", newArr);
- }} className="absolute top-2 right-2 text-slate-200 hover:text-rose-500 transition-all opacity-0 group-hover:opacity-100 z-10 p-1 bg-white/5 "><IoTrashOutline size={14}/></button>
+ }} className="absolute top-2 right-2 text-slate-200 hover:text-rose-500 transition-all opacity-0 group-hover:opacity-100 z-10 p-1 bg-white/5"><IoTrashOutline size={14}/></button>
  
  <div className="mb-3">
  <label className="text-[8px] font-black uppercase text-slate-600 mb-1 block">Group Type</label>

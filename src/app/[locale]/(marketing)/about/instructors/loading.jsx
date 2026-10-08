@@ -15,9 +15,9 @@ export default function PageLoading() {
  <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
  {[...Array(8)].map((_, i) => (
  <div key={i} className="flex flex-col items-center gap-3">
- <Skeleton className="h-24 w-24 " />
- <Skeleton className="h-4 w-28 " />
- <Skeleton className="h-3 w-20 " />
+ <Skeleton className="h-24 w-24" />
+ <Skeleton className="h-4 w-28" />
+ <Skeleton className="h-3 w-20" />
  </div>
  ))}
  </div>

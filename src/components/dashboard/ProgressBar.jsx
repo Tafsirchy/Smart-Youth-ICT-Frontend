@@ -12,7 +12,7 @@ export default function ProgressBar({ progress = 0, label = 'Course Progress' })
  </div>
  <div className="w-full bg-neutral-200 h-2.5 dark:bg-neutral-200 overflow-hidden">
  <motion.div
- className="bg-emerald-500 h-2.5 "
+ className="bg-emerald-500 h-2.5"
  initial={{ width: 0 }}
  animate={{ width: `${progress}%` }}
  transition={{ duration: 0.8, ease: 'easeOut' }}

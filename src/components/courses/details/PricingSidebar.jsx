@@ -28,7 +28,7 @@ export default function PricingSidebar({
 
  <div className="p-6 md:p-8 shrink-0 relative overflow-hidden">
  {/* Subtle background glow */}
- <div className="absolute -top-10 -right-10 w-32 h-32 bg-pink-100 blur-[40px] opacity-60 mix-blend-multiply pointer-events-none" />
+ <div className="absolute -top-10 -right-10 w-32 h-32 bg-pink-100 blur-[40px] opacity-60 mix-blend-multiply pointer-events-none hidden" />
  
  <div className="mb-6 flex flex-col">
  <div className="flex items-center gap-3 mb-1">
@@ -93,7 +93,7 @@ export default function PricingSidebar({
  </ul>
  </div>
 
- <div className="flex items-center justify-center gap-2 mt-8 text-xs font-semibold text-slate-400 uppercase tracking-wider bg-slate-50 py-3 ">
+ <div className="flex items-center justify-center gap-2 mt-8 text-xs font-semibold text-slate-400 uppercase tracking-wider bg-slate-50 py-3">
  <IoShieldCheckmarkOutline size={16} className="text-emerald-500" />
  Secure 256-bit Checkout
  </div>

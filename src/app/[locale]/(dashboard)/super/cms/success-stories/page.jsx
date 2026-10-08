@@ -468,7 +468,7 @@ export default function SuccessStoriesPage() {
  loading="lazy"
  decoding="async"
  onError={(e) => { e.target.src = '/images/placeholder.png'; }}
- className=" object-cover bg-[#f0f0f0]"
+ className="object-cover bg-[#f0f0f0]"
  style={{ maxWidth: '100%', maxHeight: '160px' }}
  />
  </div>

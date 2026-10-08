@@ -121,8 +121,8 @@ decoding="async"/>
  <div className="flex items-center gap-3 animate-pulse">
  <div className="w-10 h-10 bg-slate-700/50" />
  <div className="flex-1 space-y-2">
- <div className="h-3 w-20 bg-slate-700/50 " />
- <div className="h-2 w-12 bg-slate-700/50 " />
+ <div className="h-3 w-20 bg-slate-700/50" />
+ <div className="h-2 w-12 bg-slate-700/50" />
  </div>
  </div>
  ) : (

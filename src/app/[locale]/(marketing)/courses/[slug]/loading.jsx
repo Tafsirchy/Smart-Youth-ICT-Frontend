@@ -35,17 +35,17 @@ export default function CourseDetailLoading() {
  <div className="md:col-span-2 flex flex-col gap-6">
  {[...Array(3)].map((_, i) => (
  <div key={i} className="flex flex-col gap-3">
- <Skeleton className="h-6 w-40 " />
- <Skeleton className="h-4 w-full " />
- <Skeleton className="h-4 w-5/6 " />
- <Skeleton className="h-4 w-4/6 " />
+ <Skeleton className="h-6 w-40" />
+ <Skeleton className="h-4 w-full" />
+ <Skeleton className="h-4 w-5/6" />
+ <Skeleton className="h-4 w-4/6" />
  </div>
  ))}
  </div>
  {/* Sidebar */}
  <div className="flex flex-col gap-4">
  {[...Array(5)].map((_, i) => (
- <Skeleton key={i} className="h-5 w-full " />
+ <Skeleton key={i} className="h-5 w-full" />
  ))}
  </div>
  </div>

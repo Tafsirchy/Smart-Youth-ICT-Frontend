@@ -69,7 +69,7 @@ export default function StudentDashboardPage() {
  className="relative overflow-hidden px-8 py-8"
  style={{ background: 'linear-gradient(135deg, #0f172a 0%, #1e1b4b 55%, #312e81 100%)' }}
  >
- <motion.div className="absolute -top-16 -right-16 w-64 h-64 opacity-20 blur-3xl pointer-events-none" style={{ background: 'var(--color-brand-pink)' }}
+ <motion.div className="absolute -top-16 -right-16 w-64 h-64 opacity-20 blur-3xl pointer-events-none hidden" style={{ background: 'var(--color-brand-pink)' }}
  animate={{ scale: [1, 1.15, 1] }} transition={{ duration: 8, repeat: Infinity }} />
  <div className="relative z-10 flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
  <div className="flex items-center gap-4">
@@ -164,7 +164,7 @@ export default function StudentDashboardPage() {
  <span className="text-emerald-600 font-bold">{pct}%</span>
  </div>
  <div className="w-full bg-neutral-100 h-1.5 mb-4">
- <motion.div className="bg-gradient-to-r from-emerald-400 to-emerald-500 h-1.5 "
+ <motion.div className="bg-gradient-to-r from-emerald-400 to-emerald-500 h-1.5"
  initial={{ width: 0 }} animate={{ width: `${pct}%` }} transition={{ duration: 0.8, delay: 0.3 }} />
  </div>
  <Link href={`/${locale}/student/learn/${course.slug}`}
@@ -179,7 +179,7 @@ export default function StudentDashboardPage() {
  })}
  </div>
  ) : (
- <div className=" border-2 border-dashed border-neutral-200 bg-white p-12 text-center">
+ <div className="border-2 border-dashed border-neutral-200 bg-white p-12 text-center">
  <IoBookOutline className="mx-auto h-12 w-12 text-neutral-300 mb-4" />
  <h3 className="font-bold text-textPrimary mb-2">No courses yet</h3>
  <p className="text-textSecondary text-sm mb-6">Explore our catalog and start your learning journey today.</p>

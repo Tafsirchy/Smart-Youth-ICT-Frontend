@@ -101,7 +101,7 @@ function PostModal({ post, onClose, onSaved }) {
  <img
  src={form.thumbnail}
  alt="Preview"
- className=" object-cover bg-[#f0f0f0]"
+ className="object-cover bg-[#f0f0f0]"
  style={{ maxWidth: '100%', maxHeight: '300px' }}
  
 loading="lazy"

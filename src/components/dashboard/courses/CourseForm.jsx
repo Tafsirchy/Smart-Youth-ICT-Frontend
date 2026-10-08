@@ -640,7 +640,7 @@ decoding="async"/>
  <button
  type="button"
  onClick={() => removeArrayItem("outcomes", i)}
- className="p-2 text-red-400 hover:text-red-600 "
+ className="p-2 text-red-400 hover:text-red-600"
  >
  <FiTrash2 />
  </button>
@@ -692,7 +692,7 @@ decoding="async"/>
  <button
  type="button"
  onClick={() => removeArrayItem("features", i)}
- className="p-2 text-red-500 hover:bg-red-50 "
+ className="p-2 text-red-500 hover:bg-red-50"
  >
  <FiTrash2 size={18} />
  </button>
@@ -784,7 +784,7 @@ decoding="async"/>
  loading="lazy"
  decoding="async"
  onError={(e) => { e.target.src = '/images/placeholder.png'; }}
- className=" object-cover shadow-sm border border-neutral-100 bg-[#f0f0f0]" 
+ className="object-cover shadow-sm border border-neutral-100 bg-[#f0f0f0]" 
  style={{ maxWidth: '100%', maxHeight: '300px' }} 
  />
  </div>
@@ -868,7 +868,7 @@ decoding="async"/>
  {/* FOOTER ACTIONS */}
  <div className="mt-8 pt-6 border-t border-neutral-200 flex flex-wrap justify-between items-center gap-4">
  {initialData && (
- <span className="text-sm font-semibold text-neutral-500 border px-3 py-1 ">
+ <span className="text-sm font-semibold text-neutral-500 border px-3 py-1">
  Editing ID: {initialData._id}
  </span>
  )}

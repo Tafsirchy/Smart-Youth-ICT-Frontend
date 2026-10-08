@@ -124,10 +124,10 @@ export default function ProfileContent() {
  if (loading)
  return (
  <div className="space-y-4 animate-pulse">
- <div className="h-32 bg-slate-100 " />
+ <div className="h-32 bg-slate-100" />
  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
- <div className="h-64 bg-slate-50 " />
- <div className="h-64 bg-slate-50 " />
+ <div className="h-64 bg-slate-50" />
+ <div className="h-64 bg-slate-50" />
  </div>
  </div>
  );
@@ -177,7 +177,7 @@ decoding="async"/>
  <h1 className="text-3xl font-black text-white tracking-tight leading-snug">
  {session?.user?.name}
  </h1>
- <span className="px-3 py-1 bg-blue-500/10 border border-blue-500/20 text-blue-400 text-[10px] font-black uppercase tracking-widest ">
+ <span className="px-3 py-1 bg-blue-500/10 border border-blue-500/20 text-blue-400 text-[10px] font-black uppercase tracking-widest">
  {session?.user?.role?.replace("_", " ")}
  </span>
  </div>

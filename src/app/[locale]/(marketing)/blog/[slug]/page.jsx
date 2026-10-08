@@ -125,7 +125,7 @@ decoding="async"/>
  height={36}
  loading="lazy"
  decoding="async"
- className=" ring-2 ring-white/20 object-cover"
+ className="ring-2 ring-white/20 object-cover"
  
 />
  )}

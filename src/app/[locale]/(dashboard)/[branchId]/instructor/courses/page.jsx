@@ -35,7 +35,7 @@ export default function InstructorCoursesPage() {
  if (loading) {
  return (
  <div className="py-8 space-y-8 animate-pulse">
- <div className="h-10 w-1/4 bg-neutral-100 " />
+ <div className="h-10 w-1/4 bg-neutral-100" />
  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
  {[1, 2, 3].map((i) => (
  <div key={i} className="h-64 bg-neutral-100 -[40px]" />

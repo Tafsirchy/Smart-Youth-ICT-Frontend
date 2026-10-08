@@ -55,7 +55,7 @@ export default function AdminDashboardPage() {
  <motion.div initial={{ opacity: 0, y: -16 }} animate={{ opacity: 1, y: 0 }}
  className="relative overflow-hidden px-8 py-7"
  style={{ background: 'linear-gradient(135deg, #0f172a 0%, #1e1b4b 55%, #312e81 100%)' }}>
- <motion.div className="absolute -top-16 -right-16 w-60 h-60 opacity-20 blur-3xl pointer-events-none"
+ <motion.div className="absolute -top-16 -right-16 w-60 h-60 opacity-20 blur-3xl pointer-events-none hidden"
  style={{ background: 'var(--color-brand-pink)' }}
  animate={{ scale: [1,1.15,1] }} transition={{ duration: 8, repeat: Infinity }} />
  <div className="relative z-10 flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
@@ -78,14 +78,14 @@ export default function AdminDashboardPage() {
  className={`bg-white ring-1 ${s.ring} p-5 shadow-sm hover:shadow-md transition-shadow flex flex-col gap-3`}>
  <div className="flex items-start justify-between">
  <div className={`${s.bg} ${s.txt} p-3 `}><s.icon size={22} /></div>
- <span className="flex items-center gap-0.5 text-xs font-bold text-emerald-600 bg-emerald-50 px-2 py-0.5 ">
+ <span className="flex items-center gap-0.5 text-xs font-bold text-emerald-600 bg-emerald-50 px-2 py-0.5">
  <IoArrowUpOutline size={11} />{s.trend}
  </span>
  </div>
  <div>
  <p className="text-xs font-medium text-textSecondary">{s.label}</p>
  <p className={`text-3xl font-extrabold mt-0.5 ${s.txt}`}>
- {loading ? <span className="inline-block w-10 h-7 bg-neutral-200 animate-pulse " /> : s.value}
+ {loading ? <span className="inline-block w-10 h-7 bg-neutral-200 animate-pulse" /> : s.value}
  </p>
  </div>
  </motion.div>

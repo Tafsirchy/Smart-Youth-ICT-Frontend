@@ -273,7 +273,7 @@ export default function ErpCrmCMS() {
  <button onClick={() => {
  const newArr = content.landing.sections.integrations.filter((_, i) => i !== idx);
  updateNested("landing", "sections.integrations", newArr);
- }} className="absolute top-2 right-2 text-white/20 hover:text-rose-500 opacity-0 group-hover:opacity-100 transition-all p-1 bg-white/5 "><IoTrashOutline size={14}/></button>
+ }} className="absolute top-2 right-2 text-white/20 hover:text-rose-500 opacity-0 group-hover:opacity-100 transition-all p-1 bg-white/5"><IoTrashOutline size={14}/></button>
  <input placeholder="Stack layer" className="bg-transparent border-none outline-none font-black text-base md:text-[9px] uppercase tracking-widest text-slate-400 mb-3 block" value={item.group} onChange={(e) => {
  const newArr = [...content.landing.sections.integrations];
  newArr[idx].group = e.target.value;
@@ -398,7 +398,7 @@ export default function ErpCrmCMS() {
  <button onClick={() => {
  const newArr = content.details.sections.phases.filter((_, i) => i !== idx);
  updateNested("details", "sections.phases", newArr);
- }} className="absolute top-2 right-2 text-slate-200 hover:text-rose-500 transition-all opacity-0 group-hover:opacity-100 p-1 bg-white/5 "><IoTrashOutline size={14}/></button>
+ }} className="absolute top-2 right-2 text-slate-200 hover:text-rose-500 transition-all opacity-0 group-hover:opacity-100 p-1 bg-white/5"><IoTrashOutline size={14}/></button>
  <div className="flex items-center gap-3 mb-3">
  <span className="text-[9px] font-black text-teal-500 bg-teal-50 px-2 py-1 shrink-0">{phase.step}</span>
  <input placeholder="Phase Name" className="bg-transparent border-none outline-none font-black text-base md:text-sm uppercase text-slate-900 flex-1 min-w-0" value={phase.t} onChange={(e) => {
@@ -446,7 +446,7 @@ export default function ErpCrmCMS() {
  <button onClick={() => {
  const newArr = content.details.sections.manifest.filter((_, i) => i !== idx);
  updateNested("details", "sections.manifest", newArr);
- }} className="absolute -left-6 opacity-0 group-hover:opacity-100 text-rose-500 transition-all p-1 hover:bg-white/5 "><IoTrashOutline size={12}/></button>
+ }} className="absolute -left-6 opacity-0 group-hover:opacity-100 text-rose-500 transition-all p-1 hover:bg-white/5"><IoTrashOutline size={12}/></button>
  </div>
  ))}
  <button onClick={() => {
@@ -474,7 +474,7 @@ export default function ErpCrmCMS() {
  <button onClick={() => {
  const newArr = content.details.sections.roi.filter((_, i) => i !== idx);
  updateNested("details", "sections.roi", newArr);
- }} className="absolute top-2 right-2 text-slate-200 hover:text-rose-500 transition-all opacity-0 group-hover:opacity-100 z-10 p-1 bg-white/5 "><IoTrashOutline size={14}/></button>
+ }} className="absolute top-2 right-2 text-slate-200 hover:text-rose-500 transition-all opacity-0 group-hover:opacity-100 z-10 p-1 bg-white/5"><IoTrashOutline size={14}/></button>
  <div className="flex gap-3 mb-3">
  <div className="shrink-0 relative group/icon">
  <div className="w-10 h-10 bg-white flex items-center justify-center text-teal-600 text-xl shadow-inner border border-slate-100 group-hover:scale-105 transition-transform">

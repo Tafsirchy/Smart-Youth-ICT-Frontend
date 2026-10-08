@@ -179,7 +179,7 @@ export default function Testimonials() {
  <button
  type="button"
  onClick={() => setSelectedVideo(video)}
- className="absolute inset-0 z-10 w-full h-full cursor-pointer focus:outline-none focus:ring-4 focus:ring-pink-500/40 "
+ className="absolute inset-0 z-10 w-full h-full cursor-pointer focus:outline-none focus:ring-4 focus:ring-pink-500/40"
  aria-label={`Watch ${video.studentName}'s review`}
  />
  </div>

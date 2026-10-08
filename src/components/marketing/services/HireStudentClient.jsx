@@ -20,7 +20,7 @@ export default function HireStudentClient({ data }) {
         <div className="absolute top-0 left-1/4 w-[1px] h-full bg-slate-200"></div>
         <div className="absolute top-0 right-1/4 w-[1px] h-full bg-slate-200"></div>
         <div className="absolute top-1/2 left-0 w-full h-[1px] bg-slate-200"></div>
-        <div className="absolute top-[10%] left-[-100px] w-[500px] h-[500px] bg-amber-50 rounded-full blur-[140px]"></div>
+        <div className="absolute top-[10%] left-[-100px] w-[500px] h-[500px] bg-amber-50 blur-[140px]"></div>
       </div>
 
       <div className="container-custom py-20 relative z-10">
@@ -30,7 +30,7 @@ export default function HireStudentClient({ data }) {
             <motion.div
               initial={{ opacity: 0, x: -20 }}
               animate={{ opacity: 1, x: 0 }}
-              className="inline-flex items-center gap-2 px-4 sm:px-5 py-2 rounded-full bg-amber-50 border border-amber-100 text-amber-700 text-[10px] sm:text-xs font-black tracking-wider sm:tracking-[0.4em] uppercase mb-8 sm:mb-10"
+              className="inline-flex items-center gap-2 px-4 sm:px-5 py-2 bg-amber-50 border border-amber-100 text-amber-700 text-[10px] sm:text-xs font-black tracking-wider sm:tracking-[0.4em] uppercase mb-8 sm:mb-10"
             >
               <IoSparklesOutline className="text-sm" /> {data.hero.badge}
             </motion.div>
@@ -55,12 +55,12 @@ export default function HireStudentClient({ data }) {
             </motion.p>
 
             <div className="flex flex-col sm:flex-row gap-4 sm:gap-6">
-              <button className="w-full sm:w-[280px] px-8 py-4 sm:py-6 bg-amber-600 text-white font-black rounded-xl hover:bg-amber-700 transition-all shadow-xl sm:shadow-2xl shadow-amber-600/20 uppercase tracking-wider sm:tracking-widest text-xs sm:text-sm flex items-center justify-center min-h-[44px]">
+              <button className="w-full sm:w-[280px] px-8 py-4 sm:py-6 bg-amber-600 text-white font-black hover:bg-amber-700 transition-all shadow-xl sm:shadow-2xl shadow-amber-600/20 uppercase tracking-wider sm:tracking-widest text-xs sm:text-sm flex items-center justify-center min-h-[44px]">
                 {data.cta.title}
               </button>
               <Link
                 href="/services/hire-student/details"
-                className="w-full sm:w-[280px] px-8 py-4 sm:py-6 bg-white border border-slate-200 text-slate-900 font-black rounded-xl hover:bg-slate-50 transition-all uppercase tracking-wider sm:tracking-widest text-xs sm:text-sm flex items-center justify-center text-center min-h-[44px]"
+                className="w-full sm:w-[280px] px-8 py-4 sm:py-6 bg-white border border-slate-200 text-slate-900 font-black hover:bg-slate-50 transition-all uppercase tracking-wider sm:tracking-widest text-xs sm:text-sm flex items-center justify-center text-center min-h-[44px]"
               >
                 Vetting Specifications
               </Link>
@@ -73,9 +73,9 @@ export default function HireStudentClient({ data }) {
               initial={{ opacity: 0, scale: 0.9, rotate: 3 }}
               animate={{ opacity: 1, scale: 1, rotate: 0 }}
               transition={{ duration: 1 }}
-              className="relative p-12 bg-white rounded-[4rem] border border-slate-100 shadow-2xl overflow-hidden"
+              className="relative p-12 bg-white -[4rem] border border-slate-100 shadow-2xl overflow-hidden"
             >
-              <div className="relative aspect-square bg-slate-900 rounded-[3rem] p-10 flex flex-col justify-between overflow-hidden shadow-2xl">
+              <div className="relative aspect-square bg-slate-900 -[3rem] p-10 flex flex-col justify-between overflow-hidden shadow-2xl">
                 <div className="flex justify-between items-center text-white/30 font-mono text-[10px] tracking-[0.2em] sm:tracking-[0.4em]">
                   <span>TALENTHUB_v4.2</span>
                   <span>VETTED_READY</span>
@@ -83,7 +83,7 @@ export default function HireStudentClient({ data }) {
 
                 {/* Dynamic Skill Constellation */}
                 <div className="relative flex-1 flex items-center justify-center">
-                  <motion.div animate={{ rotate: 360 }} transition={{ duration: 40, repeat: Infinity, ease: "linear" }} className="absolute inset-0 border border-white/5 rounded-full border-dashed" />
+                  <motion.div animate={{ rotate: 360 }} transition={{ duration: 40, repeat: Infinity, ease: "linear" }} className="absolute inset-0 border border-white/5 border-dashed" />
 
                   <div className="relative z-10 grid grid-cols-2 gap-4">
                     {[
@@ -92,10 +92,10 @@ export default function HireStudentClient({ data }) {
                       { t: "SEO_Arch", s: "92%" },
                       { t: "Logo_Eng", s: "96%" }
                     ].map((card, idx) => (
-                      <div key={idx} className="p-4 bg-white/5 border border-white/10 rounded-2xl flex flex-col justify-between h-24 w-32 backdrop-blur-sm">
+                      <div key={idx} className="p-4 bg-white/5 border border-white/10 flex flex-col justify-between h-24 w-32 backdrop-blur-sm">
                         <p className="text-[9px] font-black text-white/40 uppercase tracking-widest">{card.t}</p>
                         <div className="flex items-center justify-between">
-                          <div className="w-6 h-6 rounded-full bg-amber-500/20 flex items-center justify-center text-amber-500 text-[10px] font-black">SY</div>
+                          <div className="w-6 h-6 bg-amber-500/20 flex items-center justify-center text-amber-500 text-[10px] font-black">SY</div>
                           <span className="text-xs font-bold text-white">{card.s}</span>
                         </div>
                       </div>
@@ -109,7 +109,7 @@ export default function HireStudentClient({ data }) {
                 </div>
               </div>
 
-              <div className="absolute bottom-6 right-6 p-4 bg-amber-600 rounded-2xl shadow-xl text-white font-black text-xs uppercase tracking-widest">
+              <div className="absolute bottom-6 right-6 p-4 bg-amber-600 shadow-xl text-white font-black text-xs uppercase tracking-widest">
                 Active Vetting
               </div>
             </motion.div>
@@ -139,7 +139,7 @@ export default function HireStudentClient({ data }) {
                   transition={{ delay: i * 0.1 }}
                   className="group cursor-default snap-center w-[85vw] max-w-[320px] lg:w-auto lg:max-w-none"
                 >
-                  <div className="bg-white rounded-3xl lg:rounded-[3rem] p-8 lg:p-12 h-full border border-slate-100 shadow-xl shadow-slate-200/50 hover:shadow-2xl transition-all lg:group-hover:-translate-y-2 relative overflow-hidden flex flex-col whitespace-normal">
+                  <div className="bg-white lg:-[3rem] p-8 lg:p-12 h-full border border-slate-100 shadow-xl shadow-slate-200/50 hover:shadow-2xl transition-all lg:group-hover:-translate-y-2 relative overflow-hidden flex flex-col whitespace-normal">
                     <div className={`w-14 h-14 rounded-2xl bg-gradient-to-br ${item.color || 'from-amber-500 to-orange-600'} text-white flex items-center justify-center text-3xl mb-8 lg:mb-10 shadow-lg shrink-0`}>
                       {getIcon(item.icon)}
                     </div>
@@ -158,11 +158,11 @@ export default function HireStudentClient({ data }) {
 
         {/* QUALITY MESH SECTION */}
         <div className="mb-20 lg:mb-48">
-          <div className="grid lg:grid-cols-2 gap-10 lg:gap-20 items-center bg-white rounded-3xl lg:rounded-[4rem] p-8 sm:p-12 lg:p-24 border border-slate-100 shadow-xl lg:shadow-2xl shadow-slate-200/50 relative overflow-hidden">
+          <div className="grid lg:grid-cols-2 gap-10 lg:gap-20 items-center bg-white lg:-[4rem] p-8 sm:p-12 lg:p-24 border border-slate-100 shadow-xl lg:shadow-2xl shadow-slate-200/50 relative overflow-hidden">
             <div className="absolute top-0 right-0 w-1/3 h-full bg-amber-50/20 -skew-x-[20deg] origin-top translate-x-1/2"></div>
 
             <div className="relative z-10 space-y-8 sm:space-y-12">
-              <div className="w-16 h-16 bg-amber-50 rounded-2xl flex items-center justify-center text-3xl text-amber-600 border border-teal-100">
+              <div className="w-16 h-16 bg-amber-50 flex items-center justify-center text-3xl text-amber-600 border border-teal-100">
                 <IoGitBranchOutline />
               </div>
               <h2 className="text-4xl sm:text-5xl lg:text-6xl font-black text-slate-900 leading-[1.1] sm:leading-[0.9] tracking-tighter sm:tracking-normal">The Quality <br className="hidden sm:block" /><span className="text-amber-600 block sm:inline mt-2 sm:mt-0">Mentor Mesh.</span></h2>
@@ -181,26 +181,26 @@ export default function HireStudentClient({ data }) {
             <motion.div
               animate={{ y: [0, 10, 0] }}
               transition={{ duration: 9, repeat: Infinity }}
-              className="relative bg-slate-900 rounded-3xl lg:rounded-[3rem] p-8 lg:p-12 border border-slate-800 shadow-2xl space-y-8 lg:space-y-10 overflow-hidden"
+              className="relative bg-slate-900 lg:-[3rem] p-8 lg:p-12 border border-slate-800 shadow-2xl space-y-8 lg:space-y-10 overflow-hidden"
             >
               <div className="absolute top-0 right-0 p-4 font-mono text-[7px] sm:text-[9px] text-amber-400 bg-white/5 opacity-50 tracking-[0.2em] sm:tracking-[0.4em]">BRIDGE_ACTIVE::TALENT_SYNC</div>
 
-              <div className="flex flex-col sm:flex-row items-center sm:items-stretch gap-6 p-6 sm:p-8 bg-white/5 border border-white/10 rounded-3xl">
-                <div className="w-16 h-16 rounded-full bg-white/10 border-2 border-amber-500 p-1 flex items-center justify-center shrink-0">
-                  <div className="w-full h-full bg-amber-500 rounded-full flex items-center justify-center text-white"><IoPeopleOutline /></div>
+              <div className="flex flex-col sm:flex-row items-center sm:items-stretch gap-6 p-6 sm:p-8 bg-white/5 border border-white/10">
+                <div className="w-16 h-16 bg-white/10 border-2 border-amber-500 p-1 flex items-center justify-center shrink-0">
+                  <div className="w-full h-full bg-amber-500 flex items-center justify-center text-white"><IoPeopleOutline /></div>
                 </div>
                 <div className="flex-1 space-y-2 w-full">
-                  <div className="h-2 w-full bg-white/10 rounded-full"></div>
-                  <div className="h-2 w-1/2 bg-white/5 rounded-full"></div>
+                  <div className="h-2 w-full bg-white/10"></div>
+                  <div className="h-2 w-1/2 bg-white/5"></div>
                   <div className="flex gap-2 pt-2">
-                    <div className="w-3 h-3 bg-amber-500 rounded-full" />
-                    <div className="w-3 h-3 bg-blue-500 rounded-full" />
-                    <div className="w-3 h-3 bg-emerald-500 rounded-full" />
+                    <div className="w-3 h-3 bg-amber-500" />
+                    <div className="w-3 h-3 bg-blue-500" />
+                    <div className="w-3 h-3 bg-emerald-500" />
                   </div>
                 </div>
               </div>
 
-              <div className="p-6 sm:p-8 bg-white/5 rounded-2xl border border-white/5 text-center sm:text-left">
+              <div className="p-6 sm:p-8 bg-white/5 border border-white/5 text-center sm:text-left">
                 <p className="text-[10px] sm:text-xs font-mono text-amber-500 font-bold tracking-tighter uppercase mb-2">Mentor Consensus: PASSED</p>
                 <p className="text-[10px] sm:text-xs font-mono text-slate-500 uppercase leading-none">Output Integrity: 100% Verified</p>
               </div>
@@ -218,13 +218,13 @@ export default function HireStudentClient({ data }) {
           <div className="flex flex-col sm:flex-row gap-4 sm:gap-6 justify-center">
             {/* Sticky Mobile CTA */}
             <div className="fixed bottom-0 left-0 w-full px-4 pt-4 pb-[max(1rem,env(safe-area-inset-bottom))] bg-slate-50/90 backdrop-blur-md border-t border-slate-200 z-50 lg:relative lg:border-none lg:bg-transparent lg:p-0 lg:w-auto">
-              <button className="w-full lg:w-[280px] px-8 py-4 sm:py-6 bg-amber-600 text-white font-black rounded-xl hover:bg-amber-700 transition-all shadow-xl sm:shadow-2xl shadow-amber-600/40 uppercase tracking-wider sm:tracking-widest text-xs sm:text-sm flex items-center justify-center min-h-[44px]">
+              <button className="w-full lg:w-[280px] px-8 py-4 sm:py-6 bg-amber-600 text-white font-black hover:bg-amber-700 transition-all shadow-xl sm:shadow-2xl shadow-amber-600/40 uppercase tracking-wider sm:tracking-widest text-xs sm:text-sm flex items-center justify-center min-h-[44px]">
                 {data.cta.title}
               </button>
             </div>
             <Link
               href="/services/hire-student/details"
-              className="hidden lg:flex w-full sm:w-[280px] px-8 py-4 sm:py-6 bg-slate-900 text-white font-black rounded-xl hover:bg-slate-800 transition-all uppercase tracking-wider sm:tracking-widest text-xs sm:text-sm items-center justify-center text-center min-h-[44px]"
+              className="hidden lg:flex w-full sm:w-[280px] px-8 py-4 sm:py-6 bg-slate-900 text-white font-black hover:bg-slate-800 transition-all uppercase tracking-wider sm:tracking-widest text-xs sm:text-sm items-center justify-center text-center min-h-[44px]"
             >
               Vetting Specifications
             </Link>

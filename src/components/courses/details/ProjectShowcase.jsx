@@ -39,7 +39,7 @@ export default function ProjectShowcase() {
  className="space-y-6"
  >
  <div className="flex items-center gap-3 border-b border-slate-100 pb-4">
- <div className="p-2 bg-pink-100 text-pink-600 ">
+ <div className="p-2 bg-pink-100 text-pink-600">
  <IoRocketOutline size={24} />
  </div>
  <div>
@@ -73,7 +73,7 @@ export default function ProjectShowcase() {
  <p className="text-sm text-slate-600 leading-relaxed mb-4 flex-1">{proj.desc}</p>
  <div className="flex flex-wrap gap-2 mt-auto pt-4 border-t border-slate-50">
  {proj.techs.map((tech, j) => (
- <span key={j} className="text-[10px] font-bold uppercase tracking-wider bg-slate-100 text-slate-600 px-2 py-1 ">
+ <span key={j} className="text-[10px] font-bold uppercase tracking-wider bg-slate-100 text-slate-600 px-2 py-1">
  {tech}
  </span>
  ))}

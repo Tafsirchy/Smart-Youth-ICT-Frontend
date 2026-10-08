@@ -374,7 +374,7 @@ export default function AutomationCMS() {
  updateNested("details", "sections.phases", newArr);
  }} compact>
  <div className="flex gap-2 mb-2 pr-6">
- <input placeholder="01" className="w-10 bg-slate-50 border-none outline-none font-mono text-base md:text-[10px] text-amber-600 font-bold px-2 py-1 " value={phase.step} onChange={(e) => {
+ <input placeholder="01" className="w-10 bg-slate-50 border-none outline-none font-mono text-base md:text-[10px] text-amber-600 font-bold px-2 py-1" value={phase.step} onChange={(e) => {
  const newArr = [...content.details.sections.phases];
  newArr[idx].step = e.target.value;
  updateNested("details", "sections.phases", newArr);

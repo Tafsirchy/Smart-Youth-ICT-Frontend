@@ -63,8 +63,8 @@ export default function PageLoader() {
  }`}
  >
  {/* Decorative blobs */}
- <div className="absolute top-[-10%] left-[-10%] w-[50vw] h-[50vw] bg-pink-100/60 blur-[120px] pointer-events-none" />
- <div className="absolute bottom-[-10%] right-[-10%] w-[45vw] h-[45vw] bg-green-100/50 blur-[100px] pointer-events-none" />
+ <div className="absolute top-[-10%] left-[-10%] w-[50vw] h-[50vw] bg-pink-100/60 blur-[120px] pointer-events-none hidden" />
+ <div className="absolute bottom-[-10%] right-[-10%] w-[45vw] h-[45vw] bg-green-100/50 blur-[100px] pointer-events-none hidden" />
 
  {/* Logo + animated ring */}
  <div className="relative flex items-center justify-center mb-8">

@@ -61,10 +61,10 @@ export default function AffiliatePage() {
  {/* ── Hero ── */}
  <section className="relative overflow-hidden py-20 px-4 text-center"
  style={{ background: 'linear-gradient(135deg, #0f172a 0%, #1e1b4b 60%, #312e81 100%)' }}>
- <motion.div className="absolute -top-24 -left-20 w-80 h-80 opacity-20 blur-3xl pointer-events-none"
+ <motion.div className="absolute -top-24 -left-20 w-80 h-80 opacity-20 blur-3xl pointer-events-none hidden"
  style={{ background: 'var(--color-brand-pink)' }}
  animate={{ scale:[1,1.15,1] }} transition={{ duration:8, repeat:Infinity }} />
- <motion.div className="absolute -bottom-20 -right-20 w-64 h-64 opacity-15 blur-3xl pointer-events-none"
+ <motion.div className="absolute -bottom-20 -right-20 w-64 h-64 opacity-15 blur-3xl pointer-events-none hidden"
  style={{ background:'#818cf8' }}
  animate={{ scale:[1,1.2,1] }} transition={{ duration:7, repeat:Infinity, delay:1.5 }} />
  <div className="relative z-10 max-w-2xl mx-auto">
@@ -168,7 +168,7 @@ export default function AffiliatePage() {
  {tier.max ? `${tier.min}–${tier.max} referrals` : `${tier.min}+ referrals`}
  </p>
  {isActive && (
- <span className="inline-block mt-2 text-xs font-bold text-blue-600 bg-blue-50 px-3 py-1 ">
+ <span className="inline-block mt-2 text-xs font-bold text-blue-600 bg-blue-50 px-3 py-1">
  ✓ Your Current Tier
  </span>
  )}

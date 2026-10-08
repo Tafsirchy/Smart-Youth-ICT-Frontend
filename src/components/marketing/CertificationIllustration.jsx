@@ -10,7 +10,7 @@ export default function CertificationIllustration() {
  <motion.div 
  animate={{ rotate: 360 }}
  transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
- className="absolute w-[120%] h-[120%] border border-emerald-500/10 "
+ className="absolute w-[120%] h-[120%] border border-emerald-500/10"
  />
  <motion.div 
  animate={{ rotate: -360 }}
@@ -119,7 +119,7 @@ export default function CertificationIllustration() {
  transition={{ duration: 7, repeat: Infinity }}
  className="absolute top-[10%] left-[15%] w-12 h-12 bg-emerald-500/20 backdrop-blur-xl rotate-12 flex items-center justify-center border border-emerald-500/30 shadow-xl"
  >
- <div className="w-1/2 h-[2px] bg-emerald-500 " />
+ <div className="w-1/2 h-[2px] bg-emerald-500" />
  </motion.div>
 
  <motion.div 

@@ -263,7 +263,7 @@ export default function TestimonialManagementPage() {
  </AnimatePresence>
 
  {!loading && testimonials.length === 0 && (
- <div className="py-12 text-center flex flex-col items-center border-2 border-dashed border-slate-100 ">
+ <div className="py-12 text-center flex flex-col items-center border-2 border-dashed border-slate-100">
  <div className="w-16 h-16 bg-slate-50 flex items-center justify-center mb-4">
  <LuMessageSquare className="w-8 h-8 text-slate-200" />
  </div>

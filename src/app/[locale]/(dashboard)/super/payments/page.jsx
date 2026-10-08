@@ -431,7 +431,7 @@ export default function SuperPaymentsPage() {
  width={420}
  height={128}
  sizes="(max-width: 768px) 100vw, 420px"
- className="w-full h-32 object-contain bg-neutral-50 "
+ className="w-full h-32 object-contain bg-neutral-50"
  
 loading="lazy"
 onError={(e) => { e.target.onerror = null; e.target.srcset = ''; e.target.src = '/assets/fallback.png'; }}

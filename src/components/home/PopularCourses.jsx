@@ -286,14 +286,14 @@ export default function PopularCourses() {
  <button
  onClick={() => setPage((p) => Math.max(1, p - 1))}
  disabled={page === 1}
- className=" border border-slate-200 bg-white px-6 py-3.5 sm:px-8 sm:py-4 text-xs font-black uppercase tracking-widest text-slate-700 disabled:opacity-40 hover:bg-slate-50 transition-all shadow-sm min-h-[44px] flex items-center justify-center"
+ className="border border-slate-200 bg-white px-6 py-3.5 sm:px-8 sm:py-4 text-xs font-black uppercase tracking-widest text-slate-700 disabled:opacity-40 hover:bg-slate-50 transition-all shadow-sm min-h-[44px] flex items-center justify-center"
  >
  Previous
  </button>
  <button
  onClick={() => setPage((p) => Math.min(totalPages, p + 1))}
  disabled={page === totalPages}
- className=" border border-slate-200 bg-white px-6 py-3.5 sm:px-8 sm:py-4 text-xs font-black uppercase tracking-widest text-slate-700 disabled:opacity-40 hover:bg-slate-50 transition-all shadow-sm min-h-[44px] flex items-center justify-center"
+ className="border border-slate-200 bg-white px-6 py-3.5 sm:px-8 sm:py-4 text-xs font-black uppercase tracking-widest text-slate-700 disabled:opacity-40 hover:bg-slate-50 transition-all shadow-sm min-h-[44px] flex items-center justify-center"
  >
  Next
  </button>

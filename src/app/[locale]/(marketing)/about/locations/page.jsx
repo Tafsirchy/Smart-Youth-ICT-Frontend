@@ -96,7 +96,7 @@ export default function LocationsPage() {
  <div>
  <h4 className="text-slate-900 font-medium mb-1">Opening Hours</h4>
  <p className="text-slate-500 font-light mb-3">Saturday to Thursday: 09:00 AM – 09:00 PM</p>
- <span className="px-3 py-1 bg-slate-50 border border-slate-200 text-slate-600 text-[10px] font-medium uppercase tracking-wider ">
+ <span className="px-3 py-1 bg-slate-50 border border-slate-200 text-slate-600 text-[10px] font-medium uppercase tracking-wider">
  Friday: Closed
  </span>
  </div>

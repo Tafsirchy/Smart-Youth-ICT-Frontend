@@ -19,7 +19,7 @@ export default function CourseOverview({ course }) {
  >
  <h2 className="text-3xl font-extrabold text-slate-900 tracking-tight relative pb-4">
  Course Overview
- <div className="absolute bottom-0 left-0 w-12 h-1 bg-indigo-600 " />
+ <div className="absolute bottom-0 left-0 w-12 h-1 bg-indigo-600" />
  </h2>
 
  <div className="prose prose-lg prose-slate max-w-none text-slate-600">
@@ -27,11 +27,11 @@ export default function CourseOverview({ course }) {
  </div>
 
  <div className="bg-slate-50 border border-slate-100 p-6 md:p-8 mt-6 relative overflow-hidden group hover:border-indigo-100 transition-colors">
- <div className="absolute top-0 right-0 w-48 h-48 bg-indigo-50/50 blur-[40px] group-hover:bg-indigo-100/50 transition-colors pointer-events-none" />
+ <div className="absolute top-0 right-0 w-48 h-48 bg-indigo-50/50 blur-[40px] group-hover:bg-indigo-100/50 transition-colors pointer-events-none hidden" />
  
  <h3 className="text-xl font-bold text-slate-900 mb-4 tracking-tight">🎯 Target Audience</h3>
  <p className="text-slate-600 font-medium">
- Suitable for <span className="text-indigo-600 font-bold bg-indigo-50 px-2 py-0.5 ">Beginners</span>, <span className="text-blue-600 font-bold bg-blue-50 px-2 py-0.5 ">Intermediate</span>, and <span className="text-purple-600 font-bold bg-purple-50 px-2 py-0.5 ">Advanced</span> learners looking to master real-world skills and build a portfolio.
+ Suitable for <span className="text-indigo-600 font-bold bg-indigo-50 px-2 py-0.5">Beginners</span>, <span className="text-blue-600 font-bold bg-blue-50 px-2 py-0.5">Intermediate</span>, and <span className="text-purple-600 font-bold bg-purple-50 px-2 py-0.5">Advanced</span> learners looking to master real-world skills and build a portfolio.
  </p>
  </div>
  </motion.section>

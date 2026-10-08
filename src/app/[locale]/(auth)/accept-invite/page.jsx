@@ -237,7 +237,7 @@ export default function AcceptInvitePage() {
  <div className="relative min-h-[100dvh] w-full flex items-center justify-center p-4 bg-slate-50 overflow-hidden">
  {/* Immersive Animated Orbs */}
  <motion.div
- className="absolute w-[600px] h-[600px] blur-[100px] pointer-events-none opacity-80"
+ className="absolute w-[600px] h-[600px] blur-[100px] pointer-events-none opacity-80 hidden"
  animate={{
  backgroundColor: ["#EF4444", "#F97316", "#EAB308", "#10B981", "#3B82F6", "#4F46E5", "#8B5CF6", "#EF4444"],
  x: ["-40px", "40px", "-40px"],
@@ -247,7 +247,7 @@ export default function AcceptInvitePage() {
  transition={{ duration: 14, repeat: Infinity, ease: "linear" }}
  />
  <motion.div
- className="absolute w-[550px] h-[550px] blur-[100px] pointer-events-none opacity-80"
+ className="absolute w-[550px] h-[550px] blur-[100px] pointer-events-none opacity-80 hidden"
  animate={{
  backgroundColor: ["#EAB308", "#10B981", "#3B82F6", "#4F46E5", "#8B5CF6", "#EF4444", "#F97316", "#EAB308"],
  x: ["40px", "-40px", "40px"],
@@ -257,7 +257,7 @@ export default function AcceptInvitePage() {
  transition={{ duration: 16, repeat: Infinity, ease: "linear" }}
  />
  <motion.div
- className="absolute w-[500px] h-[500px] blur-[100px] pointer-events-none opacity-80"
+ className="absolute w-[500px] h-[500px] blur-[100px] pointer-events-none opacity-80 hidden"
  animate={{
  backgroundColor: ["#3B82F6", "#4F46E5", "#8B5CF6", "#EF4444", "#F97316", "#EAB308", "#10B981", "#3B82F6"],
  x: ["0px", "-30px", "0px"],
