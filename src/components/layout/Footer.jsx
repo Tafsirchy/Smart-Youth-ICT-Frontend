@@ -89,12 +89,7 @@ export default function Footer() {
  };
 
  return (
- <footer
- style={{
- background: "linear-gradient(180deg, #0f172a 0%, #1e1b4b 100%)",
- }}
- className="text-indigo-200 pt-8 pb-4"
- >
+ <footer className="bg-[#0B101E] text-indigo-200 pt-8 pb-4">
  <div className="container-custom">
  {/* Top grid */}
  <div className="grid grid-cols-2 md:grid-cols-5 gap-3 mb-6">
