@@ -5,128 +5,132 @@ import Link from "next/link";
 import { IoTimerOutline, IoBriefcaseOutline, IoSearchOutline, IoArrowBackOutline } from "react-icons/io5";
 
 export default function CareerTracksClient({ tracks, content }) {
- return (
- <section className="min-h-screen bg-slate-50 flex flex-col font-sans">
+  return (
+    <section className="min-h-screen bg-slate-950 overflow-hidden relative flex flex-col">
+      <div className="absolute inset-0 bg-[linear-gradient(to_right,#ffffff08_1px,transparent_1px),linear-gradient(to_bottom,#ffffff08_1px,transparent_1px)] bg-[size:40px_40px]"></div>
 
- <div className="relative pt-24 pb-16 px-4 bg-white border-b border-slate-200 text-center">
- <div className="container-custom relative z-10 flex flex-col items-center max-w-4xl mx-auto gap-6">
- <motion.div
- initial={{ opacity: 0, y: 10 }}
- animate={{ opacity: 1, y: 0 }}
- className="inline-flex items-center gap-3 px-4 py-2 border border-slate-200 text-xs font-medium uppercase tracking-widest text-slate-500"
- >
- <span className="flex h-1.5 w-1.5 bg-slate-400"></span>
- {content?.hero?.badge || "Zero To Hero"}
- </motion.div>
- <motion.h1
- initial={{ opacity: 0, y: 20 }}
- animate={{ opacity: 1, y: 0 }}
- transition={{ delay: 0.1 }}
- className="text-4xl sm:text-5xl lg:text-7xl font-light text-slate-900 leading-[1.1] tracking-tight"
- >
- {content?.hero?.title || "Career Tracks"} <br />
- <span className="font-medium text-slate-900">
- {content?.hero?.subtitle || "(Web, AI, SMM)"}
- </span>
- </motion.h1>
- <motion.p
- initial={{ opacity: 0, y: 20 }}
- animate={{ opacity: 1, y: 0 }}
- transition={{ delay: 0.2 }}
- className="text-slate-500 text-lg md:text-xl leading-relaxed max-w-2xl font-light"
- >
- {content?.hero?.description || "Select a track, follow our rigorously tested curriculum, and launch your tech career methodically."}
- </motion.p>
+      <div className="relative pt-8 lg:pt-16 pb-20">
+        <div className="container-custom relative z-10 flex flex-col items-center text-center">
+          <div className="max-w-4xl w-full">
+            <motion.div
+              initial={{ opacity: 0, scale: 0.9 }}
+              animate={{ opacity: 1, scale: 1 }}
+              className="px-4 py-2 border border-white/20 rounded-full inline-block text-white/70 text-xs font-mono uppercase tracking-widest mb-8 bg-white/5 backdrop-blur-md"
+            >
+              {content?.hero?.badge || "Zero To Hero"}
+            </motion.div>
+            <motion.h1
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.1 }}
+              className="text-3xl sm:text-4xl lg:text-5xl font-black text-white leading-[1.1] mb-8 tracking-tighter"
+            >
+              {content?.hero?.title || "Career Tracks"} <br />
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-500 via-teal-400 to-cyan-400 animate-gradient-x">
+                {content?.hero?.subtitle || "(Web, AI, SMM)"}
+              </span>
+            </motion.h1>
+            <motion.p
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.2 }}
+              className="text-slate-400 text-xl md:text-2xl leading-relaxed font-light mx-auto"
+            >
+              {content?.hero?.description || "Select a track, follow our rigorously tested curriculum, and launch your tech career methodically."}
+            </motion.p>
 
- <motion.div
- initial={{ opacity: 0, y: 10 }}
- animate={{ opacity: 1, y: 0 }}
- transition={{ delay: 0.3 }}
- className="pt-6"
- >
- <Link
- href="/services/career-tracks/details"
- className="inline-flex items-center gap-3 text-sm font-medium uppercase tracking-widest text-slate-900 hover:text-slate-500 transition-colors group"
- >
- View Trajectory Manifest <IoArrowBackOutline className="rotate-180 group-hover:translate-x-2 transition-transform" />
- </Link>
- </motion.div>
- </div>
- </div>
+            <motion.div
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.3 }}
+              className="pt-10"
+            >
+              <Link
+                href="/services/career-tracks/details"
+                className="inline-flex items-center min-h-[44px] gap-2 text-xs sm:text-sm font-black uppercase tracking-[0.2em] text-emerald-400 hover:text-white transition-colors group"
+              >
+                View Trajectory Manifest <IoArrowBackOutline className="rotate-180 group-hover:translate-x-2 transition-transform" />
+              </Link>
+            </motion.div>
+          </div>
+        </div>
+      </div>
 
- <div className="container-custom py-20 bg-slate-50">
- <div className="flex flex-col gap-12 max-w-6xl mx-auto">
- {tracks.length > 0 ? (
- tracks.map((track, i) => (
- <motion.div
- key={track._id}
- initial={{ opacity: 0, y: 30 }}
- whileInView={{ opacity: 1, y: 0 }}
- viewport={{ once: true, margin: "-100px" }}
- className="w-full bg-white border border-slate-200 shadow-sm p-8 md:p-12 group hover:border-slate-300 hover:shadow-md transition-all flex flex-col lg:flex-row gap-12"
- >
- <div className="lg:w-5/12 flex flex-col justify-between">
- <div>
- <h2 className="text-3xl font-medium text-slate-900 mb-4 tracking-tight">{track.title}</h2>
- <p className="text-slate-500 leading-relaxed font-light mb-8">{track.description}</p>
- </div>
+      <div className="container-custom py-16">
+        <div className="flex flex-col gap-8 lg:gap-16 pb-8">
+          {tracks.length > 0 ? (
+            tracks.map((track, i) => (
+              <motion.div
+                key={track._id}
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: "-100px" }}
+                className="w-full bg-slate-900/50 backdrop-blur-xl border border-white/10 rounded-[3rem] p-8 md:p-12 relative overflow-hidden group hover:border-white/20 transition-all"
+              >
+                <div className={`absolute top-0 right-0 w-full h-2 bg-gradient-to-r ${track.color} opacity-80`}></div>
 
- <div className="pt-6 border-t border-slate-100 flex flex-col sm:flex-row gap-8">
- <div>
- <p className="text-[10px] font-medium uppercase tracking-widest text-slate-400 flex items-center gap-2 mb-2"><IoTimerOutline /> Duration</p>
- <p className="text-slate-900 text-lg font-medium">{track.duration}</p>
- </div>
- <div>
- <p className="text-[10px] font-medium uppercase tracking-widest text-slate-400 flex items-center gap-2 mb-2"><IoBriefcaseOutline /> Outcome</p>
- <p className="text-slate-900 text-lg font-medium">{track.outcome}</p>
- </div>
- </div>
+                <div className="grid lg:grid-cols-12 gap-12">
+                  <div className="lg:col-span-5 space-y-6">
+                    <h2 className="text-4xl font-black text-white">{track.title}</h2>
+                    <p className="text-lg text-slate-400 leading-relaxed font-light">{track.description}</p>
 
- <button className="w-full py-4 mt-8 bg-slate-900 text-white font-medium hover:bg-slate-800 transition-colors text-xs uppercase tracking-widest">
- Download Syllabus PDF
- </button>
- </div>
+                    <div className="pt-6 border-t border-white/10 flex flex-col sm:flex-row gap-6">
+                      <div>
+                        <p className="text-xs font-black uppercase tracking-widest text-slate-500 flex items-center gap-2 mb-2"><IoTimerOutline /> Duration</p>
+                        <p className="text-white text-xl font-bold">{track.duration}</p>
+                      </div>
+                      <div>
+                        <p className="text-xs font-black uppercase tracking-widest text-slate-500 flex items-center gap-2 mb-2"><IoBriefcaseOutline /> Outcome</p>
+                        <p className={`text-transparent bg-clip-text bg-gradient-to-r ${track.color} text-xl font-bold`}>{track.outcome}</p>
+                      </div>
+                    </div>
 
- <div className="lg:w-7/12 bg-slate-50 p-8 border border-slate-200">
- <div className="space-y-8 relative">
- {[
- { phase: "Phase 1: Basics", val: track.phase1 },
- { phase: "Phase 2: Core", val: track.phase2 },
- { phase: "Phase 3: Deep Dive", val: track.phase3 },
- { phase: "Phase 4: Launch", val: track.phase4 },
- ].map((step, idx) => (
- <div key={idx} className="flex gap-6 items-start relative pb-4">
- {idx !== 3 && <div className={`absolute left-[15px] top-10 bottom-0 w-px bg-slate-200`}></div>}
- <div className={`w-8 h-8 bg-white border border-slate-200 flex items-center justify-center shrink-0 z-10 text-slate-900 font-medium text-sm`}>
- {idx + 1}
- </div>
- <div>
- <p className="text-[10px] font-medium text-slate-400 uppercase tracking-widest mb-1.5">{step.phase}</p>
- <p className="text-slate-700 font-light text-sm md:text-base leading-relaxed">{step.val}</p>
- </div>
- </div>
- ))}
- </div>
- </div>
- </motion.div>
- ))
- ) : (
- <div className="text-center py-20 bg-white border border-slate-200">
- <div className="inline-flex items-center justify-center w-16 h-16 bg-slate-50 border border-slate-200 text-slate-400 mb-6">
- <IoSearchOutline size={32} />
- </div>
- <h3 className="text-xl font-medium text-slate-900 mb-2">No Active Tracks</h3>
- <p className="text-slate-500 font-light">We are updating our career tracks. Check back later.</p>
- </div>
- )}
- </div>
- </div>
- 
- <div className="sticky bottom-0 left-0 right-0 bg-white border-t border-slate-200 z-50 lg:hidden p-4 mt-auto">
- <button className="w-full py-4 bg-slate-900 text-white font-medium text-xs uppercase tracking-widest">
- Download PDF
- </button>
- </div>
- </section>
- );
+                    <button className="w-full min-h-[44px] py-4 mt-8 bg-white/5 border border-white/10 text-white font-bold rounded-xl hover:bg-white/10 transition-colors text-sm sm:text-xs">
+                      Download Syllabus PDF
+                    </button>
+                  </div>
+
+                  <div className="lg:col-span-7 bg-black/40 rounded-3xl p-8 border border-white/5 relative">
+                    <div className="space-y-8 relative z-10">
+                      {[
+                        { phase: "Phase 1: Basics", val: track.phase1 },
+                        { phase: "Phase 2: Core", val: track.phase2 },
+                        { phase: "Phase 3: Deep Dive", val: track.phase3 },
+                        { phase: "Phase 4: Launch", val: track.phase4 },
+                      ].map((step, idx) => (
+                        <div key={idx} className="flex gap-4 items-start relative pb-4">
+                          {idx !== 3 && <div className={`absolute left-4 top-10 bottom-0 w-px ${track.bg} opacity-30`}></div>}
+
+                          <div className={`w-8 h-8 rounded-full ${track.bg} flex items-center justify-center shrink-0 z-10 text-white font-black text-sm`}>
+                            {idx + 1}
+                          </div>
+                          <div>
+                            <p className="text-xs font-bold text-slate-500 uppercase tracking-wider mb-1">{step.phase}</p>
+                            <p className="text-white font-medium">{step.val}</p>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              </motion.div>
+            ))
+          ) : (
+            <div className="text-center py-20 bg-white/5 rounded-[3rem] border border-white/10 w-full">
+              <IoSearchOutline className="text-5xl text-white/20 mx-auto mb-6" />
+              <p className="text-white/40 font-black uppercase tracking-widest">No Active Tracks Found</p>
+            </div>
+          )}
+        </div>
+      </div>
+      
+      <div className="sticky bottom-0 left-0 right-0 bg-slate-950/80 backdrop-blur-md border-t border-white/10 z-50 lg:hidden pb-[max(1rem,env(safe-area-inset-bottom))] mt-auto">
+        <div className="container-custom py-4 flex justify-center">
+          <button className="w-full min-h-[44px] py-3.5 bg-white text-slate-950 font-bold rounded-xl shadow-lg active:scale-95 transition-transform text-sm uppercase tracking-widest">
+            Download PDF
+          </button>
+        </div>
+      </div>
+    </section>
+  );
 }
