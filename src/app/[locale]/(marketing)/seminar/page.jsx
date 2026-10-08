@@ -47,56 +47,57 @@ export default function SeminarPage() {
  };
 
  return (
- <div className="min-h-screen" style={{ background: 'var(--color-background)' }}>
+ <div className="min-h-screen flex flex-col bg-slate-50 font-sans">
 
  {/* ── Hero ── */}
- <section className="relative overflow-hidden py-20 px-4 text-center"
- style={{ background: 'linear-gradient(135deg, #0f172a 0%, #1e1b4b 60%, #312e81 100%)' }}>
- <motion.div className="absolute -top-20 -left-20 w-80 h-80 opacity-20 blur-3xl pointer-events-none"
- style={{ background: 'var(--color-brand-pink)' }}
- animate={{ scale: [1, 1.15, 1] }} transition={{ duration: 8, repeat: Infinity }} />
- <div className="relative z-10 max-w-2xl mx-auto">
- <span className="inline-block mb-4 px-4 py-1.5 text-xs font-bold uppercase tracking-wider text-indigo-200 bg-white/10 border border-white/10">
- 🎓 Free Event
+ <section className="relative pt-32 pb-20 px-4 text-center bg-white border-b border-slate-100">
+ <div className="relative z-10 max-w-3xl mx-auto">
+ <div className="flex items-center justify-center gap-4 mb-8">
+ <div className="w-8 h-[1px] bg-slate-300"></div>
+ <span className="text-xs font-medium uppercase tracking-[0.2em] text-slate-500">
+ Free Event
  </span>
- <h1 className="text-4xl md:text-5xl font-extrabold text-white mb-4">
- Join Our Free Career Seminar
+ <div className="w-8 h-[1px] bg-slate-300"></div>
+ </div>
+ <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-light text-slate-900 leading-[1.05] tracking-tight mb-8">
+ Join Our Free <br />
+ <span className="font-semibold">Career Seminar.</span>
  </h1>
- <p className="text-indigo-200 text-lg mb-8">
+ <p className="text-slate-500 text-lg md:text-xl leading-relaxed max-w-2xl mx-auto font-light mb-12">
  Discover how to launch your IT career and earn from freelancing — completely free, in just 2 hours.
  </p>
  {/* Quick meta */}
- <div className="flex flex-wrap justify-center gap-5 text-sm text-indigo-200">
- <span className="flex items-center gap-1.5"><IoCalendarOutline size={16} /> Every Saturday</span>
- <span className="flex items-center gap-1.5"><IoTimeOutline size={16} /> 10:00 AM – 12:00 PM</span>
- <span className="flex items-center gap-1.5"><IoLocationOutline size={16} /> Online (Zoom)</span>
- <span className="flex items-center gap-1.5"><IoPeopleOutline size={16} /> Limited seats</span>
+ <div className="flex flex-wrap justify-center gap-6 text-sm text-slate-600 font-medium">
+ <span className="flex items-center gap-2"><IoCalendarOutline size={18} /> Every Saturday</span>
+ <span className="flex items-center gap-2"><IoTimeOutline size={18} /> 10:00 AM – 12:00 PM</span>
+ <span className="flex items-center gap-2"><IoLocationOutline size={18} /> Online (Zoom)</span>
+ <span className="flex items-center gap-2"><IoPeopleOutline size={18} /> Limited seats</span>
  </div>
  </div>
  </section>
 
  {/* ── Content ── */}
- <div className="container-lg mx-auto px-4 py-14">
- <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
+ <div className="container-lg mx-auto px-4 py-16 md:py-24">
+ <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-start max-w-6xl mx-auto">
 
  {/* Left — Benefits */}
  <div>
- <h2 className="text-2xl font-extrabold text-textPrimary mb-6">What You'll Get 🎁</h2>
- <div className="space-y-4 mb-10">
+ <h2 className="text-2xl md:text-3xl font-medium text-slate-900 mb-8 tracking-tight">What You'll Get 🎁</h2>
+ <div className="space-y-4 mb-12">
  {BENEFITS.map((b, i) => (
  <motion.div key={i}
- initial={{ opacity: 0, x: -20 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.1 }}
- className="flex items-center gap-4 bg-white ring-1 ring-neutral-200 shadow-sm p-5">
- <span className="text-2xl">{b.icon}</span>
- <span className="font-semibold text-textPrimary">{b.text}</span>
+ initial={{ opacity: 0, y: 10 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.1 }}
+ className="flex items-center gap-5 bg-white border border-slate-100 p-6 hover:border-slate-200 hover:shadow-sm transition-all duration-300">
+ <span className="text-3xl">{b.icon}</span>
+ <span className="font-medium text-slate-700">{b.text}</span>
  </motion.div>
  ))}
  </div>
 
  {/* Social proof */}
- <div className="bg-gradient-to-br from-blue-600 to-indigo-700 p-6 text-white">
- <p className="font-bold text-lg mb-1">🚀 Join 5,000+ Students</p>
- <p className="text-blue-100 text-sm leading-relaxed">
+ <div className="bg-slate-900 p-8 md:p-10 text-white">
+ <p className="font-medium text-2xl mb-2 tracking-tight">🚀 Join 5,000+ Students</p>
+ <p className="text-slate-400 font-light leading-relaxed">
  Who kickstarted their IT career with SYICT's free seminar. Your journey starts with one click.
  </p>
  </div>
@@ -105,61 +106,60 @@ export default function SeminarPage() {
  {/* Right — Registration Form */}
  <motion.div
  initial={{ opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.6 }}
- className="bg-white ring-1 ring-neutral-200 shadow-xl p-8"
+ className="bg-white border border-slate-200 p-8 md:p-12"
  >
  <AnimatePresence mode="wait">
  {done ? (
- <motion.div key="success" initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }} className="text-center py-6">
- <div className="w-20 h-20 mx-auto bg-emerald-50 flex items-center justify-center mb-5">
- <IoCheckmarkCircle size={48} className="text-emerald-500" />
+ <motion.div key="success" initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="text-center py-8">
+ <div className="w-24 h-24 mx-auto bg-slate-50 border border-slate-100 flex items-center justify-center mb-6">
+ <IoCheckmarkCircle size={56} className="text-slate-900" />
  </div>
- <h3 className="text-2xl font-extrabold text-textPrimary mb-2">You're Registered! 🎉</h3>
- <p className="text-textSecondary text-sm max-w-sm mx-auto">
+ <h3 className="text-3xl font-medium text-slate-900 mb-4 tracking-tight">You're Registered! 🎉</h3>
+ <p className="text-slate-500 font-light max-w-sm mx-auto leading-relaxed">
  We'll send your Zoom link to your phone/email shortly. See you on Saturday!
  </p>
  </motion.div>
  ) : (
  <motion.div key="form" initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
- <h3 className="text-xl font-extrabold text-textPrimary mb-1">Register for Free 👇</h3>
- <p className="text-textSecondary text-sm mb-7">Takes less than 60 seconds. No credit card needed.</p>
- <form onSubmit={handleSubmit} className="space-y-4">
+ <h3 className="text-2xl font-medium text-slate-900 mb-2 tracking-tight">Register for Free 👇</h3>
+ <p className="text-slate-500 font-light text-sm mb-8">Takes less than 60 seconds. No credit card needed.</p>
+ <form onSubmit={handleSubmit} className="space-y-5">
  <div>
- <label className="block text-sm font-medium text-textPrimary mb-1.5">Full Name *</label>
+ <label className="block text-xs font-medium uppercase tracking-widest text-slate-500 mb-2">Full Name *</label>
  <input name="name" required type="text" placeholder="Your full name"
- className="input w-full" value={form.name} onChange={handleChange} />
+ className="w-full p-4 bg-slate-50 border border-slate-200 focus:outline-none focus:border-slate-400 focus:bg-white transition-colors" value={form.name} onChange={handleChange} />
  </div>
  <div>
- <label className="block text-sm font-medium text-textPrimary mb-1.5">Phone Number *</label>
+ <label className="block text-xs font-medium uppercase tracking-widest text-slate-500 mb-2">Phone Number *</label>
  <input name="phone" required type="tel" placeholder="01XXXXXXXXX"
- className="input w-full" value={form.phone} onChange={handleChange} />
+ className="w-full p-4 bg-slate-50 border border-slate-200 focus:outline-none focus:border-slate-400 focus:bg-white transition-colors" value={form.phone} onChange={handleChange} />
  </div>
  <div>
- <label className="block text-sm font-medium text-textPrimary mb-1.5">Email (optional)</label>
+ <label className="block text-xs font-medium uppercase tracking-widest text-slate-500 mb-2">Email (optional)</label>
  <input name="email" type="email" placeholder="you@email.com"
- className="input w-full" value={form.email} onChange={handleChange} />
+ className="w-full p-4 bg-slate-50 border border-slate-200 focus:outline-none focus:border-slate-400 focus:bg-white transition-colors" value={form.email} onChange={handleChange} />
  </div>
  <div>
- <label className="block text-sm font-medium text-textPrimary mb-1.5">Choose Seminar *</label>
- <select name="seminar" required className="input w-full" value={form.seminar} onChange={handleChange}>
+ <label className="block text-xs font-medium uppercase tracking-widest text-slate-500 mb-2">Choose Seminar *</label>
+ <select name="seminar" required className="w-full p-4 bg-slate-50 border border-slate-200 focus:outline-none focus:border-slate-400 focus:bg-white transition-colors appearance-none" value={form.seminar} onChange={handleChange}>
  <option value="">— Select a seminar —</option>
  {SEMINARS.map(s => <option key={s.id} value={s.label}>{s.label}</option>)}
  </select>
  </div>
  <div>
- <label className="block text-sm font-medium text-textPrimary mb-1.5">How did you hear about us?</label>
- <select name="source" className="input w-full" value={form.source} onChange={handleChange}>
+ <label className="block text-xs font-medium uppercase tracking-widest text-slate-500 mb-2">How did you hear about us?</label>
+ <select name="source" className="w-full p-4 bg-slate-50 border border-slate-200 focus:outline-none focus:border-slate-400 focus:bg-white transition-colors appearance-none" value={form.source} onChange={handleChange}>
  <option value="">— Select source —</option>
  {SOURCES.map(s => <option key={s} value={s}>{s}</option>)}
  </select>
  </div>
- <motion.button type="submit" disabled={loading}
- className="w-full py-4 mt-2 bg-gradient-to-r from-pink-500 to-indigo-500 text-white font-bold text-base flex items-center justify-center gap-2 hover:opacity-90 transition disabled:opacity-60"
- whileHover={{ scale: 1.01 }} whileTap={{ scale: 0.97 }}>
+ <button type="submit" disabled={loading}
+ className="w-full py-4 mt-4 bg-slate-900 text-white font-medium text-sm uppercase tracking-widest flex items-center justify-center gap-3 hover:bg-slate-800 transition-colors disabled:bg-slate-300 disabled:text-slate-500">
  {loading
- ? <><svg className="animate-spin h-4 w-4" viewBox="0 0 24 24" fill="none"><circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" /><path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8z" /></svg> Registering…</>
+ ? <><svg className="animate-spin h-5 w-5" viewBox="0 0 24 24" fill="none"><circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" /><path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8z" /></svg> Registering…</>
  : <><IoArrowForwardOutline size={18} /> Register Now — It's Free!</>
  }
- </motion.button>
+ </button>
  </form>
  </motion.div>
  )}

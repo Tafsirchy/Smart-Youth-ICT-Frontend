@@ -79,7 +79,7 @@ export default function BusinessDetailsClient({ data }) {
  <div className="relative group">
  <div className="p-6 md:p-10 bg-slate-900 md:-[3rem] text-white overflow-hidden relative shadow-2xl">
  <div className="absolute top-0 right-0 w-32 h-32 bg-blue-600/20 blur-[80px]"></div>
- <h3 className="text-2xl md:text-3xl font-black mb-6 md:mb-8 tracking-tighter flex items-center gap-3 md:gap-4 leading-[1.1]">
+ <h3 className="text-white text-2xl md:text-3xl font-black mb-6 md:mb-8 tracking-tighter flex items-center gap-3 md:gap-4 leading-[1.1]">
  <IoHardwareChipOutline className="text-blue-500 shrink-0" /> Infrastructure Manifest
  </h3>
  <div className="space-y-2 md:space-y-3">

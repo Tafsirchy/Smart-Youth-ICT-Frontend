@@ -1,17 +1,17 @@
 "use client";
 
-import {
- IoShieldCheckmarkOutline,
- IoConstructOutline,
- IoTimerOutline,
- IoSpeedometerOutline,
- IoPulseOutline,
- IoReloadOutline,
- IoFlashOutline,
- IoSparklesOutline
-} from "react-icons/io5";
 import { motion } from "framer-motion";
 import Link from "next/link";
+import {
+ IoShieldCheckmarkOutline,
+ IoSpeedometerOutline,
+ IoTimerOutline,
+ IoSparklesOutline,
+ IoConstructOutline,
+ IoPulseOutline,
+ IoReloadOutline,
+ IoFlashOutline
+} from "react-icons/io5";
 import { getIcon } from "@/lib/icons";
 
 export default function MaintenanceClient({ content }) {
@@ -23,9 +23,9 @@ export default function MaintenanceClient({ content }) {
  },
  sections: {
  pillars: [
- { title: "Security & Core", desc: "The structural essentials. Weekly off-site backups, core engine updates, and 24/7 malware monitoring to keep your node live.", icon: "ShieldCheckmark", color: "from-teal-600 to-emerald-700" },
- { title: "Standard Ops", desc: "Active performance tuning. Includes plugin/theme synchronization, broken link logic, and monthly speed optimization audits.", icon: "Construct", color: "from-slate-700 to-slate-900" },
- { title: "Full Dedicated", desc: "Your own development engineers on retainer. Includes unlimited small content changes and dedicated custom feature support.", icon: "Pulse", color: "from-blue-600 to-indigo-700" }
+ { title: "Security & Core", desc: "The structural essentials. Weekly off-site backups, core engine updates, and 24/7 malware monitoring to keep your node live.", icon: "ShieldCheckmark" },
+ { title: "Standard Ops", desc: "Active performance tuning. Includes plugin/theme synchronization, broken link logic, and monthly speed optimization audits.", icon: "Construct" },
+ { title: "Full Dedicated", desc: "Your own development engineers on retainer. Includes unlimited small content changes and dedicated custom feature support.", icon: "Pulse" }
  ],
  integrations: [
  { t: "99.9% Uptime", d: "Zero-latency monitoring" },
@@ -38,226 +38,153 @@ export default function MaintenanceClient({ content }) {
  };
 
  return (
- <section className="min-h-screen bg-slate-50 text-slate-900 selection:bg-teal-600 selection:text-white overflow-hidden relative font-sans">
- {/* INDUSTRIAL BACKGROUND DECOR */}
- <div className="absolute top-0 opacity-20 pointer-events-none -z-10 w-full h-full">
- <div className="absolute top-0 left-1/4 w-[1px] h-full bg-slate-200"></div>
- <div className="absolute top-0 right-1/4 w-[1px] h-full bg-slate-200"></div>
- <div className="absolute top-1/2 left-0 w-full h-[1px] bg-slate-200"></div>
- <div className="absolute top-[20%] left-[-100px] w-[500px] h-[500px] bg-teal-50 blur-[140px]"></div>
- </div>
-
- <div className="container-custom py-20 relative z-10">
- {/* MAINTENANCE HERO */}
- <div className="flex flex-col lg:flex-row items-center gap-12 lg:gap-20 mb-32 lg:mb-48 pt-8 lg:pt-0">
- <div className="flex-1 text-left w-full">
+ <section className="min-h-screen bg-slate-50 flex flex-col font-sans">
+ {/* Hero Section */}
+ <div className="bg-white border-b border-slate-200 pt-24 pb-16 px-4">
+ <div className="container-custom relative z-10 max-w-4xl mx-auto text-center flex flex-col items-center gap-6">
  <motion.div
- initial={{ opacity: 0, x: -20 }}
- animate={{ opacity: 1, x: 0 }}
- className="inline-flex items-center gap-2 px-4 sm:px-5 py-2 bg-teal-50 border border-teal-100 text-teal-700 text-[10px] sm:text-xs font-black tracking-wider sm:tracking-[0.4em] uppercase mb-8 sm:mb-10"
- >
- <IoSparklesOutline className="text-sm" /> {data.hero.badge}
- </motion.div>
-
- <motion.h1
- initial={{ opacity: 0, y: 30 }}
+ initial={{ opacity: 0, y: 10 }}
  animate={{ opacity: 1, y: 0 }}
- transition={{ duration: 0.8, ease: "circOut" }}
- className="text-4xl sm:text-5xl lg:text-6xl font-black text-slate-900 leading-[1.1] mb-6 sm:mb-8 tracking-tighter"
+ className="inline-flex items-center gap-3 px-4 py-2 border border-slate-200 text-xs font-medium uppercase tracking-widest text-slate-500"
  >
- {data.hero.title?.split(' ')[0]} <br className="hidden sm:block" />
- <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-600 via-violet-500 to-emerald-500 animate-gradient-x block sm:inline mt-2 sm:mt-0">{data.hero.title?.split(' ').slice(1).join(' ')}</span>
+ <IoSparklesOutline size={16} />
+ {data.hero.badge}
+ </motion.div>
+ <motion.h1
+ initial={{ opacity: 0, y: 20 }}
+ animate={{ opacity: 1, y: 0 }}
+ transition={{ delay: 0.1 }}
+ className="text-4xl sm:text-5xl lg:text-7xl font-light text-slate-900 leading-[1.1] tracking-tight"
+ >
+ {data.hero.title?.split(' ')[0]} <br />
+ <span className="font-medium">
+ {data.hero.title?.split(' ').slice(1).join(' ')}
+ </span>
  </motion.h1>
-
  <motion.p
- initial={{ opacity: 0 }}
- animate={{ opacity: 1 }}
- transition={{ delay: 0.4 }}
- className="text-slate-600 text-lg sm:text-xl font-light leading-relaxed max-w-2xl mb-10 sm:mb-12"
+ initial={{ opacity: 0, y: 20 }}
+ animate={{ opacity: 1, y: 0 }}
+ transition={{ delay: 0.2 }}
+ className="text-slate-500 text-lg md:text-xl leading-relaxed max-w-2xl font-light"
  >
  {data.hero.description}
  </motion.p>
-
- <div className="flex flex-col sm:flex-row gap-4 sm:gap-6">
- <button className="w-full sm:w-[280px] px-8 py-4 sm:py-6 bg-teal-600 text-white font-black hover:bg-teal-700 transition-all shadow-xl sm:shadow-2xl shadow-teal-600/20 uppercase tracking-wider sm:tracking-widest text-xs sm:text-sm flex items-center justify-center min-h-[44px]">
+ <div className="flex flex-col sm:flex-row gap-4 mt-6">
+ <button className="w-full sm:w-auto px-8 py-4 bg-slate-900 text-white font-medium hover:bg-slate-800 transition-colors uppercase tracking-widest text-xs">
  {data.cta.title}
  </button>
  <Link
  href="/services/maintenance/details"
- className="w-full sm:w-[280px] px-8 py-4 sm:py-6 bg-white border border-slate-200 text-slate-900 font-black hover:bg-slate-50 transition-all uppercase tracking-wider sm:tracking-widest text-xs sm:text-sm flex items-center justify-center text-center min-h-[44px]"
+ className="w-full sm:w-auto px-8 py-4 bg-white border border-slate-200 text-slate-900 font-medium hover:bg-slate-50 transition-colors uppercase tracking-widest text-xs flex items-center justify-center text-center"
  >
  Technical Specifications
  </Link>
  </div>
  </div>
-
- <div className="flex-1 relative hidden lg:block">
- {/* Guardian Console Visual */}
- <motion.div
- initial={{ opacity: 0, scale: 0.9, rotate: -3 }}
- animate={{ opacity: 1, scale: 1, rotate: 0 }}
- transition={{ duration: 1 }}
- className="relative p-12 bg-white -[4rem] border border-slate-100 shadow-2xl overflow-hidden group"
- >
- <div className="relative aspect-square flex items-center justify-center">
- <div className="absolute inset-x-0 h-[1px] bg-slate-100"></div>
- <div className="absolute inset-y-0 w-[1px] bg-slate-100"></div>
-
- {/* Pulsing Radar UI */}
- <div className="relative z-10 w-64 h-64 border border-teal-100 flex items-center justify-center">
- <motion.div
- animate={{ scale: [1, 1.5, 1], opacity: [0.1, 0, 0.1] }}
- transition={{ duration: 3, repeat: Infinity }}
- className="absolute inset-0 bg-teal-100 "
- ></motion.div>
-
- <div className="w-48 h-48 bg-slate-900 -[3rem] shadow-2xl flex flex-col items-center justify-center group-hover:scale-110 transition-transform relative z-20">
- <IoShieldCheckmarkOutline className="text-6xl text-teal-400 mb-4" />
- <div className="flex flex-col items-center gap-1">
- <span className="text-[10px] sm:text-xs font-black text-white/40 uppercase tracking-widest">System Health</span>
- <span className="text-xs sm:text-sm font-bold text-teal-400">OPTIMIZED</span>
- </div>
- </div>
  </div>
 
- {/* Floating Status Nodes */}
- {[
- { icon: <IoTimerOutline />, pos: "top-10 left-10", label: "UPTIME::99.9%" },
- { icon: <IoSpeedometerOutline />, pos: "bottom-10 right-10", label: "SCORE::100/100" },
- { icon: <IoReloadOutline />, pos: "top-14 right-14", label: "BACKUP::SYNCED" }
- ].map((node, i) => (
- <motion.div
- key={i}
- animate={{ y: [0, -10, 0] }}
- transition={{ duration: 5, delay: i * 0.7, repeat: Infinity }}
- className={`absolute ${node.pos} p-6 bg-white border border-slate-100 shadow-xl flex flex-col items-center gap-2 z-30`}
- >
- <div className="text-teal-600 text-2xl">{node.icon}</div>
- <span className="text-[9px] sm:text-[10px] font-black text-slate-400 uppercase tracking-widest">{node.label}</span>
- </motion.div>
- ))}
- </div>
- </motion.div>
- </div>
- </div>
-
+ <div className="container-custom py-20 bg-slate-50">
  {/* PILLARS SECTION */}
- <div className="mb-32 lg:mb-48">
- <div className="flex flex-col md:flex-row justify-between items-end mb-16 lg:mb-24 gap-8 border-l-4 border-teal-600 pl-6 sm:pl-8">
- <div className="max-w-xl">
- <h2 className="text-xs font-black text-teal-600 uppercase tracking-widest sm:tracking-[0.4em] mb-4">Operational Tiers</h2>
- <p className="text-3xl sm:text-4xl md:text-5xl font-black text-slate-900 leading-tight tracking-tighter">
- The lifecycle of <br className="hidden sm:block" /><span className="text-slate-400 italic font-serif font-light">peak performance.</span>
- </p>
- </div>
+ <div className="mb-24">
+ <div className="flex items-center justify-between mb-12">
+ <h2 className="text-3xl font-light text-slate-900 tracking-tight">The lifecycle of <span className="font-medium">peak performance.</span></h2>
+ <div className="hidden md:block h-[1px] flex-1 bg-slate-200 ml-8"></div>
  </div>
 
- {/* Full-bleed Mobile Carousel */}
- <div className="overflow-x-auto snap-x snap-mandatory hide-scrollbar pb-8 lg:pb-0 lg:overflow-visible lg:snap-none">
- <div className="flex lg:grid lg:grid-cols-3 gap-6 lg:gap-8 min-w-max lg:min-w-0 w-max lg:w-auto">
- {(data.sections.pillars || []).map((item, i) => (
+ <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+ {data.sections.pillars?.map((item, i) => (
  <motion.div
  key={i}
- initial={{ opacity: 0, y: 30 }}
+ initial={{ opacity: 0, y: 20 }}
  whileInView={{ opacity: 1, y: 0 }}
  viewport={{ once: true }}
  transition={{ delay: i * 0.1 }}
- className="group cursor-default snap-center w-[85vw] max-w-[320px] lg:w-auto lg:max-w-none"
+ className="bg-white border border-slate-200 p-8 hover:border-slate-400 hover:shadow-lg transition-all flex flex-col group"
  >
- <div className="bg-white lg:-[3rem] p-8 lg:p-12 h-full border border-slate-100 shadow-xl shadow-slate-200/50 hover:shadow-2xl transition-all lg:group-hover:-translate-y-2 relative overflow-hidden flex flex-col whitespace-normal">
- <div className={`w-14 h-14 bg-gradient-to-br ${item.color || 'from-teal-600 to-emerald-700'} text-white flex items-center justify-center text-3xl mb-8 lg:mb-10 shadow-lg shrink-0`}>
+ <div className="w-14 h-14 bg-slate-900 text-white flex items-center justify-center mb-6 group-hover:scale-105 transition-transform">
  {getIcon(item.icon)}
  </div>
- <h3 className="text-xl sm:text-2xl font-black text-slate-900 mb-4 lg:mb-6 tracking-tighter uppercase leading-none">
- {item.title}
- </h3>
- <p className="text-slate-500 leading-relaxed font-light text-base lg:text-lg">
- {item.desc}
- </p>
- </div>
+ <h3 className="text-xl font-medium text-slate-900 mb-3 tracking-tight">{item.title}</h3>
+ <p className="text-slate-500 font-light leading-relaxed flex-1 mb-8">{item.desc}</p>
  </motion.div>
  ))}
- </div>
  </div>
  </div>
 
  {/* HEALTH DASHBOARD SECTION */}
- <div className="mb-20 lg:mb-48">
- <div className="grid lg:grid-cols-2 gap-10 lg:gap-20 items-center bg-white lg:-[4rem] p-8 sm:p-12 lg:p-24 border border-slate-100 shadow-xl lg:shadow-2xl shadow-slate-200/50 relative overflow-hidden">
- <div className="absolute top-0 right-0 w-1/3 h-full bg-teal-50/20 -skew-x-[20deg] origin-top translate-x-1/2"></div>
+ <div className="mb-24 bg-white border border-slate-200 p-8 md:p-16 flex flex-col lg:flex-row gap-16 items-center">
+ <div className="flex-1">
+ <h2 className="text-3xl md:text-5xl font-light text-slate-900 tracking-tight mb-6">Live <br /><span className="font-medium">Health Hub.</span></h2>
+ <p className="text-slate-500 font-light leading-relaxed mb-10 max-w-lg">Gain absolute structural transparency. Every client receives a manifest showing real-time uptime, security scans, and V8 engine performance metrics.</p>
 
- <div className="relative z-10 space-y-8 sm:space-y-12">
- <div className="w-16 h-16 bg-teal-50 flex items-center justify-center text-3xl text-teal-600 border border-teal-100">
- <IoSpeedometerOutline />
- </div>
- <h2 className="text-4xl sm:text-5xl lg:text-6xl font-black text-slate-900 leading-[1.1] sm:leading-[0.9] tracking-tighter sm:tracking-normal">Live <br className="hidden sm:block" /><span className="text-teal-600 block sm:inline mt-2 sm:mt-0">Health Hub.</span></h2>
- <p className="text-slate-500 text-lg sm:text-xl font-light leading-relaxed">Gain absolute structural transparency. Every client receives a manifest showing real-time uptime, security scans, and V8 engine performance metrics.</p>
-
- <div className="grid grid-cols-1 sm:grid-cols-2 gap-px bg-slate-50 border border-slate-100 overflow-hidden mt-8 sm:mt-10 shadow-sm">
- {(data.sections.metrics || []).map((item, idx) => (
- <div key={idx} className="p-6 sm:p-10 hover:bg-white transition-colors group">
- <h4 className="text-[10px] sm:text-xs font-black text-teal-600 uppercase tracking-widest mb-2">{item.t}</h4>
- <p className="text-[10px] sm:text-xs text-slate-400 font-bold leading-tight">{item.d}</p>
+ <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+ {(data.sections.integrations || []).map((item, idx) => (
+ <div key={idx} className="p-6 bg-slate-50 border border-slate-200 hover:border-slate-300 transition-colors">
+ <h4 className="text-xs font-medium text-slate-900 uppercase tracking-widest mb-2">{item.t}</h4>
+ <p className="text-sm text-slate-500 font-light">{item.d}</p>
  </div>
  ))}
  </div>
  </div>
-
- <motion.div
- animate={{ y: [0, 10, 0] }}
- transition={{ duration: 8, repeat: Infinity }}
- className="relative bg-slate-900 lg:-[3rem] p-8 lg:p-12 border border-slate-800 shadow-2xl space-y-8 lg:space-y-10 overflow-hidden"
- >
- <div className="absolute top-0 right-0 p-4 font-mono text-[7px] sm:text-[9px] text-teal-400 bg-white/5 opacity-50 tracking-[0.2em] sm:tracking-[0.4em]">SCAN_ACTIVE::Vulnerabilities_0</div>
-
- <div className="grid grid-cols-2 gap-4">
- <div className="p-6 bg-white/5 border border-white/10 text-center">
- <IoTimerOutline className="text-teal-500 text-3xl mx-auto mb-2" />
- <p className="text-xl sm:text-2xl font-black text-white">99.9%</p>
- <p className="text-[8px] sm:text-[10px] font-black text-slate-500 uppercase tracking-widest mt-1">Uptime</p>
+ <div className="flex-1 w-full bg-slate-900 p-8 md:p-12 text-white flex flex-col">
+ <div className="flex justify-between items-center mb-8 border-b border-white/20 pb-6 text-xs font-mono text-white/50 tracking-widest">
+ <span>SCAN_ACTIVE</span>
+ <span>Vulnerabilities_0</span>
  </div>
- <div className="p-6 bg-white/5 border border-white/10 text-center">
- <IoSpeedometerOutline className="text-emerald-500 text-3xl mx-auto mb-2" />
- <p className="text-xl sm:text-2xl font-black text-white">100/100</p>
- <p className="text-[8px] sm:text-[10px] font-black text-slate-500 uppercase tracking-widest mt-1">PageSpeed</p>
+ 
+ <div className="grid grid-cols-2 gap-4 mb-8">
+ <div className="p-6 bg-white/5 border border-white/10 flex flex-col items-center justify-center">
+ <IoTimerOutline className="text-white/50 text-3xl mb-3" />
+ <p className="text-2xl font-medium text-white">99.9%</p>
+ <p className="text-[10px] font-mono text-white/40 uppercase tracking-widest mt-1">Uptime</p>
+ </div>
+ <div className="p-6 bg-white/5 border border-white/10 flex flex-col items-center justify-center">
+ <IoSpeedometerOutline className="text-white/50 text-3xl mb-3" />
+ <p className="text-2xl font-medium text-white">100/100</p>
+ <p className="text-[10px] font-mono text-white/40 uppercase tracking-widest mt-1">PageSpeed</p>
  </div>
  </div>
 
- <div className="pt-6 border-t border-white/5">
+ <div className="pt-6 border-t border-white/20">
  <div className="flex justify-between items-center mb-4">
- <p className="text-[10px] sm:text-xs font-black text-white/40 uppercase tracking-widest">Backup Stability</p>
- <p className="text-[10px] sm:text-xs text-teal-500 font-bold">100%</p>
+ <p className="text-[10px] font-mono text-white/40 uppercase tracking-widest">Backup Stability</p>
+ <p className="text-[10px] font-mono text-white/70 font-bold">100%</p>
  </div>
- <div className="h-1.5 bg-white/5 overflow-hidden">
- <motion.div initial={{ width: 0 }} whileInView={{ width: "100%" }} transition={{ duration: 1 }} className="bg-teal-500 h-full" />
+ <div className="h-1.5 bg-white/10">
+ <motion.div initial={{ width: 0 }} whileInView={{ width: "100%" }} transition={{ duration: 1 }} className="bg-white h-full" />
  </div>
  </div>
- </motion.div>
+ </div>
  </div>
  </div>
 
  {/* CTA */}
- <div className="text-center py-20 lg:py-40 border-t border-slate-200 pb-32 lg:pb-40">
- <IoFlashOutline className="text-6xl lg:text-7xl text-teal-600 mb-8 lg:mb-12 mx-auto opacity-20" />
- <h3 className="text-4xl sm:text-5xl lg:text-6xl font-black text-slate-900 mb-10 lg:mb-12 leading-tight tracking-tighter sm:tracking-normal">
- Your website doesn't get sick. <br className="hidden sm:block" />
- <span className="text-transparent bg-clip-text bg-gradient-to-r from-teal-600 to-slate-900 font-serif italic font-medium block sm:inline mt-2 sm:mt-0">Engineer Resilience.</span>
+ <div className="bg-slate-900 py-24 px-4 text-center text-white flex flex-col items-center">
+ <IoFlashOutline className="text-5xl mb-6 text-white/50" />
+ <h3 className="text-white text-3xl md:text-5xl font-light tracking-tight leading-[1.1] mb-10">
+ Your website doesn't get sick. <br />
+ <span className="font-medium">
+ Engineer Resilience.
+ </span>
  </h3>
- <div className="flex flex-col sm:flex-row gap-4 sm:gap-6 justify-center">
- {/* Sticky Mobile CTA */}
- <div className="fixed bottom-0 left-0 w-full px-4 pt-4 pb-[max(1rem,env(safe-area-inset-bottom))] bg-slate-50/90 backdrop-blur-md border-t border-slate-200 z-50 lg:relative lg:border-none lg:bg-transparent lg:p-0 lg:w-auto">
- <button className="w-full lg:w-[280px] px-8 py-4 sm:py-6 bg-teal-600 text-white font-black hover:bg-teal-700 transition-all shadow-xl sm:shadow-2xl shadow-teal-600/40 uppercase tracking-wider sm:tracking-widest text-xs sm:text-sm flex items-center justify-center min-h-[44px]">
+ <div className="flex flex-col sm:flex-row gap-4 justify-center">
+ <button className="w-full sm:w-auto px-8 py-4 bg-white text-slate-900 font-medium hover:bg-slate-200 transition-colors uppercase tracking-widest text-xs">
  {data.cta.title}
  </button>
- </div>
  <Link
  href="/services/maintenance/details"
- className="hidden lg:flex w-full sm:w-[280px] px-8 py-4 sm:py-6 bg-slate-900 text-white font-black hover:bg-slate-800 transition-all uppercase tracking-wider sm:tracking-widest text-xs sm:text-sm items-center justify-center text-center min-h-[44px]"
+ className="w-full sm:w-auto px-8 py-4 border border-white/20 text-white font-medium hover:bg-white/10 transition-colors uppercase tracking-widest text-xs flex items-center justify-center text-center"
  >
  Technical Hub
  </Link>
  </div>
  </div>
+
+ {/* Mobile Sticky CTA */}
+ <div className="sticky bottom-0 left-0 right-0 p-4 bg-white border-t border-slate-200 z-50 md:hidden flex justify-center mt-auto">
+ <button className="w-full py-4 bg-slate-900 text-white font-medium text-xs uppercase tracking-widest hover:bg-slate-800 transition-colors">
+ {data.cta.title}
+ </button>
  </div>
  </section>
  );

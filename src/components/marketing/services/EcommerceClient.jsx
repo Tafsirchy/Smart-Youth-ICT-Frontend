@@ -1,13 +1,13 @@
 "use client";
 
+import { motion } from "framer-motion";
+import Link from "next/link";
 import {
  IoCartOutline,
  IoCheckmarkCircleOutline,
  IoGitNetworkOutline,
  IoBagCheckOutline,
 } from "react-icons/io5";
-import { motion } from "framer-motion";
-import Link from "next/link";
 import { getIcon } from "@/lib/icons";
 
 export default function EcommerceClient({ data }) {
@@ -19,233 +19,170 @@ export default function EcommerceClient({ data }) {
  const pricing = sections.pricing || [];
 
  return (
- <section className="min-h-screen bg-slate-50 text-slate-900 selection:bg-rose-600 selection:text-white overflow-hidden relative flex flex-col">
- {/* INDUSTRIAL OVERLAY */}
- <div className="absolute top-0 opacity-10 pointer-events-none -z-10 w-full h-full">
- <div className="absolute top-0 left-1/4 w-[1px] h-full bg-slate-200"></div>
- <div className="absolute top-0 right-1/4 w-[1px] h-full bg-slate-200"></div>
- <div className="absolute top-1/2 left-0 w-full h-[1px] bg-slate-200"></div>
- </div>
-
- <div className="container-custom py-20 relative z-10">
- {/* ECOMMERCE HERO */}
- <div className="flex flex-col lg:flex-row items-center gap-20 mb-48">
- <div className="flex-1 text-left">
+ <section className="min-h-screen bg-slate-50 flex flex-col font-sans">
+ {/* Hero Section */}
+ <div className="bg-white border-b border-slate-200 pt-24 pb-16 px-4">
+ <div className="container-custom relative z-10 max-w-4xl mx-auto text-center flex flex-col items-center gap-6">
  <motion.div
- initial={{ opacity: 0, x: -20 }}
- animate={{ opacity: 1, x: 0 }}
- className="inline-flex items-center gap-2 px-4 sm:px-5 py-2 bg-rose-50 border border-rose-100 text-rose-700 text-xs font-black tracking-[0.4em] uppercase mb-8 sm:mb-10"
- >
- <IoCartOutline className="text-sm" /> {hero.badge}
- </motion.div>
-
- <motion.h1
- initial={{ opacity: 0, y: 30 }}
+ initial={{ opacity: 0, y: 10 }}
  animate={{ opacity: 1, y: 0 }}
- transition={{ duration: 0.8, ease: "circOut" }}
- className="text-4xl sm:text-6xl md:text-8xl font-black text-slate-900 leading-[0.9] mb-6 sm:mb-8 tracking-tighter"
+ className="inline-flex items-center gap-3 px-4 py-2 border border-slate-200 text-xs font-medium uppercase tracking-widest text-slate-500"
+ >
+ <IoCartOutline size={16} />
+ {hero.badge}
+ </motion.div>
+ <motion.h1
+ initial={{ opacity: 0, y: 20 }}
+ animate={{ opacity: 1, y: 0 }}
+ transition={{ delay: 0.1 }}
+ className="text-4xl sm:text-5xl lg:text-7xl font-light text-slate-900 leading-[1.1] tracking-tight"
  >
  {hero.title?.split(" ")[0]} <br />
- <span className="text-transparent bg-clip-text bg-gradient-to-r from-pink-500 via-rose-500 to-indigo-500 animate-gradient-x">{hero.subtitle}</span>
+ <span className="font-medium">
+ {hero.subtitle}
+ </span>
  </motion.h1>
-
  <motion.p
- initial={{ opacity: 0 }}
- animate={{ opacity: 1 }}
- transition={{ delay: 0.4 }}
- className="text-slate-600 text-lg sm:text-xl font-light leading-relaxed max-w-2xl mb-8 sm:mb-12"
+ initial={{ opacity: 0, y: 20 }}
+ animate={{ opacity: 1, y: 0 }}
+ transition={{ delay: 0.2 }}
+ className="text-slate-500 text-lg md:text-xl leading-relaxed max-w-2xl font-light"
  >
  {hero.description}
  </motion.p>
-
- <div className="flex flex-col sm:flex-row gap-4 sm:gap-6">
- <button className="w-full sm:w-[280px] min-h-[44px] px-6 sm:px-8 py-5 sm:py-6 bg-rose-600 text-white font-black hover:bg-rose-700 transition-all shadow-xl shadow-rose-600/20 uppercase tracking-widest text-xs flex items-center justify-center">
+ <div className="flex flex-col sm:flex-row gap-4 mt-6">
+ <button className="w-full sm:w-auto px-8 py-4 bg-slate-900 text-white font-medium hover:bg-slate-800 transition-colors uppercase tracking-widest text-xs">
  Initialize Storefront
  </button>
  <Link
  href="/services/ecommerce/details"
- className="w-full sm:w-[280px] min-h-[44px] px-6 sm:px-8 py-5 sm:py-6 bg-white border border-slate-200 text-slate-900 font-black hover:bg-slate-50 transition-all uppercase tracking-widest text-xs flex items-center justify-center text-center"
+ className="w-full sm:w-auto px-8 py-4 bg-white border border-slate-200 text-slate-900 font-medium hover:bg-slate-50 transition-colors uppercase tracking-widest text-xs flex items-center justify-center text-center"
  >
  Technical Specifications
  </Link>
  </div>
  </div>
-
- <div className="flex-1 relative hidden lg:block">
- <motion.div
- initial={{ opacity: 0, scale: 0.9, rotate: -5 }}
- animate={{ opacity: 1, scale: 1, rotate: 0 }}
- transition={{ duration: 1 }}
- className="relative p-12 bg-white -[4rem] border border-slate-100 shadow-2xl overflow-hidden"
- >
- <div className="absolute inset-x-0 top-1/2 h-[1px] bg-slate-100"></div>
- <div className="absolute inset-y-0 left-1/2 w-[1px] bg-slate-100"></div>
-
- <div className="grid grid-cols-2 gap-8 relative z-10 aspect-square">
- <motion.div animate={{ y: [0, -10, 0] }} transition={{ duration: 4, repeat: Infinity }} className="p-8 bg-rose-50 border border-rose-100 flex flex-col justify-between shadow-sm shadow-rose-100">
- <div className="w-10 h-10 bg-rose-600 "></div>
- <div className="space-y-2">
- <div className="h-1.5 w-full bg-rose-200 "></div>
- <div className="h-1.5 w-3/4 bg-rose-200 "></div>
- </div>
- </motion.div>
- <motion.div animate={{ y: [10, 0, 10] }} transition={{ duration: 4, repeat: Infinity }} className="p-8 bg-slate-900 flex flex-col justify-end">
- <div className="h-10 bg-white/10 flex items-center justify-center text-xs font-black text-rose-400">SECURE_SYNC</div>
- </motion.div>
- <motion.div className="col-span-2 p-8 bg-white border border-slate-100 shadow-xl flex items-center justify-between">
- <div className="flex gap-2">
- <div className="w-8 h-8 bg-rose-100"></div>
- <div className="w-8 h-8 bg-slate-100"></div>
- </div>
- <div className="w-32 h-6 bg-slate-50 "></div>
- </motion.div>
- </div>
- </motion.div>
- </div>
  </div>
 
+ <div className="container-custom py-20 bg-slate-50">
  {/* SERVICE VERTICALS */}
- <div className="mb-48">
- <div className="flex flex-col md:flex-row justify-between items-end mb-12 sm:mb-24 gap-8 border-l-4 border-rose-600 pl-6 sm:pl-8">
- <div className="max-w-xl">
- <h2 className="text-xs font-black text-rose-600 uppercase tracking-[0.4em] mb-4 font-bold">Commerce Standard</h2>
- <p className="text-3xl sm:text-4xl md:text-5xl font-black text-slate-900 leading-tight">
- Architectures built for <span className="text-slate-400 italic font-serif font-light">transactional dominance.</span>
- </p>
- </div>
+ <div className="mb-24">
+ <div className="flex items-center justify-between mb-12">
+ <h2 className="text-3xl font-light text-slate-900 tracking-tight">Architectures built for <span className="font-medium">transactional dominance.</span></h2>
+ <div className="hidden md:block h-[1px] flex-1 bg-slate-200 ml-8"></div>
  </div>
 
- <div className="flex overflow-x-auto snap-x snap-mandatory lg:grid lg:grid-cols-3 gap-6 sm:gap-8 pb-8 lg:pb-0">
+ <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
  {verticals?.map((item, i) => (
  <motion.div
  key={i}
- initial={{ opacity: 0, y: 30 }}
+ initial={{ opacity: 0, y: 20 }}
  whileInView={{ opacity: 1, y: 0 }}
  viewport={{ once: true }}
  transition={{ delay: i * 0.1 }}
- className="group cursor-default min-w-[280px] snap-center shrink-0 w-[85vw] lg:w-auto"
+ className="bg-white border border-slate-200 p-8 hover:border-slate-400 hover:shadow-lg transition-all flex flex-col group"
  >
- <div className={`bg-white sm:-[3rem] p-8 sm:p-12 h-full border ${item.border} shadow-sm shadow-slate-200/50 hover:shadow-xl transition-all lg:group-hover:-translate-y-2 relative overflow-hidden`}>
- <div
- className={`w-14 h-14 bg-gradient-to-br ${item.color} text-white flex items-center justify-center text-3xl mb-8 sm:mb-10 shadow-lg`}
- >
+ <div className="w-14 h-14 bg-slate-900 text-white flex items-center justify-center mb-6 group-hover:scale-105 transition-transform">
  {getIcon(item.icon)}
  </div>
- <h3 className="text-xl sm:text-2xl font-black text-slate-900 mb-4 sm:mb-6 tracking-tighter uppercase leading-none">
- {item.title}
- </h3>
- <p className="text-slate-500 leading-relaxed font-light text-base sm:text-lg">
- {item.desc}
- </p>
- </div>
+ <h3 className="text-xl font-medium text-slate-900 mb-3 tracking-tight">{item.title}</h3>
+ <p className="text-slate-500 font-light leading-relaxed flex-1 mb-8">{item.desc}</p>
  </motion.div>
  ))}
  </div>
  </div>
 
  {/* INTEGRATION HUB */}
- <div className="mb-32 sm:mb-48 bg-white sm:-[4rem] lg:-[5rem] p-8 sm:p-12 lg:p-24 border border-slate-100 shadow-2xl shadow-slate-200/50 relative overflow-hidden">
- <div className="absolute top-0 right-0 w-1/3 h-full bg-rose-50/50 -skew-x-[20deg] origin-top translate-x-1/2 opacity-50"></div>
+ <div className="mb-24 bg-white border border-slate-200 p-8 md:p-16 flex flex-col lg:flex-row gap-16 items-center">
+ <div className="flex-1">
+ <h2 className="text-3xl md:text-5xl font-light text-slate-900 tracking-tight mb-6">Atomic <br /><span className="font-medium">Logistics.</span></h2>
+ <p className="text-slate-500 font-light leading-relaxed mb-10 max-w-lg">We don't just bridge code; we bridge revenue. Every integration is engineered for zero-latency sync and absolute data integrity.</p>
 
- <div className="grid lg:grid-cols-2 gap-16 lg:gap-20 items-center relative z-10">
- <div>
- <h2 className="text-4xl sm:text-5xl lg:text-6xl font-black text-slate-900 leading-[0.9] mb-8 sm:mb-10">Atomic <br /><span className="text-rose-600 font-serif italic font-medium">Logistics.</span></h2>
- <p className="text-slate-500 text-lg sm:text-xl font-light leading-relaxed mb-10 sm:mb-12">We don't just bridge code; we bridge revenue. Every integration is engineered for zero-latency sync and absolute data integrity.</p>
-
- <div className="grid grid-cols-2 gap-4 sm:gap-6 pt-8 sm:pt-10 border-t border-slate-200">
+ <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
  {integrations?.map((int, i) => (
- <div key={i} className="flex flex-col sm:flex-row items-start sm:items-center gap-3 sm:gap-4 group">
- <div className="w-10 h-10 sm:w-12 sm:h-12 shrink-0 bg-slate-50 flex items-center justify-center text-rose-500 border border-slate-100 lg:group-hover:bg-rose-500 lg:group-hover:text-white transition-all transform lg:group-hover:rotate-6">
- {getIcon(int.icon)}
- </div>
+ <div key={i} className="p-6 bg-slate-50 border border-slate-200 hover:border-slate-300 transition-colors flex items-start gap-4">
+ <div className="text-slate-900 text-2xl">{getIcon(int.icon)}</div>
  <div>
- <h4 className="text-xs font-black text-slate-900 uppercase tracking-widest">{int.t}</h4>
- <p className="text-xs text-slate-400 font-bold">{int.d}</p>
+ <h4 className="text-xs font-medium text-slate-900 uppercase tracking-widest mb-1">{int.t}</h4>
+ <p className="text-sm text-slate-500 font-light">{int.d}</p>
  </div>
  </div>
  ))}
  </div>
  </div>
-
- <div className="relative group lg:scale-110">
- <div className="p-8 sm:p-12 bg-slate-900 sm:-[4rem] text-white shadow-2xl relative overflow-hidden">
- <div className="flex justify-between items-center mb-10 sm:mb-16 border-b border-white/5 pb-6 sm:pb-8 font-mono text-[10px] tracking-[0.4em] text-white/40">
- <span>HUB_ID_PROX_88</span>
- <span>CORE_STATUS::UP</span>
+ <div className="flex-1 w-full bg-slate-900 p-8 md:p-12 text-white flex flex-col">
+ <div className="flex justify-between items-center mb-8 border-b border-white/20 pb-6">
+ <span className="text-xs font-medium uppercase tracking-widest text-white/50">HUB_ID_PROX_88</span>
+ <span className="text-xs font-medium uppercase tracking-widest text-white/50">CORE_STATUS::UP</span>
  </div>
-
- <div className="space-y-6 sm:space-y-8">
- <div className="flex items-center gap-4 sm:gap-6">
- <div className="w-10 h-10 sm:w-12 sm:h-12 bg-rose-500 flex items-center justify-center text-white text-xl sm:text-2xl"><IoGitNetworkOutline /></div>
+ <div className="space-y-8">
+ <div className="flex items-center gap-6">
+ <div className="w-14 h-14 bg-white/10 flex items-center justify-center text-white text-2xl"><IoGitNetworkOutline /></div>
  <div className="flex-1 space-y-2">
- <div className="h-1.5 bg-white/10 w-full"></div>
- <div className="h-1.5 bg-white/5 w-1/2"></div>
+ <div className="h-1.5 bg-white/20 w-full"></div>
+ <div className="h-1.5 bg-white/10 w-1/2"></div>
  </div>
  </div>
- <div className="p-6 sm:p-8 bg-white/5 border border-white/5">
- <p className="text-emerald-400 font-mono text-[10px] sm:text-xs mb-4 tracking-tighter">DATALOAD::VERIFIED</p>
- <div className="flex gap-2 sm:gap-4">
- {[1, 2, 3, 4].map(i => <div key={i} className="h-6 sm:h-8 flex-1 bg-white/5 border border-white/5"></div>)}
- </div>
- </div>
+ <div className="p-6 bg-white/5 border border-white/10">
+ <p className="text-white/70 font-mono text-xs mb-4 tracking-tighter">DATALOAD::VERIFIED</p>
+ <div className="flex gap-4">
+ {[1, 2, 3, 4].map(i => <div key={i} className="h-8 flex-1 bg-white/10"></div>)}
  </div>
  </div>
  </div>
  </div>
  </div>
 
- {/* PRICING */}
- <div className="mb-48">
- <div className="text-center max-w-2xl mx-auto mb-16 sm:mb-20">
- <h2 className="text-xs font-black text-rose-600 uppercase tracking-[0.4em] mb-4 font-bold">Commerce Tiers</h2>
- <p className="text-3xl sm:text-4xl md:text-5xl font-black text-slate-900 leading-tight">Select your <span className="text-slate-400">market engine.</span></p>
+ {/* PRICING SELECTOR */}
+ <div className="mb-24">
+ <div className="text-center max-w-2xl mx-auto mb-16">
+ <h2 className="text-xs font-medium text-slate-500 uppercase tracking-widest mb-4">Commerce Tiers</h2>
+ <p className="text-3xl md:text-5xl font-light text-slate-900 leading-[1.1]">Select your <span className="font-medium">market engine.</span></p>
  </div>
 
- <div className="flex overflow-x-auto snap-x snap-mandatory md:grid md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 pb-8 md:pb-0">
+ <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
  {pricing?.map((tier, idx) => (
- <div key={idx} className={`bg-white sm:-[3rem] p-8 sm:p-12 border min-w-[280px] snap-center shrink-0 w-[85vw] md:w-auto ${tier.highlight ? "border-rose-500 shadow-xl shadow-rose-500/10 md:-translate-y-4" : "border-slate-100 shadow-lg shadow-slate-200/50"} flex flex-col h-full relative overflow-hidden group transition-all`}>
- <h4 className="text-2xl sm:text-3xl font-black text-slate-900 mb-2 uppercase tracking-tighter">{tier.t}</h4>
- <p className="text-4xl sm:text-5xl font-black text-slate-900 mb-8 sm:mb-12">{tier.p}</p>
+ <div key={idx} className={`bg-white p-8 md:p-10 border flex flex-col group transition-all ${tier.highlight ? "border-slate-900 shadow-xl" : "border-slate-200"}`}>
+ <h4 className="text-2xl font-medium text-slate-900 mb-2 tracking-tight">{tier.t}</h4>
+ <p className="text-4xl font-medium text-slate-900 mb-8">{tier.p}</p>
 
- <div className="space-y-4 sm:space-y-5 mb-10 sm:mb-12 flex-1">
+ <div className="space-y-4 mb-10 flex-1 border-t border-slate-100 pt-6">
  {tier.list?.map(item => (
- <div key={item} className="flex gap-3 items-center text-slate-500 text-sm font-light">
- <IoCheckmarkCircleOutline className={`text-rose-600 text-lg shrink-0`} /> {item}
+ <div key={item} className="flex gap-3 items-center text-slate-500 font-light text-sm">
+ <IoCheckmarkCircleOutline className="text-slate-400 text-lg shrink-0" /> {item}
  </div>
  ))}
  </div>
 
- <button className={`w-full min-h-[44px] py-5 sm:py-6 font-black uppercase tracking-widest text-xs transition-all shadow-md sm:shadow-xl shadow-slate-200/50 ${tier.highlight ? "bg-rose-600 text-white shadow-rose-600/30" : "bg-slate-900 text-white hover:bg-rose-600 font-black"}`}>Initialize Build</button>
+ <button className={`w-full py-4 font-medium uppercase tracking-widest text-xs transition-colors ${tier.highlight ? "bg-slate-900 text-white hover:bg-slate-800" : "bg-white border border-slate-200 text-slate-900 hover:bg-slate-50"}`}>
+ Initialize Build
+ </button>
  </div>
  ))}
  </div>
  </div>
+ </div>
 
- {/* CTA */}
- <div className="text-center py-40 border-t border-slate-100">
- <IoBagCheckOutline className="text-7xl text-rose-600 mb-10 sm:mb-12 mx-auto opacity-10" />
- <h3 className="text-4xl sm:text-5xl lg:text-6xl font-black text-slate-900 mb-10 sm:mb-12 leading-tight">{cta.title?.split('your ')[0]}your <br /><span className="text-transparent bg-clip-text bg-gradient-to-r from-rose-600 to-indigo-600 font-serif italic font-medium">{cta.title?.split('your ')[1]}</span></h3>
- <div className="flex flex-col sm:flex-row gap-4 sm:gap-6 justify-center">
- <button className="w-full sm:w-[280px] min-h-[44px] px-6 sm:px-8 py-5 sm:py-6 bg-rose-600 text-white font-black hover:bg-rose-700 transition-all shadow-xl shadow-rose-600/40 uppercase tracking-widest text-xs flex items-center justify-center">
+ {/* CALL TO ACTION */}
+ <div className="bg-slate-900 py-24 px-4 text-center text-white flex flex-col items-center">
+ <IoBagCheckOutline className="text-5xl mb-6 text-white/50" />
+ <h3 className="text-white text-3xl md:text-5xl font-light tracking-tight leading-[1.1] mb-10">{cta.title?.split('your ')[0]}your <br /><span className="font-medium">{cta.title?.split('your ')[1]}</span></h3>
+ <div className="flex flex-col sm:flex-row gap-4 justify-center">
+ <button className="w-full sm:w-auto px-8 py-4 bg-white text-slate-900 font-medium hover:bg-slate-200 transition-colors uppercase tracking-widest text-xs">
  Initialize Build
  </button>
  <Link
  href="/services/ecommerce/details"
- className="w-full sm:w-[280px] min-h-[44px] px-6 sm:px-8 py-5 sm:py-6 bg-slate-900 text-white font-black hover:bg-slate-800 transition-all uppercase tracking-widest text-xs flex items-center justify-center text-center"
+ className="w-full sm:w-auto px-8 py-4 border border-white/20 text-white font-medium hover:bg-white/10 transition-colors uppercase tracking-widest text-xs flex items-center justify-center text-center"
  >
  Technical Specifications
  </Link>
  </div>
  </div>
- </div>
 
  {/* Mobile Sticky CTA */}
- <div className="sticky bottom-0 left-0 w-full p-4 bg-white/90 backdrop-blur-md border-t border-slate-200 z-50 md:hidden flex items-center justify-between shadow-[0_-10px_40px_rgba(0,0,0,0.05)] pb-[max(1rem,env(safe-area-inset-bottom))] mt-auto">
- <div>
- <p className="text-xs font-black text-slate-500 uppercase tracking-widest">Start Store</p>
- <p className="text-slate-900 font-bold text-sm">Consult Expert</p>
- </div>
- <button className="px-5 py-3 min-h-[44px] bg-rose-600 text-white font-black text-xs uppercase tracking-widest shadow-lg shadow-rose-600/30">
+ <div className="sticky bottom-0 left-0 right-0 p-4 bg-white border-t border-slate-200 z-50 md:hidden flex justify-center mt-auto">
+ <button className="w-full py-4 bg-slate-900 text-white font-medium text-xs uppercase tracking-widest hover:bg-slate-800 transition-colors">
  Build Now
  </button>
  </div>
