@@ -7,26 +7,26 @@ import { authOptions } from '@/lib/auth';
  * Enforces global management permissions for all /super routes.
  */
 export default async function SuperDashboardLayout({ children, params }) {
-  const session = await getServerSession(authOptions);
-  const { locale } = params;
+ const session = await getServerSession(authOptions);
+ const { locale } = params;
 
-  // Roles allowed to access global management
-  const allowedRoles = ['super_admin', 'super_management'];
+ // Roles allowed to access global management
+ const allowedRoles = ['super_admin', 'super_management'];
 
-  if (!session) {
-    redirect(`/${locale}/login`);
-  }
+ if (!session) {
+ redirect(`/${locale}/login`);
+ }
 
-  if (!allowedRoles.includes(session.user.role)) {
-    console.warn(`[Guard] ${session.user.email} (Role: ${session.user.role}) attempted to access super dashboard.`);
-    
-    // Redirect unauthorized staff back to their branch admin, students back to student dashboard
-    if (session.user.branchId) {
-      redirect(`/${locale}/${session.user.branchId}/admin`);
-    } else {
-      redirect(`/${locale}/student`);
-    }
-  }
+ if (!allowedRoles.includes(session.user.role)) {
+ console.warn(`[Guard] ${session.user.email} (Role: ${session.user.role}) attempted to access super dashboard.`);
+ 
+ // Redirect unauthorized staff back to their branch admin, students back to student dashboard
+ if (session.user.branchId) {
+ redirect(`/${locale}/${session.user.branchId}/admin`);
+ } else {
+ redirect(`/${locale}/student`);
+ }
+ }
 
-  return <>{children}</>;
+ return <>{children}</>;
 }

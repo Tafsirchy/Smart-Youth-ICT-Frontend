@@ -11,25 +11,25 @@ import PaymentMethodsSection from "@/components/home/PaymentMethodsSection";
 import MessengerChat from "@/components/marketing/MessengerChat";
 
 export const metadata = {
-  title: "Smart Youth ICT — Learn IT. Earn Real Money.",
-  description:
-    "Project-based IT training in Bangladesh. Web Dev, Design, AI & Freelancing. Start your career today.",
+ title: "Smart Youth ICT — Learn IT. Earn Real Money.",
+ description:
+ "Project-based IT training in Bangladesh. Web Dev, Design, AI & Freelancing. Start your career today.",
 };
 
 export default function HomePage() {
-  return (
-    <>
-      <HeroSlider />
-      <TrustedBrandsStrip />
-      <UpcomingSeminarStrip />
-      <WhyChooseUs />
-      <PopularCourses />
-      <HowItWorks />
-      <Mentors />
-      <Testimonials />
-      <BlogPreview />
-      <PaymentMethodsSection />
-      <MessengerChat />
-    </>
-  );
+ return (
+ <>
+ <HeroSlider />
+ <TrustedBrandsStrip />
+ <UpcomingSeminarStrip />
+ <WhyChooseUs />
+ <PopularCourses />
+ <HowItWorks />
+ <Mentors />
+ <Testimonials />
+ <BlogPreview />
+ <PaymentMethodsSection />
+ <MessengerChat />
+ </>
+ );
 }

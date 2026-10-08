@@ -3,503 +3,503 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { 
-  IoSaveOutline, IoRefreshOutline, IoAddOutline, IoTrashOutline, 
-  IoLayersOutline, IoSettingsOutline, IoPrismOutline, IoCodeSlashOutline, 
-  IoCheckmarkOutline, IoChevronForwardOutline, IoChevronDownOutline,
-  IoColorPaletteOutline, IoStatsChartOutline, IoShieldCheckmarkOutline, IoGlobeOutline,
-  IoRocketOutline, IoBriefcaseOutline, IoGitNetworkOutline, IoAnalyticsOutline,
-  IoShieldOutline, IoSparklesOutline, IoHardwareChipOutline, IoArrowBackOutline,
-  IoImageOutline, IoListOutline, IoInformationCircleOutline,
-  IoSearchOutline, IoFlashOutline, IoCubeOutline
+ IoSaveOutline, IoRefreshOutline, IoAddOutline, IoTrashOutline, 
+ IoLayersOutline, IoSettingsOutline, IoPrismOutline, IoCodeSlashOutline, 
+ IoCheckmarkOutline, IoChevronForwardOutline, IoChevronDownOutline,
+ IoColorPaletteOutline, IoStatsChartOutline, IoShieldCheckmarkOutline, IoGlobeOutline,
+ IoRocketOutline, IoBriefcaseOutline, IoGitNetworkOutline, IoAnalyticsOutline,
+ IoShieldOutline, IoSparklesOutline, IoHardwareChipOutline, IoArrowBackOutline,
+ IoImageOutline, IoListOutline, IoInformationCircleOutline,
+ IoSearchOutline, IoFlashOutline, IoCubeOutline
 } from "react-icons/io5";
 import api from "@/lib/api";
 import toast from "react-hot-toast";
 
 const ICON_OPTIONS = [
-  "Search", "Layers", "Flash", "Cube", "Shield", "Globe", "Analytics", "Stats", "Rocket", "Palette"
+ "Search", "Layers", "Flash", "Cube", "Shield", "Globe", "Analytics", "Stats", "Rocket", "Palette"
 ];
 
 const COLOR_OPTIONS = [
-  { name: "Cyan", value: "from-cyan-600 to-indigo-600", text: "text-cyan-600" },
-  { name: "Indigo", value: "from-indigo-600 to-blue-700", text: "text-indigo-600" },
-  { name: "Rose", value: "from-rose-500 to-pink-600", text: "text-rose-500" },
-  { name: "Slate", value: "from-slate-700 to-slate-900", text: "text-slate-700" }
+ { name: "Cyan", value: "from-cyan-600 to-indigo-600", text: "text-cyan-600" },
+ { name: "Indigo", value: "from-indigo-600 to-blue-700", text: "text-indigo-600" },
+ { name: "Rose", value: "from-rose-500 to-pink-600", text: "text-rose-500" },
+ { name: "Slate", value: "from-slate-700 to-slate-900", text: "text-slate-700" }
 ];
 
 export default function UIUXCMS() {
-  const [loading, setLoading] = useState(true);
-  const [saving, setSaving] = useState(false);
-  const [activeTab, setActiveTab] = useState("landing");
-  const [content, setContent] = useState({
-    landing: {
-      hero: { badge: "", title: "", description: "" },
-      sections: { 
-        pillars: [], 
-        metrics: [] 
-      },
-      cta: { title: "" }
-    },
-    details: {
-      hero: { badge: "", title: "", description: "" },
-      sections: { 
-        phases: [],
-        roi: [] 
-      },
-      cta: { title: "" }
-    }
-  });
+ const [loading, setLoading] = useState(true);
+ const [saving, setSaving] = useState(false);
+ const [activeTab, setActiveTab] = useState("landing");
+ const [content, setContent] = useState({
+ landing: {
+ hero: { badge: "", title: "", description: "" },
+ sections: { 
+ pillars: [], 
+ metrics: [] 
+ },
+ cta: { title: "" }
+ },
+ details: {
+ hero: { badge: "", title: "", description: "" },
+ sections: { 
+ phases: [],
+ roi: [] 
+ },
+ cta: { title: "" }
+ }
+ });
 
-  useEffect(() => {
-    fetchData();
-  }, []);
+ useEffect(() => {
+ fetchData();
+ }, []);
 
-  const fetchData = async () => {
-    try {
-      const res = await api.get("/cms/services/creative-marketing/ui-ux");
-      if (res.data.data) {
-        setContent(prev => ({
-            ...prev,
-            ...res.data.data,
-            landing: {
-                ...prev.landing,
-                ...(res.data.data.landing || {}),
-                sections: {
-                    ...prev.landing.sections,
-                    ...(res.data.data.landing?.sections || {})
-                }
-            },
-            details: {
-                ...prev.details,
-                ...(res.data.data.details || {}),
-                sections: {
-                    ...prev.details.sections,
-                    ...(res.data.data.details?.sections || {})
-                }
-            }
-        }));
-      }
-    } catch (err) {
-      toast.error("Failed to load UI/UX content");
-    } finally {
-      setLoading(false);
-    }
-  };
+ const fetchData = async () => {
+ try {
+ const res = await api.get("/cms/services/creative-marketing/ui-ux");
+ if (res.data.data) {
+ setContent(prev => ({
+ ...prev,
+ ...res.data.data,
+ landing: {
+ ...prev.landing,
+ ...(res.data.data.landing || {}),
+ sections: {
+ ...prev.landing.sections,
+ ...(res.data.data.landing?.sections || {})
+ }
+ },
+ details: {
+ ...prev.details,
+ ...(res.data.data.details || {}),
+ sections: {
+ ...prev.details.sections,
+ ...(res.data.data.details?.sections || {})
+ }
+ }
+ }));
+ }
+ } catch (err) {
+ toast.error("Failed to load UI/UX content");
+ } finally {
+ setLoading(false);
+ }
+ };
 
-  const handleSave = async () => {
-    setSaving(true);
-    try {
-      await api.put("/cms/services/creative-marketing/ui-ux", content);
-      toast.success("Product experience updated globally");
-    } catch (err) {
-      toast.error("Update failed");
-    } finally {
-      setSaving(false);
-    }
-  };
+ const handleSave = async () => {
+ setSaving(true);
+ try {
+ await api.put("/cms/services/creative-marketing/ui-ux", content);
+ toast.success("Product experience updated globally");
+ } catch (err) {
+ toast.error("Update failed");
+ } finally {
+ setSaving(false);
+ }
+ };
 
-  const updateNested = (base, path, value) => {
-    const newContent = { ...content };
-    let current = newContent[base];
-    const keys = path.split('.');
-    for (let i = 0; i < keys.length - 1; i++) {
-        if (!current[keys[i]]) current[keys[i]] = {};
-        current = current[keys[i]];
-    }
-    current[keys[keys.length - 1]] = value;
-    setContent(newContent);
-  };
+ const updateNested = (base, path, value) => {
+ const newContent = { ...content };
+ let current = newContent[base];
+ const keys = path.split('.');
+ for (let i = 0; i < keys.length - 1; i++) {
+ if (!current[keys[i]]) current[keys[i]] = {};
+ current = current[keys[i]];
+ }
+ current[keys[keys.length - 1]] = value;
+ setContent(newContent);
+ };
 
-  if (loading) return (
-    <div className="min-h-screen bg-slate-50 flex flex-col items-center justify-center p-10 text-center space-y-2">
-        <IoRefreshOutline className="animate-spin text-4xl text-cyan-600" />
-        <span className="font-black text-slate-900 uppercase tracking-widest text-xs">Initializing Product Design Lab...</span>
-    </div>
-  );
+ if (loading) return (
+ <div className="min-h-screen bg-slate-50 flex flex-col items-center justify-center p-10 text-center space-y-2">
+ <IoRefreshOutline className="animate-spin text-4xl text-cyan-600" />
+ <span className="font-black text-slate-900 uppercase tracking-widest text-xs">Initializing Product Design Lab...</span>
+ </div>
+ );
 
-  return (
-    <div className="min-h-screen bg-slate-50 p-4 max-w-7xl mx-auto pb-6 text-slate-900 selection:bg-cyan-600 selection:text-white">
-      {/* HEADER PROTOCOL */}
-      <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-3 mb-6">
-        <div>
-          <div className="flex items-center gap-2 text-cyan-600 mb-1">
-            <IoLayersOutline className="text-lg" />
-            <span className="text-[9px] font-black uppercase tracking-[0.4em]">Service_Tier_Product_Design</span>
-          </div>
-          <h1 className="text-3xl font-black text-slate-900 tracking-tighter leading-none">UI/UX Design</h1>
-          <p className="text-slate-400 font-bold uppercase tracking-widest text-[9px] mt-1">Centralized Experience Node</p>
-        </div>
-        <button 
-          onClick={handleSave}
-          disabled={saving}
-          className="hidden md:flex group relative overflow-hidden px-4 py-2 bg-slate-900 text-white rounded-xl font-black uppercase tracking-widest text-[10px] items-center gap-2 hover:shadow-xl hover:shadow-cyan-950/20 transition-all active:scale-95 disabled:opacity-50"
-        >
-          <div className="absolute inset-0 bg-gradient-to-r from-cyan-600 to-indigo-600 opacity-0 group-hover:opacity-100 transition-opacity" />
-          <div className="relative flex items-center gap-2">
-            {saving ? <IoRefreshOutline className="animate-spin" /> : <IoSaveOutline className="group-hover:rotate-12 transition-transform" />}
-            Deploy Component System
-          </div>
-        </button>
-      </div>
+ return (
+ <div className="min-h-screen bg-slate-50 p-4 max-w-7xl mx-auto pb-6 text-slate-900 selection:bg-cyan-600 selection:text-white">
+ {/* HEADER PROTOCOL */}
+ <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-3 mb-6">
+ <div>
+ <div className="flex items-center gap-2 text-cyan-600 mb-1">
+ <IoLayersOutline className="text-lg" />
+ <span className="text-[9px] font-black uppercase tracking-[0.4em]">Service_Tier_Product_Design</span>
+ </div>
+ <h1 className="text-3xl font-black text-slate-900 tracking-tighter leading-none">UI/UX Design</h1>
+ <p className="text-slate-400 font-bold uppercase tracking-widest text-[9px] mt-1">Centralized Experience Node</p>
+ </div>
+ <button 
+ onClick={handleSave}
+ disabled={saving}
+ className="hidden md:flex group relative overflow-hidden px-4 py-2 bg-slate-900 text-white font-black uppercase tracking-widest text-[10px] items-center gap-2 hover:shadow-xl hover:shadow-cyan-950/20 transition-all active:scale-95 disabled:opacity-50"
+ >
+ <div className="absolute inset-0 bg-gradient-to-r from-cyan-600 to-indigo-600 opacity-0 group-hover:opacity-100 transition-opacity" />
+ <div className="relative flex items-center gap-2">
+ {saving ? <IoRefreshOutline className="animate-spin" /> : <IoSaveOutline className="group-hover:rotate-12 transition-transform" />}
+ Deploy Component System
+ </div>
+ </button>
+ </div>
 
-       {/* TIER SELECTOR */}
-       <div className="flex gap-1 mb-6 bg-white p-1 rounded-xl border border-slate-200 w-fit shadow-sm">
-        {[
-          { id: "landing", label: "Experience Landing", icon: IoLayersOutline, color: "text-cyan-500" },
-          { id: "details", label: "Component Manifest", icon: IoSettingsOutline, color: "text-indigo-500" },
-        ].map(tab => (
-          <button
-            key={tab.id}
-            onClick={() => setActiveTab(tab.id)}
-            className={`flex items-center gap-2 px-3 py-1.5 rounded-lg font-black uppercase tracking-widest text-[9px] transition-all ${activeTab === tab.id ? 'bg-slate-900 text-white shadow-md' : 'text-slate-400 hover:text-slate-600 hover:bg-slate-50'}`}
-          >
-            <tab.icon size={16} className={activeTab === tab.id ? 'text-cyan-400' : tab.color} />
-            {tab.label}
-          </button>
-        ))}
-      </div>
+ {/* TIER SELECTOR */}
+ <div className="flex gap-1 mb-6 bg-white p-1 border border-slate-200 w-fit shadow-sm">
+ {[
+ { id: "landing", label: "Experience Landing", icon: IoLayersOutline, color: "text-cyan-500" },
+ { id: "details", label: "Component Manifest", icon: IoSettingsOutline, color: "text-indigo-500" },
+ ].map(tab => (
+ <button
+ key={tab.id}
+ onClick={() => setActiveTab(tab.id)}
+ className={`flex items-center gap-2 px-3 py-1.5 font-black uppercase tracking-widest text-[9px] transition-all ${activeTab === tab.id ? 'bg-slate-900 text-white shadow-md' : 'text-slate-400 hover:text-slate-600 hover:bg-slate-50'}`}
+ >
+ <tab.icon size={16} className={activeTab === tab.id ? 'text-cyan-400' : tab.color} />
+ {tab.label}
+ </button>
+ ))}
+ </div>
 
-      <AnimatePresence mode="wait">
-        {activeTab === "landing" ? (
-          <motion.div key="landing" initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -10 }} className="space-y-6">
-            
-            {/* HERO SECTION */}
-            <section className="bg-white p-5 rounded-3xl border border-slate-100 shadow-lg shadow-slate-200/30">
-                <div className="flex justify-between items-center mb-4 pb-2 border-b border-slate-100">
-                    <h2 className="text-xl font-black tracking-tighter flex items-center gap-2">
-                        <div className="w-8 h-8 bg-cyan-50 rounded-lg flex items-center justify-center text-cyan-600"><IoPrismOutline /></div>
-                        Hero Architecture
-                    </h2>
-                </div>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-                    <Field label="Badge" value={content.landing.hero.badge} onChange={(v) => updateNested("landing", "hero.badge", v)} />
-                    <Field label="Title" value={content.landing.hero.title} onChange={(v) => updateNested("landing", "hero.title", v)} />
-                    <div className="md:col-span-2">
-                        <Field label="Design Philosophy" value={content.landing.hero.description} onChange={(v) => updateNested("landing", "hero.description", v)} textarea />
-                    </div>
-                </div>
-            </section>
+ <AnimatePresence mode="wait">
+ {activeTab === "landing" ? (
+ <motion.div key="landing" initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -10 }} className="space-y-6">
+ 
+ {/* HERO SECTION */}
+ <section className="bg-white p-5 border border-slate-100 shadow-lg shadow-slate-200/30">
+ <div className="flex justify-between items-center mb-4 pb-2 border-b border-slate-100">
+ <h2 className="text-xl font-black tracking-tighter flex items-center gap-2">
+ <div className="w-8 h-8 bg-cyan-50 flex items-center justify-center text-cyan-600"><IoPrismOutline /></div>
+ Hero Architecture
+ </h2>
+ </div>
+ <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+ <Field label="Badge" value={content.landing.hero.badge} onChange={(v) => updateNested("landing", "hero.badge", v)} />
+ <Field label="Title" value={content.landing.hero.title} onChange={(v) => updateNested("landing", "hero.title", v)} />
+ <div className="md:col-span-2">
+ <Field label="Design Philosophy" value={content.landing.hero.description} onChange={(v) => updateNested("landing", "hero.description", v)} textarea />
+ </div>
+ </div>
+ </section>
 
-             {/* PILLARS */}
-             <section className="bg-white p-5 rounded-3xl border border-slate-100 shadow-lg shadow-slate-200/30">
-                <div className="flex justify-between items-center mb-4 pb-2 border-b border-slate-100">
-                    <h2 className="text-xl font-black tracking-tighter flex items-center gap-2">
-                        <div className="w-8 h-8 bg-cyan-50 rounded-lg flex items-center justify-center text-cyan-600"><IoCubeOutline /></div>
-                        Design Pillars
-                    </h2>
-                </div>
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
-                    {content.landing.sections.pillars?.map((item, idx) => (
-                        <CardWrapper key={idx} onRemove={() => {
-                            const newArr = content.landing.sections.pillars.filter((_, i) => i !== idx);
-                            updateNested("landing", "sections.pillars", newArr);
-                        }} compact>
-                             <div className="flex gap-3 mb-3">
-                                <div className="shrink-0 relative group/icon">
-                                    <div className="w-10 h-10 rounded-xl bg-slate-50 flex items-center justify-center text-cyan-600 text-xl shadow-inner border border-slate-100 group-hover:scale-105 transition-all">
-                                        {item.icon === "Search" && <IoSearchOutline />}
-                                        {item.icon === "Layers" && <IoLayersOutline />}
-                                        {item.icon === "Flash" && <IoFlashOutline />}
-                                        {item.icon === "Cube" && <IoCubeOutline />}
-                                        {item.icon === "Shield" && <IoShieldOutline />}
-                                        {item.icon === "Globe" && <IoGlobeOutline />}
-                                        {item.icon === "Analytics" && <IoAnalyticsOutline />}
-                                        {item.icon === "Stats" && <IoStatsChartOutline />}
-                                        {item.icon === "Rocket" && <IoRocketOutline />}
-                                        {item.icon === "Palette" && <IoColorPaletteOutline />}
-                                        
-                                        <select 
-                                            className="absolute inset-0 opacity-0 cursor-pointer w-full h-full" 
-                                            value={item.icon} 
-                                            onChange={(e) => {
-                                                const newArr = [...content.landing.sections.pillars];
-                                                newArr[idx].icon = e.target.value;
-                                                updateNested("landing", "sections.pillars", newArr);
-                                            }}
-                                        >
-                                            {ICON_OPTIONS.map(o => <option key={o} value={o}>{o}</option>)}
-                                        </select>
-                                    </div>
-                                </div>
-                                <div className="flex-1 min-w-0">
-                                    <input placeholder="Process" className="w-full bg-transparent border-none outline-none font-black text-base md:text-sm uppercase tracking-tighter" value={item.title} onChange={(e) => {
-                                        const newArr = [...content.landing.sections.pillars];
-                                        newArr[idx].title = e.target.value;
-                                        updateNested("landing", "sections.pillars", newArr);
-                                    }} />
-                                    <div className="flex items-center gap-1 mt-1">
-                                        <IoColorPaletteOutline className="text-slate-300 text-[10px]" />
-                                        <select className="bg-transparent border-none outline-none text-[8px] font-bold text-slate-400 uppercase" value={item.color} onChange={(e) => {
-                                            const newArr = [...content.landing.sections.pillars];
-                                            newArr[idx].color = e.target.value;
-                                            updateNested("landing", "sections.pillars", newArr);
-                                        }}>
-                                            {COLOR_OPTIONS.map(c => <option key={c.value} value={c.value}>{c.name}</option>)}
-                                        </select>
-                                    </div>
-                                </div>
-                            </div>
-                            <textarea placeholder="Psychological rationale" rows="3" className="w-full bg-slate-50 border border-transparent focus:bg-white focus:border-slate-100 rounded-xl p-2 text-base md:text-[11px] text-slate-500 leading-relaxed outline-none transition-all scrollbar-hide" value={item.desc} onChange={(e) => {
-                                const newArr = [...content.landing.sections.pillars];
-                                newArr[idx].desc = e.target.value;
-                                updateNested("landing", "sections.pillars", newArr);
-                            }} />
-                        </CardWrapper>
-                    ))}
-                    <AddButton onClick={() => {
-                        const newArr = [...(content.landing.sections.pillars || []), { title: "New Process", desc: "", icon: "Search", color: "from-cyan-600 to-indigo-600" }];
-                        updateNested("landing", "sections.pillars", newArr);
-                    }} label="Add Pillar" />
-                </div>
-            </section>
+ {/* PILLARS */}
+ <section className="bg-white p-5 border border-slate-100 shadow-lg shadow-slate-200/30">
+ <div className="flex justify-between items-center mb-4 pb-2 border-b border-slate-100">
+ <h2 className="text-xl font-black tracking-tighter flex items-center gap-2">
+ <div className="w-8 h-8 bg-cyan-50 flex items-center justify-center text-cyan-600"><IoCubeOutline /></div>
+ Design Pillars
+ </h2>
+ </div>
+ <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
+ {content.landing.sections.pillars?.map((item, idx) => (
+ <CardWrapper key={idx} onRemove={() => {
+ const newArr = content.landing.sections.pillars.filter((_, i) => i !== idx);
+ updateNested("landing", "sections.pillars", newArr);
+ }} compact>
+ <div className="flex gap-3 mb-3">
+ <div className="shrink-0 relative group/icon">
+ <div className="w-10 h-10 bg-slate-50 flex items-center justify-center text-cyan-600 text-xl shadow-inner border border-slate-100 group-hover:scale-105 transition-all">
+ {item.icon === "Search" && <IoSearchOutline />}
+ {item.icon === "Layers" && <IoLayersOutline />}
+ {item.icon === "Flash" && <IoFlashOutline />}
+ {item.icon === "Cube" && <IoCubeOutline />}
+ {item.icon === "Shield" && <IoShieldOutline />}
+ {item.icon === "Globe" && <IoGlobeOutline />}
+ {item.icon === "Analytics" && <IoAnalyticsOutline />}
+ {item.icon === "Stats" && <IoStatsChartOutline />}
+ {item.icon === "Rocket" && <IoRocketOutline />}
+ {item.icon === "Palette" && <IoColorPaletteOutline />}
+ 
+ <select 
+ className="absolute inset-0 opacity-0 cursor-pointer w-full h-full" 
+ value={item.icon} 
+ onChange={(e) => {
+ const newArr = [...content.landing.sections.pillars];
+ newArr[idx].icon = e.target.value;
+ updateNested("landing", "sections.pillars", newArr);
+ }}
+ >
+ {ICON_OPTIONS.map(o => <option key={o} value={o}>{o}</option>)}
+ </select>
+ </div>
+ </div>
+ <div className="flex-1 min-w-0">
+ <input placeholder="Process" className="w-full bg-transparent border-none outline-none font-black text-base md:text-sm uppercase tracking-tighter" value={item.title} onChange={(e) => {
+ const newArr = [...content.landing.sections.pillars];
+ newArr[idx].title = e.target.value;
+ updateNested("landing", "sections.pillars", newArr);
+ }} />
+ <div className="flex items-center gap-1 mt-1">
+ <IoColorPaletteOutline className="text-slate-300 text-[10px]" />
+ <select className="bg-transparent border-none outline-none text-[8px] font-bold text-slate-400 uppercase" value={item.color} onChange={(e) => {
+ const newArr = [...content.landing.sections.pillars];
+ newArr[idx].color = e.target.value;
+ updateNested("landing", "sections.pillars", newArr);
+ }}>
+ {COLOR_OPTIONS.map(c => <option key={c.value} value={c.value}>{c.name}</option>)}
+ </select>
+ </div>
+ </div>
+ </div>
+ <textarea placeholder="Psychological rationale" rows="3" className="w-full bg-slate-50 border border-transparent focus:bg-white focus:border-slate-100 p-2 text-base md:text-[11px] text-slate-500 leading-relaxed outline-none transition-all scrollbar-hide" value={item.desc} onChange={(e) => {
+ const newArr = [...content.landing.sections.pillars];
+ newArr[idx].desc = e.target.value;
+ updateNested("landing", "sections.pillars", newArr);
+ }} />
+ </CardWrapper>
+ ))}
+ <AddButton onClick={() => {
+ const newArr = [...(content.landing.sections.pillars || []), { title: "New Process", desc: "", icon: "Search", color: "from-cyan-600 to-indigo-600" }];
+ updateNested("landing", "sections.pillars", newArr);
+ }} label="Add Pillar" />
+ </div>
+ </section>
 
-             {/* METRICS */}
-            <section className="bg-slate-900 p-5 rounded-3xl text-white shadow-xl">
-                 <div className="flex justify-between items-center mb-4 pb-2 border-b border-white/10">
-                    <h2 className="text-xl font-black tracking-tighter flex items-center gap-2">
-                        <div className="w-8 h-8 bg-white/10 rounded-lg flex items-center justify-center text-cyan-400"><IoStatsChartOutline /></div>
-                        Design Tokens
-                    </h2>
-                </div>
-                <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-3">
-                    {content.landing.sections.metrics?.map((metric, idx) => (
-                        <div key={idx} className="bg-white/5 border border-white/10 p-3 rounded-xl relative group hover:bg-white/10 transition-all text-center">
-                             <button onClick={() => {
-                                const newArr = content.landing.sections.metrics.filter((_, i) => i !== idx);
-                                updateNested("landing", "sections.metrics", newArr);
-                            }} className="absolute top-2 right-2 text-white/10 hover:text-rose-500 opacity-0 group-hover:opacity-100 transition-all p-1 bg-white/5 rounded-lg"><IoTrashOutline size={12}/></button>
-                            <input className="bg-transparent border-none outline-none font-black text-base md:text-[10px] uppercase text-white w-full text-center" value={metric.t} onChange={(e) => {
-                                const newArr = [...content.landing.sections.metrics];
-                                newArr[idx].t = e.target.value;
-                                updateNested("landing", "sections.metrics", newArr);
-                            }} />
-                        </div>
-                    ))}
-                    <button onClick={() => {
-                        const newArr = [...(content.landing.sections.metrics || []), { t: "NEW_TOKEN" }];
-                        updateNested("landing", "sections.metrics", newArr);
-                    }} className="border-2 border-dashed border-white/10 rounded-xl flex items-center justify-center py-2 text-white/20 hover:text-cyan-400 hover:bg-white/5 transition-all">
-                        <IoAddOutline size={18} />
-                    </button>
-                </div>
-            </section>
+ {/* METRICS */}
+ <section className="bg-slate-900 p-5 text-white shadow-xl">
+ <div className="flex justify-between items-center mb-4 pb-2 border-b border-white/10">
+ <h2 className="text-xl font-black tracking-tighter flex items-center gap-2">
+ <div className="w-8 h-8 bg-white/10 flex items-center justify-center text-cyan-400"><IoStatsChartOutline /></div>
+ Design Tokens
+ </h2>
+ </div>
+ <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-3">
+ {content.landing.sections.metrics?.map((metric, idx) => (
+ <div key={idx} className="bg-white/5 border border-white/10 p-3 relative group hover:bg-white/10 transition-all text-center">
+ <button onClick={() => {
+ const newArr = content.landing.sections.metrics.filter((_, i) => i !== idx);
+ updateNested("landing", "sections.metrics", newArr);
+ }} className="absolute top-2 right-2 text-white/10 hover:text-rose-500 opacity-0 group-hover:opacity-100 transition-all p-1 bg-white/5 "><IoTrashOutline size={12}/></button>
+ <input className="bg-transparent border-none outline-none font-black text-base md:text-[10px] uppercase text-white w-full text-center" value={metric.t} onChange={(e) => {
+ const newArr = [...content.landing.sections.metrics];
+ newArr[idx].t = e.target.value;
+ updateNested("landing", "sections.metrics", newArr);
+ }} />
+ </div>
+ ))}
+ <button onClick={() => {
+ const newArr = [...(content.landing.sections.metrics || []), { t: "NEW_TOKEN" }];
+ updateNested("landing", "sections.metrics", newArr);
+ }} className="border-2 border-dashed border-white/10 flex items-center justify-center py-2 text-white/20 hover:text-cyan-400 hover:bg-white/5 transition-all">
+ <IoAddOutline size={18} />
+ </button>
+ </div>
+ </section>
 
-             {/* CTA RIBBON */}
-             <section className="bg-white p-5 rounded-3xl border border-slate-100 shadow-lg shadow-slate-200/30">
-                <div className="flex justify-between items-center mb-4 pb-2 border-b border-slate-100">
-                    <h2 className="text-xl font-black tracking-tighter flex items-center gap-2">
-                        <div className="w-8 h-8 bg-cyan-50 rounded-lg flex items-center justify-center text-cyan-600"><IoFlashOutline /></div>
-                        Call-To-Action Ribbon
-                    </h2>
-                </div>
-                <Field label="Button Text" value={content.landing.cta?.title} onChange={(v) => updateNested("landing", "cta.title", v)} />
-            </section>
+ {/* CTA RIBBON */}
+ <section className="bg-white p-5 border border-slate-100 shadow-lg shadow-slate-200/30">
+ <div className="flex justify-between items-center mb-4 pb-2 border-b border-slate-100">
+ <h2 className="text-xl font-black tracking-tighter flex items-center gap-2">
+ <div className="w-8 h-8 bg-cyan-50 flex items-center justify-center text-cyan-600"><IoFlashOutline /></div>
+ Call-To-Action Ribbon
+ </h2>
+ </div>
+ <Field label="Button Text" value={content.landing.cta?.title} onChange={(v) => updateNested("landing", "cta.title", v)} />
+ </section>
 
-          </motion.div>
-        ) : (
-          <motion.div key="details" initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -10 }} className="space-y-6">
-            
-            {/* HERO SECTION */}
-            <section className="bg-white p-5 rounded-3xl border border-slate-100 shadow-lg shadow-slate-200/30">
-                <div className="flex justify-between items-center mb-4 pb-2 border-b border-slate-100">
-                    <h2 className="text-xl font-black tracking-tighter flex items-center gap-2">
-                        <div className="w-8 h-8 bg-slate-50 rounded-lg flex items-center justify-center text-slate-600"><IoPrismOutline /></div>
-                        Manifest Hero
-                    </h2>
-                </div>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-                    <Field label="Badge" value={content.details.hero.badge} onChange={(v) => updateNested("details", "hero.badge", v)} />
-                    <Field label="Subtitle" value={content.details.hero.subtitle} onChange={(v) => updateNested("details", "hero.subtitle", v)} />
-                    <Field label="Title" value={content.details.hero.title} onChange={(v) => updateNested("details", "hero.title", v)} />
-                    <div className="md:col-span-2">
-                        <Field label="Technical Manifest Description" value={content.details.hero.description} onChange={(v) => updateNested("details", "hero.description", v)} textarea />
-                    </div>
-                </div>
-            </section>
+ </motion.div>
+ ) : (
+ <motion.div key="details" initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -10 }} className="space-y-6">
+ 
+ {/* HERO SECTION */}
+ <section className="bg-white p-5 border border-slate-100 shadow-lg shadow-slate-200/30">
+ <div className="flex justify-between items-center mb-4 pb-2 border-b border-slate-100">
+ <h2 className="text-xl font-black tracking-tighter flex items-center gap-2">
+ <div className="w-8 h-8 bg-slate-50 flex items-center justify-center text-slate-600"><IoPrismOutline /></div>
+ Manifest Hero
+ </h2>
+ </div>
+ <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+ <Field label="Badge" value={content.details.hero.badge} onChange={(v) => updateNested("details", "hero.badge", v)} />
+ <Field label="Subtitle" value={content.details.hero.subtitle} onChange={(v) => updateNested("details", "hero.subtitle", v)} />
+ <Field label="Title" value={content.details.hero.title} onChange={(v) => updateNested("details", "hero.title", v)} />
+ <div className="md:col-span-2">
+ <Field label="Technical Manifest Description" value={content.details.hero.description} onChange={(v) => updateNested("details", "hero.description", v)} textarea />
+ </div>
+ </div>
+ </section>
 
-            {/* DESIGN PROTOCOL PHASES */}
-            <section className="bg-white p-5 rounded-3xl border border-slate-100 shadow-lg shadow-slate-200/30">
-                <div className="flex justify-between items-center mb-4 pb-2 border-b border-slate-100">
-                    <h2 className="text-xl font-black tracking-tighter flex items-center gap-2">
-                        <div className="w-8 h-8 bg-cyan-50 rounded-lg flex items-center justify-center text-cyan-600"><IoGitNetworkOutline /></div>
-                        The Design Protocol (Lifecycle)
-                    </h2>
-                    <AddButton onClick={() => {
-                        const newArr = [...(content.details.sections.phases || []), { step: "DESIGN_0X", stage: "", action: "" }];
-                        updateNested("details", "sections.phases", newArr);
-                    }} small />
-                </div>
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
-                    {content.details.sections.phases?.map((phase, idx) => (
-                        <div key={idx} className="p-4 bg-slate-50 rounded-2xl relative group border border-transparent hover:border-cyan-100 transition-all">
-                             <button onClick={() => {
-                                const newArr = content.details.sections.phases.filter((_, i) => i !== idx);
-                                updateNested("details", "sections.phases", newArr);
-                            }} className="absolute top-2 right-2 text-slate-200 hover:text-rose-500 transition-all opacity-0 group-hover:opacity-100 z-10 p-1 bg-white/5 rounded-lg"><IoTrashOutline size={14}/></button>
-                            <div className="flex gap-2 mb-2">
-                                <input placeholder="ID" className="w-16 bg-white border border-slate-100 rounded-lg px-2 py-1 text-base md:text-[9px] font-black text-cyan-600 uppercase" value={phase.step} onChange={(e) => {
-                                    const newArr = [...content.details.sections.phases];
-                                    newArr[idx].step = e.target.value;
-                                    updateNested("details", "sections.phases", newArr);
-                                }} />
-                                <input placeholder="Stage Name" className="flex-1 bg-transparent border-none outline-none font-black text-base md:text-[10px] tracking-widest uppercase text-slate-900 focus:text-cyan-600 transition-colors" value={phase.stage} onChange={(e) => {
-                                    const newArr = [...content.details.sections.phases];
-                                    newArr[idx].stage = e.target.value;
-                                    updateNested("details", "sections.phases", newArr);
-                                }} />
-                            </div>
-                            <textarea placeholder="Process description" rows="3" className="w-full bg-transparent border-none outline-none text-base md:text-[10px] text-slate-500 font-medium leading-relaxed scrollbar-hide shrink-0" value={phase.action} onChange={(e) => {
-                                const newArr = [...content.details.sections.phases];
-                                newArr[idx].action = e.target.value;
-                                updateNested("details", "sections.phases", newArr);
-                            }} />
-                        </div>
-                    ))}
-                </div>
-            </section>
+ {/* DESIGN PROTOCOL PHASES */}
+ <section className="bg-white p-5 border border-slate-100 shadow-lg shadow-slate-200/30">
+ <div className="flex justify-between items-center mb-4 pb-2 border-b border-slate-100">
+ <h2 className="text-xl font-black tracking-tighter flex items-center gap-2">
+ <div className="w-8 h-8 bg-cyan-50 flex items-center justify-center text-cyan-600"><IoGitNetworkOutline /></div>
+ The Design Protocol (Lifecycle)
+ </h2>
+ <AddButton onClick={() => {
+ const newArr = [...(content.details.sections.phases || []), { step: "DESIGN_0X", stage: "", action: "" }];
+ updateNested("details", "sections.phases", newArr);
+ }} small />
+ </div>
+ <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
+ {content.details.sections.phases?.map((phase, idx) => (
+ <div key={idx} className="p-4 bg-slate-50 relative group border border-transparent hover:border-cyan-100 transition-all">
+ <button onClick={() => {
+ const newArr = content.details.sections.phases.filter((_, i) => i !== idx);
+ updateNested("details", "sections.phases", newArr);
+ }} className="absolute top-2 right-2 text-slate-200 hover:text-rose-500 transition-all opacity-0 group-hover:opacity-100 z-10 p-1 bg-white/5 "><IoTrashOutline size={14}/></button>
+ <div className="flex gap-2 mb-2">
+ <input placeholder="ID" className="w-16 bg-white border border-slate-100 px-2 py-1 text-base md:text-[9px] font-black text-cyan-600 uppercase" value={phase.step} onChange={(e) => {
+ const newArr = [...content.details.sections.phases];
+ newArr[idx].step = e.target.value;
+ updateNested("details", "sections.phases", newArr);
+ }} />
+ <input placeholder="Stage Name" className="flex-1 bg-transparent border-none outline-none font-black text-base md:text-[10px] tracking-widest uppercase text-slate-900 focus:text-cyan-600 transition-colors" value={phase.stage} onChange={(e) => {
+ const newArr = [...content.details.sections.phases];
+ newArr[idx].stage = e.target.value;
+ updateNested("details", "sections.phases", newArr);
+ }} />
+ </div>
+ <textarea placeholder="Process description" rows="3" className="w-full bg-transparent border-none outline-none text-base md:text-[10px] text-slate-500 font-medium leading-relaxed scrollbar-hide shrink-0" value={phase.action} onChange={(e) => {
+ const newArr = [...content.details.sections.phases];
+ newArr[idx].action = e.target.value;
+ updateNested("details", "sections.phases", newArr);
+ }} />
+ </div>
+ ))}
+ </div>
+ </section>
 
-            {/* ARCHITECTURAL FRAMEWORKS */}
-            <section className="bg-white p-5 rounded-3xl border border-slate-100 shadow-lg shadow-slate-200/30">
-                <div className="flex justify-between items-center mb-4 pb-2 border-b border-slate-100">
-                    <h2 className="text-xl font-black tracking-tighter flex items-center gap-2">
-                        <div className="w-8 h-8 bg-cyan-50 rounded-lg flex items-center justify-center text-cyan-600"><IoFlashOutline /></div>
-                        Architectural Frameworks
-                    </h2>
-                    <AddButton onClick={() => {
-                        const newArr = [...(content.details.sections.roi || []), { group: "New Group", items: [""] }];
-                        updateNested("details", "sections.roi", newArr);
-                    }} small />
-                </div>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-                    {content.details.sections.roi?.map((group, idx) => (
-                        <div key={idx} className="p-4 bg-slate-50 rounded-3xl relative group border border-slate-100 shadow-sm">
-                             <button onClick={() => {
-                                const newArr = content.details.sections.roi.filter((_, i) => i !== idx);
-                                updateNested("details", "sections.roi", newArr);
-                            }} className="absolute top-2 right-2 text-slate-200 hover:text-rose-500 transition-all opacity-0 group-hover:opacity-100 z-10 p-1 bg-white/5 rounded-lg"><IoTrashOutline size={14}/></button>
-                            <input className="w-full bg-transparent border-none outline-none font-black text-base md:text-sm tracking-tighter mb-3 uppercase text-slate-900" value={group.group} onChange={(e) => {
-                                const newArr = [...content.details.sections.roi];
-                                newArr[idx].group = e.target.value;
-                                updateNested("details", "sections.roi", newArr);
-                            }} />
-                            <div className="space-y-1">
-                                {group.items?.map((item, iIdx) => (
-                                    <div key={iIdx} className="flex items-center gap-2 group/item">
-                                        <div className="w-1.5 h-1.5 rounded-full bg-cyan-400 shrink-0" />
-                                        <input className="flex-1 bg-transparent border-none outline-none text-base md:text-[11px] font-bold text-slate-500 uppercase tracking-wider" value={item} onChange={(e) => {
-                                            const newArr = [...content.details.sections.roi];
-                                            newArr[idx].items[iIdx] = e.target.value;
-                                            updateNested("details", "sections.roi", newArr);
-                                        }} />
-                                        <button onClick={() => {
-                                            const newArr = [...content.details.sections.roi];
-                                            newArr[idx].items.splice(iIdx, 1);
-                                            updateNested("details", "sections.roi", newArr);
-                                        }} className="opacity-0 group-hover/item:opacity-100 text-rose-500"><IoTrashOutline size={12}/></button>
-                                    </div>
-                                ))}
-                                <button onClick={() => {
-                                    const newArr = [...content.details.sections.roi];
-                                    newArr[idx].items.push("");
-                                    updateNested("details", "sections.roi", newArr);
-                                }} className="text-[10px] font-black text-cyan-400 uppercase tracking-widest mt-1 hover:text-cyan-600">+ Add Objective</button>
-                            </div>
-                        </div>
-                    ))}
-                </div>
-            </section>
+ {/* ARCHITECTURAL FRAMEWORKS */}
+ <section className="bg-white p-5 border border-slate-100 shadow-lg shadow-slate-200/30">
+ <div className="flex justify-between items-center mb-4 pb-2 border-b border-slate-100">
+ <h2 className="text-xl font-black tracking-tighter flex items-center gap-2">
+ <div className="w-8 h-8 bg-cyan-50 flex items-center justify-center text-cyan-600"><IoFlashOutline /></div>
+ Architectural Frameworks
+ </h2>
+ <AddButton onClick={() => {
+ const newArr = [...(content.details.sections.roi || []), { group: "New Group", items: [""] }];
+ updateNested("details", "sections.roi", newArr);
+ }} small />
+ </div>
+ <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+ {content.details.sections.roi?.map((group, idx) => (
+ <div key={idx} className="p-4 bg-slate-50 relative group border border-slate-100 shadow-sm">
+ <button onClick={() => {
+ const newArr = content.details.sections.roi.filter((_, i) => i !== idx);
+ updateNested("details", "sections.roi", newArr);
+ }} className="absolute top-2 right-2 text-slate-200 hover:text-rose-500 transition-all opacity-0 group-hover:opacity-100 z-10 p-1 bg-white/5 "><IoTrashOutline size={14}/></button>
+ <input className="w-full bg-transparent border-none outline-none font-black text-base md:text-sm tracking-tighter mb-3 uppercase text-slate-900" value={group.group} onChange={(e) => {
+ const newArr = [...content.details.sections.roi];
+ newArr[idx].group = e.target.value;
+ updateNested("details", "sections.roi", newArr);
+ }} />
+ <div className="space-y-1">
+ {group.items?.map((item, iIdx) => (
+ <div key={iIdx} className="flex items-center gap-2 group/item">
+ <div className="w-1.5 h-1.5 bg-cyan-400 shrink-0" />
+ <input className="flex-1 bg-transparent border-none outline-none text-base md:text-[11px] font-bold text-slate-500 uppercase tracking-wider" value={item} onChange={(e) => {
+ const newArr = [...content.details.sections.roi];
+ newArr[idx].items[iIdx] = e.target.value;
+ updateNested("details", "sections.roi", newArr);
+ }} />
+ <button onClick={() => {
+ const newArr = [...content.details.sections.roi];
+ newArr[idx].items.splice(iIdx, 1);
+ updateNested("details", "sections.roi", newArr);
+ }} className="opacity-0 group-hover/item:opacity-100 text-rose-500"><IoTrashOutline size={12}/></button>
+ </div>
+ ))}
+ <button onClick={() => {
+ const newArr = [...content.details.sections.roi];
+ newArr[idx].items.push("");
+ updateNested("details", "sections.roi", newArr);
+ }} className="text-[10px] font-black text-cyan-400 uppercase tracking-widest mt-1 hover:text-cyan-600">+ Add Objective</button>
+ </div>
+ </div>
+ ))}
+ </div>
+ </section>
 
-             {/* CTA RIBBON */}
-             <section className="bg-white p-5 rounded-3xl border border-slate-100 shadow-lg shadow-slate-200/30">
-                <div className="flex justify-between items-center mb-4 pb-2 border-b border-slate-100">
-                    <h2 className="text-xl font-black tracking-tighter flex items-center gap-2">
-                        <div className="w-8 h-8 bg-cyan-50 rounded-lg flex items-center justify-center text-cyan-600"><IoFlashOutline /></div>
-                        Call-To-Action Ribbon
-                    </h2>
-                </div>
-                <Field label="Button Text" value={content.details.cta?.title} onChange={(v) => updateNested("details", "cta.title", v)} />
-            </section>
+ {/* CTA RIBBON */}
+ <section className="bg-white p-5 border border-slate-100 shadow-lg shadow-slate-200/30">
+ <div className="flex justify-between items-center mb-4 pb-2 border-b border-slate-100">
+ <h2 className="text-xl font-black tracking-tighter flex items-center gap-2">
+ <div className="w-8 h-8 bg-cyan-50 flex items-center justify-center text-cyan-600"><IoFlashOutline /></div>
+ Call-To-Action Ribbon
+ </h2>
+ </div>
+ <Field label="Button Text" value={content.details.cta?.title} onChange={(v) => updateNested("details", "cta.title", v)} />
+ </section>
 
-          </motion.div>
-        )}
-      </AnimatePresence>
+ </motion.div>
+ )}
+ </AnimatePresence>
 
-      {/* Mobile Sticky Bottom CTA */}
-      <div className="md:hidden sticky bottom-0 left-0 w-full pt-4 pb-[calc(1rem+env(safe-area-inset-bottom))] bg-slate-50/90 backdrop-blur-md z-[90]">
-        <button 
-          onClick={handleSave}
-          disabled={saving}
-          className="w-full relative overflow-hidden px-4 py-4 bg-slate-900 text-white rounded-xl font-black uppercase tracking-widest text-[12px] flex items-center justify-center gap-2 active:scale-95 transition-transform disabled:opacity-50 shadow-xl shadow-slate-900/20"
-        >
-          <div className="absolute inset-0 bg-gradient-to-r from-cyan-600 to-indigo-600 opacity-0 hover:opacity-100 transition-opacity" />
-          <div className="relative flex items-center gap-2">
-            {saving ? <IoRefreshOutline className="animate-spin" /> : <IoSaveOutline />}
-            Deploy Component System
-          </div>
-        </button>
-      </div>
+ {/* Mobile Sticky Bottom CTA */}
+ <div className="md:hidden sticky bottom-0 left-0 w-full pt-4 pb-[calc(1rem+env(safe-area-inset-bottom))] bg-slate-50/90 backdrop-blur-md z-[90]">
+ <button 
+ onClick={handleSave}
+ disabled={saving}
+ className="w-full relative overflow-hidden px-4 py-4 bg-slate-900 text-white font-black uppercase tracking-widest text-[12px] flex items-center justify-center gap-2 active:scale-95 transition-transform disabled:opacity-50 shadow-xl shadow-slate-900/20"
+ >
+ <div className="absolute inset-0 bg-gradient-to-r from-cyan-600 to-indigo-600 opacity-0 hover:opacity-100 transition-opacity" />
+ <div className="relative flex items-center gap-2">
+ {saving ? <IoRefreshOutline className="animate-spin" /> : <IoSaveOutline />}
+ Deploy Component System
+ </div>
+ </button>
+ </div>
 
-    </div>
-  );
+ </div>
+ );
 }
 
 function Field({ label, value, onChange, textarea = false, dark = false, small = false, icon = null }) {
-    return (
-        <div className={small ? "w-48" : "w-full"}>
-            <label className={`block text-[9px] font-black uppercase mb-1 tracking-widest ${dark ? 'text-slate-500' : 'text-slate-400'}`}>
-                {label}
-            </label>
-            <div className={`relative flex items-center ${dark ? 'bg-white/5 border-white/5' : 'bg-slate-50 border-transparent'} border rounded-xl overflow-hidden focus-within:border-cyan-500/10 transition-all`}>
-                {icon && <div className="pl-3 text-slate-400">{icon}</div>}
-                {textarea ? (
-                    <textarea 
-                        rows="3" 
-                        className={`w-full px-3 py-1.5 bg-transparent outline-none font-medium text-base md:text-[11px] leading-relaxed shrink-0 scrollbar-hide ${dark ? 'text-white' : 'text-slate-900'}`} 
-                        value={value || ""} 
-                        onChange={(e) => onChange(e.target.value)} 
-                    />
-                ) : (
-                    <input 
-                        className={`w-full px-3 py-1.5 bg-transparent outline-none font-black text-base md:text-xs ${dark ? 'text-white' : 'text-slate-900'}`} 
-                        value={value || ""} 
-                        onChange={(e) => onChange(e.target.value)} 
-                    />
-                )}
-            </div>
-        </div>
-    );
+ return (
+ <div className={small ? "w-48" : "w-full"}>
+ <label className={`block text-[9px] font-black uppercase mb-1 tracking-widest ${dark ? 'text-slate-500' : 'text-slate-400'}`}>
+ {label}
+ </label>
+ <div className={`relative flex items-center ${dark ? 'bg-white/5 border-white/5' : 'bg-slate-50 border-transparent'} border overflow-hidden focus-within:border-cyan-500/10 transition-all`}>
+ {icon && <div className="pl-3 text-slate-400">{icon}</div>}
+ {textarea ? (
+ <textarea 
+ rows="3" 
+ className={`w-full px-3 py-1.5 bg-transparent outline-none font-medium text-base md:text-[11px] leading-relaxed shrink-0 scrollbar-hide ${dark ? 'text-white' : 'text-slate-900'}`} 
+ value={value || ""} 
+ onChange={(e) => onChange(e.target.value)} 
+ />
+ ) : (
+ <input 
+ className={`w-full px-3 py-1.5 bg-transparent outline-none font-black text-base md:text-xs ${dark ? 'text-white' : 'text-slate-900'}`} 
+ value={value || ""} 
+ onChange={(e) => onChange(e.target.value)} 
+ />
+ )}
+ </div>
+ </div>
+ );
 }
 
 function CardWrapper({ children, onRemove, highlight = false, compact = false }) {
-    return (
-        <div className={`p-4 bg-white border border-slate-100 rounded-2xl shadow-sm hover:shadow-lg transition-all relative group ${highlight ? 'ring-2 ring-cyan-600 shadow-cyan-600/10' : ''}`}>
-            {onRemove && (
-                <button 
-                    onClick={onRemove} 
-                    className="absolute top-2 right-2 text-slate-200 hover:text-rose-500 transition-colors opacity-0 group-hover:opacity-100 z-10 p-1"
-                >
-                    <IoTrashOutline size={14} />
-                </button>
-            )}
-            {children}
-        </div>
-    );
+ return (
+ <div className={`p-4 bg-white border border-slate-100 shadow-sm hover:shadow-lg transition-all relative group ${highlight ? 'ring-2 ring-cyan-600 shadow-cyan-600/10' : ''}`}>
+ {onRemove && (
+ <button 
+ onClick={onRemove} 
+ className="absolute top-2 right-2 text-slate-200 hover:text-rose-500 transition-colors opacity-0 group-hover:opacity-100 z-10 p-1"
+ >
+ <IoTrashOutline size={14} />
+ </button>
+ )}
+ {children}
+ </div>
+ );
 }
 
 function AddButton({ onClick, label = "Add", small = false }) {
-    if (small) return (
-        <button onClick={onClick} className="p-1.5 bg-cyan-50 text-cyan-600 rounded-lg hover:bg-cyan-600 hover:text-white transition-all">
-            <IoAddOutline size={16} />
-        </button>
-    );
-    return (
-        <button 
-            onClick={onClick}
-            className="h-full min-h-[80px] border-2 border-dashed border-slate-100 rounded-2xl flex flex-col items-center justify-center gap-1 text-slate-300 hover:text-cyan-500 hover:border-cyan-200 hover:bg-cyan-50/30 transition-all group p-2"
-        >
-            <div className="w-10 h-10 rounded-full border-2 border-dashed border-slate-200 flex items-center justify-center group-hover:scale-110 transition-transform">
-                <IoAddOutline size={18} />
-            </div>
-            <span className="text-[9px] font-black uppercase tracking-widest">{label}</span>
-        </button>
-    );
+ if (small) return (
+ <button onClick={onClick} className="p-1.5 bg-cyan-50 text-cyan-600 hover:bg-cyan-600 hover:text-white transition-all">
+ <IoAddOutline size={16} />
+ </button>
+ );
+ return (
+ <button 
+ onClick={onClick}
+ className="h-full min-h-[80px] border-2 border-dashed border-slate-100 flex flex-col items-center justify-center gap-1 text-slate-300 hover:text-cyan-500 hover:border-cyan-200 hover:bg-cyan-50/30 transition-all group p-2"
+ >
+ <div className="w-10 h-10 border-2 border-dashed border-slate-200 flex items-center justify-center group-hover:scale-110 transition-transform">
+ <IoAddOutline size={18} />
+ </div>
+ <span className="text-[9px] font-black uppercase tracking-widest">{label}</span>
+ </button>
+ );
 }

@@ -8,5 +8,5 @@ import DashboardSkeleton from '@/components/ui/DashboardSkeleton';
  * content area will show the DashboardSkeleton.
  */
 export default function DashboardLoading() {
-  return <DashboardSkeleton />;
+ return <DashboardSkeleton />;
 }

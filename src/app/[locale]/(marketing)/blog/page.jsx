@@ -1,10 +1,10 @@
 import Link from "next/link";
 import Image from "next/image";
 import {
-  IoSearchOutline,
-  IoCalendarOutline,
-  IoArrowForwardOutline,
-  IoBookOutline,
+ IoSearchOutline,
+ IoCalendarOutline,
+ IoArrowForwardOutline,
+ IoBookOutline,
 } from "react-icons/io5";
 import { getApiBaseUrl } from "@/lib/api-base";
 
@@ -12,322 +12,305 @@ const API = getApiBaseUrl({ absolute: true });
 export const revalidate = 3600;
 
 export async function generateMetadata({ params }) {
-  return {
-    title: "Blog — Smart Youth ICT",
-    description:
-      "IT tips, freelancing guides and career advice from Bangladesh's leading IT training platform.",
-    openGraph: {
-      title: "Blog — Smart Youth ICT",
-      url: `${process.env.NEXT_PUBLIC_APP_URL}/${params.locale}/blog`,
-    },
-  };
+ return {
+ title: "Blog — Smart Youth ICT",
+ description:
+ "IT tips, freelancing guides and career advice from Bangladesh's leading IT training platform.",
+ openGraph: {
+ title: "Blog — Smart Youth ICT",
+ url: `${process.env.NEXT_PUBLIC_APP_URL}/${params.locale}/blog`,
+ },
+ };
 }
 
 async function getPosts(page = 1, tag = "", q = "") {
-  try {
-    const qs = new URLSearchParams({
-      page,
-      limit: 9,
-      ...(tag && { tag }),
-      ...(q && { q }),
-    });
-    const res = await fetch(`${API}/blog?${qs}`, {
-      next: { revalidate: 3600 },
-    });
-    if (!res.ok) return { data: [], total: 0 };
-    return res.json();
-  } catch {
-    return { data: [], total: 0 };
-  }
+ try {
+ const qs = new URLSearchParams({
+ page,
+ limit: 9,
+ ...(tag && { tag }),
+ ...(q && { q }),
+ });
+ const res = await fetch(`${API}/blog?${qs}`, {
+ next: { revalidate: 3600 },
+ });
+ if (!res.ok) return { data: [], total: 0 };
+ return res.json();
+ } catch {
+ return { data: [], total: 0 };
+ }
 }
 
 async function getTags() {
-  try {
-    const res = await fetch(`${API}/blog/tags`, { next: { revalidate: 3600 } });
-    if (!res.ok) return [];
-    const json = await res.json();
-    return json.data || [];
-  } catch {
-    return [];
-  }
+ try {
+ const res = await fetch(`${API}/blog/tags`, { next: { revalidate: 3600 } });
+ if (!res.ok) return [];
+ const json = await res.json();
+ return json.data || [];
+ } catch {
+ return [];
+ }
 }
 
-const CATEGORY_COLORS = {
-  Career: "bg-blue-100 text-blue-700",
-  Trends: "bg-purple-100 text-purple-700",
-  Tips: "bg-emerald-100 text-emerald-700",
-  Freelancing: "bg-amber-100 text-amber-700",
-};
-
 function BlogCard({ post, locale, priority = false }) {
-  const title = post.title?.en || post.title;
-  const excerpt = post.excerpt || "";
-  const tag = post.tags?.[0] || post.category || "Blog";
-  const color = CATEGORY_COLORS[tag] || "bg-neutral-100 text-neutral-600";
-  return (
-    <Link href={`/${locale}/blog/${post.slug}`} className="group block">
-      <div className="card h-full flex flex-col overflow-hidden rounded-2xl hover:shadow-xl transition-all hover:-translate-y-1 active:scale-95">
-        {/* Thumbnail */}
-        <div className="relative h-48 bg-gradient-to-br from-blue-50 to-indigo-100 overflow-hidden">
-          {post.thumbnail ? (
-            <Image
-              src={post.thumbnail}
-              alt={title}
-              fill
-              sizes="350px"
-              priority={priority}
-              loading={priority ? undefined : "lazy"}
-              decoding={priority ? undefined : "async"}
-              className="object-cover group-hover:scale-105 transition-transform duration-500 bg-[#f0f0f0]"
-            />
-          ) : (
-            <div className="w-full h-full flex items-center justify-center">
-              <IoBookOutline size={48} className="text-blue-200" />
-            </div>
-          )}
-        </div>
-        <div className="p-5 flex flex-col flex-1">
-          <div className="flex items-center gap-2 mb-3">
-            <span
-              className={`text-sm font-semibold px-2.5 py-1 rounded-full ${color}`}
-            >
-              {tag}
-            </span>
-            <span className="flex items-center gap-1 text-sm text-textSecondary ml-auto">
-              <IoCalendarOutline size={12} />
-              {post.createdAt
-                ? new Date(post.createdAt).toLocaleDateString("en-BD", {
-                  day: "numeric",
-                  month: "short",
-                  year: "numeric",
-                })
-                : ""}
-            </span>
-          </div>
-          <h2 className="font-bold text-textPrimary line-clamp-2 text-base leading-snug mb-2 flex-1 group-hover:text-blue-600 transition-colors">
-            {title}
-          </h2>
-          <p className="text-sm text-textSecondary leading-relaxed line-clamp-2 mb-4">
-            {excerpt}
-          </p>
-          <span className="text-sm font-bold text-blue-600 flex items-center gap-1">
-            Read More{" "}
-            <IoArrowForwardOutline
-              size={13}
-              className="group-hover:translate-x-1 transition-transform"
-            />
-          </span>
-        </div>
-      </div>
-    </Link>
-  );
+ const title = post.title?.en || post.title;
+ const excerpt = post.excerpt || "";
+ const tag = post.tags?.[0] || post.category || "Blog";
+ 
+ return (
+ <Link href={`/${locale}/blog/${post.slug}`} className="group block">
+ <div className="card h-full flex flex-col overflow-hidden -[2rem] border border-slate-100 bg-white hover:shadow-[0_8px_30px_rgb(0,0,0,0.04)] hover:border-slate-200 transition-all duration-500 hover:-translate-y-1">
+ {/* Thumbnail */}
+ <div className="relative h-56 bg-slate-50 overflow-hidden">
+ {post.thumbnail ? (
+ <Image
+ src={post.thumbnail}
+ alt={title}
+ fill
+ sizes="350px"
+ priority={priority}
+ loading={priority ? undefined : "lazy"}
+ decoding={priority ? undefined : "async"}
+ className="object-cover group-hover:scale-105 transition-transform duration-700 bg-[#f0f0f0]"
+ />
+ ) : (
+ <div className="w-full h-full flex items-center justify-center">
+ <IoBookOutline size={48} className="text-slate-300" />
+ </div>
+ )}
+ </div>
+ <div className="p-6 md:p-8 flex flex-col flex-1">
+ <div className="flex items-center gap-2 mb-4">
+ <span className="text-[10px] font-medium uppercase tracking-widest px-3 py-1 bg-slate-100 text-slate-600">
+ {tag}
+ </span>
+ <span className="flex items-center gap-1.5 text-xs text-slate-400 ml-auto font-light">
+ <IoCalendarOutline size={14} />
+ {post.createdAt
+ ? new Date(post.createdAt).toLocaleDateString("en-BD", {
+ day: "numeric",
+ month: "short",
+ year: "numeric",
+ })
+ : ""}
+ </span>
+ </div>
+ <h2 className="font-medium text-slate-900 line-clamp-2 text-xl leading-snug mb-3 flex-1 group-hover:text-slate-600 transition-colors tracking-tight">
+ {title}
+ </h2>
+ <p className="text-sm text-slate-500 leading-relaxed font-light line-clamp-2 mb-6">
+ {excerpt}
+ </p>
+ <span className="text-[11px] font-medium uppercase tracking-widest text-slate-900 flex items-center gap-1 group-hover:text-slate-600 transition-colors">
+ Read More{" "}
+ <IoArrowForwardOutline
+ size={14}
+ className="group-hover:translate-x-1 transition-transform"
+ />
+ </span>
+ </div>
+ </div>
+ </Link>
+ );
 }
 
 export default async function BlogPage({ params, searchParams }) {
-  const locale = params?.locale || "en";
-  const page = Number(searchParams?.page) || 1;
-  const tag = searchParams?.tag || "";
-  const q = searchParams?.q || "";
+ const locale = params?.locale || "en";
+ const page = Number(searchParams?.page) || 1;
+ const tag = searchParams?.tag || "";
+ const q = searchParams?.q || "";
 
-  const [{ data: posts, total }, tags] = await Promise.all([
-    getPosts(page, tag, q),
-    getTags(),
-  ]);
-  const totalPages = Math.ceil(total / 9);
+ const [{ data: posts, total }, tags] = await Promise.all([
+ getPosts(page, tag, q),
+ getTags(),
+ ]);
+ const totalPages = Math.ceil(total / 9);
 
-  return (
-    <div
-      className="min-h-screen pb-24 md:pb-0 flex flex-col"
-      style={{ background: "var(--color-background)" }}
-    >
-      {/* ── Hero ── */}
-      <div
-        className="relative overflow-hidden py-20 px-4 text-center"
-        style={{
-          background:
-            "linear-gradient(135deg, #0f172a 0%, #1e1b4b 60%, #312e81 100%)",
-        }}
-      >
-        <div
-          className="absolute -top-24 -left-20 w-72 h-72 rounded-full opacity-15 blur-3xl pointer-events-none"
-          style={{ background: "var(--color-brand-pink)" }}
-        />
-        <div className="relative z-10 max-w-2xl mx-auto">
-          <span className="inline-block mb-4 px-4 py-1.5 rounded-full text-xs font-bold uppercase tracking-wider text-indigo-200 bg-white/10 border border-white/10">
-            📝 Free Guides & Tips
-          </span>
-          <h1 className="text-4xl sm:text-5xl md:text-6xl font-black text-white leading-[1.1] mb-8 tracking-tighter">
-            Blog & <br />
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-pink-400 via-rose-400 to-orange-400 animate-gradient-x">
-              Resources
-            </span>
-          </h1>
-          <p className="text-indigo-200 text-lg mb-8">
-            IT career tips, freelancing guides & industry insights — straight
-            from our instructors.
-          </p>
-          {/* Search */}
-          <form method="GET" className="relative max-w-md mx-auto">
-            <IoSearchOutline
-              size={18}
-              className="absolute left-4 top-1/2 -translate-y-1/2 text-indigo-300"
-            />
-            <input
-              type="search"
-              name="q"
-              defaultValue={q}
-              placeholder="Search articles…"
-              className="w-full pl-12 pr-4 py-3.5 rounded-2xl bg-white/10 border border-white/20 text-white placeholder-indigo-300/70 focus:outline-none focus:ring-2 focus:ring-indigo-400 transition text-base"
-            />
-          </form>
-        </div>
-      </div>
+ return (
+ <div className="min-h-screen pb-24 md:pb-32 flex flex-col bg-slate-50 font-sans">
+ {/* ── Hero ── */}
+ <div className="relative pt-32 pb-20 px-4 text-center bg-white border-b border-slate-100">
+ <div className="relative z-10 max-w-3xl mx-auto">
+ <div className="flex items-center justify-center gap-4 mb-8">
+ <div className="w-8 h-[1px] bg-slate-300"></div>
+ <span className="text-xs font-medium uppercase tracking-[0.2em] text-slate-500">
+ Free Guides & Tips
+ </span>
+ <div className="w-8 h-[1px] bg-slate-300"></div>
+ </div>
+ <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-light text-slate-900 leading-[1.05] tracking-tight mb-8">
+ Blog & <br />
+ <span className="font-semibold">Resources.</span>
+ </h1>
+ <p className="text-slate-500 text-lg md:text-xl leading-relaxed max-w-2xl mx-auto font-light mb-12">
+ IT career tips, freelancing guides & industry insights — straight
+ from our instructors to help you grow.
+ </p>
+ 
+ {/* Search */}
+ <form method="GET" className="relative max-w-md mx-auto group">
+ <IoSearchOutline
+ size={20}
+ className="absolute left-5 top-1/2 -translate-y-1/2 text-slate-400 group-focus-within:text-slate-900 transition-colors"
+ />
+ <input
+ type="search"
+ name="q"
+ defaultValue={q}
+ placeholder="Search articles…"
+ className="w-full pl-14 pr-6 py-4 bg-slate-50 border border-slate-100 text-slate-900 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-slate-200 focus:bg-white transition-all text-base font-light shadow-sm"
+ />
+ </form>
+ </div>
+ </div>
 
-      {/* ── Sticky Tag Pills ── */}
-      {tags.length > 0 && (
-        <div className="sticky top-0 z-20 bg-[var(--color-surface)] border-b border-neutral-200 shadow-sm">
-          <div className="container-lg mx-auto px-4 py-3 flex gap-2 overflow-x-auto scrollbar-hide">
-            <Link
-              href={`/${locale}/blog`}
-              className={`shrink-0 rounded-full px-5 py-2.5 text-base min-h-[44px] flex items-center font-semibold transition-all active:scale-95 ${!tag ? "bg-blue-600 text-white shadow-md" : "bg-neutral-100 text-neutral-600 hover:bg-neutral-200"}`}
-            >
-              All Posts
-            </Link>
-            {tags.map((t) => (
-              <Link
-                key={t}
-                href={`/${locale}/blog?tag=${encodeURIComponent(t)}`}
-                className={`shrink-0 rounded-full px-5 py-2.5 text-base min-h-[44px] flex items-center font-semibold transition-all active:scale-95 ${tag === t ? "bg-blue-600 text-white shadow-md" : "bg-neutral-100 text-neutral-600 hover:bg-neutral-200"}`}
-              >
-                {t}
-              </Link>
-            ))}
-          </div>
-        </div>
-      )}
+ {/* ── Sticky Tag Pills ── */}
+ {tags.length > 0 && (
+ <div className="sticky top-0 z-20 bg-white/80 backdrop-blur-md border-b border-slate-100 shadow-sm">
+ <div className="container-lg mx-auto px-4 py-4 flex gap-3 overflow-x-auto scrollbar-hide">
+ <Link
+ href={`/${locale}/blog`}
+ className={`shrink-0 px-6 py-2.5 text-sm min-h-[44px] flex items-center font-medium transition-all active:scale-95 ${!tag ? "bg-slate-900 text-white shadow-md" : "bg-white text-slate-600 border border-slate-200 hover:border-slate-300 hover:bg-slate-50"}`}
+ >
+ All Posts
+ </Link>
+ {tags.map((t) => (
+ <Link
+ key={t}
+ href={`/${locale}/blog?tag=${encodeURIComponent(t)}`}
+ className={`shrink-0 px-6 py-2.5 text-sm min-h-[44px] flex items-center font-medium transition-all active:scale-95 ${tag === t ? "bg-slate-900 text-white shadow-md" : "bg-white text-slate-600 border border-slate-200 hover:border-slate-300 hover:bg-slate-50"}`}
+ >
+ {t}
+ </Link>
+ ))}
+ </div>
+ </div>
+ )}
 
-      {/* ── Post Grid ── */}
-      <div className="container-lg mx-auto px-4 py-12">
-        {posts.length > 0 ? (
-          <div className="space-y-12">
-            {/* Featured Post (Only on page 1 with no search/tag) */}
-            {page === 1 && !tag && !q && posts.length >= 1 ? (
-              <Link
-                href={`/${locale}/blog/${posts[0].slug}`}
-                className="group block"
-              >
-                <div className="flex flex-col md:flex-row bg-[var(--color-surface)] rounded-3xl overflow-hidden shadow-lg border border-neutral-100 hover:shadow-2xl transition-all active:scale-[0.98]">
-                  <div className="md:w-3/5 h-64 md:h-[400px] relative overflow-hidden bg-gradient-to-br from-blue-50 to-indigo-100">
-                    {posts[0].thumbnail ? (
-                      <Image
-                        src={posts[0].thumbnail}
-                        alt={posts[0].title}
-                        fill
-                        sizes="800px"
-                        priority={true}
-                        fetchPriority="high"
-                        className="object-cover group-hover:scale-105 transition-transform duration-700"
-                      
+ {/* ── Post Grid ── */}
+ <div className="container-lg mx-auto px-4 py-16 md:py-20">
+ {posts.length > 0 ? (
+ <div className="space-y-16">
+ {/* Featured Post (Only on page 1 with no search/tag) */}
+ {page === 1 && !tag && !q && posts.length >= 1 ? (
+ <Link
+ href={`/${locale}/blog/${posts[0].slug}`}
+ className="group block"
+ >
+ <div className="flex flex-col md:flex-row bg-white -[2rem] md:-[3rem] overflow-hidden shadow-sm border border-slate-100 hover:shadow-[0_20px_60px_rgb(0,0,0,0.05)] hover:border-slate-200 transition-all duration-500">
+ <div className="md:w-3/5 h-72 md:h-[500px] relative overflow-hidden bg-slate-50">
+ {posts[0].thumbnail ? (
+ <Image
+ src={posts[0].thumbnail}
+ alt={posts[0].title}
+ fill
+ sizes="800px"
+ priority={true}
+ fetchPriority="high"
+ className="object-cover group-hover:scale-105 transition-transform duration-700"
+ decoding="async"
+ />
+ ) : (
+ <div className="w-full h-full flex items-center justify-center">
+ <IoBookOutline size={64} className="text-slate-300" />
+ </div>
+ )}
+ </div>
+ <div className="md:w-2/5 p-8 md:p-14 flex flex-col justify-center">
+ <span className="inline-block px-3 py-1 text-[10px] font-medium uppercase tracking-widest text-slate-600 bg-slate-100 self-start mb-6 border border-slate-200">
+ Featured Article
+ </span>
+ <h2 className="text-3xl md:text-4xl font-medium text-slate-900 leading-tight mb-6 group-hover:text-slate-600 transition-colors tracking-tight">
+ {posts[0].title?.en || posts[0].title}
+ </h2>
+ <p className="text-slate-500 font-light text-base md:text-lg leading-relaxed mb-10 line-clamp-3">
+ {posts[0].excerpt}
+ </p>
+ <div className="flex items-center gap-4 mt-auto border-t border-slate-100 pt-6">
+ {posts[0].author?.avatar ? (
+ <Image
+ src={posts[0].author.avatar}
+ alt="Author"
+ width={48}
+ height={48}
+ loading="lazy"
+ decoding="async"
+ className="w-12 h-12 object-cover border border-slate-200"
+ />
+ ) : (
+ <div className="w-12 h-12 bg-slate-100 border border-slate-200 flex items-center justify-center text-slate-500 font-medium text-sm">
+ SY
+ </div>
+ )}
+ <div>
+ <p className="font-medium text-slate-900">
+ {posts[0].author?.name || "SYICT Team"}
+ </p>
+ <p className="text-xs text-slate-400 font-light flex items-center gap-1.5 mt-0.5">
+ <IoCalendarOutline size={14} />{" "}
+ {new Date(posts[0].createdAt).toLocaleDateString("en-BD", {
+ day: "numeric",
+ month: "long",
+ year: "numeric"
+ })}
+ </p>
+ </div>
+ </div>
+ </div>
+ </div>
+ </Link>
+ ) : null}
 
-decoding="async"/>
-                    ) : (
-                      <div className="w-full h-full flex items-center justify-center">
-                        <IoBookOutline size={64} className="text-blue-200" />
-                      </div>
-                    )}
-                  </div>
-                  <div className="md:w-2/5 p-8 md:p-12 flex flex-col justify-center">
-                    <span className="inline-block px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider text-white bg-blue-600 self-start mb-4 shadow-sm shadow-blue-500/30">
-                      Featured Article
-                    </span>
-                    <h2 className="text-2xl md:text-3xl font-extrabold text-textPrimary leading-tight mb-4 group-hover:text-blue-600 transition-colors">
-                      {posts[0].title?.en || posts[0].title}
-                    </h2>
-                    <p className="text-textSecondary text-base leading-relaxed mb-6 line-clamp-3">
-                      {posts[0].excerpt}
-                    </p>
-                    <div className="flex items-center gap-3 mt-auto">
-                      {posts[0].author?.avatar ? (
-                        <Image
-                          src={posts[0].author.avatar}
-                          alt="Author"
-                          width={40}
-                          height={40}
-                          loading="lazy"
-                          decoding="async"
-                          className="w-10 h-10 rounded-full object-cover"
-                        
-/>
-                      ) : (
-                        <div className="w-10 h-10 rounded-full bg-indigo-100 flex items-center justify-center text-indigo-700 font-bold text-sm">
-                          SY
-                        </div>
-                      )}
-                      <div>
-                        <p className="font-bold text-sm text-textPrimary">
-                          {posts[0].author?.name || "SYICT Team"}
-                        </p>
-                        <p className="text-xs text-textSecondary flex items-center gap-1">
-                          <IoCalendarOutline />{" "}
-                          {new Date(posts[0].createdAt).toLocaleDateString()}
-                        </p>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </Link>
-            ) : null}
+ {/* Standard Grid */}
+ <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+ {posts.slice(page === 1 && !tag && !q ? 1 : 0).map((post, index) => (
+ <BlogCard key={post._id} post={post} locale={locale} priority={index <= 2} />
+ ))}
+ </div>
+ </div>
+ ) : (
+ <div className="flex flex-col items-center justify-center py-32 text-center max-w-lg mx-auto">
+ <div className="w-24 h-24 bg-slate-100 flex items-center justify-center mb-8 border border-slate-200 shadow-sm">
+ <IoBookOutline size={40} className="text-slate-400" />
+ </div>
+ <h3 className="text-2xl font-medium text-slate-900 mb-3 tracking-tight">
+ No articles yet
+ </h3>
+ <p className="text-slate-500 font-light leading-relaxed">
+ Check back soon — our instructors are writing for you, or try searching for something else.
+ </p>
+ </div>
+ )}
 
-            {/* Standard Grid */}
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-7">
-              {posts.slice(page === 1 && !tag && !q ? 1 : 0).map((post, index) => (
-                <BlogCard key={post._id} post={post} locale={locale} priority={index <= 2} />
-              ))}
-            </div>
-          </div>
-        ) : (
-          <div className="flex flex-col items-center justify-center py-20 text-center">
-            <div className="w-20 h-20 rounded-3xl bg-blue-50 flex items-center justify-center mb-5">
-              <IoBookOutline size={40} className="text-blue-300" />
-            </div>
-            <h3 className="text-xl font-bold text-textPrimary mb-2">
-              No articles yet
-            </h3>
-            <p className="text-textSecondary text-sm">
-              Check back soon — our instructors are writing for you!
-            </p>
-          </div>
-        )}
+ {/* Pagination */}
+ {totalPages > 1 && (
+ <nav className="flex justify-center gap-3 mt-16">
+ {Array.from({ length: totalPages }, (_, i) => i + 1).map((p) => (
+ <Link
+ key={p}
+ href={`/${locale}/blog?page=${p}${tag ? `&tag=${tag}` : ""}${q ? `&q=${q}` : ""}`}
+ className={`w-12 h-12 min-w-[48px] min-h-[48px] flex items-center justify-center text-sm font-medium transition-all active:scale-95 ${page === p
+ ? "bg-slate-900 text-white shadow-md"
+ : "bg-white text-slate-600 border border-slate-200 hover:border-slate-300 hover:bg-slate-50"
+ }`}
+ >
+ {p}
+ </Link>
+ ))}
+ </nav>
+ )}
+ </div>
 
-        {/* Pagination */}
-        {totalPages > 1 && (
-          <nav className="flex justify-center gap-2 mt-12">
-            {Array.from({ length: totalPages }, (_, i) => i + 1).map((p) => (
-              <Link
-                key={p}
-                href={`/${locale}/blog?page=${p}${tag ? `&tag=${tag}` : ""}${q ? `&q=${q}` : ""}`}
-                className={`w-11 h-11 min-w-[44px] min-h-[44px] rounded-xl flex items-center justify-center text-sm font-semibold transition-all active:scale-95 ${page === p
-                    ? "bg-blue-600 text-white shadow-md"
-                    : "bg-white text-neutral-600 ring-1 ring-neutral-200 hover:bg-neutral-50"
-                  }`}
-              >
-                {p}
-              </Link>
-            ))}
-          </nav>
-        )}
-      </div>
-
-      {/* Mobile Sticky CTA */}
-      <div className="fixed bottom-0 left-0 w-full p-4 bg-white/90 backdrop-blur-md border-t border-slate-200 z-50 md:hidden flex items-center justify-between shadow-[0_-10px_40px_rgba(0,0,0,0.05)] pb-[max(1rem,env(safe-area-inset-bottom))]">
-        <div>
-          <p className="text-[10px] font-black text-slate-500 uppercase tracking-widest">Next Step</p>
-          <p className="text-slate-900 font-bold text-sm">Join the Program</p>
-        </div>
-        <button className="px-5 py-3 min-h-[44px] bg-brand-green text-white font-black rounded-xl text-[10px] uppercase tracking-widest shadow-lg shadow-brand-green/30">
-          Apply Now
-        </button>
-      </div>
-    </div>
-  );
+ {/* Mobile Sticky CTA */}
+ <div className="fixed bottom-0 left-0 w-full p-4 bg-white/90 backdrop-blur-md border-t border-slate-100 z-50 md:hidden flex items-center justify-between pb-[max(1rem,env(safe-area-inset-bottom))]">
+ <div>
+ <p className="text-[10px] font-medium text-slate-400 uppercase tracking-widest mb-0.5">Next Step</p>
+ <p className="text-slate-900 font-medium text-sm">Join the Program</p>
+ </div>
+ <button className="px-6 py-3 min-h-[44px] bg-slate-900 text-white font-medium text-[11px] uppercase tracking-wider transition-transform active:scale-95">
+ Apply Now
+ </button>
+ </div>
+ </div>
+ );
 }

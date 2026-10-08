@@ -9,305 +9,305 @@ import CourseCard from "@/components/courses/CourseCard";
 import { CourseCardSkeleton } from "@/components/ui/Skeleton";
 import api from "@/lib/api";
 import {
-  IoSearchOutline,
-  IoCloseOutline,
-  IoBookOutline,
+ IoSearchOutline,
+ IoCloseOutline,
+ IoBookOutline,
 } from "react-icons/io5";
 
 const CATEGORIES = [
-  { id: "all", label: "🌐 All Courses" },
-  { id: "web-dev", label: "💻 Web Dev" },
-  { id: "graphic-design", label: "🎨 Design" },
-  { id: "smm", label: "📣 Marketing" },
-  { id: "ai", label: "🤖 AI & Tools" },
-  { id: "other", label: "🧩 Other" },
+ { id: "all", label: "🌐 All Courses" },
+ { id: "web-dev", label: "💻 Web Dev" },
+ { id: "graphic-design", label: "🎨 Design" },
+ { id: "smm", label: "📣 Marketing" },
+ { id: "ai", label: "🤖 AI & Tools" },
+ { id: "other", label: "🧩 Other" },
 ];
 
 const stagger = { animate: { transition: { staggerChildren: 0.07 } } };
 const cardVariant = {
-  initial: { opacity: 0, y: 20 },
-  animate: { opacity: 1, y: 0, transition: { duration: 0.4, ease: "easeOut" } },
+ initial: { opacity: 0, y: 20 },
+ animate: { opacity: 1, y: 0, transition: { duration: 0.4, ease: "easeOut" } },
 };
 
 export default function CoursesPage() {
-  const locale = useLocale();
-  const [category, setCategory] = useState("all");
-  const [branch, setBranch] = useState("all");
-  const [search, setSearch] = useState("");
-  const [inputVal, setInputVal] = useState("");
-  const debounceRef = useRef(null);
+ const locale = useLocale();
+ const [category, setCategory] = useState("all");
+ const [branch, setBranch] = useState("all");
+ const [search, setSearch] = useState("");
+ const [inputVal, setInputVal] = useState("");
+ const debounceRef = useRef(null);
 
-  const { scrollY } = useScroll();
-  const [filtersHidden, setFiltersHidden] = useState(false);
+ const { scrollY } = useScroll();
+ const [filtersHidden, setFiltersHidden] = useState(false);
 
-  useMotionValueEvent(scrollY, "change", (latest) => {
-    const previous = scrollY.getPrevious();
-    if (latest > 100 && latest > previous) {
-      setFiltersHidden(true);
-    } else {
-      setFiltersHidden(false);
-    }
-  });
+ useMotionValueEvent(scrollY, "change", (latest) => {
+ const previous = scrollY.getPrevious();
+ if (latest > 100 && latest > previous) {
+ setFiltersHidden(true);
+ } else {
+ setFiltersHidden(false);
+ }
+ });
 
-  const { data: coursesData, isLoading: loading } = useQuery({
-    queryKey: ['courses'],
-    queryFn: async () => {
-      const params = { page: 1, limit: 1000 };
-      const res = await api.get("/courses", { params });
-      return res.data?.data || [];
-    },
-    staleTime: 5 * 60 * 1000,
-    gcTime: 10 * 60 * 1000
-  });
+ const { data: coursesData, isLoading: loading } = useQuery({
+ queryKey: ['courses'],
+ queryFn: async () => {
+ const params = { page: 1, limit: 1000 };
+ const res = await api.get("/courses", { params });
+ return res.data?.data || [];
+ },
+ staleTime: 5 * 60 * 1000,
+ gcTime: 10 * 60 * 1000
+ });
 
-  const { data: heroConfig } = useQuery({
-    queryKey: ['courses_hero_config'],
-    queryFn: async () => {
-      try {
-        const res = await api.get("/cms/settings/courses_hero_config");
-        return res.data?.data || { mode: 'text_and_search', imageUrl: null };
-      } catch (e) {
-        return { mode: 'text_and_search', imageUrl: null };
-      }
-    },
-    staleTime: 10 * 60 * 1000,
-  });
+ const { data: heroConfig } = useQuery({
+ queryKey: ['courses_hero_config'],
+ queryFn: async () => {
+ try {
+ const res = await api.get("/cms/settings/courses_hero_config");
+ return res.data?.data || { mode: 'text_and_search', imageUrl: null };
+ } catch (e) {
+ return { mode: 'text_and_search', imageUrl: null };
+ }
+ },
+ staleTime: 10 * 60 * 1000,
+ });
 
-  const courses = coursesData || [];
+ const courses = coursesData || [];
 
-  const branchOptions = useMemo(() => {
-    const set = new Set();
-    courses.forEach((course) => {
-      if (course.branchId) set.add(String(course.branchId));
-      else set.add("master");
-    });
-    return ["all", ...Array.from(set)];
-  }, [courses]);
+ const branchOptions = useMemo(() => {
+ const set = new Set();
+ courses.forEach((course) => {
+ if (course.branchId) set.add(String(course.branchId));
+ else set.add("master");
+ });
+ return ["all", ...Array.from(set)];
+ }, [courses]);
 
-  const filteredCourses = useMemo(() => {
-    const keyword = search.trim().toLowerCase();
+ const filteredCourses = useMemo(() => {
+ const keyword = search.trim().toLowerCase();
 
-    return courses.filter((course) => {
-      const title =
-        course.title?.en ||
-        (typeof course.title === "string" ? course.title : "");
-      const categoryMatch = category === "all" || course.category === category;
-      const branchKey = course.branchId ? String(course.branchId) : "master";
-      const branchMatch = branch === "all" || branchKey === branch;
-      const searchMatch =
-        !keyword ||
-        title.toLowerCase().includes(keyword) ||
-        (course.category || "").toLowerCase().includes(keyword);
+ return courses.filter((course) => {
+ const title =
+ course.title?.en ||
+ (typeof course.title === "string" ? course.title : "");
+ const categoryMatch = category === "all" || course.category === category;
+ const branchKey = course.branchId ? String(course.branchId) : "master";
+ const branchMatch = branch === "all" || branchKey === branch;
+ const searchMatch =
+ !keyword ||
+ title.toLowerCase().includes(keyword) ||
+ (course.category || "").toLowerCase().includes(keyword);
 
-      return categoryMatch && branchMatch && searchMatch;
-    });
-  }, [courses, category, branch, search]);
+ return categoryMatch && branchMatch && searchMatch;
+ });
+ }, [courses, category, branch, search]);
 
-  const handleSearchChange = (e) => {
-    setInputVal(e.target.value);
-    clearTimeout(debounceRef.current);
-    debounceRef.current = setTimeout(() => setSearch(e.target.value), 350);
-  };
+ const handleSearchChange = (e) => {
+ setInputVal(e.target.value);
+ clearTimeout(debounceRef.current);
+ debounceRef.current = setTimeout(() => setSearch(e.target.value), 350);
+ };
 
-  const clearSearch = () => {
-    setInputVal("");
-    setSearch("");
-  };
+ const clearSearch = () => {
+ setInputVal("");
+ setSearch("");
+ };
 
-  return (
-    <div
-      className="min-h-screen pb-24 md:pb-0 flex flex-col"
-      style={{ background: "var(--color-background)" }}
-    >
-      {/* ── Hero Banner ───────────────────────────────── */}
-      <section
-        className={`relative w-full overflow-hidden ${
-          heroConfig?.mode === 'image_only' 
-            ? 'h-[250px] sm:h-[350px] md:h-[450px]' 
-            : 'py-12 sm:py-20 text-center px-4'
-        }`}
-        style={{
-          background: heroConfig?.imageUrl 
-            ? `url(${heroConfig.imageUrl}) center/cover no-repeat` 
-            : "linear-gradient(135deg, #0f172a 0%, #1e1b4b 60%, #312e81 100%)",
-        }}
-      >
-        {heroConfig?.mode !== 'image_only' && (
-          <>
-            {heroConfig?.imageUrl && <div className="absolute inset-0 bg-slate-900/60 backdrop-blur-[2px] z-0" />}
-            
-            {!heroConfig?.imageUrl && (
-              <>
-                <motion.div
-                  className="absolute -top-24 -left-20 w-72 h-72 rounded-full opacity-20 blur-3xl pointer-events-none"
-                  style={{ background: "var(--color-brand-pink)" }}
-                  animate={{ scale: [1, 1.12, 1] }}
-                  transition={{ duration: 8, repeat: Infinity }}
-                />
-                <motion.div
-                  className="absolute -bottom-20 -right-20 w-64 h-64 rounded-full opacity-15 blur-3xl pointer-events-none"
-                  style={{ background: "#818cf8" }}
-                  animate={{ scale: [1, 1.18, 1] }}
-                  transition={{ duration: 7, repeat: Infinity, delay: 1.5 }}
-                />
-              </>
-            )}
+ return (
+ <div
+ className="min-h-screen pb-24 md:pb-0 flex flex-col"
+ style={{ background: "var(--color-background)" }}
+ >
+ {/* ── Hero Banner ───────────────────────────────── */}
+ <section
+ className={`relative w-full overflow-hidden ${
+ heroConfig?.mode === 'image_only' 
+ ? 'h-[250px] sm:h-[350px] md:h-[450px]' 
+ : 'py-12 sm:py-20 text-center px-4'
+ }`}
+ style={{
+ background: heroConfig?.imageUrl 
+ ? `url(${heroConfig.imageUrl}) center/cover no-repeat` 
+ : "linear-gradient(135deg, #0f172a 0%, #1e1b4b 60%, #312e81 100%)",
+ }}
+ >
+ {heroConfig?.mode !== 'image_only' && (
+ <>
+ {heroConfig?.imageUrl && <div className="absolute inset-0 bg-slate-900/60 backdrop-blur-[2px] z-0" />}
+ 
+ {!heroConfig?.imageUrl && (
+ <>
+ <motion.div
+ className="absolute -top-24 -left-20 w-72 h-72 opacity-20 blur-3xl pointer-events-none"
+ style={{ background: "var(--color-brand-pink)" }}
+ animate={{ scale: [1, 1.12, 1] }}
+ transition={{ duration: 8, repeat: Infinity }}
+ />
+ <motion.div
+ className="absolute -bottom-20 -right-20 w-64 h-64 opacity-15 blur-3xl pointer-events-none"
+ style={{ background: "#818cf8" }}
+ animate={{ scale: [1, 1.18, 1] }}
+ transition={{ duration: 7, repeat: Infinity, delay: 1.5 }}
+ />
+ </>
+ )}
 
-            <motion.div
-              className="relative z-10 max-w-3xl mx-auto"
-              initial={{ opacity: 0, y: 16 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5 }}
-            >
-              <span className="inline-block mb-3 px-4 py-1.5 rounded-full text-[10px] sm:text-xs font-bold uppercase tracking-wider text-indigo-200 bg-white/10 border border-white/10 backdrop-blur-md">
-                🎓{" "}
-                {filteredCourses.length > 0
-                  ? `${filteredCourses.length} Courses Available`
-                  : "Courses"}
-              </span>
-              <h1 className="text-4xl sm:text-5xl md:text-6xl font-black text-white leading-[1.15] mb-6 sm:mb-8 tracking-tighter">
-                Explore Our <br className="hidden sm:block" />
-                <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-indigo-400 to-blue-500 animate-gradient-x">Courses</span>
-              </h1>
-              <p className="text-indigo-200/90 text-sm sm:text-base lg:text-lg max-w-xl mx-auto mb-6 sm:mb-8 leading-relaxed font-medium">
-                Learn demand-driven skills from industry experts and start earning
-                via real client projects.
-              </p>
+ <motion.div
+ className="relative z-10 max-w-3xl mx-auto"
+ initial={{ opacity: 0, y: 16 }}
+ animate={{ opacity: 1, y: 0 }}
+ transition={{ duration: 0.5 }}
+ >
+ <span className="inline-block mb-3 px-4 py-1.5 text-[10px] sm:text-xs font-bold uppercase tracking-wider text-indigo-200 bg-white/10 border border-white/10 backdrop-blur-md">
+ 🎓{" "}
+ {filteredCourses.length > 0
+ ? `${filteredCourses.length} Courses Available`
+ : "Courses"}
+ </span>
+ <h1 className="text-4xl sm:text-5xl md:text-6xl font-black text-white leading-[1.15] mb-6 sm:mb-8 tracking-tighter">
+ Explore Our <br className="hidden sm:block" />
+ <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-indigo-400 to-blue-500 animate-gradient-x">Courses</span>
+ </h1>
+ <p className="text-indigo-200/90 text-sm sm:text-base lg:text-lg max-w-xl mx-auto mb-6 sm:mb-8 leading-relaxed font-medium">
+ Learn demand-driven skills from industry experts and start earning
+ via real client projects.
+ </p>
 
-              {/* Search Bar */}
-              <div className="relative max-w-lg mx-auto shadow-2xl shadow-black/20 rounded-2xl">
-                <IoSearchOutline
-                  size={20}
-                  className="absolute left-4 top-1/2 -translate-y-1/2 text-indigo-300"
-                />
-                <input
-                  type="text"
-                  placeholder="Search courses…"
-                  className="w-full pl-12 pr-12 py-3.5 sm:py-4 rounded-2xl bg-white/15 backdrop-blur-md border border-white/20 text-white placeholder-indigo-200 focus:outline-none focus:ring-2 focus:ring-indigo-400 focus:bg-white/20 transition-all text-base min-h-[48px]"
-                  value={inputVal}
-                  onChange={handleSearchChange}
-                />
-                {inputVal && (
-                  <button
-                    onClick={clearSearch}
-                    className="absolute right-4 top-1/2 -translate-y-1/2 text-indigo-300 hover:text-white"
-                  >
-                    <IoCloseOutline size={20} />
-                  </button>
-                )}
-              </div>
-            </motion.div>
-          </>
-        )}
-      </section>
+ {/* Search Bar */}
+ <div className="relative max-w-lg mx-auto shadow-2xl shadow-black/20 ">
+ <IoSearchOutline
+ size={20}
+ className="absolute left-4 top-1/2 -translate-y-1/2 text-indigo-300"
+ />
+ <input
+ type="text"
+ placeholder="Search courses…"
+ className="w-full pl-12 pr-12 py-3.5 sm:py-4 bg-white/15 backdrop-blur-md border border-white/20 text-white placeholder-indigo-200 focus:outline-none focus:ring-2 focus:ring-indigo-400 focus:bg-white/20 transition-all text-base min-h-[48px]"
+ value={inputVal}
+ onChange={handleSearchChange}
+ />
+ {inputVal && (
+ <button
+ onClick={clearSearch}
+ className="absolute right-4 top-1/2 -translate-y-1/2 text-indigo-300 hover:text-white"
+ >
+ <IoCloseOutline size={20} />
+ </button>
+ )}
+ </div>
+ </motion.div>
+ </>
+ )}
+ </section>
 
-      {/* ── Category Filter Bar ─────────────────────── */}
-      {/* Sticky offset top-[72px] matching the height of the sticky global Navbar, slides up on scroll down */}
-      <section className={`sticky z-20 bg-[var(--color-surface)] border-b border-neutral-200 shadow-sm py-2.5 sm:py-3 transition-all duration-300 ${
-        filtersHidden ? "top-[-100px]" : "top-[72px]"
-      }`}>
-        <div className="container-custom px-4 sm:px-6 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
-          
-          {/* Scrollable category tabs with compliant padding */}
-          <div className="flex gap-2 overflow-x-auto scrollbar-hide pb-1.5 sm:pb-0">
-            {CATEGORIES.map((cat) => (
-              <button
-                key={cat.id}
-                onClick={() => setCategory(cat.id)}
-                className={`shrink-0 rounded-full px-5 py-2.5 text-xs sm:text-sm font-semibold transition-all min-h-[44px] flex items-center ${
-                  category === cat.id
-                    ? "bg-blue-600 text-white shadow-md shadow-blue-200"
-                    : "bg-neutral-100 text-neutral-600 hover:bg-neutral-200"
-                }`}
-              >
-                {cat.label}
-              </button>
-            ))}
-          </div>
+ {/* ── Category Filter Bar ─────────────────────── */}
+ {/* Sticky offset top-[72px] matching the height of the sticky global Navbar, slides up on scroll down */}
+ <section className={`sticky z-20 bg-[var(--color-surface)] border-b border-neutral-200 shadow-sm py-2.5 sm:py-3 transition-all duration-300 ${
+ filtersHidden ? "top-[-100px]" : "top-[72px]"
+ }`}>
+ <div className="container-custom px-4 sm:px-6 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+ 
+ {/* Scrollable category tabs with compliant padding */}
+ <div className="flex gap-2 overflow-x-auto scrollbar-hide pb-1.5 sm:pb-0">
+ {CATEGORIES.map((cat) => (
+ <button
+ key={cat.id}
+ onClick={() => setCategory(cat.id)}
+ className={`shrink-0 px-5 py-2.5 text-xs sm:text-sm font-semibold transition-all min-h-[44px] flex items-center ${
+ category === cat.id
+ ? "bg-blue-600 text-white shadow-md shadow-blue-200"
+ : "bg-neutral-100 text-neutral-600 hover:bg-neutral-200"
+ }`}
+ >
+ {cat.label}
+ </button>
+ ))}
+ </div>
 
-          {/* Branch Selector (Full-width on mobile, auto-width on tablet/desktop) */}
-          <div className="w-full sm:w-auto shrink-0">
-            <select
-              value={branch}
-              onChange={(e) => setBranch(e.target.value)}
-              className="w-full sm:w-auto shrink-0 rounded-full px-4 py-2.5 text-xs sm:text-sm font-semibold bg-white border border-neutral-200 text-neutral-700 min-h-[44px]"
-            >
-              {branchOptions.map((id) => (
-                <option key={id} value={id}>
-                  {id === "all"
-                    ? "All Branches"
-                    : id === "master"
-                      ? "Master Catalog"
-                      : `Branch ${id.slice(-6).toUpperCase()}`}
-                </option>
-              ))}
-            </select>
-          </div>
+ {/* Branch Selector (Full-width on mobile, auto-width on tablet/desktop) */}
+ <div className="w-full sm:w-auto shrink-0">
+ <select
+ value={branch}
+ onChange={(e) => setBranch(e.target.value)}
+ className="w-full sm:w-auto shrink-0 px-4 py-2.5 text-xs sm:text-sm font-semibold bg-white border border-neutral-200 text-neutral-700 min-h-[44px]"
+ >
+ {branchOptions.map((id) => (
+ <option key={id} value={id}>
+ {id === "all"
+ ? "All Branches"
+ : id === "master"
+ ? "Master Catalog"
+ : `Branch ${id.slice(-6).toUpperCase()}`}
+ </option>
+ ))}
+ </select>
+ </div>
 
-        </div>
-      </section>
+ </div>
+ </section>
 
-      {/* ── Course Grid ──────────────────────────────── */}
-      <div className="container-custom px-4 sm:px-6 py-10 sm:py-16">
-        {loading ? (
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-6">
-            {[...Array(8)].map((_, i) => (
-              <CourseCardSkeleton key={i} />
-            ))}
-          </div>
-        ) : filteredCourses.length > 0 ? (
-          <AnimatePresence mode="wait">
-            <motion.div
-              key={category + search}
-              variants={stagger}
-              initial="initial"
-              animate="animate"
-              className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-6"
-            >
-              {filteredCourses.map((course) => (
-                <motion.div key={course._id} variants={cardVariant}>
-                  <CourseCard course={course} locale={locale} />
-                </motion.div>
-              ))}
-            </motion.div>
-          </AnimatePresence>
-        ) : (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            className="flex flex-col items-center justify-center py-16 text-center"
-          >
-            <div className="w-16 h-16 rounded-full bg-blue-50 flex items-center justify-center mb-4">
-              <IoBookOutline size={30} className="text-blue-400" />
-            </div>
-            <h3 className="text-lg font-bold text-neutral-800 mb-1">
-              No courses found
-            </h3>
-            <p className="text-neutral-500 text-xs sm:text-sm">
-              Try a different category or clear your search.
-            </p>
-            {search && (
-              <button
-                onClick={clearSearch}
-                className="mt-3 text-sm text-blue-600 hover:underline"
-              >
-                Clear search
-              </button>
-            )}
-          </motion.div>
-        )}
-      </div>
+ {/* ── Course Grid ──────────────────────────────── */}
+ <div className="container-custom px-4 sm:px-6 py-10 sm:py-16">
+ {loading ? (
+ <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-6">
+ {[...Array(8)].map((_, i) => (
+ <CourseCardSkeleton key={i} />
+ ))}
+ </div>
+ ) : filteredCourses.length > 0 ? (
+ <AnimatePresence mode="wait">
+ <motion.div
+ key={category + search}
+ variants={stagger}
+ initial="initial"
+ animate="animate"
+ className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-6"
+ >
+ {filteredCourses.map((course) => (
+ <motion.div key={course._id} variants={cardVariant}>
+ <CourseCard course={course} locale={locale} />
+ </motion.div>
+ ))}
+ </motion.div>
+ </AnimatePresence>
+ ) : (
+ <motion.div
+ initial={{ opacity: 0 }}
+ animate={{ opacity: 1 }}
+ className="flex flex-col items-center justify-center py-16 text-center"
+ >
+ <div className="w-16 h-16 bg-blue-50 flex items-center justify-center mb-4">
+ <IoBookOutline size={30} className="text-blue-400" />
+ </div>
+ <h3 className="text-lg font-bold text-neutral-800 mb-1">
+ No courses found
+ </h3>
+ <p className="text-neutral-500 text-xs sm:text-sm">
+ Try a different category or clear your search.
+ </p>
+ {search && (
+ <button
+ onClick={clearSearch}
+ className="mt-3 text-sm text-blue-600 hover:underline"
+ >
+ Clear search
+ </button>
+ )}
+ </motion.div>
+ )}
+ </div>
 
-      {/* Mobile Sticky CTA */}
-      <div className="fixed bottom-0 left-0 w-full p-4 bg-white/90 backdrop-blur-md border-t border-slate-200 z-50 md:hidden flex items-center justify-between shadow-[0_-10px_40px_rgba(0,0,0,0.05)] pb-[max(1rem,env(safe-area-inset-bottom))]">
-        <div>
-          <p className="text-[10px] font-black text-slate-500 uppercase tracking-widest">Ready to Start?</p>
-          <p className="text-slate-900 font-bold text-sm">Enroll in a Course</p>
-        </div>
-        <button className="px-5 py-3 min-h-[44px] bg-blue-600 text-white font-black rounded-xl text-[10px] uppercase tracking-widest shadow-lg shadow-blue-600/30">
-          Join Now
-        </button>
-      </div>
-    </div>
-  );
+ {/* Mobile Sticky CTA */}
+ <div className="fixed bottom-0 left-0 w-full p-4 bg-white/90 backdrop-blur-md border-t border-slate-200 z-50 md:hidden flex items-center justify-between shadow-[0_-10px_40px_rgba(0,0,0,0.05)] pb-[max(1rem,env(safe-area-inset-bottom))]">
+ <div>
+ <p className="text-[10px] font-black text-slate-500 uppercase tracking-widest">Ready to Start?</p>
+ <p className="text-slate-900 font-bold text-sm">Enroll in a Course</p>
+ </div>
+ <button className="px-5 py-3 min-h-[44px] bg-blue-600 text-white font-black text-[10px] uppercase tracking-widest shadow-lg shadow-blue-600/30">
+ Join Now
+ </button>
+ </div>
+ </div>
+ );
 }

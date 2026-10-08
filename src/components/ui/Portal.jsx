@@ -9,13 +9,13 @@ import { createPortal } from 'react-dom';
  * Essential for fixed-position modals that must cover the entire viewport.
  */
 export default function Portal({ children }) {
-  const [mounted, setMounted] = useState(false);
+ const [mounted, setMounted] = useState(false);
 
-  useEffect(() => {
-    setMounted(true);
-    return () => setMounted(false);
-  }, []);
+ useEffect(() => {
+ setMounted(true);
+ return () => setMounted(false);
+ }, []);
 
-  // Only render on client after mounting to avoid SSR mismatch
-  return mounted ? createPortal(children, document.body) : null;
+ // Only render on client after mounting to avoid SSR mismatch
+ return mounted ? createPortal(children, document.body) : null;
 }

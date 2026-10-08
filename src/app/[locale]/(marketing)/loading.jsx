@@ -7,5 +7,5 @@ import PageSkeleton from '@/components/ui/PageSkeleton';
  * content streams in.
  */
 export default function MarketingLoading() {
-  return <PageSkeleton />;
+ return <PageSkeleton />;
 }

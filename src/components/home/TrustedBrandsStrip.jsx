@@ -3,77 +3,77 @@
 import React from "react";
 
 const brands = [
-  "Google",
-  "Microsoft",
-  "Amazon",
-  "Meta",
-  "Shopify",
-  "Canva",
-  "Upwork",
-  "Fiverr",
-  "Notion",
-  "HubSpot",
+ "Google",
+ "Microsoft",
+ "Amazon",
+ "Meta",
+ "Shopify",
+ "Canva",
+ "Upwork",
+ "Fiverr",
+ "Notion",
+ "HubSpot",
 ];
 
 function BrandCard({ name }) {
-  return (
-    <div className="flex min-w-[180px] shrink-0 items-center gap-4 rounded-2xl border border-emerald-100/70 bg-white/90 px-4 py-3 shadow-sm backdrop-blur-sm">
-      <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-emerald-50 text-sm font-black text-emerald-700">
-        {name.slice(0, 2).toUpperCase()}
-      </div>
-      <p className="whitespace-nowrap text-sm font-bold tracking-wide text-slate-700">
-        {name}
-      </p>
-    </div>
-  );
+ return (
+ <div className="flex min-w-[180px] shrink-0 items-center gap-4 border border-emerald-100/70 bg-white/90 px-4 py-3 shadow-sm backdrop-blur-sm">
+ <div className="flex h-10 w-10 shrink-0 items-center justify-center bg-emerald-50 text-sm font-black text-emerald-700">
+ {name.slice(0, 2).toUpperCase()}
+ </div>
+ <p className="whitespace-nowrap text-sm font-bold tracking-wide text-slate-700">
+ {name}
+ </p>
+ </div>
+ );
 }
 
 export default function TrustedBrandsStrip() {
-  const duplicated = [...brands, ...brands];
+ const duplicated = [...brands, ...brands];
 
-  return (
-    <section className="relative w-full overflow-hidden bg-white py-10 sm:py-12 md:py-14">
-      <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-emerald-200 to-transparent" />
+ return (
+ <section className="relative w-full overflow-hidden bg-white py-10 sm:py-12 md:py-14">
+ <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-emerald-200 to-transparent" />
 
-      <div className="container-custom px-4 sm:px-6 md:px-12">
-        <div className="mb-6 text-center sm:mb-8">
-          <p className="text-[10px] sm:text-xs font-black uppercase tracking-[0.22em] text-emerald-600 mb-2">
-            Trusted Brands
-          </p>
-          <h2 className="text-2xl sm:text-4xl md:text-5xl lg:text-6xl font-black text-slate-800 leading-[1.15] mb-4 tracking-tighter">
-            Brands Our <br className="sm:hidden" />
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-500 via-teal-500 to-emerald-600">
-              Learners Work With
-            </span>
-          </h2>
-        </div>
+ <div className="container-custom px-4 sm:px-6 md:px-12">
+ <div className="mb-6 text-center sm:mb-8">
+ <p className="text-[10px] sm:text-xs font-black uppercase tracking-[0.22em] text-emerald-600 mb-2">
+ Trusted Brands
+ </p>
+ <h2 className="text-2xl sm:text-4xl md:text-5xl lg:text-6xl font-black text-slate-800 leading-[1.15] mb-4 tracking-tighter">
+ Brands Our <br className="sm:hidden" />
+ <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-500 via-teal-500 to-emerald-600">
+ Learners Work With
+ </span>
+ </h2>
+ </div>
 
-        <div className="relative overflow-hidden rounded-2xl sm:rounded-3xl border border-emerald-100 bg-gradient-to-r from-emerald-50/70 via-white to-emerald-50/70 py-4">
-          <div className="marquee-x flex w-max gap-3 px-3 motion-gpu">
-            {duplicated.map((brand, idx) => (
-              <BrandCard key={`x-${brand}-${idx}`} name={brand} />
-            ))}
-          </div>
-          <div className="pointer-events-none absolute inset-y-0 left-0 w-10 sm:w-16 bg-gradient-to-r from-white to-transparent" />
-          <div className="pointer-events-none absolute inset-y-0 right-0 w-10 sm:w-16 bg-gradient-to-l from-white to-transparent" />
-        </div>
-      </div>
+ <div className="relative overflow-hidden sm: border border-emerald-100 bg-gradient-to-r from-emerald-50/70 via-white to-emerald-50/70 py-4">
+ <div className="marquee-x flex w-max gap-3 px-3 motion-gpu">
+ {duplicated.map((brand, idx) => (
+ <BrandCard key={`x-${brand}-${idx}`} name={brand} />
+ ))}
+ </div>
+ <div className="pointer-events-none absolute inset-y-0 left-0 w-10 sm:w-16 bg-gradient-to-r from-white to-transparent" />
+ <div className="pointer-events-none absolute inset-y-0 right-0 w-10 sm:w-16 bg-gradient-to-l from-white to-transparent" />
+ </div>
+ </div>
 
-      <style jsx>{`
-        .marquee-x {
-          animation: marquee-x 26s linear infinite;
-          will-change: transform;
-        }
+ <style jsx>{`
+ .marquee-x {
+ animation: marquee-x 26s linear infinite;
+ will-change: transform;
+ }
 
-        @keyframes marquee-x {
-          0% {
-            transform: translate3d(0%, 0, 0);
-          }
-          100% {
-            transform: translate3d(-50%, 0, 0);
-          }
-        }
-      `}</style>
-    </section>
-  );
+ @keyframes marquee-x {
+ 0% {
+ transform: translate3d(0%, 0, 0);
+ }
+ 100% {
+ transform: translate3d(-50%, 0, 0);
+ }
+ }
+ `}</style>
+ </section>
+ );
 }

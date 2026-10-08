@@ -15,54 +15,54 @@ import { authOptions } from "@/lib/auth";
 
  
 const inter = Inter({ 
-  subsets: ["latin"],
-  variable: '--font-inter',
-  display: 'fallback',
-  adjustFontFallback: true,
+ subsets: ["latin"],
+ variable: '--font-inter',
+ display: 'fallback',
+ adjustFontFallback: true,
 });
 
 const outfit = Outfit({
-  subsets: ["latin"],
-  variable: '--font-outfit',
-  display: 'fallback',
-  adjustFontFallback: true,
+ subsets: ["latin"],
+ variable: '--font-outfit',
+ display: 'fallback',
+ adjustFontFallback: true,
 });
 
 const cinzel = Cinzel({
-  subsets: ["latin"],
-  variable: '--font-cinzel',
-  display: 'fallback',
-  adjustFontFallback: true,
+ subsets: ["latin"],
+ variable: '--font-cinzel',
+ display: 'fallback',
+ adjustFontFallback: true,
 });
 
 const playfair = Playfair_Display({
-  subsets: ["latin"],
-  variable: '--font-playfair',
-  display: 'fallback',
-  adjustFontFallback: true,
+ subsets: ["latin"],
+ variable: '--font-playfair',
+ display: 'fallback',
+ adjustFontFallback: true,
 });
 
 
 export const metadata = {
-  title: {
-    default: "Smart Youth ICT — Learn IT. Earn Real Money.",
-    template: "%s | Smart Youth ICT",
-  },
-  description:
-    "Bangladesh's leading IT training platform. Learn Web Development, Graphic Design, Social Media Marketing & AI. Earn from real client projects while studying.",
-  keywords: [
-    "IT training Bangladesh",
-    "freelancing course",
-    "web development",
-    "graphic design",
-    "SYICT",
-  ],
-  openGraph: {
-    type: "website",
-    locale: "bn_BD",
-    url: process.env.NEXT_PUBLIC_APP_URL,
-    siteName: "Smart Youth ICT",
-  },
+ title: {
+ default: "Smart Youth ICT — Learn IT. Earn Real Money.",
+ template: "%s | Smart Youth ICT",
+ },
+ description:
+ "Bangladesh's leading IT training platform. Learn Web Development, Graphic Design, Social Media Marketing & AI. Earn from real client projects while studying.",
+ keywords: [
+ "IT training Bangladesh",
+ "freelancing course",
+ "web development",
+ "graphic design",
+ "SYICT",
+ ],
+ openGraph: {
+ type: "website",
+ locale: "bn_BD",
+ url: process.env.NEXT_PUBLIC_APP_URL,
+ siteName: "Smart Youth ICT",
+ },
 };
 
 /**
@@ -70,58 +70,58 @@ export const metadata = {
  * Handles the blocking data fetching (Translations & Session)
  */
 async function AppContent({ children }) {
-  const [messages, session] = await Promise.all([
-    getMessages(),
-    getServerSession(authOptions)
-  ]);
+ const [messages, session] = await Promise.all([
+ getMessages(),
+ getServerSession(authOptions)
+ ]);
 
-  return (
-    <NextIntlClientProvider messages={messages}>
-      <Providers session={session}>
-        <GoogleAnalytics />
-        <FacebookPixel />
-        {children}
-        <WhatsAppButton />
-        <ScrollToTopButton />
-        <Toaster 
-          position="top-right" 
-          containerStyle={{ zIndex: 99999999 }}
-          toastOptions={{ duration: 4000 }} 
-        />
-      </Providers>
-    </NextIntlClientProvider>
-  );
+ return (
+ <NextIntlClientProvider messages={messages}>
+ <Providers session={session}>
+ <GoogleAnalytics />
+ <FacebookPixel />
+ {children}
+ <WhatsAppButton />
+ <ScrollToTopButton />
+ <Toaster 
+ position="top-right" 
+ containerStyle={{ zIndex: 99999999 }}
+ toastOptions={{ duration: 4000 }} 
+ />
+ </Providers>
+ </NextIntlClientProvider>
+ );
 }
 
 export default function RootLayout({ children, params: { locale } }) {
-  return (
-    <html lang={locale} suppressHydrationWarning className={`${inter.variable} ${outfit.variable} ${cinzel.variable} ${playfair.variable}`}>
-      <head>
-        {/* Next.js automatically preloads priority images from components */}
-      </head>
-      <body
-        className="overflow-x-hidden"
-        style={{ 
-          backgroundColor: "var(--color-background)",
-          fontFamily: "var(--font-inter), var(--font-sans)"
-        }}
-        suppressHydrationWarning
-      >
-        <NextTopLoader 
-          color="var(--color-brand-pink, #ec4899)" 
-          initialPosition={0.08}
-          crawlSpeed={200}
-          height={3} 
-          crawl={true}
-          showSpinner={false}
-          easing="ease-in-out"
-          speed={300}
-          shadow="0 0 10px #ec4899,0 0 5px #ec4899"
-        />
-        <Suspense fallback={null}>
-          <AppContent>{children}</AppContent>
-        </Suspense>
-      </body>
-    </html>
-  );
+ return (
+ <html lang={locale} suppressHydrationWarning className={`${inter.variable} ${outfit.variable} ${cinzel.variable} ${playfair.variable}`}>
+ <head>
+ {/* Next.js automatically preloads priority images from components */}
+ </head>
+ <body
+ className="overflow-x-hidden"
+ style={{ 
+ backgroundColor: "var(--color-background)",
+ fontFamily: "var(--font-inter), var(--font-sans)"
+ }}
+ suppressHydrationWarning
+ >
+ <NextTopLoader 
+ color="var(--color-brand-pink, #ec4899)" 
+ initialPosition={0.08}
+ crawlSpeed={200}
+ height={3} 
+ crawl={true}
+ showSpinner={false}
+ easing="ease-in-out"
+ speed={300}
+ shadow="0 0 10px #ec4899,0 0 5px #ec4899"
+ />
+ <Suspense fallback={null}>
+ <AppContent>{children}</AppContent>
+ </Suspense>
+ </body>
+ </html>
+ );
 }

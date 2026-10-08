@@ -5,7 +5,7 @@ import { redirect } from 'next/navigation';
  * Identity management has been centralized to the global dashboard profile.
  */
 export default function DeprecatedStudentProfile({ params }) {
-  const { locale } = params;
-  redirect(`/${locale}/profile`);
+ const { locale } = params;
+ redirect(`/${locale}/profile`);
 }
 
