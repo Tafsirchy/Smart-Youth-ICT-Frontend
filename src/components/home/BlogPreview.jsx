@@ -38,7 +38,7 @@ export default function BlogPreview() {
 
  return (
  <section className="section py-12 md:py-28 overflow-hidden bg-white">
- <div className="container-custom px-4 sm:px-6">
+ <div className="container-custom">
 
  {/* Section Header */}
  <motion.div

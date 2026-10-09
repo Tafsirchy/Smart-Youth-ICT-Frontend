@@ -21,7 +21,7 @@ export default function PaymentMethodsSection() {
  style={{ backgroundImage: 'radial-gradient(circle at 2px 2px, slate 1px, transparent 0)', backgroundSize: '40px 40px' }} 
  />
 
- <div className="container-custom relative z-10 px-2 sm:px-4">
+ <div className="container-custom relative z-10">
  
  {/* Main Split Container */}
  <div className="bg-slate-50 border border-slate-200 -[2rem] sm:-[3rem] p-5 sm:p-8 lg:p-10 flex flex-col lg:flex-row items-center gap-8 lg:gap-12 shadow-2xl shadow-slate-200/50">

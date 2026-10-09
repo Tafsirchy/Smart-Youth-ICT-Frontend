@@ -94,7 +94,7 @@ export default function Mentors() {
  style={{ backgroundImage: 'linear-gradient(to right, black 1px, transparent 1px), linear-gradient(to bottom, black 1px, transparent 1px)', backgroundSize: '60px 60px' }} 
  />
 
- <div className="container-custom relative z-10 px-2 sm:px-4">
+ <div className="container-custom relative z-10">
  
  {/* Header - Editorial Style */}
  <div className="flex flex-col lg:flex-row items-end justify-between gap-5 mb-10 sm:mb-12">
