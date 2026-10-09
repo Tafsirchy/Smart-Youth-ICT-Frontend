@@ -53,7 +53,7 @@ export default function CampusVisitModal({ branch, onClose }) {
  <div className="p-5 sm:p-6 pb-4 border-b border-neutral-100 dark:border-neutral-800 flex items-start justify-between bg-gradient-to-r from-blue-50/50 to-indigo-50/50 dark:from-neutral-900 dark:to-neutral-900">
  <div>
  <div className="flex items-center gap-2 mb-1">
- <span className="p-1.5 bg-blue-600 text-white shadow-md shadow-blue-500/20">
+ <span className="p-1.5 bg-blue-600 text-white shadow-md shadow-blue-500/20 rounded-md">
  <IoCalendarOutline size={16} />
  </span>
  <span className="text-xs font-bold uppercase tracking-wider text-blue-600 dark:text-blue-400">
@@ -71,7 +71,7 @@ export default function CampusVisitModal({ branch, onClose }) {
  <button
  onClick={onClose}
  aria-label="Close modal"
- className="p-2.5 text-neutral-400 hover:text-neutral-600 dark:hover:text-white bg-white dark:bg-neutral-800 shadow-sm hover:bg-neutral-100 active:scale-95 transition-all min-h-[44px] min-w-[44px] flex items-center justify-center"
+ className="p-2.5 text-neutral-400 hover:text-neutral-600 dark:hover:text-white bg-white dark:bg-neutral-800 shadow-sm hover:bg-neutral-100 active:scale-95 transition-all min-h-[44px] min-w-[44px] flex items-center justify-center rounded-md"
  >
  <IoCloseOutline size={20} />
  </button>
@@ -92,7 +92,7 @@ export default function CampusVisitModal({ branch, onClose }) {
  </p>
  <button
  onClick={onClose}
- className="mt-4 min-h-[44px] px-6 py-2.5 bg-blue-600 hover:bg-blue-700 active:scale-95 text-white font-bold text-xs uppercase tracking-wider transition-all shadow-lg shadow-blue-600/20"
+ className="mt-4 min-h-[44px] px-6 py-2.5 bg-blue-600 hover:bg-blue-700 active:scale-95 text-white font-bold text-xs uppercase tracking-wider transition-all shadow-lg shadow-blue-600/20 rounded-md"
  >
  Close Window
  </button>
@@ -187,14 +187,14 @@ export default function CampusVisitModal({ branch, onClose }) {
  <button
  type="button"
  onClick={onClose}
- className="w-full sm:w-auto min-h-[44px] px-5 py-2.5 text-neutral-600 dark:text-neutral-400 hover:bg-neutral-100 dark:hover:bg-neutral-800 font-bold text-xs uppercase tracking-wider transition-colors active:scale-95 flex items-center justify-center"
+ className="w-full sm:w-auto min-h-[44px] px-5 py-2.5 text-neutral-600 dark:text-neutral-400 hover:bg-neutral-100 dark:hover:bg-neutral-800 font-bold text-xs uppercase tracking-wider transition-colors active:scale-95 flex items-center justify-center rounded-md"
  >
  Cancel
  </button>
  <button
  type="submit"
  disabled={submitting}
- className="w-full sm:w-auto min-h-[44px] px-6 py-2.5 bg-blue-600 hover:bg-blue-700 disabled:opacity-50 text-white font-bold text-xs uppercase tracking-wider transition-all shadow-md shadow-blue-600/20 active:scale-95 flex items-center justify-center gap-2"
+ className="w-full sm:w-auto min-h-[44px] px-6 py-2.5 bg-blue-600 hover:bg-blue-700 disabled:opacity-50 text-white font-bold text-xs uppercase tracking-wider transition-all shadow-md shadow-blue-600/20 active:scale-95 flex items-center justify-center gap-2 rounded-md"
  >
  {submitting ? (
  <div className="w-4 h-4 border-2 border-white border-t-transparent animate-spin" />

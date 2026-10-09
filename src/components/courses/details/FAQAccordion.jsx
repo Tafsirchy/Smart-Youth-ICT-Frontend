@@ -35,14 +35,14 @@ export default function FAQAccordion() {
  hidden: { opacity: 0 },
  visible: { opacity: 1, transition: { staggerChildren: 0.1 } }
  }}
- className="max-w-3xl mx-auto space-y-6"
+ className="max-w-3xl mx-auto space-y-6 pt-12"
  >
  <div className="text-center mb-10">
- <h2 className="text-3xl font-extrabold text-slate-900 tracking-tight flex items-center justify-center gap-3">
- <IoHelpCircleOutline className="text-indigo-600 shrink-0" size={32} />
- Frequently Asked Questions
+ <h2 className="text-2xl md:text-3xl font-bold text-slate-900 tracking-tight flex items-center justify-center gap-2">
+ <IoHelpCircleOutline className="text-brand-pink" size={32} />
+ FAQs
  </h2>
- <p className="text-slate-500 mt-2 font-medium">Everything you need to know about the course and billing.</p>
+ <p className="text-slate-500 mt-2 font-medium text-sm">Everything you need to know about the course and billing.</p>
  </div>
 
  <div className="space-y-4">
@@ -52,17 +52,17 @@ export default function FAQAccordion() {
  <motion.div 
  key={i}
  variants={{ hidden: { opacity: 0, y: 10 }, visible: { opacity: 1, y: 0 } }}
- className={` border transition-all duration-300 ${isOpen ? 'border-indigo-600 bg-indigo-50/30 shadow-md' : 'border-slate-200 bg-white hover:border-slate-300'}`}
+ className={`border rounded-lg transition-all duration-300 ${isOpen ? 'border-pink-200 bg-white shadow-md shadow-pink-500/5' : 'border-slate-200 bg-white hover:border-slate-300'}`}
  >
  <button 
  onClick={() => setOpenIndex(isOpen ? -1 : i)}
  className="w-full flex items-center justify-between p-5 md:p-6 text-left"
  >
- <span className={`font-bold text-lg ${isOpen ? 'text-indigo-900' : 'text-slate-800'}`}>
+ <span className={`font-semibold text-base md:text-lg ${isOpen ? 'text-slate-900' : 'text-slate-800'}`}>
  {faq.question}
  </span>
- <div className={`p-1 shrink-0 transition-transform duration-300 ${isOpen ? 'rotate-180 bg-indigo-100 text-indigo-600' : 'bg-slate-100 text-slate-500'}`}>
- <IoChevronDownOutline size={20} />
+ <div className={`p-1.5 shrink-0 rounded-full transition-transform duration-300 ${isOpen ? 'rotate-180 bg-pink-50 text-brand-pink' : 'text-slate-400 bg-slate-100'}`}>
+ <IoChevronDownOutline size={18} />
  </div>
  </button>
  
@@ -75,7 +75,7 @@ export default function FAQAccordion() {
  transition={{ duration: 0.3, ease: 'easeInOut' }}
  className="overflow-hidden"
  >
- <div className="px-5 md:px-6 pb-6 pt-0 text-slate-600 leading-relaxed max-w-2xl">
+ <div className="px-5 md:px-6 pb-6 pt-0 text-slate-600 font-medium leading-relaxed max-w-2xl">
  <p>{faq.answer}</p>
  </div>
  </motion.div>

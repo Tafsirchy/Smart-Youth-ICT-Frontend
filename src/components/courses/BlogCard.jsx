@@ -21,7 +21,7 @@ export default function BlogCard({ post, locale = 'en' }) {
  alt={title}
  width={400}
  height={220}
- className="blog-card__thumb"
+ className="blog-card__thumb rounded-md"
  />
  ) : (
  <div className="blog-card__thumb-placeholder">
@@ -57,7 +57,7 @@ export default function BlogCard({ post, locale = 'en' }) {
  alt={author.name}
  width={24}
  height={24}
- className="blog-card__avatar"
+ className="blog-card__avatar rounded-md"
  />
  )}
  <span>{author?.name || 'SYICT Team'}</span>

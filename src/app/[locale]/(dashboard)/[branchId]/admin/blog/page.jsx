@@ -62,14 +62,14 @@ function PostModal({ post, onClose, onSaved }) {
  <div className="modal-panel blog-post-modal">
  <div className="crm-modal__header">
  <h2 className="crm-modal__name">{post ? "Edit Post" : "New Post"}</h2>
- <button className="modal-close" onClick={onClose}>
+ <button className="modal-close rounded-md" onClick={onClose}>
  ✕
  </button>
  </div>
  <form onSubmit={handleSubmit} className="blog-post-modal__form">
  <label className="form-label">Title *</label>
  <input
- className="form-input"
+ className="form-input rounded-md"
  value={form.title}
  onChange={set("title")}
  required
@@ -87,7 +87,7 @@ function PostModal({ post, onClose, onSaved }) {
  <input
  type="file"
  accept="image/*"
- className="form-input"
+ className="form-input rounded-md"
  onChange={(e) => {
  const file = e.target.files?.[0];
  if (file) {
@@ -101,7 +101,7 @@ function PostModal({ post, onClose, onSaved }) {
  <img
  src={form.thumbnail}
  alt="Preview"
- className="object-cover bg-[#f0f0f0]"
+ className="object-cover bg-[#f0f0f0] rounded-md"
  style={{ maxWidth: '100%', maxHeight: '300px' }}
  
 loading="lazy"
@@ -112,7 +112,7 @@ decoding="async"/>
 
  <label className="form-label">Tags (comma-separated)</label>
  <input
- className="form-input"
+ className="form-input rounded-md"
  value={form.tags}
  onChange={set("tags")}
  placeholder="Web Dev, Freelancing"
@@ -139,7 +139,7 @@ decoding="async"/>
  </label>
 
  <button
- className="btn btn--primary w-full"
+ className="btn btn--primary w-full rounded-md"
  type="submit"
  disabled={loading}
  >
@@ -215,7 +215,7 @@ export default function AdminBlogPage() {
  <h1 className="crm-page__title">Blog Management</h1>
  <p className="crm-page__subtitle">{posts.length} posts total</p>
  </div>
- <button className="btn btn--primary" onClick={() => setModal("new")}>
+ <button className="btn btn--primary rounded-md" onClick={() => setModal("new")}>
  + New Post
  </button>
  </div>
@@ -268,13 +268,13 @@ export default function AdminBlogPage() {
  </td>
  <td className="crm-table__actions">
  <button
- className="crm-table__edit-btn"
+ className="crm-table__edit-btn rounded-md"
  onClick={() => setModal(post)}
  >
  ✏️
  </button>
  <button
- className="crm-table__del-btn"
+ className="crm-table__del-btn rounded-md"
  onClick={() => deletePost(post._id)}
  >
  🗑

@@ -59,7 +59,7 @@ function BlogCard({ post, locale, priority = false }) {
  
  return (
  <Link href={`/${locale}/blog/${post.slug}`} className="group block">
- <div className="card h-full flex flex-col overflow-hidden -[2rem] border border-slate-100 bg-white hover:shadow-[0_8px_30px_rgb(0,0,0,0.04)] hover:border-slate-200 transition-all duration-500 hover:-translate-y-1">
+ <div className="card h-full flex flex-col overflow-hidden -[2rem] border border-slate-100 bg-white hover:shadow-[0_8px_30px_rgb(0,0,0,0.04)] hover:border-slate-200 transition-all duration-500 hover:-translate-y-1 rounded-lg">
  {/* Thumbnail */}
  <div className="relative h-56 bg-slate-50 overflow-hidden">
  {post.thumbnail ? (
@@ -71,7 +71,7 @@ function BlogCard({ post, locale, priority = false }) {
  priority={priority}
  loading={priority ? undefined : "lazy"}
  decoding={priority ? undefined : "async"}
- className="object-cover group-hover:scale-105 transition-transform duration-700 bg-[#f0f0f0]"
+ className="object-cover group-hover:scale-105 transition-transform duration-700 bg-[#f0f0f0] rounded-md"
  />
  ) : (
  <div className="w-full h-full flex items-center justify-center">
@@ -81,7 +81,7 @@ function BlogCard({ post, locale, priority = false }) {
  </div>
  <div className="p-6 md:p-8 flex flex-col flex-1">
  <div className="flex items-center gap-2 mb-4">
- <span className="text-[10px] font-medium uppercase tracking-widest px-3 py-1 bg-slate-100 text-slate-600">
+ <span className="text-[10px] font-medium uppercase tracking-widest px-3 py-1 bg-slate-100 text-slate-600 rounded-md">
  {tag}
  </span>
  <span className="flex items-center gap-1.5 text-xs text-slate-400 ml-auto font-light">
@@ -158,7 +158,7 @@ export default async function BlogPage({ params, searchParams }) {
  name="q"
  defaultValue={q}
  placeholder="Search articles…"
- className="w-full pl-14 pr-6 py-4 bg-slate-50 border border-slate-100 text-slate-900 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-slate-200 focus:bg-white transition-all text-base font-light shadow-sm"
+ className="w-full pl-14 pr-6 py-4 bg-slate-50 border border-slate-100 text-slate-900 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-slate-200 focus:bg-white transition-all text-base font-light shadow-sm rounded-md"
  />
  </form>
  </div>
@@ -166,7 +166,7 @@ export default async function BlogPage({ params, searchParams }) {
 
  {/* ── Sticky Tag Pills ── */}
  {tags.length > 0 && (
- <div className="sticky top-0 z-20 bg-white/80 backdrop-blur-md border-b border-slate-100 shadow-sm">
+ <div className="sticky top-0 z-20 bg-white/80 backdrop-blur-md border-b border-slate-100 shadow-sm rounded-lg">
  <div className="container-lg mx-auto px-4 py-4 flex gap-3 overflow-x-auto scrollbar-hide">
  <Link
  href={`/${locale}/blog`}
@@ -197,7 +197,7 @@ export default async function BlogPage({ params, searchParams }) {
  href={`/${locale}/blog/${posts[0].slug}`}
  className="group block"
  >
- <div className="flex flex-col md:flex-row bg-white -[2rem] md:-[3rem] overflow-hidden shadow-sm border border-slate-100 hover:shadow-[0_20px_60px_rgb(0,0,0,0.05)] hover:border-slate-200 transition-all duration-500">
+ <div className="flex flex-col md:flex-row bg-white -[2rem] md:-[3rem] overflow-hidden shadow-sm border border-slate-100 hover:shadow-[0_20px_60px_rgb(0,0,0,0.05)] hover:border-slate-200 transition-all duration-500 rounded-lg">
  <div className="md:w-3/5 h-72 md:h-[500px] relative overflow-hidden bg-slate-50">
  {posts[0].thumbnail ? (
  <Image
@@ -207,7 +207,7 @@ export default async function BlogPage({ params, searchParams }) {
  sizes="800px"
  priority={true}
  fetchPriority="high"
- className="object-cover group-hover:scale-105 transition-transform duration-700"
+ className="object-cover group-hover:scale-105 transition-transform duration-700 rounded-md"
  decoding="async"
  />
  ) : (
@@ -217,7 +217,7 @@ export default async function BlogPage({ params, searchParams }) {
  )}
  </div>
  <div className="md:w-2/5 p-8 md:p-14 flex flex-col justify-center">
- <span className="inline-block px-3 py-1 text-[10px] font-medium uppercase tracking-widest text-slate-600 bg-slate-100 self-start mb-6 border border-slate-200">
+ <span className="inline-block px-3 py-1 text-[10px] font-medium uppercase tracking-widest text-slate-600 bg-slate-100 self-start mb-6 border border-slate-200 rounded-md">
  Featured Article
  </span>
  <h2 className="text-3xl md:text-4xl font-medium text-slate-900 leading-tight mb-6 group-hover:text-slate-600 transition-colors tracking-tight">
@@ -235,10 +235,10 @@ export default async function BlogPage({ params, searchParams }) {
  height={48}
  loading="lazy"
  decoding="async"
- className="w-12 h-12 object-cover border border-slate-200"
+ className="w-12 h-12 object-cover border border-slate-200 rounded-md"
  />
  ) : (
- <div className="w-12 h-12 bg-slate-100 border border-slate-200 flex items-center justify-center text-slate-500 font-medium text-sm">
+ <div className="w-12 h-12 bg-slate-100 border border-slate-200 flex items-center justify-center text-slate-500 font-medium text-sm rounded-lg">
  SY
  </div>
  )}
@@ -270,7 +270,7 @@ export default async function BlogPage({ params, searchParams }) {
  </div>
  ) : (
  <div className="flex flex-col items-center justify-center py-32 text-center max-w-lg mx-auto">
- <div className="w-24 h-24 bg-slate-100 flex items-center justify-center mb-8 border border-slate-200 shadow-sm">
+ <div className="w-24 h-24 bg-slate-100 flex items-center justify-center mb-8 border border-slate-200 shadow-sm rounded-lg">
  <IoBookOutline size={40} className="text-slate-400" />
  </div>
  <h3 className="text-2xl font-medium text-slate-900 mb-3 tracking-tight">
@@ -307,7 +307,7 @@ export default async function BlogPage({ params, searchParams }) {
  <p className="text-[10px] font-medium text-slate-400 uppercase tracking-widest mb-0.5">Next Step</p>
  <p className="text-slate-900 font-medium text-sm">Join the Program</p>
  </div>
- <button className="px-6 py-3 min-h-[44px] bg-slate-900 text-white font-medium text-[11px] uppercase tracking-wider transition-transform active:scale-95">
+ <button className="px-6 py-3 min-h-[44px] bg-slate-900 text-white font-medium text-[11px] uppercase tracking-wider transition-transform active:scale-95 rounded-md">
  Apply Now
  </button>
  </div>

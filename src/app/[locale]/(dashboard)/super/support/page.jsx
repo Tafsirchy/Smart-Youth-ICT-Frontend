@@ -124,7 +124,7 @@ export default function SupportHubPage() {
  animate={{ opacity: 1, y: 0 }}
  className="text-3xl font-black text-slate-900 tracking-tight flex items-center gap-4"
  >
- <span className="p-2.5 bg-indigo-500 text-white shadow-lg shadow-indigo-500/20">
+ <span className="p-2.5 bg-indigo-500 text-white shadow-lg shadow-indigo-500/20 rounded-lg">
  <HiOutlineLifebuoy size={28} />
  </span>
  Support Central
@@ -169,7 +169,7 @@ export default function SupportHubPage() {
  className="flex flex-col h-full"
  >
  {/* Chat Header */}
- <div className="p-4 md:p-5 border-b border-slate-50 flex justify-between items-center bg-white shadow-sm z-10 relative">
+ <div className="p-4 md:p-5 border-b border-slate-50 flex justify-between items-center bg-white shadow-sm z-10 relative rounded-lg">
  <div className="flex items-center gap-3 flex-1 min-w-0">
  <button 
  onClick={() => setSelectedTicket(null)} 
@@ -178,7 +178,7 @@ export default function SupportHubPage() {
  >
  <HiOutlineChevronLeft size={24} />
  </button>
- <div className="flex-shrink-0 w-10 h-10 md:w-12 md:h-12 bg-indigo-50 text-indigo-600 flex items-center justify-center border border-indigo-100/50">
+ <div className="flex-shrink-0 w-10 h-10 md:w-12 md:h-12 bg-indigo-50 text-indigo-600 flex items-center justify-center border border-indigo-100/50 rounded-lg">
  <HiOutlineChatBubbleLeftRight size={24} />
  </div>
  <div className="min-w-0 flex-1">
@@ -221,7 +221,7 @@ export default function SupportHubPage() {
  <span className="font-black text-slate-800 text-sm">{selectedTicket.user?.name}</span>
  <span className="text-[10px] font-bold text-slate-400 uppercase">{format(new Date(selectedTicket.createdAt), 'MMM dd, HH:mm')}</span>
  </div>
- <div className="bg-slate-50 p-6 -[1.5rem] -none border border-slate-100 text-slate-600 leading-relaxed shadow-sm max-w-[65ch]">
+ <div className="bg-slate-50 p-6 -[1.5rem] -none border border-slate-100 text-slate-600 leading-relaxed shadow-sm max-w-[65ch] rounded-lg">
  {selectedTicket.message}
  </div>
  </div>
@@ -230,7 +230,7 @@ export default function SupportHubPage() {
  {/* Responses */}
  {selectedTicket.responses?.map((resp, i) => (
  <div key={i} className="flex flex-row-reverse gap-4">
- <div className="flex-shrink-0 w-10 h-10 bg-indigo-600 flex items-center justify-center text-white shadow-md">
+ <div className="flex-shrink-0 w-10 h-10 bg-indigo-600 flex items-center justify-center text-white shadow-md rounded-lg">
  <HiOutlineLifebuoy size={20} />
  </div>
  <div className="flex-1 flex flex-col items-end">
@@ -238,7 +238,7 @@ export default function SupportHubPage() {
  <span className="text-[10px] font-bold text-slate-400 uppercase">{format(new Date(resp.createdAt || new Date()), 'MMM dd, HH:mm')}</span>
  <span className="font-black text-slate-800 text-sm">{resp.user?.name || 'System Support'}</span>
  </div>
- <div className="bg-indigo-600 p-4 md:p-6 -[1.5rem] -none text-white shadow-lg shadow-indigo-600/10 leading-relaxed whitespace-pre-wrap max-w-[65ch]">
+ <div className="bg-indigo-600 p-4 md:p-6 -[1.5rem] -none text-white shadow-lg shadow-indigo-600/10 leading-relaxed whitespace-pre-wrap max-w-[65ch] rounded-lg">
  {resp.message}
  </div>
  </div>
@@ -248,10 +248,10 @@ export default function SupportHubPage() {
 
  {/* Reply Input */}
  <div 
- className="px-4 pt-4 md:px-6 md:pt-6 border-t border-slate-100 bg-white shadow-[0_-10px_40px_-15px_rgba(0,0,0,0.05)] z-10 relative"
+ className="px-4 pt-4 md:px-6 md:pt-6 border-t border-slate-100 bg-white shadow-[0_-10px_40px_-15px_rgba(0,0,0,0.05)] z-10 relative rounded-lg"
  style={{ paddingBottom: 'max(16px, env(safe-area-inset-bottom))' }}
  >
- <div className="flex items-end gap-2 bg-slate-50/50 focus-within:bg-white border-2 border-slate-200 focus-within:border-indigo-500 focus-within:ring-4 focus-within:ring-indigo-500/10 -[2rem] p-1.5 md:p-2 transition-all shadow-sm max-w-5xl mx-auto">
+ <div className="flex items-end gap-2 bg-slate-50/50 focus-within:bg-white border-2 border-slate-200 focus-within:border-indigo-500 focus-within:ring-4 focus-within:ring-indigo-500/10 -[2rem] p-1.5 md:p-2 transition-all shadow-sm max-w-5xl mx-auto rounded-lg">
  <textarea 
  id="reply-textarea"
  value={reply}

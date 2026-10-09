@@ -25,7 +25,7 @@ function SuccessContent() {
  style={{ background: 'linear-gradient(135deg, #0f172a 0%, #1e1b4b 60%, #312e81 100%)' }}>
  <motion.div
  initial={{ opacity:0, scale:0.9 }} animate={{ opacity:1, scale:1 }} transition={{ duration:0.55, ease:'easeOut' }}
- className="bg-white shadow-2xl p-10 max-w-md w-full text-center">
+ className="bg-white shadow-2xl p-10 max-w-md w-full text-center rounded-lg">
  {/* Success icon */}
  <motion.div className="w-24 h-24 mx-auto bg-emerald-50 flex items-center justify-center mb-6"
  animate={{ scale:[1, 1.08, 1] }} transition={{ duration:2, repeat:Infinity }}>
@@ -57,7 +57,7 @@ function SuccessContent() {
 
  <div className="flex flex-col gap-3">
  <Link href={`/${locale}/student/my-courses`}
- className="flex items-center justify-center gap-2 w-full py-3.5 bg-gradient-to-r from-pink-500 to-indigo-500 text-white font-bold hover:opacity-90 transition">
+ className="flex items-center justify-center gap-2 w-full py-3.5 bg-gradient-to-r from-pink-500 to-indigo-500 text-white font-bold hover:opacity-90 transition rounded-md">
  Go to My Courses <IoArrowForwardOutline size={16} />
  </Link>
  <Link href={`/${locale}/courses`} className="text-sm text-neutral-500 hover:text-neutral-700 transition">

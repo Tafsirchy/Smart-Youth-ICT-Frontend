@@ -36,7 +36,7 @@ export default function BrandingClient({ content }) {
             <motion.div
               initial={{ opacity: 0, x: -20 }}
               animate={{ opacity: 1, x: 0 }}
-              className="inline-flex items-center gap-2 px-5 py-2 bg-indigo-50 border border-indigo-100 text-indigo-600 text-xs sm:text-sm font-black tracking-[0.2em] sm:tracking-[0.4em] uppercase mb-10"
+              className="inline-flex items-center gap-2 px-5 py-2 bg-indigo-50 border border-indigo-100 text-indigo-600 text-xs sm:text-sm font-black tracking-[0.2em] sm:tracking-[0.4em] uppercase mb-10 rounded-md"
             >
               <IoFingerPrintOutline className="text-sm" /> {hero.badge}
             </motion.div>
@@ -63,10 +63,10 @@ export default function BrandingClient({ content }) {
             </motion.p>
 
             <div className="flex flex-col sm:flex-row gap-4 sm:gap-6">
-              <button className="w-full sm:w-[280px] px-8 py-4 sm:py-6 bg-indigo-600 text-white font-black hover:bg-indigo-700 transition-all shadow-xl sm:shadow-2xl shadow-indigo-600/20 uppercase tracking-wider sm:tracking-widest text-xs sm:text-sm flex items-center justify-center min-h-[44px]">
+              <button className="w-full sm:w-[280px] px-8 py-4 sm:py-6 bg-indigo-600 text-white font-black hover:bg-indigo-700 transition-all shadow-xl sm:shadow-2xl shadow-indigo-600/20 uppercase tracking-wider sm:tracking-widest text-xs sm:text-sm flex items-center justify-center min-h-[44px] rounded-md">
                 Initialize Brand Audit
               </button>
-              <button className="w-full sm:w-[280px] px-8 py-4 sm:py-6 bg-white border border-slate-200 text-slate-900 font-black hover:bg-slate-50 transition-all uppercase tracking-wider sm:tracking-widest text-xs sm:text-sm flex items-center justify-center text-center min-h-[44px]">
+              <button className="w-full sm:w-[280px] px-8 py-4 sm:py-6 bg-white border border-slate-200 text-slate-900 font-black hover:bg-slate-50 transition-all uppercase tracking-wider sm:tracking-widest text-xs sm:text-sm flex items-center justify-center text-center min-h-[44px] rounded-md">
                 Portfolio Showcase
               </button>
             </div>
@@ -77,7 +77,7 @@ export default function BrandingClient({ content }) {
               initial={{ opacity: 0, scale: 0.9 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 1 }}
-              className="relative p-12 bg-white -[4rem] border border-slate-100 shadow-2xl overflow-hidden group"
+              className="relative p-12 bg-white -[4rem] border border-slate-100 shadow-2xl overflow-hidden group rounded-md"
             >
               <div className="absolute inset-0 opacity-10 pointer-events-none" style={{ backgroundImage: "linear-gradient(#6366f1 1px, transparent 1px), linear-gradient(90deg, #6366f1 1px, transparent 1px)", backgroundSize: "40px 40px" }}></div>
               <div className="absolute inset-0 bg-gradient-to-br from-indigo-50/50 via-transparent to-transparent"></div>
@@ -94,7 +94,7 @@ export default function BrandingClient({ content }) {
                   className="absolute inset-20 border border-indigo-200 border-dashed"
                 ></motion.div>
 
-                <div className="relative z-10 w-48 h-48 bg-slate-900 -[3rem] shadow-2xl flex items-center justify-center group-hover:scale-110 transition-transform">
+                <div className="relative z-10 w-48 h-48 bg-slate-900 -[3rem] shadow-2xl flex items-center justify-center group-hover:scale-110 transition-transform rounded-lg">
                   <IoDiamondOutline className="text-6xl text-white animate-pulse" />
                   <div className="absolute top-0 left-0 w-8 h-8 border-t-2 border-l-2 border-indigo-500 -translate-x-4 -translate-y-4"></div>
                   <div className="absolute bottom-0 right-0 w-8 h-8 border-b-2 border-r-2 border-indigo-500 translate-x-4 translate-y-4"></div>
@@ -110,7 +110,7 @@ export default function BrandingClient({ content }) {
 
         {/* PILLARS SECTION */}
         <div className="mb-20 lg:mb-48">
-          <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-12 lg:mb-24 gap-4 lg:gap-8 border-l-4 border-indigo-600 pl-6 lg:pl-8">
+          <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-12 lg:mb-24 gap-4 lg:gap-8 border-l-4 border-indigo-600 pl-6 lg:pl-8 rounded-lg">
             <div className="max-w-xl">
               <h2 className="text-xs sm:text-sm font-black text-indigo-600 uppercase tracking-[0.2em] sm:tracking-[0.4em] mb-4 font-bold">Design DNA</h2>
               <p className="text-3xl sm:text-4xl md:text-5xl font-black text-slate-900 leading-tight">
@@ -129,9 +129,9 @@ export default function BrandingClient({ content }) {
                 transition={{ delay: i * 0.1 }}
                 className="group cursor-default w-[85vw] sm:w-[320px] lg:w-auto shrink-0 snap-center"
               >
-                <div className="bg-white -[3rem] p-12 h-full border border-slate-100 shadow-sm shadow-slate-200/50 hover:shadow-2xl transition-all group-hover:-translate-y-2 relative overflow-hidden">
+                <div className="bg-white -[3rem] p-12 h-full border border-slate-100 shadow-sm shadow-slate-200/50 hover:shadow-2xl transition-all group-hover:-translate-y-2 relative overflow-hidden rounded-lg">
                   <div
-                    className={`w-14 h-14 rounded-2xl bg-gradient-to-br ${item.color} text-white flex items-center justify-center text-3xl mb-10 shadow-lg`}
+                    className={`w-14 h-14 rounded-lg bg-gradient-to-br ${item.color} text-white flex items-center justify-center text-3xl mb-10 shadow-lg`}
                   >
                     {getIcon(item.icon)}
                   </div>
@@ -149,19 +149,19 @@ export default function BrandingClient({ content }) {
 
         {/* BRAND BOOK VISUAL */}
         <div className="mb-20 lg:mb-48">
-          <div className="grid lg:grid-cols-2 gap-10 lg:gap-20 items-center bg-white lg:-[4rem] p-8 sm:p-12 lg:p-24 border border-slate-100 shadow-xl lg:shadow-2xl shadow-slate-200/50 relative overflow-hidden">
+          <div className="grid lg:grid-cols-2 gap-10 lg:gap-20 items-center bg-white lg:-[4rem] p-8 sm:p-12 lg:p-24 border border-slate-100 shadow-xl lg:shadow-2xl shadow-slate-200/50 relative overflow-hidden rounded-lg">
             <div className="absolute top-0 right-0 w-1/3 h-full bg-indigo-50/30 -skew-x-[20deg] origin-top translate-x-1/2"></div>
 
             <div className="relative z-10 space-y-8 sm:space-y-12">
-              <div className="w-16 h-16 bg-indigo-50 flex items-center justify-center text-3xl text-indigo-600 border border-indigo-100">
+              <div className="w-16 h-16 bg-indigo-50 flex items-center justify-center text-3xl text-indigo-600 border border-indigo-100 rounded-lg">
                 <IoSparklesOutline />
               </div>
               <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-black text-slate-900 leading-[1.1] sm:leading-[0.9] tracking-tighter">The Corporate <br className="hidden sm:block" /><span className="text-indigo-600 block sm:inline mt-2 sm:mt-0">Voice API.</span></h2>
               <p className="text-slate-500 text-lg sm:text-xl font-light leading-relaxed">Consistency is absolute. We deliver a comprehensive brand manual documenting every pixel of your identity for flawless global scaling.</p>
 
-              <div className="grid grid-cols-2 gap-px bg-slate-50 border border-slate-100 lg: overflow-hidden mt-8 lg:mt-10">
+              <div className="grid grid-cols-2 gap-px bg-slate-50 border border-slate-100 lg: overflow-hidden mt-8 lg:mt-10 rounded-lg">
                 {metrics?.map((item, idx) => (
-                  <div key={idx} className="p-6 lg:p-10 hover:bg-white transition-colors group">
+                  <div key={idx} className="p-6 lg:p-10 hover:bg-white transition-colors group rounded-md">
                     <h4 className="text-[10px] sm:text-xs font-black text-indigo-600 uppercase tracking-wider lg:tracking-widest mb-2">{item.t}</h4>
                     <p className="text-xs sm:text-sm text-slate-400 font-bold">{item.d}</p>
                   </div>
@@ -172,11 +172,11 @@ export default function BrandingClient({ content }) {
             <motion.div
               initial={{ opacity: 0, scale: 0.9, rotateX: 5 }}
               whileInView={{ opacity: 1, scale: 1, rotateX: 0 }}
-              className="relative bg-slate-50 aspect-auto lg:aspect-[4/5] h-full shadow-2xl p-8 sm:p-12 lg:p-16 flex flex-col justify-between overflow-hidden border border-slate-200"
+              className="relative bg-slate-50 aspect-auto lg:aspect-[4/5] h-full shadow-2xl p-8 sm:p-12 lg:p-16 flex flex-col justify-between overflow-hidden border border-slate-200 rounded-lg"
             >
               <div className="absolute top-0 right-0 w-24 h-24 sm:w-32 sm:h-32 bg-white -[60px] sm:-[100px] border-b border-l border-slate-100"></div>
               <div className="relative z-10">
-                <div className="w-12 h-12 sm:w-16 sm:h-16 bg-slate-900 mb-8 lg:mb-12 shadow-xl flex items-center justify-center"><IoInfiniteOutline className="text-white text-2xl sm:text-3xl" /></div>
+                <div className="w-12 h-12 sm:w-16 sm:h-16 bg-slate-900 mb-8 lg:mb-12 shadow-xl flex items-center justify-center rounded-lg"><IoInfiniteOutline className="text-white text-2xl sm:text-3xl" /></div>
                 <h4 className="text-4xl sm:text-5xl font-serif italic text-slate-900 mb-4 sm:mb-6 font-bold pb-4 sm:pb-6 lg:pb-8 border-b border-slate-200 leading-none">Guideline.</h4>
                 <p className="text-[10px] sm:text-xs font-black text-slate-400 uppercase tracking-widest sm:tracking-[0.3em] mb-8 lg:mb-12">Build 14.2 / Confidential</p>
 
@@ -184,9 +184,9 @@ export default function BrandingClient({ content }) {
                   <div className="h-4 bg-slate-200 w-full"></div>
                   <div className="h-4 bg-slate-200 w-4/5"></div>
                   <div className="flex gap-4 pt-6 lg:pt-10">
-                    <div className="w-10 h-10 sm:w-12 sm:h-12 bg-indigo-600 shadow-lg"></div>
-                    <div className="w-10 h-10 sm:w-12 sm:h-12 bg-purple-600 shadow-lg"></div>
-                    <div className="w-10 h-10 sm:w-12 sm:h-12 bg-slate-900 shadow-lg"></div>
+                    <div className="w-10 h-10 sm:w-12 sm:h-12 bg-indigo-600 shadow-lg rounded-lg"></div>
+                    <div className="w-10 h-10 sm:w-12 sm:h-12 bg-purple-600 shadow-lg rounded-lg"></div>
+                    <div className="w-10 h-10 sm:w-12 sm:h-12 bg-slate-900 shadow-lg rounded-lg"></div>
                   </div>
                 </div>
               </div>
@@ -202,13 +202,13 @@ export default function BrandingClient({ content }) {
           <div className="flex flex-col sm:flex-row gap-4 sm:gap-6 justify-center">
             {/* Sticky Mobile CTA */}
             <div className="fixed bottom-0 left-0 w-full px-4 pt-4 pb-[max(1rem,env(safe-area-inset-bottom))] bg-white/90 backdrop-blur-md border-t border-slate-200 z-50 lg:relative lg:border-none lg:bg-transparent lg:p-0 lg:w-auto">
-              <button className="w-full lg:w-[280px] px-8 py-4 sm:py-6 bg-indigo-600 text-white font-black hover:bg-indigo-700 transition-all shadow-xl sm:shadow-2xl shadow-indigo-600/40 uppercase tracking-wider sm:tracking-widest text-xs sm:text-sm flex items-center justify-center min-h-[44px]">
+              <button className="w-full lg:w-[280px] px-8 py-4 sm:py-6 bg-indigo-600 text-white font-black hover:bg-indigo-700 transition-all shadow-xl sm:shadow-2xl shadow-indigo-600/40 uppercase tracking-wider sm:tracking-widest text-xs sm:text-sm flex items-center justify-center min-h-[44px] rounded-md">
                 Initialize Consultation
               </button>
             </div>
             <Link
               href="/services/branding/details"
-              className="w-full sm:w-[280px] px-8 py-4 sm:py-6 bg-slate-900 text-white font-black hover:bg-slate-800 transition-all uppercase tracking-wider sm:tracking-widest text-xs sm:text-sm flex items-center justify-center text-center min-h-[44px]"
+              className="w-full sm:w-[280px] px-8 py-4 sm:py-6 bg-slate-900 text-white font-black hover:bg-slate-800 transition-all uppercase tracking-wider sm:tracking-widest text-xs sm:text-sm flex items-center justify-center text-center min-h-[44px] rounded-md"
             >
               Technical Details
             </Link>

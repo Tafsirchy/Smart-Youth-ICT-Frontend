@@ -28,7 +28,7 @@ export default function NotFoundContent() {
  width={170}
  height={48}
  priority
- className="h-10 sm:h-11 w-auto object-contain"
+ className="h-10 sm:h-11 w-auto object-contain rounded-md"
  onError={(e) => {
  e.target.srcset = "";
  e.target.src = "/images/placeholder.png";
@@ -47,7 +47,7 @@ export default function NotFoundContent() {
  {/* Center Hero — Minimal & Clean */}
  <main className="w-full max-w-lg text-center flex flex-col items-center my-auto">
  {/* Subtle Badge */}
- <span className="inline-block px-3 py-1 bg-slate-100 text-slate-500 text-[11px] font-bold uppercase tracking-wider mb-4">
+ <span className="inline-block px-3 py-1 bg-slate-100 text-slate-500 text-[11px] font-bold uppercase tracking-wider mb-4 rounded-md">
  404 Error
  </span>
 
@@ -70,7 +70,7 @@ export default function NotFoundContent() {
  <div className="mt-6 sm:mt-8 flex flex-col sm:flex-row items-center justify-center gap-3 w-full sm:w-auto">
  <Link
  href={prefix}
- className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-3 bg-slate-900 hover:bg-slate-800 text-white text-sm font-semibold transition-all shadow-sm active:scale-98"
+ className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-3 bg-slate-900 hover:bg-slate-800 text-white text-sm font-semibold transition-all shadow-sm active:scale-98 rounded-md"
  >
  <IoHomeOutline size={16} />
  <span>Go to Homepage</span>
@@ -78,7 +78,7 @@ export default function NotFoundContent() {
 
  <Link
  href={`${prefix}/courses`}
- className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-3 bg-slate-100 hover:bg-slate-200 text-slate-800 text-sm font-semibold transition-all active:scale-98"
+ className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-3 bg-slate-100 hover:bg-slate-200 text-slate-800 text-sm font-semibold transition-all active:scale-98 rounded-md"
  >
  <IoSchoolOutline size={16} />
  <span>Browse Courses</span>

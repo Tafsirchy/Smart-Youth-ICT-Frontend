@@ -48,13 +48,13 @@ export default function ProgressPage() {
  initial={{ opacity: 0, scale: 0.95 }}
  animate={{ opacity: 1, scale: 1 }}
  transition={{ delay: i * 0.1 }}
- className="bg-white -[40px] border border-neutral-100 p-8 shadow-sm hover:shadow-xl hover:shadow-neutral-500/5 transition-all"
+ className="bg-white -[40px] border border-neutral-100 p-8 shadow-sm hover:shadow-xl hover:shadow-neutral-500/5 transition-all rounded-lg"
  >
  <div className="flex justify-between items-start mb-8">
  <div className="w-14 h-14 bg-blue-50 text-blue-600 flex items-center justify-center">
  <HiOutlineAcademicCap size={28} />
  </div>
- <span className="px-4 py-1.5 bg-neutral-900 text-white text-[10px] font-black uppercase tracking-widest leading-none">
+ <span className="px-4 py-1.5 bg-neutral-900 text-white text-[10px] font-black uppercase tracking-widest leading-none rounded-md">
  Active Journey
  </span>
  </div>
@@ -71,7 +71,7 @@ export default function ProgressPage() {
  <div className="relative pt-1">
  <div className="flex mb-4 items-center justify-between">
  <div>
- <span className="text-[10px] font-black inline-block py-1 px-3 uppercase text-blue-600 bg-blue-50 tracking-widest">
+ <span className="text-[10px] font-black inline-block py-1 px-3 uppercase text-blue-600 bg-blue-50 tracking-widest rounded-md">
  {progress}% Complete
  </span>
  </div>
@@ -107,7 +107,7 @@ export default function ProgressPage() {
  ))}
  </div>
 
- <button className="w-full mt-8 py-4 bg-neutral-50 text-neutral-900 font-bold text-sm flex items-center justify-center gap-2 hover:bg-neutral-900 hover:text-white transition-all">
+ <button className="w-full mt-8 py-4 bg-neutral-50 text-neutral-900 font-bold text-sm flex items-center justify-center gap-2 hover:bg-neutral-900 hover:text-white transition-all rounded-md">
  Resume Learning <HiChevronRight strokeWidth={3} />
  </button>
  </motion.div>
@@ -115,7 +115,7 @@ export default function ProgressPage() {
  })}
  </div>
  ) : (
- <div className="bg-white -[40px] border-2 border-dashed border-neutral-100 p-20 text-center">
+ <div className="bg-white -[40px] border-2 border-dashed border-neutral-100 p-20 text-center rounded-lg">
  <div className="w-20 h-20 bg-neutral-50 flex items-center justify-center text-neutral-200 mx-auto mb-6">
  <HiOutlineAcademicCap size={40} />
  </div>

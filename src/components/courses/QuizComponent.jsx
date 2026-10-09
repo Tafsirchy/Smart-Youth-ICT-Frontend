@@ -64,7 +64,7 @@ export default function QuizComponent({ quiz, onComplete }) {
 
  if (result) {
  return (
- <motion.div initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} className="bg-white p-8 shadow-md text-center border border-neutral-200">
+ <motion.div initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} className="bg-white p-8 shadow-md text-center border border-neutral-200 rounded-lg">
  {result.passed ? (
  <HiCheckCircle className="mx-auto text-emerald-500 h-16 w-16 mb-4" />
  ) : (
@@ -85,14 +85,14 @@ export default function QuizComponent({ quiz, onComplete }) {
  const selectedOptions = currentAnswer?.selectedOptions || [];
 
  return (
- <div className="bg-white shadow-sm border border-neutral-200 overflow-hidden">
+ <div className="bg-white shadow-sm border border-neutral-200 overflow-hidden rounded-lg">
  {/* Quiz Header */}
  <div className="p-5 border-b border-neutral-100 bg-neutral-50 flex justify-between items-center">
  <div>
  <h3 className="font-bold text-neutral-900">{quiz.title}</h3>
  <p className="text-sm text-neutral-500">Passing Score: {quiz.passingScore}%</p>
  </div>
- <div className="text-sm font-semibold text-blue-600 bg-blue-50 px-3 py-1.5">
+ <div className="text-sm font-semibold text-blue-600 bg-blue-50 px-3 py-1.5 rounded-md">
  Question {currentIdx + 1} of {quiz.questions.length}
  </div>
  </div>
@@ -143,7 +143,7 @@ export default function QuizComponent({ quiz, onComplete }) {
  <button 
  onClick={handlePrev} 
  disabled={currentIdx === 0}
- className="px-5 py-2 text-sm font-semibold text-neutral-600 border border-neutral-200 hover:bg-white disabled:opacity-50 disabled:cursor-not-allowed"
+ className="px-5 py-2 text-sm font-semibold text-neutral-600 border border-neutral-200 hover:bg-white disabled:opacity-50 disabled:cursor-not-allowed rounded-md"
  >
  Previous
  </button>
@@ -152,7 +152,7 @@ export default function QuizComponent({ quiz, onComplete }) {
  <button 
  onClick={handleSubmit} 
  disabled={submitting || selectedOptions.length === 0}
- className="btn-primary px-6 py-2 text-sm disabled:opacity-50 flex items-center gap-2"
+ className="btn-primary px-6 py-2 text-sm disabled:opacity-50 flex items-center gap-2 rounded-md"
  >
  {submitting ? 'Submitting...' : 'Submit Quiz'}
  </button>
@@ -160,7 +160,7 @@ export default function QuizComponent({ quiz, onComplete }) {
  <button 
  onClick={handleNext} 
  disabled={selectedOptions.length === 0}
- className="bg-neutral-900 text-white px-6 py-2 text-sm font-semibold hover:bg-neutral-800 disabled:opacity-50 transition-colors"
+ className="bg-neutral-900 text-white px-6 py-2 text-sm font-semibold hover:bg-neutral-800 disabled:opacity-50 transition-colors rounded-md"
  >
  Next
  </button>

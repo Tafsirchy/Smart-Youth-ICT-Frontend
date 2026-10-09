@@ -64,7 +64,7 @@ export default function AdminDashboardPage() {
  <p className="text-indigo-200 text-sm">Platform overview — manage students, courses, payments & content.</p>
  </div>
  <Link href={`/${locale}/${branchId}/courses`} target="_blank"
- className="flex items-center gap-2 px-5 py-2.5 bg-white/15 border border-white/20 text-white text-sm font-semibold hover:bg-white/25 transition backdrop-blur-sm">
+ className="flex items-center gap-2 px-5 py-2.5 bg-white/15 border border-white/20 text-white text-sm font-semibold hover:bg-white/25 transition backdrop-blur-sm rounded-md">
  View Site <IoArrowForwardOutline size={15} />
  </Link>
  </div>
@@ -78,7 +78,7 @@ export default function AdminDashboardPage() {
  className={`bg-white ring-1 ${s.ring} p-5 shadow-sm hover:shadow-md transition-shadow flex flex-col gap-3`}>
  <div className="flex items-start justify-between">
  <div className={`${s.bg} ${s.txt} p-3 `}><s.icon size={22} /></div>
- <span className="flex items-center gap-0.5 text-xs font-bold text-emerald-600 bg-emerald-50 px-2 py-0.5">
+ <span className="flex items-center gap-0.5 text-xs font-bold text-emerald-600 bg-emerald-50 px-2 py-0.5 rounded-md">
  <IoArrowUpOutline size={11} />{s.trend}
  </span>
  </div>
@@ -129,7 +129,7 @@ export default function AdminDashboardPage() {
  </div>
  )) : recent.length > 0 ? recent.map((e, i) => (
  <motion.div key={e._id} initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: i * 0.05 }}
- className="px-6 py-3.5 flex items-center gap-4 hover:bg-neutral-50 transition-colors">
+ className="px-6 py-3.5 flex items-center gap-4 hover:bg-neutral-50 transition-colors rounded-md">
  <div className="w-9 h-9 bg-gradient-to-br from-blue-500 to-indigo-600 flex items-center justify-center text-white text-xs font-extrabold shrink-0">
  {e.user?.name?.charAt(0) || 'U'}
  </div>

@@ -37,7 +37,7 @@ export default function BlogPreview() {
  const selectedPost = posts.find(p => p._id === selectedId) || posts[0];
 
  return (
- <section className="section py-12 md:py-28 overflow-hidden bg-white">
+ <section className="section py-12 md:py-28 overflow-hidden bg-white rounded-sm">
  <div className="container-custom">
 
  {/* Section Header */}
@@ -47,7 +47,7 @@ export default function BlogPreview() {
  viewport={{ once: true }}
  className="mb-8 md:mb-16 text-left"
  >
- <div className="inline-flex items-center gap-2 px-3 py-1 bg-slate-900/5 border border-slate-900/10 mb-4">
+ <div className="inline-flex items-center gap-2 px-3 py-1 bg-slate-900/5 border border-slate-900/10 mb-4 rounded-lg">
  <div className="w-1.5 h-1.5 bg-brand-pink animate-pulse" />
  <span className="text-slate-500 font-black text-[9px] uppercase tracking-[0.3em]">The Digital Journal</span>
  </div>
@@ -58,7 +58,7 @@ export default function BlogPreview() {
  </motion.div>
 
  {/* Master-Detail Container */}
- <div className="flex flex-col lg:flex-row border-2 sm:border-[3px] border-slate-900 md:-[3.5rem] overflow-hidden shadow-md sm:shadow-[16px_16px_0px_#f1f5f9] lg:shadow-[32px_32px_0px_#f1f5f9] min-h-0 lg:min-h-[700px]">
+ <div className="flex flex-col lg:flex-row border-2 sm:border border-slate-200 rounded-lg md:-[3.5rem] overflow-hidden shadow-md sm:shadow-md lg:shadow-md min-h-0 lg:min-h-[700px]">
 
  {/* 1. Navigation / Master List */}
  {/* On Mobile: Rendered as a swipeable tab bar. On Desktop: Rendered as a vertical sidebar */}
@@ -105,7 +105,7 @@ export default function BlogPreview() {
  alt="blog featured image"
  fill
  sizes="(max-width: 640px) 100vw, (max-width: 768px) 50vw, 36vw"
- className="object-cover transition-transform duration-[1500ms] hover:scale-105"
+ className="object-cover transition-transform duration-[1500ms] hover:scale-105 rounded-md"
  priority
  />
  {/* Soft gradient edge */}
@@ -123,7 +123,7 @@ export default function BlogPreview() {
  >
  {/* Meta labels */}
  <div className="flex items-center gap-3 flex-wrap">
- <span className="px-3 py-1 bg-brand-pink text-white font-black text-[9px] uppercase tracking-[0.2em] shadow-[2px_2px_0px_#0f172a]">
+ <span className="px-3 py-1 bg-brand-pink text-white font-black text-[9px] uppercase tracking-[0.2em] shadow-md rounded-md">
  {selectedPost.category || 'INSIGHTS'}
  </span>
  <span className="flex items-center gap-1.5 text-slate-400 font-bold text-[9px] sm:text-[10px] uppercase tracking-widest">
@@ -151,7 +151,7 @@ export default function BlogPreview() {
  className="group flex items-center gap-3 text-slate-900 font-black text-[10px] sm:text-[11px] uppercase tracking-[0.3em] hover:text-brand-pink transition-colors min-h-[44px]"
  >
  Read Article
- <span className="w-11 h-11 border-2 border-slate-900 flex items-center justify-center group-hover:bg-slate-900 group-hover:text-white transition-all">
+ <span className="w-11 h-11 border border-slate-200 rounded-md flex items-center justify-center group-hover:bg-slate-900 group-hover:text-white transition-all">
  <IoArrowForwardOutline className="group-hover:translate-x-0.5" />
  </span>
  </Link>
@@ -172,7 +172,7 @@ export default function BlogPreview() {
  className="group flex items-center gap-3 text-slate-900 font-black text-[9px] sm:text-[10px] uppercase tracking-[0.5em] hover:text-brand-pink transition-colors min-h-[44px]"
  >
  Browse All
- <span className="w-11 h-11 border-2 border-slate-900 flex items-center justify-center group-hover:bg-slate-900 group-hover:text-white transition-all duration-300">
+ <span className="w-11 h-11 border border-slate-200 rounded-md flex items-center justify-center group-hover:bg-slate-900 group-hover:text-white transition-all duration-300">
  <IoArrowForwardOutline size={16} />
  </span>
  </Link>
@@ -186,7 +186,7 @@ export default function BlogPreview() {
 
  {/* Fallback navigation for Mobile */}
  <div className="mt-8 text-center md:hidden">
- <Link href={`/${locale}/blog`} className="text-slate-900 font-black text-xs uppercase tracking-[0.3em] border-b-2 border-slate-900 pb-1.5">
+ <Link href={`/${locale}/blog`} className="text-slate-900 font-black text-xs uppercase tracking-[0.3em] border-b-2 border-slate-900 pb-1.5 rounded-md">
  View All Stories
  </Link>
  </div>

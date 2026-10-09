@@ -131,7 +131,7 @@ export default function HostingCMS() {
  <button 
  onClick={handleSave}
  disabled={saving}
- className="hidden md:flex group relative overflow-hidden px-4 py-2 bg-slate-900 text-white font-black uppercase tracking-widest text-[10px] items-center gap-2 hover:shadow-xl hover:shadow-blue-950/20 transition-all active:scale-95 disabled:opacity-50"
+ className="hidden md:flex group relative overflow-hidden px-4 py-2 bg-slate-900 text-white font-black uppercase tracking-widest text-[10px] items-center gap-2 hover:shadow-xl hover:shadow-blue-950/20 transition-all active:scale-95 disabled:opacity-50 rounded-md"
  >
  <div className="absolute inset-0 bg-gradient-to-r from-blue-600 to-indigo-600 opacity-0 group-hover:opacity-100 transition-opacity" />
  <div className="relative flex items-center gap-2">
@@ -142,7 +142,7 @@ export default function HostingCMS() {
  </div>
 
  {/* TIER SELECTOR */}
- <div className="flex gap-1 mb-6 bg-white p-1 border border-slate-200 w-fit shadow-sm">
+ <div className="flex gap-1 mb-6 bg-white p-1 border border-slate-200 w-fit shadow-sm rounded-lg">
  {[
  { id: "landing", label: "Cloud Landing", icon: IoLayersOutline, color: "text-blue-500" },
  { id: "details", label: "Performance Manifest", icon: IoSettingsOutline, color: "text-slate-500" },
@@ -163,7 +163,7 @@ export default function HostingCMS() {
  <motion.div key="landing" initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -10 }} className="space-y-6">
  
  {/* HERO SECTION */}
- <section className="bg-white p-5 border border-slate-100 shadow-lg shadow-slate-200/30">
+ <section className="bg-white p-5 border border-slate-100 shadow-lg shadow-slate-200/30 rounded-lg">
  <div className="flex justify-between items-center mb-4 pb-2 border-b border-slate-100">
  <h2 className="text-xl font-black tracking-tighter flex items-center gap-2">
  <div className="w-8 h-8 bg-blue-50 flex items-center justify-center text-blue-600"><IoPrismOutline /></div>
@@ -180,7 +180,7 @@ export default function HostingCMS() {
  </section>
 
  {/* PILLARS */}
- <section className="bg-white p-5 border border-slate-100 shadow-lg shadow-slate-200/30">
+ <section className="bg-white p-5 border border-slate-100 shadow-lg shadow-slate-200/30 rounded-lg">
  <div className="flex justify-between items-center mb-4 pb-2 border-b border-slate-100">
  <h2 className="text-xl font-black tracking-tighter flex items-center gap-2">
  <div className="w-8 h-8 bg-blue-50 flex items-center justify-center text-blue-600"><IoCloudOutline /></div>
@@ -195,7 +195,7 @@ export default function HostingCMS() {
  }} compact>
  <div className="flex gap-3 mb-3">
  <div className="shrink-0 relative group/icon">
- <div className="w-10 h-10 bg-slate-50 flex items-center justify-center text-blue-600 text-xl shadow-inner border border-slate-100 group-hover:scale-105 transition-all">
+ <div className="w-10 h-10 bg-slate-50 flex items-center justify-center text-blue-600 text-xl shadow-inner border border-slate-100 group-hover:scale-105 transition-all rounded-lg">
  {item.icon === "Cloud" && <IoCloudOutline />}
  {item.icon === "Server" && <IoServerOutline />}
  {item.icon === "Shield" && <IoShieldOutline />}
@@ -220,7 +220,7 @@ export default function HostingCMS() {
  </div>
  </div>
  <div className="flex-1 min-w-0">
- <input placeholder="Service node" className="w-full bg-transparent border-none outline-none font-black text-base md:text-sm uppercase tracking-tighter" value={item.title} onChange={(e) => {
+ <input placeholder="Service node" className="w-full bg-transparent border-none outline-none font-black text-base md:text-sm uppercase tracking-tighter rounded-md" value={item.title} onChange={(e) => {
  const newArr = [...content.landing.sections.pillars];
  newArr[idx].title = e.target.value;
  updateNested("landing", "sections.pillars", newArr);
@@ -252,7 +252,7 @@ export default function HostingCMS() {
  </section>
 
  {/* METRICS */}
- <section className="bg-slate-900 p-5 text-white shadow-xl">
+ <section className="bg-slate-900 p-5 text-white shadow-xl rounded-md">
  <div className="flex justify-between items-center mb-4 pb-2 border-b border-white/10">
  <h2 className="text-xl font-black tracking-tighter flex items-center gap-2">
  <div className="w-8 h-8 bg-white/10 flex items-center justify-center text-blue-400"><IoStatsChartOutline /></div>
@@ -261,14 +261,14 @@ export default function HostingCMS() {
  </div>
  <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
  {content.landing.sections.metrics?.map((metric, idx) => (
- <div key={idx} className="bg-white/5 border border-white/10 p-3 relative group hover:bg-white/10 transition-all">
+ <div key={idx} className="bg-white/5 border border-white/10 p-3 relative group hover:bg-white/10 transition-all rounded-lg">
  <button onClick={() => {
  const newArr = content.landing.sections.metrics.filter((_, i) => i !== idx);
  updateNested("landing", "sections.metrics", newArr);
  }} className="absolute top-2 right-2 text-white/10 hover:text-rose-500 opacity-0 group-hover:opacity-100 transition-all p-1"><IoTrashOutline size={14}/></button>
  <input 
  placeholder="Metric Label"
- className="bg-transparent border-none outline-none font-black text-base md:text-[10px] uppercase text-blue-400 w-full mb-1" 
+ className="bg-transparent border-none outline-none font-black text-base md:text-[10px] uppercase text-blue-400 w-full mb-1 rounded-md" 
  value={metric.t} 
  onChange={(e) => {
  const newArr = [...content.landing.sections.metrics];
@@ -299,7 +299,7 @@ export default function HostingCMS() {
  </section>
 
  {/* INFRASTRUCTURE TIERS */}
- <section className="bg-white p-5 border border-slate-100 shadow-lg shadow-slate-200/30">
+ <section className="bg-white p-5 border border-slate-100 shadow-lg shadow-slate-200/30 rounded-lg">
  <div className="flex justify-between items-center mb-4 pb-2 border-b border-slate-100">
  <h2 className="text-xl font-black tracking-tighter flex items-center gap-2">
  <div className="w-8 h-8 bg-blue-50 flex items-center justify-center text-blue-600"><IoLayersOutline /></div>
@@ -317,7 +317,7 @@ export default function HostingCMS() {
  updateNested("landing", "sections.plans", newArr);
  }} highlight={plan.popular} compact>
  <div className="flex items-center justify-between mb-3 pb-2 border-b border-slate-100">
- <label className="flex items-center gap-2 cursor-pointer">
+ <label className="flex items-center gap-2 cursor-pointer rounded-md">
  <input type="checkbox" checked={plan.popular || false} onChange={e => {
  const newArr = [...content.landing.sections.plans];
  newArr[idx].popular = e.target.checked;
@@ -340,7 +340,7 @@ export default function HostingCMS() {
  }} textarea/>
  </div>
  
- <div className="grid grid-cols-2 gap-3 mb-3 p-3 bg-slate-50 border border-slate-100 pt-3">
+ <div className="grid grid-cols-2 gap-3 mb-3 p-3 bg-slate-50 border border-slate-100 pt-3 rounded-lg">
  <Field label="Monthly ($)" value={plan.monthlyPrice} onChange={v => {
  const newArr = [...content.landing.sections.plans];
  newArr[idx].monthlyPrice = Number(v) || v;
@@ -367,7 +367,7 @@ export default function HostingCMS() {
  </section>
 
  {/* CALL TO ACTION */}
- <section className="bg-white p-5 border border-slate-100 shadow-lg shadow-slate-200/30">
+ <section className="bg-white p-5 border border-slate-100 shadow-lg shadow-slate-200/30 rounded-lg">
  <div className="flex justify-between items-center mb-4 pb-2 border-b border-slate-100">
  <h2 className="text-xl font-black tracking-tighter flex items-center gap-2">
  <div className="w-8 h-8 bg-blue-50 flex items-center justify-center text-blue-600"><IoCodeSlashOutline /></div>
@@ -382,7 +382,7 @@ export default function HostingCMS() {
  <motion.div key="details" initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -10 }} className="space-y-6">
  
  {/* DETAILS HERO */}
- <section className="bg-white p-5 border border-slate-100 shadow-lg shadow-slate-200/30">
+ <section className="bg-white p-5 border border-slate-100 shadow-lg shadow-slate-200/30 rounded-lg">
  <div className="flex justify-between items-center mb-4 pb-2 border-b border-slate-100">
  <h2 className="text-xl font-black tracking-tighter flex items-center gap-2">
  <div className="w-8 h-8 bg-blue-50 flex items-center justify-center text-blue-600"><IoPrismOutline /></div>
@@ -399,7 +399,7 @@ export default function HostingCMS() {
  </section>
 
  {/* DEPLOYMENT LIFECYCLE (PHASES) */}
- <section className="bg-white p-5 border border-slate-100 shadow-lg shadow-slate-200/30">
+ <section className="bg-white p-5 border border-slate-100 shadow-lg shadow-slate-200/30 rounded-lg">
  <div className="flex justify-between items-center mb-4 pb-2 border-b border-slate-100">
  <h2 className="text-xl font-black tracking-tighter flex items-center gap-2">
  <div className="w-8 h-8 bg-blue-50 flex items-center justify-center text-blue-600"><IoGitNetworkOutline /></div>
@@ -439,7 +439,7 @@ export default function HostingCMS() {
  </section>
 
  {/* FRAMEWORKS */}
- <section className="bg-slate-900 p-5 border border-slate-800 shadow-xl">
+ <section className="bg-slate-900 p-5 border border-slate-800 shadow-xl rounded-md">
  <div className="flex justify-between items-center mb-4 pb-2 border-b border-white/10">
  <h2 className="text-xl font-black tracking-tighter flex items-center gap-2 text-white">
  <div className="w-8 h-8 bg-white/5 flex items-center justify-center text-blue-400"><IoLayersOutline /></div>
@@ -452,13 +452,13 @@ export default function HostingCMS() {
  </div>
  <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
  {content.details.sections.roi?.map((fw, idx) => (
- <div key={idx} className="bg-white/5 border border-white/10 p-4 relative group">
+ <div key={idx} className="bg-white/5 border border-white/10 p-4 relative group rounded-lg">
  <button onClick={() => {
  const newArr = content.details.sections.roi.filter((_, i) => i !== idx);
  updateNested("details", "sections.roi", newArr);
  }} className="absolute top-2 right-2 text-white/20 hover:text-rose-400 transition-colors opacity-0 group-hover:opacity-100 p-1"><IoTrashOutline size={14}/></button>
  
- <input placeholder="Framework Group" className="bg-transparent border-none outline-none font-black text-base md:text-sm uppercase text-blue-400 w-full mb-2" value={fw.group} onChange={(e) => {
+ <input placeholder="Framework Group" className="bg-transparent border-none outline-none font-black text-base md:text-sm uppercase text-blue-400 w-full mb-2 rounded-md" value={fw.group} onChange={(e) => {
  const newArr = [...content.details.sections.roi];
  newArr[idx].group = e.target.value;
  updateNested("details", "sections.roi", newArr);
@@ -475,7 +475,7 @@ export default function HostingCMS() {
  </section>
 
  {/* CALL TO ACTION */}
- <section className="bg-white p-5 border border-slate-100 shadow-lg shadow-slate-200/30">
+ <section className="bg-white p-5 border border-slate-100 shadow-lg shadow-slate-200/30 rounded-lg">
  <div className="flex justify-between items-center mb-4 pb-2 border-b border-slate-100">
  <h2 className="text-xl font-black tracking-tighter flex items-center gap-2">
  <div className="w-8 h-8 bg-blue-50 flex items-center justify-center text-blue-600"><IoCodeSlashOutline /></div>
@@ -494,7 +494,7 @@ export default function HostingCMS() {
  <button 
  onClick={handleSave}
  disabled={saving}
- className="w-full relative overflow-hidden px-4 py-4 bg-slate-900 text-white font-black uppercase tracking-widest text-[12px] flex items-center justify-center gap-2 active:scale-95 transition-transform disabled:opacity-50 shadow-xl shadow-slate-900/20"
+ className="w-full relative overflow-hidden px-4 py-4 bg-slate-900 text-white font-black uppercase tracking-widest text-[12px] flex items-center justify-center gap-2 active:scale-95 transition-transform disabled:opacity-50 shadow-xl shadow-slate-900/20 rounded-md"
  >
  <div className="absolute inset-0 bg-gradient-to-r from-blue-600 to-indigo-600 opacity-0 hover:opacity-100 transition-opacity" />
  <div className="relative flex items-center gap-2">
@@ -540,7 +540,7 @@ function CardWrapper({ children, onRemove, highlight = false, compact = false })
  {onRemove && (
  <button 
  onClick={onRemove} 
- className="absolute top-2 right-2 text-slate-200 hover:text-rose-500 transition-colors opacity-0 group-hover:opacity-100 z-10 p-1"
+ className="absolute top-2 right-2 text-slate-200 hover:text-rose-500 transition-colors opacity-0 group-hover:opacity-100 z-10 p-1 rounded-md"
  >
  <IoTrashOutline size={14} />
  </button>
@@ -552,16 +552,16 @@ function CardWrapper({ children, onRemove, highlight = false, compact = false })
 
 function AddButton({ onClick, label = "Add", small = false }) {
  if (small) return (
- <button onClick={onClick} className="p-1.5 bg-blue-50 text-blue-600 hover:bg-blue-600 hover:text-white transition-all">
+ <button onClick={onClick} className="p-1.5 bg-blue-50 text-blue-600 hover:bg-blue-600 hover:text-white transition-all rounded-md">
  <IoAddOutline size={16} />
  </button>
  );
  return (
  <button 
  onClick={onClick}
- className="h-full min-h-[80px] border-2 border-dashed border-slate-100 flex flex-col items-center justify-center gap-1 text-slate-300 hover:text-blue-500 hover:border-blue-200 hover:bg-blue-50/30 transition-all group p-2"
+ className="h-full min-h-[80px] border-2 border-dashed border-slate-100 flex flex-col items-center justify-center gap-1 text-slate-300 hover:text-blue-500 hover:border-blue-200 hover:bg-blue-50/30 transition-all group p-2 rounded-md"
  >
- <div className="w-10 h-10 border-2 border-dashed border-slate-200 flex items-center justify-center group-hover:scale-110 transition-transform">
+ <div className="w-10 h-10 border-2 border-dashed border-slate-200 flex items-center justify-center group-hover:scale-110 transition-transform rounded-lg">
  <IoAddOutline size={18} />
  </div>
  <span className="text-[9px] font-black uppercase tracking-widest">{label}</span>

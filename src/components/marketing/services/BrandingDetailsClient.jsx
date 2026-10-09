@@ -61,9 +61,9 @@ export default function BrandingDetailsClient({ data }) {
                   <div className="h-[1px] flex-1 bg-slate-200"></div>
                </div>
 
-               <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-px bg-slate-200 border border-slate-200 md:-[3rem] overflow-hidden shadow-2xl">
+               <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-px bg-slate-200 border border-slate-200 md:-[3rem] overflow-hidden shadow-2xl rounded-lg">
                   {phases?.map((item, i) => (
-                     <div key={i} className="bg-white p-6 md:p-10 hover:bg-slate-50 transition-colors group">
+                     <div key={i} className="bg-white p-6 md:p-10 hover:bg-slate-50 transition-colors group rounded-md">
                         <div className="text-indigo-600 font-mono text-xs mb-6 md:mb-8 flex items-center gap-2">
                            <span className="w-2 h-2 bg-indigo-600"></span>
                            {item.step} // DISCIPLINE_SYNC
@@ -78,15 +78,15 @@ export default function BrandingDetailsClient({ data }) {
             {/* LOGO CONSTRUCTION SECTION */}
             <div className="grid lg:grid-cols-2 gap-8 lg:gap-16 items-start mb-12 lg:mb-24">
                <div className="relative lg:sticky lg:top-32 mb-12 lg:mb-0">
-                  <div className="w-12 h-12 md:w-16 md:h-16 bg-indigo-50 md: flex items-center justify-center text-2xl md:text-3xl text-indigo-600 mb-6 md:mb-10 border border-indigo-100">
+                  <div className="w-12 h-12 md:w-16 md:h-16 bg-indigo-50 md: flex items-center justify-center text-2xl md:text-3xl text-indigo-600 mb-6 md:mb-10 border border-indigo-100 rounded-lg">
                      <IoTriangleOutline />
                   </div>
                   <h2 className="text-4xl md:text-5xl font-black text-slate-900 mb-4 md:mb-6 tracking-tighter leading-[1.1]">Geometric <br /> Construction <span className="text-indigo-600">Matrix.</span></h2>
                   <p className="text-slate-500 text-base md:text-lg font-light leading-[1.6] mb-6 md:mb-12">We use mathematical grids and the golden ratio (1.618) to ensure every brand we build possesses internal structural harmony and timeless visual balance.</p>
 
-                  <div className="p-6 md:p-8 bg-slate-900 md: border border-slate-800 shadow-2xl flex items-center justify-between group cursor-default">
+                  <div className="p-6 md:p-8 bg-slate-900 md: border border-slate-800 shadow-2xl flex items-center justify-between group cursor-default rounded-lg">
                      <div className="flex gap-3 md:gap-4 items-center">
-                        <div className="w-10 h-10 md:w-12 md:h-12 md: bg-indigo-500 flex items-center justify-center text-white shadow-lg"><IoDiamondOutline className="text-xl md:text-2xl" /></div>
+                        <div className="w-10 h-10 md:w-12 md:h-12 md: bg-indigo-500 flex items-center justify-center text-white shadow-lg rounded-lg"><IoDiamondOutline className="text-xl md:text-2xl" /></div>
                         <div>
                            <p className="text-[10px] font-black text-white/40 uppercase tracking-widest leading-[1.4]">Logic Audit</p>
                            <p className="text-[10px] md:text-xs font-bold text-white tracking-tight leading-[1.4]">SYMMETRY_RATIO::1:1.6</p>
@@ -98,7 +98,7 @@ export default function BrandingDetailsClient({ data }) {
 
                <div className="space-y-4 md:space-y-6">
                   {roi?.map((spec, idx) => (
-                     <div key={idx} className="bg-white md:-[2.5rem] p-6 md:p-10 border border-slate-200 shadow-sm hover:shadow-xl transition-all">
+                     <div key={idx} className="bg-white md:-[2.5rem] p-6 md:p-10 border border-slate-200 shadow-sm hover:shadow-xl transition-all rounded-lg">
                         <h4 className="text-[10px] font-black text-indigo-600 uppercase tracking-[0.4em] mb-6 md:mb-8 leading-[1.4]">{spec.group} Protocol</h4>
                         <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 md:gap-4">
                            {spec.items?.map(item => (
@@ -113,8 +113,8 @@ export default function BrandingDetailsClient({ data }) {
             </div>
 
             {/* CHROMODYNAMIC SECTION */}
-            <div className="bg-white md:-[4rem] p-6 md:p-12 lg:p-20 border border-slate-100 shadow-2xl shadow-slate-200/50 relative overflow-hidden mb-12 lg:mb-24">
-               <div className="absolute top-0 right-0 w-1/3 h-full bg-indigo-50/50 border-l border-slate-100 skew-x-12 translate-x-12 hidden md:block"></div>
+            <div className="bg-white md:-[4rem] p-6 md:p-12 lg:p-20 border border-slate-100 shadow-2xl shadow-slate-200/50 relative overflow-hidden mb-12 lg:mb-24 rounded-lg">
+               <div className="absolute top-0 right-0 w-1/3 h-full bg-indigo-50/50 border-l border-slate-100 skew-x-12 translate-x-12 hidden md:block rounded-lg"></div>
                <div className="grid lg:grid-cols-2 gap-8 lg:gap-16 relative z-10">
                   <div>
                      <div className="text-indigo-600 mb-4 md:mb-6 flex items-center gap-3 md:gap-4">
@@ -126,7 +126,7 @@ export default function BrandingDetailsClient({ data }) {
 
                      <div className="space-y-3 md:space-y-4">
                         {manifest?.map((feat, i) => (
-                           <div key={i} className="flex gap-3 md:gap-4 p-4 md:p-6 bg-slate-50 border border-slate-100">
+                           <div key={i} className="flex gap-3 md:gap-4 p-4 md:p-6 bg-slate-50 border border-slate-100 rounded-lg">
                               <div className="text-xl md:text-2xl text-indigo-600 shrink-0">{getIcon(feat.i)}</div>
                               <div>
                                  <h5 className="text-[10px] font-black text-slate-900 uppercase tracking-widest leading-[1.4]">{feat.t}</h5>
@@ -138,7 +138,7 @@ export default function BrandingDetailsClient({ data }) {
                   </div>
 
                   <div className="relative mt-8 lg:mt-0">
-                     <div className="bg-slate-900 md:-[3rem] p-6 md:p-10 border border-slate-800 shadow-2xl md:aspect-[3/4] flex flex-col justify-between group overflow-hidden">
+                     <div className="bg-slate-900 md:-[3rem] p-6 md:p-10 border border-slate-800 shadow-2xl md:aspect-[3/4] flex flex-col justify-between group overflow-hidden rounded-lg">
                         <div className="absolute inset-0 bg-gradient-to-br from-indigo-500/10 to-transparent pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity"></div>
                         <div className="space-y-6 md:space-y-8 relative z-10 mb-6 md:mb-0">
                            <div className="flex justify-between items-center text-white/30 font-mono text-[8px] tracking-[0.4em] leading-[1.4]">
@@ -149,7 +149,7 @@ export default function BrandingDetailsClient({ data }) {
                            <div className="space-y-3 md:space-y-4">
                               <div className="h-[1px] w-full bg-white/10"></div>
                               <div className="flex items-center gap-3 md:gap-4">
-                                 <div className="w-10 h-10 md:w-12 md:h-12 bg-white/5 border border-white/10 flex items-center justify-center text-indigo-400 font-black text-xs shrink-0"><IoInfiniteOutline /></div>
+                                 <div className="w-10 h-10 md:w-12 md:h-12 bg-white/5 border border-white/10 flex items-center justify-center text-indigo-400 font-black text-xs shrink-0 rounded-lg"><IoInfiniteOutline /></div>
                                  <div className="flex-1 space-y-1.5 md:space-y-2">
                                     <div className="h-1.5 bg-white/10 w-full"></div>
                                     <div className="h-1.5 bg-white/5 w-2/3"></div>
@@ -157,7 +157,7 @@ export default function BrandingDetailsClient({ data }) {
                               </div>
                            </div>
 
-                           <div className="p-4 md:p-6 bg-white/5 border border-white/5">
+                           <div className="p-4 md:p-6 bg-white/5 border border-white/5 rounded-lg">
                               <p className="text-[8px] font-mono text-emerald-400 mb-2 tracking-tighter leading-[1.4]">THEME_SYNC::VERIFIED</p>
                               <div className="flex gap-2 md:gap-3 mt-2 md:mt-4">
                                  <div className="w-6 h-6 md:w-8 md:h-8 bg-indigo-500"></div>
@@ -167,7 +167,7 @@ export default function BrandingDetailsClient({ data }) {
                            </div>
                         </div>
 
-                        <div className="bg-white/5 md: border border-white/10 p-6 md:p-8 relative overflow-hidden group/m hover:bg-white/10 transition-all">
+                        <div className="bg-white/5 md: border border-white/10 p-6 md:p-8 relative overflow-hidden group/m hover:bg-white/10 transition-all rounded-lg">
                            <IoJournalOutline className="text-3xl md:text-4xl text-indigo-600/30 mb-3 md:mb-4 group-hover/m:rotate-12 transition-transform" />
                            <p className="text-[8px] md:text-[9px] font-black text-white/50 uppercase tracking-widest mb-1 md:mb-2 leading-[1.4]">Protocol: GOVERNANCE_QA</p>
                            <p className="text-[10px] md:text-xs font-bold text-white tracking-tight leading-[1.4]">Manual ready for worldwide scaling.</p>
@@ -183,12 +183,12 @@ export default function BrandingDetailsClient({ data }) {
                <IoFingerPrintOutline className="text-5xl lg:text-7xl text-indigo-600 mb-6 md:mb-8 mx-auto opacity-20" />
                <h3 className="text-3xl sm:text-4xl lg:text-5xl font-black text-slate-900 mb-6 md:mb-8 leading-[1.1]">{cta.title?.split('your ')[0]}your <br /><span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-600 to-purple-500 font-serif italic font-medium">{cta.title?.split('your ')[1]}</span></h3>
                <div className="flex flex-col sm:flex-row gap-3 md:gap-4 justify-center">
-                  <button className="w-full sm:w-[240px] min-h-[48px] px-4 py-3 md:py-4 bg-indigo-600 text-white font-black hover:bg-indigo-700 transition-all shadow-xl shadow-indigo-600/40 uppercase tracking-widest text-[10px] flex items-center justify-center leading-[1.4]">
+                  <button className="w-full sm:w-[240px] min-h-[48px] px-4 py-3 md:py-4 bg-indigo-600 text-white font-black hover:bg-indigo-700 transition-all shadow-xl shadow-indigo-600/40 uppercase tracking-widest text-[10px] flex items-center justify-center leading-[1.4] rounded-md">
                      Initialize Brand Audit
                   </button>
                   <Link
                      href="/freelancing"
-                     className="w-full sm:w-[240px] min-h-[48px] px-4 py-3 md:py-4 bg-slate-900 text-white font-black hover:bg-slate-800 transition-all uppercase tracking-widest text-[10px] flex items-center justify-center text-center leading-[1.4]"
+                     className="w-full sm:w-[240px] min-h-[48px] px-4 py-3 md:py-4 bg-slate-900 text-white font-black hover:bg-slate-800 transition-all uppercase tracking-widest text-[10px] flex items-center justify-center text-center leading-[1.4] rounded-md"
                   >
                      Hire Student Talent
                   </Link>
@@ -202,7 +202,7 @@ export default function BrandingDetailsClient({ data }) {
                <p className="text-[10px] font-black text-slate-500 uppercase tracking-widest leading-[1.4]">Ready?</p>
                <p className="text-slate-900 font-bold text-sm leading-[1.4]">Start Building</p>
             </div>
-            <button className="px-5 py-3 min-h-[48px] bg-indigo-600 text-white font-black text-[10px] uppercase tracking-widest shadow-md shadow-indigo-600/30 leading-[1.4] flex items-center justify-center">
+            <button className="px-5 py-3 min-h-[48px] bg-indigo-600 text-white font-black text-[10px] uppercase tracking-widest shadow-md shadow-indigo-600/30 leading-[1.4] flex items-center justify-center rounded-md">
                Initialize Audit
             </button>
          </div>

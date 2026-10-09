@@ -14,17 +14,15 @@ export default function FinalCTABanner({ onEnroll, enrolling }) {
  hidden: { opacity: 0, y: 30 },
  visible: { opacity: 1, y: 0, transition: { duration: 0.6 } }
  }}
- className="bg-indigo-600 -[2rem] p-10 md:p-16 text-center relative overflow-hidden group shadow-2xl shadow-indigo-500/20"
- style={{ backgroundImage: 'radial-gradient(circle at top right, #6366f1, #4f46e5)' }}
+ className="bg-slate-900 rounded-lg p-10 md:p-16 text-center relative overflow-hidden mt-8 shadow-xl shadow-slate-900/10"
  >
- <div className="absolute top-0 right-0 w-80 h-80 bg-white/10 blur-[80px] group-hover:bg-white/20 transition-colors pointer-events-none hidden" />
- <div className="absolute -bottom-20 -left-20 w-80 h-80 bg-pink-500/20 blur-[80px] pointer-events-none hidden" />
+ <div className="absolute inset-0 pointer-events-none opacity-[0.03]" style={{ backgroundImage: 'radial-gradient(circle at 1px 1px, #ffffff 1px, transparent 0)', backgroundSize: '24px 24px' }} />
 
  <div className="relative z-10 max-w-2xl mx-auto space-y-6">
- <h2 className="text-4xl md:text-5xl font-extrabold text-white tracking-tight text-balance leading-tight">
+ <h2 className="text-3xl md:text-5xl font-bold text-white tracking-tight text-balance leading-tight">
  Ready to Start Your Career Today?
  </h2>
- <p className="text-lg text-indigo-100 font-medium">
+ <p className="text-lg text-slate-300 font-medium text-balance">
  Join thousands of successful students who transformed their skills and landed their dream jobs. Let’s make it happen for you.
  </p>
 
@@ -34,18 +32,18 @@ export default function FinalCTABanner({ onEnroll, enrolling }) {
  whileTap={{ scale: 0.95 }}
  onClick={onEnroll}
  disabled={enrolling}
- className="w-full sm:w-auto px-10 py-4 lg:py-5 bg-white text-indigo-600 font-black text-lg shadow-xl hover:shadow-2xl hover:bg-slate-50 transition-all disabled:opacity-60"
+ className="w-full sm:w-auto px-10 py-4 bg-brand-pink text-white font-semibold text-lg rounded-lg shadow-lg hover:shadow-xl hover:shadow-brand-pink/20 transition-all disabled:opacity-60"
  >
- {enrolling ? 'Processing...' : '🎓 Enroll Now'}
+ {enrolling ? 'Processing...' : 'Enroll Now'}
  </motion.button>
  
  <motion.a 
  href="#contact"
  whileHover={{ scale: 1.05 }}
  whileTap={{ scale: 0.95 }}
- className="w-full sm:w-auto px-10 py-4 lg:py-5 bg-indigo-500/30 hover:bg-indigo-500/50 border border-white/20 text-white font-bold text-lg backdrop-blur-md transition-all flex items-center justify-center gap-2"
+ className="w-full sm:w-auto px-10 py-4 bg-slate-800 text-white font-medium text-lg rounded-lg border border-slate-700 hover:bg-slate-700 hover:border-slate-600 transition-all flex items-center justify-center gap-3"
  >
- <IoCallOutline className="text-white/80" size={24} />
+ <IoCallOutline className="text-slate-400" size={22} />
  Contact Support
  </motion.a>
  </div>

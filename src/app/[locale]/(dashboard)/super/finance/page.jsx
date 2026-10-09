@@ -60,7 +60,7 @@ export default function GlobalFinancePage() {
  animate={{ opacity: 1, x: 0 }}
  className="text-4xl font-black text-slate-900 tracking-tight flex items-center gap-4"
  >
- <span className="p-2 bg-emerald-500 text-white shadow-lg shadow-emerald-500/20">
+ <span className="p-2 bg-emerald-500 text-white shadow-lg shadow-emerald-500/20 rounded-lg">
  <HiOutlineCreditCard size={32} />
  </span>
  Global Finance
@@ -73,7 +73,7 @@ export default function GlobalFinancePage() {
  <motion.button
  whileHover={{ scale: 1.02 }}
  whileTap={{ scale: 0.98 }}
- className="hidden md:flex items-center gap-2 bg-slate-900 text-white px-4 py-2 font-bold shadow-xl shadow-slate-900/20 hover:bg-slate-800 transition-all text-sm"
+ className="hidden md:flex items-center gap-2 bg-slate-900 text-white px-4 py-2 font-bold shadow-xl shadow-slate-900/20 hover:bg-slate-800 transition-all text-sm rounded-md"
  >
  <HiOutlineArrowDownTray size={20} />
  Export Global Ledger
@@ -87,19 +87,19 @@ export default function GlobalFinancePage() {
  animate="show"
  className="grid grid-cols-1 md:grid-cols-3 gap-4"
  >
- <motion.div variants={item} className="bg-slate-900 p-5 shadow-2xl relative overflow-hidden group">
+ <motion.div variants={item} className="bg-slate-900 p-5 shadow-2xl relative overflow-hidden group rounded-md">
  <div className="absolute top-0 right-0 p-5 opacity-10 text-white group-hover:scale-125 transition-transform duration-700">
  <HiOutlineChartBar size={120} />
  </div>
  <p className="text-emerald-400 font-black text-xs uppercase tracking-[0.2em] mb-2">Total Revenue Collected</p>
  <h2 className="text-5xl font-black text-white tracking-tighter">৳{paidTotal.toLocaleString()}</h2>
  <div className="mt-4 flex items-center gap-2 text-emerald-400 font-bold text-sm">
- <span className="bg-emerald-500/20 px-2 py-1">+12.4%</span>
+ <span className="bg-emerald-500/20 px-2 py-1 rounded-md">+12.4%</span>
  <span className="text-slate-500 font-medium uppercase text-[10px]">From last month</span>
  </div>
  </motion.div>
 
- <motion.div variants={item} className="bg-white p-5 border border-slate-100 shadow-sm">
+ <motion.div variants={item} className="bg-white p-5 border border-slate-100 shadow-sm rounded-md">
  <p className="text-amber-500 font-black text-xs uppercase tracking-[0.2em] mb-2">Accounts Receivable</p>
  <h2 className="text-5xl font-black text-slate-900 tracking-tighter">৳{getStatusTotal('pending').toLocaleString()}</h2>
  <p className="mt-4 text-slate-400 font-medium text-sm flex items-center gap-2">
@@ -108,7 +108,7 @@ export default function GlobalFinancePage() {
  </p>
  </motion.div>
 
- <motion.div variants={item} className="bg-white p-5 border border-slate-100 shadow-sm relative overflow-hidden">
+ <motion.div variants={item} className="bg-white p-5 border border-slate-100 shadow-sm relative overflow-hidden rounded-md">
  <div className="absolute inset-0 bg-gradient-to-br from-indigo-50/50 to-transparent opacity-50" />
  <p className="text-indigo-500 font-black text-xs uppercase tracking-[0.2em] mb-2 relative z-10">Net Cash Flow</p>
  <h2 className="text-5xl font-black text-slate-900 tracking-tighter relative z-10">৳{grandTotal.toLocaleString()}</h2>
@@ -126,7 +126,7 @@ export default function GlobalFinancePage() {
  initial={{ opacity: 0, scale: 0.95 }}
  whileInView={{ opacity: 1, scale: 1 }}
  viewport={{ once: true }}
- className="bg-white border border-slate-100 shadow-sm p-5"
+ className="bg-white border border-slate-100 shadow-sm p-5 rounded-md"
  >
  <div className="flex justify-between items-center mb-5">
  <h2 className="text-2xl font-black text-slate-900 tracking-tight">Branch Revenue</h2>
@@ -134,9 +134,9 @@ export default function GlobalFinancePage() {
  </div>
  <div className="space-y-3">
  {finance?.branches?.map((branch, idx) => (
- <div key={branch._id} className="group flex items-center justify-between p-3 bg-slate-50/50 hover:bg-slate-50 transition-all">
+ <div key={branch._id} className="group flex items-center justify-between p-3 bg-slate-50/50 hover:bg-slate-50 transition-all rounded-md">
  <div className="flex items-center gap-4">
- <div className="w-8 h-8 bg-white border border-slate-100 flex items-center justify-center font-black text-slate-400 group-hover:text-emerald-500 group-hover:bg-emerald-50 transition-all">
+ <div className="w-8 h-8 bg-white border border-slate-100 flex items-center justify-center font-black text-slate-400 group-hover:text-emerald-500 group-hover:bg-emerald-50 transition-all rounded-lg">
  {idx + 1}
  </div>
  <div>
@@ -165,7 +165,7 @@ export default function GlobalFinancePage() {
  </div>
  <div className="divide-y divide-slate-50">
  {finance?.summary?.map((state) => (
- <div key={state._id} className="p-5 flex items-center justify-between hover:bg-slate-50/50 transition-colors">
+ <div key={state._id} className="p-5 flex items-center justify-between hover:bg-slate-50/50 transition-colors rounded-md">
  <div className="flex items-center gap-4">
  <div className={`p-2 ${state._id === 'paid' ? 'bg-emerald-50 text-emerald-500' : 'bg-amber-50 text-amber-500'}`}>
  {state._id === 'paid' ? <HiOutlineCheckCircle size={24} /> : <HiOutlineClock size={24} />}
@@ -184,7 +184,7 @@ export default function GlobalFinancePage() {
 
  {/* Mobile Sticky CTA */}
  <div className="md:hidden fixed bottom-0 left-0 right-0 p-4 bg-white/80 backdrop-blur-md border-t border-slate-100 pb-[calc(env(safe-area-inset-bottom)+1rem)] z-40">
- <button className="w-full py-4 bg-slate-900 text-white font-black shadow-xl shadow-slate-900/20 flex items-center justify-center gap-2 active:scale-95 transition-all">
+ <button className="w-full py-4 bg-slate-900 text-white font-black shadow-xl shadow-slate-900/20 flex items-center justify-center gap-2 active:scale-95 transition-all rounded-md">
  <HiOutlineArrowDownTray size={20} /> Export Ledger
  </button>
  </div>

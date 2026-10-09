@@ -482,7 +482,7 @@ export default function AllBranchesPage() {
  <header className="flex flex-col md:flex-row md:items-center justify-between gap-4">
  <div>
  <div className="flex items-center gap-3">
- <span className="p-2.5 bg-gradient-to-tr from-pink-600 to-rose-500 text-white shadow-lg shadow-pink-500/20">
+ <span className="p-2.5 bg-gradient-to-tr from-pink-600 to-rose-500 text-white shadow-lg shadow-pink-500/20 rounded-lg">
  <HiOutlineBuildingOffice size={26} />
  </span>
  <div>
@@ -500,7 +500,7 @@ export default function AllBranchesPage() {
  {/* Export CSV */}
  <button
  onClick={handleExportCSV}
- className="px-3.5 py-2.5 bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-300 font-bold text-xs uppercase tracking-wider transition-colors flex items-center gap-1.5"
+ className="px-3.5 py-2.5 bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-300 font-bold text-xs uppercase tracking-wider transition-colors flex items-center gap-1.5 rounded-md"
  >
  <HiOutlineArrowDownTray size={16} /> Export CSV
  </button>
@@ -509,7 +509,7 @@ export default function AllBranchesPage() {
  <Link
  href={`/${locale}/branches`}
  target="_blank"
- className="px-3.5 py-2.5 bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-300 font-bold text-xs uppercase tracking-wider transition-colors flex items-center gap-1.5"
+ className="px-3.5 py-2.5 bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-300 font-bold text-xs uppercase tracking-wider transition-colors flex items-center gap-1.5 rounded-md"
  >
  <HiOutlineArrowTopRightOnSquare size={16} /> Public Page
  </Link>
@@ -541,7 +541,7 @@ export default function AllBranchesPage() {
  >
  <motion.div
  variants={item}
- className="bg-white dark:bg-slate-900 p-5 border border-slate-100 dark:border-slate-800 shadow-sm relative overflow-hidden"
+ className="bg-white dark:bg-slate-900 p-5 border border-slate-100 dark:border-slate-800 shadow-sm relative overflow-hidden rounded-md"
  >
  <div className="flex justify-between items-start">
  <div className="space-y-1">
@@ -564,7 +564,7 @@ export default function AllBranchesPage() {
 
  <motion.div
  variants={item}
- className="bg-white dark:bg-slate-900 p-5 border border-slate-100 dark:border-slate-800 shadow-sm relative overflow-hidden"
+ className="bg-white dark:bg-slate-900 p-5 border border-slate-100 dark:border-slate-800 shadow-sm relative overflow-hidden rounded-md"
  >
  <div className="flex justify-between items-start">
  <div className="space-y-1">
@@ -586,7 +586,7 @@ export default function AllBranchesPage() {
 
  <motion.div
  variants={item}
- className="bg-white dark:bg-slate-900 p-5 border border-slate-100 dark:border-slate-800 shadow-sm relative overflow-hidden"
+ className="bg-white dark:bg-slate-900 p-5 border border-slate-100 dark:border-slate-800 shadow-sm relative overflow-hidden rounded-md"
  >
  <div className="flex justify-between items-start">
  <div className="space-y-1">
@@ -608,7 +608,7 @@ export default function AllBranchesPage() {
 
  <motion.div
  variants={item}
- className="bg-white dark:bg-slate-900 p-5 border border-slate-100 dark:border-slate-800 shadow-sm relative overflow-hidden"
+ className="bg-white dark:bg-slate-900 p-5 border border-slate-100 dark:border-slate-800 shadow-sm relative overflow-hidden rounded-md"
  >
  <div className="flex justify-between items-start">
  <div className="space-y-1">
@@ -714,7 +714,7 @@ export default function AllBranchesPage() {
  filteredBranches.map((branch) => (
  <tr
  key={branch._id}
- className="hover:bg-slate-50/50 dark:hover:bg-slate-800/30 transition-colors group"
+ className="hover:bg-slate-50/50 dark:hover:bg-slate-800/30 transition-colors group rounded-md"
  >
  {/* Identity */}
  <td className="px-6 py-4">
@@ -725,7 +725,7 @@ export default function AllBranchesPage() {
  src={branch.logo}
  alt={branch.name}
  fill
- className="object-cover"
+ className="object-cover rounded-md"
  />
  ) : (
  branch.code
@@ -756,7 +756,7 @@ export default function AllBranchesPage() {
  {/* Address & Division */}
  <td className="px-6 py-4">
  <div className="space-y-0.5">
- <span className="px-2 py-0.5 bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 text-[10px] font-bold uppercase tracking-wider">
+ <span className="px-2 py-0.5 bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 text-[10px] font-bold uppercase tracking-wider rounded-md">
  {branch.division || "Dhaka"}
  </span>
  <p className="text-xs font-bold text-slate-700 dark:text-slate-300 line-clamp-1 pt-1">
@@ -848,7 +848,7 @@ export default function AllBranchesPage() {
  href={`/${locale}/${branch._id}/admin`}
  target="_blank"
  title="Open Campus Admin Dashboard"
- className="p-2 text-slate-400 hover:text-blue-600 hover:bg-blue-50 dark:hover:bg-slate-800 transition-colors"
+ className="p-2 text-slate-400 hover:text-blue-600 hover:bg-blue-50 dark:hover:bg-slate-800 transition-colors rounded-md"
  >
  <HiOutlineBuildingOffice size={18} />
  </Link>
@@ -876,7 +876,7 @@ export default function AllBranchesPage() {
  href={`/${locale}/branches#branch-card-${branch._id}`}
  target="_blank"
  title="View on Public Directory"
- className="p-2 text-slate-400 hover:text-slate-800 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
+ className="p-2 text-slate-400 hover:text-slate-800 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors rounded-md"
  >
  <HiOutlineArrowTopRightOnSquare size={18} />
  </Link>
@@ -899,7 +899,7 @@ export default function AllBranchesPage() {
  filteredBranches.map((branch) => (
  <div
  key={branch._id}
- className="p-4 border border-slate-100 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-sm space-y-4"
+ className="p-4 border border-slate-100 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-sm space-y-4 rounded-lg"
  >
  <div className="flex items-start justify-between gap-2">
  <div className="flex items-center gap-3">
@@ -953,7 +953,7 @@ export default function AllBranchesPage() {
  <Link
  href={`/${locale}/${branch._id}/admin`}
  target="_blank"
- className="flex-1 sm:flex-none min-h-[40px] px-3.5 py-2 bg-slate-900 hover:bg-slate-800 text-white font-bold text-xs flex items-center justify-center gap-1.5 active:scale-95"
+ className="flex-1 sm:flex-none min-h-[40px] px-3.5 py-2 bg-slate-900 hover:bg-slate-800 text-white font-bold text-xs flex items-center justify-center gap-1.5 active:scale-95 rounded-md"
  aria-label={`Admin dashboard for ${branch.name}`}
  >
  Admin
@@ -1127,7 +1127,7 @@ export default function AllBranchesPage() {
  </div>
 
  {/* Media: Logo & Cover Image (Dual Mode: Device Upload + Web Link) */}
- <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 p-4 bg-slate-50 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-700">
+ <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 p-4 bg-slate-50 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-700 rounded-lg">
  <ImageUpload
  label="Branch Logo / Badge"
  value={formData.logo}
@@ -1144,7 +1144,7 @@ export default function AllBranchesPage() {
  </div>
 
  {/* Campus Photo Gallery (Device Upload or Link) */}
- <div className="p-4 bg-slate-50 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-700 space-y-3">
+ <div className="p-4 bg-slate-50 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-700 space-y-3 rounded-lg">
  <div className="flex items-center justify-between">
  <span className="text-xs font-black uppercase tracking-wider text-slate-700 dark:text-slate-300 flex items-center gap-1.5">
  <HiOutlineSparkles className="text-pink-600" />
@@ -1174,13 +1174,13 @@ export default function AllBranchesPage() {
  {formData.gallery.map((imgUrl, i) => (
  <div
  key={i}
- className="relative aspect-video overflow-hidden border-2 border-slate-200 dark:border-slate-700 group bg-slate-100 dark:bg-slate-800"
+ className="relative aspect-video overflow-hidden border-2 border-slate-200 dark:border-slate-700 group bg-slate-100 dark:bg-slate-800 rounded-lg"
  >
  <picture>
  <img
  src={imgUrl}
  alt={`Campus photo ${i + 1}`}
- className="w-full h-full object-cover"
+ className="w-full h-full object-cover rounded-md"
  loading="lazy"
  onError={(e) => {
  e.target.onerror = null;
@@ -1208,7 +1208,7 @@ export default function AllBranchesPage() {
  </div>
 
  {/* Dynamic Facilities Tagger */}
- <div className="p-4 bg-slate-50 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-700 space-y-3">
+ <div className="p-4 bg-slate-50 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-700 space-y-3 rounded-lg">
  <div className="flex items-center justify-between">
  <span className="text-xs font-black uppercase tracking-wider text-slate-700 dark:text-slate-300 flex items-center gap-1.5">
  <HiOutlineSparkles className="text-pink-600" />
@@ -1268,7 +1268,7 @@ export default function AllBranchesPage() {
  {formData.facilities.map((fac, idx) => (
  <span
  key={idx}
- className="px-3 py-1 bg-pink-50 dark:bg-pink-900/30 text-pink-700 dark:text-pink-300 text-xs font-bold flex items-center gap-1.5"
+ className="px-3 py-1 bg-pink-50 dark:bg-pink-900/30 text-pink-700 dark:text-pink-300 text-xs font-bold flex items-center gap-1.5 rounded-md"
  >
  {fac}
  <button
@@ -1285,12 +1285,12 @@ export default function AllBranchesPage() {
  </div>
 
  {/* Announcement / Notice Banner */}
- <div className="p-4 bg-amber-500/5 border border-amber-500/20 space-y-3">
+ <div className="p-4 bg-amber-500/5 border border-amber-500/20 space-y-3 rounded-lg">
  <div className="flex items-center justify-between">
  <span className="text-xs font-black uppercase tracking-wider text-amber-700 dark:text-amber-400 flex items-center gap-1.5">
  <HiOutlineMegaphone size={16} /> Campus Notice / Announcement
  </span>
- <label className="flex items-center gap-2 cursor-pointer">
+ <label className="flex items-center gap-2 cursor-pointer rounded-md">
  <span className="text-xs font-bold text-slate-600 dark:text-slate-400">
  Show on Public Card
  </span>
@@ -1391,7 +1391,7 @@ export default function AllBranchesPage() {
  </div>
 
  {/* OSM Interactive Leaflet MapPicker */}
- <div className="p-4 bg-blue-50/50 dark:bg-slate-800/40 border border-blue-100 dark:border-slate-700 space-y-3">
+ <div className="p-4 bg-blue-50/50 dark:bg-slate-800/40 border border-blue-100 dark:border-slate-700 space-y-3 rounded-md">
  <div className="flex items-center justify-between">
  <span className="text-xs font-black uppercase tracking-wider text-blue-700 dark:text-blue-400 flex items-center gap-1.5">
  <HiOutlineMapPin size={16} /> Interactive Map Location Pin
@@ -1487,7 +1487,7 @@ export default function AllBranchesPage() {
  <button
  type="button"
  onClick={addPhoneField}
- className="text-[10px] font-bold text-pink-600 hover:underline uppercase"
+ className="text-[10px] font-bold text-pink-600 hover:underline uppercase rounded-md"
  >
  + Add Another Phone
  </button>
@@ -1528,7 +1528,7 @@ export default function AllBranchesPage() {
 
  {/* Admin Onboarding Fields if Creating New Branch */}
  {!editingBranch && (
- <div className="p-4 bg-pink-50/50 dark:bg-pink-900/10 border border-pink-100 dark:border-pink-900/30 space-y-3 mt-4">
+ <div className="p-4 bg-pink-50/50 dark:bg-pink-900/10 border border-pink-100 dark:border-pink-900/30 space-y-3 mt-4 rounded-lg">
  <span className="text-xs font-black uppercase tracking-wider text-pink-600 dark:text-pink-400 flex items-center gap-1.5">
  <HiOutlineShieldCheck size={16} /> Initial Branch Administrator Account
  </span>
@@ -1578,7 +1578,7 @@ export default function AllBranchesPage() {
  {formData.officeHours.map((oh, idx) => (
  <div
  key={oh.day}
- className="flex items-center gap-3 bg-slate-50 dark:bg-slate-800/60 p-3 border border-slate-100 dark:border-slate-700/60"
+ className="flex items-center gap-3 bg-slate-50 dark:bg-slate-800/60 p-3 border border-slate-100 dark:border-slate-700/60 rounded-lg"
  >
  <div className="w-24 font-black text-slate-800 dark:text-white text-xs uppercase tracking-tight">
  {oh.day}
@@ -1650,7 +1650,7 @@ export default function AllBranchesPage() {
  <button
  form="branch-manage-form"
  type="submit"
- className="flex-1 sm:flex-none min-h-[44px] px-6 py-2.5 bg-slate-900 dark:bg-pink-600 hover:bg-slate-800 text-white font-bold text-xs uppercase tracking-wider transition-all shadow-lg shadow-slate-900/20 active:scale-95 flex items-center justify-center"
+ className="flex-1 sm:flex-none min-h-[44px] px-6 py-2.5 bg-slate-900 dark:bg-pink-600 hover:bg-slate-800 text-white font-bold text-xs uppercase tracking-wider transition-all shadow-lg shadow-slate-900/20 active:scale-95 flex items-center justify-center rounded-md"
  >
  {editingBranch ? "Save Changes" : "Finalize Onboarding"}
  </button>

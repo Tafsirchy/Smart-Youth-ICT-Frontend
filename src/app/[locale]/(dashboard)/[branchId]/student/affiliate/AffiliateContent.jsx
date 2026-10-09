@@ -117,7 +117,7 @@ export default function AffiliateContent() {
  <div className="lg:col-span-2 space-y-4">
 
  <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
- <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="bg-white p-4 border border-neutral-100 shadow-sm">
+ <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="bg-white p-4 border border-neutral-100 shadow-sm rounded-md">
  <div className="w-10 h-10 bg-emerald-50 text-emerald-600 flex items-center justify-center mb-3">
  <HiOutlineCurrencyBangladeshi size={20} />
  </div>
@@ -125,7 +125,7 @@ export default function AffiliateContent() {
  <p className="text-xl font-black text-neutral-900">৳{affiliate?.totalEarnings?.toLocaleString()}</p>
  </motion.div>
 
- <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1 }} className="bg-white p-4 border border-neutral-100 shadow-sm">
+ <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1 }} className="bg-white p-4 border border-neutral-100 shadow-sm rounded-md">
  <div className="w-10 h-10 bg-blue-50 text-blue-600 flex items-center justify-center mb-3">
  <HiOutlineCurrencyBangladeshi size={20} />
  </div>
@@ -133,7 +133,7 @@ export default function AffiliateContent() {
  <p className="text-xl font-black text-neutral-900">৳{affiliate?.pendingAmount?.toLocaleString()}</p>
  </motion.div>
 
- <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2 }} className="bg-white p-4 border border-neutral-100 shadow-sm">
+ <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2 }} className="bg-white p-4 border border-neutral-100 shadow-sm rounded-md">
  <div className="w-10 h-10 bg-purple-50 text-purple-600 flex items-center justify-center mb-3">
  <HiOutlineUsers size={20} />
  </div>
@@ -143,7 +143,7 @@ export default function AffiliateContent() {
  </div>
 
  {/* Referral Link & Customization */}
- <div className="bg-gradient-to-br from-neutral-900 to-neutral-800 p-6 md:p-8 text-white shadow-xl relative overflow-hidden">
+ <div className="bg-gradient-to-br from-neutral-900 to-neutral-800 p-6 md:p-8 text-white shadow-xl relative overflow-hidden rounded-lg">
  <div className="absolute top-0 right-0 w-48 h-48 bg-blue-600/20 blur-[80px] -mr-24 -mt-24" />
 
  <div className="relative z-10">
@@ -155,7 +155,7 @@ export default function AffiliateContent() {
  <p className="text-neutral-400 text-sm max-w-sm leading-relaxed">Share your personalized link. When your students enroll, you earn.</p>
  </div>
  <div className="hidden md:block">
- <div className="px-3 py-1.5 bg-white/5 border border-white/10 flex items-center gap-1.5">
+ <div className="px-3 py-1.5 bg-white/5 border border-white/10 flex items-center gap-1.5 rounded-lg">
  <div className="w-1.5 h-1.5 bg-blue-500 animate-pulse" />
  <span className="text-[10px] font-bold uppercase tracking-widest text-white/50 leading-snug">Tracking Active</span>
  </div>
@@ -163,10 +163,10 @@ export default function AffiliateContent() {
  </div>
 
  <div className="flex flex-col sm:flex-row gap-3">
- <div className="flex-1 bg-white/5 backdrop-blur-md border border-white/10 px-4 py-3 font-mono text-sm text-blue-200 select-all truncate">
+ <div className="flex-1 bg-white/5 backdrop-blur-md border border-white/10 px-4 py-3 font-mono text-sm text-blue-200 select-all truncate rounded-lg">
  {referralLink}
  </div>
- <button onClick={handleCopyLink} className="bg-white text-neutral-900 px-6 py-3 font-bold flex items-center justify-center gap-2 hover:bg-blue-50 transition-all active:scale-95">
+ <button onClick={handleCopyLink} className="bg-white text-neutral-900 px-6 py-3 font-bold flex items-center justify-center gap-2 hover:bg-blue-50 transition-all active:scale-95 rounded-md">
  <HiOutlineDocumentDuplicate size={18} /> Copy Link
  </button>
  </div>
@@ -177,12 +177,12 @@ export default function AffiliateContent() {
  {isEditingCode ? (
  <div className="flex items-center gap-2">
  <input
- className="bg-neutral-800 border-none px-3 py-1 text-sm font-bold uppercase tracking-widest outline-none focus:ring-1 focus:ring-blue-500"
+ className="bg-neutral-800 border-none px-3 py-1 text-sm font-bold uppercase tracking-widest outline-none focus:ring-1 focus:ring-blue-500 rounded-md"
  value={newCode}
  onChange={(e) => setNewCode(e.target.value)}
  autoFocus
  />
- <button onClick={handleUpdateCode} className="text-emerald-400"><HiOutlineCheckCircle size={20} /></button>
+ <button onClick={handleUpdateCode} className="text-emerald-400 rounded-md"><HiOutlineCheckCircle size={20} /></button>
  <button onClick={() => setIsEditingCode(false)} className="text-red-400"><HiOutlineXMark size={20} /></button>
  </div>
  ) : (
@@ -206,7 +206,7 @@ export default function AffiliateContent() {
  </div>
 
  {/* Referred Users List */}
- <div className="bg-white border border-neutral-100 p-6 shadow-sm">
+ <div className="bg-white border border-neutral-100 p-6 shadow-sm rounded-lg">
  <h3 className="text-lg font-black text-neutral-900 mb-4 flex items-center gap-2 leading-snug">
  <HiOutlineUsers className="text-blue-600" /> Referred Students
  </h3>
@@ -214,9 +214,9 @@ export default function AffiliateContent() {
  {affiliate?.referredUsers?.length > 0 ? (
  <div className="space-y-2">
  {affiliate.referredUsers.map((user, i) => (
- <div key={i} className="flex items-center justify-between p-4 bg-neutral-50 hover:bg-neutral-100 transition-colors">
+ <div key={i} className="flex items-center justify-between p-4 bg-neutral-50 hover:bg-neutral-100 transition-colors rounded-md">
  <div className="flex items-center gap-3">
- <div className="w-8 h-8 bg-white shadow-sm flex items-center justify-center font-bold text-blue-600 uppercase text-sm">
+ <div className="w-8 h-8 bg-white shadow-sm flex items-center justify-center font-bold text-blue-600 uppercase text-sm rounded-lg">
  {user.name.charAt(0)}
  </div>
  <div>
@@ -243,7 +243,7 @@ export default function AffiliateContent() {
 
  {/* WITHDRAWAL PANEL */}
  <div className="lg:col-span-1 space-y-4">
- <div className="bg-white border border-neutral-100 p-6 shadow-sm">
+ <div className="bg-white border border-neutral-100 p-6 shadow-sm rounded-lg">
  <h3 className="text-lg font-black text-neutral-900 mb-1 leading-snug">Cash Out</h3>
  <p className="text-xs text-neutral-500 mb-4 leading-relaxed">Withdraw your verified earnings.</p>
 
@@ -253,7 +253,7 @@ export default function AffiliateContent() {
  <input
  type="number"
  min="500"
- className="w-full bg-neutral-50 border-none px-4 py-3 text-sm font-bold focus:ring-2 focus:ring-blue-600 transition-all outline-none"
+ className="w-full bg-neutral-50 border-none px-4 py-3 text-sm font-bold focus:ring-2 focus:ring-blue-600 transition-all outline-none rounded-md"
  placeholder="Min. ৳500"
  value={withdrawAmount}
  onChange={(e) => setWithdrawAmount(e.target.value)}
@@ -275,7 +275,7 @@ export default function AffiliateContent() {
  </div>
  </div>
 
- <button type="submit" disabled={requesting} className="w-full py-3 bg-blue-600 text-white font-bold shadow-lg shadow-blue-500/20 hover:bg-blue-700 transition-all disabled:opacity-50">
+ <button type="submit" disabled={requesting} className="w-full py-3 bg-blue-600 text-white font-bold shadow-lg shadow-blue-500/20 hover:bg-blue-700 transition-all disabled:opacity-50 rounded-md">
  {requesting ? 'Processing...' : 'Request Payout'}
  </button>
  </form>
@@ -283,7 +283,7 @@ export default function AffiliateContent() {
 
  {/* History Mini List */}
  {affiliate?.withdrawals?.length > 0 && (
- <div className="bg-white border border-neutral-100 p-6 shadow-sm">
+ <div className="bg-white border border-neutral-100 p-6 shadow-sm rounded-lg">
  <h3 className="text-sm font-black text-neutral-900 uppercase tracking-widest mb-4 border-b border-neutral-50 pb-3 leading-snug">Recent Payouts</h3>
  <div className="space-y-3">
  {affiliate.withdrawals.slice(0, 5).map((w, i) => (

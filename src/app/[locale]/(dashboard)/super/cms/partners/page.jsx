@@ -119,7 +119,7 @@ export default function PartnersPage() {
  [...Array(4)].map((_, i) => (
  <div
  key={i}
- className="bg-slate-50 animate-pulse h-48 border border-slate-100 flex flex-col items-center justify-center gap-3 p-4"
+ className="bg-slate-50 animate-pulse h-48 border border-slate-100 flex flex-col items-center justify-center gap-3 p-4 rounded-lg"
  >
  <div className="w-full aspect-video bg-slate-200" />
  <div className="w-3/4 h-4 bg-slate-200" />
@@ -138,7 +138,7 @@ export default function PartnersPage() {
  initial={{ opacity: 0, scale: 0.9 }}
  animate={{ opacity: 1, scale: 1 }}
  transition={{ delay: index * 0.03 }}
- className="bg-white p-4 sm:p-5 border border-slate-100 flex flex-col items-center gap-3 group relative hover:shadow-2xl hover:shadow-indigo-500/10 hover:border-indigo-500/20 transition-all"
+ className="bg-white p-4 sm:p-5 border border-slate-100 flex flex-col items-center gap-3 group relative hover:shadow-2xl hover:shadow-indigo-500/10 hover:border-indigo-500/20 transition-all rounded-md"
  >
  <div className="w-full aspect-video bg-slate-50 flex items-center justify-center p-4 grayscale group-hover:grayscale-0 transition-all duration-500 group-hover:bg-indigo-50/30">
  <div className="relative w-full h-full">
@@ -200,7 +200,7 @@ export default function PartnersPage() {
  <motion.div
  initial={{ scale: 0.95, opacity: 0, y: 20 }}
  animate={{ scale: 1, opacity: 1, y: 0 }}
- className="bg-white w-full max-w-lg sm: p-4 sm:p-6 shadow-2xl relative max-h-[90vh] overflow-y-auto flex flex-col custom-scrollbar"
+ className="bg-white w-full max-w-lg sm: p-4 sm:p-6 shadow-2xl relative max-h-[90vh] overflow-y-auto flex flex-col custom-scrollbar rounded-lg"
  >
  <div className="flex items-center justify-between mb-4 shrink-0">
  <div>
@@ -235,7 +235,7 @@ export default function PartnersPage() {
  </label>
  <input
  required
- className="w-full px-3 py-2 bg-slate-50 border-2 border-transparent focus:border-indigo-500/20 focus:bg-white transition-all outline-none text-sm font-bold shadow-inner leading-[1.4]"
+ className="w-full px-3 py-2 bg-slate-50 border-2 border-transparent focus:border-indigo-500/20 focus:bg-white transition-all outline-none text-sm font-bold shadow-inner leading-[1.4] rounded-md"
  value={formData.name}
  onChange={(e) =>
  setFormData({ ...formData, name: e.target.value })
@@ -248,7 +248,7 @@ export default function PartnersPage() {
  </label>
  <input
  placeholder="e.g. Hiring Partner"
- className="w-full px-3 py-2 bg-slate-50 border-2 border-transparent focus:border-indigo-500/20 focus:bg-white transition-all outline-none text-sm font-bold shadow-inner leading-[1.4]"
+ className="w-full px-3 py-2 bg-slate-50 border-2 border-transparent focus:border-indigo-500/20 focus:bg-white transition-all outline-none text-sm font-bold shadow-inner leading-[1.4] rounded-md"
  value={formData.partnerType}
  onChange={(e) =>
  setFormData({
@@ -269,7 +269,7 @@ export default function PartnersPage() {
  <input
  type="url"
  inputMode="url"
- className="w-full pl-9 pr-3 py-2 bg-slate-50 border-2 border-transparent focus:border-indigo-500/20 focus:bg-white transition-all outline-none text-sm shadow-inner leading-[1.4]"
+ className="w-full pl-9 pr-3 py-2 bg-slate-50 border-2 border-transparent focus:border-indigo-500/20 focus:bg-white transition-all outline-none text-sm shadow-inner leading-[1.4] rounded-md"
  placeholder="https://company.com"
  value={formData.websiteUrl}
  onChange={(e) =>
@@ -280,10 +280,10 @@ export default function PartnersPage() {
  </div>
 
  <div className="flex items-center gap-3 pt-1 sm:pt-2">
- <label className="flex items-center gap-2 cursor-pointer group">
+ <label className="flex items-center gap-2 cursor-pointer group rounded-md">
  <input
  type="checkbox"
- className="w-4 h-4 border-2 border-slate-200 text-indigo-600 focus:ring-transparent transition-all"
+ className="w-4 h-4 border-2 border-slate-200 text-indigo-600 focus:ring-transparent transition-all rounded-md"
  checked={formData.isActive}
  onChange={(e) =>
  setFormData({ ...formData, isActive: e.target.checked })
@@ -306,7 +306,7 @@ export default function PartnersPage() {
  </button>
  <button
  type="submit"
- className="flex-[2] py-2.5 bg-slate-900 text-white font-black shadow-xl shadow-slate-900/10 hover:bg-black transition-all flex items-center justify-center gap-1.5 leading-[1.4]"
+ className="flex-[2] py-2.5 bg-slate-900 text-white font-black shadow-xl shadow-slate-900/10 hover:bg-black transition-all flex items-center justify-center gap-1.5 leading-[1.4] rounded-md"
  >
  <LuCheck className="w-5 h-5" />
  {editingPartner ? "Update Partner" : "Save Association"}

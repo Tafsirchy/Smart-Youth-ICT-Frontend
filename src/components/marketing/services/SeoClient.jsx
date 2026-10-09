@@ -36,7 +36,7 @@ export default function SeoClient({ content }) {
             <motion.div
               initial={{ opacity: 0, x: -20 }}
               animate={{ opacity: 1, x: 0 }}
-              className="inline-flex items-center gap-2 px-5 py-2 bg-indigo-50 border border-indigo-100 text-indigo-700 text-[10px] sm:text-xs font-black tracking-[0.2em] sm:tracking-[0.4em] uppercase mb-10"
+              className="inline-flex items-center gap-2 px-5 py-2 bg-indigo-50 border border-indigo-100 text-indigo-700 text-[10px] sm:text-xs font-black tracking-[0.2em] sm:tracking-[0.4em] uppercase mb-10 rounded-md"
             >
               <IoAnalyticsOutline className="text-sm" /> {hero.badge}
             </motion.div>
@@ -63,12 +63,12 @@ export default function SeoClient({ content }) {
             </motion.p>
 
             <div className="flex flex-col sm:flex-row gap-4 sm:gap-6">
-              <button className="w-full sm:w-[280px] px-8 py-4 sm:py-6 bg-indigo-600 text-white font-black hover:bg-indigo-700 transition-all shadow-xl sm:shadow-2xl shadow-indigo-600/20 uppercase tracking-wider sm:tracking-widest text-xs sm:text-sm flex items-center justify-center min-h-[44px]">
+              <button className="w-full sm:w-[280px] px-8 py-4 sm:py-6 bg-indigo-600 text-white font-black hover:bg-indigo-700 transition-all shadow-xl sm:shadow-2xl shadow-indigo-600/20 uppercase tracking-wider sm:tracking-widest text-xs sm:text-sm flex items-center justify-center min-h-[44px] rounded-md">
                 Initialize Technical Audit
               </button>
               <Link
                 href="/services/seo/details"
-                className="w-full sm:w-[280px] px-8 py-4 sm:py-6 bg-white border border-slate-200 text-slate-900 font-black hover:bg-slate-50 transition-all uppercase tracking-wider sm:tracking-widest text-xs sm:text-sm flex items-center justify-center text-center min-h-[44px]"
+                className="w-full sm:w-[280px] px-8 py-4 sm:py-6 bg-white border border-slate-200 text-slate-900 font-black hover:bg-slate-50 transition-all uppercase tracking-wider sm:tracking-widest text-xs sm:text-sm flex items-center justify-center text-center min-h-[44px] rounded-md"
               >
                 Technical Specifications
               </Link>
@@ -80,7 +80,7 @@ export default function SeoClient({ content }) {
               initial={{ opacity: 0, scale: 0.9 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 1 }}
-              className="relative p-12 bg-white -[4rem] border border-slate-100 shadow-2xl overflow-hidden group"
+              className="relative p-12 bg-white -[4rem] border border-slate-100 shadow-2xl overflow-hidden group rounded-md"
             >
               <div className="absolute inset-0 opacity-5 pointer-events-none" style={{ backgroundImage: "radial-gradient(#4338ca 1px, transparent 1px)", backgroundSize: "30px 30px" }}></div>
 
@@ -88,7 +88,7 @@ export default function SeoClient({ content }) {
                 <motion.div
                   animate={{ scale: [1, 1.05, 1], rotate: [0, 5, 0] }}
                   transition={{ duration: 10, repeat: Infinity }}
-                  className="w-64 h-64 bg-slate-50 border border-slate-100 flex items-center justify-center relative p-8 shadow-inner"
+                  className="w-64 h-64 bg-slate-50 border border-slate-100 flex items-center justify-center relative p-8 shadow-inner rounded-lg"
                 >
                   <div className="absolute inset-0 bg-indigo-50/30 animate-pulse"></div>
                   <IoGitNetworkOutline className="text-8xl text-indigo-600/10 absolute opacity-50" />
@@ -111,7 +111,7 @@ export default function SeoClient({ content }) {
                     key={i}
                     animate={{ y: [0, -15, 0] }}
                     transition={{ duration: 3 + i, repeat: Infinity }}
-                    className={`absolute ${sat.pos} p-6 bg-white rounded-3xl border border-slate-100 shadow-xl flex flex-col items-center gap-2 group hover:scale-110 transition-transform`}
+                    className={`absolute ${sat.pos} p-6 bg-white rounded-lg border border-slate-100 shadow-xl flex flex-col items-center gap-2 group hover:scale-110 transition-transform`}
                   >
                     <div className="text-indigo-600 text-xl">{sat.icon}</div>
                     <span className="text-[7px] sm:text-[9px] font-black text-slate-300 uppercase tracking-[0.2em] sm:tracking-[0.4em] opacity-0 group-hover:opacity-100 transition-opacity">{sat.label}</span>
@@ -128,7 +128,7 @@ export default function SeoClient({ content }) {
 
         {/* PILLARS SECTION */}
         <div className="mb-20 lg:mb-48">
-          <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-12 lg:mb-24 gap-4 lg:gap-8 border-l-4 border-indigo-600 pl-6 lg:pl-8">
+          <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-12 lg:mb-24 gap-4 lg:gap-8 border-l-4 border-indigo-600 pl-6 lg:pl-8 rounded-lg">
             <div className="max-w-xl">
               <h2 className="text-[10px] sm:text-xs font-black text-indigo-600 uppercase tracking-[0.2em] sm:tracking-[0.4em] mb-4 font-bold">Search Mechanics</h2>
               <p className="text-3xl sm:text-4xl md:text-5xl font-black text-slate-900 leading-tight">
@@ -147,10 +147,10 @@ export default function SeoClient({ content }) {
                 transition={{ delay: i * 0.1 }}
                 className="group cursor-default w-[85vw] sm:w-[320px] lg:w-auto shrink-0 snap-center"
               >
-                <div className="bg-white -[3rem] p-12 h-full border border-slate-100 shadow-sm shadow-slate-200/50 hover:shadow-2xl transition-all group-hover:-translate-y-2 relative overflow-hidden">
+                <div className="bg-white -[3rem] p-12 h-full border border-slate-100 shadow-sm shadow-slate-200/50 hover:shadow-2xl transition-all group-hover:-translate-y-2 relative overflow-hidden rounded-lg">
                   <div className="absolute top-0 right-0 w-24 h-24 bg-slate-50 -[4rem] opacity-0 group-hover:opacity-100 transition-opacity" />
                   <div
-                    className={`w-14 h-14 rounded-2xl bg-gradient-to-br ${item.color} text-white flex items-center justify-center text-3xl mb-10 shadow-lg relative z-10`}
+                    className={`w-14 h-14 rounded-lg bg-gradient-to-br ${item.color} text-white flex items-center justify-center text-3xl mb-10 shadow-lg relative z-10`}
                   >
                     {getIcon(item.icon)}
                   </div>
@@ -168,19 +168,19 @@ export default function SeoClient({ content }) {
 
         {/* TECHNICAL AUDIT SECTION */}
         <div className="mb-20 lg:mb-48">
-          <div className="grid lg:grid-cols-2 gap-10 lg:gap-20 items-center bg-white lg:-[4rem] p-8 sm:p-12 lg:p-24 border border-slate-100 shadow-xl lg:shadow-2xl shadow-slate-200/50 relative overflow-hidden">
+          <div className="grid lg:grid-cols-2 gap-10 lg:gap-20 items-center bg-white lg:-[4rem] p-8 sm:p-12 lg:p-24 border border-slate-100 shadow-xl lg:shadow-2xl shadow-slate-200/50 relative overflow-hidden rounded-lg">
             <div className="absolute top-0 right-0 w-1/3 h-full bg-indigo-50/20 -skew-x-[20deg] origin-top translate-x-1/2"></div>
 
             <div className="relative z-10 space-y-8 sm:space-y-12">
-              <div className="w-16 h-16 bg-indigo-50 flex items-center justify-center text-3xl text-indigo-600 border border-indigo-100">
+              <div className="w-16 h-16 bg-indigo-50 flex items-center justify-center text-3xl text-indigo-600 border border-indigo-100 rounded-lg">
                 <IoBugOutline />
               </div>
               <h2 className="text-4xl sm:text-5xl lg:text-6xl font-black text-slate-900 leading-[1.1] sm:leading-[0.9] tracking-tighter sm:tracking-normal">Technical <br className="hidden sm:block" /><span className="text-indigo-600 block sm:inline mt-2 sm:mt-0">Integrity.</span></h2>
               <p className="text-slate-500 text-lg sm:text-xl font-light leading-relaxed">We perform deep-tissue technical audits covering Core Web Vitals, Structured Data (JSON-LD), and JavaScript rendering to eliminate every barrier to indexing.</p>
 
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-px bg-slate-50 border border-slate-100 overflow-hidden mt-8 sm:mt-10 shadow-sm">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-px bg-slate-50 border border-slate-100 overflow-hidden mt-8 sm:mt-10 shadow-sm rounded-lg">
                 {metrics?.map((item, idx) => (
-                  <div key={idx} className="p-6 sm:p-10 hover:bg-white transition-colors group">
+                  <div key={idx} className="p-6 sm:p-10 hover:bg-white transition-colors group rounded-md">
                     <div className="text-indigo-600 mb-4 opacity-40 group-hover:opacity-100 transition-opacity">
                       {getIcon(item.icon)}
                     </div>
@@ -196,7 +196,7 @@ export default function SeoClient({ content }) {
               transition={{ duration: 5, repeat: Infinity }}
               className="relative lg:scale-110"
             >
-              <div className="bg-slate-900 lg:-[3rem] p-8 lg:p-12 border border-slate-800 shadow-2xl space-y-8 lg:space-y-10 group overflow-hidden">
+              <div className="bg-slate-900 lg:-[3rem] p-8 lg:p-12 border border-slate-800 shadow-2xl space-y-8 lg:space-y-10 group overflow-hidden rounded-lg">
                 <div className="absolute top-0 right-0 p-4 font-mono text-[7px] sm:text-[9px] text-indigo-400 bg-white/5 opacity-50 tracking-[0.2em] sm:tracking-[0.4em]">SYNCING_ENGINE::V4.2</div>
                 <div className="flex justify-between items-center text-white/40 font-mono text-[8px] sm:text-[9px] tracking-[0.2em] sm:tracking-[0.4em] uppercase">
                   <span>Authority Report</span>
@@ -205,7 +205,7 @@ export default function SeoClient({ content }) {
 
                 <div className="space-y-6">
                   <div className="flex items-center gap-4">
-                    <div className="w-12 h-12 bg-indigo-500 shadow-[0_0_20px_rgba(67,56,202,0.4)] flex items-center justify-center"><IoTrendingUpOutline className="text-white text-2xl" /></div>
+                    <div className="w-12 h-12 bg-indigo-500 shadow-[0_0_20px_rgba(67,56,202,0.4)] flex items-center justify-center rounded-lg"><IoTrendingUpOutline className="text-white text-2xl" /></div>
                     <div className="flex-1 space-y-2">
                       <div className="h-1.5 bg-white/10 w-full"></div>
                       <div className="h-1.5 bg-white/5 w-1/3"></div>
@@ -255,13 +255,13 @@ export default function SeoClient({ content }) {
           <div className="flex flex-col sm:flex-row gap-4 sm:gap-6 justify-center">
             {/* Sticky Mobile CTA */}
             <div className="fixed bottom-0 left-0 w-full px-4 pt-4 pb-[max(1rem,env(safe-area-inset-bottom))] bg-white/90 backdrop-blur-md border-t border-slate-200 z-50 lg:relative lg:border-none lg:bg-transparent lg:p-0 lg:w-auto">
-              <button className="w-full lg:w-[280px] px-8 py-4 sm:py-6 bg-indigo-600 text-white font-black hover:bg-indigo-700 transition-all shadow-xl sm:shadow-2xl shadow-indigo-600/40 uppercase tracking-wider sm:tracking-widest text-xs sm:text-sm flex items-center justify-center min-h-[44px]">
+              <button className="w-full lg:w-[280px] px-8 py-4 sm:py-6 bg-indigo-600 text-white font-black hover:bg-indigo-700 transition-all shadow-xl sm:shadow-2xl shadow-indigo-600/40 uppercase tracking-wider sm:tracking-widest text-xs sm:text-sm flex items-center justify-center min-h-[44px] rounded-md">
                 Initialize Technical Audit
               </button>
             </div>
             <Link
               href="/services/seo/details"
-              className="hidden lg:flex w-full sm:w-[280px] px-8 py-4 sm:py-6 bg-slate-900 text-white font-black hover:bg-slate-800 transition-all uppercase tracking-wider sm:tracking-widest text-xs sm:text-sm items-center justify-center text-center min-h-[44px]"
+              className="hidden lg:flex w-full sm:w-[280px] px-8 py-4 sm:py-6 bg-slate-900 text-white font-black hover:bg-slate-800 transition-all uppercase tracking-wider sm:tracking-widest text-xs sm:text-sm items-center justify-center text-center min-h-[44px] rounded-md"
             >
               Technical Hub
             </Link>

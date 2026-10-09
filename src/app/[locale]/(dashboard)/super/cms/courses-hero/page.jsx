@@ -90,14 +90,14 @@ export default function CoursesHeroSettings() {
  <button
  onClick={handleSave}
  disabled={saving}
- className="flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white px-5 py-2.5 font-bold text-sm transition-colors disabled:opacity-50"
+ className="flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white px-5 py-2.5 font-bold text-sm transition-colors disabled:opacity-50 rounded-md"
  >
  {saving ? <div className="w-4 h-4 border-2 border-white/30 border-t-white animate-spin" /> : <IoSaveOutline size={18} />}
  Save Changes
  </button>
  </div>
 
- <div className="bg-white -[2rem] border border-slate-200 p-6 sm:p-8 shadow-sm">
+ <div className="bg-white -[2rem] border border-slate-200 p-6 sm:p-8 shadow-sm rounded-lg">
  <h2 className="text-lg font-bold text-slate-900 mb-6">Display Mode</h2>
  
  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
@@ -137,13 +137,13 @@ export default function CoursesHeroSettings() {
  </div>
  </div>
 
- <div className="bg-white -[2rem] border border-slate-200 p-6 sm:p-8 shadow-sm space-y-6">
+ <div className="bg-white -[2rem] border border-slate-200 p-6 sm:p-8 shadow-sm space-y-6 rounded-lg">
  <h2 className="text-lg font-bold text-slate-900">Background Image</h2>
  
  {/* Preview */}
  <div className="w-full aspect-[21/9] sm:aspect-[3/1] bg-slate-100 border border-slate-200 overflow-hidden relative flex items-center justify-center">
  {imageUrl ? (
- <Image src={imageUrl} alt="Hero Preview" fill className="object-cover" />
+ <Image src={imageUrl} alt="Hero Preview" fill className="object-cover rounded-md" />
  ) : (
  <div className="text-slate-400 flex flex-col items-center gap-2">
  <IoImageOutline size={32} />
@@ -161,7 +161,7 @@ export default function CoursesHeroSettings() {
  accept="image/*" 
  onChange={handleFileUpload} 
  disabled={uploading}
- className="absolute inset-0 w-full h-full opacity-0 cursor-pointer z-10" 
+ className="absolute inset-0 w-full h-full opacity-0 cursor-pointer z-10 rounded-md" 
  />
  <div className="flex items-center justify-center gap-2 w-full px-4 py-3 bg-slate-50 border border-slate-200 border-dashed text-sm font-medium text-slate-600 group hover:bg-slate-100 transition-colors">
  {uploading ? "Uploading..." : <><IoImageOutline size={18} /> Click to Upload Image</>}

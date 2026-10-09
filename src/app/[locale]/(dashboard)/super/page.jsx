@@ -37,7 +37,7 @@ export default function GlobalDashboard() {
  return (
  <div className="space-y-6 max-w-7xl mx-auto pb-10">
  {/* Premium Header */}
- <header className="relative py-6 px-6 -[2rem] bg-slate-900 overflow-hidden shadow-2xl">
+ <header className="relative py-6 px-6 -[2rem] bg-slate-900 overflow-hidden shadow-2xl rounded-md">
  <div className="absolute top-0 right-0 w-96 h-96 -mr-48 -mt-48 bg-pink-500/10 blur-[100px]" />
  <div className="absolute bottom-0 left-0 w-64 h-64 -ml-32 -mb-32 bg-blue-500/10 blur-[80px]" />
  
@@ -46,7 +46,7 @@ export default function GlobalDashboard() {
  <motion.div 
  initial={{ opacity: 0, scale: 0.8 }}
  animate={{ opacity: 1, scale: 1 }}
- className="inline-flex items-center gap-2 px-3 py-1.5 bg-pink-500/10 border border-pink-500/20 mb-3"
+ className="inline-flex items-center gap-2 px-3 py-1.5 bg-pink-500/10 border border-pink-500/20 mb-3 rounded-md"
  >
  <span className="w-2 h-2 bg-pink-500 animate-pulse" />
  <span className="text-[10px] font-black text-pink-400 uppercase">Global Intelligence Active</span>
@@ -58,11 +58,11 @@ export default function GlobalDashboard() {
  </div>
  
  <div className="grid grid-cols-2 gap-3">
- <div className="bg-white/5 border border-white/10 backdrop-blur-xl p-4 text-center min-w-[140px]">
+ <div className="bg-white/5 border border-white/10 backdrop-blur-xl p-4 text-center min-w-[140px] rounded-lg">
  <p className="text-[10px] font-black text-slate-500 uppercase tracking-widest mb-1">Live Branches</p>
  <p className="text-2xl font-black text-white leading-none">{stats?.branches || '--'}</p>
  </div>
- <div className="bg-white/5 border border-white/10 backdrop-blur-xl p-4 text-center min-w-[140px]">
+ <div className="bg-white/5 border border-white/10 backdrop-blur-xl p-4 text-center min-w-[140px] rounded-lg">
  <p className="text-[10px] font-black text-slate-500 uppercase tracking-widest mb-1">Total Impact</p>
  <p className="text-2xl font-black text-white leading-none">{stats?.students || '--'}</p>
  </div>
@@ -86,7 +86,7 @@ export default function GlobalDashboard() {
  <motion.div 
  key={i}
  variants={item}
- className="bg-white p-5 border border-slate-100 shadow-sm group hover:shadow-xl hover:-translate-y-1 transition-all"
+ className="bg-white p-5 border border-slate-100 shadow-sm group hover:shadow-xl hover:-translate-y-1 transition-all rounded-md"
  >
  <div className={`p-3 w-fit mb-3 ${card.bg} ${card.color} group-hover:scale-110 transition-transform`}>
  <card.icon size={24} />
@@ -103,20 +103,20 @@ export default function GlobalDashboard() {
  <motion.div 
  initial={{ opacity: 0, scale: 0.95 }}
  animate={{ opacity: 1, scale: 1 }}
- className="lg:col-span-2 bg-white border border-slate-100 shadow-sm p-6"
+ className="lg:col-span-2 bg-white border border-slate-100 shadow-sm p-6 rounded-lg"
  >
  <div className="flex justify-between items-center mb-5">
  <h2 className="text-xl font-black text-slate-900 tracking-tight">Branch Performance</h2>
- <div className="flex items-center gap-2 text-emerald-500 bg-emerald-50 px-2 py-1 text-[10px] font-black uppercase">
+ <div className="flex items-center gap-2 text-emerald-500 bg-emerald-50 px-2 py-1 text-[10px] font-black uppercase rounded-md">
  <HiOutlineArrowTrendingUp size={14} /> Global Growth
  </div>
  </div>
  
  <div className="space-y-2">
  {stats?.performance?.slice(0, 5).map((perf, i) => (
- <div key={i} className="group flex items-center justify-between p-3 bg-slate-50/50 hover:bg-slate-50 transition-all">
+ <div key={i} className="group flex items-center justify-between p-3 bg-slate-50/50 hover:bg-slate-50 transition-all rounded-md">
  <div className="flex items-center gap-3">
- <div className="w-10 h-10 bg-white border border-slate-100 flex items-center justify-center font-black text-slate-400 group-hover:text-pink-500 group-hover:bg-pink-50 transition-all">
+ <div className="w-10 h-10 bg-white border border-slate-100 flex items-center justify-center font-black text-slate-400 group-hover:text-pink-500 group-hover:bg-pink-50 transition-all rounded-lg">
  {(i + 1).toString().padStart(2, '0')}
  </div>
  <div>
@@ -140,7 +140,7 @@ export default function GlobalDashboard() {
  <motion.div 
  initial={{ opacity: 0, x: 20 }}
  animate={{ opacity: 1, x: 0 }}
- className="bg-indigo-600 p-6 text-white shadow-xl shadow-indigo-600/20 group"
+ className="bg-indigo-600 p-6 text-white shadow-xl shadow-indigo-600/20 group rounded-lg"
  >
  <h3 className="text-lg font-black mb-4">Strategic Quick-Actions</h3>
  <div className="space-y-2">
@@ -150,7 +150,7 @@ export default function GlobalDashboard() {
  { label: 'Review Support Tickets', icon: HiOutlineChevronRight },
  { label: 'Generate Monthly Report', icon: HiOutlineChevronRight },
  ].map((action, i) => (
- <button key={i} className="w-full flex items-center justify-between p-3 bg-white/10 hover:bg-white/20 border border-white/10 text-sm font-bold transition-all group/btn">
+ <button key={i} className="w-full flex items-center justify-between p-3 bg-white/10 hover:bg-white/20 border border-white/10 text-sm font-bold transition-all group/btn rounded-md">
  {action.label}
  <action.icon className="group-hover/btn:translate-x-1 transition-transform" />
  </button>
@@ -161,14 +161,14 @@ export default function GlobalDashboard() {
  <motion.div 
  initial={{ opacity: 0, scale: 0.9 }}
  animate={{ opacity: 1, scale: 1 }}
- className="bg-white p-6 border border-slate-100 shadow-sm text-center"
+ className="bg-white p-6 border border-slate-100 shadow-sm text-center rounded-lg"
  >
  <div className="w-12 h-12 bg-emerald-50 text-emerald-500 flex items-center justify-center mx-auto mb-3">
  <HiOutlineGlobeAlt size={24} />
  </div>
  <h3 className="text-lg font-black text-slate-900 mb-1">Branch Map</h3>
  <p className="text-slate-400 font-medium text-sm mb-4 leading-snug">Visualize your educational ecosystem's footprint.</p>
- <button className="text-emerald-600 font-black text-[10px] uppercase tracking-wider border-b-2 border-emerald-100 hover:border-emerald-500 transition-all">
+ <button className="text-emerald-600 font-black text-[10px] uppercase tracking-wider border-b-2 border-emerald-100 hover:border-emerald-500 transition-all rounded-md">
  Open Interactive Map
  </button>
  </motion.div>

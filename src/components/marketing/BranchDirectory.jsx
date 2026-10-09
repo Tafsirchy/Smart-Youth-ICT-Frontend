@@ -240,7 +240,7 @@ export default function BranchDirectory({ locale }) {
  <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 space-y-8 pb-16">
  {/* ── Hero Banner ── */}
  <div className="text-center max-w-3xl mx-auto space-y-4 pt-4">
- <div className="inline-flex items-center gap-2 px-3 py-1.5 bg-blue-50 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300 text-xs font-bold uppercase tracking-wider">
+ <div className="inline-flex items-center gap-2 px-3 py-1.5 bg-blue-50 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300 text-xs font-bold uppercase tracking-wider rounded-md">
  <IoBusinessOutline size={15} />
  Physical Hubs & Learning Centers
  </div>
@@ -254,7 +254,7 @@ export default function BranchDirectory({ locale }) {
 
  {/* Network Metrics Strip */}
  <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 pt-2">
- <div className="p-3 bg-white dark:bg-neutral-900 ring-1 ring-neutral-200 dark:ring-neutral-800 shadow-sm">
+ <div className="p-3 bg-white dark:bg-neutral-900 ring-1 ring-neutral-200 dark:ring-neutral-800 shadow-sm rounded-lg">
  <div className="text-xl md:text-2xl font-black text-neutral-900 dark:text-white">
  {branches.length}
  </div>
@@ -262,7 +262,7 @@ export default function BranchDirectory({ locale }) {
  Active Campuses
  </div>
  </div>
- <div className="p-3 bg-white dark:bg-neutral-900 ring-1 ring-neutral-200 dark:ring-neutral-800 shadow-sm">
+ <div className="p-3 bg-white dark:bg-neutral-900 ring-1 ring-neutral-200 dark:ring-neutral-800 shadow-sm rounded-lg">
  <div className="text-xl md:text-2xl font-black text-neutral-900 dark:text-white">
  {divisions.length - 1 || 1}
  </div>
@@ -270,7 +270,7 @@ export default function BranchDirectory({ locale }) {
  Divisions Covered
  </div>
  </div>
- <div className="col-span-2 sm:col-span-1 p-3 bg-white dark:bg-neutral-900 ring-1 ring-neutral-200 dark:ring-neutral-800 shadow-sm">
+ <div className="col-span-2 sm:col-span-1 p-3 bg-white dark:bg-neutral-900 ring-1 ring-neutral-200 dark:ring-neutral-800 shadow-sm rounded-lg">
  <div className="text-xl md:text-2xl font-black text-emerald-600 dark:text-emerald-400">
  100%
  </div>
@@ -282,7 +282,7 @@ export default function BranchDirectory({ locale }) {
  </div>
 
  {/* ── Search & Filter Controls ── */}
- <div className="bg-white dark:bg-neutral-900 p-4 md:p-6 shadow-sm ring-1 ring-neutral-200 dark:ring-neutral-800 space-y-4">
+ <div className="bg-white dark:bg-neutral-900 p-4 md:p-6 shadow-sm ring-1 ring-neutral-200 dark:ring-neutral-800 space-y-4 rounded-lg">
  <div className="flex flex-col md:flex-row gap-3 items-stretch md:items-center justify-between">
  {/* Search Bar */}
  <div className="relative flex-1">
@@ -408,7 +408,7 @@ export default function BranchDirectory({ locale }) {
  }`}
  >
  {filteredBranches.length === 0 ? (
- <div className="text-center py-16 bg-white dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-800 p-8">
+ <div className="text-center py-16 bg-white dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-800 p-8 rounded-lg">
  <IoLocationOutline className="mx-auto text-neutral-400 mb-3" size={40} />
  <h3 className="text-lg font-bold text-neutral-800 dark:text-white">
  No campuses match your criteria
@@ -469,13 +469,13 @@ export default function BranchDirectory({ locale }) {
  </span>
 
  {branch.division && (
- <span className="px-2.5 py-1 bg-neutral-100 text-neutral-600 dark:bg-neutral-800 dark:text-neutral-400 text-[10px] font-bold uppercase tracking-wider">
+ <span className="px-2.5 py-1 bg-neutral-100 text-neutral-600 dark:bg-neutral-800 dark:text-neutral-400 text-[10px] font-bold uppercase tracking-wider rounded-md">
  {branch.division}
  </span>
  )}
 
  {branch.distance !== null && (
- <span className="px-2.5 py-1 bg-emerald-50 text-emerald-700 dark:bg-emerald-900/30 dark:text-emerald-400 text-[10px] font-bold tracking-wider flex items-center gap-1">
+ <span className="px-2.5 py-1 bg-emerald-50 text-emerald-700 dark:bg-emerald-900/30 dark:text-emerald-400 text-[10px] font-bold tracking-wider flex items-center gap-1 rounded-md">
  <IoNavigateOutline size={12} />
  {branch.distance.toFixed(1)} km away
  </span>
@@ -512,7 +512,7 @@ export default function BranchDirectory({ locale }) {
  alt={branch.name}
  fill
  unoptimized
- className="object-cover"
+ className="object-cover rounded-md"
  />
  </div>
  ) : branch.logo ? (
@@ -522,7 +522,7 @@ export default function BranchDirectory({ locale }) {
  alt={branch.name}
  fill
  unoptimized
- className="object-cover"
+ className="object-cover rounded-md"
  />
  </div>
  ) : null}
@@ -577,7 +577,7 @@ export default function BranchDirectory({ locale }) {
  {branch.facilities.map((fac, idx) => (
  <span
  key={idx}
- className="px-3 py-1 bg-neutral-50 dark:bg-neutral-800 border border-neutral-200/60 dark:border-neutral-700/60 text-xs font-semibold text-neutral-700 dark:text-neutral-300 flex items-center gap-1.5"
+ className="px-3 py-1 bg-neutral-50 dark:bg-neutral-800 border border-neutral-200/60 dark:border-neutral-700/60 text-xs font-semibold text-neutral-700 dark:text-neutral-300 flex items-center gap-1.5 rounded-md"
  >
  <IoSparklesOutline size={12} className="text-blue-600" />
  {fac}
@@ -605,7 +605,7 @@ export default function BranchDirectory({ locale }) {
  <img
  src={imgUrl}
  alt={`${branch.name} photo ${idx + 1}`}
- className="w-full h-full object-cover"
+ className="w-full h-full object-cover rounded-md"
  loading="lazy"
  />
  </a>
@@ -633,7 +633,7 @@ export default function BranchDirectory({ locale }) {
  )}`}
  target="_blank"
  rel="noopener noreferrer"
- className="min-h-[44px] inline-flex justify-center items-center gap-2 px-4 py-2.5 bg-emerald-50 dark:bg-emerald-950/40 text-emerald-700 dark:text-emerald-400 hover:bg-emerald-100 text-xs font-bold uppercase tracking-wider transition-colors border border-emerald-200 dark:border-emerald-800 active:scale-95"
+ className="min-h-[44px] inline-flex justify-center items-center gap-2 px-4 py-2.5 bg-emerald-50 dark:bg-emerald-950/40 text-emerald-700 dark:text-emerald-400 hover:bg-emerald-100 text-xs font-bold uppercase tracking-wider transition-colors border border-emerald-200 dark:border-emerald-800 active:scale-95 rounded-md"
  >
  <IoLogoWhatsapp size={16} />
  WhatsApp
@@ -646,7 +646,7 @@ export default function BranchDirectory({ locale }) {
  href={branch.location.googleMapsUrl}
  target="_blank"
  rel="noopener noreferrer"
- className="min-h-[44px] inline-flex justify-center items-center gap-2 px-4 py-2.5 bg-neutral-100 dark:bg-neutral-800 text-neutral-700 dark:text-neutral-300 text-xs font-bold uppercase tracking-wider hover:bg-neutral-200 dark:hover:bg-neutral-700 active:scale-95 transition-colors"
+ className="min-h-[44px] inline-flex justify-center items-center gap-2 px-4 py-2.5 bg-neutral-100 dark:bg-neutral-800 text-neutral-700 dark:text-neutral-300 text-xs font-bold uppercase tracking-wider hover:bg-neutral-200 dark:hover:bg-neutral-700 active:scale-95 transition-colors rounded-md"
  >
  <IoMapOutline size={16} />
  Directions

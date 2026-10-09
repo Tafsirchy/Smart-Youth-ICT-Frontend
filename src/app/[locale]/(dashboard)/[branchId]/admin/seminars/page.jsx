@@ -61,7 +61,7 @@ export default function AdminSeminarsPage() {
  </div>
  <div className="flex items-center gap-3">
  <span className="text-sm font-semibold text-textSecondary">{items.length} total registrations</span>
- <button onClick={fetchItems} className="flex items-center gap-1.5 text-sm text-textSecondary hover:text-textPrimary transition">
+ <button onClick={fetchItems} className="flex items-center gap-1.5 text-sm text-textSecondary hover:text-textPrimary transition rounded-md">
  <IoRefreshOutline size={16} /> Refresh
  </button>
  </div>
@@ -71,7 +71,7 @@ export default function AdminSeminarsPage() {
  <div className="relative mb-6 max-w-sm">
  <IoSearch size={16} className="absolute left-3.5 top-1/2 -translate-y-1/2 text-textSecondary" />
  <input type="text" placeholder="Search by name, phone or email…"
- className="input w-full pl-10 text-sm"
+ className="input w-full pl-10 text-sm rounded-md"
  value={search} onChange={e => setSearch(e.target.value)} />
  </div>
 
@@ -90,7 +90,7 @@ export default function AdminSeminarsPage() {
  </div>
 
  {/* Table */}
- <div className="bg-white ring-1 ring-neutral-200 shadow-sm overflow-hidden">
+ <div className="bg-white ring-1 ring-neutral-200 shadow-sm overflow-hidden rounded-lg">
  <div className="overflow-x-auto">
  <table className="w-full text-sm">
  <thead className="bg-neutral-50 border-b border-neutral-200">
@@ -107,7 +107,7 @@ export default function AdminSeminarsPage() {
  </tr>
  )) : filtered.length > 0 ? filtered.map((r, i) => (
  <motion.tr key={r._id} initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: i * 0.04 }}
- className="hover:bg-neutral-50 transition-colors">
+ className="hover:bg-neutral-50 transition-colors rounded-md">
  <td className="px-5 py-3.5">
  <div className="flex items-center gap-2.5">
  <div className="w-8 h-8 bg-cyan-100 text-cyan-700 flex items-center justify-center text-xs font-extrabold shrink-0">

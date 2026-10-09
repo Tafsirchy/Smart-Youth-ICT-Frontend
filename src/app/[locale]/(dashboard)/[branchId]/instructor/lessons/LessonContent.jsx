@@ -152,13 +152,13 @@ export default function LessonContent() {
  
  <button 
  onClick={handleOpenCreate}
- className="flex items-center justify-center gap-2 bg-blue-600 text-white px-8 py-4 font-bold shadow-xl shadow-blue-500/20 hover:bg-blue-700 transition-all active:scale-95"
+ className="flex items-center justify-center gap-2 bg-blue-600 text-white px-8 py-4 font-bold shadow-xl shadow-blue-500/20 hover:bg-blue-700 transition-all active:scale-95 rounded-md"
  >
  <HiOutlinePlus size={20} /> Add New Lesson
  </button>
  </div>
 
- <div className="bg-white -[40px] border border-neutral-100 shadow-sm overflow-hidden">
+ <div className="bg-white -[40px] border border-neutral-100 shadow-sm overflow-hidden rounded-lg">
  <div className="overflow-x-auto">
  <table className="w-full text-left">
  <thead>
@@ -171,13 +171,13 @@ export default function LessonContent() {
  </thead>
  <tbody className="divide-y divide-neutral-50">
  {loading ? (
- [1, 2, 3].map(i => <tr key={i} className="animate-pulse"><td colSpan={4} className="px-8 py-8 bg-neutral-50/50" /></tr>)
+ [1, 2, 3].map(i => <tr key={i} className="animate-pulse"><td colSpan={4} className="px-8 py-8 bg-neutral-50/50 rounded-md" /></tr>)
  ) : lessons.length > 0 ? (
  lessons.map((lesson, i) => (
  <motion.tr 
  key={lesson._id}
  initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: i * 0.05 }}
- className="hover:bg-neutral-50/50 transition-colors group"
+ className="hover:bg-neutral-50/50 transition-colors group rounded-md"
  >
  <td className="px-8 py-6">
  <p className="font-bold text-neutral-900 text-sm">{lesson.title}</p>
@@ -234,7 +234,7 @@ export default function LessonContent() {
  initial={{ opacity: 0, scale: 0.9, y: 30 }}
  animate={{ opacity: 1, scale: 1, y: 0 }}
  exit={{ opacity: 0, scale: 0.9, y: 30 }}
- className="relative w-full max-w-xl bg-white -[40px] shadow-2xl p-10 overflow-hidden z-[10000]"
+ className="relative w-full max-w-xl bg-white -[40px] shadow-2xl p-10 overflow-hidden z-[10000] rounded-lg"
  >
  <button onClick={() => setShowModal(false)} className="absolute top-8 right-8 text-neutral-400 hover:text-neutral-900 transition-colors">
  <HiOutlineXMark size={28} />
@@ -249,7 +249,7 @@ export default function LessonContent() {
  <div className="space-y-1.5">
  <label className="text-[10px] font-black text-neutral-400 uppercase tracking-widest ml-1">Lesson Title</label>
  <input 
- required className="w-full bg-neutral-50 border-none px-4 py-4 text-sm font-bold focus:ring-2 focus:ring-blue-600 transition-all outline-none" 
+ required className="w-full bg-neutral-50 border-none px-4 py-4 text-sm font-bold focus:ring-2 focus:ring-blue-600 transition-all outline-none rounded-md" 
  placeholder="e.g. 01. Introduction to Next.js"
  value={form.title} onChange={(e) => setForm({...form, title: e.target.value})}
  />
@@ -259,7 +259,7 @@ export default function LessonContent() {
  <div className="space-y-1.5">
  <label className="text-[10px] font-black text-neutral-400 uppercase tracking-widest ml-1">Duration</label>
  <input 
- className="w-full bg-neutral-50 border-none px-4 py-4 text-sm font-bold focus:ring-2 focus:ring-blue-600 transition-all outline-none" 
+ className="w-full bg-neutral-50 border-none px-4 py-4 text-sm font-bold focus:ring-2 focus:ring-blue-600 transition-all outline-none rounded-md" 
  placeholder="e.g. 15 mins"
  value={form.duration} onChange={(e) => setForm({...form, duration: e.target.value})}
  />
@@ -269,7 +269,7 @@ export default function LessonContent() {
  <div className="flex items-center gap-2">
  <input 
  type="checkbox" id="isFree"
- className="w-5 h-5 border-neutral-300 text-blue-600 focus:ring-blue-500"
+ className="w-5 h-5 border-neutral-300 text-blue-600 focus:ring-blue-500 rounded-md"
  checked={form.isFree} onChange={(e) => setForm({...form, isFree: e.target.checked})}
  />
  <label htmlFor="isFree" className="text-sm font-bold text-neutral-700">Free Preview</label>
@@ -289,7 +289,7 @@ export default function LessonContent() {
 
  <button 
  type="submit" disabled={saving}
- className="w-full py-5 bg-blue-600 text-white -[32px] font-extrabold text-lg shadow-2xl shadow-blue-600/20 hover:bg-blue-700 transition-all active:scale-[0.98] disabled:opacity-50"
+ className="w-full py-5 bg-blue-600 text-white -[32px] font-extrabold text-lg shadow-2xl shadow-blue-600/20 hover:bg-blue-700 transition-all active:scale-[0.98] disabled:opacity-50 rounded-md"
  >
  {saving ? 'Processing...' : (editingLesson ? 'Update Lesson' : 'Create Lesson Content')}
  </button>

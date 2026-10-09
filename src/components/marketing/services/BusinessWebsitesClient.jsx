@@ -36,7 +36,7 @@ export default function BusinessWebsitesClient({ data }) {
             <motion.div
               initial={{ opacity: 0, x: -20 }}
               animate={{ opacity: 1, x: 0 }}
-              className="inline-flex items-center gap-2 px-4 py-2 bg-blue-50 border border-blue-100 text-blue-700 text-[10px] sm:text-xs font-black tracking-widest uppercase mb-4 sm:mb-6 leading-[1.4]"
+              className="inline-flex items-center gap-2 px-4 py-2 bg-blue-50 border border-blue-100 text-blue-700 text-[10px] sm:text-xs font-black tracking-widest uppercase mb-4 sm:mb-6 leading-[1.4] rounded-md"
             >
               <IoRocketOutline className="text-sm" /> {hero.badge}
             </motion.div>
@@ -61,12 +61,12 @@ export default function BusinessWebsitesClient({ data }) {
             </motion.p>
 
             <div className="flex flex-col sm:flex-row gap-3 sm:gap-4">
-              <button className="w-full sm:w-[280px] min-h-[48px] px-5 py-3 sm:py-4 bg-blue-600 text-white font-black hover:bg-blue-700 transition-all shadow-xl shadow-blue-600/20 uppercase text-[10px] sm:text-xs flex items-center justify-center leading-[1.4]">
+              <button className="w-full sm:w-[280px] min-h-[48px] px-5 py-3 sm:py-4 bg-blue-600 text-white font-black hover:bg-blue-700 transition-all shadow-xl shadow-blue-600/20 uppercase text-[10px] sm:text-xs flex items-center justify-center leading-[1.4] rounded-md">
                 Initialize Consultation
               </button>
               <Link
                 href="/services/business-websites/details"
-                className="w-full sm:w-[280px] min-h-[48px] px-5 py-3 sm:py-4 bg-white border border-slate-200 text-slate-900 font-black hover:bg-slate-50 transition-all uppercase text-[10px] sm:text-xs flex items-center justify-center text-center leading-[1.4]"
+                className="w-full sm:w-[280px] min-h-[48px] px-5 py-3 sm:py-4 bg-white border border-slate-200 text-slate-900 font-black hover:bg-slate-50 transition-all uppercase text-[10px] sm:text-xs flex items-center justify-center text-center leading-[1.4] rounded-md"
               >
                 Technical Specifications
               </Link>
@@ -78,7 +78,7 @@ export default function BusinessWebsitesClient({ data }) {
               initial={{ opacity: 0, scale: 0.9, rotate: 5 }}
               animate={{ opacity: 1, scale: 1, rotate: 0 }}
               transition={{ duration: 1 }}
-              className="relative p-6 lg:p-8 bg-white lg:-[4rem] border border-slate-100 shadow-2xl overflow-hidden"
+              className="relative p-6 lg:p-8 bg-white lg:-[4rem] border border-slate-100 shadow-2xl overflow-hidden rounded-lg"
             >
               <div className="absolute inset-0 opacity-[0.03] pointer-events-none" style={{ backgroundImage: "linear-gradient(#000 1px, transparent 1px), linear-gradient(90deg, #000 1px, transparent 1px)", backgroundSize: "50px 50px" }}></div>
               <img
@@ -119,9 +119,9 @@ decoding="async"/>
                 transition={{ delay: i * 0.1 }}
                 className="group cursor-default min-w-[280px] snap-center shrink-0 w-[85vw] lg:w-auto"
               >
-                <div className={`bg-white rounded-[2rem] lg:rounded-[3rem] p-6 sm:p-8 h-full border ${item.border} shadow-sm shadow-slate-200/50 hover:shadow-xl transition-all lg:group-hover:-translate-y-2 relative overflow-hidden flex flex-col`}>
+                <div className={`bg-white rounded-lg lg:rounded-lg p-6 sm:p-8 h-full border ${item.border} shadow-sm shadow-slate-200/50 hover:shadow-xl transition-all lg:group-hover:-translate-y-2 relative overflow-hidden flex flex-col`}>
                   <div
-                    className={`w-12 h-12 lg:w-14 lg:h-14 rounded-2xl bg-gradient-to-br ${item.color} text-white flex items-center justify-center text-2xl lg:text-3xl mb-4 sm:mb-6 shadow-lg shrink-0`}
+                    className={`w-12 h-12 lg:w-14 lg:h-14 rounded-lg bg-gradient-to-br ${item.color} text-white flex items-center justify-center text-2xl lg:text-3xl mb-4 sm:mb-6 shadow-lg shrink-0`}
                   >
                     {getIcon(item.icon)}
                   </div>
@@ -142,7 +142,7 @@ decoding="async"/>
         </div>
 
         {/* LOGISTICS & INTEGRATION HUB */}
-        <div className="mb-16 sm:mb-24 bg-slate-900 sm:-[4rem] lg:-[5rem] p-6 sm:p-8 lg:p-16 relative overflow-hidden text-white">
+        <div className="mb-16 sm:mb-24 bg-slate-900 sm:-[4rem] lg:-[5rem] p-6 sm:p-8 lg:p-16 relative overflow-hidden text-white rounded-lg">
           <div className="absolute top-0 right-0 w-1/2 h-full bg-blue-600/10 blur-[150px] -z-10"></div>
 
           <div className="grid lg:grid-cols-2 gap-8 lg:gap-16 items-center relative z-10">
@@ -150,9 +150,9 @@ decoding="async"/>
               <h2 className="text-3xl sm:text-4xl lg:text-7xl font-black mb-4 sm:mb-6 leading-[1.1] tracking-tighter">{sections.logistics?.title || "Unified Logistics."}</h2>
               <p className="text-slate-400 text-base sm:text-lg font-light leading-[1.6] mb-6 sm:mb-10">{sections.logistics?.description || "We eliminate technical silos. Your website becomes the central node for your CRM, payments, and marketing automation."}</p>
 
-              <div className="grid grid-cols-2 gap-px bg-white/5 border border-white/5 overflow-hidden">
+              <div className="grid grid-cols-2 gap-px bg-white/5 border border-white/5 overflow-hidden rounded-lg">
                 {integrations?.map((int, i) => (
-                  <div key={i} className="p-4 sm:p-6 hover:bg-white/5 transition-colors group">
+                  <div key={i} className="p-4 sm:p-6 hover:bg-white/5 transition-colors group rounded-md">
                     <div className="text-blue-500 text-2xl mb-3 sm:mb-4 lg:group-hover:scale-110 transition-transform">{getIcon(int.icon)}</div>
                     <h4 className="text-[10px] sm:text-xs font-black uppercase tracking-widest mb-1 leading-[1.4]">{int.t}</h4>
                     <p className="text-[10px] text-slate-500 font-bold leading-[1.4]">{int.d}</p>
@@ -162,7 +162,7 @@ decoding="async"/>
             </div>
 
             <div className="relative group lg:scale-105">
-              <div className="p-6 sm:p-8 bg-white/5 sm:-[3rem] border border-white/10 backdrop-blur-sm relative z-20 overflow-hidden">
+              <div className="p-6 sm:p-8 bg-white/5 sm:-[3rem] border border-white/10 backdrop-blur-sm relative z-20 overflow-hidden rounded-lg">
                 <div className="flex justify-between items-center mb-6 sm:mb-8 border-b border-white/5 pb-4 sm:pb-6">
                   <p className="text-[10px] font-black uppercase tracking-widest text-blue-500 leading-[1.4]">{sections.logistics?.badge || "Infrastructure_Health"}</p>
                   <IoGlobeOutline className="text-emerald-500 animate-[spin_10s_linear_infinite]" />
@@ -198,7 +198,7 @@ decoding="async"/>
 
           <div className="flex overflow-x-auto snap-x snap-mandatory md:grid md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 pb-8 md:pb-0">
             {pricing?.map((tier, idx) => (
-              <div key={idx} className={`bg-white rounded-3xl sm:rounded-[3rem] p-6 sm:p-8 border min-w-[280px] snap-center shrink-0 w-[85vw] md:w-auto ${tier.highlight ? "border-blue-600 shadow-xl shadow-blue-600/10 md:-translate-y-4" : "border-slate-100 shadow-lg shadow-slate-200/50"} flex flex-col h-full relative overflow-hidden group transition-all`}>
+              <div key={idx} className={`bg-white rounded-lg sm:rounded-lg p-6 sm:p-8 border min-w-[280px] snap-center shrink-0 w-[85vw] md:w-auto ${tier.highlight ? "border-blue-600 shadow-xl shadow-blue-600/10 md:-translate-y-4" : "border-slate-100 shadow-lg shadow-slate-200/50"} flex flex-col h-full relative overflow-hidden group transition-all`}>
                 <h4 className="text-xl sm:text-2xl font-black text-slate-900 mb-1 uppercase tracking-tighter leading-[1.1]">{tier.t}</h4>
                 <p className="text-3xl sm:text-4xl lg:text-5xl font-black text-slate-900 mb-6 sm:mb-8 leading-[1.1]">{tier.p}</p>
 
@@ -210,7 +210,7 @@ decoding="async"/>
                   ))}
                 </div>
 
-                <button className={`w-full min-h-[48px] py-4 rounded-2xl font-black uppercase text-[10px] sm:text-xs transition-all shadow-md sm:shadow-xl shadow-slate-200/50 leading-[1.4] flex items-center justify-center ${tier.highlight ? "bg-blue-600 text-white shadow-blue-600/30" : "bg-slate-900 text-white hover:bg-blue-600"}`}>Select Deployment</button>
+                <button className={`w-full min-h-[48px] py-4 rounded-lg font-black uppercase text-[10px] sm:text-xs transition-all shadow-md sm:shadow-xl shadow-slate-200/50 leading-[1.4] flex items-center justify-center ${tier.highlight ? "bg-blue-600 text-white shadow-blue-600/30" : "bg-slate-900 text-white hover:bg-blue-600"}`}>Select Deployment</button>
               </div>
             ))}
           </div>
@@ -221,12 +221,12 @@ decoding="async"/>
           <IoBriefcaseOutline className="text-5xl sm:text-6xl lg:text-7xl text-blue-600 mb-6 sm:mb-8 mx-auto opacity-10" />
           <h3 className="text-3xl sm:text-4xl lg:text-5xl font-black text-slate-900 mb-6 sm:mb-8 leading-[1.1]">{cta.title?.split('your ')[0]}your <br /><span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-indigo-600 font-serif italic font-medium">{cta.title?.split('your ')[1]}</span></h3>
           <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center">
-            <button className="w-full sm:w-[280px] min-h-[48px] px-5 sm:px-6 py-4 bg-blue-600 text-white font-black hover:bg-blue-700 transition-all shadow-xl shadow-blue-600/40 uppercase tracking-widest text-[10px] sm:text-xs flex items-center justify-center leading-[1.4]">
+            <button className="w-full sm:w-[280px] min-h-[48px] px-5 sm:px-6 py-4 bg-blue-600 text-white font-black hover:bg-blue-700 transition-all shadow-xl shadow-blue-600/40 uppercase tracking-widest text-[10px] sm:text-xs flex items-center justify-center leading-[1.4] rounded-md">
               Initialize Build
             </button>
               <Link
               href="/services/business-websites/details"
-              className="w-full sm:w-[280px] min-h-[48px] px-5 sm:px-6 py-4 bg-slate-900 text-white font-black hover:bg-slate-800 transition-all uppercase tracking-widest text-[10px] sm:text-xs flex items-center justify-center text-center leading-[1.4]"
+              className="w-full sm:w-[280px] min-h-[48px] px-5 sm:px-6 py-4 bg-slate-900 text-white font-black hover:bg-slate-800 transition-all uppercase tracking-widest text-[10px] sm:text-xs flex items-center justify-center text-center leading-[1.4] rounded-md"
             >
               Technical Specifications
             </Link>
@@ -240,7 +240,7 @@ decoding="async"/>
           <p className="text-[10px] font-black text-slate-500 uppercase tracking-widest leading-[1.4]">Start Project</p>
           <p className="text-slate-900 font-bold text-sm leading-[1.4]">Consult Expert</p>
         </div>
-        <button className="px-5 py-3 min-h-[48px] bg-blue-600 text-white font-black text-[10px] uppercase tracking-widest shadow-lg shadow-blue-600/30 leading-[1.4] flex items-center justify-center">
+        <button className="px-5 py-3 min-h-[48px] bg-blue-600 text-white font-black text-[10px] uppercase tracking-widest shadow-lg shadow-blue-600/30 leading-[1.4] flex items-center justify-center rounded-md">
           Book Now
         </button>
       </div>

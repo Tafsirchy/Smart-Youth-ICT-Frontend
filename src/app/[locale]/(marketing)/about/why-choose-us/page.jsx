@@ -87,7 +87,7 @@ export default function WhyChooseUsPage() {
  transition={{ delay: i * 0.1, duration: 0.5 }}
  className={`p-8 md:p-10 border border-slate-100 bg-white transition-all duration-500 hover:border-slate-200 hover:shadow-[0_8px_30px_rgb(0,0,0,0.04)] flex flex-col justify-between group ${feat.colSpan}`}
  >
- <div className="w-14 h-14 bg-slate-50 text-slate-600 flex items-center justify-center mb-10 group-hover:scale-110 group-hover:bg-slate-900 group-hover:text-white transition-all duration-500">
+ <div className="w-14 h-14 bg-slate-50 text-slate-600 flex items-center justify-center mb-10 group-hover:scale-110 group-hover:bg-slate-900 group-hover:text-white transition-all duration-500 rounded-md">
  {feat.icon}
  </div>
  <div>
@@ -109,7 +109,7 @@ export default function WhyChooseUsPage() {
  <p className="text-[10px] font-medium text-slate-400 uppercase tracking-widest mb-0.5">Next Step</p>
  <p className="text-slate-900 font-medium text-sm">Join the Program</p>
  </div>
- <button className="px-6 py-3 min-h-[44px] bg-slate-900 text-white font-medium text-[11px] uppercase tracking-wider transition-transform active:scale-95">
+ <button className="px-6 py-3 min-h-[44px] bg-slate-900 text-white font-medium text-[11px] uppercase tracking-wider transition-transform active:scale-95 rounded-md">
  Apply Now
  </button>
  </div>

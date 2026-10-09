@@ -27,7 +27,7 @@ export default function CertificateCard({ certificate }) {
  alt="Certificate Preview"
  width={120}
  height={80}
- className="opacity-80"
+ className="opacity-80 rounded-md"
  onError={(e) => {
  e.target.style.display = 'none'; // Fallback if image doesn't exist yet
  }}
@@ -41,7 +41,7 @@ export default function CertificateCard({ certificate }) {
  <div>
  <h3 className="text-lg font-bold text-neutral-900 mb-1">{courseTitle}</h3>
  <p className="text-sm text-neutral-500">Issued on {formattedDate}</p>
- <div className="mt-4 inline-block bg-neutral-100 px-3 py-1 border border-neutral-200">
+ <div className="mt-4 inline-block bg-neutral-100 px-3 py-1 border border-neutral-200 rounded-lg">
  <p className="text-xs text-neutral-500 font-mono">
  ID: <span className="font-bold text-neutral-700">{verificationCode}</span>
  </p>
@@ -53,14 +53,14 @@ export default function CertificateCard({ certificate }) {
  href={pdfUrl}
  target="_blank"
  rel="noopener noreferrer"
- className="flex-1 flex justify-center items-center gap-2 bg-blue-50 text-blue-700 hover:bg-blue-600 hover:text-white transition-colors py-2 px-4 text-sm font-semibold"
+ className="flex-1 flex justify-center items-center gap-2 bg-blue-50 text-blue-700 hover:bg-blue-600 hover:text-white transition-colors py-2 px-4 text-sm font-semibold rounded-md"
  >
  <HiOutlineEye size={16} /> View
  </a>
  <a
  href={pdfUrl}
  download
- className="flex-1 flex justify-center items-center gap-2 bg-neutral-900 text-white hover:bg-neutral-800 transition-colors py-2 px-4 text-sm font-semibold"
+ className="flex-1 flex justify-center items-center gap-2 bg-neutral-900 text-white hover:bg-neutral-800 transition-colors py-2 px-4 text-sm font-semibold rounded-md"
  >
  <HiOutlineDownload size={16} /> Download
  </a>

@@ -13,7 +13,7 @@ export default function StoryPage() {
       
       <div className="container-custom relative z-10">
         <div className="max-w-3xl mx-auto text-center mb-24">
-          <p className="inline-block px-4 py-2 border border-brand-pink/20 bg-brand-pink/5 text-xs font-extrabold uppercase tracking-widest text-brand-pink mb-8 shadow-sm">
+          <p className="inline-block px-4 py-2 border border-brand-pink/20 bg-brand-pink/5 text-xs font-extrabold uppercase tracking-widest text-brand-pink mb-8 shadow-sm rounded-md">
             Origin
           </p>
           <h1 className="text-4xl sm:text-6xl md:text-7xl font-extrabold text-slate-900 leading-[1.1] mb-8 tracking-tight">
@@ -24,10 +24,10 @@ export default function StoryPage() {
           </p>
         </div>
 
-        <div className="relative border-l-2 border-slate-200 ml-4 sm:ml-12 md:mx-auto md:max-w-4xl pb-10">
+        <div className="relative border-l-2 border-slate-200 ml-4 sm:ml-12 md:mx-auto md:max-w-4xl pb-10 rounded-lg">
           {/* Timeline Item 1 */}
           <div className="mb-16 ml-12 relative group">
-            <div className="absolute -left-[57px] top-1 h-8 w-8 bg-white border-2 border-brand-pink flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform duration-300">
+            <div className="absolute -left-[57px] top-1 h-8 w-8 bg-white border-2 border-brand-pink flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform duration-300 rounded-lg">
               <div className="w-3 h-3 bg-brand-pink"></div>
             </div>
             <p className="text-sm font-extrabold text-brand-pink uppercase tracking-widest mb-3">
@@ -42,7 +42,7 @@ export default function StoryPage() {
           </div>
           {/* Timeline Item 2 */}
           <div className="mb-16 ml-12 relative group">
-            <div className="absolute -left-[57px] top-1 h-8 w-8 bg-white border-2 border-brand-green flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform duration-300">
+            <div className="absolute -left-[57px] top-1 h-8 w-8 bg-white border-2 border-brand-green flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform duration-300 rounded-lg">
               <div className="w-3 h-3 bg-brand-green"></div>
             </div>
             <p className="text-sm font-extrabold text-brand-green uppercase tracking-widest mb-3">
@@ -57,7 +57,7 @@ export default function StoryPage() {
           </div>
           {/* Timeline Item 3 */}
           <div className="mb-16 ml-12 relative group">
-            <div className="absolute -left-[57px] top-1 h-8 w-8 bg-white border-2 border-brand-accent flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform duration-300">
+            <div className="absolute -left-[57px] top-1 h-8 w-8 bg-white border-2 border-brand-accent flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform duration-300 rounded-lg">
               <div className="w-3 h-3 bg-brand-accent"></div>
             </div>
             <p className="text-sm font-extrabold text-brand-accent uppercase tracking-widest mb-3">
@@ -72,7 +72,7 @@ export default function StoryPage() {
           </div>
           {/* Timeline Item 4 */}
           <div className="ml-12 relative group">
-            <div className="absolute -left-[57px] top-1 h-8 w-8 bg-white border-2 border-purple-500 flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform duration-300">
+            <div className="absolute -left-[57px] top-1 h-8 w-8 bg-white border-2 border-purple-500 flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform duration-300 rounded-lg">
               <div className="w-3 h-3 bg-purple-500"></div>
             </div>
             <p className="text-sm font-extrabold text-purple-500 uppercase tracking-widest mb-3">
@@ -94,7 +94,7 @@ export default function StoryPage() {
           <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Next Step</p>
           <p className="text-slate-900 font-bold text-sm">Join the Program</p>
         </div>
-        <button className="px-6 py-3 bg-brand-pink text-white font-bold text-[10px] uppercase tracking-widest shadow-lg shadow-brand-pink/30">
+        <button className="px-6 py-3 bg-brand-pink text-white font-bold text-[10px] uppercase tracking-widest shadow-lg shadow-brand-pink/30 rounded-md">
           Apply Now
         </button>
       </div>

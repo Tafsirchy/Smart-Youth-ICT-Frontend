@@ -6,15 +6,15 @@ export default function ProjectCard({ project }) {
  const { title, company, category, budget, duration, type, description, slug } = project;
 
  return (
- <div className="bg-white border border-neutral-200 overflow-hidden shadow-sm hover:shadow-xl transition-all group flex flex-col h-full">
+ <div className="bg-white border border-neutral-200 overflow-hidden shadow-sm hover:shadow-xl transition-all group flex flex-col h-full rounded-lg">
  <div className="p-6 relative flex-1 flex flex-col">
  {/* Header Label */}
  <div className="flex justify-between items-start mb-4">
- <span className="inline-flex items-center gap-1.5 px-2.5 py-1 bg-orange-50 text-orange-700 text-xs font-bold uppercase tracking-wider border border-orange-100 shadow-sm">
+ <span className="inline-flex items-center gap-1.5 px-2.5 py-1 bg-orange-50 text-orange-700 text-xs font-bold uppercase tracking-wider border border-orange-100 shadow-sm rounded-md">
  <HiOutlineBriefcase size={14} />
  {category || 'Freelance'}
  </span>
- <span className="text-emerald-700 font-bold bg-emerald-50 px-2 py-1 text-xs border border-emerald-100 shadow-sm">
+ <span className="text-emerald-700 font-bold bg-emerald-50 px-2 py-1 text-xs border border-emerald-100 shadow-sm rounded-md">
  {type || 'Remote'}
  </span>
  </div>
@@ -48,7 +48,7 @@ export default function ProjectCard({ project }) {
  <div className="p-6 pt-0 mt-auto">
  <Link 
  href={`/freelancing/${slug || title.toLowerCase().replace(/\s+/g, '-')}`} 
- className="block w-full text-center py-3 bg-neutral-900 hover:bg-neutral-800 text-white font-semibold transition-colors min-h-[44px] flex items-center justify-center text-sm tracking-wide shadow-sm"
+ className="block w-full text-center py-3 bg-neutral-900 hover:bg-neutral-800 text-white font-semibold transition-colors min-h-[44px] flex items-center justify-center text-sm tracking-wide shadow-sm rounded-md"
  >
  View Project Details
  </Link>

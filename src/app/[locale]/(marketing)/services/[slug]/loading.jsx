@@ -43,7 +43,7 @@ export default function ServiceDetailLoading() {
         {/* Pillars Skeleton */}
         <div className="grid lg:grid-cols-3 gap-8">
           {[1, 2, 3].map((i) => (
-            <div key={i} className="h-64 bg-white -[3rem] border border-slate-100 p-10 space-y-6">
+            <div key={i} className="h-64 bg-white -[3rem] border border-slate-100 p-10 space-y-6 rounded-lg">
               <div className="w-14 h-14 bg-slate-100" />
               <div className="w-1/2 h-6 bg-slate-100" />
               <div className="space-y-2">

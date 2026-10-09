@@ -135,18 +135,18 @@ export default function ProfileContent() {
  return (
  <div className="space-y-6 pb-8 max-w-6xl mx-auto">
  {/* Identity Header */}
- <div className="relative p-6 bg-slate-900 overflow-hidden shadow-xl">
+ <div className="relative p-6 bg-slate-900 overflow-hidden shadow-xl rounded-lg">
  <div className="absolute top-0 right-0 w-96 h-96 -mr-48 -mt-48 bg-blue-500/10 blur-[100px]" />
  <div className="relative z-10 flex flex-col md:flex-row items-center gap-6">
  <div className="relative group">
- <div className="w-24 h-24 bg-slate-800 border-2 border-slate-700/50 overflow-hidden shadow-xl">
+ <div className="w-24 h-24 bg-slate-800 border-2 border-slate-700/50 overflow-hidden shadow-xl rounded-lg">
  {session?.user?.image ? (
  <Image
  src={session.user.image}
  alt={session?.user?.name || "Profile avatar"}
  width={96}
  height={96}
- className="w-full h-full object-cover bg-[#f0f0f0]"
+ className="w-full h-full object-cover bg-[#f0f0f0] rounded-md"
  
 loading="lazy"
 onError={(e) => { e.target.onerror = null; e.target.srcset = ''; e.target.src = '/assets/fallback.png'; }}
@@ -161,7 +161,7 @@ decoding="async"/>
  type="file"
  ref={fileInputRef}
  accept="image/*"
- className="hidden"
+ className="hidden rounded-md"
  onChange={handleAvatarUpdate}
  />
  <button
@@ -177,7 +177,7 @@ decoding="async"/>
  <h1 className="text-3xl font-black text-white tracking-tight leading-snug">
  {session?.user?.name}
  </h1>
- <span className="px-3 py-1 bg-blue-500/10 border border-blue-500/20 text-blue-400 text-[10px] font-black uppercase tracking-widest">
+ <span className="px-3 py-1 bg-blue-500/10 border border-blue-500/20 text-blue-400 text-[10px] font-black uppercase tracking-widest rounded-md">
  {session?.user?.role?.replace("_", " ")}
  </span>
  </div>
@@ -186,13 +186,13 @@ decoding="async"/>
  </p>
 
  <div className="flex flex-wrap justify-center md:justify-start gap-2">
- <div className="px-3 py-1.5 bg-white/5 border border-white/10 flex items-center gap-2">
+ <div className="px-3 py-1.5 bg-white/5 border border-white/10 flex items-center gap-2 rounded-lg">
  <HiOutlineFingerPrint className="text-slate-500" />
  <span className="text-[10px] font-black uppercase text-slate-400 tracking-widest leading-none">
  ID Shared Securely
  </span>
  </div>
- <div className="px-3 py-1.5 bg-white/5 border border-white/10 flex items-center gap-2">
+ <div className="px-3 py-1.5 bg-white/5 border border-white/10 flex items-center gap-2 rounded-lg">
  <span className="w-2 h-2 bg-emerald-500" />
  <span className="text-[10px] font-black uppercase text-slate-400 tracking-widest leading-none">
  System Active
@@ -229,7 +229,7 @@ decoding="async"/>
  <div className="relative">
  <HiOutlineUser className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-300" />
  <input
- className="w-full pl-10 pr-3 py-3 bg-slate-50 border-none text-sm font-bold focus:ring-2 focus:ring-blue-500 transition-all leading-tight"
+ className="w-full pl-10 pr-3 py-3 bg-slate-50 border-none text-sm font-bold focus:ring-2 focus:ring-blue-500 transition-all leading-tight rounded-md"
  type="text"
  value={form.name}
  onChange={(e) => setForm({ ...form, name: e.target.value })}
@@ -243,7 +243,7 @@ decoding="async"/>
  <div className="relative">
  <HiOutlinePhone className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-300" />
  <input
- className="w-full pl-10 pr-3 py-3 bg-slate-50 border-none text-sm font-bold focus:ring-2 focus:ring-blue-500 transition-all leading-tight"
+ className="w-full pl-10 pr-3 py-3 bg-slate-50 border-none text-sm font-bold focus:ring-2 focus:ring-blue-500 transition-all leading-tight rounded-md"
  type="tel"
  value={form.phone}
  onChange={(e) =>
@@ -290,7 +290,7 @@ decoding="async"/>
  <button
  type="submit"
  disabled={saving}
- className="px-6 py-3 bg-blue-600 text-white font-black shadow-lg shadow-blue-500/20 hover:bg-blue-700 hover:-translate-y-0.5 transition-all disabled:opacity-50 flex items-center gap-2 leading-tight"
+ className="px-6 py-3 bg-blue-600 text-white font-black shadow-lg shadow-blue-500/20 hover:bg-blue-700 hover:-translate-y-0.5 transition-all disabled:opacity-50 flex items-center gap-2 leading-tight rounded-md"
  >
  {saving ? "Synchronizing..." : "Update Identity"}
  </button>
@@ -307,7 +307,7 @@ decoding="async"/>
  className="bg-slate-900 p-6 text-white shadow-xl space-y-5"
  >
  <div className="flex items-center gap-3 mb-2">
- <div className="p-2 bg-white/10 text-pink-500">
+ <div className="p-2 bg-white/10 text-pink-500 rounded-md">
  <HiOutlineKey size={20} />
  </div>
  <h3 className="text-xl font-black tracking-tight leading-snug">Security</h3>
@@ -320,7 +320,7 @@ decoding="async"/>
  </label>
  <input
  type={showOld ? "text" : "password"}
- className="w-full bg-white/5 border border-white/10 px-4 py-3 text-sm font-bold focus:ring-2 focus:ring-pink-500 transition-all pr-10 leading-tight"
+ className="w-full bg-white/5 border border-white/10 px-4 py-3 text-sm font-bold focus:ring-2 focus:ring-pink-500 transition-all pr-10 leading-tight rounded-md"
  value={passwords.old}
  onChange={(e) =>
  setPasswords({ ...passwords, old: e.target.value })
@@ -345,7 +345,7 @@ decoding="async"/>
  </label>
  <input
  type={showNew ? "text" : "password"}
- className="w-full bg-white/5 border border-white/10 px-4 py-3 text-sm font-bold focus:ring-2 focus:ring-pink-500 transition-all pr-10 leading-tight"
+ className="w-full bg-white/5 border border-white/10 px-4 py-3 text-sm font-bold focus:ring-2 focus:ring-pink-500 transition-all pr-10 leading-tight rounded-md"
  value={passwords.new}
  onChange={(e) =>
  setPasswords({ ...passwords, new: e.target.value })
@@ -370,7 +370,7 @@ decoding="async"/>
  </label>
  <input
  type="password"
- className="w-full bg-white/5 border border-white/10 px-4 py-3 text-sm font-bold focus:ring-2 focus:ring-pink-500 transition-all leading-tight"
+ className="w-full bg-white/5 border border-white/10 px-4 py-3 text-sm font-bold focus:ring-2 focus:ring-pink-500 transition-all leading-tight rounded-md"
  value={passwords.confirm}
  onChange={(e) =>
  setPasswords({ ...passwords, confirm: e.target.value })
@@ -382,7 +382,7 @@ decoding="async"/>
  <button
  type="submit"
  disabled={passSaving}
- className="w-full py-3 bg-gradient-to-r from-pink-600 to-indigo-600 text-white font-black shadow-lg hover:scale-[1.02] active:scale-95 transition-all disabled:opacity-50 leading-tight"
+ className="w-full py-3 bg-gradient-to-r from-pink-600 to-indigo-600 text-white font-black shadow-lg hover:scale-[1.02] active:scale-95 transition-all disabled:opacity-50 leading-tight rounded-md"
  >
  {passSaving ? "Hardening Security..." : "Rotat Key Protocol"}
  </button>
@@ -391,8 +391,8 @@ decoding="async"/>
  </motion.form>
 
  {/* Ecosystem Status Card */}
- <div className="bg-slate-50 p-6 border border-slate-100 text-center relative overflow-hidden">
- <div className="w-12 h-12 bg-white border border-slate-100 flex items-center justify-center mx-auto mb-3 text-emerald-500 shadow-sm">
+ <div className="bg-slate-50 p-6 border border-slate-100 text-center relative overflow-hidden rounded-lg">
+ <div className="w-12 h-12 bg-white border border-slate-100 flex items-center justify-center mx-auto mb-3 text-emerald-500 shadow-sm rounded-lg">
  <div className="w-3 h-3 bg-emerald-500 animate-pulse" />
  </div>
  <h4 className="text-sm font-black text-slate-900 uppercase tracking-widest mb-1.5 leading-tight">

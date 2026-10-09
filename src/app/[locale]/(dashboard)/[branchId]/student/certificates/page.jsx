@@ -100,7 +100,7 @@ export default function CertificatesPage() {
  <IoShareSocialOutline size={15} /> Share
  </button>
  <Link href={`/${locale}/verify-certificate/${cert._id}`} target="_blank"
- className="flex items-center justify-center px-3 py-2.5 bg-neutral-100 text-neutral-600 hover:bg-neutral-200 transition-colors">
+ className="flex items-center justify-center px-3 py-2.5 bg-neutral-100 text-neutral-600 hover:bg-neutral-200 transition-colors rounded-md">
  <IoOpenOutline size={15} />
  </Link>
  </div>

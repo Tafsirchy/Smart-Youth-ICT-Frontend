@@ -60,7 +60,7 @@ export default function PaymentsPage() {
  
  {/* Summary Cards */}
  <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
- <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="bg-white p-6 -[32px] border border-neutral-100 shadow-sm flex items-center gap-5">
+ <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="bg-white p-6 -[32px] border border-neutral-100 shadow-sm flex items-center gap-5 rounded-lg">
  <div className="w-14 h-14 bg-emerald-50 text-emerald-600 flex items-center justify-center">
  <HiOutlineCash size={28} />
  </div>
@@ -70,7 +70,7 @@ export default function PaymentsPage() {
  </div>
  </motion.div>
 
- <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1 }} className="bg-white p-6 -[32px] border border-neutral-100 shadow-sm flex items-center gap-5">
+ <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1 }} className="bg-white p-6 -[32px] border border-neutral-100 shadow-sm flex items-center gap-5 rounded-lg">
  <div className="w-14 h-14 bg-blue-50 text-blue-600 flex items-center justify-center">
  <HiOutlineLightningBolt size={28} />
  </div>
@@ -80,7 +80,7 @@ export default function PaymentsPage() {
  </div>
  </motion.div>
 
- <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2 }} className="bg-white p-6 -[32px] border border-neutral-100 shadow-sm flex items-center gap-5">
+ <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2 }} className="bg-white p-6 -[32px] border border-neutral-100 shadow-sm flex items-center gap-5 rounded-lg">
  <div className="w-14 h-14 bg-amber-50 text-amber-600 flex items-center justify-center">
  <HiOutlineExclamationCircle size={28} />
  </div>
@@ -100,7 +100,7 @@ export default function PaymentsPage() {
  </h2>
  <div className="space-y-4">
  {enrollments.map(enrollment => (
- <div key={enrollment._id} className="bg-white border border-neutral-100 p-5 shadow-sm">
+ <div key={enrollment._id} className="bg-white border border-neutral-100 p-5 shadow-sm rounded-lg">
  <h3 className="font-bold text-neutral-800 text-sm mb-3">{enrollment.course?.title?.en || enrollment.course?.title}</h3>
  <div className="flex justify-between items-center">
  <span className="text-xs font-medium text-neutral-400">Status</span>
@@ -118,7 +118,7 @@ export default function PaymentsPage() {
  <h2 className="text-xl font-bold text-neutral-900 flex items-center gap-2">
  <HiOutlineCreditCard className="text-blue-500" /> Transaction History
  </h2>
- <div className="bg-white shadow-sm ring-1 ring-neutral-100 overflow-hidden">
+ <div className="bg-white shadow-sm ring-1 ring-neutral-100 overflow-hidden rounded-lg">
  <table className="w-full text-left text-sm">
  <thead className="bg-neutral-50/50 text-neutral-500 border-b border-neutral-100">
  <tr>
@@ -131,13 +131,13 @@ export default function PaymentsPage() {
  <tbody className="divide-y divide-neutral-50">
  {payments.length > 0 ? (
  payments.map(payment => (
- <tr key={payment._id} className="hover:bg-neutral-50/30 transition-colors">
+ <tr key={payment._id} className="hover:bg-neutral-50/30 transition-colors rounded-md">
  <td className="px-6 py-4">
  <p className="font-bold text-neutral-900">{payment.course?.title?.en || payment.course?.title || 'Course Payment'}</p>
  <p className="text-[10px] font-medium text-neutral-400">{new Date(payment.createdAt).toLocaleDateString()}</p>
  </td>
  <td className="px-6 py-4">
- <span className="inline-flex items-center gap-1 px-2 py-0.5 bg-neutral-100 text-neutral-600 text-[10px] font-bold uppercase">
+ <span className="inline-flex items-center gap-1 px-2 py-0.5 bg-neutral-100 text-neutral-600 text-[10px] font-bold uppercase rounded-md">
  {payment.method}
  </span>
  </td>

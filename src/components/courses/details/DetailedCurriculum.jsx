@@ -25,17 +25,17 @@ export default function DetailedCurriculum({ course, isEnrolled }) {
  hidden: { opacity: 0 },
  visible: { opacity: 1, transition: { staggerChildren: 0.1 } }
  }}
- className="space-y-6 pt-6"
+ className="space-y-6 pt-4"
  >
  <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 border-b border-slate-100 pb-4">
  <div>
- <h2 className="text-2xl font-extrabold text-slate-900 tracking-tight">Course Curriculum</h2>
+ <h2 className="text-2xl font-bold text-slate-900 tracking-tight">Course Curriculum</h2>
  <p className="text-sm text-slate-500 font-medium mt-1">Master your craft through comprehensive modules</p>
  </div>
- <div className="flex gap-4 text-xs font-bold text-slate-500 uppercase tracking-widest bg-slate-50 px-4 py-2">
- <span className="flex items-center gap-1.5"><IoTimeOutline size={16} className="text-indigo-500" /> {course?.duration || '3 Months'}</span>
+ <div className="flex gap-4 text-xs font-semibold text-slate-600 bg-slate-50 px-4 py-2 rounded-lg border border-slate-100">
+ <span className="flex items-center gap-1.5"><IoTimeOutline size={16} className="text-brand-pink" /> {course?.duration || '3 Months'}</span>
  <span className="w-px h-4 bg-slate-300 mx-1" />
- <span className="flex items-center gap-1.5"><IoPlayCircleOutline size={16} className="text-indigo-500" /> {totalLessons} Lessons</span>
+ <span className="flex items-center gap-1.5"><IoPlayCircleOutline size={16} className="text-brand-pink" /> {totalLessons} Lessons</span>
  </div>
  </div>
 
@@ -46,25 +46,25 @@ export default function DetailedCurriculum({ course, isEnrolled }) {
  <motion.div 
  key={i}
  variants={{ hidden: { opacity: 0, y: 10 }, visible: { opacity: 1, y: 0 } }}
- className={` border transition-all duration-300 overflow-hidden ${isOpen ? 'border-indigo-200 bg-white shadow-xl shadow-indigo-500/5' : 'border-slate-200 bg-slate-50 hover:bg-white hover:border-slate-300'}`}
+ className={`border rounded-lg transition-all duration-300 overflow-hidden ${isOpen ? 'border-pink-200 bg-white shadow-md shadow-pink-500/5' : 'border-slate-200 bg-slate-50 hover:bg-white hover:border-slate-300'}`}
  >
  <button 
  onClick={() => setOpenIndex(isOpen ? -1 : i)}
  className="w-full flex items-center justify-between p-5 text-left"
  >
  <div className="flex items-center gap-4">
- <div className={`w-10 h-10 flex items-center justify-center font-black text-sm transition-colors ${isOpen ? 'bg-indigo-600 text-white' : 'bg-slate-200 text-slate-600'}`}>
+ <div className={`w-10 h-10 flex items-center justify-center font-bold text-sm rounded-lg transition-colors ${isOpen ? 'bg-brand-pink text-white' : 'bg-slate-200 text-slate-600'}`}>
  {i + 1}
  </div>
  <div>
- <h3 className={`font-bold text-base md:text-lg ${isOpen ? 'text-indigo-900' : 'text-slate-800'}`}>
+ <h3 className={`font-semibold text-base md:text-lg ${isOpen ? 'text-slate-900' : 'text-slate-800'}`}>
  {module.title}
  </h3>
- <p className="text-xs font-semibold text-slate-400 mt-0.5">{module.topics?.length || 0} Lessons</p>
+ <p className="text-xs font-medium text-slate-500 mt-0.5">{module.topics?.length || 0} Lessons</p>
  </div>
  </div>
- <div className={`p-1 shrink-0 transition-transform duration-300 ${isOpen ? 'rotate-180 bg-indigo-100 text-indigo-600' : 'text-slate-400'}`}>
- <IoChevronDownOutline size={20} />
+ <div className={`p-1.5 shrink-0 rounded-full transition-transform duration-300 ${isOpen ? 'rotate-180 bg-pink-50 text-brand-pink' : 'text-slate-400 bg-slate-100'}`}>
+ <IoChevronDownOutline size={18} />
  </div>
  </button>
  
@@ -98,7 +98,7 @@ export default function DetailedCurriculum({ course, isEnrolled }) {
  
  <div className="flex gap-4 items-center">
  {isPreview && !isEnrolled && (
- <span className="text-[10px] font-bold text-emerald-600 bg-emerald-50 px-2 py-0.5 uppercase tracking-wider">Preview</span>
+ <span className="text-[10px] font-bold text-emerald-600 bg-emerald-50 px-2 py-0.5 uppercase tracking-wider rounded-md">Preview</span>
  )}
  <div className="text-xs font-semibold text-slate-400 flex items-center gap-1">
  <IoTimeOutline size={14} /> 10:00

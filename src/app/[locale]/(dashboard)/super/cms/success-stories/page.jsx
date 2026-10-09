@@ -151,7 +151,7 @@ export default function SuccessStoriesPage() {
  className="bg-white border border-slate-100 overflow-hidden group hover:shadow-2xl hover:shadow-brand-green/10 transition-all flex flex-col"
  >
  {/* Proof Preview Header */}
- <div className="h-40 sm:h-48 bg-slate-50 relative overflow-hidden group-hover:h-44 sm:group-hover:h-52 transition-all duration-500">
+ <div className="h-40 sm:h-48 bg-slate-50 relative overflow-hidden group-hover:h-44 sm:group-hover:h-52 transition-all duration-500 rounded-md">
  {story.proofImage ? (
  <Image
  src={story.proofImage}
@@ -188,7 +188,7 @@ export default function SuccessStoriesPage() {
 
  <div className="p-4 sm:p-5 flex-1 flex flex-col">
  <div className="flex items-center gap-3 mb-4">
- <div className="w-12 h-12 bg-slate-50 border-2 border-white shadow-sm overflow-hidden flex-shrink-0 group-hover:rotate-3 transition-transform">
+ <div className="w-12 h-12 bg-slate-50 border-2 border-white shadow-sm overflow-hidden flex-shrink-0 group-hover:rotate-3 transition-transform rounded-lg">
  {story.studentAvatar ? (
  <Image
  src={story.studentAvatar}
@@ -216,7 +216,7 @@ export default function SuccessStoriesPage() {
  </div>
  </div>
 
- <div className="bg-rose-50/50 p-3 mb-4 relative group-hover:bg-rose-50 transition-colors">
+ <div className="bg-rose-50/50 p-3 mb-4 relative group-hover:bg-rose-50 transition-colors rounded-md">
  <p className="text-rose-600 font-black text-sm relative z-10 leading-[1.4]">
  “{story.resultSummary}”
  </p>
@@ -254,7 +254,7 @@ export default function SuccessStoriesPage() {
  <motion.div
  initial={{ opacity: 0, y: 20 }}
  animate={{ opacity: 1, y: 0 }}
- className="bg-white w-full max-w-xl sm: p-4 sm:p-6 shadow-2xl relative max-h-[90vh] overflow-y-auto flex flex-col custom-scrollbar"
+ className="bg-white w-full max-w-xl sm: p-4 sm:p-6 shadow-2xl relative max-h-[90vh] overflow-y-auto flex flex-col custom-scrollbar rounded-lg"
  >
  <div className="flex items-center justify-between mb-4 shrink-0">
  <h3 className="text-xl font-black text-slate-900 leading-[1.4]">
@@ -301,7 +301,7 @@ export default function SuccessStoriesPage() {
  </label>
  <input
  required
- className="w-full px-3 py-2 bg-slate-50 border-2 border-transparent focus:border-indigo-500/20 focus:bg-white transition-all outline-none text-sm font-bold leading-[1.4]"
+ className="w-full px-3 py-2 bg-slate-50 border-2 border-transparent focus:border-indigo-500/20 focus:bg-white transition-all outline-none text-sm font-bold leading-[1.4] rounded-md"
  value={formData.studentName}
  onChange={(e) =>
  setFormData({
@@ -318,7 +318,7 @@ export default function SuccessStoriesPage() {
  <input
  required
  placeholder="e.g. Earned $500 on Fiverr"
- className="w-full px-3 py-2 bg-slate-50 border-2 border-transparent focus:border-rose-500/20 focus:bg-white transition-all outline-none text-sm font-bold text-rose-600 leading-[1.4]"
+ className="w-full px-3 py-2 bg-slate-50 border-2 border-transparent focus:border-rose-500/20 focus:bg-white transition-all outline-none text-sm font-bold text-rose-600 leading-[1.4] rounded-md"
  value={formData.resultSummary}
  onChange={(e) =>
  setFormData({
@@ -353,10 +353,10 @@ export default function SuccessStoriesPage() {
  </select>
  </div>
  <div className="flex items-center pt-1 sm:pt-4">
- <label className="flex items-center gap-2 cursor-pointer group">
+ <label className="flex items-center gap-2 cursor-pointer group rounded-md">
  <input
  type="checkbox"
- className="w-4 h-4 border-2 border-slate-200 text-indigo-600 focus:ring-transparent transition-all"
+ className="w-4 h-4 border-2 border-slate-200 text-indigo-600 focus:ring-transparent transition-all rounded-md"
  checked={formData.isPublished}
  onChange={(e) =>
  setFormData({
@@ -399,7 +399,7 @@ export default function SuccessStoriesPage() {
  </label>
  <input
  placeholder="e.g. Google, Upwork"
- className="w-full px-3 py-2 bg-slate-50 border-2 border-transparent focus:border-indigo-500/20 focus:bg-white transition-all outline-none text-sm font-bold leading-[1.4]"
+ className="w-full px-3 py-2 bg-slate-50 border-2 border-transparent focus:border-indigo-500/20 focus:bg-white transition-all outline-none text-sm font-bold leading-[1.4] rounded-md"
  value={formData.company}
  onChange={(e) =>
  setFormData({ ...formData, company: e.target.value })
@@ -412,7 +412,7 @@ export default function SuccessStoriesPage() {
  </label>
  <input
  placeholder="e.g. Dhaka, Remote"
- className="w-full px-3 py-2 bg-slate-50 border-2 border-transparent focus:border-indigo-500/20 focus:bg-white transition-all outline-none text-sm leading-[1.4]"
+ className="w-full px-3 py-2 bg-slate-50 border-2 border-transparent focus:border-indigo-500/20 focus:bg-white transition-all outline-none text-sm leading-[1.4] rounded-md"
  value={formData.location}
  onChange={(e) =>
  setFormData({ ...formData, location: e.target.value })
@@ -434,7 +434,7 @@ export default function SuccessStoriesPage() {
  <input
  required
  placeholder="YouTube link"
- className="w-full px-3 py-2 bg-slate-50 border-2 border-transparent focus:border-indigo-500/20 focus:bg-white transition-all outline-none text-sm leading-[1.4]"
+ className="w-full px-3 py-2 bg-slate-50 border-2 border-transparent focus:border-indigo-500/20 focus:bg-white transition-all outline-none text-sm leading-[1.4] rounded-md"
  value={formData.videoUrl}
  onChange={(e) =>
  setFormData({ ...formData, videoUrl: e.target.value })
@@ -448,7 +448,7 @@ export default function SuccessStoriesPage() {
  <input
  type="file"
  accept="image/*"
- className="w-full px-3 py-1.5 bg-slate-50 border-2 border-transparent focus:border-indigo-500/20 focus:bg-white transition-all outline-none text-sm"
+ className="w-full px-3 py-1.5 bg-slate-50 border-2 border-transparent focus:border-indigo-500/20 focus:bg-white transition-all outline-none text-sm rounded-md"
  onChange={(e) => {
  const file = e.target.files?.[0];
  if (file) {
@@ -495,7 +495,7 @@ export default function SuccessStoriesPage() {
  </button>
  <button
  type="submit"
- className="flex-[2] py-2.5 bg-slate-900 text-white font-black shadow-xl shadow-slate-900/10 hover:bg-black transition-all flex items-center justify-center gap-1.5 leading-[1.4]"
+ className="flex-[2] py-2.5 bg-slate-900 text-white font-black shadow-xl shadow-slate-900/10 hover:bg-black transition-all flex items-center justify-center gap-1.5 leading-[1.4] rounded-md"
  >
  <LuCheck className="w-5 h-5" />
  {editingStory ? "Update Story" : "Publish Achievement"}

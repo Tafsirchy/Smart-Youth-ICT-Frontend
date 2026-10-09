@@ -154,7 +154,7 @@ export default function BlogsPage() {
  className="bg-white border border-slate-100 overflow-hidden group hover:shadow-2xl hover:shadow-indigo-500/10 transition-all flex flex-col"
  >
  {/* Thumbnail Header */}
- <div className="h-40 sm:h-48 bg-slate-50 relative overflow-hidden group-hover:h-44 sm:group-hover:h-52 transition-all duration-500">
+ <div className="h-40 sm:h-48 bg-slate-50 relative overflow-hidden group-hover:h-44 sm:group-hover:h-52 transition-all duration-500 rounded-md">
  {blog.thumbnail ? (
  <Image
  src={blog.thumbnail}
@@ -187,7 +187,7 @@ export default function BlogsPage() {
  {blog.isPublished ? "Published" : "Draft"}
  </div>
  {blog.isFeatured && (
- <div className="px-3 py-1 text-[10px] font-black uppercase tracking-widest backdrop-blur-md shadow-sm bg-brand-pink/90 text-white flex items-center gap-1.5">
+ <div className="px-3 py-1 text-[10px] font-black uppercase tracking-widest backdrop-blur-md shadow-sm bg-brand-pink/90 text-white flex items-center gap-1.5 rounded-lg">
  <div className="w-1.5 h-1.5 bg-white animate-pulse" />
  Featured
  </div>
@@ -221,7 +221,7 @@ export default function BlogsPage() {
  </button>
  <Link
  href={`/${locale || 'en'}/blog/${blog.slug}`}
- className="w-10 h-10 flex items-center justify-center bg-slate-50 text-slate-400 hover:text-emerald-600 hover:bg-emerald-50 transition-all shrink-0"
+ className="w-10 h-10 flex items-center justify-center bg-slate-50 text-slate-400 hover:text-emerald-600 hover:bg-emerald-50 transition-all shrink-0 rounded-md"
  aria-label="View Blog"
  >
  <LuEye className="w-4 h-4" />
@@ -247,7 +247,7 @@ export default function BlogsPage() {
  <motion.div
  initial={{ opacity: 0, y: 20 }}
  animate={{ opacity: 1, y: 0 }}
- className="bg-white w-full max-w-4xl sm: p-4 sm:p-6 shadow-2xl relative max-h-[90vh] overflow-y-auto flex flex-col custom-scrollbar"
+ className="bg-white w-full max-w-4xl sm: p-4 sm:p-6 shadow-2xl relative max-h-[90vh] overflow-y-auto flex flex-col custom-scrollbar rounded-lg"
  >
  <div className="flex items-center justify-between mb-4 shrink-0">
  <h3 className="text-xl font-black text-slate-900 leading-[1.4]">
@@ -275,11 +275,11 @@ export default function BlogsPage() {
  label="Blog Thumbnail"
  />
  
- <div className="bg-slate-50 p-4 space-y-4 border border-slate-100">
- <label className="flex items-center gap-3 cursor-pointer group">
+ <div className="bg-slate-50 p-4 space-y-4 border border-slate-100 rounded-lg">
+ <label className="flex items-center gap-3 cursor-pointer group rounded-md">
  <input
  type="checkbox"
- className="w-5 h-5 border-2 border-slate-200 text-indigo-600 focus:ring-transparent transition-all"
+ className="w-5 h-5 border-2 border-slate-200 text-indigo-600 focus:ring-transparent transition-all rounded-md"
  checked={formData.isPublished}
  onChange={(e) =>
  setFormData({
@@ -293,10 +293,10 @@ export default function BlogsPage() {
  </span>
  </label>
 
- <label className="flex items-center gap-3 cursor-pointer group">
+ <label className="flex items-center gap-3 cursor-pointer group rounded-md">
  <input
  type="checkbox"
- className="w-5 h-5 border-2 border-slate-200 text-brand-pink focus:ring-transparent transition-all"
+ className="w-5 h-5 border-2 border-slate-200 text-brand-pink focus:ring-transparent transition-all rounded-md"
  checked={formData.isFeatured}
  onChange={(e) =>
  setFormData({
@@ -320,7 +320,7 @@ export default function BlogsPage() {
  </label>
  <input
  required
- className="w-full px-4 py-2.5 bg-slate-50 border-2 border-transparent focus:border-indigo-500/20 focus:bg-white transition-all outline-none font-bold text-slate-900"
+ className="w-full px-4 py-2.5 bg-slate-50 border-2 border-transparent focus:border-indigo-500/20 focus:bg-white transition-all outline-none font-bold text-slate-900 rounded-md"
  value={formData.title}
  onChange={(e) =>
  setFormData({
@@ -337,7 +337,7 @@ export default function BlogsPage() {
  Tags (Comma Separated)
  </label>
  <input
- className="w-full px-4 py-2.5 bg-slate-50 border-2 border-transparent focus:border-indigo-500/20 focus:bg-white transition-all outline-none text-sm font-medium"
+ className="w-full px-4 py-2.5 bg-slate-50 border-2 border-transparent focus:border-indigo-500/20 focus:bg-white transition-all outline-none text-sm font-medium rounded-md"
  value={formData.tags}
  onChange={(e) =>
  setFormData({
@@ -395,7 +395,7 @@ export default function BlogsPage() {
  </button>
  <button
  type="submit"
- className="flex-[2] py-3 bg-slate-900 text-white font-black shadow-xl shadow-slate-900/10 hover:bg-black transition-all flex items-center justify-center gap-1.5"
+ className="flex-[2] py-3 bg-slate-900 text-white font-black shadow-xl shadow-slate-900/10 hover:bg-black transition-all flex items-center justify-center gap-1.5 rounded-md"
  >
  <LuCheck className="w-5 h-5" />
  {editingBlog ? "Save Changes" : "Publish Post"}

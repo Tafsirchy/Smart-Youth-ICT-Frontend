@@ -106,7 +106,7 @@ export default function PopularCourses() {
  }, []);
 
  return (
- <section className="section py-12 sm:py-16 md:py-20 bg-slate-50 relative overflow-hidden">
+ <section className="section py-12 sm:py-16 md:py-20 bg-slate-50 relative overflow-hidden rounded-sm">
  {/* Decorative background elements */}
  <div className="absolute top-0 left-0 w-full h-full pointer-events-none">
  <div className="absolute top-[-10%] left-[-5%] w-[40%] h-[40%] bg-pink-100/30 blur-[100px]" />
@@ -121,7 +121,7 @@ export default function PopularCourses() {
  whileInView={{ opacity: 1, y: 0 }}
  viewport={{ once: true }}
  >
- <span className="inline-block px-4 py-1.5 bg-slate-900 text-white text-[10px] font-black uppercase tracking-[0.3em] mb-6 shadow-xl shadow-slate-200">
+ <span className="inline-block px-4 py-1.5 bg-slate-900 text-white text-[10px] font-black uppercase tracking-[0.3em] mb-6 shadow-xl shadow-slate-200 rounded-md">
  Skill Up Daily
  </span>
  <h2 className="text-2xl sm:text-4xl md:text-5xl font-black text-slate-900 leading-[1.15] mb-4 sm:mb-6 md:mb-8 tracking-tighter">
@@ -142,7 +142,7 @@ export default function PopularCourses() {
  >
  {/* Enhanced Search Bar */}
  <div className="relative max-w-2xl mx-auto group">
- <div className="flex items-center bg-white -[2rem] p-2 border border-slate-200 shadow-sm hover:shadow-lg hover:-translate-y-0.5 transition-all duration-300 focus-within:border-blue-400 focus-within:ring-4 focus-within:ring-blue-500/10 focus-within:-translate-y-0.5 focus-within:shadow-lg">
+ <div className="flex items-center bg-white -[2rem] p-2 border border-slate-200 shadow-sm hover:shadow-lg hover:-translate-y-0.5 transition-all duration-300 focus-within:border-blue-400 focus-within:ring-4 focus-within:ring-blue-500/10 focus-within:-translate-y-0.5 focus-within:shadow-lg rounded-lg">
  <div className="pl-4 pr-3">
  <IoSearchOutline
  size={20}
@@ -166,7 +166,7 @@ export default function PopularCourses() {
  </button>
  )}
  <button 
- className="hidden sm:block px-8 py-3.5 bg-slate-900 text-white text-[10px] font-black uppercase tracking-[0.2em] hover:bg-blue-600 transition-colors shrink-0 shadow-sm"
+ className="hidden sm:block px-8 py-3.5 bg-slate-900 text-white text-[10px] font-black uppercase tracking-[0.2em] hover:bg-blue-600 transition-colors shrink-0 shadow-sm rounded-md"
  >
  Search
  </button>
@@ -262,7 +262,7 @@ export default function PopularCourses() {
 
  {/* Empty State */}
  {isEmptyState && (
- <div className="text-center py-10 sm:py-12 bg-white sm:-[3rem] shadow-sm border border-slate-100 mt-0">
+ <div className="text-center py-10 sm:py-12 bg-white sm:-[3rem] shadow-sm border border-slate-100 mt-0 rounded-lg">
  <div className="inline-flex items-center justify-center w-20 h-20 bg-slate-50 text-slate-300 mb-6">
  <IoSearchOutline size={40} />
  </div>
@@ -310,7 +310,7 @@ export default function PopularCourses() {
  >
  <Link
  href={`/${locale}/courses`}
- className="inline-flex items-center gap-3 px-8 py-4 sm:px-10 sm:py-5 bg-white text-slate-900 font-black uppercase tracking-[0.15em] text-xs -[2rem] shadow-lg shadow-slate-200 hover:shadow-xl hover:shadow-blue-200 transition-all border border-slate-100 group min-h-[48px]"
+ className="inline-flex items-center gap-3 px-8 py-4 sm:px-10 sm:py-5 bg-white text-slate-900 font-black uppercase tracking-[0.15em] text-xs -[2rem] shadow-lg shadow-slate-200 hover:shadow-xl hover:shadow-blue-200 transition-all border border-slate-100 group min-h-[48px] rounded-md"
  >
  Explore Master Catalog
  <IoArrowForwardOutline

@@ -119,14 +119,14 @@ export default function FreelancingDirectory() {
  return (
  <div className="bg-neutral-50 min-h-screen pb-24 md:pb-0 flex flex-col">
  {/* Hero Section */}
- <section className="bg-neutral-900 py-12 md:py-20 text-center px-4 sm:px-6 lg:px-8 relative overflow-hidden">
+ <section className="bg-neutral-900 py-12 md:py-20 text-center px-4 sm:px-6 lg:px-8 relative overflow-hidden rounded-md">
  {/* Decorative grid pattern */}
  <div className="absolute inset-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:24px_24px] pointer-events-none opacity-20"></div>
  <div className="relative z-10 max-w-4xl mx-auto">
  <motion.span 
  initial={{ opacity: 0, y: -10 }}
  animate={{ opacity: 1, y: 0 }}
- className="inline-block mb-3 px-4 py-1.5 text-xs font-bold uppercase tracking-wider text-orange-400 bg-orange-400/10 border border-orange-400/20"
+ className="inline-block mb-3 px-4 py-1.5 text-xs font-bold uppercase tracking-wider text-orange-400 bg-orange-400/10 border border-orange-400/20 rounded-md"
  >
  Opportunities
  </motion.span>
@@ -152,10 +152,10 @@ export default function FreelancingDirectory() {
  transition={{ delay: 0.3 }}
  className="flex flex-col sm:flex-row justify-center gap-4 max-w-md mx-auto px-4"
  >
- <a href="#projects" className="bg-orange-500 hover:bg-orange-600 text-white text-center py-3 font-bold transition-all min-h-[44px] flex items-center justify-center px-6">
+ <a href="#projects" className="bg-orange-500 hover:bg-orange-600 text-white text-center py-3 font-bold transition-all min-h-[44px] flex items-center justify-center px-6 rounded-md">
  Browse Open Projects
  </a>
- <button className="bg-white/10 hover:bg-white/20 text-white border border-white/20 py-3 font-bold transition-all min-h-[44px] flex items-center justify-center px-6">
+ <button className="bg-white/10 hover:bg-white/20 text-white border border-white/20 py-3 font-bold transition-all min-h-[44px] flex items-center justify-center px-6 rounded-md">
  How It Works
  </button>
  </motion.div>
@@ -178,7 +178,7 @@ export default function FreelancingDirectory() {
  <input 
  type="text"
  placeholder="Search projects..."
- className="w-full pl-10 pr-10 py-2.5 border border-neutral-300 bg-white text-neutral-900 text-base focus:outline-none focus:ring-2 focus:ring-orange-400 focus:border-orange-400 shadow-sm min-h-[44px]"
+ className="w-full pl-10 pr-10 py-2.5 border border-neutral-300 bg-white text-neutral-900 text-base focus:outline-none focus:ring-2 focus:ring-orange-400 focus:border-orange-400 shadow-sm min-h-[44px] rounded-md"
  value={searchQuery}
  onChange={(e) => setSearchQuery(e.target.value)}
  />
@@ -237,7 +237,7 @@ export default function FreelancingDirectory() {
  </AnimatePresence>
  </motion.div>
  ) : (
- <div className="text-center py-16 bg-white border border-neutral-200 shadow-sm max-w-md mx-auto">
+ <div className="text-center py-16 bg-white border border-neutral-200 shadow-sm max-w-md mx-auto rounded-lg">
  <div className="w-12 h-12 bg-neutral-100 flex items-center justify-center mx-auto mb-4 text-neutral-400">
  <HiBriefcase size={24} />
  </div>
@@ -255,7 +255,7 @@ export default function FreelancingDirectory() {
  {!loading && (
  <div className="mt-12 text-center">
  <p className="text-sm text-neutral-500 mb-4">Showing {filteredProjects.length} of {processedProjects.length} opportunities</p>
- <button className="bg-white border border-neutral-300 text-neutral-700 hover:bg-neutral-50 font-bold py-2.5 px-6 transition-colors shadow-sm min-h-[44px]">
+ <button className="bg-white border border-neutral-300 text-neutral-700 hover:bg-neutral-50 font-bold py-2.5 px-6 transition-colors shadow-sm min-h-[44px] rounded-md">
  Load More Projects
  </button>
  </div>
@@ -268,7 +268,7 @@ export default function FreelancingDirectory() {
  <p className="text-[10px] font-black text-neutral-500 uppercase tracking-widest">Opportunities</p>
  <p className="text-neutral-900 font-bold text-sm">Find Your Project</p>
  </div>
- <button className="px-5 py-3 min-h-[44px] bg-orange-500 text-white font-black text-[10px] uppercase tracking-widest shadow-lg shadow-orange-500/30">
+ <button className="px-5 py-3 min-h-[44px] bg-orange-500 text-white font-black text-[10px] uppercase tracking-widest shadow-lg shadow-orange-500/30 rounded-md">
  Apply Now
  </button>
  </div>

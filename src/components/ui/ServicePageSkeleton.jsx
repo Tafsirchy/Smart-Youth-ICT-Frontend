@@ -25,12 +25,12 @@ export default function ServicePageSkeleton() {
  </div>
  </div>
  <div className="flex-1 hidden lg:block">
- <div className="aspect-square bg-slate-50 -[4rem] animate-pulse border border-slate-100" />
+ <div className="aspect-square bg-slate-50 -[4rem] animate-pulse border border-slate-100 rounded-lg" />
  </div>
  </div>
 
  {/* Bento Grid Header Skeleton */}
- <div className="mb-12 border-l-4 border-slate-100 pl-8 space-y-4">
+ <div className="mb-12 border-l-4 border-slate-100 pl-8 space-y-4 rounded-lg">
  <div className="h-4 w-32 bg-slate-100 animate-pulse" />
  <div className="h-12 w-2/3 bg-slate-100 animate-pulse" />
  </div>
@@ -38,7 +38,7 @@ export default function ServicePageSkeleton() {
  {/* Bento Grid Skeleton */}
  <div className="grid lg:grid-cols-3 gap-8">
  {[1, 2, 3].map((i) => (
- <div key={i} className="bg-white -[3rem] p-12 h-64 border border-slate-100 animate-pulse space-y-6">
+ <div key={i} className="bg-white -[3rem] p-12 h-64 border border-slate-100 animate-pulse space-y-6 rounded-lg">
  <div className="w-14 h-14 bg-slate-100" />
  <div className="h-8 w-3/4 bg-slate-100" />
  <div className="space-y-2">

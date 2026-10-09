@@ -166,15 +166,15 @@ export default function PortfolioBuilderPage() {
  <div className="lg:col-span-2 space-y-8">
  <form onSubmit={handleSave} className="space-y-8">
  {/* Basic Info */}
- <div className="bg-white shadow-sm border border-neutral-200 p-6 md:p-8">
+ <div className="bg-white shadow-sm border border-neutral-200 p-6 md:p-8 rounded-lg">
  <h2 className="text-xl font-bold text-neutral-900 mb-6 border-b border-neutral-100 pb-4">Profile Information</h2>
  
  <div className="space-y-5">
  <div>
  <label className="block text-sm font-medium text-neutral-700 mb-2">Public Username (slug)</label>
- <div className="flex shadow-sm border border-neutral-300 overflow-hidden focus-within:ring-2 focus-within:ring-blue-500">
+ <div className="flex shadow-sm border border-neutral-300 overflow-hidden focus-within:ring-2 focus-within:ring-blue-500 rounded-lg">
  <span className="inline-flex items-center px-4 bg-neutral-50 border-r border-neutral-300 text-neutral-500 text-sm">syict.com/p/</span>
- <input type="text" name="username" value={formData.username} onChange={handleChange} className="flex-1 block w-full outline-none px-3 py-2.5 sm:text-sm" placeholder="e.g. tafsirchy" />
+ <input type="text" name="username" value={formData.username} onChange={handleChange} className="flex-1 block w-full outline-none px-3 py-2.5 sm:text-sm rounded-md" placeholder="e.g. tafsirchy" />
  </div>
  </div>
 
@@ -185,32 +185,32 @@ export default function PortfolioBuilderPage() {
 
  <div>
  <label className="block text-sm font-medium text-neutral-700 mb-2">Skills (Comma separated)</label>
- <input type="text" name="skills" value={formData.skills} onChange={handleChange} className="w-full border border-neutral-300 p-3 outline-none focus:ring-2 focus:ring-blue-500 transition-all" placeholder="React, Node.js, Graphic Design..." />
+ <input type="text" name="skills" value={formData.skills} onChange={handleChange} className="w-full border border-neutral-300 p-3 outline-none focus:ring-2 focus:ring-blue-500 transition-all rounded-md" placeholder="React, Node.js, Graphic Design..." />
  </div>
  </div>
  </div>
 
  {/* Social & Links */}
- <div className="bg-white shadow-sm border border-neutral-200 p-6 md:p-8">
+ <div className="bg-white shadow-sm border border-neutral-200 p-6 md:p-8 rounded-lg">
  <h2 className="text-xl font-bold text-neutral-900 mb-6 border-b border-neutral-100 pb-4 flex items-center gap-2">
  <HiOutlineLink className="text-neutral-500" /> Links & Socials
  </h2>
  
  <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
- <input type="url" name="github" value={formData.github} onChange={handleChange} className="w-full border border-neutral-300 p-3 outline-none focus:ring-2 focus:ring-blue-500" placeholder="GitHub URL" />
- <input type="url" name="linkedin" value={formData.linkedin} onChange={handleChange} className="w-full border border-neutral-300 p-3 outline-none focus:ring-2 focus:ring-blue-500" placeholder="LinkedIn URL" />
- <input type="url" name="website" value={formData.website} onChange={handleChange} className="w-full border border-neutral-300 p-3 outline-none focus:ring-2 focus:ring-blue-500" placeholder="Personal Website" />
- <input type="url" name="resumeUrl" value={formData.resumeUrl} onChange={handleChange} className="w-full border border-neutral-300 p-3 outline-none focus:ring-2 focus:ring-blue-500" placeholder="Resume PDF URL" />
+ <input type="url" name="github" value={formData.github} onChange={handleChange} className="w-full border border-neutral-300 p-3 outline-none focus:ring-2 focus:ring-blue-500 rounded-md" placeholder="GitHub URL" />
+ <input type="url" name="linkedin" value={formData.linkedin} onChange={handleChange} className="w-full border border-neutral-300 p-3 outline-none focus:ring-2 focus:ring-blue-500 rounded-md" placeholder="LinkedIn URL" />
+ <input type="url" name="website" value={formData.website} onChange={handleChange} className="w-full border border-neutral-300 p-3 outline-none focus:ring-2 focus:ring-blue-500 rounded-md" placeholder="Personal Website" />
+ <input type="url" name="resumeUrl" value={formData.resumeUrl} onChange={handleChange} className="w-full border border-neutral-300 p-3 outline-none focus:ring-2 focus:ring-blue-500 rounded-md" placeholder="Resume PDF URL" />
  </div>
  </div>
 
  <div className="flex items-center justify-between">
- <label className="flex items-center gap-3 cursor-pointer">
- <input type="checkbox" name="isPublic" checked={formData.isPublic} onChange={handleChange} className="w-5 h-5 text-blue-600 border-gray-300" />
+ <label className="flex items-center gap-3 cursor-pointer rounded-md">
+ <input type="checkbox" name="isPublic" checked={formData.isPublic} onChange={handleChange} className="w-5 h-5 text-blue-600 border-gray-300 rounded-md" />
  <span className="text-sm font-medium text-neutral-700">Make Portfolio Public</span>
  </label>
 
- <button type="submit" disabled={saving} className="btn-primary px-8 py-3 shadow-lg shadow-blue-500/20">
+ <button type="submit" disabled={saving} className="btn-primary px-8 py-3 shadow-lg shadow-blue-500/20 rounded-md">
  {saving ? 'Saving...' : 'Save Settings'}
  </button>
  </div>
@@ -233,7 +233,7 @@ export default function PortfolioBuilderPage() {
  <div className="space-y-4">
  {projects.length > 0 ? (
  projects.map((project) => (
- <div key={project._id} className="bg-white border border-neutral-200 p-4 shadow-sm hover:shadow-md transition-shadow group">
+ <div key={project._id} className="bg-white border border-neutral-200 p-4 shadow-sm hover:shadow-md transition-shadow group rounded-lg">
  <div className="flex justify-between items-start mb-2">
  <h3 className="font-bold text-neutral-900 line-clamp-1">{project.title}</h3>
  <div className="flex gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
@@ -250,7 +250,7 @@ export default function PortfolioBuilderPage() {
  </div>
  ))
  ) : (
- <div className="p-8 border-2 border-dashed border-neutral-100 text-center">
+ <div className="p-8 border-2 border-dashed border-neutral-100 text-center rounded-lg">
  <HiOutlineBriefcase className="mx-auto text-neutral-300 mb-2" size={32} />
  <p className="text-neutral-400 text-sm">No projects added yet.</p>
  </div>
@@ -307,7 +307,7 @@ export default function PortfolioBuilderPage() {
  <img 
  src={projectForm.imageUrl} 
  alt="Preview" 
- className="object-cover bg-[#f0f0f0]" 
+ className="object-cover bg-[#f0f0f0] rounded-md" 
  style={{ maxWidth: '100%', maxHeight: '300px' }} 
  loading="lazy" onError={(e) => { e.target.onerror = null; e.target.srcset = ''; e.target.src = '/assets/fallback.png'; }} decoding="async"/>
  </div>
@@ -316,7 +316,7 @@ export default function PortfolioBuilderPage() {
 
  <div className="pt-4 flex gap-3">
  <button type="button" onClick={() => setIsModalOpen(false)} className="flex-1 py-3 font-bold text-neutral-500 hover:bg-neutral-100 transition-colors">Cancel</button>
- <button type="submit" disabled={saving} className="flex-1 py-3 font-bold bg-blue-600 text-white shadow-lg shadow-blue-500/30 hover:bg-blue-700 transition-colors">
+ <button type="submit" disabled={saving} className="flex-1 py-3 font-bold bg-blue-600 text-white shadow-lg shadow-blue-500/30 hover:bg-blue-700 transition-colors rounded-md">
  {saving ? 'Saving...' : (editingProject ? 'Update' : 'Add Project')}
  </button>
  </div>

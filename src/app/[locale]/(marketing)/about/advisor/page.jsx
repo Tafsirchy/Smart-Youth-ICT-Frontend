@@ -77,7 +77,7 @@ export default function AdvisoryBoardPage() {
  {loading ? (
  <div className="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
  {[...Array(8)].map((_, i) => (
- <div key={i} className="aspect-[3/4] bg-slate-50 animate-pulse border border-slate-100"></div>
+ <div key={i} className="aspect-[3/4] bg-slate-50 animate-pulse border border-slate-100 rounded-lg"></div>
  ))}
  </div>
  ) : (
@@ -89,7 +89,7 @@ export default function AdvisoryBoardPage() {
  whileInView={{ opacity: 1, y: 0 }}
  viewport={{ once: true, margin: "-50px" }}
  transition={{ delay: i * 0.1, duration: 0.5 }}
- className="group cursor-pointer flex flex-col"
+ className="group cursor-pointer flex flex-col rounded-md"
  onClick={() => setSelectedMember(advisor)}
  >
  {/* Magazine style portrait */}
@@ -173,7 +173,7 @@ export default function AdvisoryBoardPage() {
 
  <div className="p-8 md:p-12 flex-1 flex flex-col pt-16 md:pt-20">
  <div className="flex flex-col sm:flex-row gap-6 md:gap-8 items-start mb-10">
- <div className="relative w-40 h-40 md:w-56 md:h-56 shrink-0 bg-slate-100 border-4 border-slate-50 shadow-xl shadow-slate-200/50 overflow-hidden flex items-center justify-center">
+ <div className="relative w-40 h-40 md:w-56 md:h-56 shrink-0 bg-slate-100 border-4 border-slate-50 shadow-xl shadow-slate-200/50 overflow-hidden flex items-center justify-center rounded-lg">
  {selectedMember.image ? (
  <Image
  src={selectedMember.image}
@@ -198,7 +198,7 @@ export default function AdvisoryBoardPage() {
  <p className="text-brand-pink font-bold text-xs md:text-sm tracking-[0.2em] uppercase mb-3">
  {selectedMember.role}
  </p>
- <div className="inline-block px-3 py-1 bg-slate-100 text-slate-500 text-[10px] font-black uppercase tracking-widest">
+ <div className="inline-block px-3 py-1 bg-slate-100 text-slate-500 text-[10px] font-black uppercase tracking-widest rounded-md">
  {selectedMember.institution || "Industry Expert"}
  </div>
  </div>
@@ -219,7 +219,7 @@ export default function AdvisoryBoardPage() {
  href={selectedMember.socials.linkedin}
  target="_blank"
  rel="noopener noreferrer"
- className="flex items-center gap-2 px-5 py-3 bg-slate-50 hover:bg-[#0077b5] text-slate-600 hover:text-white border border-slate-200 hover:border-[#0077b5] transition-all font-bold text-xs uppercase tracking-wider"
+ className="flex items-center gap-2 px-5 py-3 bg-slate-50 hover:bg-[#0077b5] text-slate-600 hover:text-white border border-slate-200 hover:border-[#0077b5] transition-all font-bold text-xs uppercase tracking-wider rounded-md"
  >
  <IoLogoLinkedin size={18} />
  LinkedIn
@@ -228,7 +228,7 @@ export default function AdvisoryBoardPage() {
  {selectedMember.socials?.email && (
  <a
  href={`mailto:${selectedMember.socials.email}`}
- className="flex items-center gap-2 px-5 py-3 bg-slate-50 hover:bg-rose-500 text-slate-600 hover:text-white border border-slate-200 hover:border-rose-500 transition-all font-bold text-xs uppercase tracking-wider"
+ className="flex items-center gap-2 px-5 py-3 bg-slate-50 hover:bg-rose-500 text-slate-600 hover:text-white border border-slate-200 hover:border-rose-500 transition-all font-bold text-xs uppercase tracking-wider rounded-md"
  >
  <IoMailOutline size={18} />
  Contact

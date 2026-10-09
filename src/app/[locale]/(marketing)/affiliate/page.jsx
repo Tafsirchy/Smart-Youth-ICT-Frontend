@@ -68,7 +68,7 @@ export default function AffiliatePage() {
  style={{ background:'#818cf8' }}
  animate={{ scale:[1,1.2,1] }} transition={{ duration:7, repeat:Infinity, delay:1.5 }} />
  <div className="relative z-10 max-w-2xl mx-auto">
- <span className="inline-block mb-4 px-4 py-1.5 text-xs font-bold uppercase tracking-wider text-indigo-200 bg-white/10 border border-white/10">
+ <span className="inline-block mb-4 px-4 py-1.5 text-xs font-bold uppercase tracking-wider text-indigo-200 bg-white/10 border border-white/10 rounded-md">
  💸 Earn Real Money
  </span>
  <h1 className="text-4xl md:text-5xl font-extrabold text-white mb-4">
@@ -78,12 +78,12 @@ export default function AffiliatePage() {
  Refer friends to SYICT and earn up to <strong className="text-white">25% commission</strong> on every enrollment. No cap. Paid to your bKash or bank.
  </p>
  {session ? (
- <div className="bg-white/10 border border-white/20 p-5 max-w-lg mx-auto">
+ <div className="bg-white/10 border border-white/20 p-5 max-w-lg mx-auto rounded-lg">
  <p className="text-xs text-indigo-300 font-semibold mb-2 uppercase tracking-wider">Your Referral Link</p>
  <div className="flex gap-2">
- <input readOnly value={referralLink} className="flex-1 bg-white/10 border border-white/20 text-white px-3 py-2.5 text-sm focus:outline-none truncate" />
+ <input readOnly value={referralLink} className="flex-1 bg-white/10 border border-white/20 text-white px-3 py-2.5 text-sm focus:outline-none truncate rounded-md" />
  <motion.button onClick={copyLink} whileHover={{ scale:1.04 }} whileTap={{ scale:0.96 }}
- className="px-4 py-2.5 bg-gradient-to-r from-pink-500 to-indigo-500 text-white text-sm font-bold flex items-center gap-1.5 shrink-0">
+ className="px-4 py-2.5 bg-gradient-to-r from-pink-500 to-indigo-500 text-white text-sm font-bold flex items-center gap-1.5 shrink-0 rounded-md">
  {copied ? <IoCheckmarkCircle size={16} /> : <IoCopyOutline size={16} />}
  {copied ? 'Copied!' : 'Copy'}
  </motion.button>
@@ -94,7 +94,7 @@ export default function AffiliatePage() {
  <Link href={`/${locale}/register`} className="btn-primary px-7 py-3.5 font-bold text-base flex items-center gap-2">
  Join & Start Earning <IoArrowForwardOutline size={18} />
  </Link>
- <Link href={`/${locale}/login`} className="px-7 py-3.5 border border-white/20 text-white font-semibold hover:bg-white/10 transition text-base">
+ <Link href={`/${locale}/login`} className="px-7 py-3.5 border border-white/20 text-white font-semibold hover:bg-white/10 transition text-base rounded-md">
  Already a Member? Login
  </Link>
  </div>
@@ -163,12 +163,12 @@ export default function AffiliatePage() {
  <p className="text-5xl font-extrabold">{tier.commission}</p>
  <p className="text-sm opacity-80 mt-1">commission</p>
  </div>
- <div className="bg-white p-4 text-center">
+ <div className="bg-white p-4 text-center rounded-md">
  <p className="text-sm text-textSecondary">
  {tier.max ? `${tier.min}–${tier.max} referrals` : `${tier.min}+ referrals`}
  </p>
  {isActive && (
- <span className="inline-block mt-2 text-xs font-bold text-blue-600 bg-blue-50 px-3 py-1">
+ <span className="inline-block mt-2 text-xs font-bold text-blue-600 bg-blue-50 px-3 py-1 rounded-md">
  ✓ Your Current Tier
  </span>
  )}

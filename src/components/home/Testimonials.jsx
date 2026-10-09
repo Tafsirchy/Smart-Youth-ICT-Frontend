@@ -60,7 +60,7 @@ export default function Testimonials() {
  if (!mounted) return <div className="section h-[600px]" />; // Skeleton/Placeholder
 
  return (
- <section className="section py-12 sm:py-16 md:py-20 relative overflow-hidden bg-white">
+ <section className="section py-12 sm:py-16 md:py-20 relative overflow-hidden bg-white rounded-sm">
  {/* Dynamic Background Elements */}
  <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-full pointer-events-none">
  <div className="absolute top-10 left-10 w-72 h-72 bg-pink-200/20 blur-[100px]" />
@@ -77,7 +77,7 @@ export default function Testimonials() {
  transition={{ duration: 0.6 }}
  className="text-center mb-16 max-w-3xl mx-auto"
  >
- <span className="inline-block px-4 py-1.5 bg-pink-100 text-pink-600 text-xs font-bold tracking-wider uppercase mb-4">
+ <span className="inline-block px-4 py-1.5 bg-pink-100 text-pink-600 text-xs font-bold tracking-wider uppercase mb-4 rounded-md">
  Success Stories
  </span>
  <h2 className="text-2xl sm:text-4xl md:text-5xl font-black text-slate-900 leading-[1.15] mb-4 sm:mb-6 md:mb-8 tracking-tighter">
@@ -104,7 +104,7 @@ export default function Testimonials() {
  {Array.from({ length: 6 }).flatMap(() => textReviews).map((review, idx) => (
  <div
  key={`${review._id}-${idx}`}
- className="w-[350px] shrink-0 mx-3 p-6 bg-white border border-slate-100 shadow-sm hover:shadow-xl transition-all duration-300 group flex flex-col"
+ className="w-[350px] shrink-0 mx-3 p-6 bg-white border border-slate-100 shadow-sm hover:shadow-xl transition-all duration-300 group flex flex-col rounded-lg"
  >
  <div className="flex justify-between items-start mb-4">
  <StarRating count={5} />
@@ -119,7 +119,7 @@ export default function Testimonials() {
  <div className="flex items-center gap-3 mt-auto pt-4 border-t border-slate-50">
  {review.studentAvatar ? (
  <div className="w-10 h-10 overflow-hidden shrink-0 bg-slate-50">
- <Image src={review.studentAvatar} alt={review.studentName} width={40} height={40} className="w-full h-full object-cover" />
+ <Image src={review.studentAvatar} alt={review.studentName} width={40} height={40} className="w-full h-full object-cover rounded-md" />
  </div>
  ) : (
  <div
@@ -154,7 +154,7 @@ export default function Testimonials() {
  (video, idx) => (
  <div
  key={`${video._id}-${idx}`}
- className="w-[300px] shrink-0 mx-3 aspect-video relative overflow-hidden group shadow-lg border-2 border-transparent hover:border-pink-500 transition-all duration-300"
+ className="w-[300px] shrink-0 mx-3 aspect-video relative overflow-hidden group shadow-lg border-2 border-transparent hover:border-pink-500 transition-all duration-300 rounded-lg"
  >
  <Image
  src={video.videoThumbnail || video.studentAvatar || "/images/placeholder.png"}
@@ -167,11 +167,11 @@ export default function Testimonials() {
  className="object-cover group-hover:scale-110 transition-transform duration-500 bg-[#f0f0f0]"
  />
  <div className="absolute inset-0 bg-black/40 group-hover:bg-black/20 transition-all flex flex-col items-center justify-center">
- <div className="w-12 h-12 bg-pink-600 flex items-center justify-center text-white shadow-lg group-hover:scale-125 transition-transform">
+ <div className="w-12 h-12 bg-pink-600 flex items-center justify-center text-white shadow-lg group-hover:scale-125 transition-transform rounded-lg">
  <IoLogoYoutube size={24} />
  </div>
  <div className="absolute bottom-3 left-4 right-4">
- <p className="text-white text-[10px] font-bold uppercase tracking-widest bg-black/60 backdrop-blur-md px-2 py-1 inline-block truncate max-w-full">
+ <p className="text-white text-[10px] font-bold uppercase tracking-widest bg-black/60 backdrop-blur-md px-2 py-1 inline-block truncate max-w-full rounded-md">
  {video.studentName}
  </p>
  </div>

@@ -77,20 +77,20 @@ export default function CourseEnrollmentWrapper({ course, locale, children }) {
  </div>
 
  {/* Sticky Bottom CTA for Mobile */}
- <div className="lg:hidden sticky bottom-0 left-0 w-full bg-white/95 backdrop-blur-md border-t border-slate-200 p-3 z-[90] pb-[max(0.75rem,env(safe-area-inset-bottom))]">
+ <div className="lg:hidden sticky bottom-0 left-0 w-full bg-white/80 backdrop-blur-md border-t border-slate-200 p-3 z-[90] pb-[max(0.75rem,env(safe-area-inset-bottom))] shadow-lg">
  <div className="flex items-center justify-between gap-3 max-w-lg mx-auto">
  <div className="flex flex-col">
- <span className="text-xs text-slate-500 font-medium line-through">
+ <span className="text-xs text-slate-400 font-medium line-through">
  ৳{course?.price ? Math.round(course.price * 1.5) : 0}
  </span>
- <span className="text-lg font-black text-slate-900 leading-none">
+ <span className="text-xl font-bold text-slate-900 leading-none">
  ৳{course?.price || 0}
  </span>
  </div>
  <button 
  onClick={handleEnroll}
  disabled={enrolling}
- className="flex-1 bg-indigo-600 text-white font-bold h-11 active:scale-[0.98] transition-transform disabled:opacity-60 shadow-md shadow-indigo-500/20"
+ className="flex-1 bg-slate-900 text-white font-semibold rounded-lg h-12 shadow-sm active:scale-95 transition-all disabled:opacity-60"
  >
  {enrolling ? 'Initiating...' : session ? '⚡ Enroll Now' : '🔐 Login'}
  </button>

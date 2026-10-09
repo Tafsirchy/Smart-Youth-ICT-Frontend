@@ -75,7 +75,7 @@ export default function PageLoader() {
  alt="Smart Youth ICT Logo"
  width={400}
  height={100}
- className="h-32 w-auto object-contain drop-shadow-lg"
+ className="h-32 w-auto object-contain drop-shadow-lg rounded-md"
  priority={true}
  fetchPriority="high"
  onError={(e) => { e.target.srcset = ''; e.target.src = '/images/placeholder.png'; }}

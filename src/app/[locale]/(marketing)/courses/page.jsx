@@ -159,7 +159,7 @@ export default function CoursesPage() {
  animate={{ opacity: 1, y: 0 }}
  transition={{ duration: 0.5 }}
  >
- <span className="inline-block mb-3 px-4 py-1.5 text-[10px] sm:text-xs font-bold uppercase tracking-wider text-indigo-200 bg-white/10 border border-white/10 backdrop-blur-md">
+ <span className="inline-block mb-3 px-4 py-1.5 text-[10px] sm:text-xs font-bold uppercase tracking-wider text-indigo-200 bg-white/10 border border-white/10 backdrop-blur-md rounded-md">
  🎓{" "}
  {filteredCourses.length > 0
  ? `${filteredCourses.length} Courses Available`
@@ -175,7 +175,7 @@ export default function CoursesPage() {
  </p>
 
  {/* Search Bar */}
- <div className="relative max-w-lg mx-auto shadow-2xl shadow-black/20">
+ <div className="relative max-w-lg mx-auto shadow-2xl shadow-black/20 rounded-lg">
  <IoSearchOutline
  size={20}
  className="absolute left-4 top-1/2 -translate-y-1/2 text-indigo-300"
@@ -183,14 +183,14 @@ export default function CoursesPage() {
  <input
  type="text"
  placeholder="Search courses…"
- className="w-full pl-12 pr-12 py-3.5 sm:py-4 bg-white/15 backdrop-blur-md border border-white/20 text-white placeholder-indigo-200 focus:outline-none focus:ring-2 focus:ring-indigo-400 focus:bg-white/20 transition-all text-base min-h-[48px]"
+ className="w-full pl-12 pr-12 py-3.5 sm:py-4 bg-white/15 backdrop-blur-md border border-white/20 text-white placeholder-indigo-200 focus:outline-none focus:ring-2 focus:ring-indigo-400 focus:bg-white/20 transition-all text-base min-h-[48px] rounded-md"
  value={inputVal}
  onChange={handleSearchChange}
  />
  {inputVal && (
  <button
  onClick={clearSearch}
- className="absolute right-4 top-1/2 -translate-y-1/2 text-indigo-300 hover:text-white"
+ className="absolute right-4 top-1/2 -translate-y-1/2 text-indigo-300 hover:text-white rounded-md"
  >
  <IoCloseOutline size={20} />
  </button>
@@ -289,7 +289,7 @@ export default function CoursesPage() {
  {search && (
  <button
  onClick={clearSearch}
- className="mt-3 text-sm text-blue-600 hover:underline"
+ className="mt-3 text-sm text-blue-600 hover:underline rounded-md"
  >
  Clear search
  </button>
@@ -304,7 +304,7 @@ export default function CoursesPage() {
  <p className="text-[10px] font-black text-slate-500 uppercase tracking-widest">Ready to Start?</p>
  <p className="text-slate-900 font-bold text-sm">Enroll in a Course</p>
  </div>
- <button className="px-5 py-3 min-h-[44px] bg-blue-600 text-white font-black text-[10px] uppercase tracking-widest shadow-lg shadow-blue-600/30">
+ <button className="px-5 py-3 min-h-[44px] bg-blue-600 text-white font-black text-[10px] uppercase tracking-widest shadow-lg shadow-blue-600/30 rounded-md">
  Join Now
  </button>
  </div>

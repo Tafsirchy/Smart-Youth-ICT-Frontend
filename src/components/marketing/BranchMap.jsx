@@ -111,7 +111,7 @@ export default function BranchMap({ branches, selectedBranchId, onSelectBranch, 
  <Popup className="custom-branch-popup">
  <div className="p-2 max-w-xs space-y-2 text-neutral-800">
  <div className="flex items-center justify-between gap-2 border-b border-neutral-100 pb-1.5">
- <span className="text-[10px] font-black uppercase tracking-wider px-2 py-0.5 bg-blue-50 text-blue-700">
+ <span className="text-[10px] font-black uppercase tracking-wider px-2 py-0.5 bg-blue-50 text-blue-700 rounded-md">
  {branch.code} • {branch.type?.replace('_', ' ')}
  </span>
  {status && (
@@ -154,7 +154,7 @@ export default function BranchMap({ branches, selectedBranchId, onSelectBranch, 
  href={branch.location.googleMapsUrl}
  target="_blank"
  rel="noreferrer"
- className="flex-1 py-1.5 bg-neutral-100 hover:bg-neutral-200 text-neutral-700 text-[10px] font-bold uppercase tracking-wider text-center transition-colors"
+ className="flex-1 py-1.5 bg-neutral-100 hover:bg-neutral-200 text-neutral-700 text-[10px] font-bold uppercase tracking-wider text-center transition-colors rounded-md"
  >
  Directions
  </a>
@@ -174,7 +174,7 @@ export default function BranchMap({ branches, selectedBranchId, onSelectBranch, 
  </MapContainer>
 
  {/* Map Overlay Badge */}
- <div className="absolute top-4 left-4 z-[400] bg-white/90 dark:bg-neutral-900/90 backdrop-blur-md px-3 py-2 shadow-lg border border-neutral-200/60 dark:border-neutral-800 text-xs font-bold text-neutral-700 dark:text-neutral-200 flex items-center gap-2">
+ <div className="absolute top-4 left-4 z-[400] bg-white/90 dark:bg-neutral-900/90 backdrop-blur-md px-3 py-2 shadow-lg border border-neutral-200/60 dark:border-neutral-800 text-xs font-bold text-neutral-700 dark:text-neutral-200 flex items-center gap-2 rounded-lg">
  <span className="w-2.5 h-2.5 bg-emerald-500 animate-ping" />
  <span>{mappableBranches.length} Campuses on Map</span>
  </div>

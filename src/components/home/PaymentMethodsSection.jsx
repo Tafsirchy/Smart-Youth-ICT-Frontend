@@ -14,7 +14,7 @@ const methods = [
 
 export default function PaymentMethodsSection() {
  return (
- <section className="section py-10 sm:py-12 bg-white relative overflow-hidden">
+ <section className="section py-10 sm:py-12 bg-white relative overflow-hidden rounded-sm">
  {/* Subtle Background Pattern */}
  <div 
  className="absolute inset-0 pointer-events-none opacity-[0.02]" 
@@ -24,7 +24,7 @@ export default function PaymentMethodsSection() {
  <div className="container-custom relative z-10">
  
  {/* Main Split Container */}
- <div className="bg-slate-50 border border-slate-200 -[2rem] sm:-[3rem] p-5 sm:p-8 lg:p-10 flex flex-col lg:flex-row items-center gap-8 lg:gap-12 shadow-2xl shadow-slate-200/50">
+ <div className="bg-slate-50 border border-slate-200 -[2rem] sm:-[3rem] p-5 sm:p-8 lg:p-10 flex flex-col lg:flex-row items-center gap-8 lg:gap-12 shadow-2xl shadow-slate-200/50 rounded-lg">
  
  {/* Left Content Area */}
  <div className="w-full lg:w-1/2 flex flex-col items-start text-left">
@@ -34,7 +34,7 @@ export default function PaymentMethodsSection() {
  viewport={{ once: true }}
  transition={{ duration: 0.6 }}
  >
- <div className="inline-flex items-center gap-2 px-2 py-2 mb-4 bg-white border border-slate-200 shadow-sm">
+ <div className="inline-flex items-center gap-2 px-2 py-2 mb-4 bg-white border border-slate-200 shadow-sm rounded-lg">
  <div className="w-2 h-2 bg-emerald-500 animate-pulse" />
  <span className="text-slate-600 text-[10px] font-black tracking-widest uppercase">
  Admissions Open
@@ -56,7 +56,7 @@ export default function PaymentMethodsSection() {
  <div className="flex flex-col sm:flex-row items-center gap-4">
  <Link
  href="/courses"
- className="w-full sm:w-auto inline-flex justify-center items-center gap-3 px-5 py-2 bg-slate-900 text-white font-black text-lg hover:bg-brand-pink transition-colors duration-300 shadow-lg hover:shadow-brand-pink/30 hover:-translate-y-1"
+ className="w-full sm:w-auto inline-flex justify-center items-center gap-3 px-5 py-2 bg-slate-900 text-white font-black text-lg hover:bg-brand-pink transition-colors duration-300 shadow-lg hover:shadow-brand-pink/30 hover:-translate-y-1 rounded-md"
  >
  Explore Courses
  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3">
@@ -78,7 +78,7 @@ export default function PaymentMethodsSection() {
  whileInView={{ opacity: 1, scale: 1 }}
  viewport={{ once: true }}
  transition={{ duration: 0.6, delay: 0.2 }}
- className="w-full max-w-md bg-white border border-slate-100 -[2rem] p-5 shadow-xl shadow-slate-200/50 relative overflow-hidden"
+ className="w-full max-w-md bg-white border border-slate-100 -[2rem] p-5 shadow-xl shadow-slate-200/50 relative overflow-hidden rounded-md"
  >
  <div className="absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-brand-pink to-amber-400" />
  
@@ -87,7 +87,7 @@ export default function PaymentMethodsSection() {
  <h3 className="text-slate-900 font-black text-xl">Secure Checkout</h3>
  <p className="text-slate-400 text-xs font-bold uppercase tracking-widest mt-1">Supported Methods</p>
  </div>
- <div className="p-3 bg-slate-50 border border-slate-100">
+ <div className="p-3 bg-slate-50 border border-slate-100 rounded-lg">
  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" className="text-slate-400">
  <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" strokeLinecap="round" strokeLinejoin="round"/>
  </svg>
@@ -98,11 +98,11 @@ export default function PaymentMethodsSection() {
  {methods.map((method) => (
  <div 
  key={method.name}
- className="flex items-center justify-between p-2 border border-slate-100 hover:border-brand-pink/30 hover:bg-slate-50 transition-colors group cursor-pointer"
+ className="flex items-center justify-between p-2 border border-slate-100 hover:border-brand-pink/30 hover:bg-slate-50 transition-colors group cursor-pointer rounded-md"
  >
  <div className="flex items-center gap-2">
  <div className="w-12 h-8 relative shrink-0">
- <Image src={method.logo} alt={method.name} fill sizes="48px" className="object-contain" />
+ <Image src={method.logo} alt={method.name} fill sizes="48px" className="object-contain rounded-md" />
  </div>
  <span className="text-sm font-black text-slate-800">{method.name}</span>
  </div>

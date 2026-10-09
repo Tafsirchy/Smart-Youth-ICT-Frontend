@@ -33,7 +33,7 @@ export default function ErpCrmClient({ data }) {
             <motion.div
               initial={{ opacity: 0, x: -20 }}
               animate={{ opacity: 1, x: 0 }}
-              className="inline-flex items-center gap-2 px-3 py-1.5 bg-indigo-50 border border-indigo-100 text-indigo-700 text-xs font-black tracking-widest uppercase mb-3"
+              className="inline-flex items-center gap-2 px-3 py-1.5 bg-indigo-50 border border-indigo-100 text-indigo-700 text-xs font-black tracking-widest uppercase mb-3 rounded-md"
             >
               <IoHardwareChipOutline className="text-sm" /> {hero.badge}
             </motion.div>
@@ -58,12 +58,12 @@ export default function ErpCrmClient({ data }) {
             </motion.p>
 
             <div className="flex flex-col sm:flex-row gap-2">
-              <button className="w-full min-h-[44px] sm:w-[240px] px-4 py-3 bg-indigo-600 text-white font-bold hover:bg-indigo-700 transition-all shadow-md shadow-indigo-600/20 uppercase tracking-wider text-sm flex items-center justify-center">
+              <button className="w-full min-h-[44px] sm:w-[240px] px-4 py-3 bg-indigo-600 text-white font-bold hover:bg-indigo-700 transition-all shadow-md shadow-indigo-600/20 uppercase tracking-wider text-sm flex items-center justify-center rounded-md">
                 Initialize Audit
               </button>
               <Link
                 href="/services/erp-crm/details"
-                className="w-full sm:w-[240px] min-h-[44px] px-4 py-3 bg-white border border-slate-200 text-slate-900 font-bold hover:bg-slate-50 transition-all uppercase tracking-wider text-sm flex items-center justify-center text-center"
+                className="w-full sm:w-[240px] min-h-[44px] px-4 py-3 bg-white border border-slate-200 text-slate-900 font-bold hover:bg-slate-50 transition-all uppercase tracking-wider text-sm flex items-center justify-center text-center rounded-md"
               >
                 Tech Specs
               </Link>
@@ -75,25 +75,25 @@ export default function ErpCrmClient({ data }) {
               initial={{ opacity: 0, scale: 0.9 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 1 }}
-              className="relative p-4 bg-white border border-slate-100 shadow-xl overflow-hidden group"
+              className="relative p-4 bg-white border border-slate-100 shadow-xl overflow-hidden group rounded-md"
             >
               <div className="absolute inset-0 opacity-5 pointer-events-none" style={{ backgroundImage: "radial-gradient(#4338ca 1px, transparent 1px)", backgroundSize: "30px 30px" }}></div>
 
               <div className="relative aspect-square flex flex-col items-center justify-center space-y-2">
                 <motion.div animate={{ rotate: 360 }} transition={{ duration: 20, repeat: Infinity, ease: "linear" }} className="w-40 h-40 border border-indigo-100 flex items-center justify-center relative">
-                  <div className="absolute top-0 w-4 h-4 bg-indigo-600 shadow-md shadow-indigo-200"></div>
-                  <div className="absolute bottom-0 w-4 h-4 bg-purple-500 shadow-md shadow-purple-200"></div>
-                  <div className="absolute right-0 w-4 h-4 bg-slate-900 shadow-md shadow-slate-400"></div>
+                  <div className="absolute top-0 w-4 h-4 bg-indigo-600 shadow-md shadow-indigo-200 rounded-lg"></div>
+                  <div className="absolute bottom-0 w-4 h-4 bg-purple-500 shadow-md shadow-purple-200 rounded-lg"></div>
+                  <div className="absolute right-0 w-4 h-4 bg-slate-900 shadow-md shadow-slate-400 rounded-lg"></div>
                 </motion.div>
                 <div className="absolute inset-0 flex items-center justify-center">
-                  <div className="w-20 h-20 bg-white border border-slate-100 shadow-lg flex flex-col items-center justify-center">
+                  <div className="w-20 h-20 bg-white border border-slate-100 shadow-lg flex flex-col items-center justify-center rounded-lg">
                     <IoPulseOutline className="text-2xl text-indigo-600 animate-pulse" />
                     <span className="text-[9px] font-black text-slate-300 mt-1">ACTIVE</span>
                   </div>
                 </div>
               </div>
 
-              <div className="absolute bottom-2 left-1/2 -translate-x-1/2 font-mono text-[9px] text-slate-400 uppercase tracking-widest bg-white px-2 py-0.5 border border-slate-50">
+              <div className="absolute bottom-2 left-1/2 -translate-x-1/2 font-mono text-[9px] text-slate-400 uppercase tracking-widest bg-white px-2 py-0.5 border border-slate-50 rounded-lg">
                 OS_v6.4
               </div>
             </motion.div>
@@ -101,7 +101,7 @@ export default function ErpCrmClient({ data }) {
         </div>
 
         <div className="mb-6">
-          <div className="flex flex-col md:flex-row justify-between items-end mb-4 gap-3 border-l-[3px] border-indigo-600 pl-3 md:pl-4">
+          <div className="flex flex-col md:flex-row justify-between items-end mb-4 gap-3 border-l-[3px] border-indigo-600 pl-3 md:pl-4 rounded-lg">
             <div className="max-w-xl">
               <h2 className="text-[10px] font-black text-indigo-600 uppercase tracking-widest mb-1">Logistics Standard</h2>
               <p className="text-2xl md:text-4xl font-black text-slate-900 leading-tight">
@@ -120,7 +120,7 @@ export default function ErpCrmClient({ data }) {
                 transition={{ delay: i * 0.1 }}
                 className="group cursor-default"
               >
-                <div className={`bg-white rounded-2xl p-4 h-full border border-slate-100 shadow-sm shadow-slate-200/30 hover:shadow-lg transition-all group-hover:-translate-y-0.5 relative overflow-hidden`}>
+                <div className={`bg-white rounded-lg p-4 h-full border border-slate-100 shadow-sm shadow-slate-200/30 hover:shadow-lg transition-all group-hover:-translate-y-0.5 relative overflow-hidden`}>
                   <div
                     className={`w-10 h-10 rounded-lg bg-gradient-to-br ${item.color} text-white flex items-center justify-center text-xl mb-3 shadow-sm`}
                   >
@@ -138,7 +138,7 @@ export default function ErpCrmClient({ data }) {
           </div>
         </div>
 
-        <div className="mb-6 bg-slate-900 lg: p-4 lg:p-6 relative overflow-hidden text-white">
+        <div className="mb-6 bg-slate-900 lg: p-4 lg:p-6 relative overflow-hidden text-white rounded-lg">
           <div className="hidden lg:block absolute top-0 right-0 w-1/2 h-full bg-indigo-600/10 blur-[100px] -z-10"></div>
 
           <div className="flex flex-col lg:grid lg:grid-cols-2 gap-4 lg:gap-6 items-center relative z-10">
@@ -148,13 +148,13 @@ export default function ErpCrmClient({ data }) {
 
               <div className="pt-2">
                 <details className="lg:hidden group">
-                  <summary className="cursor-pointer min-h-[40px] list-none font-bold text-xs text-indigo-400 flex justify-between items-center bg-white/5 p-2.5 border border-white/10">
+                  <summary className="cursor-pointer min-h-[40px] list-none font-bold text-xs text-indigo-400 flex justify-between items-center bg-white/5 p-2.5 border border-white/10 rounded-md">
                     View Integrations
                     <span className="transition group-open:rotate-180 text-[10px]">▼</span>
                   </summary>
-                  <div className="grid grid-cols-1 gap-px bg-white/5 border border-white/5 overflow-hidden mt-1.5">
+                  <div className="grid grid-cols-1 gap-px bg-white/5 border border-white/5 overflow-hidden mt-1.5 rounded-lg">
                     {integrations?.map((int, i) => (
-                      <div key={i} className="p-2.5 hover:bg-white/5 transition-colors group">
+                      <div key={i} className="p-2.5 hover:bg-white/5 transition-colors group rounded-md">
                         <h4 className="text-[9px] font-black text-indigo-400 uppercase tracking-widest mb-0.5">{int.t}</h4>
                         <p className="text-[11px] text-slate-400 font-bold leading-[1.4]">{int.d}</p>
                       </div>
@@ -162,9 +162,9 @@ export default function ErpCrmClient({ data }) {
                   </div>
                 </details>
 
-                <div className="hidden lg:grid grid-cols-2 gap-px bg-white/5 border border-white/5 overflow-hidden">
+                <div className="hidden lg:grid grid-cols-2 gap-px bg-white/5 border border-white/5 overflow-hidden rounded-lg">
                   {integrations?.map((int, i) => (
-                    <div key={i} className="p-3.5 hover:bg-white/5 transition-colors group">
+                    <div key={i} className="p-3.5 hover:bg-white/5 transition-colors group rounded-md">
                       <h4 className="text-[9px] font-black text-indigo-400 uppercase tracking-widest mb-1.5">{int.t}</h4>
                       <p className="text-xs text-slate-400 font-bold leading-[1.4]">{int.d}</p>
                     </div>
@@ -174,7 +174,7 @@ export default function ErpCrmClient({ data }) {
             </div>
 
             <div className="relative group w-full lg:w-auto lg:scale-105 mt-4 lg:mt-0">
-              <div className="p-4 bg-white/5 border border-white/10 backdrop-blur-sm relative z-20 overflow-hidden">
+              <div className="p-4 bg-white/5 border border-white/10 backdrop-blur-sm relative z-20 overflow-hidden rounded-lg">
                 <div className="absolute inset-0 bg-gradient-to-br from-indigo-500/10 to-transparent pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity"></div>
                 <div className="flex justify-between items-center mb-4 border-b border-white/5 pb-2 font-mono text-[9px] tracking-widest text-white/40">
                   <span>SYS_SYNC</span>
@@ -189,7 +189,7 @@ export default function ErpCrmClient({ data }) {
                       <div className="h-1 bg-white/5 w-1/4"></div>
                     </div>
                   </div>
-                  <div className="h-24 bg-white/5 border border-white/5 flex items-center justify-center p-3">
+                  <div className="h-24 bg-white/5 border border-white/5 flex items-center justify-center p-3 rounded-lg">
                     <div className="grid grid-cols-6 gap-1 w-full h-full items-end">
                       {[0.4, 0.8, 0.6, 1, 0.7, 0.9].map((h, i) => (
                         <motion.div key={i} initial={{ height: 0 }} whileInView={{ height: `${h * 100}%` }} className="bg-indigo-500/50" />
@@ -210,7 +210,7 @@ export default function ErpCrmClient({ data }) {
 
           <div className="flex overflow-x-auto snap-x snap-mandatory md:grid md:grid-cols-2 lg:grid-cols-3 gap-3 pb-2 scrollbar-hide">
             {pricing?.map((tier, idx) => (
-              <div key={idx} className={`snap-center shrink-0 w-[85vw] md:w-auto bg-white rounded-2xl p-4 border ${tier.highlight ? "border-indigo-600 shadow-md md:-translate-y-1" : "border-slate-100 shadow-sm"} flex flex-col h-full relative overflow-hidden group transition-all`}>
+              <div key={idx} className={`snap-center shrink-0 w-[85vw] md:w-auto bg-white rounded-lg p-4 border ${tier.highlight ? "border-indigo-600 shadow-md md:-translate-y-1" : "border-slate-100 shadow-sm"} flex flex-col h-full relative overflow-hidden group transition-all`}>
                 <h4 className="text-xl font-black text-slate-900 mb-0.5 uppercase tracking-tight">{tier.t}</h4>
                 <p className="text-2xl font-black text-slate-900 mb-3">{tier.p}</p>
 
@@ -232,12 +232,12 @@ export default function ErpCrmClient({ data }) {
           <IoLayersOutline className="text-4xl md:text-5xl text-indigo-600 mb-3 mx-auto opacity-10" />
           <h3 className="text-2xl md:text-3xl lg:text-4xl font-black text-slate-900 mb-4 leading-tight">{cta.title?.split('your ')[0]}your <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-600 to-purple-700 font-serif italic font-medium">{cta.title?.split('your ')[1]}</span></h3>
           <div className="flex flex-col sm:flex-row gap-2 justify-center">
-            <button className="w-full sm:w-[220px] min-h-[44px] px-4 py-3 bg-indigo-600 text-white font-bold hover:bg-indigo-700 transition-all shadow-md shadow-indigo-600/20 uppercase tracking-widest text-[10px] flex items-center justify-center">
+            <button className="w-full sm:w-[220px] min-h-[44px] px-4 py-3 bg-indigo-600 text-white font-bold hover:bg-indigo-700 transition-all shadow-md shadow-indigo-600/20 uppercase tracking-widest text-[10px] flex items-center justify-center rounded-md">
               Initialize Build
             </button>
               <Link
               href="/services/erp-crm/details"
-              className="w-full sm:w-[220px] min-h-[44px] px-4 py-3 bg-slate-900 text-white font-bold hover:bg-slate-800 transition-all uppercase tracking-widest text-[10px] flex items-center justify-center text-center"
+              className="w-full sm:w-[220px] min-h-[44px] px-4 py-3 bg-slate-900 text-white font-bold hover:bg-slate-800 transition-all uppercase tracking-widest text-[10px] flex items-center justify-center text-center rounded-md"
             >
               Tech Specs
             </Link>
@@ -246,7 +246,7 @@ export default function ErpCrmClient({ data }) {
       </div>
 
       <div className="md:hidden sticky bottom-0 left-0 w-full bg-gradient-to-t from-white via-white/95 to-white/80 backdrop-blur-md border-t border-slate-100 p-2 z-50 pb-[max(0.5rem,env(safe-area-inset-bottom))] mt-auto">
-        <button className="w-full min-h-[44px] py-2.5 bg-indigo-600 text-white font-bold shadow-md shadow-indigo-600/20 uppercase tracking-widest text-[10px] flex items-center justify-center">
+        <button className="w-full min-h-[44px] py-2.5 bg-indigo-600 text-white font-bold shadow-md shadow-indigo-600/20 uppercase tracking-widest text-[10px] flex items-center justify-center rounded-md">
           Init Audit
         </button>
       </div>

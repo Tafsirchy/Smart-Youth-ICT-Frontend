@@ -101,11 +101,11 @@ export default function CourseLearningInterface({ params }) {
  
  {/* Main Content Area */}
  <div className="flex-1 flex flex-col min-w-0 overflow-y-auto pr-2">
- <div className="overflow-hidden bg-black shadow-lg ring-1 ring-neutral-200">
+ <div className="overflow-hidden bg-black shadow-lg ring-1 ring-neutral-200 rounded-lg">
  <VideoPlayer url={activeLesson?.videoUrl || null} thumbnail={course.thumbnail} />
  </div>
 
- <div className="mt-6 bg-white p-6 shadow-sm ring-1 ring-neutral-200">
+ <div className="mt-6 bg-white p-6 shadow-sm ring-1 ring-neutral-200 rounded-lg">
  <div className="flex items-center justify-between mb-4 flex-wrap gap-3">
  <h2 className="text-xl font-bold text-neutral-900">
  {activeLesson?.title || 'Select a lesson to start'}
@@ -114,14 +114,14 @@ export default function CourseLearningInterface({ params }) {
  <button
  onClick={handleMarkComplete}
  disabled={completing}
- className="flex items-center gap-2 text-sm font-semibold text-emerald-600 bg-emerald-50 px-4 py-2 hover:bg-emerald-100 transition-colors disabled:opacity-50"
+ className="flex items-center gap-2 text-sm font-semibold text-emerald-600 bg-emerald-50 px-4 py-2 hover:bg-emerald-100 transition-colors disabled:opacity-50 rounded-md"
  >
  <IoCheckmarkCircle size={18} />
  {completing ? 'Saving…' : 'Mark as Complete'}
  </button>
  )}
  {activeLesson && completedIds.has(activeLesson._id.toString()) && (
- <span className="flex items-center gap-2 text-sm font-semibold text-emerald-600 bg-emerald-50 px-4 py-2">
+ <span className="flex items-center gap-2 text-sm font-semibold text-emerald-600 bg-emerald-50 px-4 py-2 rounded-md">
  <IoCheckmarkCircle size={18} /> Completed ✓
  </span>
  )}
@@ -142,7 +142,7 @@ export default function CourseLearningInterface({ params }) {
  href={r.url}
  target="_blank"
  rel="noopener noreferrer"
- className="flex items-center gap-2 px-4 py-2 border border-neutral-200 text-sm hover:bg-neutral-50 cursor-pointer"
+ className="flex items-center gap-2 px-4 py-2 border border-neutral-200 text-sm hover:bg-neutral-50 cursor-pointer rounded-md"
  >
  <IoDocumentTextOutline className="text-blue-500" /> {r.name}
  </a>

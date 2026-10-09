@@ -46,10 +46,10 @@ export default function LocationsPage() {
  whileInView={{ opacity: 1, y: 0 }}
  viewport={{ once: true, margin: "-50px" }}
  transition={{ duration: 0.5 }}
- className="bg-white p-8 md:p-12 -[2rem] border border-slate-100 shadow-sm hover:shadow-[0_8px_30px_rgb(0,0,0,0.04)] transition-all duration-500 flex flex-col"
+ className="bg-white p-8 md:p-12 -[2rem] border border-slate-100 shadow-sm hover:shadow-[0_8px_30px_rgb(0,0,0,0.04)] transition-all duration-500 flex flex-col rounded-lg"
  >
  <div className="flex items-center gap-5 mb-12">
- <div className="w-14 h-14 bg-slate-50 border border-slate-100 text-slate-600 flex items-center justify-center">
+ <div className="w-14 h-14 bg-slate-50 border border-slate-100 text-slate-600 flex items-center justify-center rounded-lg">
  <IoLocationOutline size={28} />
  </div>
  <div>
@@ -96,7 +96,7 @@ export default function LocationsPage() {
  <div>
  <h4 className="text-slate-900 font-medium mb-1">Opening Hours</h4>
  <p className="text-slate-500 font-light mb-3">Saturday to Thursday: 09:00 AM – 09:00 PM</p>
- <span className="px-3 py-1 bg-slate-50 border border-slate-200 text-slate-600 text-[10px] font-medium uppercase tracking-wider">
+ <span className="px-3 py-1 bg-slate-50 border border-slate-200 text-slate-600 text-[10px] font-medium uppercase tracking-wider rounded-md">
  Friday: Closed
  </span>
  </div>
@@ -125,14 +125,14 @@ export default function LocationsPage() {
  <div className="absolute inset-0 opacity-20 bg-[url('https://images.unsplash.com/photo-1524661135-423995f22d0b?w=800&h=800&fit=crop')] bg-cover bg-center grayscale mix-blend-multiply"></div>
 
  <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 flex flex-col items-center">
- <div className="relative group cursor-pointer hover:-translate-y-2 transition-transform duration-500">
- <div className="w-14 h-14 bg-slate-900 -none -rotate-45 flex items-center justify-center shadow-lg border-2 border-white">
+ <div className="relative group cursor-pointer hover:-translate-y-2 transition-transform duration-500 rounded-md">
+ <div className="w-14 h-14 bg-slate-900 -none -rotate-45 flex items-center justify-center shadow-lg border-2 border-white rounded-lg">
  <div className="w-4 h-4 bg-white rotate-45"></div>
  </div>
  </div>
  <div className="w-8 h-2 bg-black/10 -[100%] mt-2 blur-[2px]"></div>
 
- <div className="mt-6 bg-white/80 backdrop-blur-md px-6 py-4 border border-slate-100 flex flex-col items-center pointer-events-none shadow-sm">
+ <div className="mt-6 bg-white/80 backdrop-blur-md px-6 py-4 border border-slate-100 flex flex-col items-center pointer-events-none shadow-sm rounded-lg">
  <p className="font-medium text-slate-900 tracking-tight">Uttara Campus</p>
  <p className="text-[11px] text-slate-500 font-light mt-1">Sector 15, Dhaka</p>
  </div>
@@ -147,7 +147,7 @@ export default function LocationsPage() {
  <p className="text-[10px] font-medium text-slate-400 uppercase tracking-widest mb-0.5">Next Step</p>
  <p className="text-slate-900 font-medium text-sm">Join the Program</p>
  </div>
- <button className="px-6 py-3 min-h-[44px] bg-slate-900 text-white font-medium text-[11px] uppercase tracking-wider transition-transform active:scale-95">
+ <button className="px-6 py-3 min-h-[44px] bg-slate-900 text-white font-medium text-[11px] uppercase tracking-wider transition-transform active:scale-95 rounded-md">
  Apply Now
  </button>
  </div>

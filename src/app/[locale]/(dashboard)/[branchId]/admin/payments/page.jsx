@@ -147,7 +147,7 @@ export default function AdminPaymentsPage() {
  <input
  type="text"
  placeholder="Search by name, email, or transaction ID…"
- className="input pl-10 w-full"
+ className="input pl-10 w-full rounded-md"
  value={search}
  onChange={(e) => setSearch(e.target.value)}
  />
@@ -168,7 +168,7 @@ export default function AdminPaymentsPage() {
  </div>
 
  {/* Table */}
- <div className="bg-white shadow-sm ring-1 ring-neutral-200 overflow-hidden">
+ <div className="bg-white shadow-sm ring-1 ring-neutral-200 overflow-hidden rounded-lg">
  <div className="overflow-x-auto">
  <table className="w-full text-sm">
  <thead className="bg-neutral-50 border-b border-neutral-200">
@@ -227,7 +227,7 @@ export default function AdminPaymentsPage() {
  filtered.map((payment, i) => (
  <tr
  key={payment._id || i}
- className="hover:bg-neutral-50 transition-colors"
+ className="hover:bg-neutral-50 transition-colors rounded-md"
  >
  <td className="px-5 py-4">
  <div className="font-medium text-neutral-900">
@@ -243,7 +243,7 @@ export default function AdminPaymentsPage() {
  "—"}
  </td>
  <td className="px-5 py-4">
- <span className="px-2.5 py-1 bg-neutral-100 text-neutral-700 text-xs font-medium">
+ <span className="px-2.5 py-1 bg-neutral-100 text-neutral-700 text-xs font-medium rounded-md">
  {METHOD_LABELS[payment.method] || payment.method || "—"}
  </span>
  </td>
@@ -379,7 +379,7 @@ export default function AdminPaymentsPage() {
  width={420}
  height={128}
  sizes="(max-width: 768px) 100vw, 420px"
- className="w-full h-32 object-contain bg-neutral-50"
+ className="w-full h-32 object-contain bg-neutral-50 rounded-md"
  
 loading="lazy"
 onError={(e) => { e.target.onerror = null; e.target.srcset = ''; e.target.src = '/assets/fallback.png'; }}

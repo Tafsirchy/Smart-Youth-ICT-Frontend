@@ -66,7 +66,7 @@ export default function AuditReportsPage() {
  animate={{ opacity: 1, y: 0 }}
  className="text-4xl font-black text-slate-900 tracking-tight flex items-center gap-4"
  >
- <span className="p-3 bg-slate-900 text-white shadow-lg shadow-slate-900/20">
+ <span className="p-3 bg-slate-900 text-white shadow-lg shadow-slate-900/20 rounded-lg">
  <HiOutlineClipboardDocumentList size={32} />
  </span>
  System Pulse
@@ -89,7 +89,7 @@ export default function AuditReportsPage() {
  </header>
 
  {/* Main Audit Feed */}
- <div className="bg-white border border-slate-100 shadow-sm relative overflow-hidden">
+ <div className="bg-white border border-slate-100 shadow-sm relative overflow-hidden rounded-lg">
  <div className="absolute top-0 left-0 w-1 h-full bg-slate-100 ml-[3.5rem] hidden md:block" />
  
  <motion.div 
@@ -100,17 +100,17 @@ export default function AuditReportsPage() {
  >
  {loading ? (
  [...Array(8)].map((_, i) => (
- <div key={i} className="p-10 h-24 bg-slate-50/50 animate-pulse" />
+ <div key={i} className="p-10 h-24 bg-slate-50/50 animate-pulse rounded-lg" />
  ))
  ) : filteredLogs.map((log) => (
  <motion.div 
  key={log._id}
  variants={item}
- className="group p-4 md:p-6 flex flex-col md:flex-row md:items-center gap-4 hover:bg-slate-50/40 transition-all"
+ className="group p-4 md:p-6 flex flex-col md:flex-row md:items-center gap-4 hover:bg-slate-50/40 transition-all rounded-md"
  >
  <div className="flex items-center gap-4">
  {/* Timestamp circle */}
- <div className="w-14 h-14 bg-white border border-slate-100 shadow-sm flex flex-col items-center justify-center relative z-20">
+ <div className="w-14 h-14 bg-white border border-slate-100 shadow-sm flex flex-col items-center justify-center relative z-20 rounded-lg">
  <p className="text-[10px] font-black text-slate-400 uppercase leading-none">{format(new Date(log.createdAt), 'MMM')}</p>
  <p className="text-xl font-black text-slate-900 leading-none mt-1">{format(new Date(log.createdAt), 'dd')}</p>
  </div>
@@ -133,11 +133,11 @@ export default function AuditReportsPage() {
  </div>
 
  <div className="flex items-center justify-between w-full md:w-auto mt-2 md:mt-0 gap-4">
- <div className="bg-slate-50 px-3 py-1.5 flex items-center gap-2 border border-slate-100">
+ <div className="bg-slate-50 px-3 py-1.5 flex items-center gap-2 border border-slate-100 rounded-lg">
  <HiOutlineCommandLine className="text-slate-400" />
  <span className="text-[10px] font-mono font-bold text-slate-500">{log.ipAddress || 'Internal'}</span>
  </div>
- <button className="text-slate-900 font-bold text-[11px] uppercase tracking-widest px-4 py-2 bg-slate-50 active:scale-95 hover:bg-slate-100 transition-all">
+ <button className="text-slate-900 font-bold text-[11px] uppercase tracking-widest px-4 py-2 bg-slate-50 active:scale-95 hover:bg-slate-100 transition-all rounded-md">
  Details
  </button>
  </div>

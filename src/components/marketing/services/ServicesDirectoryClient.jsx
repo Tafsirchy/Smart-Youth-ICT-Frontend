@@ -86,9 +86,9 @@ export default function ServicesDirectoryClient() {
               transition={{ delay: i * 0.1 }}
               className="group"
             >
-              <div className="bg-white -[3rem] p-10 h-full border border-slate-100 shadow-xl shadow-slate-200/50 flex flex-col justify-between hover:shadow-2xl transition-all border-b-4 border-b-indigo-500">
+              <div className="bg-white -[3rem] p-10 h-full border border-slate-100 shadow-xl shadow-slate-200/50 flex flex-col justify-between hover:shadow-2xl transition-all border-b-4 border-b-indigo-500 rounded-lg">
                 <div>
-                   <div className="text-3xl text-indigo-600 mb-8 w-14 h-14 bg-indigo-50 flex items-center justify-center border border-indigo-100 group-hover:rotate-12 transition-transform">
+                   <div className="text-3xl text-indigo-600 mb-8 w-14 h-14 bg-indigo-50 flex items-center justify-center border border-indigo-100 group-hover:rotate-12 transition-transform rounded-lg">
                       {cat.icon}
                    </div>
                    <h2 className="text-3xl font-black text-slate-900 mb-4 tracking-tight uppercase leading-none">{cat.category}</h2>
@@ -100,7 +100,7 @@ export default function ServicesDirectoryClient() {
                       <Link 
                         key={idx} 
                         href={`/services/${svc.path}`}
-                        className="group/item flex items-center justify-between p-4 bg-slate-50 border border-slate-100 hover:bg-slate-900 hover:text-white transition-all"
+                        className="group/item flex items-center justify-between p-4 bg-slate-50 border border-slate-100 hover:bg-slate-900 hover:text-white transition-all rounded-md"
                       >
                          <div>
                             <p className="text-sm font-bold tracking-tight">{svc.name}</p>
@@ -122,11 +122,11 @@ export default function ServicesDirectoryClient() {
            <div className="flex flex-col sm:flex-row gap-6 justify-center">
               <Link
                 href="/freelancing"
-                className="w-full sm:w-[280px] px-8 py-6 bg-slate-900 text-white font-black hover:bg-slate-800 transition-all uppercase tracking-widest text-[10px] flex items-center justify-center text-center shadow-2xl"
+                className="w-full sm:w-[280px] px-8 py-6 bg-slate-900 text-white font-black hover:bg-slate-800 transition-all uppercase tracking-widest text-[10px] flex items-center justify-center text-center shadow-2xl rounded-md"
               >
                 Explore Talent Hub
               </Link>
-              <button className="w-full sm:w-[280px] px-8 py-6 bg-white border border-slate-200 text-slate-900 font-black hover:bg-slate-50 transition-all uppercase tracking-widest text-[10px] flex items-center justify-center">
+              <button className="w-full sm:w-[280px] px-8 py-6 bg-white border border-slate-200 text-slate-900 font-black hover:bg-slate-50 transition-all uppercase tracking-widest text-[10px] flex items-center justify-center rounded-md">
                 Contact Architects
               </button>
            </div>

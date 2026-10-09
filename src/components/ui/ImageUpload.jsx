@@ -117,7 +117,7 @@ export default function ImageUpload({
  {label}
  </label>
  {!preview && (
- <div className="flex bg-slate-100 dark:bg-slate-800 p-1 text-xs font-bold">
+ <div className="flex bg-slate-100 dark:bg-slate-800 p-1 text-xs font-bold rounded-sm">
  <button
  type="button"
  onClick={() => setActiveTab("device")}
@@ -154,7 +154,7 @@ export default function ImageUpload({
  <img
  src={preview}
  alt="Uploaded Preview"
- className="w-full h-full object-cover"
+ className="w-full h-full object-cover rounded-md"
  loading="lazy"
  decoding="async"
  onError={(e) => {
@@ -182,7 +182,7 @@ export default function ImageUpload({
  <span>Replace</span>
  <input
  type="file"
- className="hidden"
+ className="hidden rounded-md"
  accept="image/*"
  onChange={handleFileUpload}
  disabled={uploading}
@@ -193,7 +193,7 @@ export default function ImageUpload({
  onClick={removeImage}
  title="Remove Image"
  aria-label="Remove Image"
- className="min-h-[36px] w-full p-1.5 bg-rose-600 hover:bg-rose-700 text-white active:scale-95 transition-transform shadow-lg flex items-center justify-center gap-1.5"
+ className="min-h-[36px] w-full p-1.5 bg-rose-600 hover:bg-rose-700 text-white active:scale-95 transition-transform shadow-lg flex items-center justify-center gap-1.5 rounded-md"
  >
  <LuX size={14} />
  <span className="text-[10px] uppercase font-black">Delete</span>
@@ -209,12 +209,12 @@ export default function ImageUpload({
  readOnly
  value={preview}
  title={preview}
- className="flex-1 px-2.5 py-1 bg-slate-50 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700 text-[10px] font-mono text-slate-500 truncate"
+ className="flex-1 px-2.5 py-1 bg-slate-50 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700 text-[10px] font-mono text-slate-500 truncate rounded-md"
  />
  <button
  type="button"
  onClick={removeImage}
- className="text-[10px] text-rose-600 font-bold hover:underline"
+ className="text-[10px] text-rose-600 font-bold hover:underline rounded-md"
  >
  Remove
  </button>
@@ -242,7 +242,7 @@ export default function ImageUpload({
  </div>
  <input
  type="file"
- className="hidden"
+ className="hidden rounded-md"
  accept="image/*"
  onChange={handleFileUpload}
  disabled={uploading}
@@ -272,7 +272,7 @@ export default function ImageUpload({
  type="button"
  onClick={handleApplyLink}
  disabled={!linkInput.trim()}
- className="px-4 py-2 bg-slate-900 dark:bg-pink-600 text-white text-xs font-bold uppercase tracking-wider hover:opacity-90 disabled:opacity-40"
+ className="px-4 py-2 bg-slate-900 dark:bg-pink-600 text-white text-xs font-bold uppercase tracking-wider hover:opacity-90 disabled:opacity-40 rounded-md"
  >
  Apply
  </button>

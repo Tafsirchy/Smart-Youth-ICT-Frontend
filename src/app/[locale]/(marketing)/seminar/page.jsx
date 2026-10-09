@@ -87,7 +87,7 @@ export default function SeminarPage() {
  {BENEFITS.map((b, i) => (
  <motion.div key={i}
  initial={{ opacity: 0, y: 10 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.1 }}
- className="flex items-center gap-5 bg-white border border-slate-100 p-6 hover:border-slate-200 hover:shadow-sm transition-all duration-300">
+ className="flex items-center gap-5 bg-white border border-slate-100 p-6 hover:border-slate-200 hover:shadow-sm transition-all duration-300 rounded-lg">
  <span className="text-3xl">{b.icon}</span>
  <span className="font-medium text-slate-700">{b.text}</span>
  </motion.div>
@@ -95,7 +95,7 @@ export default function SeminarPage() {
  </div>
 
  {/* Social proof */}
- <div className="bg-slate-900 p-8 md:p-10 text-white">
+ <div className="bg-slate-900 p-8 md:p-10 text-white rounded-lg">
  <p className="font-medium text-2xl mb-2 tracking-tight">🚀 Join 5,000+ Students</p>
  <p className="text-slate-400 font-light leading-relaxed">
  Who kickstarted their IT career with SYICT's free seminar. Your journey starts with one click.
@@ -106,12 +106,12 @@ export default function SeminarPage() {
  {/* Right — Registration Form */}
  <motion.div
  initial={{ opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.6 }}
- className="bg-white border border-slate-200 p-8 md:p-12"
+ className="bg-white border border-slate-200 p-8 md:p-12 rounded-lg"
  >
  <AnimatePresence mode="wait">
  {done ? (
  <motion.div key="success" initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="text-center py-8">
- <div className="w-24 h-24 mx-auto bg-slate-50 border border-slate-100 flex items-center justify-center mb-6">
+ <div className="w-24 h-24 mx-auto bg-slate-50 border border-slate-100 flex items-center justify-center mb-6 rounded-lg">
  <IoCheckmarkCircle size={56} className="text-slate-900" />
  </div>
  <h3 className="text-3xl font-medium text-slate-900 mb-4 tracking-tight">You're Registered! 🎉</h3>
@@ -127,17 +127,17 @@ export default function SeminarPage() {
  <div>
  <label className="block text-xs font-medium uppercase tracking-widest text-slate-500 mb-2">Full Name *</label>
  <input name="name" required type="text" placeholder="Your full name"
- className="w-full p-4 bg-slate-50 border border-slate-200 focus:outline-none focus:border-slate-400 focus:bg-white transition-colors" value={form.name} onChange={handleChange} />
+ className="w-full p-4 bg-slate-50 border border-slate-200 focus:outline-none focus:border-slate-400 focus:bg-white transition-colors rounded-md" value={form.name} onChange={handleChange} />
  </div>
  <div>
  <label className="block text-xs font-medium uppercase tracking-widest text-slate-500 mb-2">Phone Number *</label>
  <input name="phone" required type="tel" placeholder="01XXXXXXXXX"
- className="w-full p-4 bg-slate-50 border border-slate-200 focus:outline-none focus:border-slate-400 focus:bg-white transition-colors" value={form.phone} onChange={handleChange} />
+ className="w-full p-4 bg-slate-50 border border-slate-200 focus:outline-none focus:border-slate-400 focus:bg-white transition-colors rounded-md" value={form.phone} onChange={handleChange} />
  </div>
  <div>
  <label className="block text-xs font-medium uppercase tracking-widest text-slate-500 mb-2">Email (optional)</label>
  <input name="email" type="email" placeholder="you@email.com"
- className="w-full p-4 bg-slate-50 border border-slate-200 focus:outline-none focus:border-slate-400 focus:bg-white transition-colors" value={form.email} onChange={handleChange} />
+ className="w-full p-4 bg-slate-50 border border-slate-200 focus:outline-none focus:border-slate-400 focus:bg-white transition-colors rounded-md" value={form.email} onChange={handleChange} />
  </div>
  <div>
  <label className="block text-xs font-medium uppercase tracking-widest text-slate-500 mb-2">Choose Seminar *</label>
@@ -154,7 +154,7 @@ export default function SeminarPage() {
  </select>
  </div>
  <button type="submit" disabled={loading}
- className="w-full py-4 mt-4 bg-slate-900 text-white font-medium text-sm uppercase tracking-widest flex items-center justify-center gap-3 hover:bg-slate-800 transition-colors disabled:bg-slate-300 disabled:text-slate-500">
+ className="w-full py-4 mt-4 bg-slate-900 text-white font-medium text-sm uppercase tracking-widest flex items-center justify-center gap-3 hover:bg-slate-800 transition-colors disabled:bg-slate-300 disabled:text-slate-500 rounded-md">
  {loading
  ? <><svg className="animate-spin h-5 w-5" viewBox="0 0 24 24" fill="none"><circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" /><path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8z" /></svg> Registering…</>
  : <><IoArrowForwardOutline size={18} /> Register Now — It's Free!</>

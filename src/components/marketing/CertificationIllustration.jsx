@@ -127,7 +127,7 @@ export default function CertificationIllustration() {
  transition={{ duration: 8, repeat: Infinity, delay: 1 }}
  className="absolute bottom-[20%] right-[10%] w-16 h-16 bg-cyan-500/20 backdrop-blur-xl flex items-center justify-center border border-cyan-500/30 shadow-xl"
  >
- <div className="w-1/2 h-1/2 border-2 border-cyan-500 border-dashed" />
+ <div className="w-1/2 h-1/2 border-2 border-cyan-500 border-dashed rounded-lg" />
  </motion.div>
 
  <style jsx>{`

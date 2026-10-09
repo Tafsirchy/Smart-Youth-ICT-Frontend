@@ -16,7 +16,7 @@ export default function CourseCurriculum({ curriculum = [], isEnrolled = false }
 
  if (!curriculum || curriculum.length === 0) {
  return (
- <div className="bg-neutral-50 p-8 text-center border border-neutral-200">
+ <div className="bg-neutral-50 p-8 text-center border border-neutral-200 rounded-lg">
  <p className="text-neutral-500">Curriculum is being updated. Please check back later.</p>
  </div>
  );
@@ -28,7 +28,7 @@ export default function CourseCurriculum({ curriculum = [], isEnrolled = false }
  const isOpen = openSections.includes(idx);
  
  return (
- <div key={idx} className="bg-white border border-neutral-200 overflow-hidden shadow-sm">
+ <div key={idx} className="bg-white border border-neutral-200 overflow-hidden shadow-sm rounded-lg">
  <button
  onClick={() => toggleSection(idx)}
  className="w-full flex items-center justify-between p-5 bg-neutral-50 hover:bg-neutral-100 transition-colors text-left"
@@ -56,7 +56,7 @@ export default function CourseCurriculum({ curriculum = [], isEnrolled = false }
  {section.lessons?.map((lesson, lIdx) => (
  <div 
  key={lIdx} 
- className="flex items-center justify-between p-3 hover:bg-neutral-50 transition-colors group cursor-pointer"
+ className="flex items-center justify-between p-3 hover:bg-neutral-50 transition-colors group cursor-pointer rounded-md"
  >
  <div className="flex items-center gap-3">
  <div className={`p-2 ${lesson.type === 'video' ? 'bg-blue-50 text-blue-600' : 'bg-orange-50 text-orange-600'}`}>
@@ -70,7 +70,7 @@ export default function CourseCurriculum({ curriculum = [], isEnrolled = false }
  
  <div>
  {lesson.isPreview ? (
- <span className="text-xs font-bold text-emerald-600 bg-emerald-50 px-2 py-1 border border-emerald-100">PREVIEW</span>
+ <span className="text-xs font-bold text-emerald-600 bg-emerald-50 px-2 py-1 border border-emerald-100 rounded-md">PREVIEW</span>
  ) : !isEnrolled ? (
  <FiLock className="text-neutral-400" size={16} />
  ) : (

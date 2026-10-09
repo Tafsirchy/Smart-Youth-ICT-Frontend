@@ -68,7 +68,7 @@ export default function CertificationsPage() {
  transition={{ delay: i * 0.1 }}
  className="flex gap-6 group"
  >
- <div className="w-14 h-14 flex items-center justify-center shrink-0 bg-slate-50 border border-slate-100 text-slate-600 group-hover:scale-110 group-hover:bg-slate-900 group-hover:text-white transition-all duration-500">
+ <div className="w-14 h-14 flex items-center justify-center shrink-0 bg-slate-50 border border-slate-100 text-slate-600 group-hover:scale-110 group-hover:bg-slate-900 group-hover:text-white transition-all duration-500 rounded-lg">
  {item.icon}
  </div>
  <div>
@@ -90,7 +90,7 @@ export default function CertificationsPage() {
  >
  <div className="w-full h-full border border-slate-200 flex flex-col items-center justify-center p-6 text-center relative overflow-hidden">
  <div className="absolute top-0 left-0 w-full h-1 bg-slate-900"></div>
- <div className="w-16 h-16 flex items-center justify-center text-slate-900 mb-8 border border-slate-200">
+ <div className="w-16 h-16 flex items-center justify-center text-slate-900 mb-8 border border-slate-200 rounded-lg">
  <IoRibbonOutline size={28} />
  </div>
  <h4 className="font-serif text-2xl font-medium text-slate-900 mb-3 tracking-tight">Certificate of Excellence</h4>
@@ -107,7 +107,7 @@ export default function CertificationsPage() {
  className="absolute top-32 left-0 w-[360px] h-[480px] bg-slate-50 -[2rem] shadow-[0_10px_40px_rgb(0,0,0,0.03)] border border-slate-200 p-8 z-10 hover:-translate-y-1 transition-all duration-500"
  >
  <div className="w-full h-full border border-slate-200 flex flex-col items-center justify-center p-6 text-center border-dashed">
- <div className="w-16 h-16 flex items-center justify-center text-slate-500 mb-8 bg-white border border-slate-100 shadow-sm">
+ <div className="w-16 h-16 flex items-center justify-center text-slate-500 mb-8 bg-white border border-slate-100 shadow-sm rounded-lg">
  <IoLibraryOutline size={28} />
  </div>
  <h4 className="font-serif text-xl font-medium text-slate-800 mb-3 tracking-tight">Government Approval</h4>
@@ -129,7 +129,7 @@ export default function CertificationsPage() {
  <p className="text-[10px] font-medium text-slate-400 uppercase tracking-widest mb-0.5">Next Step</p>
  <p className="text-slate-900 font-medium text-sm">Join the Program</p>
  </div>
- <button className="px-6 py-3 min-h-[44px] bg-slate-900 text-white font-medium text-[11px] uppercase tracking-wider transition-transform active:scale-95">
+ <button className="px-6 py-3 min-h-[44px] bg-slate-900 text-white font-medium text-[11px] uppercase tracking-wider transition-transform active:scale-95 rounded-md">
  Apply Now
  </button>
  </div>

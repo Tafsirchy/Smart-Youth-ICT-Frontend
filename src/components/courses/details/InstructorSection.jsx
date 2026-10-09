@@ -23,14 +23,14 @@ export default function InstructorSection({ course }) {
  hidden: { opacity: 0, y: 30 },
  visible: { opacity: 1, y: 0, transition: { duration: 0.6 } }
  }}
- className="bg-white -[2rem] p-8 md:p-10 border border-slate-100 shadow-[0_10px_40px_rgba(0,0,0,0.03)]"
+ className="bg-white border border-slate-100 rounded-lg shadow-sm p-8 md:p-10 mt-12"
  >
- <h2 className="text-2xl font-extrabold text-slate-900 tracking-tight mb-8">Meet Your Instructor</h2>
+ <h2 className="text-2xl font-bold text-slate-900 tracking-tight mb-8 pb-4 border-b border-slate-100">Meet Your Instructor</h2>
  
  <div className="flex flex-col md:flex-row gap-8 items-start">
  {/* Avatar Setup */}
- <div className="relative shrink-0 perspective-1000 group">
- <div className="w-32 h-32 md:w-40 md:h-40 relative overflow-hidden shadow-xl border-4 border-indigo-50/50 group-hover:scale-[1.02] transition-transform duration-300">
+ <div className="relative shrink-0 group">
+ <div className="w-32 h-32 md:w-40 md:h-40 relative overflow-hidden rounded-full border-4 border-white shadow-lg group-hover:scale-105 transition-all duration-300">
  <Image 
  src={instructor.avatar} 
  alt={instructor.name} 
@@ -39,11 +39,11 @@ export default function InstructorSection({ course }) {
  loading="lazy"
  decoding="async"
  onError={(e) => { e.target.srcset = ''; e.target.src = '/images/placeholder.png'; }}
- className="object-cover bg-slate-100"
+ className="object-cover bg-slate-50"
  />
  </div>
- <div className="absolute -bottom-3 -right-3 bg-white p-2 shadow-lg border border-slate-100">
- <div className="bg-emerald-50 text-emerald-600 px-3 py-1 text-xs font-bold uppercase tracking-widest flex items-center gap-1.5">
+ <div className="absolute -bottom-2 right-2 bg-white rounded-full p-1 shadow-md z-10">
+ <div className="bg-brand-pink text-white rounded-full px-3 py-1 text-[10px] font-bold uppercase tracking-wider flex items-center gap-1">
  <IoRibbonOutline size={14} /> Expert
  </div>
  </div>
@@ -52,21 +52,20 @@ export default function InstructorSection({ course }) {
  {/* Info */}
  <div className="flex-1 space-y-4 pt-2">
  <div>
- <h3 className="text-3xl font-black text-slate-900 tracking-tight">{instructor.name}</h3>
- <p className="text-indigo-600 font-bold tracking-wide mt-1">{instructor.title || 'Senior Software Engineer'}</p>
+ <h3 className="text-2xl font-bold text-slate-900 tracking-tight">{instructor.name}</h3>
+ <p className="text-brand-pink font-semibold mt-1 text-sm">{instructor.title || 'Senior Software Engineer'}</p>
  </div>
 
- <div className="flex flex-wrap items-center gap-4 text-sm font-semibold text-slate-500 mb-4 pb-4 border-b border-slate-100">
-
- <span className="flex items-center gap-1.5 bg-slate-50 px-3 py-1.5 border border-slate-100">
- <IoPeopleOutline size={16} className="text-blue-500" /> {course?.enrolledCount || 1024}+ Students
+ <div className="flex flex-wrap items-center gap-4 text-xs font-medium text-slate-600 mb-4 pb-4 border-b border-slate-100">
+ <span className="flex items-center gap-1.5 bg-slate-50 border border-slate-200 rounded-lg px-3 py-1.5">
+ <IoPeopleOutline className="text-brand-pink" size={16} /> {course?.enrolledCount || 1024}+ Students
  </span>
- <span className="flex items-center gap-1.5 bg-slate-50 px-3 py-1.5 border border-slate-100">
- <span className="text-emerald-500 font-black">💼</span> {instructor.experience || '8+ Years'} Experience
+ <span className="flex items-center gap-1.5 bg-slate-50 border border-slate-200 rounded-lg px-3 py-1.5">
+ <IoRibbonOutline className="text-brand-pink" size={16} /> {instructor.experience || '8+ Years'} Experience
  </span>
  </div>
 
- <p className="text-slate-600 leading-relaxed font-medium">
+ <p className="text-slate-600 font-medium leading-relaxed">
  {instructor.bio}
  </p>
 
@@ -75,7 +74,7 @@ export default function InstructorSection({ course }) {
  <a 
  key={i} 
  href="#" 
- className="w-10 h-10 bg-slate-50 hover:bg-indigo-50 flex items-center justify-center text-slate-400 hover:text-indigo-600 transition-colors border border-slate-100 hover:border-indigo-100 shadow-sm"
+ className="w-10 h-10 bg-slate-50 rounded-full flex items-center justify-center text-slate-600 hover:bg-slate-900 hover:text-white transition-colors"
  >
  <Icon size={18} />
  </a>

@@ -70,9 +70,9 @@ export default function UiUxDetailsClient({ data }) {
             <span className="text-[10px] font-black text-slate-400 uppercase tracking-widest leading-[1.4]">v4.2 Lifecycle</span>
           </div>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-px bg-slate-200 border border-slate-200 md:-[3.5rem] overflow-hidden shadow-2xl">
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-px bg-slate-200 border border-slate-200 md:-[3.5rem] overflow-hidden shadow-2xl rounded-lg">
             {(sections.phases || []).map((phase, idx) => (
-              <div key={idx} className="bg-white p-6 md:p-10 hover:bg-slate-50 transition-all group relative overflow-hidden">
+              <div key={idx} className="bg-white p-6 md:p-10 hover:bg-slate-50 transition-all group relative overflow-hidden rounded-md">
                 <div className="absolute top-0 right-0 p-4 md:p-8 text-3xl md:text-4xl font-black text-slate-50 group-hover:text-cyan-50 transition-colors select-none leading-none">{phase.step}</div>
                 <div className="relative z-10">
                   <h4 className="text-[10px] font-black text-cyan-600 uppercase tracking-[0.4em] mb-2 md:mb-4 leading-[1.4]">{phase.stage}</h4>
@@ -91,7 +91,7 @@ export default function UiUxDetailsClient({ data }) {
 
           <div className="grid lg:grid-cols-3 gap-4 md:gap-8">
             {(sections.roi || []).map((group, idx) => (
-              <div key={idx} className="bg-white md:-[3rem] p-6 md:p-10 border border-slate-100 shadow-xl shadow-slate-200/50 hover:shadow-2xl transition-all group">
+              <div key={idx} className="bg-white md:-[3rem] p-6 md:p-10 border border-slate-100 shadow-xl shadow-slate-200/50 hover:shadow-2xl transition-all group rounded-lg">
                 <div className="w-10 h-10 md:w-12 md:h-12 bg-cyan-50 flex items-center justify-center text-xl md:text-2xl text-cyan-600 mb-6 md:mb-8 group-hover:scale-110 transition-transform"><IoFlashOutline /></div>
                 <h3 className="text-lg md:text-xl font-black text-slate-900 mb-4 md:mb-6 tracking-tighter uppercase leading-[1.1]">{group.group}</h3>
                 <ul className="space-y-2 md:space-y-4">
@@ -127,12 +127,12 @@ export default function UiUxDetailsClient({ data }) {
             )}
           </h3>
           <div className="flex flex-col sm:flex-row gap-3 md:gap-4 justify-center">
-            <button className="w-full sm:w-[240px] min-h-[48px] px-4 py-3 md:py-4 bg-cyan-600 text-white font-black hover:bg-cyan-700 transition-all shadow-xl shadow-cyan-600/40 uppercase tracking-widest text-[10px] flex items-center justify-center leading-[1.4]">
+            <button className="w-full sm:w-[240px] min-h-[48px] px-4 py-3 md:py-4 bg-cyan-600 text-white font-black hover:bg-cyan-700 transition-all shadow-xl shadow-cyan-600/40 uppercase tracking-widest text-[10px] flex items-center justify-center leading-[1.4] rounded-md">
               Initialize Product Audit
             </button>
             <Link
               href="/freelancing"
-              className="w-full sm:w-[240px] min-h-[48px] px-4 py-3 md:py-4 bg-slate-900 text-white font-black hover:bg-slate-800 transition-all uppercase tracking-widest text-[10px] flex items-center justify-center text-center leading-[1.4]"
+              className="w-full sm:w-[240px] min-h-[48px] px-4 py-3 md:py-4 bg-slate-900 text-white font-black hover:bg-slate-800 transition-all uppercase tracking-widest text-[10px] flex items-center justify-center text-center leading-[1.4] rounded-md"
             >
               Hire Student Talent
             </Link>
@@ -146,7 +146,7 @@ export default function UiUxDetailsClient({ data }) {
             <p className="text-[10px] font-black text-slate-500 uppercase tracking-widest leading-[1.4]">Ready?</p>
             <p className="text-slate-900 font-bold text-sm leading-[1.4]">Start Designing</p>
          </div>
-         <button className="px-5 py-3 min-h-[48px] bg-cyan-600 text-white font-black text-[10px] uppercase tracking-widest shadow-md shadow-cyan-600/30 leading-[1.4] flex items-center justify-center">
+         <button className="px-5 py-3 min-h-[48px] bg-cyan-600 text-white font-black text-[10px] uppercase tracking-widest shadow-md shadow-cyan-600/30 leading-[1.4] flex items-center justify-center rounded-md">
             Initialize Audit
          </button>
       </div>

@@ -211,7 +211,7 @@ export default function CourseForm({ initialData = null, onSuccess }) {
  <button
  type="button"
  onClick={onAdd}
- className="btn-sm bg-neutral-100 flex items-center gap-1 px-3 mt-1 text-sm font-semibold hover:bg-neutral-200"
+ className="btn-sm bg-neutral-100 flex items-center gap-1 px-3 mt-1 text-sm font-semibold hover:bg-neutral-200 rounded-md"
  >
  <FiPlus /> Add
  </button>
@@ -239,7 +239,7 @@ export default function CourseForm({ initialData = null, onSuccess }) {
  </div>
 
  {error && (
- <div className="mb-6 bg-red-50 text-red-600 p-4 font-semibold border border-red-100 flex items-center gap-2">
+ <div className="mb-6 bg-red-50 text-red-600 p-4 font-semibold border border-red-100 flex items-center gap-2 rounded-lg">
  <FiX /> {error}
  </div>
  )}
@@ -260,7 +260,7 @@ export default function CourseForm({ initialData = null, onSuccess }) {
  <input
  required
  type="text"
- className="w-full border p-3 focus:ring-2 outline-none focus:ring-blue-500"
+ className="w-full border p-3 focus:ring-2 outline-none focus:ring-blue-500 rounded-md"
  value={formData.title.en}
  onChange={(e) =>
  setFormData({
@@ -276,7 +276,7 @@ export default function CourseForm({ initialData = null, onSuccess }) {
  </label>
  <input
  type="text"
- className="w-full border p-3 focus:ring-2 outline-none focus:ring-blue-500"
+ className="w-full border p-3 focus:ring-2 outline-none focus:ring-blue-500 rounded-md"
  value={formData.title.bn}
  onChange={(e) =>
  setFormData({
@@ -294,7 +294,7 @@ export default function CourseForm({ initialData = null, onSuccess }) {
  </label>
  <input
  type="text"
- className="w-full border p-3 focus:ring-2 outline-none focus:ring-blue-500"
+ className="w-full border p-3 focus:ring-2 outline-none focus:ring-blue-500 rounded-md"
  placeholder="Transform your career with..."
  value={formData.tagline}
  onChange={(e) =>
@@ -329,7 +329,7 @@ export default function CourseForm({ initialData = null, onSuccess }) {
  <input
  required
  type="number"
- className="w-full border p-3 focus:ring-2 outline-none focus:ring-blue-500"
+ className="w-full border p-3 focus:ring-2 outline-none focus:ring-blue-500 rounded-md"
  value={formData.price}
  onChange={(e) =>
  setFormData({ ...formData, price: e.target.value })
@@ -342,7 +342,7 @@ export default function CourseForm({ initialData = null, onSuccess }) {
  </label>
  <input
  type="number"
- className="w-full border p-3 focus:ring-2 outline-none focus:ring-blue-500"
+ className="w-full border p-3 focus:ring-2 outline-none focus:ring-blue-500 rounded-md"
  value={formData.originalPrice}
  onChange={(e) =>
  setFormData({ ...formData, originalPrice: e.target.value })
@@ -359,7 +359,7 @@ export default function CourseForm({ initialData = null, onSuccess }) {
  <input
  type="text"
  placeholder="e.g. 6 Months"
- className="w-full border p-3 focus:ring-2 outline-none focus:ring-blue-500"
+ className="w-full border p-3 focus:ring-2 outline-none focus:ring-blue-500 rounded-md"
  value={formData.duration}
  onChange={(e) =>
  setFormData({ ...formData, duration: e.target.value })
@@ -373,7 +373,7 @@ export default function CourseForm({ initialData = null, onSuccess }) {
  <input
  type="text"
  placeholder="e.g. Bengali / English"
- className="w-full border p-3 focus:ring-2 outline-none focus:ring-blue-500"
+ className="w-full border p-3 focus:ring-2 outline-none focus:ring-blue-500 rounded-md"
  value={formData.language}
  onChange={(e) =>
  setFormData({ ...formData, language: e.target.value })
@@ -387,7 +387,7 @@ export default function CourseForm({ initialData = null, onSuccess }) {
  <input
  type="text"
  placeholder="e.g. Online / Hybrid"
- className="w-full border p-3 focus:ring-2 outline-none focus:ring-blue-500"
+ className="w-full border p-3 focus:ring-2 outline-none focus:ring-blue-500 rounded-md"
  value={formData.mode}
  onChange={(e) =>
  setFormData({ ...formData, mode: e.target.value })
@@ -416,11 +416,11 @@ export default function CourseForm({ initialData = null, onSuccess }) {
  />
  </div>
 
- <div className="flex items-center gap-3 bg-neutral-50 p-4 border border-neutral-100">
+ <div className="flex items-center gap-3 bg-neutral-50 p-4 border border-neutral-100 rounded-lg">
  <input
  type="checkbox"
  id="published"
- className="w-5 h-5 cursor-pointer accent-blue-600"
+ className="w-5 h-5 cursor-pointer accent-blue-600 rounded-md"
  checked={formData.isPublished}
  onChange={(e) =>
  setFormData({ ...formData, isPublished: e.target.checked })
@@ -428,17 +428,17 @@ export default function CourseForm({ initialData = null, onSuccess }) {
  />
  <label
  htmlFor="published"
- className="font-semibold text-neutral-800 cursor-pointer"
+ className="font-semibold text-neutral-800 cursor-pointer rounded-md"
  >
  Publish immediately to Public Website?
  </label>
  </div>
 
- <div className="flex items-center gap-3 bg-neutral-50 p-4 border border-neutral-100">
+ <div className="flex items-center gap-3 bg-neutral-50 p-4 border border-neutral-100 rounded-lg">
  <input
  type="checkbox"
  id="popular"
- className="w-5 h-5 cursor-pointer accent-pink-600"
+ className="w-5 h-5 cursor-pointer accent-pink-600 rounded-md"
  checked={!!formData.isPopular}
  onChange={(e) =>
  setFormData({ ...formData, isPopular: e.target.checked })
@@ -446,7 +446,7 @@ export default function CourseForm({ initialData = null, onSuccess }) {
  />
  <label
  htmlFor="popular"
- className="font-semibold text-neutral-800 cursor-pointer"
+ className="font-semibold text-neutral-800 cursor-pointer rounded-md"
  >
  Mark as Popular for Home Page (Most Popular Career Paths)?
  </label>
@@ -462,7 +462,7 @@ export default function CourseForm({ initialData = null, onSuccess }) {
  className="space-y-6"
  >
  <SectionHeader title="Course Media" />
- <div className="border-2 border-dashed border-neutral-300 p-10 text-center relative hover:bg-neutral-50 hover:border-blue-400 transition-colors bg-white">
+ <div className="border-2 border-dashed border-neutral-300 p-10 text-center relative hover:bg-neutral-50 hover:border-blue-400 transition-colors bg-white rounded-md">
  <input
  type="file"
  accept="image/*"
@@ -480,7 +480,7 @@ export default function CourseForm({ initialData = null, onSuccess }) {
  <img
  src={initialData.thumbnail}
  alt="Thumbnail preview"
- className="h-40 mx-auto object-cover mb-4 shadow-sm bg-[#f0f0f0]"
+ className="h-40 mx-auto object-cover mb-4 shadow-sm bg-[#f0f0f0] rounded-md"
  
 loading="lazy"
 onError={(e) => { e.target.onerror = null; e.target.srcset = ''; e.target.src = '/assets/fallback.png'; }}
@@ -517,7 +517,7 @@ decoding="async"/>
  {formData.curriculum.map((mod, i) => (
  <div
  key={i}
- className="border p-5 bg-neutral-50/50 shadow-sm relative group overflow-hidden"
+ className="border p-5 bg-neutral-50/50 shadow-sm relative group overflow-hidden rounded-lg"
  >
  <div className="flex flex-wrap gap-4 mb-4 items-end">
  <div className="flex-1 min-w-[200px]">
@@ -527,7 +527,7 @@ decoding="async"/>
  <input
  type="text"
  placeholder="e.g. Introduction to React"
- className="w-full border p-3 mt-1.5 focus:ring-2 outline-none focus:ring-blue-500 bg-white"
+ className="w-full border p-3 mt-1.5 focus:ring-2 outline-none focus:ring-blue-500 bg-white rounded-md"
  value={mod.title}
  onChange={(e) =>
  handleObjectArray(
@@ -546,7 +546,7 @@ decoding="async"/>
  <input
  type="text"
  placeholder="2h 15m"
- className="w-full border p-3 mt-1.5 focus:ring-2 outline-none focus:ring-blue-500 bg-white"
+ className="w-full border p-3 mt-1.5 focus:ring-2 outline-none focus:ring-blue-500 bg-white rounded-md"
  value={mod.duration}
  onChange={(e) =>
  handleObjectArray(
@@ -580,7 +580,7 @@ decoding="async"/>
  <input
  type="text"
  placeholder={`Lesson name...`}
- className="flex-1 border-b py-2 bg-transparent focus:border-blue-500 outline-none transition-colors"
+ className="flex-1 border-b py-2 bg-transparent focus:border-blue-500 outline-none transition-colors rounded-md"
  value={t}
  onChange={(e) =>
  handleTopicChange(i, tidx, e.target.value)
@@ -621,7 +621,7 @@ decoding="async"/>
  title="What You Will Learn (Outcomes Checklist)"
  onAdd={() => addArrayItem("outcomes", "")}
  />
- <div className="space-y-3 bg-neutral-50 p-6 border">
+ <div className="space-y-3 bg-neutral-50 p-6 border rounded-lg">
  {formData.outcomes.map((out, i) => (
  <div key={i} className="flex gap-2 items-center">
  <FiCheckCircle
@@ -631,7 +631,7 @@ decoding="async"/>
  <input
  type="text"
  placeholder="Outcome description..."
- className="flex-1 border-b py-2 bg-transparent outline-none focus:border-blue-500"
+ className="flex-1 border-b py-2 bg-transparent outline-none focus:border-blue-500 rounded-md"
  value={out}
  onChange={(e) =>
  handleArrayChange("outcomes", i, e.target.value)
@@ -660,15 +660,15 @@ decoding="async"/>
  {formData.features.map((feat, i) => (
  <div
  key={i}
- className="flex gap-3 bg-white border p-3 shadow-sm items-center"
+ className="flex gap-3 bg-white border p-3 shadow-sm items-center rounded-lg"
  >
- <div className="shrink-0 w-12 h-12 bg-blue-50 text-blue-600 flex items-center justify-center font-bold text-xs shadow-inner">
+ <div className="shrink-0 w-12 h-12 bg-blue-50 text-blue-600 flex items-center justify-center font-bold text-xs shadow-inner rounded-lg">
  ICON
  </div>
  <input
  type="text"
  placeholder="React-Icon Name (e.g. FaLaptopCode)"
- className="w-48 border-none bg-transparent outline-none font-mono text-sm text-neutral-500 placeholder-neutral-300"
+ className="w-48 border-none bg-transparent outline-none font-mono text-sm text-neutral-500 placeholder-neutral-300 rounded-md"
  value={feat.iconKey}
  onChange={(e) =>
  handleObjectArray(
@@ -683,7 +683,7 @@ decoding="async"/>
  <input
  type="text"
  placeholder="Feature title text..."
- className="flex-1 border-none bg-transparent outline-none font-medium"
+ className="flex-1 border-none bg-transparent outline-none font-medium rounded-md"
  value={feat.text}
  onChange={(e) =>
  handleObjectArray("features", i, "text", e.target.value)
@@ -726,7 +726,7 @@ decoding="async"/>
  {formData.projects.map((proj, i) => (
  <div
  key={i}
- className="border p-6 bg-white shadow-sm ring-1 ring-neutral-200 relative group overflow-hidden"
+ className="border p-6 bg-white shadow-sm ring-1 ring-neutral-200 relative group overflow-hidden rounded-lg"
  >
  <button
  type="button"
@@ -741,7 +741,7 @@ decoding="async"/>
  </label>
  <input
  type="text"
- className="w-full border-b py-2 focus:border-blue-500 outline-none font-bold text-lg"
+ className="w-full border-b py-2 focus:border-blue-500 outline-none font-bold text-lg rounded-md"
  value={proj.title}
  onChange={(e) =>
  handleObjectArray("projects", i, "title", e.target.value)
@@ -766,7 +766,7 @@ decoding="async"/>
  <input
  type="file"
  accept="image/*"
- className="w-full border p-3 focus:ring-2 outline-none focus:ring-blue-500 text-sm bg-white"
+ className="w-full border p-3 focus:ring-2 outline-none focus:ring-blue-500 text-sm bg-white rounded-md"
  onChange={(e) => {
  const file = e.target.files?.[0];
  if (file) {
@@ -796,7 +796,7 @@ decoding="async"/>
  <input
  type="text"
  placeholder="React, Node, Typescript"
- className="w-full border p-3 font-mono text-sm focus:ring-2 outline-none focus:ring-blue-500 bg-neutral-50"
+ className="w-full border p-3 font-mono text-sm focus:ring-2 outline-none focus:ring-blue-500 bg-neutral-50 rounded-md"
  value={proj.techs?.join(", ") || ""}
  onChange={(e) =>
  handleObjectArray(
@@ -829,13 +829,13 @@ decoding="async"/>
  {formData.faqs.map((faq, i) => (
  <div
  key={i}
- className="flex gap-4 items-start border p-5 bg-white shadow-sm ring-1 ring-neutral-200 transition-all hover:ring-blue-300"
+ className="flex gap-4 items-start border p-5 bg-white shadow-sm ring-1 ring-neutral-200 transition-all hover:ring-blue-300 rounded-lg"
  >
  <div className="flex-1 space-y-3">
  <input
  type="text"
  placeholder="Type Question..."
- className="w-full border-none bg-transparent outline-none font-bold text-lg text-neutral-800"
+ className="w-full border-none bg-transparent outline-none font-bold text-lg text-neutral-800 rounded-md"
  value={faq.question}
  onChange={(e) =>
  handleObjectArray("faqs", i, "question", e.target.value)
@@ -868,7 +868,7 @@ decoding="async"/>
  {/* FOOTER ACTIONS */}
  <div className="mt-8 pt-6 border-t border-neutral-200 flex flex-wrap justify-between items-center gap-4">
  {initialData && (
- <span className="text-sm font-semibold text-neutral-500 border px-3 py-1">
+ <span className="text-sm font-semibold text-neutral-500 border px-3 py-1 rounded-md">
  Editing ID: {initialData._id}
  </span>
  )}
@@ -883,7 +883,7 @@ decoding="async"/>
  <button
  type="submit"
  disabled={loading}
- className="px-8 py-3 font-bold text-white bg-blue-600 hover:bg-blue-700 shadow-md shadow-blue-500/20 transition-all disabled:opacity-50 flex items-center gap-2"
+ className="px-8 py-3 font-bold text-white bg-blue-600 hover:bg-blue-700 shadow-md shadow-blue-500/20 transition-all disabled:opacity-50 flex items-center gap-2 rounded-md"
  >
  <FiSave size={18} />
  {loading

@@ -15,7 +15,7 @@ export default function CareerTracksClient({ tracks, content }) {
             <motion.div
               initial={{ opacity: 0, scale: 0.9 }}
               animate={{ opacity: 1, scale: 1 }}
-              className="px-4 py-2 border border-white/20 inline-block text-white/70 text-xs font-mono uppercase tracking-widest mb-8 bg-white/5 backdrop-blur-md"
+              className="px-4 py-2 border border-white/20 inline-block text-white/70 text-xs font-mono uppercase tracking-widest mb-8 bg-white/5 backdrop-blur-md rounded-md"
             >
               {content?.hero?.badge || "Zero To Hero"}
             </motion.div>
@@ -85,12 +85,12 @@ export default function CareerTracksClient({ tracks, content }) {
                       </div>
                     </div>
 
-                    <button className="w-full min-h-[44px] py-4 mt-8 bg-white/5 border border-white/10 text-white font-bold hover:bg-white/10 transition-colors text-sm sm:text-xs">
+                    <button className="w-full min-h-[44px] py-4 mt-8 bg-white/5 border border-white/10 text-white font-bold hover:bg-white/10 transition-colors text-sm sm:text-xs rounded-md">
                       Download Syllabus PDF
                     </button>
                   </div>
 
-                  <div className="lg:col-span-7 bg-black/40 p-8 border border-white/5 relative">
+                  <div className="lg:col-span-7 bg-black/40 p-8 border border-white/5 relative rounded-lg">
                     <div className="space-y-8 relative z-10">
                       {[
                         { phase: "Phase 1: Basics", val: track.phase1 },
@@ -126,7 +126,7 @@ export default function CareerTracksClient({ tracks, content }) {
       
       <div className="sticky bottom-0 left-0 right-0 bg-slate-950/80 backdrop-blur-md border-t border-white/10 z-50 lg:hidden pb-[max(1rem,env(safe-area-inset-bottom))] mt-auto">
         <div className="container-custom py-4 flex justify-center">
-          <button className="w-full min-h-[44px] py-3.5 bg-white text-slate-950 font-bold shadow-lg active:scale-95 transition-transform text-sm uppercase tracking-widest">
+          <button className="w-full min-h-[44px] py-3.5 bg-white text-slate-950 font-bold shadow-lg active:scale-95 transition-transform text-sm uppercase tracking-widest rounded-md">
             Download PDF
           </button>
         </div>

@@ -67,26 +67,21 @@ export default function CourseHero({ course, onEnroll }) {
  };
 
  return (
- <section className="relative overflow-hidden bg-slate-900 pt-6 pb-14 lg:pt-8 lg:pb-16"
- style={{ background: 'linear-gradient(135deg, #0f172a 0%, #1e1b4b 50%, #312e81 100%)' }}>
+ <section className="relative overflow-hidden bg-slate-50 pt-12 pb-16 lg:pt-20 lg:pb-24">
  
- {/* Decorative Blur Orbs */}
- <div className="absolute top-0 right-0 w-96 h-96 bg-blue-600/20 blur-[100px] pointer-events-none hidden" />
- <div className="absolute bottom-0 left-10 w-80 h-80 bg-pink-500/20 blur-[100px] pointer-events-none hidden" />
-
- {course.thumbnail && (
- <div className="absolute inset-0 opacity-10 pointer-events-none">
- <Image src={course.thumbnail} alt="" fill sizes="100vw" className="object-cover blur-3xl saturate-200 bg-[#f0f0f0]" priority={true} fetchPriority="high" onError={(e) => { e.target.srcset = ''; e.target.src = '/images/placeholder.png'; }} decoding="async"/>
- </div>
- )}
+ {/* Minimal Grid Background */}
+ <div 
+ className="absolute inset-0 pointer-events-none opacity-[0.02]" 
+ style={{ backgroundImage: 'radial-gradient(circle at 1px 1px, #94a3b8 1px, transparent 0)', backgroundSize: '32px 32px' }} 
+ />
 
  <div className="container-custom relative z-10">
- <div className="max-w-3xl">
+ <div className="max-w-4xl">
  {course.category && (
  <motion.span 
  initial={{ opacity: 0, y: 10 }}
  animate={{ opacity: 1, y: 0 }}
- className="inline-block mb-2 px-2.5 py-0.5 text-xs font-bold uppercase tracking-widest bg-white/10 border border-white/20 text-indigo-200"
+ className="inline-block mb-5 px-3 py-1 text-xs font-semibold uppercase tracking-wider text-brand-pink bg-pink-50 border border-pink-100 rounded-full"
  >
  {course.category}
  </motion.span>
@@ -96,7 +91,7 @@ export default function CourseHero({ course, onEnroll }) {
  initial={{ opacity: 0, y: 15 }}
  animate={{ opacity: 1, y: 0 }}
  transition={{ delay: 0.1 }}
- className="text-4xl md:text-5xl lg:text-6xl font-extrabold leading-[1.15] mb-3 text-white text-balance"
+ className="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight tracking-tight mb-6 text-slate-900 text-balance"
  >
  {title}
  </motion.h1>
@@ -105,7 +100,7 @@ export default function CourseHero({ course, onEnroll }) {
  initial={{ opacity: 0, y: 15 }}
  animate={{ opacity: 1, y: 0 }}
  transition={{ delay: 0.2 }}
- className="text-indigo-200 text-lg md:text-xl max-w-2xl leading-[1.5] mb-4"
+ className="text-slate-500 text-lg md:text-xl max-w-2xl leading-relaxed mb-8"
  >
  {description}
  </motion.p>
@@ -114,50 +109,52 @@ export default function CourseHero({ course, onEnroll }) {
  initial={{ opacity: 0 }}
  animate={{ opacity: 1 }}
  transition={{ delay: 0.3 }}
- className="flex flex-wrap items-center gap-4 text-sm font-medium text-indigo-100 mb-5"
+ className="flex flex-wrap items-center gap-6 text-sm font-medium text-slate-600 mb-10"
  >
  {/* Students */}
  <div className="flex items-center gap-2">
- <IoPeopleOutline size={18} className="text-indigo-300" />
+ <div className="flex items-center justify-center p-1.5 bg-white rounded-md shadow-sm border border-slate-100">
+ <IoPeopleOutline size={16} className="text-brand-pink" />
+ </div>
  <span>{enrolledCount} Students</span>
  </div>
 
  {/* Instructor */}
  <div className="flex items-center gap-2">
- <div className="w-6 h-6 bg-indigo-500 overflow-hidden relative border border-indigo-400">
- <Image src={course?.instructor?.avatar || '/images/default-avatar.png'} alt="Instructor" fill sizes="24px" className="object-cover bg-[#f0f0f0]" priority={true} fetchPriority="high" onError={(e) => { e.target.srcset = ''; e.target.src = '/images/placeholder.png'; }} decoding="async"/>
+ <div className="w-7 h-7 relative overflow-hidden rounded-full border border-slate-200">
+ <Image src={course?.instructor?.avatar || '/images/default-avatar.png'} alt="Instructor" fill sizes="28px" className="object-cover bg-[#f0f0f0] rounded-md" priority={true} fetchPriority="high" onError={(e) => { e.target.srcset = ''; e.target.src = '/images/placeholder.png'; }} decoding="async"/>
  </div>
- <span>By <span className="text-white font-semibold underline underline-offset-4 decoration-indigo-400/50">{instructorName}</span></span>
+ <span>By <span className="font-semibold text-slate-800">{instructorName}</span></span>
  </div>
  </motion.div>
 
  {/* CTAs */}
  <motion.div 
- initial={{ opacity: 0, scale: 0.95 }}
- animate={{ opacity: 1, scale: 1 }}
+ initial={{ opacity: 0, y: 10 }}
+ animate={{ opacity: 1, y: 0 }}
  transition={{ delay: 0.4 }}
- className="flex flex-col sm:flex-row gap-2"
+ className="flex flex-col sm:flex-row items-center gap-4"
  >
  <button 
  onClick={onEnroll}
- className="flex-1 sm:flex-none flex items-center justify-center gap-2 px-6 py-3 sm:h-11 bg-gradient-to-r from-blue-600 to-indigo-600 text-white font-bold text-lg shadow-[0_0_30px_rgba(79,70,229,0.3)] hover:shadow-[0_0_40px_rgba(79,70,229,0.5)] hover:scale-[1.02] active:scale-[0.98] transition-all"
+ className="w-full sm:w-auto flex items-center justify-center gap-2 px-8 py-3.5 bg-slate-900 text-white font-semibold rounded-lg hover:bg-slate-800 transition-colors shadow-sm"
  >
- <span>🎓 Enroll Now</span>
+ <span>Enroll Now</span>
  </button>
  
- <div className="grid grid-cols-2 gap-2 w-full sm:w-auto sm:flex sm:flex-row">
+ <div className="w-full sm:w-auto flex gap-3">
  <a 
  href="#contact"
- className="flex items-center justify-center gap-1.5 px-4 py-3 sm:h-11 bg-white/10 hover:bg-white/15 border border-white/20 text-white font-semibold text-sm sm:text-base backdrop-blur-md transition-all text-center"
+ className="flex-1 sm:flex-none flex items-center justify-center gap-2 px-6 py-3.5 bg-white text-slate-700 font-medium rounded-lg border border-slate-200 hover:border-slate-300 hover:bg-slate-50 transition-colors shadow-sm"
  >
- <IoCallOutline className="text-indigo-300 hidden sm:block" />
+ <IoCallOutline size={18} className="text-slate-500" />
  <span>Contact</span>
  </a>
  <button 
  onClick={handleDownloadPdf}
- className="flex items-center justify-center gap-1.5 px-4 py-3 sm:h-11 bg-white/10 hover:bg-white/15 border border-white/20 text-white font-semibold text-sm sm:text-base backdrop-blur-md transition-all text-center"
+ className="flex-1 sm:flex-none flex items-center justify-center gap-2 px-6 py-3.5 bg-white text-slate-700 font-medium rounded-lg border border-slate-200 hover:border-slate-300 hover:bg-slate-50 transition-colors shadow-sm"
  >
- <IoDocumentTextOutline className="text-indigo-300 hidden sm:block shadow-sm" />
+ <IoDocumentTextOutline size={18} className="text-slate-500" />
  <span>Syllabus</span>
  </button>
  </div>

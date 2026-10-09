@@ -54,7 +54,7 @@ export default function MaintenanceClient({ content }) {
             <motion.div
               initial={{ opacity: 0, x: -20 }}
               animate={{ opacity: 1, x: 0 }}
-              className="inline-flex items-center gap-2 px-4 sm:px-5 py-2 bg-teal-50 border border-teal-100 text-teal-700 text-[10px] sm:text-xs font-black tracking-wider sm:tracking-[0.4em] uppercase mb-8 sm:mb-10"
+              className="inline-flex items-center gap-2 px-4 sm:px-5 py-2 bg-teal-50 border border-teal-100 text-teal-700 text-[10px] sm:text-xs font-black tracking-wider sm:tracking-[0.4em] uppercase mb-8 sm:mb-10 rounded-md"
             >
               <IoSparklesOutline className="text-sm" /> {data.hero.badge}
             </motion.div>
@@ -79,12 +79,12 @@ export default function MaintenanceClient({ content }) {
             </motion.p>
 
             <div className="flex flex-col sm:flex-row gap-4 sm:gap-6">
-              <button className="w-full sm:w-[280px] px-8 py-4 sm:py-6 bg-teal-600 text-white font-black hover:bg-teal-700 transition-all shadow-xl sm:shadow-2xl shadow-teal-600/20 uppercase tracking-wider sm:tracking-widest text-xs sm:text-sm flex items-center justify-center min-h-[44px]">
+              <button className="w-full sm:w-[280px] px-8 py-4 sm:py-6 bg-teal-600 text-white font-black hover:bg-teal-700 transition-all shadow-xl sm:shadow-2xl shadow-teal-600/20 uppercase tracking-wider sm:tracking-widest text-xs sm:text-sm flex items-center justify-center min-h-[44px] rounded-md">
                 {data.cta.title}
               </button>
               <Link
                 href="/services/maintenance/details"
-                className="w-full sm:w-[280px] px-8 py-4 sm:py-6 bg-white border border-slate-200 text-slate-900 font-black hover:bg-slate-50 transition-all uppercase tracking-wider sm:tracking-widest text-xs sm:text-sm flex items-center justify-center text-center min-h-[44px]"
+                className="w-full sm:w-[280px] px-8 py-4 sm:py-6 bg-white border border-slate-200 text-slate-900 font-black hover:bg-slate-50 transition-all uppercase tracking-wider sm:tracking-widest text-xs sm:text-sm flex items-center justify-center text-center min-h-[44px] rounded-md"
               >
                 Technical Specifications
               </Link>
@@ -97,7 +97,7 @@ export default function MaintenanceClient({ content }) {
               initial={{ opacity: 0, scale: 0.9, rotate: -3 }}
               animate={{ opacity: 1, scale: 1, rotate: 0 }}
               transition={{ duration: 1 }}
-              className="relative p-12 bg-white -[4rem] border border-slate-100 shadow-2xl overflow-hidden group"
+              className="relative p-12 bg-white -[4rem] border border-slate-100 shadow-2xl overflow-hidden group rounded-md"
             >
               <div className="relative aspect-square flex items-center justify-center">
                 <div className="absolute inset-x-0 h-[1px] bg-slate-100"></div>
@@ -111,7 +111,7 @@ export default function MaintenanceClient({ content }) {
                     className="absolute inset-0 bg-teal-100"
                   ></motion.div>
 
-                  <div className="w-48 h-48 bg-slate-900 -[3rem] shadow-2xl flex flex-col items-center justify-center group-hover:scale-110 transition-transform relative z-20">
+                  <div className="w-48 h-48 bg-slate-900 -[3rem] shadow-2xl flex flex-col items-center justify-center group-hover:scale-110 transition-transform relative z-20 rounded-lg">
                     <IoShieldCheckmarkOutline className="text-6xl text-teal-400 mb-4" />
                     <div className="flex flex-col items-center gap-1">
                       <span className="text-[10px] sm:text-xs font-black text-white/40 uppercase tracking-widest">System Health</span>
@@ -130,7 +130,7 @@ export default function MaintenanceClient({ content }) {
                     key={i}
                     animate={{ y: [0, -10, 0] }}
                     transition={{ duration: 5, delay: i * 0.7, repeat: Infinity }}
-                    className={`absolute ${node.pos} p-6 bg-white rounded-3xl border border-slate-100 shadow-xl flex flex-col items-center gap-2 z-30`}
+                    className={`absolute ${node.pos} p-6 bg-white rounded-lg border border-slate-100 shadow-xl flex flex-col items-center gap-2 z-30`}
                   >
                     <div className="text-teal-600 text-2xl">{node.icon}</div>
                     <span className="text-[9px] sm:text-[10px] font-black text-slate-400 uppercase tracking-widest">{node.label}</span>
@@ -164,8 +164,8 @@ export default function MaintenanceClient({ content }) {
                   transition={{ delay: i * 0.1 }}
                   className="group cursor-default snap-center w-[85vw] max-w-[320px] lg:w-auto lg:max-w-none"
                 >
-                  <div className="bg-white lg:-[3rem] p-8 lg:p-12 h-full border border-slate-100 shadow-xl shadow-slate-200/50 hover:shadow-2xl transition-all lg:group-hover:-translate-y-2 relative overflow-hidden flex flex-col whitespace-normal">
-                    <div className={`w-14 h-14 rounded-2xl bg-gradient-to-br ${item.color || 'from-teal-600 to-emerald-700'} text-white flex items-center justify-center text-3xl mb-8 lg:mb-10 shadow-lg shrink-0`}>
+                  <div className="bg-white lg:-[3rem] p-8 lg:p-12 h-full border border-slate-100 shadow-xl shadow-slate-200/50 hover:shadow-2xl transition-all lg:group-hover:-translate-y-2 relative overflow-hidden flex flex-col whitespace-normal rounded-lg">
+                    <div className={`w-14 h-14 rounded-lg bg-gradient-to-br ${item.color || 'from-teal-600 to-emerald-700'} text-white flex items-center justify-center text-3xl mb-8 lg:mb-10 shadow-lg shrink-0`}>
                       {getIcon(item.icon)}
                     </div>
                     <h3 className="text-xl sm:text-2xl font-black text-slate-900 mb-4 lg:mb-6 tracking-tighter uppercase leading-none">
@@ -183,7 +183,7 @@ export default function MaintenanceClient({ content }) {
 
         {/* HEALTH DASHBOARD SECTION */}
         <div className="mb-20 lg:mb-48">
-          <div className="grid lg:grid-cols-2 gap-10 lg:gap-20 items-center bg-white lg:-[4rem] p-8 sm:p-12 lg:p-24 border border-slate-100 shadow-xl lg:shadow-2xl shadow-slate-200/50 relative overflow-hidden">
+          <div className="grid lg:grid-cols-2 gap-10 lg:gap-20 items-center bg-white lg:-[4rem] p-8 sm:p-12 lg:p-24 border border-slate-100 shadow-xl lg:shadow-2xl shadow-slate-200/50 relative overflow-hidden rounded-lg">
             <div className="absolute top-0 right-0 w-1/3 h-full bg-teal-50/20 -skew-x-[20deg] origin-top translate-x-1/2"></div>
 
             <div className="relative z-10 space-y-8 sm:space-y-12">
@@ -193,9 +193,9 @@ export default function MaintenanceClient({ content }) {
               <h2 className="text-4xl sm:text-5xl lg:text-6xl font-black text-slate-900 leading-[1.1] sm:leading-[0.9] tracking-tighter sm:tracking-normal">Live <br className="hidden sm:block" /><span className="text-teal-600 block sm:inline mt-2 sm:mt-0">Health Hub.</span></h2>
               <p className="text-slate-500 text-lg sm:text-xl font-light leading-relaxed">Gain absolute structural transparency. Every client receives a manifest showing real-time uptime, security scans, and V8 engine performance metrics.</p>
 
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-px bg-slate-50 border border-slate-100 overflow-hidden mt-8 sm:mt-10 shadow-sm">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-px bg-slate-50 border border-slate-100 overflow-hidden mt-8 sm:mt-10 shadow-sm rounded-lg">
                 {(data.sections.metrics || []).map((item, idx) => (
-                  <div key={idx} className="p-6 sm:p-10 hover:bg-white transition-colors group">
+                  <div key={idx} className="p-6 sm:p-10 hover:bg-white transition-colors group rounded-md">
                     <h4 className="text-[10px] sm:text-xs font-black text-teal-600 uppercase tracking-widest mb-2">{item.t}</h4>
                     <p className="text-[10px] sm:text-xs text-slate-400 font-bold leading-tight">{item.d}</p>
                   </div>
@@ -206,17 +206,17 @@ export default function MaintenanceClient({ content }) {
             <motion.div
               animate={{ y: [0, 10, 0] }}
               transition={{ duration: 8, repeat: Infinity }}
-              className="relative bg-slate-900 lg:-[3rem] p-8 lg:p-12 border border-slate-800 shadow-2xl space-y-8 lg:space-y-10 overflow-hidden"
+              className="relative bg-slate-900 lg:-[3rem] p-8 lg:p-12 border border-slate-800 shadow-2xl space-y-8 lg:space-y-10 overflow-hidden rounded-lg"
             >
               <div className="absolute top-0 right-0 p-4 font-mono text-[7px] sm:text-[9px] text-teal-400 bg-white/5 opacity-50 tracking-[0.2em] sm:tracking-[0.4em]">SCAN_ACTIVE::Vulnerabilities_0</div>
 
               <div className="grid grid-cols-2 gap-4">
-                <div className="p-6 bg-white/5 border border-white/10 text-center">
+                <div className="p-6 bg-white/5 border border-white/10 text-center rounded-lg">
                   <IoTimerOutline className="text-teal-500 text-3xl mx-auto mb-2" />
                   <p className="text-xl sm:text-2xl font-black text-white">99.9%</p>
                   <p className="text-[8px] sm:text-[10px] font-black text-slate-500 uppercase tracking-widest mt-1">Uptime</p>
                 </div>
-                <div className="p-6 bg-white/5 border border-white/10 text-center">
+                <div className="p-6 bg-white/5 border border-white/10 text-center rounded-lg">
                   <IoSpeedometerOutline className="text-emerald-500 text-3xl mx-auto mb-2" />
                   <p className="text-xl sm:text-2xl font-black text-white">100/100</p>
                   <p className="text-[8px] sm:text-[10px] font-black text-slate-500 uppercase tracking-widest mt-1">PageSpeed</p>
@@ -246,13 +246,13 @@ export default function MaintenanceClient({ content }) {
           <div className="flex flex-col sm:flex-row gap-4 sm:gap-6 justify-center">
             {/* Sticky Mobile CTA */}
             <div className="fixed bottom-0 left-0 w-full px-4 pt-4 pb-[max(1rem,env(safe-area-inset-bottom))] bg-slate-50/90 backdrop-blur-md border-t border-slate-200 z-50 lg:relative lg:border-none lg:bg-transparent lg:p-0 lg:w-auto">
-              <button className="w-full lg:w-[280px] px-8 py-4 sm:py-6 bg-teal-600 text-white font-black hover:bg-teal-700 transition-all shadow-xl sm:shadow-2xl shadow-teal-600/40 uppercase tracking-wider sm:tracking-widest text-xs sm:text-sm flex items-center justify-center min-h-[44px]">
+              <button className="w-full lg:w-[280px] px-8 py-4 sm:py-6 bg-teal-600 text-white font-black hover:bg-teal-700 transition-all shadow-xl sm:shadow-2xl shadow-teal-600/40 uppercase tracking-wider sm:tracking-widest text-xs sm:text-sm flex items-center justify-center min-h-[44px] rounded-md">
                 {data.cta.title}
               </button>
             </div>
             <Link
               href="/services/maintenance/details"
-              className="hidden lg:flex w-full sm:w-[280px] px-8 py-4 sm:py-6 bg-slate-900 text-white font-black hover:bg-slate-800 transition-all uppercase tracking-wider sm:tracking-widest text-xs sm:text-sm items-center justify-center text-center min-h-[44px]"
+              className="hidden lg:flex w-full sm:w-[280px] px-8 py-4 sm:py-6 bg-slate-900 text-white font-black hover:bg-slate-800 transition-all uppercase tracking-wider sm:tracking-widest text-xs sm:text-sm items-center justify-center text-center min-h-[44px] rounded-md"
             >
               Technical Hub
             </Link>

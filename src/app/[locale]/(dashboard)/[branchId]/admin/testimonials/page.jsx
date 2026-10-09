@@ -63,7 +63,7 @@ export default function AdminTestimonialsPage() {
  </h1>
  <p className="text-textSecondary text-sm mt-1">Review and moderate student testimonials before they appear on the homepage.</p>
  </div>
- <button onClick={fetchItems} className="flex items-center gap-1.5 text-sm text-textSecondary hover:text-textPrimary transition">
+ <button onClick={fetchItems} className="flex items-center gap-1.5 text-sm text-textSecondary hover:text-textPrimary transition rounded-md">
  <IoRefreshOutline size={16} /> Refresh
  </button>
  </div>
@@ -86,7 +86,7 @@ export default function AdminTestimonialsPage() {
  <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
  {items.map((t, idx) => (
  <motion.div key={t._id} initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: idx * 0.06 }}
- className="bg-white ring-1 ring-neutral-200 shadow-sm p-5">
+ className="bg-white ring-1 ring-neutral-200 shadow-sm p-5 rounded-md">
  {/* Stars */}
  <div className="flex items-center justify-between mb-3">
  <div className="flex gap-0.5">

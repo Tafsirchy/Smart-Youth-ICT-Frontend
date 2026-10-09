@@ -97,7 +97,7 @@ export default function Sidebar({ initialRole, initialUser, isOpen, onClose }) {
  alt="Smart Youth ICT Logo"
  width={300}
  height={75}
- className="h-20 w-auto object-contain"
+ className="h-20 w-auto object-contain rounded-md"
  priority={true}
  fetchPriority="high"
  onError={(e) => { e.target.srcset = ''; e.target.src = '/images/placeholder.png'; }}
@@ -107,7 +107,7 @@ decoding="async"/>
  {/* Mobile Close Button */}
  <button 
  onClick={onClose}
- className="lg:hidden p-2 text-slate-400 hover:text-white transition-colors"
+ className="lg:hidden p-2 text-slate-400 hover:text-white transition-colors rounded-md"
  >
  <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
@@ -127,7 +127,7 @@ decoding="async"/>
  </div>
  ) : (
  <div className="flex items-center gap-3">
- <div className="w-10 h-10 border-2 border-pink-500/20 p-0.5">
+ <div className="w-10 h-10 border-2 border-pink-500/20 p-0.5 rounded-lg">
  <div className="w-full h-full bg-slate-800 flex items-center justify-center text-white font-bold text-sm">
  {user?.name?.charAt(0) || "U"}
  </div>
@@ -227,7 +227,7 @@ decoding="async"/>
  <Link
  href="/"
  id="sidebar-back-home"
- className="sidebar-link group w-full hover:bg-white/5"
+ className="sidebar-link group w-full hover:bg-white/5 rounded-md"
  >
  <HiHome
  className="group-hover:-translate-y-0.5 transition-transform text-slate-400 group-hover:text-white"

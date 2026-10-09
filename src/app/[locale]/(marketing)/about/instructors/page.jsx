@@ -118,20 +118,20 @@ export default function InstructorsPage() {
  </div>
 
  {/* Filter Bar */}
- <div className="bg-white p-6 shadow-xl shadow-slate-200/40 border border-slate-100 mb-16 flex flex-col md:flex-row gap-4 items-center">
+ <div className="bg-white p-6 shadow-xl shadow-slate-200/40 border border-slate-100 mb-16 flex flex-col md:flex-row gap-4 items-center rounded-lg">
  <div className="relative flex-1 w-full border-b md:border-b-0 md:border-r border-slate-100 pb-4 md:pb-0 md:pr-4">
  <Search className="absolute left-2 top-1/2 -translate-y-1/2 text-slate-400 w-5 h-5" />
  <input
  type="text"
  placeholder="Search by name or skill (e.g. React, UI/UX)..."
- className="w-full pl-10 pr-4 py-3 bg-transparent border-none focus:ring-0 text-slate-900 transition-all font-bold text-sm outline-none placeholder:text-slate-400"
+ className="w-full pl-10 pr-4 py-3 bg-transparent border-none focus:ring-0 text-slate-900 transition-all font-bold text-sm outline-none placeholder:text-slate-400 rounded-md"
  value={filters.q}
  onChange={(e) => handleFilterChange("q", e.target.value)}
  />
  </div>
 
  <div className="flex flex-col sm:flex-row gap-4 w-full md:w-auto">
- <div className="relative flex-1 md:w-56 sm:border-r border-slate-100 sm:pr-4">
+ <div className="relative flex-1 md:w-56 sm:border-r border-slate-100 sm:pr-4 rounded-lg">
  <MapPin className="absolute left-2 top-1/2 -translate-y-1/2 text-slate-400 w-4 h-4" />
  <select
  className="w-full pl-8 pr-4 py-3 bg-transparent border-none focus:ring-0 text-slate-700 text-xs font-bold appearance-none cursor-pointer outline-none"
@@ -249,7 +249,7 @@ export default function InstructorsPage() {
  {(instructor.expertise || []).slice(0, 3).map((t) => (
  <span
  key={t}
- className="px-2 py-1 bg-slate-100 text-slate-500 text-[9px] font-bold uppercase tracking-wider"
+ className="px-2 py-1 bg-slate-100 text-slate-500 text-[9px] font-bold uppercase tracking-wider rounded-md"
  >
  {t}
  </span>
@@ -274,7 +274,7 @@ export default function InstructorsPage() {
  <p className="text-[10px] font-black text-slate-500 uppercase tracking-widest">Next Step</p>
  <p className="text-slate-900 font-bold text-sm">Join the Program</p>
  </div>
- <button className="px-5 py-3 min-h-[44px] bg-brand-green text-white font-black text-[10px] uppercase tracking-widest shadow-lg shadow-brand-green/30">
+ <button className="px-5 py-3 min-h-[44px] bg-brand-green text-white font-black text-[10px] uppercase tracking-widest shadow-lg shadow-brand-green/30 rounded-md">
  Apply Now
  </button>
  </div>

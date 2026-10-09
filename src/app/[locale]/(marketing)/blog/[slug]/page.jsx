@@ -85,7 +85,7 @@ export default async function BlogPostPage({ params }) {
  fill
  priority={true}
  fetchPriority="high"
- className="object-cover blur-xl"
+ className="object-cover blur-xl rounded-md"
  
 
 decoding="async"/>
@@ -99,7 +99,7 @@ decoding="async"/>
  <Link
  key={t}
  href={`/${locale}/blog?tag=${encodeURIComponent(t)}`}
- className="px-3 py-1 bg-white/10 border border-white/15 text-xs font-semibold text-indigo-200 hover:bg-white/20 transition"
+ className="px-3 py-1 bg-white/10 border border-white/15 text-xs font-semibold text-indigo-200 hover:bg-white/20 transition rounded-md"
  >
  #{t}
  </Link>
@@ -125,7 +125,7 @@ decoding="async"/>
  height={36}
  loading="lazy"
  decoding="async"
- className="ring-2 ring-white/20 object-cover"
+ className="ring-2 ring-white/20 object-cover rounded-md"
  
 />
  )}
@@ -160,7 +160,7 @@ decoding="async"/>
  fill
  priority={true}
  fetchPriority="high"
- className="object-cover"
+ className="object-cover rounded-md"
  
 
 decoding="async"/>
@@ -183,7 +183,7 @@ decoding="async"/>
  href={fbShare}
  target="_blank"
  rel="noreferrer"
- className="flex items-center gap-1.5 px-4 py-2 bg-blue-600 text-white text-xs font-bold hover:bg-blue-700 transition"
+ className="flex items-center gap-1.5 px-4 py-2 bg-blue-600 text-white text-xs font-bold hover:bg-blue-700 transition rounded-md"
  >
  <FaFacebook size={13} /> Facebook
  </a>
@@ -191,7 +191,7 @@ decoding="async"/>
  href={liShare}
  target="_blank"
  rel="noreferrer"
- className="flex items-center gap-1.5 px-4 py-2 bg-sky-600 text-white text-xs font-bold hover:bg-sky-700 transition"
+ className="flex items-center gap-1.5 px-4 py-2 bg-sky-600 text-white text-xs font-bold hover:bg-sky-700 transition rounded-md"
  >
  <FaLinkedin size={13} /> LinkedIn
  </a>
@@ -199,7 +199,7 @@ decoding="async"/>
  href={waShare}
  target="_blank"
  rel="noreferrer"
- className="flex items-center gap-1.5 px-4 py-2 bg-emerald-600 text-white text-xs font-bold hover:bg-emerald-700 transition"
+ className="flex items-center gap-1.5 px-4 py-2 bg-emerald-600 text-white text-xs font-bold hover:bg-emerald-700 transition rounded-md"
  >
  <FaWhatsapp size={13} /> WhatsApp
  </a>

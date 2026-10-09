@@ -96,7 +96,7 @@ export default function VideoStoryModal({ story, onClose }) {
  alt={story.studentName || 'Student'}
  fill
  sizes="48px"
- className="object-cover"
+ className="object-cover rounded-md"
  onError={(e) => {
  e.target.srcset = '';
  e.target.src = '/images/placeholder.png';
@@ -108,7 +108,7 @@ export default function VideoStoryModal({ story, onClose }) {
  <h3 className="text-white font-bold text-base sm:text-lg truncate">
  {story.studentName || 'SYICT Graduate'}
  </h3>
- <span className="inline-flex items-center gap-1 text-[10px] font-bold uppercase tracking-wider bg-pink-500/20 text-pink-300 px-2 py-0.5 ring-1 ring-pink-500/30 shrink-0">
+ <span className="inline-flex items-center gap-1 text-[10px] font-bold uppercase tracking-wider bg-pink-500/20 text-pink-300 px-2 py-0.5 ring-1 ring-pink-500/30 shrink-0 rounded-md">
  <IoCheckmarkCircle size={12} className="text-pink-400" /> Story
  </span>
  </div>
@@ -122,7 +122,7 @@ export default function VideoStoryModal({ story, onClose }) {
  <button
  onClick={onClose}
  aria-label="Close Video Modal"
- className="w-9 h-9 sm:w-10 sm:h-10 bg-white/10 text-white hover:bg-white/20 hover:scale-105 active:scale-95 transition-all flex items-center justify-center shrink-0 border border-white/10"
+ className="w-9 h-9 sm:w-10 sm:h-10 bg-white/10 text-white hover:bg-white/20 hover:scale-105 active:scale-95 transition-all flex items-center justify-center shrink-0 border border-white/10 rounded-md"
  >
  <IoCloseOutline size={24} />
  </button>
@@ -156,7 +156,7 @@ export default function VideoStoryModal({ story, onClose }) {
  href={story.videoUrl}
  target="_blank"
  rel="noopener noreferrer"
- className="inline-flex items-center gap-2 px-4 py-2 bg-pink-600 hover:bg-pink-500 text-white text-xs font-bold transition-colors"
+ className="inline-flex items-center gap-2 px-4 py-2 bg-pink-600 hover:bg-pink-500 text-white text-xs font-bold transition-colors rounded-md"
  >
  Open on External Player <IoOpenOutline size={14} />
  </a>
@@ -169,19 +169,19 @@ export default function VideoStoryModal({ story, onClose }) {
  <div className="p-4 sm:p-5 px-5 sm:px-6 bg-slate-950/60 border-t border-white/5 flex flex-col sm:flex-row sm:items-center justify-between gap-3 shrink-0">
  <div className="flex flex-wrap items-center gap-3 text-xs sm:text-sm text-slate-300">
  {story.company && (
- <span className="inline-flex items-center gap-1.5 bg-white/5 px-3 py-1.5 border border-white/5">
+ <span className="inline-flex items-center gap-1.5 bg-white/5 px-3 py-1.5 border border-white/5 rounded-md">
  <IoBriefcaseOutline className="text-purple-400" size={15} />
  <span>Hired at <strong className="text-white font-semibold">{story.company}</strong></span>
  </span>
  )}
  {courseName && (
- <span className="inline-flex items-center gap-1.5 bg-white/5 px-3 py-1.5 border border-white/5">
+ <span className="inline-flex items-center gap-1.5 bg-white/5 px-3 py-1.5 border border-white/5 rounded-md">
  <IoSchoolOutline className="text-pink-400" size={15} />
  <span>Course: <strong className="text-white font-semibold">{courseName}</strong></span>
  </span>
  )}
  {story.location && (
- <span className="inline-flex items-center gap-1.5 bg-white/5 px-3 py-1.5 border border-white/5">
+ <span className="inline-flex items-center gap-1.5 bg-white/5 px-3 py-1.5 border border-white/5 rounded-md">
  <IoLocationOutline className="text-rose-400" size={15} />
  <span>Based in <strong className="text-white font-semibold">{story.location}</strong></span>
  </span>
@@ -194,7 +194,7 @@ export default function VideoStoryModal({ story, onClose }) {
  href={story.videoUrl}
  target="_blank"
  rel="noopener noreferrer"
- className="px-3.5 py-2 text-xs font-bold text-slate-400 hover:text-white bg-white/5 hover:bg-white/10 transition-all inline-flex items-center gap-1.5"
+ className="px-3.5 py-2 text-xs font-bold text-slate-400 hover:text-white bg-white/5 hover:bg-white/10 transition-all inline-flex items-center gap-1.5 rounded-md"
  title="Watch on YouTube"
  >
  <span>YouTube</span>
@@ -204,7 +204,7 @@ export default function VideoStoryModal({ story, onClose }) {
  <Link
  href="/courses"
  onClick={onClose}
- className="px-4 py-2 bg-gradient-to-r from-pink-600 to-rose-600 hover:from-pink-500 hover:to-rose-500 text-white text-xs font-bold transition-all shadow-md shadow-pink-600/30"
+ className="px-4 py-2 bg-gradient-to-r from-pink-600 to-rose-600 hover:from-pink-500 hover:to-rose-500 text-white text-xs font-bold transition-all shadow-md shadow-pink-600/30 rounded-md"
  >
  Explore Courses
  </Link>

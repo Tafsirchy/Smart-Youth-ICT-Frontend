@@ -11,7 +11,7 @@ const FEATURES = [
  { icon: IoRibbonOutline, text: 'Earn an industry-recognized certificate', color: 'text-emerald-500', bg: 'bg-emerald-50' },
 ];
 
-export default function CourseFeatures() {
+ export default function CourseFeatures() {
  return (
  <motion.section 
  initial="hidden"
@@ -21,11 +21,11 @@ export default function CourseFeatures() {
  hidden: { opacity: 0 },
  visible: { opacity: 1, transition: { staggerChildren: 0.1 } }
  }}
- className="space-y-6"
+ className="space-y-6 pt-4"
  >
- <h2 className="text-2xl font-extrabold text-slate-900 tracking-tight">What You Will Learn</h2>
+ <h2 className="text-2xl font-bold text-slate-900 tracking-tight mb-2">What You Will Learn</h2>
  
- <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+ <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
  {FEATURES.map((feat, i) => (
  <motion.div 
  key={i}
@@ -33,12 +33,12 @@ export default function CourseFeatures() {
  hidden: { opacity: 0, y: 15 },
  visible: { opacity: 1, y: 0 }
  }}
- className="flex items-start gap-4 p-5 bg-white border border-slate-100 hover:border-indigo-100 hover:shadow-[0_8px_30px_rgba(0,0,0,0.04)] transition-all group"
+ className="flex items-start gap-4 p-5 bg-white border border-slate-100 rounded-lg hover:border-slate-200 hover:shadow-sm transition-all group"
  >
- <div className={`p-3 ${feat.bg} ${feat.color} shrink-0 group-hover:scale-110 transition-transform`}>
+ <div className={`p-3 bg-slate-50 text-brand-pink shrink-0 rounded-lg group-hover:scale-105 transition-transform`}>
  <feat.icon size={24} />
  </div>
- <p className="text-slate-600 font-medium leading-relaxed mt-0.5">{feat.text}</p>
+ <p className="text-slate-700 font-medium leading-relaxed mt-0.5">{feat.text}</p>
  </motion.div>
  ))}
  </div>

@@ -34,16 +34,16 @@ export default function AssignmentUpload({ assignmentId, onUploadSuccess }) {
  };
 
  return (
- <div className="border border-dashed border-neutral-300 p-6 text-center bg-neutral-50 hover:bg-neutral-100 transition-colors">
+ <div className="border border-dashed border-neutral-300 p-6 text-center bg-neutral-50 hover:bg-neutral-100 transition-colors rounded-lg">
  <input
  type="file"
  id={`upload-${assignmentId}`}
- className="hidden"
+ className="hidden rounded-md"
  onChange={handleFileChange}
  />
  <label
  htmlFor={`upload-${assignmentId}`}
- className="cursor-pointer flex flex-col items-center justify-center"
+ className="cursor-pointer flex flex-col items-center justify-center rounded-md"
  >
  <div className="p-3 bg-blue-100 text-blue-600 mb-3">
  <HiOutlineCloudUpload size={24} />
@@ -55,7 +55,7 @@ export default function AssignmentUpload({ assignmentId, onUploadSuccess }) {
  </label>
 
  {file && (
- <div className="mt-4 flex items-center justify-between p-3 bg-white border border-neutral-200 shadow-sm">
+ <div className="mt-4 flex items-center justify-between p-3 bg-white border border-neutral-200 shadow-sm rounded-lg">
  <div className="flex items-center gap-3 overflow-hidden">
  <HiOutlineDocumentText className="text-blue-500 shrink-0" size={20} />
  <span className="text-sm text-neutral-700 truncate">{file.name}</span>
@@ -63,7 +63,7 @@ export default function AssignmentUpload({ assignmentId, onUploadSuccess }) {
  <button
  onClick={handleUpload}
  disabled={isUploading}
- className="ml-3 px-4 py-1.5 bg-blue-600 text-white text-xs font-bold hover:bg-blue-700 disabled:opacity-50 shrink-0 transition-colors"
+ className="ml-3 px-4 py-1.5 bg-blue-600 text-white text-xs font-bold hover:bg-blue-700 disabled:opacity-50 shrink-0 transition-colors rounded-md"
  >
  {isUploading ? 'Uploading...' : 'Submit'}
  </button>

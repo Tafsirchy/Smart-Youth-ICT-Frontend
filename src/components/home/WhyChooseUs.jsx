@@ -94,7 +94,7 @@ export default function WhyChooseUs() {
  viewport={{ once: true }}
  transition={{ duration: 0.6 }}
  >
- <span className="mb-4 sm:mb-6 inline-flex items-center gap-2 bg-emerald-50 px-5 py-2 text-xs font-black uppercase tracking-widest text-emerald-700">
+ <span className="mb-4 sm:mb-6 inline-flex items-center gap-2 bg-emerald-50 px-5 py-2 text-xs font-black uppercase tracking-widest text-emerald-700 rounded-md">
  <span className="w-2 h-2 bg-emerald-500 animate-pulse" />
  The SYICT Difference
  </span>
@@ -113,7 +113,7 @@ export default function WhyChooseUs() {
  {/* Signature Block */}
  <div className="relative mt-8 md:mt-12 pb-6">
  <div className="absolute -top-12 -left-8 w-32 h-32 bg-emerald-100/40 blur-3xl -z-10" />
- <div className="relative z-10 pl-4 border-l-4 border-emerald-500">
+ <div className="relative z-10 pl-4 border-l-4 border-emerald-500 rounded-lg">
  <p className="text-slate-800 font-bold text-base md:text-lg mb-1 italic leading-relaxed">
  "Our mission is to empower the next generation of digital leaders through practical, project-first education."
  </p>
@@ -152,11 +152,11 @@ export default function WhyChooseUs() {
  {scrollReasons.map(({ Icon, title, desc, color }, idx) => (
  <div
  key={`scroll-${title}-${idx}`}
- className="group/card relative bg-white -[24px] p-6 border border-slate-100 shadow-sm hover:shadow-lg transition-all duration-300 cursor-default"
+ className="group/card relative bg-white -[24px] p-6 border border-slate-100 shadow-sm hover:shadow-lg transition-all duration-300 cursor-default rounded-lg"
  >
  <div className="flex items-start gap-6">
  <div
- className="w-14 h-14 flex items-center justify-center shrink-0 shadow-sm"
+ className="w-14 h-14 flex items-center justify-center shrink-0 shadow-sm rounded-lg"
  style={{ background: `${color}15` }}
  >
  <Icon size={26} style={{ color }} aria-hidden="true" />
@@ -180,7 +180,7 @@ export default function WhyChooseUs() {
  {reasons.map(({ Icon, title, desc, color }, idx) => (
  <div
  key={`static-${title}-${idx}`}
- className="bg-white -[24px] p-5 border border-slate-100/80 shadow-sm"
+ className="bg-white -[24px] p-5 border border-slate-100/80 shadow-sm rounded-lg"
  >
  <div className="flex items-start gap-4">
  <div

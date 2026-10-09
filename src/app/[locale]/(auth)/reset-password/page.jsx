@@ -80,7 +80,7 @@ function ResetForm() {
  className="text-center"
  >
  <div className="flex justify-center mb-4 mt-2">
- <div className="w-14 h-14 bg-emerald-50 border border-emerald-100 flex items-center justify-center">
+ <div className="w-14 h-14 bg-emerald-50 border border-emerald-100 flex items-center justify-center rounded-lg">
  <IoCheckmarkCircle size={28} className="text-emerald-500" />
  </div>
  </div>
@@ -106,7 +106,7 @@ function ResetForm() {
  width={240}
  height={60}
  priority
- className="h-14 w-auto object-contain mb-3"
+ className="h-14 w-auto object-contain mb-3 rounded-md"
  
 onError={(e) => { e.target.onerror = null; e.target.srcset = ''; e.target.src = '/assets/fallback.png'; }}
 decoding="async"/>
@@ -120,13 +120,13 @@ decoding="async"/>
  </div>
 
  {error && (
- <div className="mb-4 flex items-start gap-2 p-3 text-xs text-brand-pink bg-brand-pink/5 border border-brand-pink/10 text-left">
+ <div className="mb-4 flex items-start gap-2 p-3 text-xs text-brand-pink bg-brand-pink/5 border border-brand-pink/10 text-left rounded-sm">
  ⚠️ {error}
  </div>
  )}
 
  {!token && (
- <div className="mb-4 p-3 bg-amber-50 border border-amber-100 text-amber-600 text-xs text-left">
+ <div className="mb-4 p-3 bg-amber-50 border border-amber-100 text-amber-600 text-xs text-left rounded-lg">
  ⚠️ No token found. Please click the link from the reset email again.
  </div>
  )}
@@ -219,7 +219,7 @@ decoding="async"/>
  <button
  type="submit"
  disabled={loading || !token}
- className="w-full py-2.5 mt-2 text-sm font-bold text-white shadow-[0_4px_14px_0_rgba(255,44,109,0.39)] bg-gradient-to-r from-brand-pink to-brand-accent hover:shadow-[0_6px_20px_rgba(255,44,109,0.23)] active:scale-[0.98] transition-all disabled:opacity-60"
+ className="w-full py-2.5 mt-2 text-sm font-bold text-white shadow-[0_4px_14px_0_rgba(255,44,109,0.39)] bg-gradient-to-r from-brand-pink to-brand-accent hover:shadow-[0_6px_20px_rgba(255,44,109,0.23)] active:scale-[0.98] transition-all disabled:opacity-60 rounded-md"
  >
  {loading ? (
  <span className="flex items-center justify-center gap-2">
@@ -295,13 +295,13 @@ export default function ResetPasswordPage() {
  {/* ── Top Left Back Button ────────────────────────────── */}
  <Link
  href={`/${locale}/login`}
- className="absolute top-6 left-6 z-20 flex items-center gap-2 text-slate-500 hover:text-slate-800 transition-colors text-sm font-medium"
+ className="absolute top-6 left-6 z-20 flex items-center gap-2 text-slate-500 hover:text-slate-800 transition-colors text-sm font-medium rounded-md"
  >
  <FaArrowLeft /> Back to Login
  </Link>
 
  {/* ── Solid White Form Card ─────────────────────────────── */}
- <div className="relative w-full max-w-[420px] bg-white border border-white/40 p-5 sm:p-6 shadow-[0_20px_50px_rgba(0,0,0,0.1)] z-10 text-center">
+ <div className="relative w-full max-w-[420px] bg-white border border-white/40 p-5 sm:p-6 shadow-[0_20px_50px_rgba(0,0,0,0.1)] z-10 text-center rounded-lg">
  <Suspense
  fallback={<div className="text-slate-500 text-center">Loading…</div>}
  >

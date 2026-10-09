@@ -84,7 +84,7 @@ export default function StudentDashboardPage() {
  </div>
  </div>
  <Link href={`/${locale}/courses`}
- className="shrink-0 flex items-center gap-2 px-5 py-2.5 bg-white/15 border border-white/20 text-white text-sm font-semibold hover:bg-white/25 transition backdrop-blur-sm">
+ className="shrink-0 flex items-center gap-2 px-5 py-2.5 bg-white/15 border border-white/20 text-white text-sm font-semibold hover:bg-white/25 transition backdrop-blur-sm rounded-md">
  Browse Courses <IoArrowForwardOutline size={16} />
  </Link>
  </div>
@@ -147,7 +147,7 @@ export default function StudentDashboardPage() {
  initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2 + i * 0.09 }}
  className="group bg-white ring-1 ring-neutral-200 overflow-hidden hover:shadow-lg transition-all flex flex-col">
  <div className="relative h-36 w-full bg-neutral-100">
- <Image src={course.thumbnail || '/images/course-placeholder.jpg'} alt={course.title?.en || course.title} fill className="object-cover bg-[#f0f0f0]" loading="lazy" onError={(e) => { e.target.onerror = null; e.target.srcset = ''; e.target.src = '/assets/fallback.png'; }} decoding="async"/>
+ <Image src={course.thumbnail || '/images/course-placeholder.jpg'} alt={course.title?.en || course.title} fill className="object-cover bg-[#f0f0f0] rounded-md" loading="lazy" onError={(e) => { e.target.onerror = null; e.target.srcset = ''; e.target.src = '/assets/fallback.png'; }} decoding="async"/>
  {course.category && (
  <span className="absolute top-3 left-3 px-2.5 py-1 bg-blue-600/90 text-xs font-semibold text-white backdrop-blur-sm">
  {course.category}
@@ -168,7 +168,7 @@ export default function StudentDashboardPage() {
  initial={{ width: 0 }} animate={{ width: `${pct}%` }} transition={{ duration: 0.8, delay: 0.3 }} />
  </div>
  <Link href={`/${locale}/student/learn/${course.slug}`}
- className="flex items-center justify-center gap-2 w-full py-3 sm:py-2.5 bg-blue-50 text-blue-700 text-sm font-bold hover:bg-blue-600 hover:text-white transition-colors min-h-[44px]">
+ className="flex items-center justify-center gap-2 w-full py-3 sm:py-2.5 bg-blue-50 text-blue-700 text-sm font-bold hover:bg-blue-600 hover:text-white transition-colors min-h-[44px] rounded-md">
  <IoPlayCircleOutline size={16} />
  {pct > 0 ? 'Continue' : 'Start Learning'}
  </Link>
@@ -179,7 +179,7 @@ export default function StudentDashboardPage() {
  })}
  </div>
  ) : (
- <div className="border-2 border-dashed border-neutral-200 bg-white p-12 text-center">
+ <div className="border-2 border-dashed border-neutral-200 bg-white p-12 text-center rounded-lg">
  <IoBookOutline className="mx-auto h-12 w-12 text-neutral-300 mb-4" />
  <h3 className="font-bold text-textPrimary mb-2">No courses yet</h3>
  <p className="text-textSecondary text-sm mb-6">Explore our catalog and start your learning journey today.</p>

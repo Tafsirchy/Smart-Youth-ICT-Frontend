@@ -102,7 +102,7 @@ export default function AdminCoursesPage() {
  <input
  type="text"
  placeholder="Search courses…"
- className="input pl-10 max-w-sm"
+ className="input pl-10 max-w-sm rounded-md"
  value={search}
  onChange={(e) => setSearch(e.target.value)}
  />
@@ -114,12 +114,12 @@ export default function AdminCoursesPage() {
  {[...Array(6)].map((_, i) => (
  <div
  key={i}
- className="animate-pulse bg-white border border-neutral-100 h-[280px]"
+ className="animate-pulse bg-white border border-neutral-100 h-[280px] rounded-lg"
  ></div>
  ))}
  </div>
  ) : filtered.length === 0 ? (
- <div className="text-center py-16 bg-white border border-neutral-100 shadow-sm mt-8">
+ <div className="text-center py-16 bg-white border border-neutral-100 shadow-sm mt-8 rounded-lg">
  <IoBookOutline size={48} className="mx-auto mb-4 text-neutral-300" />
  <h3 className="text-xl font-bold text-neutral-700">
  No courses found
@@ -134,7 +134,7 @@ export default function AdminCoursesPage() {
  {filtered.map((course) => (
  <div
  key={course._id}
- className="bg-white shadow-sm border border-neutral-200 overflow-hidden hover:shadow-md transition-shadow flex flex-col"
+ className="bg-white shadow-sm border border-neutral-200 overflow-hidden hover:shadow-md transition-shadow flex flex-col rounded-lg"
  >
  {course.thumbnail ? (
  <div className="relative w-full h-40 border-b">
@@ -143,7 +143,7 @@ export default function AdminCoursesPage() {
  alt={course.title?.en || course.title || "Course thumbnail"}
  fill
  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 25vw"
- className="object-cover bg-[#f0f0f0]"
+ className="object-cover bg-[#f0f0f0] rounded-md"
  
 loading="lazy"
 onError={(e) => { e.target.onerror = null; e.target.srcset = ''; e.target.src = '/assets/fallback.png'; }}
@@ -172,11 +172,11 @@ decoding="async"/>
  {course.isPublished ? "Live" : "Draft"}
  </span>
  {course.isPopular && (
- <span className="shrink-0 text-[10px] px-2 py-0.5 font-bold uppercase tracking-wider bg-pink-100 text-pink-700">
+ <span className="shrink-0 text-[10px] px-2 py-0.5 font-bold uppercase tracking-wider bg-pink-100 text-pink-700 rounded-md">
  Popular
  </span>
  )}
- <span className="text-[11px] text-neutral-400 font-medium uppercase tracking-wider px-2 py-0.5 bg-neutral-100">
+ <span className="text-[11px] text-neutral-400 font-medium uppercase tracking-wider px-2 py-0.5 bg-neutral-100 rounded-md">
  {course.category}
  </span>
  </div>
@@ -202,7 +202,7 @@ decoding="async"/>
  </button>
  <Link
  href={`/${params.locale}/${params.branchId}/admin/courses/${course._id}/edit`}
- className="text-blue-600 hover:text-blue-800 p-1.5 bg-blue-50 hover:bg-blue-100 transition-colors"
+ className="text-blue-600 hover:text-blue-800 p-1.5 bg-blue-50 hover:bg-blue-100 transition-colors rounded-md"
  >
  <IoPencilOutline size={16} />
  </Link>

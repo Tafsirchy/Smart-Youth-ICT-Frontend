@@ -114,7 +114,7 @@ export default function AdminStudentsPage() {
  <input
  type="text"
  placeholder="Search by name or email…"
- className="input pl-10 w-full"
+ className="input pl-10 w-full rounded-md"
  value={search}
  onChange={(e) => setSearch(e.target.value)}
  />
@@ -136,7 +136,7 @@ export default function AdminStudentsPage() {
  </div>
 
  {/* Table */}
- <div className="bg-white shadow-sm ring-1 ring-neutral-200 overflow-hidden">
+ <div className="bg-white shadow-sm ring-1 ring-neutral-200 overflow-hidden rounded-lg">
  <div className="overflow-x-auto">
  <table className="w-full text-sm">
  <thead className="bg-neutral-50 border-b border-neutral-200">
@@ -185,7 +185,7 @@ export default function AdminStudentsPage() {
  filtered.map((user) => (
  <tr
  key={user._id}
- className="hover:bg-neutral-50 transition-colors"
+ className="hover:bg-neutral-50 transition-colors rounded-md"
  >
  <td className="px-5 py-4">
  <div className="flex items-center gap-3">
@@ -196,7 +196,7 @@ export default function AdminStudentsPage() {
  alt={user.name || "User avatar"}
  width={32}
  height={32}
- className="w-8 h-8 object-cover bg-[#f0f0f0]"
+ className="w-8 h-8 object-cover bg-[#f0f0f0] rounded-md"
  
 loading="lazy"
 onError={(e) => { e.target.onerror = null; e.target.srcset = ''; e.target.src = '/assets/fallback.png'; }}
@@ -371,7 +371,7 @@ decoding="async"/>
  <button
  onClick={handleRoleUpdate}
  disabled={roleUpdating || newRole === editingUser.role}
- className="flex-1 px-4 py-2 bg-blue-600 text-white font-semibold hover:bg-blue-700 transition-colors disabled:opacity-50"
+ className="flex-1 px-4 py-2 bg-blue-600 text-white font-semibold hover:bg-blue-700 transition-colors disabled:opacity-50 rounded-md"
  >
  {roleUpdating ? "Saving..." : "Save Role"}
  </button>

@@ -156,13 +156,13 @@ export default function GlobalUserManagement() {
  </header>
 
  {/* Control Bar */}
- <div className="grid grid-cols-1 lg:grid-cols-4 gap-3 bg-white p-4 shadow-sm border border-slate-50">
+ <div className="grid grid-cols-1 lg:grid-cols-4 gap-3 bg-white p-4 shadow-sm border border-slate-50 rounded-lg">
  <div className="lg:col-span-2 relative">
  <HiOutlineMagnifyingGlass className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400" size={20} />
  <input 
  type="text"
  placeholder="Search by name, email, or credentials..."
- className="w-full pl-12 pr-4 py-3 bg-slate-50 border-none text-sm font-bold focus:ring-2 focus:ring-indigo-500 transition-all"
+ className="w-full pl-12 pr-4 py-3 bg-slate-50 border-none text-sm font-bold focus:ring-2 focus:ring-indigo-500 transition-all rounded-md"
  value={search}
  onChange={(e) => setSearch(e.target.value)}
  />
@@ -200,14 +200,14 @@ export default function GlobalUserManagement() {
  <div className="grid grid-cols-1 gap-4 md:hidden">
  {loading ? (
  [...Array(3)].map((_, i) => (
- <div key={i} className="bg-white p-4 border border-slate-100 shadow-sm h-32 animate-pulse" />
+ <div key={i} className="bg-white p-4 border border-slate-100 shadow-sm h-32 animate-pulse rounded-lg" />
  ))
  ) : (
  users.length > 0 ? users.map(user => (
- <div key={user._id} className="bg-white p-4 border border-slate-100 shadow-sm flex flex-col gap-4">
+ <div key={user._id} className="bg-white p-4 border border-slate-100 shadow-sm flex flex-col gap-4 rounded-lg">
  <div className="flex justify-between items-start">
  <div className="flex items-center gap-3">
- <div className="w-10 h-10 bg-indigo-50 text-indigo-500 font-black flex items-center justify-center border border-indigo-100 shrink-0">
+ <div className="w-10 h-10 bg-indigo-50 text-indigo-500 font-black flex items-center justify-center border border-indigo-100 shrink-0 rounded-lg">
  {user.name.charAt(0)}
  </div>
  <div>
@@ -249,7 +249,7 @@ export default function GlobalUserManagement() {
  </div>
  </div>
  )) : (
- <div className="py-10 text-center space-y-2 bg-white border border-slate-100">
+ <div className="py-10 text-center space-y-2 bg-white border border-slate-100 rounded-lg">
  <HiOutlineUserPlus size={40} className="mx-auto text-slate-200" />
  <p className="text-slate-400 font-bold uppercase tracking-widest text-[10px]">No biological nodes detected</p>
  </div>
@@ -258,7 +258,7 @@ export default function GlobalUserManagement() {
  </div>
 
  {/* Desktop Registry Table (Hidden on SM) */}
- <div className="hidden md:block bg-white border border-slate-100 shadow-sm overflow-hidden overflow-x-auto">
+ <div className="hidden md:block bg-white border border-slate-100 shadow-sm overflow-hidden overflow-x-auto rounded-lg">
  <table className="w-full text-left border-collapse">
  <thead>
  <tr className="bg-slate-50 text-slate-400 uppercase text-[10px] font-black tracking-widest">
@@ -273,15 +273,15 @@ export default function GlobalUserManagement() {
  {loading ? (
  [...Array(5)].map((_, i) => (
  <tr key={i} className="animate-pulse">
- <td colSpan={5} className="px-6 py-6 h-16 bg-slate-50/20" />
+ <td colSpan={5} className="px-6 py-6 h-16 bg-slate-50/20 rounded-md" />
  </tr>
  ))
  ) : (
  users.map(user => (
- <tr key={user._id} className="group hover:bg-slate-50/50 transition-all">
+ <tr key={user._id} className="group hover:bg-slate-50/50 transition-all rounded-md">
  <td className="px-6 py-4">
  <div className="flex items-center gap-3">
- <div className="w-10 h-10 bg-indigo-50 text-indigo-500 font-black flex items-center justify-center border border-indigo-100">
+ <div className="w-10 h-10 bg-indigo-50 text-indigo-500 font-black flex items-center justify-center border border-indigo-100 rounded-lg">
  {user.name.charAt(0)}
  </div>
  <div>
@@ -436,7 +436,7 @@ export default function GlobalUserManagement() {
  <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest ml-1">Universal Name</label>
  <input 
  required
- className="w-full px-4 py-3 bg-slate-50 border-none text-sm font-bold focus:ring-2 focus:ring-indigo-500 transition-all"
+ className="w-full px-4 py-3 bg-slate-50 border-none text-sm font-bold focus:ring-2 focus:ring-indigo-500 transition-all rounded-md"
  value={formData.name}
  onChange={(e) => setFormData({...formData, name: e.target.value})}
  />
@@ -446,7 +446,7 @@ export default function GlobalUserManagement() {
  <input 
  required
  type="email"
- className="w-full px-4 py-3 bg-slate-50 border-none text-sm font-bold focus:ring-2 focus:ring-indigo-500 transition-all"
+ className="w-full px-4 py-3 bg-slate-50 border-none text-sm font-bold focus:ring-2 focus:ring-indigo-500 transition-all rounded-md"
  value={formData.email}
  onChange={(e) => setFormData({...formData, email: e.target.value})}
  />
@@ -454,7 +454,7 @@ export default function GlobalUserManagement() {
  </div>
 
  {!editingUser && (
- <div className="bg-slate-50 p-4 space-y-3">
+ <div className="bg-slate-50 p-4 space-y-3 rounded-md">
  <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Account Setup Method</p>
  <div className="grid grid-cols-2 gap-2">
  <button
@@ -484,7 +484,7 @@ export default function GlobalUserManagement() {
  required
  type="password"
  minLength={8}
- className="w-full px-4 py-3 bg-white border-none text-sm font-bold focus:ring-2 focus:ring-indigo-500 transition-all"
+ className="w-full px-4 py-3 bg-white border-none text-sm font-bold focus:ring-2 focus:ring-indigo-500 transition-all rounded-md"
  value={formData.password}
  onChange={(e) => setFormData({...formData, password: e.target.value})}
  />
@@ -539,7 +539,7 @@ export default function GlobalUserManagement() {
  <div className={`absolute top-1 w-6 h-6 bg-white transition-all ${formData.isActive ? 'right-1' : 'left-1'}`} />
  </button>
  </div>
- <button type="submit" className="px-6 py-3 bg-indigo-600 text-white font-black shadow-xl shadow-indigo-600/30 hover:-translate-y-1 transition-all">
+ <button type="submit" className="px-6 py-3 bg-indigo-600 text-white font-black shadow-xl shadow-indigo-600/30 hover:-translate-y-1 transition-all rounded-md">
  {editingUser ? 'Synchronize Updates' : 'Establish Access Node'}
  </button>
  </div>

@@ -9,7 +9,7 @@ export default function CourseInstructor({ instructor }) {
  if (!instructor) return null;
 
  return (
- <div className="bg-white border border-neutral-200 p-6 sm:p-8 shadow-sm">
+ <div className="bg-white border border-neutral-200 p-6 sm:p-8 shadow-sm rounded-lg">
  <h3 className="text-xl font-bold text-neutral-900 mb-6 border-b border-neutral-100 pb-4">Meet Your Instructor</h3>
  
  <div className="flex flex-col sm:flex-row gap-6 sm:items-start">
@@ -19,7 +19,7 @@ export default function CourseInstructor({ instructor }) {
  src={instructor.avatar || '/images/default-avatar.png'}
  alt={instructor.name || 'Instructor'}
  fill
- className="object-cover"
+ className="object-cover rounded-md"
  onError={(e) => { e.target.src = 'https://ui-avatars.com/api/?name=' + (instructor.name || 'Instructor') + '&background=random' }}
  />
  </div>
@@ -31,12 +31,12 @@ export default function CourseInstructor({ instructor }) {
  
  <div className="flex flex-wrap items-center justify-center sm:justify-start gap-4 mt-4 text-sm tracking-tight text-neutral-600">
 
- <div className="flex items-center gap-1.5 bg-neutral-50 px-3 py-1.5 border border-neutral-100">
+ <div className="flex items-center gap-1.5 bg-neutral-50 px-3 py-1.5 border border-neutral-100 rounded-lg">
  <HiOutlineUsers className="text-blue-500" size={18} />
  <span className="font-bold">{instructor.studentsCount || '2,400+'}</span>
  <span className="text-neutral-400">Students</span>
  </div>
- <div className="flex items-center gap-1.5 bg-neutral-50 px-3 py-1.5 border border-neutral-100">
+ <div className="flex items-center gap-1.5 bg-neutral-50 px-3 py-1.5 border border-neutral-100 rounded-lg">
  <HiOutlineBookOpen className="text-emerald-500" size={18} />
  <span className="font-bold">{instructor.coursesCount || '5'}</span>
  <span className="text-neutral-400">Courses</span>
@@ -49,17 +49,17 @@ export default function CourseInstructor({ instructor }) {
 
  <div className="flex items-center justify-center sm:justify-start gap-3 mt-5">
  {instructor.socials?.linkedin && (
- <a href={instructor.socials.linkedin} target="_blank" rel="noopener noreferrer" className="p-2 bg-blue-50 text-blue-600 hover:bg-blue-600 hover:text-white transition-colors">
+ <a href={instructor.socials.linkedin} target="_blank" rel="noopener noreferrer" className="p-2 bg-blue-50 text-blue-600 hover:bg-blue-600 hover:text-white transition-colors rounded-md">
  <FaLinkedin size={18} />
  </a>
  )}
  {instructor.socials?.twitter && (
- <a href={instructor.socials.twitter} target="_blank" rel="noopener noreferrer" className="p-2 bg-sky-50 text-sky-500 hover:bg-sky-500 hover:text-white transition-colors">
+ <a href={instructor.socials.twitter} target="_blank" rel="noopener noreferrer" className="p-2 bg-sky-50 text-sky-500 hover:bg-sky-500 hover:text-white transition-colors rounded-md">
  <FaTwitter size={18} />
  </a>
  )}
  {instructor.socials?.facebook && (
- <a href={instructor.socials.facebook} target="_blank" rel="noopener noreferrer" className="p-2 bg-blue-50 text-blue-700 hover:bg-blue-700 hover:text-white transition-colors">
+ <a href={instructor.socials.facebook} target="_blank" rel="noopener noreferrer" className="p-2 bg-blue-50 text-blue-700 hover:bg-blue-700 hover:text-white transition-colors rounded-md">
  <FaFacebook size={18} />
  </a>
  )}

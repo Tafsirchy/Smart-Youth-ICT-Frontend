@@ -178,7 +178,7 @@ export default function FeaturedMentorsPage() {
  <input
  type="text"
  placeholder="Search instructors..."
- className="w-full pl-9 pr-3 py-2.5 bg-white border border-slate-100 shadow-sm focus:ring-2 focus:ring-rose-500/20 outline-none text-sm transition-all"
+ className="w-full pl-9 pr-3 py-2.5 bg-white border border-slate-100 shadow-sm focus:ring-2 focus:ring-rose-500/20 outline-none text-sm transition-all rounded-md"
  value={search}
  onChange={(e) => setSearch(e.target.value)}
  />
@@ -208,20 +208,20 @@ export default function FeaturedMentorsPage() {
  {/* Status Ribbons */}
  {mentor.isFeaturedMentor && (
  <div className="absolute top-3 left-4">
- <div className="bg-amber-500 text-white p-1.5 shadow-lg shadow-amber-500/20">
+ <div className="bg-amber-500 text-white p-1.5 shadow-lg shadow-amber-500/20 rounded-lg">
  <LuStar className="w-3 h-3 fill-current" />
  </div>
  </div>
  )}
  {!mentor.isActive && (
  <div className="absolute top-3 right-4">
- <span className="text-[10px] font-black uppercase tracking-normal bg-slate-100 text-slate-400 px-2 py-0.5 leading-[1.4]">
+ <span className="text-[10px] font-black uppercase tracking-normal bg-slate-100 text-slate-400 px-2 py-0.5 leading-[1.4] rounded-md">
  Inactive
  </span>
  </div>
  )}
 
- <div className="w-16 h-16 bg-slate-100 border-2 border-white shadow-sm mb-3 overflow-hidden group-hover:scale-105 transition-transform flex items-center justify-center relative">
+ <div className="w-16 h-16 bg-slate-100 border-2 border-white shadow-sm mb-3 overflow-hidden group-hover:scale-105 transition-transform flex items-center justify-center relative rounded-lg">
  {mentor.avatar ? (
  <Image
  src={mentor.avatar}
@@ -253,7 +253,7 @@ export default function FeaturedMentorsPage() {
  {(mentor.expertise || []).slice(0, 3).map((e) => (
  <span
  key={e}
- className="px-2 py-0.5 bg-slate-50 text-slate-500 text-[10px] font-bold border border-slate-100 uppercase tracking-normal leading-[1.4]"
+ className="px-2 py-0.5 bg-slate-50 text-slate-500 text-[10px] font-bold border border-slate-100 uppercase tracking-normal leading-[1.4] rounded-md"
  >
  {e}
  </span>
@@ -298,7 +298,7 @@ export default function FeaturedMentorsPage() {
  <motion.div
  initial={{ opacity: 0, scale: 0.95, y: 50 }}
  animate={{ opacity: 1, scale: 1, y: 0 }}
- className="bg-white w-full max-w-2xl sm: p-4 sm:p-6 shadow-2xl relative max-h-[90vh] overflow-y-auto flex flex-col custom-scrollbar"
+ className="bg-white w-full max-w-2xl sm: p-4 sm:p-6 shadow-2xl relative max-h-[90vh] overflow-y-auto flex flex-col custom-scrollbar rounded-lg"
  >
  <div className="flex items-center justify-between mb-4 shrink-0">
  <h3 className="text-xl font-black text-slate-900 leading-[1.4]">
@@ -331,7 +331,7 @@ export default function FeaturedMentorsPage() {
  <LuUser className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-300 w-4 h-4" />
  <input
  required
- className="w-full pl-9 pr-3 py-2 bg-slate-50 border-2 border-transparent focus:border-indigo-500/20 focus:bg-white transition-all outline-none text-sm font-bold leading-[1.4]"
+ className="w-full pl-9 pr-3 py-2 bg-slate-50 border-2 border-transparent focus:border-indigo-500/20 focus:bg-white transition-all outline-none text-sm font-bold leading-[1.4] rounded-md"
  value={formData.name}
  onChange={(e) =>
  setFormData({ ...formData, name: e.target.value })
@@ -349,7 +349,7 @@ export default function FeaturedMentorsPage() {
  required
  type="email"
  inputMode="email"
- className="w-full pl-9 pr-3 py-2 bg-slate-50 border-2 border-transparent focus:border-indigo-500/20 focus:bg-white transition-all outline-none text-sm font-bold leading-[1.4]"
+ className="w-full pl-9 pr-3 py-2 bg-slate-50 border-2 border-transparent focus:border-indigo-500/20 focus:bg-white transition-all outline-none text-sm font-bold leading-[1.4] rounded-md"
  value={formData.email}
  onChange={(e) =>
  setFormData({ ...formData, email: e.target.value })
@@ -370,7 +370,7 @@ export default function FeaturedMentorsPage() {
  required
  type="password"
  placeholder="Min. 8 characters"
- className="w-full pl-9 pr-3 py-2 bg-slate-50 border-2 border-transparent focus:border-rose-500/20 focus:bg-white transition-all outline-none text-sm font-bold leading-[1.4]"
+ className="w-full pl-9 pr-3 py-2 bg-slate-50 border-2 border-transparent focus:border-rose-500/20 focus:bg-white transition-all outline-none text-sm font-bold leading-[1.4] rounded-md"
  value={formData.password}
  onChange={(e) =>
  setFormData({
@@ -391,7 +391,7 @@ export default function FeaturedMentorsPage() {
  <LuCpu className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-300 w-4 h-4" />
  <input
  placeholder="e.g. React, UI/UX, Backend"
- className="w-full pl-9 pr-3 py-2 bg-slate-50 border-2 border-transparent focus:border-indigo-500/20 focus:bg-white transition-all outline-none text-sm font-bold leading-[1.4]"
+ className="w-full pl-9 pr-3 py-2 bg-slate-50 border-2 border-transparent focus:border-indigo-500/20 focus:bg-white transition-all outline-none text-sm font-bold leading-[1.4] rounded-md"
  value={
  Array.isArray(formData.expertise)
  ? formData.expertise.join(", ")
@@ -415,7 +415,7 @@ export default function FeaturedMentorsPage() {
  Badge (e.g. Expert)
  </label>
  <input
- className="w-full px-3 py-2 bg-slate-50 border-2 border-transparent focus:border-indigo-500/20 focus:bg-white transition-all outline-none text-sm font-bold leading-[1.4]"
+ className="w-full px-3 py-2 bg-slate-50 border-2 border-transparent focus:border-indigo-500/20 focus:bg-white transition-all outline-none text-sm font-bold leading-[1.4] rounded-md"
  value={formData.badge}
  onChange={(e) => setFormData({ ...formData, badge: e.target.value })}
  />
@@ -425,7 +425,7 @@ export default function FeaturedMentorsPage() {
  Experience
  </label>
  <input
- className="w-full px-3 py-2 bg-slate-50 border-2 border-transparent focus:border-indigo-500/20 focus:bg-white transition-all outline-none text-sm font-bold leading-[1.4]"
+ className="w-full px-3 py-2 bg-slate-50 border-2 border-transparent focus:border-indigo-500/20 focus:bg-white transition-all outline-none text-sm font-bold leading-[1.4] rounded-md"
  value={formData.experience}
  onChange={(e) => setFormData({ ...formData, experience: e.target.value })}
  />
@@ -440,7 +440,7 @@ export default function FeaturedMentorsPage() {
  <input
  inputMode="url"
  placeholder="https://linkedin.com/..."
- className="w-full px-3 py-2 bg-slate-50 border-2 border-transparent focus:border-indigo-500/20 focus:bg-white transition-all outline-none text-sm font-bold leading-[1.4]"
+ className="w-full px-3 py-2 bg-slate-50 border-2 border-transparent focus:border-indigo-500/20 focus:bg-white transition-all outline-none text-sm font-bold leading-[1.4] rounded-md"
  value={formData.socials?.linkedin || ""}
  onChange={(e) => setFormData({ ...formData, socials: { ...formData.socials, linkedin: e.target.value } })}
  />
@@ -452,7 +452,7 @@ export default function FeaturedMentorsPage() {
  <input
  inputMode="url"
  placeholder="https://twitter.com/..."
- className="w-full px-3 py-2 bg-slate-50 border-2 border-transparent focus:border-indigo-500/20 focus:bg-white transition-all outline-none text-sm font-bold leading-[1.4]"
+ className="w-full px-3 py-2 bg-slate-50 border-2 border-transparent focus:border-indigo-500/20 focus:bg-white transition-all outline-none text-sm font-bold leading-[1.4] rounded-md"
  value={formData.socials?.twitter || ""}
  onChange={(e) => setFormData({ ...formData, socials: { ...formData.socials, twitter: e.target.value } })}
  />
@@ -492,12 +492,12 @@ export default function FeaturedMentorsPage() {
  </div>
  </div>
 
- <div className="flex items-center justify-between p-3 bg-slate-50">
+ <div className="flex items-center justify-between p-3 bg-slate-50 rounded-md">
  <div className="flex items-center gap-3">
- <label className="flex items-center gap-2 cursor-pointer group">
+ <label className="flex items-center gap-2 cursor-pointer group rounded-md">
  <input
  type="checkbox"
- className="w-4 h-4 border-2 border-slate-200 text-amber-500 focus:ring-transparent transition-all"
+ className="w-4 h-4 border-2 border-slate-200 text-amber-500 focus:ring-transparent transition-all rounded-md"
  checked={formData.isFeaturedMentor}
  onChange={(e) =>
  setFormData({
@@ -511,11 +511,11 @@ export default function FeaturedMentorsPage() {
  </span>
  </label>
  </div>
- <div className="flex items-center gap-3 border-l border-slate-200 pl-3">
- <label className="flex items-center gap-2 cursor-pointer group">
+ <div className="flex items-center gap-3 border-l border-slate-200 pl-3 rounded-lg">
+ <label className="flex items-center gap-2 cursor-pointer group rounded-md">
  <input
  type="checkbox"
- className="w-4 h-4 border-2 border-slate-200 text-indigo-600 focus:ring-transparent transition-all"
+ className="w-4 h-4 border-2 border-slate-200 text-indigo-600 focus:ring-transparent transition-all rounded-md"
  checked={formData.isActive}
  onChange={(e) =>
  setFormData({ ...formData, isActive: e.target.checked })
@@ -538,7 +538,7 @@ export default function FeaturedMentorsPage() {
  </button>
  <button
  type="submit"
- className="flex-[2] py-2.5 bg-slate-900 text-white font-black shadow-xl shadow-slate-900/10 hover:bg-black transition-all flex items-center justify-center gap-1.5 leading-[1.4]"
+ className="flex-[2] py-2.5 bg-slate-900 text-white font-black shadow-xl shadow-slate-900/10 hover:bg-black transition-all flex items-center justify-center gap-1.5 leading-[1.4] rounded-md"
  >
  <LuCheck className="w-5 h-5" />
  {editingMentor ? "Update Mentor" : "Save Instructor"}

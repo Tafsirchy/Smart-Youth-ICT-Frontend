@@ -91,7 +91,7 @@ export default function SkillDevelopmentClient({ locale, courses, pageContent })
           <motion.div
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
-            className="inline-flex items-center gap-2 px-4 py-2 bg-white border border-slate-200 shadow-sm text-xs md:text-sm font-bold text-slate-800 leading-[1.4] self-center"
+            className="inline-flex items-center gap-2 px-4 py-2 bg-white border border-slate-200 shadow-sm text-xs md:text-sm font-bold text-slate-800 leading-[1.4] self-center rounded-md"
           >
             <span className="flex h-2 w-2 bg-brand-pink relative shrink-0">
               <span className="animate-ping absolute inline-flex h-full w-full bg-brand-pink opacity-75"></span>
@@ -119,7 +119,7 @@ export default function SkillDevelopmentClient({ locale, courses, pageContent })
       </div>
 
       {/* Methodology Section */}
-      <div className="bg-white py-10 border-y border-slate-100">
+      <div className="bg-white py-10 border-y border-slate-100 rounded-lg">
         <div className="container-custom">
           <div className="grid md:grid-cols-3 gap-6 md:gap-8 text-center">
             {methods.map((mod, i) => (
@@ -161,15 +161,15 @@ export default function SkillDevelopmentClient({ locale, courses, pageContent })
                   viewport={{ once: true, margin: "-50px" }}
                   transition={{ delay: i * 0.1, duration: 0.5 }}
                   whileHover={{ y: -5 }}
-                  className="bg-white -[1.5rem] p-6 border border-slate-100 shadow-xl shadow-slate-200/40 relative overflow-hidden group flex flex-col h-full cursor-pointer"
+                  className="bg-white -[1.5rem] p-6 border border-slate-100 shadow-xl shadow-slate-200/40 relative overflow-hidden group flex flex-col h-full cursor-pointer rounded-md"
                 >
                   <div className={`absolute top-0 left-0 w-full h-1.5 bg-gradient-to-r ${prog.color}`}></div>
 
                   <div className="flex justify-between items-start mb-4">
-                     <div className={`w-12 h-12 rounded-xl ${prog.bg} ${prog.text} flex items-center justify-center group-hover:scale-110 transition-transform duration-500`}>
+                     <div className={`w-12 h-12 rounded-lg ${prog.bg} ${prog.text} flex items-center justify-center group-hover:scale-110 transition-transform duration-500`}>
                       {prog.icon}
                     </div>
-                    <span className="px-3 py-1 bg-slate-100 text-slate-600 text-[10px] sm:text-xs font-bold uppercase tracking-widest leading-[1.4]">
+                    <span className="px-3 py-1 bg-slate-100 text-slate-600 text-[10px] sm:text-xs font-bold uppercase tracking-widest leading-[1.4] rounded-md">
                       {prog.badge}
                     </span>
                   </div>
@@ -181,7 +181,7 @@ export default function SkillDevelopmentClient({ locale, courses, pageContent })
                     <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest leading-[1.4]">Outcomes</p>
                     <div className="flex flex-wrap gap-2">
                       {prog.tech.map(t => (
-                        <span key={t} className="px-2 py-1 bg-slate-50 border border-slate-100 text-xs font-bold text-slate-700 leading-[1.4]">
+                        <span key={t} className="px-2 py-1 bg-slate-50 border border-slate-100 text-xs font-bold text-slate-700 leading-[1.4] rounded-md">
                           {t}
                         </span>
                       ))}
@@ -192,7 +192,7 @@ export default function SkillDevelopmentClient({ locale, courses, pageContent })
             ))}
           </div>
         ) : (
-          <div className="text-center py-12 bg-white -[2rem] shadow-sm border border-slate-100">
+          <div className="text-center py-12 bg-white -[2rem] shadow-sm border border-slate-100 rounded-lg">
             <div className="inline-flex items-center justify-center w-16 h-16 bg-slate-50 text-slate-300 mb-4">
               <IoSearchOutline size={32} />
             </div>
@@ -208,12 +208,12 @@ export default function SkillDevelopmentClient({ locale, courses, pageContent })
           initial={{ opacity: 0, scale: 0.95 }}
           whileInView={{ opacity: 1, scale: 1 }}
           viewport={{ once: true }}
-          className="bg-slate-900 -[2rem] p-8 md:p-12 text-center relative overflow-hidden shadow-2xl flex flex-col gap-4 md:gap-6 items-center"
+          className="bg-slate-900 -[2rem] p-8 md:p-12 text-center relative overflow-hidden shadow-2xl flex flex-col gap-4 md:gap-6 items-center rounded-lg"
         >
           <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-full max-w-3xl bg-brand-pink/20 blur-[120px]"></div>
           <h2 className="text-3xl md:text-4xl font-black text-white relative z-10 leading-[1.1]">{cta.title}</h2>
           <p className="text-slate-300 text-base md:text-lg max-w-2xl mx-auto relative z-10 font-light leading-[1.6]">{cta.description}</p>
-          <button className="relative z-10 px-6 min-h-[44px] py-3 bg-white text-slate-900 font-extrabold hover:scale-105 transition-transform shadow-lg uppercase tracking-widest text-[10px] sm:text-xs leading-[1.4]">
+          <button className="relative z-10 px-6 min-h-[44px] py-3 bg-white text-slate-900 font-extrabold hover:scale-105 transition-transform shadow-lg uppercase tracking-widest text-[10px] sm:text-xs leading-[1.4] rounded-md">
             {cta.buttonText}
           </button>
         </motion.div>
@@ -221,7 +221,7 @@ export default function SkillDevelopmentClient({ locale, courses, pageContent })
 
       {/* Mobile Sticky CTA */}
       <div className="sticky bottom-0 left-0 right-0 p-3 bg-white/90 backdrop-blur-md border-t border-slate-200 z-50 lg:hidden flex justify-center pb-[max(0.75rem,env(safe-area-inset-bottom))] mt-auto">
-        <button className="w-full max-w-sm min-h-[48px] px-6 py-3 bg-slate-900 text-white font-bold shadow-lg active:scale-95 transition-transform text-xs uppercase tracking-widest leading-[1.4]">
+        <button className="w-full max-w-sm min-h-[48px] px-6 py-3 bg-slate-900 text-white font-bold shadow-lg active:scale-95 transition-transform text-xs uppercase tracking-widest leading-[1.4] rounded-md">
           {cta.buttonText}
         </button>
       </div>

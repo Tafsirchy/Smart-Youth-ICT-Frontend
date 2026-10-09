@@ -163,7 +163,7 @@ export default function SuperPaymentsPage() {
  
  <button
  onClick={handleExportCSV}
- className="flex items-center justify-center gap-2 px-4 py-2 bg-slate-900 text-white font-bold hover:bg-slate-800 transition-colors shadow-lg shadow-slate-900/20 text-sm"
+ className="flex items-center justify-center gap-2 px-4 py-2 bg-slate-900 text-white font-bold hover:bg-slate-800 transition-colors shadow-lg shadow-slate-900/20 text-sm rounded-md"
  >
  <IoDownloadOutline size={18} />
  Export to Excel
@@ -212,7 +212,7 @@ export default function SuperPaymentsPage() {
  <input
  type="text"
  placeholder="Search by name, email, or transaction ID…"
- className="input pl-10 w-full"
+ className="input pl-10 w-full rounded-md"
  value={search}
  onChange={(e) => setSearch(e.target.value)}
  />
@@ -251,7 +251,7 @@ export default function SuperPaymentsPage() {
  </div>
 
  {/* Table */}
- <div className="bg-white shadow-sm ring-1 ring-neutral-200 overflow-hidden">
+ <div className="bg-white shadow-sm ring-1 ring-neutral-200 overflow-hidden rounded-lg">
  <div className="overflow-x-auto">
  <table className="w-full text-sm">
  <thead className="bg-neutral-50 border-b border-neutral-200">
@@ -289,7 +289,7 @@ export default function SuperPaymentsPage() {
  const branchName = branches.find(b => b._id === payment.branchId)?.name || "Unknown Branch";
  
  return (
- <tr key={payment._id || i} className="hover:bg-neutral-50 transition-colors">
+ <tr key={payment._id || i} className="hover:bg-neutral-50 transition-colors rounded-md">
  <td className="px-5 py-4">
  <div className="font-medium text-neutral-900">{payment.user?.name || "—"}</div>
  <div className="text-xs text-neutral-500">{payment.user?.email || "—"}</div>
@@ -303,7 +303,7 @@ export default function SuperPaymentsPage() {
  </div>
  </td>
  <td className="px-5 py-4">
- <span className="px-2.5 py-1 bg-neutral-100 text-neutral-700 text-xs font-medium">
+ <span className="px-2.5 py-1 bg-neutral-100 text-neutral-700 text-xs font-medium rounded-md">
  {METHOD_LABELS[payment.method] || payment.method || "—"}
  </span>
  </td>
@@ -431,7 +431,7 @@ export default function SuperPaymentsPage() {
  width={420}
  height={128}
  sizes="(max-width: 768px) 100vw, 420px"
- className="w-full h-32 object-contain bg-neutral-50"
+ className="w-full h-32 object-contain bg-neutral-50 rounded-md"
  
 loading="lazy"
 onError={(e) => { e.target.onerror = null; e.target.srcset = ''; e.target.src = '/assets/fallback.png'; }}

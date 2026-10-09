@@ -36,15 +36,15 @@ export default function ProjectShowcase() {
  hidden: { opacity: 0 },
  visible: { opacity: 1, transition: { staggerChildren: 0.1 } }
  }}
- className="space-y-6"
+ className="space-y-6 pt-4"
  >
- <div className="flex items-center gap-3 border-b border-slate-100 pb-4">
- <div className="p-2 bg-pink-100 text-pink-600">
- <IoRocketOutline size={24} />
+ <div className="flex items-center gap-4 pb-4 border-b border-slate-100 mb-4">
+ <div className="w-10 h-10 flex items-center justify-center bg-slate-50 text-brand-pink rounded-lg">
+ <IoRocketOutline size={22} />
  </div>
  <div>
- <h2 className="text-2xl font-extrabold text-slate-900 tracking-tight">Real-World Projects</h2>
- <p className="text-sm text-slate-500 font-medium mt-1">What you'll build and add to your portfolio</p>
+ <h2 className="text-2xl font-bold text-slate-900 tracking-tight">Real-World Projects</h2>
+ <p className="text-sm text-slate-500 font-medium mt-0.5">What you'll build and add to your portfolio</p>
  </div>
  </div>
 
@@ -53,9 +53,9 @@ export default function ProjectShowcase() {
  <motion.div
  key={i}
  variants={{ hidden: { opacity: 0, scale: 0.95 }, visible: { opacity: 1, scale: 1 } }}
- className="group overflow-hidden border border-slate-100 bg-white hover:shadow-xl hover:shadow-pink-500/5 transition-all duration-300 flex flex-col"
+ className="group overflow-hidden border border-slate-100 rounded-lg bg-white hover:shadow-xl hover:shadow-slate-200/50 hover:-translate-y-1 transition-all duration-300 flex flex-col"
  >
- <div className="relative aspect-video overflow-hidden bg-slate-100">
+ <div className="relative aspect-video overflow-hidden bg-slate-50">
  <Image 
  src={proj.image} 
  alt={proj.title} 
@@ -66,14 +66,13 @@ export default function ProjectShowcase() {
  onError={(e) => { e.target.srcset = ''; e.target.src = '/images/placeholder.png'; }}
  className="object-cover group-hover:scale-105 transition-transform duration-500 bg-[#f0f0f0]"
  />
- <div className="absolute inset-0 bg-gradient-to-t from-slate-900/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
  </div>
- <div className="p-5 flex-1 flex flex-col">
+ <div className="p-6 flex-1 flex flex-col">
  <h3 className="font-bold text-slate-900 text-lg mb-2">{proj.title}</h3>
- <p className="text-sm text-slate-600 leading-relaxed mb-4 flex-1">{proj.desc}</p>
- <div className="flex flex-wrap gap-2 mt-auto pt-4 border-t border-slate-50">
+ <p className="text-sm text-slate-600 leading-relaxed mb-6 flex-1">{proj.desc}</p>
+ <div className="flex flex-wrap gap-2 mt-auto">
  {proj.techs.map((tech, j) => (
- <span key={j} className="text-[10px] font-bold uppercase tracking-wider bg-slate-100 text-slate-600 px-2 py-1">
+ <span key={j} className="text-[11px] font-semibold tracking-wide bg-slate-50 border border-slate-100 text-slate-600 px-2.5 py-1 rounded-md">
  {tech}
  </span>
  ))}

@@ -54,7 +54,7 @@ export default function MyCoursesPage() {
  className="group flex flex-col overflow-hidden bg-white shadow-sm ring-1 ring-neutral-200 hover:shadow-xl transition-all"
  >
  <div className="relative aspect-video w-full bg-neutral-100">
- <Image src={course.thumbnail || '/images/course-placeholder.jpg'} alt={course.title?.en || course.title} fill className="object-cover bg-[#f0f0f0]" loading="lazy" onError={(e) => { e.target.onerror = null; e.target.srcset = ''; e.target.src = '/assets/fallback.png'; }} decoding="async"/>
+ <Image src={course.thumbnail || '/images/course-placeholder.jpg'} alt={course.title?.en || course.title} fill className="object-cover bg-[#f0f0f0] rounded-md" loading="lazy" onError={(e) => { e.target.onerror = null; e.target.srcset = ''; e.target.src = '/assets/fallback.png'; }} decoding="async"/>
  <div className="absolute top-3 left-3 bg-blue-600/90 px-2.5 py-1 text-xs font-semibold text-white backdrop-blur-sm">
  {course.category || 'Course'}
  </div>
@@ -76,7 +76,7 @@ export default function MyCoursesPage() {
  </div>
  </div>
  
- <Link href={`/student/learn/${course.slug}`} className="btn-primary w-full py-2.5 text-center text-sm mt-2">
+ <Link href={`/student/learn/${course.slug}`} className="btn-primary w-full py-2.5 text-center text-sm mt-2 rounded-md">
  Continue Learning
  </Link>
  </div>
@@ -85,7 +85,7 @@ export default function MyCoursesPage() {
  ))}
  </div>
  ) : (
- <div className="border-2 border-dashed border-neutral-200 bg-white py-20 text-center flex flex-col items-center mt-6">
+ <div className="border-2 border-dashed border-neutral-200 bg-white py-20 text-center flex flex-col items-center mt-6 rounded-lg">
  <div className="bg-blue-50 p-6 mb-4">
  <HiOutlineBookOpen size={48} className="text-blue-500 opacity-80" />
  </div>

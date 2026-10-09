@@ -69,7 +69,7 @@ export default function ScrollToTopButton() {
  <button 
  onClick={handleTankClick}
  aria-label="Scroll to top of page"
- className="relative flex items-center justify-center w-11 h-28 sm:w-12 sm:h-32 cursor-pointer bg-white/90 backdrop-blur-xl border-y border-l border-pink-100 shadow-[0_8px_30px_rgba(236,72,153,0.15)] overflow-hidden transition-all duration-300 hover:w-12 sm:hover:w-14 hover:bg-white focus-visible:outline-none focus-visible:bg-white focus-visible:shadow-[inset_0_0_0_2px_rgba(236,72,153,1)]"
+ className="relative flex items-center justify-center w-11 h-28 sm:w-12 sm:h-32 cursor-pointer bg-white/90 backdrop-blur-xl border-y border-l border-pink-100 shadow-[0_8px_30px_rgba(236,72,153,0.15)] overflow-hidden transition-all duration-300 hover:w-12 sm:hover:w-14 hover:bg-white focus-visible:outline-none focus-visible:bg-white focus-visible:shadow-[inset_0_0_0_2px_rgba(236,72,153,1)] rounded-md"
  >
  {/* Waving Liquid Fill */}
  <motion.div 

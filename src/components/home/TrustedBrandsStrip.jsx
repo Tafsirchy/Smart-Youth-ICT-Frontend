@@ -17,7 +17,7 @@ const brands = [
 
 function BrandCard({ name }) {
  return (
- <div className="flex min-w-[180px] shrink-0 items-center gap-4 border border-emerald-100/70 bg-white/90 px-4 py-3 shadow-sm backdrop-blur-sm">
+ <div className="flex min-w-[180px] shrink-0 items-center gap-4 border border-emerald-100/70 bg-white/90 px-4 py-3 shadow-sm backdrop-blur-sm rounded-lg">
  <div className="flex h-10 w-10 shrink-0 items-center justify-center bg-emerald-50 text-sm font-black text-emerald-700">
  {name.slice(0, 2).toUpperCase()}
  </div>
@@ -48,7 +48,7 @@ export default function TrustedBrandsStrip() {
  </h2>
  </div>
 
- <div className="relative overflow-hidden sm: border border-emerald-100 bg-gradient-to-r from-emerald-50/70 via-white to-emerald-50/70 py-4">
+ <div className="relative overflow-hidden sm: border border-emerald-100 bg-gradient-to-r from-emerald-50/70 via-white to-emerald-50/70 py-4 rounded-lg">
  <div className="marquee-x flex w-max gap-3 px-3 motion-gpu">
  {duplicated.map((brand, idx) => (
  <BrandCard key={`x-${brand}-${idx}`} name={brand} />

@@ -36,7 +36,7 @@ export default function AutomationClient({ data }) {
             <motion.div
               initial={{ opacity: 0, x: -20 }}
               animate={{ opacity: 1, x: 0 }}
-              className="inline-flex items-center gap-2 px-4 sm:px-5 py-2 bg-amber-50 border border-amber-100 text-amber-700 text-[10px] sm:text-xs font-black tracking-wider sm:tracking-[0.4em] uppercase mb-8 sm:mb-10"
+              className="inline-flex items-center gap-2 px-4 sm:px-5 py-2 bg-amber-50 border border-amber-100 text-amber-700 text-[10px] sm:text-xs font-black tracking-wider sm:tracking-[0.4em] uppercase mb-8 sm:mb-10 rounded-md"
             >
               <IoSparklesOutline className="text-sm" /> {data.hero.badge}
             </motion.div>
@@ -61,12 +61,12 @@ export default function AutomationClient({ data }) {
             </motion.p>
 
             <div className="flex flex-col sm:flex-row gap-4 sm:gap-6 mb-16 lg:mb-0">
-              <button className="w-full sm:w-[280px] px-8 py-4 sm:py-6 bg-amber-600 text-white font-black hover:bg-amber-700 transition-all shadow-xl sm:shadow-2xl shadow-amber-600/20 uppercase tracking-wider sm:tracking-widest text-xs sm:text-sm flex items-center justify-center min-h-[44px]">
+              <button className="w-full sm:w-[280px] px-8 py-4 sm:py-6 bg-amber-600 text-white font-black hover:bg-amber-700 transition-all shadow-xl sm:shadow-2xl shadow-amber-600/20 uppercase tracking-wider sm:tracking-widest text-xs sm:text-sm flex items-center justify-center min-h-[44px] rounded-md">
                 Initialize Audit
               </button>
               <Link
                 href="/services/automation/details"
-                className="w-full sm:w-[280px] px-8 py-4 sm:py-6 bg-white border border-slate-200 text-slate-900 font-black hover:bg-slate-50 transition-all uppercase tracking-wider sm:tracking-widest text-xs sm:text-sm flex items-center justify-center text-center min-h-[44px]"
+                className="w-full sm:w-[280px] px-8 py-4 sm:py-6 bg-white border border-slate-200 text-slate-900 font-black hover:bg-slate-50 transition-all uppercase tracking-wider sm:tracking-widest text-xs sm:text-sm flex items-center justify-center text-center min-h-[44px] rounded-md"
               >
                 Technical Specifications
               </Link>
@@ -78,26 +78,26 @@ export default function AutomationClient({ data }) {
               initial={{ opacity: 0, scale: 0.9, rotate: 5 }}
               animate={{ opacity: 1, scale: 1, rotate: 0 }}
               transition={{ duration: 1 }}
-              className="relative p-12 bg-white -[4rem] border border-slate-100 shadow-2xl overflow-hidden"
+              className="relative p-12 bg-white -[4rem] border border-slate-100 shadow-2xl overflow-hidden rounded-md"
             >
               {/* Logic Schematic Visual */}
               <div className="relative aspect-[4/3] flex flex-col justify-between items-center py-10">
                 <motion.div
                   animate={{ y: [0, -5, 0] }}
                   transition={{ duration: 4, repeat: Infinity }}
-                  className="p-6 bg-amber-600 shadow-2xl relative z-20 font-black text-white text-xs tracking-widest uppercase"
+                  className="p-6 bg-amber-600 shadow-2xl relative z-20 font-black text-white text-xs tracking-widest uppercase rounded-sm"
                 >
                   API_SOURCE_EVENT
                 </motion.div>
                 <div className="w-full flex justify-around items-center px-4">
-                  <motion.div className="p-4 bg-slate-900 relative z-20 text-white text-[10px] sm:text-xs font-black border border-slate-800 space-y-3 w-32 shadow-xl">
+                  <motion.div className="p-4 bg-slate-900 relative z-20 text-white text-[10px] sm:text-xs font-black border border-slate-800 space-y-3 w-32 shadow-xl rounded-sm">
                     <div className="flex justify-between items-center opacity-40 uppercase tracking-widest"><span>Node_01</span> <IoFlashOutline /></div>
                     <div className="h-1 w-full bg-amber-500/20 overflow-hidden">
                       <motion.div animate={{ x: ["-100%", "100%"] }} transition={{ duration: 2, repeat: Infinity }} className="h-full w-1/2 bg-amber-500" />
                     </div>
                     <p className="text-amber-500">FORMAT_DATA</p>
                   </motion.div>
-                  <motion.div className="p-4 bg-slate-100 relative z-20 text-slate-400 text-[10px] sm:text-xs font-black border border-slate-200 space-y-3 w-32 shadow-sm">
+                  <motion.div className="p-4 bg-slate-100 relative z-20 text-slate-400 text-[10px] sm:text-xs font-black border border-slate-200 space-y-3 w-32 shadow-sm rounded-sm">
                     <div className="flex justify-between items-center opacity-40 uppercase tracking-widest"><span>Node_02</span> <IoSettingsOutline /></div>
                     <div className="h-1 w-full bg-slate-200"></div>
                     <p>SYNC_LOGIC</p>
@@ -106,7 +106,7 @@ export default function AutomationClient({ data }) {
                 <motion.div
                   animate={{ scale: [1, 1.05, 1] }}
                   transition={{ duration: 5, repeat: Infinity }}
-                  className="p-6 bg-indigo-600 shadow-2xl relative z-20 font-black text-white text-[10px] sm:text-xs flex gap-3 items-center tracking-widest uppercase"
+                  className="p-6 bg-indigo-600 shadow-2xl relative z-20 font-black text-white text-[10px] sm:text-xs flex gap-3 items-center tracking-widest uppercase rounded-sm"
                 >
                   <IoCloudDoneOutline className="text-xl" /> CRM_DESTINATION
                 </motion.div>
@@ -138,7 +138,7 @@ export default function AutomationClient({ data }) {
 
         {/* PILLARS SECTION */}
         <div className="mb-32 lg:mb-48">
-          <div className="flex flex-col justify-between items-start mb-16 lg:mb-24 gap-6 lg:gap-8 border-l-4 border-amber-600 pl-6 sm:pl-8 mx-4 sm:mx-0">
+          <div className="flex flex-col justify-between items-start mb-16 lg:mb-24 gap-6 lg:gap-8 border-l-4 border-amber-600 pl-6 sm:pl-8 mx-4 sm:mx-0 rounded-lg">
             <div className="max-w-xl">
               <h2 className="text-xs font-black text-amber-600 uppercase tracking-widest sm:tracking-[0.4em] mb-4">Automation Logic</h2>
               <p className="text-3xl sm:text-4xl md:text-5xl font-black text-slate-900 leading-tight tracking-tighter">
@@ -159,8 +159,8 @@ export default function AutomationClient({ data }) {
                   transition={{ delay: i * 0.1 }}
                   className="group cursor-default snap-center w-[85vw] max-w-[320px] lg:w-auto lg:max-w-none whitespace-normal"
                 >
-                  <div className="bg-white lg:-[3rem] p-8 sm:p-10 lg:p-12 h-full border border-slate-100 shadow-xl shadow-slate-200/50 hover:shadow-2xl transition-all group-hover:-translate-y-2 relative overflow-hidden">
-                    <div className={`w-12 h-12 sm:w-14 sm:h-14 rounded-2xl bg-gradient-to-br ${item.color || 'from-amber-500 to-orange-600'} text-white flex items-center justify-center text-2xl sm:text-3xl mb-8 sm:mb-10 shadow-lg`}>
+                  <div className="bg-white lg:-[3rem] p-8 sm:p-10 lg:p-12 h-full border border-slate-100 shadow-xl shadow-slate-200/50 hover:shadow-2xl transition-all group-hover:-translate-y-2 relative overflow-hidden rounded-lg">
+                    <div className={`w-12 h-12 sm:w-14 sm:h-14 rounded-lg bg-gradient-to-br ${item.color || 'from-amber-500 to-orange-600'} text-white flex items-center justify-center text-2xl sm:text-3xl mb-8 sm:mb-10 shadow-lg`}>
                       {getIcon(item.icon)}
                     </div>
                     <h3 className="text-xl sm:text-2xl font-black text-slate-900 mb-4 sm:mb-6 tracking-tighter uppercase leading-none">
@@ -178,19 +178,19 @@ export default function AutomationClient({ data }) {
 
         {/* LOGIC ENGINE SECTION */}
         <div className="mb-32 lg:mb-48">
-          <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center bg-white lg:-[4rem] p-8 sm:p-12 lg:p-24 border border-slate-100 shadow-xl lg:shadow-2xl shadow-slate-200/50 relative overflow-hidden">
+          <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center bg-white lg:-[4rem] p-8 sm:p-12 lg:p-24 border border-slate-100 shadow-xl lg:shadow-2xl shadow-slate-200/50 relative overflow-hidden rounded-lg">
             <div className="absolute top-0 right-0 w-full sm:w-1/3 h-1/3 sm:h-full bg-amber-50/20 sm:-skew-x-[20deg] origin-top sm:translate-x-1/2"></div>
 
             <div className="relative z-10 space-y-8 sm:space-y-12">
-              <div className="w-12 h-12 sm:w-16 sm:h-16 bg-amber-50 flex items-center justify-center text-2xl sm:text-3xl text-amber-600 border border-amber-100">
+              <div className="w-12 h-12 sm:w-16 sm:h-16 bg-amber-50 flex items-center justify-center text-2xl sm:text-3xl text-amber-600 border border-amber-100 rounded-lg">
                 <IoLayersOutline />
               </div>
               <h2 className="text-4xl sm:text-5xl lg:text-6xl font-black text-slate-900 leading-[1] sm:leading-[0.9] tracking-tighter sm:tracking-normal">Visual <br className="hidden sm:block" /><span className="text-amber-600">Logic Hub.</span></h2>
               <p className="text-slate-500 text-lg sm:text-xl font-light leading-relaxed">We connect your software ecosystem through complex, resilient nodes. Every time an event triggers in one app, your entire business reacts instantly.</p>
 
-              <div className="grid grid-cols-2 gap-px bg-slate-50 border border-slate-100 sm: overflow-hidden mt-8 sm:mt-10">
+              <div className="grid grid-cols-2 gap-px bg-slate-50 border border-slate-100 sm: overflow-hidden mt-8 sm:mt-10 rounded-lg">
                 {(data.sections.integrations || []).map((item, idx) => (
-                  <div key={idx} className="p-6 sm:p-10 hover:bg-white transition-colors group">
+                  <div key={idx} className="p-6 sm:p-10 hover:bg-white transition-colors group rounded-md">
                     <h4 className="text-[10px] sm:text-xs font-black text-amber-600 uppercase tracking-widest mb-2">{item.t}</h4>
                     <p className="text-[10px] sm:text-xs text-slate-400 font-bold">{item.d}</p>
                   </div>
@@ -201,13 +201,13 @@ export default function AutomationClient({ data }) {
             <motion.div
               animate={{ y: [0, -10, 0] }}
               transition={{ duration: 7, repeat: Infinity }}
-              className="relative bg-slate-900 lg:-[3rem] p-8 sm:p-12 border border-slate-800 shadow-2xl space-y-8 sm:space-y-10 overflow-hidden"
+              className="relative bg-slate-900 lg:-[3rem] p-8 sm:p-12 border border-slate-800 shadow-2xl space-y-8 sm:space-y-10 overflow-hidden rounded-lg"
             >
               <div className="absolute top-0 right-0 p-4 font-mono text-[8px] sm:text-[10px] text-amber-400 bg-white/5 opacity-50 tracking-widest sm:tracking-[0.4em]">PROCESS_SYNC::ACTIVE</div>
 
               <div className="space-y-4 sm:space-y-6 pt-6 sm:pt-0">
-                <div className="flex items-center gap-3 sm:gap-4 bg-white/5 p-3 sm:p-4 sm: border border-white/5">
-                  <div className="w-8 h-8 sm:w-10 sm:h-10 sm: bg-amber-500/20 border border-amber-500/30 flex items-center justify-center text-amber-500 shrink-0"><IoPulseOutline /></div>
+                <div className="flex items-center gap-3 sm:gap-4 bg-white/5 p-3 sm:p-4 sm: border border-white/5 rounded-lg">
+                  <div className="w-8 h-8 sm:w-10 sm:h-10 sm: bg-amber-500/20 border border-amber-500/30 flex items-center justify-center text-amber-500 shrink-0 rounded-lg"><IoPulseOutline /></div>
                   <div className="flex-1 space-y-1.5 min-w-0">
                     <div className="h-1 sm:h-1.5 w-full bg-white/10"></div>
                     <div className="h-1 sm:h-1.5 w-1/2 bg-white/10"></div>
@@ -233,13 +233,13 @@ export default function AutomationClient({ data }) {
           <div className="flex flex-col sm:flex-row gap-4 sm:gap-6 justify-center">
             {/* Sticky Mobile CTA */}
             <div className="fixed bottom-0 left-0 w-full px-4 pt-4 pb-[max(1rem,env(safe-area-inset-bottom))] bg-slate-50/90 backdrop-blur-md border-t border-slate-200 z-50 lg:relative lg:border-none lg:bg-transparent lg:p-0 lg:w-auto">
-              <button className="w-full lg:w-[280px] px-8 py-4 sm:py-6 bg-amber-600 text-white font-black hover:bg-amber-700 transition-all shadow-xl sm:shadow-2xl shadow-amber-600/40 uppercase tracking-wider sm:tracking-widest text-xs sm:text-sm flex items-center justify-center min-h-[44px]">
+              <button className="w-full lg:w-[280px] px-8 py-4 sm:py-6 bg-amber-600 text-white font-black hover:bg-amber-700 transition-all shadow-xl sm:shadow-2xl shadow-amber-600/40 uppercase tracking-wider sm:tracking-widest text-xs sm:text-sm flex items-center justify-center min-h-[44px] rounded-md">
                 Request Audit
               </button>
             </div>
             <Link
               href="/services/automation/details"
-              className="hidden lg:flex w-full sm:w-[280px] px-8 py-4 sm:py-6 bg-slate-900 text-white font-black hover:bg-slate-800 transition-all uppercase tracking-wider sm:tracking-widest text-xs sm:text-sm items-center justify-center text-center min-h-[44px]"
+              className="hidden lg:flex w-full sm:w-[280px] px-8 py-4 sm:py-6 bg-slate-900 text-white font-black hover:bg-slate-800 transition-all uppercase tracking-wider sm:tracking-widest text-xs sm:text-sm items-center justify-center text-center min-h-[44px] rounded-md"
             >
               Technical Hub
             </Link>

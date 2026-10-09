@@ -24,7 +24,7 @@ function FailedContent() {
  style={{ background: 'linear-gradient(135deg, #0f172a 0%, #1e1b4b 60%, #312e81 100%)' }}>
  <motion.div
  initial={{ opacity:0, y:24 }} animate={{ opacity:1, y:0 }} transition={{ duration:0.5, ease:'easeOut' }}
- className="bg-white shadow-2xl p-10 max-w-md w-full text-center">
+ className="bg-white shadow-2xl p-10 max-w-md w-full text-center rounded-lg">
  {/* Error icon */}
  <motion.div className="w-24 h-24 mx-auto bg-red-50 flex items-center justify-center mb-6"
  animate={{ rotate:[0, -5, 5, 0] }} transition={{ duration:0.5, delay:0.4 }}>
@@ -37,7 +37,7 @@ function FailedContent() {
  </p>
 
  {/* Error detail */}
- <div className="bg-red-50 border border-red-100 p-4 mb-7 text-left">
+ <div className="bg-red-50 border border-red-100 p-4 mb-7 text-left rounded-lg">
  <p className="text-xs font-bold text-red-600 uppercase tracking-wider mb-1">What went wrong</p>
  <p className="text-sm text-red-700">{reason}</p>
  {gateway && <p className="text-xs text-neutral-400 mt-1 capitalize">Gateway: {gateway}</p>}
@@ -56,18 +56,18 @@ function FailedContent() {
  <div className="flex flex-col gap-3">
  {courseId ? (
  <Link href={`/${locale}/courses/${courseId}`}
- className="flex items-center justify-center gap-2 w-full py-3.5 bg-gradient-to-r from-pink-500 to-indigo-500 text-white font-bold hover:opacity-90 transition">
+ className="flex items-center justify-center gap-2 w-full py-3.5 bg-gradient-to-r from-pink-500 to-indigo-500 text-white font-bold hover:opacity-90 transition rounded-md">
  <IoRefreshOutline size={18} /> Try Payment Again
  </Link>
  ) : (
  <Link href={`/${locale}/courses`}
- className="flex items-center justify-center gap-2 w-full py-3.5 bg-gradient-to-r from-pink-500 to-indigo-500 text-white font-bold hover:opacity-90 transition">
+ className="flex items-center justify-center gap-2 w-full py-3.5 bg-gradient-to-r from-pink-500 to-indigo-500 text-white font-bold hover:opacity-90 transition rounded-md">
  <IoRefreshOutline size={18} /> Browse Courses
  </Link>
  )}
  {WHATSAPP && (
  <a href={`https://wa.me/${WHATSAPP}?text=${waMsg}`} target="_blank" rel="noreferrer"
- className="flex items-center justify-center gap-2 w-full py-3 bg-emerald-500 text-white font-bold hover:bg-emerald-600 transition text-sm">
+ className="flex items-center justify-center gap-2 w-full py-3 bg-emerald-500 text-white font-bold hover:bg-emerald-600 transition text-sm rounded-md">
  <IoLogoWhatsapp size={18} /> Get Help on WhatsApp
  </a>
  )}

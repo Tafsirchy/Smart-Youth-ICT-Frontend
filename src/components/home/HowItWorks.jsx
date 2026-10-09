@@ -69,7 +69,7 @@ export default function HowItWorks() {
  return (
  <section
  ref={containerRef}
- className="section py-12 sm:py-16 md:py-20 relative overflow-hidden bg-white"
+ className="section py-12 sm:py-16 md:py-20 relative overflow-hidden bg-white rounded-sm"
  >
  {/* Background Decorative Elements */}
  <div className="absolute inset-0 pointer-events-none overflow-hidden">
@@ -85,7 +85,7 @@ export default function HowItWorks() {
  viewport={{ once: true }}
  transition={{ duration: 0.6 }}
  >
- <span className="inline-block px-4 py-1.5 bg-slate-900 text-white text-xs font-black uppercase tracking-[0.3em] mb-6">
+ <span className="inline-block px-4 py-1.5 bg-slate-900 text-white text-xs font-black uppercase tracking-[0.3em] mb-6 rounded-md">
  The Success Journey
  </span>
  <h2 className="text-2xl sm:text-4xl md:text-5xl font-black text-slate-900 leading-[1.15] mb-4 sm:mb-6 md:mb-8 tracking-tighter">
@@ -135,7 +135,7 @@ export default function HowItWorks() {
  >
  <div className={`flex items-center gap-3 mb-3 justify-start ${i % 2 === 0 ? 'md:justify-end' : 'md:justify-start'}`}>
  <span className="text-sm font-black text-slate-400 uppercase tracking-widest">Step {id}</span>
- <div className="w-8 h-[2px] bg-slate-200 group-hover:bg-emerald-300 transition-colors" />
+ <div className="w-8 h-[2px] bg-slate-200 group-hover:bg-emerald-300 transition-colors rounded-md" />
  </div>
  <h3 className="text-xl sm:text-2xl md:text-3xl font-black text-slate-900 mb-2 sm:mb-4 group-hover:text-emerald-600 transition-colors">
  {title}
@@ -192,7 +192,7 @@ export default function HowItWorks() {
  <motion.button
  whileHover={{ scale: 1.05 }}
  whileTap={{ scale: 0.95 }}
- className="px-6 py-3.5 sm:px-8 sm:py-4 bg-emerald-500 text-white font-black shadow-lg shadow-emerald-500/20 uppercase tracking-widest text-xs sm:text-sm hover:bg-emerald-600 transition-colors min-h-[44px]"
+ className="px-6 py-3.5 sm:px-8 sm:py-4 bg-emerald-500 text-white font-black shadow-lg shadow-emerald-500/20 uppercase tracking-widest text-xs sm:text-sm hover:bg-emerald-600 transition-colors min-h-[44px] rounded-md"
  >
  Start Your Journey Today
  </motion.button>

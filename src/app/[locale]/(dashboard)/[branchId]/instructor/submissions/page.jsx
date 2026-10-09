@@ -80,18 +80,18 @@ export default function GradingHub() {
  <input 
  type="text"
  placeholder="Search student or course..."
- className="pl-12 pr-4 py-3 bg-white border border-neutral-100 text-sm focus:ring-2 focus:ring-blue-600 outline-none w-64 shadow-sm"
+ className="pl-12 pr-4 py-3 bg-white border border-neutral-100 text-sm focus:ring-2 focus:ring-blue-600 outline-none w-64 shadow-sm rounded-md"
  value={searchTerm}
  onChange={(e) => setSearchTerm(e.target.value)}
  />
  </div>
- <button className="p-3 bg-white border border-neutral-100 text-neutral-500 hover:text-blue-600 shadow-sm transition-all">
+ <button className="p-3 bg-white border border-neutral-100 text-neutral-500 hover:text-blue-600 shadow-sm transition-all rounded-md">
  <HiOutlineFilter size={20} />
  </button>
  </div>
  </div>
 
- <div className="bg-white -[40px] border border-neutral-100 shadow-sm overflow-hidden">
+ <div className="bg-white -[40px] border border-neutral-100 shadow-sm overflow-hidden rounded-lg">
  <div className="overflow-x-auto">
  <table className="w-full text-left border-collapse">
  <thead>
@@ -107,7 +107,7 @@ export default function GradingHub() {
  {loading ? (
  [1, 2, 3].map(i => (
  <tr key={i} className="animate-pulse">
- <td colSpan={5} className="px-8 py-6 h-20 bg-neutral-50/50" />
+ <td colSpan={5} className="px-8 py-6 h-20 bg-neutral-50/50 rounded-md" />
  </tr>
  ))
  ) : filteredSubmissions.length > 0 ? (
@@ -115,7 +115,7 @@ export default function GradingHub() {
  <motion.tr 
  key={sub._id}
  initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: i * 0.05 }}
- className="hover:bg-neutral-50/50 transition-colors group"
+ className="hover:bg-neutral-50/50 transition-colors group rounded-md"
  >
  <td className="px-8 py-6">
  <div className="flex items-center gap-3">
@@ -180,7 +180,7 @@ export default function GradingHub() {
  initial={{ opacity: 0, scale: 0.9, y: 30 }}
  animate={{ opacity: 1, scale: 1, y: 0 }}
  exit={{ opacity: 0, scale: 0.9, y: 30 }}
- className="relative w-full max-w-2xl bg-white -[40px] shadow-2xl p-10 overflow-hidden z-[10000]"
+ className="relative w-full max-w-2xl bg-white -[40px] shadow-2xl p-10 overflow-hidden z-[10000] rounded-lg"
  >
  <button onClick={() => setSelectedSub(null)} className="absolute top-8 right-8 text-neutral-400 hover:text-neutral-900 transition-colors">
  <HiOutlineX size={28} />
@@ -202,7 +202,7 @@ export default function GradingHub() {
  </div>
  <a 
  href={selectedSub.fileUrl} target="_blank" rel="noreferrer"
- className="flex items-center gap-2 bg-white text-neutral-900 px-6 py-3 font-bold hover:bg-blue-50 transition-all hover:-translate-y-1"
+ className="flex items-center gap-2 bg-white text-neutral-900 px-6 py-3 font-bold hover:bg-blue-50 transition-all hover:-translate-y-1 rounded-md"
  >
  <HiOutlineExternalLink size={20} /> View Work
  </a>
@@ -222,7 +222,7 @@ export default function GradingHub() {
  <label className="text-[10px] font-black text-neutral-400 uppercase tracking-widest ml-1">Grade (0-100)</label>
  <input 
  required type="number" min="0" max="100"
- className="w-full bg-neutral-50 border-none px-4 py-4 text-sm font-bold focus:ring-2 focus:ring-blue-600 transition-all" 
+ className="w-full bg-neutral-50 border-none px-4 py-4 text-sm font-bold focus:ring-2 focus:ring-blue-600 transition-all rounded-md" 
  placeholder="e.g. 95"
  value={gradingForm.grade} onChange={(e) => setGradingForm({...gradingForm, grade: e.target.value})}
  />
@@ -243,7 +243,7 @@ export default function GradingHub() {
 
  <button 
  type="submit" disabled={grading}
- className="w-full py-5 bg-blue-600 text-white -[32px] font-extrabold text-lg shadow-2xl shadow-blue-600/20 hover:bg-blue-700 transition-all active:scale-[0.98] disabled:opacity-50"
+ className="w-full py-5 bg-blue-600 text-white -[32px] font-extrabold text-lg shadow-2xl shadow-blue-600/20 hover:bg-blue-700 transition-all active:scale-[0.98] disabled:opacity-50 rounded-md"
  >
  {grading ? 'Recording Grade...' : 'Confirm & Publish Grade'}
  </button>

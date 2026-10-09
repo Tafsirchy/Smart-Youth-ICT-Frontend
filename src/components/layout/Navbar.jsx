@@ -390,7 +390,7 @@ export default function Navbar() {
  height={60}
  priority={true}
  fetchPriority="high"
- className="h-16 w-auto object-contain"
+ className="h-16 w-auto object-contain rounded-md"
  onError={(e) => { e.target.srcset = ''; e.target.src = '/images/placeholder.png'; }}
 
  decoding="async" />
@@ -501,11 +501,11 @@ export default function Navbar() {
  </div>
 
  {/* 4-column minimal grid */}
- <div className="grid grid-cols-4 gap-2 p-3 bg-white">
+ <div className="grid grid-cols-4 gap-2 p-3 bg-white rounded-md">
  {aboutColumns.map((col) => (
  <div
  key={col.heading}
- className="px-4 py-4 hover:bg-slate-50 transition-colors duration-300"
+ className="px-4 py-4 hover:bg-slate-50 transition-colors duration-300 rounded-md"
  >
  <div className="flex items-center gap-2 mb-4">
  <div className="w-7 h-7 bg-brand-pink/10 text-brand-pink flex items-center justify-center shrink-0">
@@ -522,7 +522,7 @@ export default function Navbar() {
  <li key={item.href}>
  <Link
  href={item.href}
- className="flex flex-col gap-0.5 px-3 py-2 -mx-3 hover:bg-white hover:shadow-[0_2px_10px_-4px_rgba(0,0,0,0.1)] group/item transition-all"
+ className="flex flex-col gap-0.5 px-3 py-2 -mx-3 hover:bg-white hover:shadow-[0_2px_10px_-4px_rgba(0,0,0,0.1)] group/item transition-all rounded-md"
  >
  <span
  className={`text-xs font-bold transition-all transform group-hover/item:translate-x-1 leading-tight ${isItemActive ? "text-brand-pink" : "text-slate-700 group-hover/item:text-brand-pink"}`}
@@ -598,7 +598,7 @@ export default function Navbar() {
  <li>
  <Link
  href="/about/partnership-membership#memberships"
- className="flex flex-col gap-0.5 px-4 py-2.5 hover:bg-slate-50 hover:shadow-[0_2px_10px_-4px_rgba(0,0,0,0.1)] transition-all group/item"
+ className="flex flex-col gap-0.5 px-4 py-2.5 hover:bg-slate-50 hover:shadow-[0_2px_10px_-4px_rgba(0,0,0,0.1)] transition-all group/item rounded-md"
  >
  <span className="text-xs font-bold text-slate-700 group-hover/item:text-brand-pink transition-all transform group-hover/item:translate-x-1">Our Memberships</span>
  <span className="text-[10px] text-slate-400 transition-all transform group-hover/item:translate-x-1">Organisations we belong to</span>
@@ -607,7 +607,7 @@ export default function Navbar() {
  <li>
  <Link
  href="/about/partnership-membership#partners"
- className="flex flex-col gap-0.5 px-4 py-2.5 hover:bg-slate-50 hover:shadow-[0_2px_10px_-4px_rgba(0,0,0,0.1)] transition-all group/item"
+ className="flex flex-col gap-0.5 px-4 py-2.5 hover:bg-slate-50 hover:shadow-[0_2px_10px_-4px_rgba(0,0,0,0.1)] transition-all group/item rounded-md"
  >
  <span className="text-xs font-bold text-slate-700 group-hover/item:text-brand-pink transition-all transform group-hover/item:translate-x-1">Our Partnerships</span>
  <span className="text-[10px] text-slate-400 transition-all transform group-hover/item:translate-x-1">Who we work with</span>
@@ -708,7 +708,7 @@ export default function Navbar() {
  {/* Mobile hamburger */}
  <motion.button
  id="nav-mobile-toggle"
- className="md:hidden text-gray-800 p-0 min-h-[44px] min-w-[44px] flex items-center justify-end"
+ className="md:hidden text-gray-800 p-0 min-h-[44px] min-w-[44px] flex items-center justify-end rounded-md"
  onClick={() => {
  setMobileOpen(!mobileOpen);
  setHidden(false);
@@ -776,11 +776,11 @@ export default function Navbar() {
  </div>
 
  {/* 4-column minimal grid */}
- <div className="grid grid-cols-4 gap-2 p-3 bg-white">
+ <div className="grid grid-cols-4 gap-2 p-3 bg-white rounded-md">
  {serviceColumns.map((col) => (
  <div
  key={col.heading}
- className="px-4 py-4 hover:bg-slate-50 transition-colors duration-300"
+ className="px-4 py-4 hover:bg-slate-50 transition-colors duration-300 rounded-md"
  >
  <div className="flex items-center gap-2 mb-4">
  <div className="w-7 h-7 bg-brand-pink/10 text-brand-pink flex items-center justify-center shrink-0">
@@ -798,7 +798,7 @@ export default function Navbar() {
  <li key={item.href}>
  <Link
  href={item.href}
- className="flex items-center justify-between gap-1 px-3 py-2 -mx-3 hover:bg-white hover:shadow-[0_2px_10px_-4px_rgba(0,0,0,0.1)] group/item transition-all"
+ className="flex items-center justify-between gap-1 px-3 py-2 -mx-3 hover:bg-white hover:shadow-[0_2px_10px_-4px_rgba(0,0,0,0.1)] group/item transition-all rounded-md"
  >
  <span
  className={`text-xs font-bold transition-all transform group-hover/item:translate-x-1 leading-tight ${isItemActive ? "text-brand-pink" : "text-slate-700 group-hover/item:text-brand-pink"}`}
@@ -806,7 +806,7 @@ export default function Navbar() {
  {item.label}
  </span>
  {item.badge && (
- <span className="shrink-0 text-[10px] font-black text-rose-500 bg-rose-50 px-1.5 py-0.5 uppercase tracking-wider transition-all transform group-hover/item:-translate-x-1">
+ <span className="shrink-0 text-[10px] font-black text-rose-500 bg-rose-50 px-1.5 py-0.5 uppercase tracking-wider transition-all transform group-hover/item:-translate-x-1 rounded-md">
  {item.badge}
  </span>
  )}
@@ -833,7 +833,7 @@ export default function Navbar() {
  </div>
  <Link
  href="/contact"
- className="text-[11px] font-black text-slate-900 border border-slate-200 hover:border-brand-pink hover:text-brand-pink px-4 py-1.5 transition-colors flex items-center gap-2"
+ className="text-[11px] font-black text-slate-900 border border-slate-200 hover:border-brand-pink hover:text-brand-pink px-4 py-1.5 transition-colors flex items-center gap-2 rounded-md"
  >
  Get a Free Quote
  </Link>

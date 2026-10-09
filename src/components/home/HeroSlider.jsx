@@ -276,10 +276,10 @@ export default function HeroSlider() {
  {slides[current].bgBanner && (
  <div className="absolute inset-0 flex items-center justify-center p-0 sm:p-3 md:p-4">
  <div
- className="w-full sm:w-[96%] max-w-[1500px] h-full sm:h-[90%] sm:-[24px] md:-[84px] overflow-hidden relative"
+ className="w-full sm:w-[96%] max-w-[1500px] h-full sm:h-[90%] sm:rounded-md md:rounded-lg overflow-hidden relative"
  style={{ background: slides[current].bgBanner }}
  >
- <div className="hidden lg:block absolute bottom-0 right-0 w-[40%] max-w-[500px] h-[35%] bg-white -[100px]" />
+ <div className="hidden lg:block absolute bottom-0 right-0 w-[40%] max-w-[500px] h-[35%] bg-white rounded-tl-lg" />
  </div>
  </div>
  )}
@@ -294,7 +294,7 @@ export default function HeroSlider() {
  className="flex flex-col items-center lg:items-start w-full motion-gpu"
  >
  {slides[current].badge ? (
- <div className="inline-flex items-center gap-2 px-5 py-2 bg-white/10 backdrop-blur-xl border border-white/20 text-white text-xs font-bold tracking-widest mb-3 md:mb-5">
+ <div className="inline-flex items-center gap-2 px-5 py-2 bg-white/10 backdrop-blur-xl border border-white/20 text-white text-xs font-bold tracking-widest mb-3 md:mb-5 rounded-lg">
  🚀 {slides[current].badge}
  </div>
  ) : slides[current].type === "dual-portrait" ? (
@@ -304,7 +304,7 @@ export default function HeroSlider() {
  {[1, 2, 3, 4].map((i) => (
  <div
  key={i}
- className="w-10 h-10 border-2 border-white overflow-hidden shadow-sm"
+ className="w-10 h-10 border-2 border-white overflow-hidden shadow-sm rounded-lg"
  >
  <ImageLoader
  src={`https://i.pravatar.cc/100?u=user${i + 5}`}
@@ -347,16 +347,16 @@ export default function HeroSlider() {
 
  {/* Buttons Container for Slide 1 */}
  {slides[current].id === 1 ? (
- <div className="flex flex-col sm:flex-row items-stretch sm:items-center bg-white p-2 -[24px] sm: shadow-2xl border border-slate-50 overflow-hidden w-full sm:w-auto">
+ <div className="flex flex-col sm:flex-row items-stretch sm:items-center bg-white p-2 rounded-lg shadow-2xl border border-slate-50 overflow-hidden w-full sm:w-auto">
  <Link
  href="/courses"
- className="px-6 py-4 sm:px-10 sm:py-5 text-center text-[#232F3E] font-black text-sm hover:translate-y-[-1px] transition-transform"
+ className="px-6 py-4 sm:px-10 sm:py-5 text-center text-[#232F3E] font-black text-sm hover:translate-y-[-1px] transition-transform rounded-md"
  >
  {slides[current].primaryBtn.text}
  </Link>
  <Link
  href={slides[current].secondaryBtn.href || "/seminar"}
- className="px-6 py-4 sm:px-10 sm:py-5 text-center bg-[#2D5A54] text-white -[18px] sm: font-black text-sm shadow-xl hover:translate-y-[-1px] transition-transform"
+ className="px-6 py-4 sm:px-10 sm:py-5 text-center bg-[#2D5A54] text-white rounded-md font-black text-sm shadow-xl hover:translate-y-[-1px] transition-transform"
  >
  {slides[current].secondaryBtn.text}
  </Link>
@@ -378,7 +378,7 @@ export default function HeroSlider() {
  {slides[current].secondaryBtn && (
  <Link
  href="#"
- className="px-6 py-4 sm:px-12 sm:py-5 font-black text-sm border-2 border-white/20 text-white flex items-center justify-center gap-3 hover:bg-white/10 transition-colors text-center"
+ className="px-6 py-4 sm:px-12 sm:py-5 font-black text-sm border-2 border-white/20 text-white flex items-center justify-center gap-3 hover:bg-white/10 transition-colors text-center rounded-md"
  >
  <HiPlay size={24} />
  {slides[current].secondaryBtn.text}
@@ -414,7 +414,7 @@ export default function HeroSlider() {
  initial={mounted ? { opacity: 0, scale: 0.8 } : false}
  animate={{ opacity: 1, scale: 1 }}
  transition={{ delay: 0.6 + i * 0.05 }}
- className="absolute -[24px] overflow-hidden shadow-2xl border border-white/40"
+ className="absolute rounded-lg overflow-hidden shadow-2xl border border-white/40"
  style={{
  width: card.w,
  height: card.h,
@@ -438,7 +438,7 @@ export default function HeroSlider() {
  <img
  src={slides[current].image}
  alt="Preload Image"
- className="hidden object-cover bg-[#f0f0f0]"
+ className="hidden object-cover bg-[#f0f0f0] rounded-md"
  sizes="(max-width: 768px) 100vw, 50vw"
  fetchPriority={
  slides[current].id === 1 ? "high" : "auto"
@@ -457,9 +457,9 @@ decoding="async"/>
  repeat: Infinity,
  ease: "easeInOut",
  }}
- className="absolute top-[230px] left-[-16px] md:left-[-44px] bg-white px-5 md:px-7 py-4 md:py-5 -[24px] md:-[30px] shadow-[0_35px_60px_-15px_rgba(0,0,0,0.1)] flex items-center gap-4 md:gap-5 border border-slate-50 z-30 min-w-[230px] md:min-w-[280px]"
+ className="absolute top-[230px] left-[-16px] md:left-[-44px] bg-white px-5 md:px-7 py-4 md:py-5 rounded-md md:rounded-lg shadow-[0_35px_60px_-15px_rgba(0,0,0,0.1)] flex items-center gap-4 md:gap-5 border border-slate-50 z-30 min-w-[230px] md:min-w-[280px]"
  >
- <div className="w-14 h-14 bg-[#FF9D2E] flex items-center justify-center text-white shadow-xl shadow-orange-200">
+ <div className="w-14 h-14 bg-[#FF9D2E] flex items-center justify-center text-white shadow-xl shadow-orange-200 rounded-lg">
  <HiPlay size={28} className="translate-x-0.5" />
  </div>
  <div className="flex gap-2 items-center flex-1">
@@ -550,7 +550,7 @@ decoding="async"/>
  priority={current === 0}
  fetchPriority={current === 0 ? "high" : "auto"}
  disableTransition={current === 0}
- className="w-full h-full object-cover object-center"
+ className="w-full h-full object-cover object-center rounded-md"
  wrapperClassName="w-full h-full"
  />
  </div>
@@ -559,7 +559,7 @@ decoding="async"/>
  <motion.div
  initial={{ rotate: 0 }}
  animate={{ rotate: 8 }}
- className="absolute inset-0 border-[3px] border-slate-900 -[40px] z-20 pointer-events-none"
+ className="absolute inset-0 border border-slate-200 rounded-lg z-20 pointer-events-none"
  />
 
  {/* Testimonial Floating Card - Repositioned for this layout */}
@@ -570,7 +570,7 @@ decoding="async"/>
  repeat: Infinity,
  ease: "easeInOut",
  }}
- className="absolute -bottom-6 -left-8 md:-left-16 z-30 bg-white p-4 md:p-5 -[22px] md:-[26px] shadow-2xl border border-slate-100 max-w-[230px] md:max-w-[260px]"
+ className="absolute -bottom-6 -left-8 md:-left-16 z-30 bg-white p-4 md:p-5 rounded-md md:rounded-lg shadow-2xl border border-slate-100 max-w-[230px] md:max-w-[260px]"
  >
  <div className="flex items-center gap-3 mb-3">
  <div className="w-10 h-10 bg-emerald-100 flex items-center justify-center text-emerald-700 font-bold text-lg overflow-hidden shrink-0">
@@ -608,14 +608,14 @@ decoding="async"/>
  initial={mounted ? { opacity: 0, scale: 0.9 } : false}
  animate={{ opacity: 1, scale: 1 }}
  transition={{ delay: 0.4 }}
- className="absolute -top-8 -left-8 md:-top-10 md:-left-10 w-[85%] h-[85%] border-2 border-[#A85161]/20 -[20px] pointer-events-none"
+ className="absolute -top-8 -left-8 md:-top-10 md:-left-10 w-[85%] h-[85%] border-2 border-[#A85161]/20 rounded-lg pointer-events-none"
  />
  {/* Bottom-Right Frame */}
  <motion.div
  initial={mounted ? { opacity: 0, scale: 0.9 } : false}
  animate={{ opacity: 1, scale: 1 }}
  transition={{ delay: 0.5 }}
- className="absolute -bottom-8 -right-8 md:-bottom-10 md:-right-10 w-[85%] h-[85%] border-2 border-[#A85161]/20 -[20px] pointer-events-none ml-auto"
+ className="absolute -bottom-8 -right-8 md:-bottom-10 md:-right-10 w-[85%] h-[85%] border-2 border-[#A85161]/20 rounded-lg pointer-events-none ml-auto"
  style={{ left: "auto" }}
  />
 
@@ -625,7 +625,7 @@ decoding="async"/>
  initial={mounted ? { opacity: 0, x: -30 } : false}
  animate={{ opacity: 1, x: 0 }}
  transition={{ delay: 0.6 }}
- className="relative w-[120px] h-[260px] md:w-[170px] md:h-[390px] -[24px] overflow-hidden border border-rose-100 bg-[#FAF1F2] shadow-xl"
+ className="relative w-[120px] h-[260px] md:w-[170px] md:h-[390px] rounded-lg overflow-hidden border border-rose-100 bg-[#FAF1F2] shadow-xl"
  >
  <div
  className="absolute inset-0 opacity-[0.08] mix-blend-multiply pointer-events-none select-none"
@@ -642,7 +642,7 @@ decoding="async"/>
  fill
  sizes="(max-width: 768px) 50vw, 33vw"
  priority={false}
- className="w-full h-full object-cover"
+ className="w-full h-full object-cover rounded-md"
  wrapperClassName="w-full h-full"
  />
  </div>
@@ -653,7 +653,7 @@ decoding="async"/>
  initial={mounted ? { opacity: 0, x: 30 } : false}
  animate={{ opacity: 1, x: 0 }}
  transition={{ delay: 0.7 }}
- className="relative w-[120px] h-[260px] md:w-[170px] md:h-[390px] -[24px] overflow-hidden border border-rose-100 bg-[#FAF1F2] shadow-xl"
+ className="relative w-[120px] h-[260px] md:w-[170px] md:h-[390px] rounded-lg overflow-hidden border border-rose-100 bg-[#FAF1F2] shadow-xl"
  >
  <div
  className="absolute inset-0 opacity-[0.08] mix-blend-multiply pointer-events-none select-none"
@@ -670,7 +670,7 @@ decoding="async"/>
  fill
  sizes="(max-width: 768px) 50vw, 33vw"
  priority={false}
- className="w-full h-full object-cover"
+ className="w-full h-full object-cover rounded-md"
  wrapperClassName="w-full h-full"
  />
  </div>
@@ -714,7 +714,7 @@ decoding="async"/>
  <div className="hidden lg:flex absolute inset-x-4 xl:inset-x-12 top-1/2 -translate-y-1/2 justify-between pointer-events-none z-30">
  <button
  onClick={prevSlide}
- className="w-12 h-12 hover:bg-[#2D5A54] text-slate-800 hover:text-white flex items-center justify-center cursor-pointer pointer-events-auto transition-all duration-300 hover:scale-110 active:scale-95 group"
+ className="w-12 h-12 hover:bg-[#2D5A54] text-slate-800 hover:text-white flex items-center justify-center cursor-pointer pointer-events-auto transition-all duration-300 hover:scale-110 active:scale-95 group rounded-md"
  aria-label="Previous slide"
  >
  <HiArrowLeft
@@ -724,7 +724,7 @@ decoding="async"/>
  </button>
  <button
  onClick={nextSlide}
- className="w-12 h-12 hover:bg-[#2D5A54] text-slate-800 hover:text-white flex items-center justify-center cursor-pointer pointer-events-auto transition-all duration-300 hover:scale-110 active:scale-95 group"
+ className="w-12 h-12 hover:bg-[#2D5A54] text-slate-800 hover:text-white flex items-center justify-center cursor-pointer pointer-events-auto transition-all duration-300 hover:scale-110 active:scale-95 group rounded-md"
  aria-label="Next slide"
  >
  <HiArrowRight
@@ -747,7 +747,7 @@ decoding="async"/>
  className="p-3 focus:outline-none transition-transform hover:scale-110"
  >
  <span
- className={`block h-2 transition-all duration-500 ${current === i
+ className={`block h-2 rounded-full transition-all duration-500 ${current === i
  ? "w-8 bg-[#10B981] shadow-md shadow-emerald-200"
  : "w-2 bg-slate-300 hover:bg-slate-400"
  }`}

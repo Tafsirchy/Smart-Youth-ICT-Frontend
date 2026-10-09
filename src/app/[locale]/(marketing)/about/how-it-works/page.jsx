@@ -50,7 +50,7 @@ export default function HowItWorksPage() {
 
       <div className="container-custom relative z-10">
         <div className="max-w-3xl mx-auto text-center mb-24">
-          <p className="inline-block px-4 py-2 border border-brand-green/20 bg-brand-green/5 text-xs font-extrabold uppercase tracking-widest text-brand-green mb-8 shadow-sm">
+          <p className="inline-block px-4 py-2 border border-brand-green/20 bg-brand-green/5 text-xs font-extrabold uppercase tracking-widest text-brand-green mb-8 shadow-sm rounded-md">
             The Pipeline
           </p>
           <h1 className="text-4xl sm:text-5xl md:text-7xl font-extrabold text-slate-900 leading-[1.1] mb-8 tracking-tight">
@@ -68,11 +68,11 @@ export default function HowItWorksPage() {
               className="relative flex flex-col md:flex-row items-start gap-6 md:gap-10 mb-12 last:mb-0 group"
             >
               <div className="hidden md:flex flex-col items-center mt-2 absolute left-0 top-0 h-full">
-                <div className="w-16 h-16 bg-white text-brand-green font-extrabold flex items-center justify-center text-xl shadow-lg border border-slate-100 z-10 group-hover:bg-brand-green group-hover:text-white transition-all duration-300 group-hover:scale-110">
+                <div className="w-16 h-16 bg-white text-brand-green font-extrabold flex items-center justify-center text-xl shadow-lg border border-slate-100 z-10 group-hover:bg-brand-green group-hover:text-white transition-all duration-300 group-hover:scale-110 rounded-lg">
                   {step.number}
                 </div>
                 {index !== steps.length - 1 && (
-                  <div className="w-1 h-full bg-slate-200 mt-2 mb-2 group-hover:bg-brand-green/30 transition-colors duration-300"></div>
+                  <div className="w-1 h-full bg-slate-200 mt-2 mb-2 group-hover:bg-brand-green/30 transition-colors duration-300 rounded-md"></div>
                 )}
               </div>
 
@@ -106,7 +106,7 @@ export default function HowItWorksPage() {
           <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Next Step</p>
           <p className="text-slate-900 font-bold text-sm">Join the Program</p>
         </div>
-        <button className="px-6 py-3 bg-brand-green text-white font-bold text-[10px] uppercase tracking-widest shadow-lg shadow-brand-green/30">
+        <button className="px-6 py-3 bg-brand-green text-white font-bold text-[10px] uppercase tracking-widest shadow-lg shadow-brand-green/30 rounded-md">
           Apply Now
         </button>
       </div>

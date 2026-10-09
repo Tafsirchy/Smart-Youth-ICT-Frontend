@@ -58,13 +58,13 @@ export default function BranchSelectionModal({ onClose, onConfirm, availableBran
  </div>
  <button
  onClick={onClose}
- className="p-2 text-slate-400 hover:text-slate-600 dark:hover:text-neutral-200 bg-slate-50 hover:bg-slate-100 dark:bg-neutral-800 dark:hover:bg-neutral-700 transition-colors"
+ className="p-2 text-slate-400 hover:text-slate-600 dark:hover:text-neutral-200 bg-slate-50 hover:bg-slate-100 dark:bg-neutral-800 dark:hover:bg-neutral-700 transition-colors rounded-md"
  >
  <IoCloseOutline size={24} />
  </button>
  </div>
 
- <div className="p-6 overflow-y-auto flex-1 custom-scrollbar bg-slate-50/50 dark:bg-neutral-900/50">
+ <div className="p-6 overflow-y-auto flex-1 custom-scrollbar bg-slate-50/50 dark:bg-neutral-900/50 rounded-lg">
  {loading ? (
  <div className="space-y-4">
  <CourseCardSkeleton />
@@ -119,7 +119,7 @@ export default function BranchSelectionModal({ onClose, onConfirm, availableBran
 
  {!isAvailable && (
  <div className="mt-3 ml-10">
- <span className="inline-block px-2 py-1 bg-red-50 text-red-600 dark:bg-red-900/20 dark:text-red-400 text-[10px] font-bold uppercase tracking-wider border border-red-100 dark:border-red-800">
+ <span className="inline-block px-2 py-1 bg-red-50 text-red-600 dark:bg-red-900/20 dark:text-red-400 text-[10px] font-bold uppercase tracking-wider border border-red-100 dark:border-red-800 rounded-md">
  Course Not Available Here
  </span>
  </div>
@@ -138,14 +138,14 @@ export default function BranchSelectionModal({ onClose, onConfirm, availableBran
  <div className="p-6 border-t border-slate-100 dark:border-neutral-800 bg-white dark:bg-neutral-900 flex justify-end gap-3">
  <button
  onClick={onClose}
- className="px-6 py-2.5 font-bold text-slate-600 dark:text-neutral-300 hover:bg-slate-100 dark:hover:bg-neutral-800 transition-colors"
+ className="px-6 py-2.5 font-bold text-slate-600 dark:text-neutral-300 hover:bg-slate-100 dark:hover:bg-neutral-800 transition-colors rounded-md"
  >
  Cancel
  </button>
  <button
  onClick={handleConfirm}
  disabled={!selectedBranchId || enrolling}
- className="px-8 py-2.5 font-bold text-white bg-indigo-600 hover:bg-indigo-700 disabled:opacity-50 disabled:cursor-not-allowed transition-all shadow-lg shadow-indigo-600/30 flex items-center justify-center min-w-[120px]"
+ className="px-8 py-2.5 font-bold text-white bg-indigo-600 hover:bg-indigo-700 disabled:opacity-50 disabled:cursor-not-allowed transition-all shadow-lg shadow-indigo-600/30 flex items-center justify-center min-w-[120px] rounded-md"
  >
  {enrolling ? (
  <div className="w-5 h-5 border-2 border-white/30 border-t-white animate-spin" />

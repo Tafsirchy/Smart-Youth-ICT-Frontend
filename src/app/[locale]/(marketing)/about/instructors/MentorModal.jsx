@@ -41,14 +41,14 @@ export default function MentorModal({ mentor, onClose }) {
  >
  <button
  onClick={onClose}
- className="absolute top-6 right-6 w-12 h-12 bg-slate-100 hover:bg-slate-200 flex items-center justify-center text-slate-600 transition-colors z-20"
+ className="absolute top-6 right-6 w-12 h-12 bg-slate-100 hover:bg-slate-200 flex items-center justify-center text-slate-600 transition-colors z-20 rounded-md"
  >
  <LuX size={20} />
  </button>
 
  <div className="p-8 md:p-12 flex-1 flex flex-col pt-16 md:pt-20">
  <div className="flex flex-col sm:flex-row gap-6 md:gap-8 items-start mb-10">
- <div className="relative w-40 h-40 md:w-56 md:h-56 shrink-0 bg-slate-100 border-4 border-slate-50 shadow-xl shadow-slate-200/50 overflow-hidden flex items-center justify-center">
+ <div className="relative w-40 h-40 md:w-56 md:h-56 shrink-0 bg-slate-100 border-4 border-slate-50 shadow-xl shadow-slate-200/50 overflow-hidden flex items-center justify-center rounded-lg">
  {mentor.avatar ? (
  <Image
  src={mentor.avatar}
@@ -69,7 +69,7 @@ export default function MentorModal({ mentor, onClose }) {
  
  <div className="pt-2 md:pt-6">
  {mentor.badge && (
- <div className="inline-block px-3 py-1 bg-brand-green/10 text-brand-green text-[10px] font-black uppercase tracking-widest mb-3">
+ <div className="inline-block px-3 py-1 bg-brand-green/10 text-brand-green text-[10px] font-black uppercase tracking-widest mb-3 rounded-md">
  {mentor.badge}
  </div>
  )}
@@ -84,7 +84,7 @@ export default function MentorModal({ mentor, onClose }) {
  {(mentor.expertise || []).map((t) => (
  <span
  key={t}
- className="px-2 py-1 bg-slate-100 text-slate-500 text-[10px] font-bold uppercase tracking-wider"
+ className="px-2 py-1 bg-slate-100 text-slate-500 text-[10px] font-bold uppercase tracking-wider rounded-md"
  >
  {t}
  </span>
@@ -108,7 +108,7 @@ export default function MentorModal({ mentor, onClose }) {
  href={mentor.socials.linkedin}
  target="_blank"
  rel="noopener noreferrer"
- className="flex items-center gap-2 px-5 py-3 bg-slate-50 hover:bg-[#0077b5] text-slate-600 hover:text-white border border-slate-200 hover:border-[#0077b5] transition-all font-bold text-xs uppercase tracking-wider"
+ className="flex items-center gap-2 px-5 py-3 bg-slate-50 hover:bg-[#0077b5] text-slate-600 hover:text-white border border-slate-200 hover:border-[#0077b5] transition-all font-bold text-xs uppercase tracking-wider rounded-md"
  >
  <IoLogoLinkedin size={18} />
  LinkedIn
@@ -119,7 +119,7 @@ export default function MentorModal({ mentor, onClose }) {
  href={mentor.socials.twitter}
  target="_blank"
  rel="noopener noreferrer"
- className="flex items-center gap-2 px-5 py-3 bg-slate-50 hover:bg-[#1DA1F2] text-slate-600 hover:text-white border border-slate-200 hover:border-[#1DA1F2] transition-all font-bold text-xs uppercase tracking-wider"
+ className="flex items-center gap-2 px-5 py-3 bg-slate-50 hover:bg-[#1DA1F2] text-slate-600 hover:text-white border border-slate-200 hover:border-[#1DA1F2] transition-all font-bold text-xs uppercase tracking-wider rounded-md"
  >
  <IoLogoTwitter size={18} />
  Twitter
@@ -128,7 +128,7 @@ export default function MentorModal({ mentor, onClose }) {
  {mentor.email && (
  <a
  href={`mailto:${mentor.email}`}
- className="flex items-center gap-2 px-5 py-3 bg-slate-50 hover:bg-rose-500 text-slate-600 hover:text-white border border-slate-200 hover:border-rose-500 transition-all font-bold text-xs uppercase tracking-wider"
+ className="flex items-center gap-2 px-5 py-3 bg-slate-50 hover:bg-rose-500 text-slate-600 hover:text-white border border-slate-200 hover:border-rose-500 transition-all font-bold text-xs uppercase tracking-wider rounded-md"
  >
  <IoMailOutline size={18} />
  Contact

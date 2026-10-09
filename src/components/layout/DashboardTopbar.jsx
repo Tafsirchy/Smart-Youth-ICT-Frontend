@@ -15,7 +15,7 @@ export default function DashboardTopbar({ user, toggleSidebar }) {
  <button
  type="button"
  onClick={toggleSidebar}
- className="w-11 h-11 flex items-center justify-center text-slate-500 hover:text-brand-pink active:scale-95 transition-all focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-pink"
+ className="w-11 h-11 flex items-center justify-center text-slate-500 hover:text-brand-pink active:scale-95 transition-all focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-pink rounded-md"
  aria-label="Open sidebar"
  >
  <HiMenuAlt2 size={24} />
@@ -27,7 +27,7 @@ export default function DashboardTopbar({ user, toggleSidebar }) {
  alt="Smart Youth ICT Logo"
  width={240}
  height={60}
- className="h-12 w-auto object-contain"
+ className="h-12 w-auto object-contain rounded-md"
  priority={true}
  fetchPriority="high"
  onError={(e) => { e.target.srcset = ''; e.target.src = '/images/placeholder.png'; }}
@@ -40,7 +40,7 @@ decoding="async"/>
  <div className="flex items-center gap-2">
  <button
  type="button"
- className="p-3 text-slate-500 hover:text-brand-pink active:scale-95 transition-all"
+ className="p-3 text-slate-500 hover:text-brand-pink active:scale-95 transition-all rounded-md"
  aria-label="Notifications"
  >
  <HiBell size={22} />

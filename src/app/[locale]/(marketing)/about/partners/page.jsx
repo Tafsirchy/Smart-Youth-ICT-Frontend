@@ -72,7 +72,7 @@ export default function PartnersPage() {
  whileInView={{ opacity: 1, y: 0 }}
  viewport={{ once: true, margin: "-50px" }}
  transition={{ delay: i * 0.1, duration: 0.5 }}
- className="bg-white border border-slate-100 -[2rem] p-6 md:p-8 flex flex-col items-center justify-center text-center group hover:border-slate-200 hover:shadow-[0_8px_30px_rgb(0,0,0,0.04)] transition-all duration-500"
+ className="bg-white border border-slate-100 -[2rem] p-6 md:p-8 flex flex-col items-center justify-center text-center group hover:border-slate-200 hover:shadow-[0_8px_30px_rgb(0,0,0,0.04)] transition-all duration-500 rounded-lg"
  >
  <div className="w-full aspect-video relative mb-6 flex items-center justify-center">
  <Image
@@ -110,7 +110,7 @@ export default function PartnersPage() {
  We are always open to mutually beneficial relationships with tech
  companies, recruiters, and educational platforms.
  </p>
- <button className="min-h-[44px] px-8 py-4 bg-slate-900 text-white font-medium hover:bg-slate-800 transition-colors tracking-wide text-sm active:scale-95">
+ <button className="min-h-[44px] px-8 py-4 bg-slate-900 text-white font-medium hover:bg-slate-800 transition-colors tracking-wide text-sm active:scale-95 rounded-md">
  Become a Partner
  </button>
  </motion.div>
@@ -122,7 +122,7 @@ export default function PartnersPage() {
  <p className="text-[10px] font-medium text-slate-400 uppercase tracking-widest mb-0.5">Next Step</p>
  <p className="text-slate-900 font-medium text-sm">Join the Program</p>
  </div>
- <button className="px-6 py-3 min-h-[44px] bg-slate-900 text-white font-medium text-[11px] uppercase tracking-wider transition-transform active:scale-95">
+ <button className="px-6 py-3 min-h-[44px] bg-slate-900 text-white font-medium text-[11px] uppercase tracking-wider transition-transform active:scale-95 rounded-md">
  Apply Now
  </button>
  </div>

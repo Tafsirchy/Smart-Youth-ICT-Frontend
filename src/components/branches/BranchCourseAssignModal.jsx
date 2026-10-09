@@ -207,7 +207,7 @@ export default function BranchCourseAssignModal({ branch, onClose, onSuccess }) 
  <div className="p-6 pb-4 border-b border-slate-100 dark:border-slate-800 flex justify-between items-start bg-slate-50/70 dark:bg-slate-800/40">
  <div className="space-y-1">
  <div className="flex items-center gap-2">
- <span className="px-2.5 py-0.5 bg-violet-100 dark:bg-violet-900/40 text-violet-700 dark:text-violet-300 text-xs font-black uppercase tracking-wider">
+ <span className="px-2.5 py-0.5 bg-violet-100 dark:bg-violet-900/40 text-violet-700 dark:text-violet-300 text-xs font-black uppercase tracking-wider rounded-md">
  {branch.code}
  </span>
  <span className="text-xs text-slate-400 font-bold">
@@ -225,7 +225,7 @@ export default function BranchCourseAssignModal({ branch, onClose, onSuccess }) 
 
  <button
  onClick={onClose}
- className="p-2 text-slate-400 hover:text-slate-700 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
+ className="p-2 text-slate-400 hover:text-slate-700 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors rounded-md"
  >
  <HiOutlineXMark size={20} />
  </button>
@@ -300,14 +300,14 @@ export default function BranchCourseAssignModal({ branch, onClose, onSuccess }) 
  <div className="flex items-center gap-2">
  <button
  onClick={handleSelectAllFiltered}
- className="px-2.5 py-1 text-[11px] font-bold text-violet-600 hover:bg-violet-50 dark:hover:bg-violet-900/20 transition-colors"
+ className="px-2.5 py-1 text-[11px] font-bold text-violet-600 hover:bg-violet-50 dark:hover:bg-violet-900/20 transition-colors rounded-md"
  >
  Select All Visible
  </button>
  <span className="text-slate-300 dark:text-slate-700">•</span>
  <button
  onClick={handleDeselectAllFiltered}
- className="px-2.5 py-1 text-[11px] font-bold text-slate-500 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
+ className="px-2.5 py-1 text-[11px] font-bold text-slate-500 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors rounded-md"
  >
  Deselect All Visible
  </button>
@@ -316,7 +316,7 @@ export default function BranchCourseAssignModal({ branch, onClose, onSuccess }) 
  </div>
 
  {/* Courses List Body */}
- <div className="p-4 sm:p-6 overflow-y-auto flex-1 bg-slate-50/50 dark:bg-slate-950/40">
+ <div className="p-4 sm:p-6 overflow-y-auto flex-1 bg-slate-50/50 dark:bg-slate-950/40 rounded-lg">
  {loading ? (
  <div className="flex flex-col items-center justify-center py-20 gap-3">
  <div className="w-10 h-10 border-4 border-violet-600 border-t-transparent animate-spin" />
@@ -364,13 +364,13 @@ export default function BranchCourseAssignModal({ branch, onClose, onSuccess }) 
  </div>
 
  {/* Course Thumbnail */}
- <div className="w-16 h-12 bg-slate-100 dark:bg-slate-800 overflow-hidden flex-shrink-0 relative border border-slate-100 dark:border-slate-700">
+ <div className="w-16 h-12 bg-slate-100 dark:bg-slate-800 overflow-hidden flex-shrink-0 relative border border-slate-100 dark:border-slate-700 rounded-lg">
  {course.thumbnail ? (
  <Image
  src={course.thumbnail}
  alt={getCourseTitle(course)}
  fill
- className="object-cover"
+ className="object-cover rounded-md"
  />
  ) : (
  <div className="w-full h-full flex items-center justify-center text-slate-400">
@@ -382,7 +382,7 @@ export default function BranchCourseAssignModal({ branch, onClose, onSuccess }) 
  {/* Info */}
  <div className="flex-1 min-w-0 space-y-1">
  <div className="flex items-center gap-1.5 flex-wrap">
- <span className="text-[10px] font-black uppercase tracking-wider px-2 py-0.5 bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300">
+ <span className="text-[10px] font-black uppercase tracking-wider px-2 py-0.5 bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 rounded-md">
  {course.category || "General"}
  </span>
  {course.mode && (
@@ -460,7 +460,7 @@ export default function BranchCourseAssignModal({ branch, onClose, onSuccess }) 
  type="button"
  onClick={onClose}
  disabled={saving}
- className="flex-1 sm:flex-none min-h-[44px] px-5 py-2.5 text-xs font-bold text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 active:scale-95 transition-all flex items-center justify-center"
+ className="flex-1 sm:flex-none min-h-[44px] px-5 py-2.5 text-xs font-bold text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 active:scale-95 transition-all flex items-center justify-center rounded-md"
  >
  Cancel
  </button>
@@ -469,7 +469,7 @@ export default function BranchCourseAssignModal({ branch, onClose, onSuccess }) 
  type="button"
  onClick={handleSave}
  disabled={saving || loading}
- className="flex-1 sm:flex-none min-h-[44px] px-6 py-2.5 bg-gradient-to-r from-violet-600 to-indigo-600 hover:from-violet-700 hover:to-indigo-700 text-white text-xs font-bold shadow-md shadow-violet-500/20 active:scale-95 transition-all flex items-center justify-center gap-2 disabled:opacity-50"
+ className="flex-1 sm:flex-none min-h-[44px] px-6 py-2.5 bg-gradient-to-r from-violet-600 to-indigo-600 hover:from-violet-700 hover:to-indigo-700 text-white text-xs font-bold shadow-md shadow-violet-500/20 active:scale-95 transition-all flex items-center justify-center gap-2 disabled:opacity-50 rounded-md"
  >
  {saving ? (
  <>

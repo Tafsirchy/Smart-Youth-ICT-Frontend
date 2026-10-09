@@ -21,7 +21,7 @@ export default function FreelancingClient({ data, content }) {
           <motion.div
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
-            className="inline-flex items-center gap-2 px-3 py-1.5 lg:px-4 lg:py-2 bg-emerald-500/10 text-emerald-400 text-xs font-black tracking-widest uppercase mb-4 lg:mb-6 border border-emerald-500/20 leading-[1.4]"
+            className="inline-flex items-center gap-2 px-3 py-1.5 lg:px-4 lg:py-2 bg-emerald-500/10 text-emerald-400 text-xs font-black tracking-widest uppercase mb-4 lg:mb-6 border border-emerald-500/20 leading-[1.4] rounded-md"
           >
             {content?.hero?.badge || "Digital Sovereignty"}
           </motion.div>
@@ -72,11 +72,11 @@ export default function FreelancingClient({ data, content }) {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ delay: i * 0.1 }}
-                  className="min-w-[85vw] sm:min-w-[300px] lg:w-auto snap-center shrink-0 bg-white/5 backdrop-blur-3xl border border-white/10 -[2rem] p-6 group hover:border-emerald-500/50 transition-all overflow-hidden relative flex flex-col gap-4"
+                  className="min-w-[85vw] sm:min-w-[300px] lg:w-auto snap-center shrink-0 bg-white/5 backdrop-blur-3xl border border-white/10 -[2rem] p-6 group hover:border-emerald-500/50 transition-all overflow-hidden relative flex flex-col gap-4 rounded-lg"
                 >
                   <div className={`absolute -right-10 -bottom-10 w-40 h-40 ${item.color} opacity-10 rounded-full blur-[60px] group-hover:opacity-30 transition-opacity`}></div>
 
-                  <div className={`w-12 h-12 lg:w-14 lg:h-14 rounded-xl ${item.color} text-white flex items-center justify-center text-2xl mb-2 shadow-2xl group-hover:scale-110 transition-transform`}>
+                  <div className={`w-12 h-12 lg:w-14 lg:h-14 rounded-lg ${item.color} text-white flex items-center justify-center text-2xl mb-2 shadow-2xl group-hover:scale-110 transition-transform`}>
                     <IoGlobeOutline />
                   </div>
                   <div>
@@ -98,7 +98,7 @@ export default function FreelancingClient({ data, content }) {
             </div>
           </div>
         ) : (
-          <div className="flex flex-col items-start lg:items-center gap-4 justify-center py-8 lg:py-12 bg-white/5 -[2rem] mb-10 lg:mb-20 px-6">
+          <div className="flex flex-col items-start lg:items-center gap-4 justify-center py-8 lg:py-12 bg-white/5 -[2rem] mb-10 lg:mb-20 px-6 rounded-md">
             <IoSearchOutline className="text-4xl lg:text-5xl text-white/20" />
             <p className="text-white/40 text-xs lg:text-sm font-black uppercase tracking-widest leading-[1.4]">Strategy Catalog Ready</p>
           </div>
@@ -119,7 +119,7 @@ export default function FreelancingClient({ data, content }) {
                   transition={{ delay: i * 0.1 }}
                   className="flex flex-col md:flex-row gap-4 lg:gap-6 items-start relative z-10"
                 >
-                  <div className="w-10 h-10 bg-emerald-600 flex items-center justify-center text-white font-black shrink-0 shadow-lg shadow-emerald-600/30">
+                  <div className="w-10 h-10 bg-emerald-600 flex items-center justify-center text-white font-black shrink-0 shadow-lg shadow-emerald-600/30 rounded-lg">
                     {p.step}
                   </div>
                   <div className="flex-1 flex flex-col gap-2">
@@ -137,14 +137,14 @@ export default function FreelancingClient({ data, content }) {
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="bg-emerald-600 -[2rem] p-6 lg:p-16 text-left lg:text-center text-white shadow-xl relative overflow-hidden flex flex-col gap-6 lg:items-center"
+          className="bg-emerald-600 -[2rem] p-6 lg:p-16 text-left lg:text-center text-white shadow-xl relative overflow-hidden flex flex-col gap-6 lg:items-center rounded-lg"
         >
           <div className="hidden md:block absolute top-0 right-0 w-[300px] h-[300px] bg-white blur-[80px] pointer-events-none -translate-y-1/2 translate-x-1/2 opacity-20 hidden"></div>
 
           <IoShieldCheckmarkOutline className="text-5xl lg:text-6xl lg:mx-auto" />
           <h2 className="text-2xl lg:text-5xl font-black leading-[1.1]">Certified Global <br />Freelance Expert.</h2>
           <p className="text-emerald-100 text-base lg:text-lg font-light max-w-2xl lg:mx-auto italic leading-[1.6]">Receive a high-authority digital credential that proves your proficiency to clients across 180+ countries.</p>
-          <button className="hidden lg:inline-flex min-h-[48px] px-8 py-4 bg-white text-emerald-600 font-black hover:scale-105 transition-transform shadow-lg uppercase tracking-widest text-sm items-center justify-center leading-[1.4] mt-2">
+          <button className="hidden lg:inline-flex min-h-[48px] px-8 py-4 bg-white text-emerald-600 font-black hover:scale-105 transition-transform shadow-lg uppercase tracking-widest text-sm items-center justify-center leading-[1.4] mt-2 rounded-md">
             Join Next BootCamp
           </button>
         </motion.div>
@@ -152,7 +152,7 @@ export default function FreelancingClient({ data, content }) {
       </div>
       {/* Mobile Sticky CTA */}
       <div className="sticky bottom-0 left-0 right-0 p-[var(--gutter,16px)] bg-slate-950/90 backdrop-blur-md border-t border-emerald-500/10 z-50 lg:hidden flex justify-center pb-[max(1rem,env(safe-area-inset-bottom))] mt-auto">
-        <button className="w-full min-h-[48px] py-3 px-4 bg-emerald-600 text-white font-bold shadow-lg active:scale-95 transition-transform text-sm uppercase tracking-widest leading-[1.4]">
+        <button className="w-full min-h-[48px] py-3 px-4 bg-emerald-600 text-white font-bold shadow-lg active:scale-95 transition-transform text-sm uppercase tracking-widest leading-[1.4] rounded-md">
           Join Next BootCamp
         </button>
       </div>

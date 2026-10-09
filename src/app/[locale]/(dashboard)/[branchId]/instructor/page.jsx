@@ -79,7 +79,7 @@ export default function InstructorDashboard() {
  <motion.div 
  key={i}
  initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: i * 0.1 }}
- className="bg-white p-6 -[32px] border border-neutral-100 shadow-sm flex flex-col justify-between"
+ className="bg-white p-6 -[32px] border border-neutral-100 shadow-sm flex flex-col justify-between rounded-lg"
  >
  <div>
  <div className={`w-12 h-12 ${card.bg} ${card.color} flex items-center justify-center mb-4`}>
@@ -95,7 +95,7 @@ export default function InstructorDashboard() {
 
  <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
  <div className="lg:col-span-2 space-y-6">
- <div className="bg-neutral-900 -[40px] p-8 md:p-10 text-white relative overflow-hidden shadow-2xl">
+ <div className="bg-neutral-900 -[40px] p-8 md:p-10 text-white relative overflow-hidden shadow-2xl rounded-lg">
  <div className="absolute top-0 right-0 w-64 h-64 bg-blue-600/20 blur-[100px] -mr-32 -mt-32" />
  <div className="relative z-10 flex flex-col md:flex-row items-center justify-between gap-6">
  <div>
@@ -108,14 +108,14 @@ export default function InstructorDashboard() {
  </div>
  <Link 
  href="/instructor/submissions" 
- className="bg-white text-neutral-900 px-8 py-4 font-bold flex items-center gap-2 hover:bg-blue-50 transition-all active:scale-95 whitespace-nowrap"
+ className="bg-white text-neutral-900 px-8 py-4 font-bold flex items-center gap-2 hover:bg-blue-50 transition-all active:scale-95 whitespace-nowrap rounded-md"
  >
  Open Grading Hub <HiOutlineArrowNarrowRight size={20} />
  </Link>
  </div>
  </div>
 
- <div className="bg-white -[40px] border border-neutral-100 shadow-sm p-8">
+ <div className="bg-white -[40px] border border-neutral-100 shadow-sm p-8 rounded-lg">
  <h3 className="text-xl font-black text-neutral-900 mb-6 flex items-center gap-2">
  <HiOutlineCalendar className="text-blue-600" /> Teaching Schedule
  </h3>
@@ -126,14 +126,14 @@ export default function InstructorDashboard() {
  </div>
 
  <div className="lg:col-span-1">
- <div className="bg-white -[40px] border border-neutral-100 shadow-sm p-8 h-full">
+ <div className="bg-white -[40px] border border-neutral-100 shadow-sm p-8 h-full rounded-lg">
  <h3 className="text-xl font-black text-neutral-900 mb-6">Quick Actions</h3>
  <div className="space-y-4">
- <Link href="/instructor/lessons" className="block p-5 bg-neutral-50 hover:bg-neutral-100 transition-all group">
+ <Link href="/instructor/lessons" className="block p-5 bg-neutral-50 hover:bg-neutral-100 transition-all group rounded-md">
  <p className="font-bold text-neutral-900 group-hover:text-blue-600 transition-colors">Lesson Builder</p>
  <p className="text-[10px] font-bold text-neutral-400 uppercase tracking-widest mt-1">Manage Course Content</p>
  </Link>
- <Link href="/instructor/courses" className="block p-5 bg-neutral-50 hover:bg-neutral-100 transition-all group">
+ <Link href="/instructor/courses" className="block p-5 bg-neutral-50 hover:bg-neutral-100 transition-all group rounded-md">
  <p className="font-bold text-neutral-900 group-hover:text-blue-600 transition-colors">My Classes</p>
  <p className="text-[10px] font-bold text-neutral-400 uppercase tracking-widest mt-1">View Enrolled Students</p>
  </Link>

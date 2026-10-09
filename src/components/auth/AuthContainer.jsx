@@ -170,13 +170,13 @@ export default function AuthContainer({ defaultTab = "login" }) {
  {/* ── Top Left Back Button ────────────────────────────── */}
  <Link
  href="/"
- className="absolute top-6 left-6 z-20 flex items-center gap-2 text-slate-500 hover:text-slate-800 transition-colors text-sm font-medium"
+ className="absolute top-6 left-6 z-20 flex items-center gap-2 text-slate-500 hover:text-slate-800 transition-colors text-sm font-medium rounded-md"
  >
  <FaArrowLeft /> Back to Home
  </Link>
 
  {/* ── Solid White Form Card ─────────────────────────────── */}
- <div className="relative w-full max-w-[420px] bg-white border border-white/40 p-5 sm:p-6 shadow-[0_20px_50px_rgba(0,0,0,0.1)] z-10">
+ <div className="relative w-full max-w-[420px] bg-white border border-white/40 p-5 sm:p-6 shadow-[0_20px_50px_rgba(0,0,0,0.1)] z-10 rounded-lg">
  
  {/* Header & Logo */}
  <div className="flex flex-col items-center mb-4">
@@ -187,7 +187,7 @@ export default function AuthContainer({ defaultTab = "login" }) {
  width={240}
  height={60}
  priority
- className="h-14 w-auto object-contain mb-3 mix-blend-multiply"
+ className="h-14 w-auto object-contain mb-3 mix-blend-multiply rounded-md"
  
 onError={(e) => { e.target.onerror = null; e.target.srcset = ''; e.target.src = '/assets/fallback.png'; }}
 decoding="async"/>
@@ -241,7 +241,7 @@ decoding="async"/>
  <form onSubmit={isLogin ? handleLoginSubmit : handleRegisterSubmit} className="space-y-3">
  
  {error && (
- <div className="flex items-start gap-2 p-3 text-xs text-brand-pink bg-brand-pink/5 border border-brand-pink/10">
+ <div className="flex items-start gap-2 p-3 text-xs text-brand-pink bg-brand-pink/5 border border-brand-pink/10 rounded-sm">
  ⚠️ {error}
  </div>
  )}
@@ -380,7 +380,7 @@ decoding="async"/>
  <button
  type="submit"
  disabled={loading}
- className="w-full py-2.5 mt-2 text-sm font-bold text-white shadow-[0_4px_14px_0_rgba(255,44,109,0.39)] bg-gradient-to-r from-brand-pink to-brand-accent hover:shadow-[0_6px_20px_rgba(255,44,109,0.23)] active:scale-[0.98] transition-all disabled:opacity-60"
+ className="w-full py-2.5 mt-2 text-sm font-bold text-white shadow-[0_4px_14px_0_rgba(255,44,109,0.39)] bg-gradient-to-r from-brand-pink to-brand-accent hover:shadow-[0_6px_20px_rgba(255,44,109,0.23)] active:scale-[0.98] transition-all disabled:opacity-60 rounded-md"
  >
  {loading ? "Processing…" : (isLogin ? "Sign In" : "Create Account")}
  </button>
@@ -397,7 +397,7 @@ decoding="async"/>
  type="button"
  onClick={handleGoogleSignIn}
  disabled={googleLoading || loading}
- className="flex w-full items-center justify-center gap-2 bg-white border border-slate-200 shadow-sm px-4 py-2.5 text-sm font-semibold text-slate-700 transition-all hover:bg-slate-50 hover:border-slate-300 disabled:opacity-60"
+ className="flex w-full items-center justify-center gap-2 bg-white border border-slate-200 shadow-sm px-4 py-2.5 text-sm font-semibold text-slate-700 transition-all hover:bg-slate-50 hover:border-slate-300 disabled:opacity-60 rounded-md"
  >
  <FaGoogle size={16} className="text-[#EA4335]" />
  {googleLoading ? "Redirecting…" : "Google"}

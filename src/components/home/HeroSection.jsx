@@ -84,7 +84,7 @@ export default function HeroSection() {
  className="flex flex-col sm:flex-row gap-4 justify-center items-center w-full max-w-md mx-auto sm:max-w-none"
  variants={fadeUp} initial={mounted ? "hidden" : "visible"} animate="visible" custom={0.3}
  >
- <Link href="/courses" id="hero-enroll-btn" className="btn-primary text-base px-8 py-4 -xl2 w-full sm:w-auto text-center">
+ <Link href="/courses" id="hero-enroll-btn" className="btn-primary text-base px-8 py-4 -xl2 w-full sm:w-auto text-center rounded-md">
  🎓 Enroll Now — Start Free
  </Link>
  <motion.a
@@ -92,7 +92,7 @@ export default function HeroSection() {
  id="hero-whatsapp-btn"
  target="_blank"
  rel="noreferrer"
- className="btn-secondary flex items-center justify-center gap-2 text-base px-8 py-4 -xl2 w-full sm:w-auto text-center"
+ className="btn-secondary flex items-center justify-center gap-2 text-base px-8 py-4 -xl2 w-full sm:w-auto text-center rounded-md"
  whileHover={{ scale: 1.04 }}
  whileTap={{ scale: 0.97 }}
  >

@@ -71,7 +71,7 @@ export default function ManualPaymentModal({ courseId, amount, onClose }) {
  switch (method) {
  case 'bkash':
  return (
- <div className="mb-6 bg-pink-50 p-4 text-sm text-pink-800 border border-pink-100">
+ <div className="mb-6 bg-pink-50 p-4 text-sm text-pink-800 border border-pink-100 rounded-lg">
  <p className="font-semibold mb-2">bKash Send Money Details:</p>
  <p className="text-lg font-black mb-1">017XXXXXXXX <span className="text-xs font-normal text-pink-600 ml-2">(Personal)</span></p>
  <p className="font-medium mt-3">Amount to pay: ৳ {amount}</p>
@@ -79,7 +79,7 @@ export default function ManualPaymentModal({ courseId, amount, onClose }) {
  );
  case 'nagad':
  return (
- <div className="mb-6 bg-orange-50 p-4 text-sm text-orange-800 border border-orange-100">
+ <div className="mb-6 bg-orange-50 p-4 text-sm text-orange-800 border border-orange-100 rounded-lg">
  <p className="font-semibold mb-2">Nagad Send Money Details:</p>
  <p className="text-lg font-black mb-1">017XXXXXXXX <span className="text-xs font-normal text-orange-600 ml-2">(Personal)</span></p>
  <p className="font-medium mt-3">Amount to pay: ৳ {amount}</p>
@@ -87,7 +87,7 @@ export default function ManualPaymentModal({ courseId, amount, onClose }) {
  );
  case 'rocket':
  return (
- <div className="mb-6 bg-purple-50 p-4 text-sm text-purple-800 border border-purple-100">
+ <div className="mb-6 bg-purple-50 p-4 text-sm text-purple-800 border border-purple-100 rounded-lg">
  <p className="font-semibold mb-2">Rocket Send Money Details:</p>
  <p className="text-lg font-black mb-1">017XXXXXXXXX <span className="text-xs font-normal text-purple-600 ml-2">(Personal)</span></p>
  <p className="font-medium mt-3">Amount to pay: ৳ {amount}</p>
@@ -96,7 +96,7 @@ export default function ManualPaymentModal({ courseId, amount, onClose }) {
  case 'bank':
  default:
  return (
- <div className="mb-6 bg-blue-50 p-4 text-sm text-blue-800 border border-blue-100">
+ <div className="mb-6 bg-blue-50 p-4 text-sm text-blue-800 border border-blue-100 rounded-md">
  <p className="font-semibold mb-2">Our Bank Details:</p>
  <ul className="space-y-1">
  <li><strong>Bank:</strong> City Bank PLC</li>
@@ -116,11 +116,11 @@ export default function ManualPaymentModal({ courseId, amount, onClose }) {
  initial={{ opacity: 0, scale: 0.95 }}
  animate={{ opacity: 1, scale: 1 }}
  exit={{ opacity: 0, scale: 0.95 }}
- className="w-full max-w-lg bg-white p-5 sm:p-6 shadow-2xl my-auto max-h-[90vh] overflow-y-auto"
+ className="w-full max-w-lg bg-white p-5 sm:p-6 shadow-2xl my-auto max-h-[90vh] overflow-y-auto rounded-lg"
  >
  <div className="mb-6 flex items-center justify-between">
  <h2 className="text-2xl font-black text-slate-900 tracking-tight">Manual Payment</h2>
- <button onClick={onClose} className="w-8 h-8 flex items-center justify-center bg-slate-100 text-slate-500 hover:bg-slate-200 transition-colors">✕</button>
+ <button onClick={onClose} className="w-8 h-8 flex items-center justify-center bg-slate-100 text-slate-500 hover:bg-slate-200 transition-colors rounded-md">✕</button>
  </div>
 
  {/* Payment Method Selector */}
@@ -165,7 +165,7 @@ export default function ManualPaymentModal({ courseId, amount, onClose }) {
  <input
  type="text"
  required
- className="w-full bg-slate-50 border-2 border-transparent p-3 outline-none focus:border-indigo-500/30 focus:bg-white font-medium transition-all"
+ className="w-full bg-slate-50 border-2 border-transparent p-3 outline-none focus:border-indigo-500/30 focus:bg-white font-medium transition-all rounded-md"
  value={senderNumber}
  onChange={(e) => setSenderNumber(e.target.value)}
  placeholder="e.g. 017XXXXXXXX"
@@ -179,7 +179,7 @@ export default function ManualPaymentModal({ courseId, amount, onClose }) {
  <input
  type="text"
  required
- className="w-full bg-slate-50 border-2 border-transparent p-3 outline-none focus:border-indigo-500/30 focus:bg-white font-medium transition-all"
+ className="w-full bg-slate-50 border-2 border-transparent p-3 outline-none focus:border-indigo-500/30 focus:bg-white font-medium transition-all rounded-md"
  value={bankName}
  onChange={(e) => setBankName(e.target.value)}
  placeholder="e.g. BRAC Bank"
@@ -192,7 +192,7 @@ export default function ManualPaymentModal({ courseId, amount, onClose }) {
  <input
  type="text"
  required
- className="w-full bg-slate-50 border-2 border-transparent p-3 outline-none focus:border-indigo-500/30 focus:bg-white font-medium transition-all uppercase"
+ className="w-full bg-slate-50 border-2 border-transparent p-3 outline-none focus:border-indigo-500/30 focus:bg-white font-medium transition-all uppercase rounded-md"
  value={transactionId}
  onChange={(e) => setTransactionId(e.target.value)}
  placeholder="e.g. TRX123456789"
@@ -206,7 +206,7 @@ export default function ManualPaymentModal({ courseId, amount, onClose }) {
  type="file"
  accept="image/*"
  required
- className="w-full bg-slate-50 border-2 border-transparent p-2 outline-none focus:border-indigo-500/30 focus:bg-white transition-all text-sm"
+ className="w-full bg-slate-50 border-2 border-transparent p-2 outline-none focus:border-indigo-500/30 focus:bg-white transition-all text-sm rounded-md"
  onChange={(e) => setSlipFile(e.target.files[0])}
  />
  </div>
@@ -216,14 +216,14 @@ export default function ManualPaymentModal({ courseId, amount, onClose }) {
  <button 
  type="button" 
  onClick={onClose}
- className="px-6 py-3 font-black text-slate-400 hover:text-slate-700 transition-colors text-sm uppercase tracking-widest"
+ className="px-6 py-3 font-black text-slate-400 hover:text-slate-700 transition-colors text-sm uppercase tracking-widest rounded-md"
  >
  Cancel
  </button>
  <button 
  type="submit" 
  disabled={loading}
- className="px-6 py-3 bg-slate-900 text-white font-black hover:bg-black transition-colors shadow-lg shadow-slate-900/20 disabled:opacity-50 text-sm flex items-center justify-center min-w-[140px]"
+ className="px-6 py-3 bg-slate-900 text-white font-black hover:bg-black transition-colors shadow-lg shadow-slate-900/20 disabled:opacity-50 text-sm flex items-center justify-center min-w-[140px] rounded-md"
  >
  {loading ? 'Submitting...' : 'Submit Payment'}
  </button>

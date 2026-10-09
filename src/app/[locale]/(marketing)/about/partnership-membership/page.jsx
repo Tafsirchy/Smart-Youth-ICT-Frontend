@@ -22,7 +22,7 @@ function Grid({ items, kind }) {
  whileInView={{ opacity: 1, y: 0 }}
  viewport={{ once: true, margin: "-50px" }}
  transition={{ delay: i * 0.08 }}
- className="bg-white border border-slate-100 p-6 md:p-8 flex flex-col items-center justify-center text-center group hover:shadow-[0_8px_30px_rgb(0,0,0,0.06)] hover:border-brand-pink/20 transition-all duration-500 cursor-crosshair"
+ className="bg-white border border-slate-100 p-6 md:p-8 flex flex-col items-center justify-center text-center group hover:shadow-[0_8px_30px_rgb(0,0,0,0.06)] hover:border-brand-pink/20 transition-all duration-500 cursor-crosshair rounded-lg"
  >
  <div className="w-full aspect-video relative mb-5 flex items-center justify-center">
  <Image
@@ -81,7 +81,7 @@ export default function PartnershipMembershipPage() {
  <motion.div
  initial={{ opacity: 0, scale: 0.9 }}
  animate={{ opacity: 1, scale: 1 }}
- className="inline-flex items-center gap-2 px-4 py-2 bg-brand-pink/10 border border-brand-pink/20 text-brand-pink text-[11px] font-black tracking-[0.2em] uppercase mb-8"
+ className="inline-flex items-center gap-2 px-4 py-2 bg-brand-pink/10 border border-brand-pink/20 text-brand-pink text-[11px] font-black tracking-[0.2em] uppercase mb-8 rounded-md"
  >
  Network &amp; Affiliations
  </motion.div>
@@ -142,7 +142,7 @@ export default function PartnershipMembershipPage() {
  <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Next Step</p>
  <p className="text-slate-900 font-bold text-sm">Join the Program</p>
  </div>
- <button className="px-6 py-3 min-h-[44px] bg-brand-pink text-white font-black text-[11px] uppercase tracking-widest shadow-lg shadow-brand-pink/30">
+ <button className="px-6 py-3 min-h-[44px] bg-brand-pink text-white font-black text-[11px] uppercase tracking-widest shadow-lg shadow-brand-pink/30 rounded-md">
  Apply Now
  </button>
  </div>

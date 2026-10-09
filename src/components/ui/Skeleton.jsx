@@ -11,7 +11,7 @@ export function Skeleton({ className, ...props }) {
 
 export function CourseCardSkeleton() {
  return (
- <div className="flex flex-col overflow-hidden bg-white shadow-sm ring-1 ring-neutral-200">
+ <div className="flex flex-col overflow-hidden bg-white shadow-sm ring-1 ring-neutral-200 rounded-lg">
  {/* Thumbnail Skeleton */}
  <Skeleton className="aspect-video w-full" />
  
@@ -44,7 +44,7 @@ export function CourseCardSkeleton() {
 
 export function ProjectCardSkeleton() {
  return (
- <div className="bg-white border border-neutral-200 overflow-hidden shadow-sm flex flex-col h-full">
+ <div className="bg-white border border-neutral-200 overflow-hidden shadow-sm flex flex-col h-full rounded-lg">
  <div className="p-6 flex-1 flex flex-col">
  {/* Header Badges */}
  <div className="flex justify-between items-start mb-6">

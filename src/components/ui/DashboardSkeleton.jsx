@@ -11,7 +11,7 @@ export function HeaderSkeleton() {
 
 export function StatCardSkeleton() {
  return (
- <div className="p-6 bg-white border border-neutral-100 shadow-sm flex flex-col gap-3">
+ <div className="p-6 bg-white border border-neutral-100 shadow-sm flex flex-col gap-3 rounded-lg">
  <Skeleton className="h-4 w-20" />
  <Skeleton className="h-8 w-16" />
  </div>
@@ -20,7 +20,7 @@ export function StatCardSkeleton() {
 
 export function TableSkeleton({ rows = 6 }) {
  return (
- <div className="bg-white border border-neutral-100 shadow-sm overflow-hidden p-6">
+ <div className="bg-white border border-neutral-100 shadow-sm overflow-hidden p-6 rounded-lg">
  <div className="flex justify-between mb-8">
  <Skeleton className="h-7 w-48" />
  <Skeleton className="h-7 w-24" />

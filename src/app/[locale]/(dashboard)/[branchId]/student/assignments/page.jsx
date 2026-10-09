@@ -99,9 +99,9 @@ export default function AssignmentsPage() {
  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
  {pendingAssignments.length > 0 ? (
  pendingAssignments.map(assignment => (
- <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} key={assignment._id} className="bg-white border border-neutral-200 p-6 shadow-sm hover:shadow-md transition-shadow">
+ <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} key={assignment._id} className="bg-white border border-neutral-200 p-6 shadow-sm hover:shadow-md transition-shadow rounded-lg">
  <div className="flex justify-between items-start mb-4">
- <span className="px-3 py-1 bg-blue-50 text-blue-600 text-xs font-bold uppercase tracking-wider">
+ <span className="px-3 py-1 bg-blue-50 text-blue-600 text-xs font-bold uppercase tracking-wider rounded-md">
  {assignment.course?.category || 'Course Content'}
  </span>
  <span className="text-xs font-medium text-neutral-400 flex items-center gap-1">
@@ -122,7 +122,7 @@ export default function AssignmentsPage() {
  </motion.div>
  ))
  ) : (
- <div className="col-span-full border-2 border-dashed border-neutral-100 bg-neutral-50/50 p-16 text-center flex flex-col items-center">
+ <div className="col-span-full border-2 border-dashed border-neutral-100 bg-neutral-50/50 p-16 text-center flex flex-col items-center rounded-lg">
  <HiOutlineClipboardList className="text-neutral-300 h-16 w-16 mb-4" />
  <h3 className="text-xl font-bold text-neutral-400">All caught up!</h3>
  <p className="text-neutral-400 text-sm mt-1 max-w-xs">There are no pending assignments available for your courses right now.</p>
@@ -133,7 +133,7 @@ export default function AssignmentsPage() {
  <div className="space-y-4">
  {submissions.length > 0 ? (
  submissions.map(sub => (
- <motion.div initial={{ opacity: 0, x: -10 }} animate={{ opacity: 1, x: 0 }} key={sub._id} className="bg-white border border-neutral-200 p-6 flex flex-col md:flex-row md:items-center justify-between gap-6 shadow-sm">
+ <motion.div initial={{ opacity: 0, x: -10 }} animate={{ opacity: 1, x: 0 }} key={sub._id} className="bg-white border border-neutral-200 p-6 flex flex-col md:flex-row md:items-center justify-between gap-6 shadow-sm rounded-lg">
  <div className="flex items-center gap-4">
  <div className={`w-12 h-12 flex items-center justify-center ${sub.status === 'graded' ? 'bg-emerald-50 text-emerald-600' : 'bg-amber-50 text-amber-600'}`}>
  {sub.status === 'graded' ? <HiCheckCircle size={24} /> : <HiOutlineClock size={24} />}
@@ -161,7 +161,7 @@ export default function AssignmentsPage() {
  </motion.div>
  ))
  ) : (
- <div className="border border-neutral-100 bg-white p-16 text-center flex flex-col items-center">
+ <div className="border border-neutral-100 bg-white p-16 text-center flex flex-col items-center rounded-lg">
  <HiOutlineDocumentText className="text-neutral-300 h-16 w-16 mb-4" />
  <h3 className="text-xl font-bold text-neutral-400">No submissions yet</h3>
  <p className="text-neutral-400 text-sm mt-1">Start submitting your assignments to see your history here.</p>
@@ -182,7 +182,7 @@ export default function AssignmentsPage() {
  </div>
  
  <form onSubmit={handleSubmitting} className="p-8 space-y-6">
- <div className="p-5 bg-blue-50/50 border border-blue-100/50">
+ <div className="p-5 bg-blue-50/50 border border-blue-100/50 rounded-md">
  <h3 className="font-bold text-blue-900">{selectedAssignment.title}</h3>
  <div className="flex gap-4 mt-2">
  <span className="text-xs font-bold text-blue-700 flex items-center gap-1"><HiOutlineClock /> Due: {new Date(selectedAssignment.dueDate).toLocaleDateString()}</span>
@@ -215,7 +215,7 @@ export default function AssignmentsPage() {
  
  <div className="flex gap-4 pt-4">
  <button type="button" onClick={() => setSelectedAssignment(null)} className="flex-1 py-4 font-bold text-neutral-500 hover:bg-neutral-50 transition-colors">Cancel</button>
- <button type="submit" disabled={submitting} className="flex-1 py-4 font-bold bg-blue-600 text-white shadow-xl shadow-blue-500/30 hover:bg-blue-700 transition-all flex items-center justify-center gap-2">
+ <button type="submit" disabled={submitting} className="flex-1 py-4 font-bold bg-blue-600 text-white shadow-xl shadow-blue-500/30 hover:bg-blue-700 transition-all flex items-center justify-center gap-2 rounded-md">
  {submitting ? 'Submitting...' : <><HiOutlineCloudUpload size={20} /> Submit Work</>}
  </button>
  </div>

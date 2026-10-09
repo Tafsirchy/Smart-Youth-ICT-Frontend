@@ -54,7 +54,7 @@ export default function AuthRedirectPage() {
 
  return (
  <div className="flex min-h-screen items-center justify-center bg-[var(--color-surface)] px-6">
- <div className="w-full max-w-md bg-white p-8 text-center shadow-sm ring-1 ring-neutral-200">
+ <div className="w-full max-w-md bg-white p-8 text-center shadow-sm ring-1 ring-neutral-200 rounded-lg">
  <div className="mx-auto mb-4 h-10 w-10 animate-spin border-4 border-neutral-200 border-t-neutral-700" />
  <h1 className="text-xl font-bold text-textPrimary">Signing you in</h1>
  <p className="mt-2 text-sm text-textSecondary">

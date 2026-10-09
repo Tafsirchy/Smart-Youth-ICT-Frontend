@@ -81,10 +81,10 @@ export default function ProjectBoard() {
  initial={{ opacity: 0, scale: 0.95 }}
  animate={{ opacity: 1, scale: 1 }}
  transition={{ delay: i * 0.1 }}
- className="bg-white p-6 shadow-sm ring-1 ring-neutral-200 hover:shadow-xl transition-all flex flex-col"
+ className="bg-white p-6 shadow-sm ring-1 ring-neutral-200 hover:shadow-xl transition-all flex flex-col rounded-lg"
  >
  <div className="mb-4">
- <span className="inline-block px-3 py-1 bg-blue-50 text-blue-700 text-xs font-semibold mb-3">
+ <span className="inline-block px-3 py-1 bg-blue-50 text-blue-700 text-xs font-semibold mb-3 rounded-md">
  {project.category}
  </span>
  <h3 className="text-xl font-bold text-neutral-900 line-clamp-2">{project.title}</h3>
@@ -108,7 +108,7 @@ export default function ProjectBoard() {
  ))}
  </div>
  ) : (
- <div className="border-2 border-dashed border-neutral-200 bg-white py-20 text-center flex flex-col items-center">
+ <div className="border-2 border-dashed border-neutral-200 bg-white py-20 text-center flex flex-col items-center rounded-lg">
  <div className="bg-blue-50 p-6 mb-4">
  <HiOutlineBriefcase size={48} className="text-blue-500 opacity-80" />
  </div>
@@ -127,19 +127,19 @@ export default function ProjectBoard() {
  initial={{ opacity: 0, scale: 0.95 }}
  animate={{ opacity: 1, scale: 1 }}
  exit={{ opacity: 0, scale: 0.95 }}
- className="bg-white shadow-xl w-full max-w-2xl p-6 md:p-8 max-h-[90vh] overflow-y-auto"
+ className="bg-white shadow-xl w-full max-w-2xl p-6 md:p-8 max-h-[90vh] overflow-y-auto rounded-lg"
  >
  <div className="flex justify-between items-center mb-6">
  <h2 className="text-2xl font-bold text-neutral-900">Apply for Project</h2>
  <button onClick={() => setSelectedProject(null)} className="text-neutral-400 hover:text-neutral-700">✕</button>
  </div>
 
- <div className="mb-6 p-5 bg-neutral-50 border border-neutral-100">
+ <div className="mb-6 p-5 bg-neutral-50 border border-neutral-100 rounded-lg">
  <h3 className="font-bold text-lg text-neutral-900 mb-2">{selectedProject.title}</h3>
  <p className="text-sm text-neutral-600 mb-4">{selectedProject.description}</p>
  <div className="flex flex-wrap gap-4 text-sm font-medium">
- <span className="text-blue-700 bg-blue-100 px-3 py-1">Budget: ৳ {selectedProject.budget}</span>
- <span className="text-neutral-600 bg-neutral-200 px-3 py-1">Deadline: {new Date(selectedProject.deadline).toLocaleDateString()}</span>
+ <span className="text-blue-700 bg-blue-100 px-3 py-1 rounded-md">Budget: ৳ {selectedProject.budget}</span>
+ <span className="text-neutral-600 bg-neutral-200 px-3 py-1 rounded-md">Deadline: {new Date(selectedProject.deadline).toLocaleDateString()}</span>
  </div>
  </div>
 
@@ -162,7 +162,7 @@ export default function ProjectBoard() {
  type="number"
  required
  placeholder={selectedProject.budget}
- className="w-full border border-neutral-300 p-3 outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
+ className="w-full border border-neutral-300 p-3 outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all rounded-md"
  value={proposedPrice}
  onChange={(e) => setProposedPrice(e.target.value)}
  />
@@ -173,7 +173,7 @@ export default function ProjectBoard() {
  type="number"
  required
  placeholder="e.g. 7"
- className="w-full border border-neutral-300 p-3 outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
+ className="w-full border border-neutral-300 p-3 outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all rounded-md"
  value={estimatedDays}
  onChange={(e) => setEstimatedDays(e.target.value)}
  />
@@ -184,7 +184,7 @@ export default function ProjectBoard() {
  <button type="button" onClick={() => setSelectedProject(null)} className="px-5 py-2.5 font-semibold text-neutral-600 hover:bg-neutral-100 transition-colors">
  Cancel
  </button>
- <button type="submit" disabled={submitting} className="btn-primary px-8 py-2.5 flex items-center gap-2 text-md shadow-lg shadow-blue-500/20">
+ <button type="submit" disabled={submitting} className="btn-primary px-8 py-2.5 flex items-center gap-2 text-md shadow-lg shadow-blue-500/20 rounded-md">
  {submitting ? 'Submitting...' : <><HiCheckCircle size={20} /> Submit Application</>}
  </button>
  </div>

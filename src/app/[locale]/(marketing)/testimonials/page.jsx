@@ -35,7 +35,7 @@ export default function TestimonialsPage() {
             initial={{ opacity: 0, scale: 0.8 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.5, type: "spring" }}
-            className="inline-flex items-center justify-center gap-2 px-4 py-2 border border-amber-200 bg-amber-50 text-xs font-extrabold uppercase tracking-widest text-amber-600 mb-8 shadow-sm"
+            className="inline-flex items-center justify-center gap-2 px-4 py-2 border border-amber-200 bg-amber-50 text-xs font-extrabold uppercase tracking-widest text-amber-600 mb-8 shadow-sm rounded-md"
           >
             <div className="flex gap-1 text-amber-500">
               {[...Array(5)].map((_, i) => (
@@ -78,7 +78,7 @@ export default function TestimonialsPage() {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true, margin: "-50px" }}
                   transition={{ delay: (i % 3) * 0.1 }}
-                  className="break-inside-avoid bg-white p-8 md:p-10 border border-slate-100 shadow-sm hover:shadow-xl hover:-translate-y-2 transition-all duration-300 group flex flex-col relative"
+                  className="break-inside-avoid bg-white p-8 md:p-10 border border-slate-100 shadow-sm hover:shadow-xl hover:-translate-y-2 transition-all duration-300 group flex flex-col relative rounded-lg"
                 >
                   <div className="absolute top-0 right-0 p-8 opacity-5 group-hover:opacity-10 transition-opacity text-brand-pink">
                     <svg width="40" height="40" viewBox="0 0 24 24" fill="currentColor">
@@ -97,7 +97,7 @@ export default function TestimonialsPage() {
                   </p>
 
                   <div className="flex items-center gap-4 relative z-10 border-t border-slate-100 pt-8 mt-auto">
-                    <div className="w-14 h-14 bg-slate-100 border-2 border-white shadow-sm overflow-hidden shrink-0">
+                    <div className="w-14 h-14 bg-slate-100 border-2 border-white shadow-sm overflow-hidden shrink-0 rounded-lg">
                       <Image
                         src={writerAvatar}
                         alt={writerName}
@@ -105,7 +105,7 @@ export default function TestimonialsPage() {
                         height={56}
                         loading="lazy"
                         decoding="async"
-                        className="w-full h-full object-cover"
+                        className="w-full h-full object-cover rounded-md"
                       />
                     </div>
                     <div className="min-w-0">
@@ -128,7 +128,7 @@ export default function TestimonialsPage() {
           <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Next Step</p>
           <p className="text-slate-900 font-bold text-sm">Join the Program</p>
         </div>
-        <button className="px-6 py-3 bg-brand-pink text-white font-bold text-[10px] uppercase tracking-widest shadow-lg shadow-brand-pink/30">
+        <button className="px-6 py-3 bg-brand-pink text-white font-bold text-[10px] uppercase tracking-widest shadow-lg shadow-brand-pink/30 rounded-md">
           Apply Now
         </button>
       </div>

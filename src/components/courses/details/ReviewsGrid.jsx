@@ -25,7 +25,7 @@ export default function ReviewsGrid({ course }) {
  }}
  className="space-y-8 pt-6"
  >
- <div className="flex flex-col md:flex-row gap-8 items-center md:items-start bg-slate-50 p-6 border border-slate-100/60 shadow-sm">
+ <div className="flex flex-col md:flex-row gap-8 items-center md:items-start bg-slate-50 p-6 border border-slate-100/60 shadow-sm rounded-lg">
  {/* Overall Score */}
  <div className="text-center shrink-0">
  <p className="text-6xl font-black text-slate-900 tracking-tighter">{rating}</p>
@@ -59,7 +59,7 @@ export default function ReviewsGrid({ course }) {
  <motion.div 
  key={i}
  variants={{ hidden: { opacity: 0, scale: 0.95 }, visible: { opacity: 1, scale: 1 } }}
- className="p-6 bg-white border border-slate-100 shadow-[0_4px_20px_rgba(0,0,0,0.02)] hover:shadow-lg transition-shadow"
+ className="p-6 bg-white border border-slate-100 shadow-[0_4px_20px_rgba(0,0,0,0.02)] hover:shadow-lg transition-shadow rounded-lg"
  >
  <div className="flex items-center justify-between mb-4">
  <div className="flex items-center gap-3">

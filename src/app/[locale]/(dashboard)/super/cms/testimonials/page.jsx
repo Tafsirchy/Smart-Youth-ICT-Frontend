@@ -167,7 +167,7 @@ export default function TestimonialManagementPage() {
  className={`bg-white p-4 sm:p-5 border flex flex-col md:flex-row gap-4 sm:gap-6 items-start transition-all hover:shadow-2xl hover:shadow-slate-200/50 ${t.isApproved ? "border-slate-100" : "border-amber-200 bg-amber-50/10"}`}
  >
  <div className="flex items-center gap-3 md:w-56 shrink-0 w-full min-w-0">
- <div className="w-12 h-12 bg-white shadow-sm border border-slate-100 p-0.5 shrink-0">
+ <div className="w-12 h-12 bg-white shadow-sm border border-slate-100 p-0.5 shrink-0 rounded-lg">
  <Image
  src={
  (t.isManual ? t.manualAvatar : t.user?.avatar) ||
@@ -216,7 +216,7 @@ export default function TestimonialManagementPage() {
  <a
  href={t.incomeProof}
  target="_blank"
- className="inline-flex items-center justify-center h-9 px-4 bg-slate-100 text-slate-600 text-[10px] font-black uppercase tracking-wider hover:bg-slate-200 transition-colors leading-[1.4]"
+ className="inline-flex items-center justify-center h-9 px-4 bg-slate-100 text-slate-600 text-[10px] font-black uppercase tracking-wider hover:bg-slate-200 transition-colors leading-[1.4] rounded-md"
  >
  <LuEye className="w-4 h-4 mr-1.5" /> View Proof
  </a>
@@ -263,7 +263,7 @@ export default function TestimonialManagementPage() {
  </AnimatePresence>
 
  {!loading && testimonials.length === 0 && (
- <div className="py-12 text-center flex flex-col items-center border-2 border-dashed border-slate-100">
+ <div className="py-12 text-center flex flex-col items-center border-2 border-dashed border-slate-100 rounded-lg">
  <div className="w-16 h-16 bg-slate-50 flex items-center justify-center mb-4">
  <LuMessageSquare className="w-8 h-8 text-slate-200" />
  </div>
@@ -279,7 +279,7 @@ export default function TestimonialManagementPage() {
  <motion.div
  initial={{ opacity: 0, y: 20 }}
  animate={{ opacity: 1, y: 0 }}
- className="bg-white w-full max-w-xl sm: p-4 sm:p-6 shadow-2xl relative max-h-[90vh] overflow-y-auto flex flex-col custom-scrollbar"
+ className="bg-white w-full max-w-xl sm: p-4 sm:p-6 shadow-2xl relative max-h-[90vh] overflow-y-auto flex flex-col custom-scrollbar rounded-lg"
  >
  <div className="flex items-center justify-between mb-4 shrink-0">
  <h3 className="text-xl font-black text-slate-900 leading-[1.4]">
@@ -315,7 +315,7 @@ export default function TestimonialManagementPage() {
  />
 
  <div className="flex-1 space-y-3 w-full min-w-0">
- <div className="flex justify-between items-center bg-slate-50 p-2 border border-slate-100">
+ <div className="flex justify-between items-center bg-slate-50 p-2 border border-slate-100 rounded-lg">
  <span className="text-[10px] font-black uppercase text-slate-400">
  Entry Mode
  </span>
@@ -342,7 +342,7 @@ export default function TestimonialManagementPage() {
  <input
  required
  disabled={!formData.isManual}
- className="w-full px-3 py-2 bg-slate-50 border-2 border-transparent focus:border-indigo-500/20 focus:bg-white transition-all outline-none text-sm font-bold shadow-inner disabled:opacity-50 leading-[1.4]"
+ className="w-full px-3 py-2 bg-slate-50 border-2 border-transparent focus:border-indigo-500/20 focus:bg-white transition-all outline-none text-sm font-bold shadow-inner disabled:opacity-50 leading-[1.4] rounded-md"
  value={
  formData.isManual
  ? formData.manualName
@@ -384,7 +384,7 @@ export default function TestimonialManagementPage() {
  <input
  required
  placeholder="e.g. Web Dev"
- className="w-full px-3 py-2 bg-slate-50 border-2 border-transparent focus:border-indigo-500/20 focus:bg-white transition-all outline-none text-sm font-bold shadow-inner leading-[1.4]"
+ className="w-full px-3 py-2 bg-slate-50 border-2 border-transparent focus:border-indigo-500/20 focus:bg-white transition-all outline-none text-sm font-bold shadow-inner leading-[1.4] rounded-md"
  value={formData.manualCourse}
  onChange={(e) =>
  setFormData({
@@ -448,7 +448,7 @@ export default function TestimonialManagementPage() {
  </button>
  <button
  type="submit"
- className="flex-[2] py-2.5 bg-slate-900 text-white font-black shadow-xl shadow-slate-900/10 hover:bg-black transition-all flex items-center justify-center gap-1.5 leading-[1.4]"
+ className="flex-[2] py-2.5 bg-slate-900 text-white font-black shadow-xl shadow-slate-900/10 hover:bg-black transition-all flex items-center justify-center gap-1.5 leading-[1.4] rounded-md"
  >
  <LuCheck className="w-5 h-5" />
  {editingTestimonial ? "Save Changes" : "Post Testimonial"}

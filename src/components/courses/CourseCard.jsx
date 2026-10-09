@@ -44,7 +44,7 @@ export default function CourseCard({ course, locale, priority }) {
  <div className="relative w-full aspect-[4/3] sm:aspect-video bg-white overflow-hidden p-2">
  <Link
  href={`/${locale}/courses/${slug}`}
- className="relative block w-full h-full -[1.5rem] overflow-hidden bg-slate-50 border border-slate-100"
+ className="relative block w-full h-full -[1.5rem] overflow-hidden bg-slate-50 border border-slate-100 rounded-md"
  >
  <ImageLoader
  src={thumbnail || "/images/course-placeholder.jpg"}
@@ -52,18 +52,18 @@ export default function CourseCard({ course, locale, priority }) {
  fill
  sizes="(max-width: 640px) 100vw, (max-width: 1200px) 33vw, 25vw"
  priority={priority}
- className="object-cover transition-transform duration-700 group-hover:scale-105"
+ className="object-cover transition-transform duration-700 group-hover:scale-105 rounded-md"
  />
  
  {/* Top Badges */}
  <div className="absolute top-3 left-3 flex flex-col gap-1.5 z-10 pointer-events-none">
  {isPopular && (
- <div className="inline-flex items-center bg-brand-pink text-white px-2.5 py-0.5 text-[9px] font-black uppercase tracking-widest shadow-md">
+ <div className="inline-flex items-center bg-brand-pink text-white px-2.5 py-0.5 text-[9px] font-black uppercase tracking-widest shadow-md rounded-lg">
  Popular
  </div>
  )}
  {category && (
- <div className="inline-flex items-center bg-white/95 backdrop-blur-sm text-slate-800 px-2.5 py-0.5 text-[9px] font-black uppercase tracking-widest shadow-md">
+ <div className="inline-flex items-center bg-white/95 backdrop-blur-sm text-slate-800 px-2.5 py-0.5 text-[9px] font-black uppercase tracking-widest shadow-md rounded-lg">
  {category}
  </div>
  )}
@@ -117,18 +117,18 @@ export default function CourseCard({ course, locale, priority }) {
  {instructor.name}
  </span>
  </div>
- <div className="relative w-8 h-8 overflow-hidden border border-slate-200 bg-slate-50 shrink-0">
+ <div className="relative w-8 h-8 overflow-hidden border border-slate-200 bg-slate-50 shrink-0 rounded-lg">
  <ImageLoader
  src={instructor.avatar || "/images/avatar-placeholder.png"}
  alt={instructor.name}
  fill
- className="object-cover"
+ className="object-cover rounded-md"
  />
  </div>
  </div>
  ) : (
  <div className="flex items-center justify-end min-w-0 ml-2">
- <div className="flex items-center gap-1.5 px-3 py-1.5 bg-emerald-50 border border-emerald-100/50 min-w-0">
+ <div className="flex items-center gap-1.5 px-3 py-1.5 bg-emerald-50 border border-emerald-100/50 min-w-0 rounded-lg">
  <span className="relative flex h-2 w-2 shrink-0">
  <span className="animate-ping absolute inline-flex h-full w-full bg-emerald-400 opacity-75"></span>
  <span className="relative inline-flex h-2 w-2 bg-emerald-500"></span>
@@ -144,7 +144,7 @@ export default function CourseCard({ course, locale, priority }) {
  {/* Commercial Full-Width CTA Button */}
  <Link
  href={`/${locale}/courses/${slug}`}
- className="mt-4 w-full flex justify-center items-center gap-2 bg-slate-50 hover:bg-slate-900 text-slate-900 hover:text-white border border-slate-200 hover:border-slate-900 transition-all duration-300 py-3 -[1rem] text-[10px] font-black uppercase tracking-[0.2em] shadow-sm hover:shadow-xl hover:-translate-y-0.5"
+ className="mt-4 w-full flex justify-center items-center gap-2 bg-slate-50 hover:bg-slate-900 text-slate-900 hover:text-white border border-slate-200 hover:border-slate-900 transition-all duration-300 py-3 -[1rem] text-[10px] font-black uppercase tracking-[0.2em] shadow-sm hover:shadow-xl hover:-translate-y-0.5 rounded-md"
  >
  Enroll Now
  </Link>

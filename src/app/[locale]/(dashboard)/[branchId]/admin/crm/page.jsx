@@ -130,7 +130,7 @@ function LeadDetailModal({ lead, onClose, onSave }) {
  {lead.email && <span>✉️ {lead.email}</span>}
  </p>
  </div>
- <button className="modal-close" onClick={onClose}>
+ <button className="modal-close rounded-md" onClick={onClose}>
  ✕
  </button>
  </div>
@@ -147,7 +147,7 @@ function LeadDetailModal({ lead, onClose, onSave }) {
 
  <label className="form-label">Interested In</label>
  <input
- className="form-input"
+ className="form-input rounded-md"
  value={form.interest}
  onChange={(e) =>
  setForm((f) => ({ ...f, interest: e.target.value }))
@@ -173,7 +173,7 @@ function LeadDetailModal({ lead, onClose, onSave }) {
  <label className="form-label">Follow-up Date</label>
  <input
  type="date"
- className="form-input"
+ className="form-input rounded-md"
  value={form.followUpDate}
  onChange={(e) =>
  setForm((f) => ({ ...f, followUpDate: e.target.value }))
@@ -181,7 +181,7 @@ function LeadDetailModal({ lead, onClose, onSave }) {
  />
 
  <button
- className="btn btn--primary w-full mt-4"
+ className="btn btn--primary w-full mt-4 rounded-md"
  onClick={handleSave}
  disabled={saving}
  >
@@ -216,7 +216,7 @@ function LeadDetailModal({ lead, onClose, onSave }) {
  onChange={(e) => setNote(e.target.value)}
  />
  <button
- className="btn btn--outline w-full"
+ className="btn btn--outline w-full rounded-md"
  onClick={handleAddNote}
  disabled={savingNote || !note.trim()}
  >
@@ -277,33 +277,33 @@ function AddLeadModal({ onClose, onCreated }) {
  <div className="modal-panel" style={{ maxWidth: "480px" }}>
  <div className="crm-modal__header">
  <h2 className="crm-modal__name">Add New Lead</h2>
- <button className="modal-close" onClick={onClose}>
+ <button className="modal-close rounded-md" onClick={onClose}>
  ✕
  </button>
  </div>
  <form onSubmit={handleSubmit} className="p-6 flex flex-col gap-4">
  <input
- className="form-input"
+ className="form-input rounded-md"
  placeholder="Full Name *"
  value={form.name}
  onChange={set("name")}
  required
  />
  <input
- className="form-input"
+ className="form-input rounded-md"
  placeholder="Phone Number"
  value={form.phone}
  onChange={set("phone")}
  />
  <input
- className="form-input"
+ className="form-input rounded-md"
  type="email"
  placeholder="Email"
  value={form.email}
  onChange={set("email")}
  />
  <input
- className="form-input"
+ className="form-input rounded-md"
  placeholder="Interested in…"
  value={form.interest}
  onChange={set("interest")}
@@ -319,7 +319,7 @@ function AddLeadModal({ onClose, onCreated }) {
  </option>
  ))}
  </select>
- <button className="btn btn--primary" type="submit" disabled={loading}>
+ <button className="btn btn--primary rounded-md" type="submit" disabled={loading}>
  {loading ? "Adding…" : "Add Lead"}
  </button>
  </form>
@@ -417,7 +417,7 @@ export default function AdminCRMPage() {
  <h1 className="crm-page__title">CRM — Lead Management</h1>
  <p className="crm-page__subtitle">{total} total leads</p>
  </div>
- <button className="btn btn--primary" onClick={() => setShowAdd(true)}>
+ <button className="btn btn--primary rounded-md" onClick={() => setShowAdd(true)}>
  + Add Lead
  </button>
  </div>
@@ -447,7 +447,7 @@ export default function AdminCRMPage() {
  ))}
  </div>
  <input
- className="form-input crm-search"
+ className="form-input crm-search rounded-md"
  placeholder="Search by name, phone, email…"
  value={search}
  onChange={(e) => {
@@ -502,7 +502,7 @@ export default function AdminCRMPage() {
  </td>
  <td>
  <button
- className="crm-table__del-btn"
+ className="crm-table__del-btn rounded-md"
  onClick={(e) => {
  e.stopPropagation();
  handleDelete(lead._id);

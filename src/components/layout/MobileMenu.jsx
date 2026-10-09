@@ -77,7 +77,7 @@ export default function MobileMenu({ links, session, onClose }) {
  <span className="text-xs font-extrabold text-slate-900">Join Free Career Seminar</span>
  </div>
  </div>
- <span className="px-2.5 py-1 bg-rose-600 text-white text-[10px] font-black uppercase tracking-wider shadow-sm">
+ <span className="px-2.5 py-1 bg-rose-600 text-white text-[10px] font-black uppercase tracking-wider shadow-sm rounded-md">
  Free
  </span>
  </Link>
@@ -129,7 +129,7 @@ export default function MobileMenu({ links, session, onClose }) {
  >
  <span>{item.label}</span>
  {item.badge && (
- <span className="shrink-0 text-[10px] font-black text-white bg-gradient-to-r from-pink-500 to-rose-500 px-1.5 py-0.5 shadow-sm uppercase tracking-wider">
+ <span className="shrink-0 text-[10px] font-black text-white bg-gradient-to-r from-pink-500 to-rose-500 px-1.5 py-0.5 shadow-sm uppercase tracking-wider rounded-md">
  {item.badge}
  </span>
  )}
@@ -184,7 +184,7 @@ export default function MobileMenu({ links, session, onClose }) {
  <Link
  href="/about/partnership-membership#memberships"
  onClick={onClose}
- className="flex items-center min-h-[44px] px-3 py-1.5 text-sm text-slate-600 hover:text-brand-green hover:bg-brand-green/5"
+ className="flex items-center min-h-[44px] px-3 py-1.5 text-sm text-slate-600 hover:text-brand-green hover:bg-brand-green/5 rounded-md"
  >
  Our Memberships
  </Link>
@@ -193,7 +193,7 @@ export default function MobileMenu({ links, session, onClose }) {
  <Link
  href="/about/partnership-membership#partners"
  onClick={onClose}
- className="flex items-center min-h-[44px] px-3 py-1.5 text-sm text-slate-600 hover:text-brand-green hover:bg-brand-green/5"
+ className="flex items-center min-h-[44px] px-3 py-1.5 text-sm text-slate-600 hover:text-brand-green hover:bg-brand-green/5 rounded-md"
  >
  Our Partnerships
  </Link>

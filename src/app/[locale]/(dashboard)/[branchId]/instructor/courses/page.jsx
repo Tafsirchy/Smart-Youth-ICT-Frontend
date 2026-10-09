@@ -65,7 +65,7 @@ export default function InstructorCoursesPage() {
  initial={{ opacity: 0, scale: 0.95 }}
  animate={{ opacity: 1, scale: 1 }}
  transition={{ delay: i * 0.1 }}
- className="bg-white -[40px] border border-neutral-100 p-8 shadow-sm hover:shadow-2xl hover:shadow-neutral-500/5 transition-all group flex flex-col"
+ className="bg-white -[40px] border border-neutral-100 p-8 shadow-sm hover:shadow-2xl hover:shadow-neutral-500/5 transition-all group flex flex-col rounded-lg"
  >
  <div className="flex justify-between items-start mb-6">
  <div className="w-16 h-16 bg-blue-50 text-blue-600 flex items-center justify-center overflow-hidden">
@@ -78,7 +78,7 @@ export default function InstructorCoursesPage() {
  }
  fill
  sizes="64px"
- className="object-cover bg-[#f0f0f0]"
+ className="object-cover bg-[#f0f0f0] rounded-md"
  
 loading="lazy"
 onError={(e) => { e.target.onerror = null; e.target.srcset = ''; e.target.src = '/assets/fallback.png'; }}
@@ -123,7 +123,7 @@ decoding="async"/>
  <div className="pt-6 border-t border-neutral-50">
  <Link
  href={`/instructor/lessons?courseId=${course._id}`}
- className="w-full py-4 bg-neutral-900 text-white font-bold text-sm flex items-center justify-center gap-2 hover:bg-blue-600 transition-all"
+ className="w-full py-4 bg-neutral-900 text-white font-bold text-sm flex items-center justify-center gap-2 hover:bg-blue-600 transition-all rounded-md"
  >
  Manage Lessons <HiChevronRight size={18} />
  </Link>
@@ -139,7 +139,7 @@ decoding="async"/>
  ))}
  </div>
  ) : (
- <div className="bg-white -[40px] border-2 border-dashed border-neutral-100 p-20 text-center">
+ <div className="bg-white -[40px] border-2 border-dashed border-neutral-100 p-20 text-center rounded-lg">
  <div className="w-20 h-20 bg-neutral-50 flex items-center justify-center text-neutral-200 mx-auto mb-6">
  <HiOutlineAcademicCap size={40} />
  </div>

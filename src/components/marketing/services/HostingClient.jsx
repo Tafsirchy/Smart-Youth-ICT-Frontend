@@ -52,7 +52,7 @@ export default function HostingClient({ data }) {
                   <motion.div
                      initial={{ opacity: 0, x: -20 }}
                      animate={{ opacity: 1, x: 0 }}
-                     className="inline-flex items-center gap-2 px-4 sm:px-5 py-2 bg-blue-50 border border-blue-100 text-blue-700 text-[10px] sm:text-xs font-black tracking-wider sm:tracking-[0.4em] uppercase mb-8 sm:mb-10"
+                     className="inline-flex items-center gap-2 px-4 sm:px-5 py-2 bg-blue-50 border border-blue-100 text-blue-700 text-[10px] sm:text-xs font-black tracking-wider sm:tracking-[0.4em] uppercase mb-8 sm:mb-10 rounded-md"
                   >
                      <IoSparklesOutline className="text-sm" /> {data.hero.badge}
                   </motion.div>
@@ -77,12 +77,12 @@ export default function HostingClient({ data }) {
                   </motion.p>
 
                   <div className="flex flex-col sm:flex-row gap-4 sm:gap-6 mb-16 lg:mb-0">
-                     <button className="w-full sm:w-[280px] px-8 py-4 sm:py-6 bg-blue-600 text-white font-black hover:bg-blue-700 transition-all shadow-xl sm:shadow-2xl shadow-blue-600/20 uppercase tracking-wider sm:tracking-widest text-xs sm:text-sm flex items-center justify-center min-h-[44px]">
+                     <button className="w-full sm:w-[280px] px-8 py-4 sm:py-6 bg-blue-600 text-white font-black hover:bg-blue-700 transition-all shadow-xl sm:shadow-2xl shadow-blue-600/20 uppercase tracking-wider sm:tracking-widest text-xs sm:text-sm flex items-center justify-center min-h-[44px] rounded-md">
                         {data.cta?.title || "Initialize Plan"}
                      </button>
                      <Link
                         href="/services/hosting/details"
-                        className="w-full sm:w-[280px] px-8 py-4 sm:py-6 bg-white border border-slate-200 text-slate-900 font-black hover:bg-slate-50 transition-all uppercase tracking-wider sm:tracking-widest text-xs sm:text-sm flex items-center justify-center text-center min-h-[44px]"
+                        className="w-full sm:w-[280px] px-8 py-4 sm:py-6 bg-white border border-slate-200 text-slate-900 font-black hover:bg-slate-50 transition-all uppercase tracking-wider sm:tracking-widest text-xs sm:text-sm flex items-center justify-center text-center min-h-[44px] rounded-md"
                      >
                         Technical Specifications
                      </Link>
@@ -93,18 +93,18 @@ export default function HostingClient({ data }) {
                   <motion.div
                      initial={{ opacity: 0, scale: 0.9 }}
                      animate={{ opacity: 1, scale: 1 }}
-                     className="relative p-12 bg-white -[4rem] border border-slate-100 shadow-2xl overflow-hidden"
+                     className="relative p-12 bg-white -[4rem] border border-slate-100 shadow-2xl overflow-hidden rounded-md"
                   >
                      <div className="absolute inset-0 opacity-5 pointer-events-none" style={{ backgroundImage: "linear-gradient(#3b82f6 1px, transparent 1px), linear-gradient(90deg, #3b82f6 1px, transparent 1px)", backgroundSize: "40px 40px" }}></div>
-                     <div className="relative aspect-square bg-slate-900 -[3rem] p-10 flex flex-col justify-between overflow-hidden shadow-2xl">
+                     <div className="relative aspect-square bg-slate-900 -[3rem] p-10 flex flex-col justify-between overflow-hidden shadow-2xl rounded-lg">
                         <div className="flex justify-between items-center text-white/30 font-mono text-[10px] sm:text-xs tracking-[0.2em] sm:tracking-[0.4em]">
                            <span>CORE_SERVER_v6.0</span>
                            <span>99.9%_UPTIME</span>
                         </div>
                         <div className="space-y-4">
                            {[1, 2, 3, 4].map(i => (
-                              <div key={i} className="h-12 bg-white/5 border border-white/5 flex items-center px-4 gap-4 relative overflow-hidden group">
-                                 <div className="w-2 h-2 bg-blue-500 shadow-[0_0_10px_#3b82f6]"></div>
+                              <div key={i} className="h-12 bg-white/5 border border-white/5 flex items-center px-4 gap-4 relative overflow-hidden group rounded-lg">
+                                 <div className="w-2 h-2 bg-blue-500 shadow-[0_0_10px_#3b82f6] rounded-lg"></div>
                                  <div className="flex-1 h-1 bg-white/10">
                                     <motion.div animate={{ opacity: [0.3, 1, 0.3] }} transition={{ duration: 2, delay: i * 0.3, repeat: Infinity }} className="h-full w-2/3 bg-blue-500/50" />
                                  </div>
@@ -128,7 +128,7 @@ export default function HostingClient({ data }) {
 
             {/* DOMAIN SEARCH SECTION */}
             <div className="mb-32 lg:mb-48">
-               <div className="max-w-4xl mx-auto bg-white border border-slate-100 p-8 sm:p-12 lg:p-20 lg:-[4rem] shadow-xl lg:shadow-2xl shadow-slate-200/50 relative overflow-hidden">
+               <div className="max-w-4xl mx-auto bg-white border border-slate-100 p-8 sm:p-12 lg:p-20 lg:-[4rem] shadow-xl lg:shadow-2xl shadow-slate-200/50 relative overflow-hidden rounded-lg">
                   <div className="absolute top-0 right-0 w-20 h-20 sm:w-32 sm:h-32 bg-blue-50 opacity-50"></div>
                   <h2 className="text-3xl sm:text-4xl font-black text-slate-900 mb-6 tracking-tighter">Claim Your <br className="block sm:hidden" /><span className="text-blue-600">Digital Node.</span></h2>
                   <form onSubmit={handleSearch} className="relative flex flex-col sm:flex-row gap-4 p-2 bg-slate-50 border border-slate-100 sm:-[2rem] overflow-hidden focus-within:border-blue-500 transition-colors">
@@ -137,14 +137,14 @@ export default function HostingClient({ data }) {
                         <input
                            type="text"
                            placeholder="Find your perfect domain (e.g. syict.com)"
-                           className="bg-transparent border-none outline-none text-slate-900 w-full font-bold placeholder:text-slate-400 min-w-0"
+                           className="bg-transparent border-none outline-none text-slate-900 w-full font-bold placeholder:text-slate-400 min-w-0 rounded-md"
                            value={domainQuery}
                            onChange={(e) => setDomainQuery(e.target.value)}
                         />
                      </div>
                      <button
                         disabled={isSearching}
-                        className="bg-blue-600 text-white font-black px-8 sm:px-12 py-4 sm:py-5 w-full sm:w-auto hover:bg-blue-700 transition-colors flex items-center justify-center gap-2 uppercase tracking-wider sm:tracking-widest text-xs sm:text-sm min-h-[56px]"
+                        className="bg-blue-600 text-white font-black px-8 sm:px-12 py-4 sm:py-5 w-full sm:w-auto hover:bg-blue-700 transition-colors flex items-center justify-center gap-2 uppercase tracking-wider sm:tracking-widest text-xs sm:text-sm min-h-[56px] rounded-md"
                      >
                         {isSearching ? <div className="w-5 h-5 border-2 border-white/30 border-t-white animate-spin"></div> : "Search Registry"}
                      </button>
@@ -156,7 +156,7 @@ export default function HostingClient({ data }) {
                            initial={{ opacity: 0, y: 10 }}
                            animate={{ opacity: 1, y: 0 }}
                            exit={{ opacity: 0 }}
-                           className={`mt-6 sm:mt-8 p-6 sm:p-8 rounded-3xl border flex flex-col sm:flex-row sm:items-center justify-between gap-6 ${searchResult.available ? 'bg-emerald-50 border-emerald-100 text-emerald-900' : 'bg-rose-50 border-rose-100 text-rose-900'}`}
+                           className={`mt-6 sm:mt-8 p-6 sm:p-8 rounded-lg border flex flex-col sm:flex-row sm:items-center justify-between gap-6 ${searchResult.available ? 'bg-emerald-50 border-emerald-100 text-emerald-900' : 'bg-rose-50 border-rose-100 text-rose-900'}`}
                         >
                            <div className="flex items-center gap-4 sm:gap-6">
                               {searchResult.available ? <IoCheckmarkCircleOutline className="text-emerald-500 text-3xl sm:text-4xl shrink-0" /> : <IoCloseCircleOutline className="text-rose-500 text-3xl sm:text-4xl shrink-0" />}
@@ -170,7 +170,7 @@ export default function HostingClient({ data }) {
                            {searchResult.available && (
                               <div className="flex sm:flex-col lg:flex-row items-center gap-4 sm:gap-6 w-full sm:w-auto">
                                  <p className="font-black text-xl w-full sm:w-auto text-left sm:text-right">{searchResult.price}</p>
-                                 <button className="bg-emerald-600 text-white font-black px-6 sm:px-8 py-3 text-xs sm:text-sm uppercase tracking-widest w-full sm:w-auto min-h-[44px]">Reserve Node</button>
+                                 <button className="bg-emerald-600 text-white font-black px-6 sm:px-8 py-3 text-xs sm:text-sm uppercase tracking-widest w-full sm:w-auto min-h-[44px] rounded-md">Reserve Node</button>
                               </div>
                            )}
                         </motion.div>
@@ -186,9 +186,9 @@ export default function HostingClient({ data }) {
                      <h2 className="text-xl sm:text-2xl lg:text-3xl font-black text-slate-900 tracking-tighter uppercase leading-none">SLA Metrics Matrix</h2>
                      <div className="h-[1px] flex-1 bg-slate-200"></div>
                   </div>
-                  <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-px bg-slate-200 border border-slate-200 lg:-[3rem] overflow-hidden shadow-xl lg:shadow-2xl">
+                  <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-px bg-slate-200 border border-slate-200 lg:-[3rem] overflow-hidden shadow-xl lg:shadow-2xl rounded-lg">
                      {data.sections.metrics.map((item, idx) => (
-                        <div key={idx} className="bg-white p-6 sm:p-8 lg:p-10 hover:bg-blue-50 transition-colors group">
+                        <div key={idx} className="bg-white p-6 sm:p-8 lg:p-10 hover:bg-blue-50 transition-colors group rounded-md">
                            <h4 className="text-[10px] sm:text-xs font-black text-blue-600 uppercase tracking-widest mb-2 sm:mb-3">{item.t}</h4>
                            <p className="text-xs sm:text-sm text-slate-500 font-medium leading-relaxed">{item.d}</p>
                         </div>
@@ -204,13 +204,13 @@ export default function HostingClient({ data }) {
                   <div className="flex flex-col sm:flex-row items-center gap-2 sm:gap-4 p-1 bg-white border border-slate-100 sm: shadow-lg w-full sm:w-auto">
                      <button
                         onClick={() => setIsAnnual(true)}
-                        className={`w-full sm:w-auto px-6 sm:px-8 py-4 rounded-2xl sm:rounded-full text-xs sm:text-sm font-black uppercase tracking-widest transition-all min-h-[44px] ${isAnnual ? 'bg-blue-600 text-white shadow-xl' : 'text-slate-400'}`}
+                        className={`w-full sm:w-auto px-6 sm:px-8 py-4 rounded-lg sm:rounded-full text-xs sm:text-sm font-black uppercase tracking-widest transition-all min-h-[44px] ${isAnnual ? 'bg-blue-600 text-white shadow-xl' : 'text-slate-400'}`}
                      >
-                        Annual Saving <span className="ml-2 bg-emerald-500 text-black px-2 py-0.5 text-[10px]">-20%</span>
+                        Annual Saving <span className="ml-2 bg-emerald-500 text-black px-2 py-0.5 text-[10px] rounded-md">-20%</span>
                      </button>
                      <button
                         onClick={() => setIsAnnual(false)}
-                        className={`w-full sm:w-auto px-6 sm:px-8 py-4 rounded-2xl sm:rounded-full text-xs sm:text-sm font-black uppercase tracking-widest transition-all min-h-[44px] ${!isAnnual ? 'bg-blue-600 text-white shadow-xl' : 'text-slate-400'}`}
+                        className={`w-full sm:w-auto px-6 sm:px-8 py-4 rounded-lg sm:rounded-full text-xs sm:text-sm font-black uppercase tracking-widest transition-all min-h-[44px] ${!isAnnual ? 'bg-blue-600 text-white shadow-xl' : 'text-slate-400'}`}
                      >
                         Monthly
                      </button>
@@ -227,10 +227,10 @@ export default function HostingClient({ data }) {
                            whileInView={{ opacity: 1, y: 0 }}
                            viewport={{ once: true }}
                            transition={{ delay: i * 0.1 }}
-                           className={`bg-white border ${plan.popular ? 'border-blue-500 border-2' : 'border-slate-100'} p-8 sm:p-10 lg:p-12 rounded-3xl lg:rounded-[3.5rem] flex flex-col transition-all hover:translate-y-0 lg:hover:-translate-y-4 shadow-xl shadow-slate-200/50 relative group snap-center w-[85vw] max-w-[320px] lg:w-auto lg:max-w-none whitespace-normal`}
+                           className={`bg-white border ${plan.popular ? 'border-blue-500 border-2' : 'border-slate-100'} p-8 sm:p-10 lg:p-12 rounded-lg lg:rounded-lg flex flex-col transition-all hover:translate-y-0 lg:hover:-translate-y-4 shadow-xl shadow-slate-200/50 relative group snap-center w-[85vw] max-w-[320px] lg:w-auto lg:max-w-none whitespace-normal`}
                         >
                            {plan.popular && (
-                              <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-blue-600 text-white px-6 sm:px-8 py-2 text-[10px] sm:text-xs font-black uppercase tracking-widest sm:tracking-[0.4em] shadow-2xl whitespace-nowrap">
+                              <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-blue-600 text-white px-6 sm:px-8 py-2 text-[10px] sm:text-xs font-black uppercase tracking-widest sm:tracking-[0.4em] shadow-2xl whitespace-nowrap rounded-lg">
                                  🔥 Preferred
                               </div>
                            )}
@@ -252,7 +252,7 @@ export default function HostingClient({ data }) {
                                  </li>
                               ))}
                            </ul>
-                           <button className={`w-full py-4 sm:py-6 rounded-2xl font-black text-xs sm:text-sm uppercase tracking-wider sm:tracking-widest transition-all min-h-[44px] ${plan.popular ? 'bg-blue-600 text-white shadow-2xl shadow-blue-600/30' : 'bg-slate-900 text-white hover:bg-slate-800'}`}>
+                           <button className={`w-full py-4 sm:py-6 rounded-lg font-black text-xs sm:text-sm uppercase tracking-wider sm:tracking-widest transition-all min-h-[44px] ${plan.popular ? 'bg-blue-600 text-white shadow-2xl shadow-blue-600/30' : 'bg-slate-900 text-white hover:bg-slate-800'}`}>
                               Initialize Cloud Instance
                            </button>
                         </motion.div>
@@ -272,8 +272,8 @@ export default function HostingClient({ data }) {
                <div className="overflow-x-auto snap-x snap-mandatory hide-scrollbar pb-8 lg:pb-0 lg:overflow-visible lg:snap-none">
                   <div className="flex lg:grid lg:grid-cols-3 gap-6 lg:gap-12 min-w-max lg:min-w-0 w-max lg:w-auto">
                      {(data.sections.pillars || []).map((p, i) => (
-                        <motion.div key={i} className="text-center group snap-center w-[85vw] max-w-[320px] lg:w-auto lg:max-w-none whitespace-normal bg-white lg:bg-transparent p-8 lg:p-0 border border-slate-100 lg:border-none shadow-xl lg:shadow-none">
-                           <div className="w-16 h-16 sm:w-20 sm:h-20 bg-blue-50 text-blue-600 sm:-[2rem] flex items-center justify-center text-3xl sm:text-4xl mx-auto mb-6 sm:mb-10 lg:group-hover:scale-110 transition-transform shadow-lg sm:shadow-xl shadow-blue-600/10 shrink-0">{getIcon(p.icon)}</div>
+                        <motion.div key={i} className="text-center group snap-center w-[85vw] max-w-[320px] lg:w-auto lg:max-w-none whitespace-normal bg-white lg:bg-transparent p-8 lg:p-0 border border-slate-100 lg:border-none shadow-xl lg:shadow-none rounded-lg">
+                           <div className="w-16 h-16 sm:w-20 sm:h-20 bg-blue-50 text-blue-600 sm:-[2rem] flex items-center justify-center text-3xl sm:text-4xl mx-auto mb-6 sm:mb-10 lg:group-hover:scale-110 transition-transform shadow-lg sm:shadow-xl shadow-blue-600/10 shrink-0 rounded-lg">{getIcon(p.icon)}</div>
                            <h4 className="text-slate-900 font-black text-xl sm:text-2xl mb-3 sm:mb-4 tracking-tight">{p.title}</h4>
                            <p className="text-slate-500 font-light leading-relaxed text-sm sm:text-lg">{p.desc}</p>
                         </motion.div>
@@ -292,13 +292,13 @@ export default function HostingClient({ data }) {
                <div className="flex flex-col sm:flex-row gap-4 sm:gap-6 justify-center">
                   {/* Sticky Mobile CTA */}
                   <div className="fixed bottom-0 left-0 w-full px-4 pt-4 pb-[max(1rem,env(safe-area-inset-bottom))] bg-slate-50/90 backdrop-blur-md border-t border-slate-200 z-50 lg:relative lg:border-none lg:bg-transparent lg:p-0 lg:w-auto">
-                     <button className="w-full lg:w-[280px] px-8 py-4 sm:py-6 bg-blue-600 text-white font-black hover:bg-blue-700 transition-all shadow-xl sm:shadow-2xl shadow-blue-600/40 uppercase tracking-wider sm:tracking-widest text-xs sm:text-sm flex items-center justify-center min-h-[44px]">
+                     <button className="w-full lg:w-[280px] px-8 py-4 sm:py-6 bg-blue-600 text-white font-black hover:bg-blue-700 transition-all shadow-xl sm:shadow-2xl shadow-blue-600/40 uppercase tracking-wider sm:tracking-widest text-xs sm:text-sm flex items-center justify-center min-h-[44px] rounded-md">
                         {data.cta?.title || "Initialize Plan"}
                      </button>
                   </div>
                   <Link
                      href="/services/hosting/details"
-                     className="hidden lg:flex w-full sm:w-[280px] px-8 py-4 sm:py-6 bg-slate-900 text-white font-black hover:bg-slate-800 transition-all uppercase tracking-wider sm:tracking-widest text-xs sm:text-sm items-center justify-center text-center min-h-[44px]"
+                     className="hidden lg:flex w-full sm:w-[280px] px-8 py-4 sm:py-6 bg-slate-900 text-white font-black hover:bg-slate-800 transition-all uppercase tracking-wider sm:tracking-widest text-xs sm:text-sm items-center justify-center text-center min-h-[44px] rounded-md"
                   >
                      Technical Hub
                   </Link>

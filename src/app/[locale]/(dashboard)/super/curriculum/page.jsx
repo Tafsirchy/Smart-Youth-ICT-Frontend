@@ -372,7 +372,7 @@ export default function MasterCurriculumPage() {
  animate={{ opacity: 1, scale: 1 }}
  className="text-4xl font-black text-slate-900 tracking-tight flex items-center gap-4"
  >
- <span className="p-3 bg-indigo-600 text-white shadow-lg shadow-indigo-600/20">
+ <span className="p-3 bg-indigo-600 text-white shadow-lg shadow-indigo-600/20 rounded-lg">
  <HiOutlineAcademicCap size={32} />
  </span>
  Central Curriculum
@@ -458,7 +458,7 @@ export default function MasterCurriculumPage() {
  <motion.div
  initial={{ opacity: 0, y: -10 }}
  animate={{ opacity: 1, y: 0 }}
- className="border border-slate-100 bg-white shadow-sm p-4 space-y-3"
+ className="border border-slate-100 bg-white shadow-sm p-4 space-y-3 rounded-md"
  >
  <div className="flex items-center justify-between">
  <h3 className="text-sm font-black text-slate-900 uppercase tracking-widest">
@@ -469,7 +469,7 @@ export default function MasterCurriculumPage() {
  priceRange.max < getMaxPrice()) && (
  <button
  onClick={clearFilters}
- className="text-xs font-bold text-indigo-600 hover:text-indigo-700 uppercase tracking-widest transition-colors"
+ className="text-xs font-bold text-indigo-600 hover:text-indigo-700 uppercase tracking-widest transition-colors rounded-md"
  >
  Clear All
  </button>
@@ -486,7 +486,7 @@ export default function MasterCurriculumPage() {
  {uniqueCategories.map((cat) => (
  <label
  key={cat}
- className="flex items-center gap-3 cursor-pointer group"
+ className="flex items-center gap-3 cursor-pointer group rounded-md"
  >
  <input
  type="checkbox"
@@ -592,14 +592,14 @@ export default function MasterCurriculumPage() {
  <motion.div
  key={course._id}
  variants={item}
- className="bg-white group border border-slate-100 shadow-sm hover:shadow-2xl hover:-translate-y-2 transition-all duration-500 p-2"
+ className="bg-white group border border-slate-100 shadow-sm hover:shadow-2xl hover:-translate-y-2 transition-all duration-500 p-2 rounded-md"
  >
  <div className="relative h-36 overflow-hidden bg-slate-900 mb-3">
  {course.thumbnail ? (
  <img
  src={course.thumbnail}
  alt=""
- className="w-full h-full object-cover opacity-80 group-hover:scale-110 transition-transform duration-700 bg-[#f0f0f0]"
+ className="w-full h-full object-cover opacity-80 group-hover:scale-110 transition-transform duration-700 bg-[#f0f0f0] rounded-md"
  
 loading="lazy"
 onError={(e) => { e.target.onerror = null; e.target.srcset = ''; e.target.src = '/assets/fallback.png'; }}
@@ -613,7 +613,7 @@ decoding="async"/>
  </div>
  )}
  <div className="absolute top-4 left-4">
- <span className="bg-white/90 backdrop-blur-md px-3 py-1.5 text-[10px] font-black text-indigo-600 uppercase tracking-widest flex items-center gap-1.5 shadow-sm">
+ <span className="bg-white/90 backdrop-blur-md px-3 py-1.5 text-[10px] font-black text-indigo-600 uppercase tracking-widest flex items-center gap-1.5 shadow-sm rounded-md">
  <HiOutlineCheckBadge size={14} />
  Master Certified
  </span>
@@ -645,13 +645,13 @@ decoding="async"/>
  </h3>
 
  <div className="grid grid-cols-2 gap-2 mb-4">
- <div className="flex items-center gap-2 bg-slate-50 p-2 border border-slate-100/50">
+ <div className="flex items-center gap-2 bg-slate-50 p-2 border border-slate-100/50 rounded-lg">
  <HiOutlineRectangleStack className="text-slate-400" />
  <span className="text-xs font-bold text-slate-600">
  {course.curriculum?.length || 0} Modules
  </span>
  </div>
- <div className="flex items-center gap-2 bg-slate-50 p-2.5 border border-slate-100/50">
+ <div className="flex items-center gap-2 bg-slate-50 p-2.5 border border-slate-100/50 rounded-lg">
  <HiOutlineCloudArrowUp className="text-slate-400" />
  <span className="text-xs font-bold text-slate-600">
  Active Node
@@ -683,7 +683,7 @@ decoding="async"/>
  </motion.div>
 
  {!loading && totalFiltered > 0 && totalPages > 1 && (
- <div className="border border-slate-100 bg-white px-4 py-3 md:px-5 md:py-3 shadow-sm flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
+ <div className="border border-slate-100 bg-white px-4 py-3 md:px-5 md:py-3 shadow-sm flex flex-col gap-3 md:flex-row md:items-center md:justify-between rounded-lg">
  <p className="text-[11px] font-black uppercase tracking-widest text-slate-400">
  Showing{" "}
  <span className="text-slate-900">{(page - 1) * PAGE_SIZE + 1}</span>{" "}
@@ -777,7 +777,7 @@ decoding="async"/>
  initial={{ scale: 0.95, opacity: 0, y: 40 }}
  animate={{ scale: 1, opacity: 1, y: 0 }}
  exit={{ scale: 0.95, opacity: 0, y: 40 }}
- className="bg-white w-full max-w-2xl -[2rem] md:-[2.5rem] shadow-2xl p-6 md:p-10 max-h-[90vh] overflow-y-auto custom-scrollbar relative z-[10000] mt-auto md:mt-0"
+ className="bg-white w-full max-w-2xl -[2rem] md:-[2.5rem] shadow-2xl p-6 md:p-10 max-h-[90vh] overflow-y-auto custom-scrollbar relative z-[10000] mt-auto md:mt-0 rounded-lg"
  >
  <div className="flex justify-between items-center mb-8">
  <h2 className="text-2xl font-black text-slate-900">
@@ -930,7 +930,7 @@ decoding="async"/>
  <img
  src={courseForm.thumbnail}
  alt="Preview"
- className="object-cover bg-[#f0f0f0]"
+ className="object-cover bg-[#f0f0f0] rounded-md"
  style={{ maxWidth: '100%', maxHeight: '300px' }}
  
 loading="lazy"
@@ -1032,7 +1032,7 @@ decoding="async"/>
  {courseForm.curriculum.map((module, modIdx) => (
  <div
  key={modIdx}
- className="border border-slate-200 p-4 space-y-3"
+ className="border border-slate-200 p-4 space-y-3 rounded-lg"
  >
  <input
  value={module.title.en}
@@ -1306,7 +1306,7 @@ decoding="async"/>
 
  <button
  type="submit"
- className="w-full bg-indigo-600 text-white py-5 font-black text-xs uppercase tracking-widest hover:bg-indigo-700 shadow-xl shadow-indigo-600/20"
+ className="w-full bg-indigo-600 text-white py-5 font-black text-xs uppercase tracking-widest hover:bg-indigo-700 shadow-xl shadow-indigo-600/20 rounded-md"
  >
  {editingCourse
  ? "Update Curriculum"
@@ -1328,7 +1328,7 @@ decoding="async"/>
  initial={{ y: 40, opacity: 0 }}
  animate={{ y: 0, opacity: 1 }}
  exit={{ y: 40, opacity: 0 }}
- className="bg-white w-full max-w-xl -[2rem] md:-[2.5rem] shadow-2xl p-6 md:p-10 relative z-[10000] max-h-[90vh] overflow-y-auto mt-auto md:mt-0"
+ className="bg-white w-full max-w-xl -[2rem] md:-[2.5rem] shadow-2xl p-6 md:p-10 relative z-[10000] max-h-[90vh] overflow-y-auto mt-auto md:mt-0 rounded-lg"
  >
  <h2 className="text-2xl font-black text-slate-900 mb-2">
  Mass Deployment
@@ -1383,7 +1383,7 @@ decoding="async"/>
  <div className="flex gap-4">
  <button
  onClick={handleDeploy}
- className="flex-1 bg-indigo-600 text-white py-4 font-black text-xs uppercase tracking-widest hover:bg-indigo-700 shadow-xl shadow-indigo-600/20 flex items-center justify-center gap-2"
+ className="flex-1 bg-indigo-600 text-white py-4 font-black text-xs uppercase tracking-widest hover:bg-indigo-700 shadow-xl shadow-indigo-600/20 flex items-center justify-center gap-2 rounded-md"
  >
  Push to {selectedBranches.length} Nodes
  <HiOutlineChevronRight />

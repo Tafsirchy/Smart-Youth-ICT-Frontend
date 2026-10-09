@@ -22,10 +22,10 @@ export default function CourseInfoGrid({ course }) {
  whileInView={{ opacity: 1, y: 0 }}
  viewport={{ once: true, margin: '-50px' }}
  transition={{ delay: i * 0.05 }}
- className="flex flex-col items-center justify-center p-4 md:p-6 bg-white border border-slate-100/60 shadow-sm text-center hover:shadow-md transition-shadow"
+ className="flex flex-col items-center justify-center p-4 md:p-6 bg-white border border-slate-100 rounded-lg shadow-sm text-center hover:shadow-md hover:border-slate-200 transition-all"
  >
- <item.icon size={28} className={`${item.color} mb-3 opacity-90`} />
- <h4 className="text-[10px] sm:text-xs text-slate-400 font-extrabold uppercase tracking-widest mb-1.5">{item.label}</h4>
+ <item.icon size={28} className="text-slate-400 mb-3" />
+ <h4 className="text-[10px] sm:text-xs text-slate-500 font-semibold uppercase tracking-wider mb-1.5">{item.label}</h4>
  <span className="text-sm md:text-base font-bold text-slate-800 leading-tight">{item.value}</span>
  </motion.div>
  ))}

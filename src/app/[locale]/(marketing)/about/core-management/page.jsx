@@ -163,7 +163,7 @@ export default function CoreManagementPage() {
  <span className="text-[11px] font-black text-slate-900 uppercase tracking-widest group-hover:text-brand-pink transition-colors">
  View Profile
  </span>
- <div className="w-8 h-8 bg-slate-50 group-hover:bg-brand-pink/10 flex items-center justify-center transition-colors">
+ <div className="w-8 h-8 bg-slate-50 group-hover:bg-brand-pink/10 flex items-center justify-center transition-colors rounded-md">
  <LuArrowRight className="text-slate-400 group-hover:text-brand-pink group-hover:translate-x-0.5 transition-all" />
  </div>
  </div>
@@ -201,7 +201,7 @@ export default function CoreManagementPage() {
 
  <div className="p-8 md:p-12 flex-1 flex flex-col pt-16 md:pt-20">
  <div className="flex flex-col sm:flex-row gap-6 md:gap-8 items-start mb-10">
- <div className="relative w-40 h-40 md:w-56 md:h-56 shrink-0 bg-slate-100 border-4 border-slate-50 shadow-xl shadow-slate-200/50 overflow-hidden flex items-center justify-center">
+ <div className="relative w-40 h-40 md:w-56 md:h-56 shrink-0 bg-slate-100 border-4 border-slate-50 shadow-xl shadow-slate-200/50 overflow-hidden flex items-center justify-center rounded-lg">
  {selectedMember.image ? (
  <Image
  src={selectedMember.image}
@@ -244,7 +244,7 @@ export default function CoreManagementPage() {
  href={selectedMember.socials.linkedin}
  target="_blank"
  rel="noopener noreferrer"
- className="flex items-center gap-2 px-5 py-3 bg-slate-50 hover:bg-[#0077b5] text-slate-600 hover:text-white border border-slate-200 hover:border-[#0077b5] transition-all font-bold text-xs uppercase tracking-wider"
+ className="flex items-center gap-2 px-5 py-3 bg-slate-50 hover:bg-[#0077b5] text-slate-600 hover:text-white border border-slate-200 hover:border-[#0077b5] transition-all font-bold text-xs uppercase tracking-wider rounded-md"
  >
  <IoLogoLinkedin size={18} />
  LinkedIn
@@ -253,7 +253,7 @@ export default function CoreManagementPage() {
  {selectedMember.socials?.email && (
  <a
  href={`mailto:${selectedMember.socials.email}`}
- className="flex items-center gap-2 px-5 py-3 bg-slate-50 hover:bg-rose-500 text-slate-600 hover:text-white border border-slate-200 hover:border-rose-500 transition-all font-bold text-xs uppercase tracking-wider"
+ className="flex items-center gap-2 px-5 py-3 bg-slate-50 hover:bg-rose-500 text-slate-600 hover:text-white border border-slate-200 hover:border-rose-500 transition-all font-bold text-xs uppercase tracking-wider rounded-md"
  >
  <IoMailOutline size={18} />
  Contact

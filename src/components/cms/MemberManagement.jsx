@@ -145,13 +145,13 @@ export default function MemberManagement({ type, title, subtitle }) {
  initial={{ opacity: 0, y: 20 }}
  animate={{ opacity: 1, y: 0 }}
  transition={{ delay: index * 0.05 }}
- className="group relative bg-white p-3 border border-slate-100 flex items-center gap-3 transition-all hover:shadow-2xl hover:shadow-pink-500/5 hover:border-pink-500/20"
+ className="group relative bg-white p-3 border border-slate-100 flex items-center gap-3 transition-all hover:shadow-2xl hover:shadow-pink-500/5 hover:border-pink-500/20 rounded-md"
  >
  <div className="absolute top-2 right-3 text-[10px] font-black text-slate-200 group-hover:text-pink-200 transition-colors">
  #{index + 1}
  </div>
 
- <div className="w-14 h-14 bg-slate-50 overflow-hidden flex-shrink-0 border border-white shadow-sm group-hover:scale-105 transition-transform">
+ <div className="w-14 h-14 bg-slate-50 overflow-hidden flex-shrink-0 border border-white shadow-sm group-hover:scale-105 transition-transform rounded-lg">
  <div className="relative w-full h-full">
  <Image
  src={member.image || "/images/placeholder.png"}
@@ -209,7 +209,7 @@ export default function MemberManagement({ type, title, subtitle }) {
  <motion.div
  initial={{ scale: 0.95, y: 50, opacity: 0 }}
  animate={{ scale: 1, y: 0, opacity: 1 }}
- className="bg-white w-full max-w-xl sm: p-4 sm:p-5 shadow-2xl relative max-h-[90vh] overflow-y-auto custom-scrollbar flex flex-col"
+ className="bg-white w-full max-w-xl sm: p-4 sm:p-5 shadow-2xl relative max-h-[90vh] overflow-y-auto custom-scrollbar flex flex-col rounded-md"
  >
  <div className="flex items-center justify-between mb-4 shrink-0">
  <h3 className="text-xl font-black text-slate-900 leading-[1.4]">
@@ -238,7 +238,7 @@ export default function MemberManagement({ type, title, subtitle }) {
  </label>
  <input
  required
- className="w-full px-3 py-2 bg-slate-50 border-2 border-transparent focus:border-pink-500/20 focus:bg-white transition-all outline-none text-sm font-bold leading-[1.4]"
+ className="w-full px-3 py-2 bg-slate-50 border-2 border-transparent focus:border-pink-500/20 focus:bg-white transition-all outline-none text-sm font-bold leading-[1.4] rounded-md"
  value={formData.name}
  onChange={(e) =>
  setFormData({ ...formData, name: e.target.value })
@@ -251,7 +251,7 @@ export default function MemberManagement({ type, title, subtitle }) {
  </label>
  <input
  required
- className="w-full px-3 py-2 bg-slate-50 border-2 border-transparent focus:border-pink-500/20 focus:bg-white transition-all outline-none text-sm leading-[1.4]"
+ className="w-full px-3 py-2 bg-slate-50 border-2 border-transparent focus:border-pink-500/20 focus:bg-white transition-all outline-none text-sm leading-[1.4] rounded-md"
  value={formData.role}
  onChange={(e) =>
  setFormData({ ...formData, role: e.target.value })
@@ -264,7 +264,7 @@ export default function MemberManagement({ type, title, subtitle }) {
  </label>
  <input
  placeholder="e.g. University of Dhaka"
- className="w-full px-3 py-2 bg-slate-50 border-2 border-transparent focus:border-pink-500/20 focus:bg-white transition-all outline-none text-sm leading-[1.4]"
+ className="w-full px-3 py-2 bg-slate-50 border-2 border-transparent focus:border-pink-500/20 focus:bg-white transition-all outline-none text-sm leading-[1.4] rounded-md"
  value={formData.institution}
  onChange={(e) =>
  setFormData({
@@ -319,7 +319,7 @@ export default function MemberManagement({ type, title, subtitle }) {
  </label>
  <input
  placeholder="React, UI/UX, SEO"
- className="w-full px-3 py-2 bg-slate-50 border-2 border-transparent focus:border-pink-500/20 focus:bg-white transition-all outline-none text-sm font-bold leading-[1.4]"
+ className="w-full px-3 py-2 bg-slate-50 border-2 border-transparent focus:border-pink-500/20 focus:bg-white transition-all outline-none text-sm font-bold leading-[1.4] rounded-md"
  value={
  Array.isArray(formData.expertise)
  ? formData.expertise.join(", ")
@@ -345,7 +345,7 @@ export default function MemberManagement({ type, title, subtitle }) {
  </label>
  <input
  inputMode="url"
- className="w-full px-3 py-2 bg-slate-50 border-2 border-transparent focus:border-pink-500/20 focus:bg-white transition-all outline-none text-sm leading-[1.4]"
+ className="w-full px-3 py-2 bg-slate-50 border-2 border-transparent focus:border-pink-500/20 focus:bg-white transition-all outline-none text-sm leading-[1.4] rounded-md"
  placeholder="https://linkedin.com/in/..."
  value={formData.socials.linkedin}
  onChange={(e) =>
@@ -365,7 +365,7 @@ export default function MemberManagement({ type, title, subtitle }) {
  </label>
  <input
  inputMode="email"
- className="w-full px-3 py-2 bg-slate-50 border-2 border-transparent focus:border-pink-500/20 focus:bg-white transition-all outline-none text-sm leading-[1.4]"
+ className="w-full px-3 py-2 bg-slate-50 border-2 border-transparent focus:border-pink-500/20 focus:bg-white transition-all outline-none text-sm leading-[1.4] rounded-md"
  placeholder="email@example.com"
  value={formData.socials.email}
  onChange={(e) =>
@@ -382,7 +382,7 @@ export default function MemberManagement({ type, title, subtitle }) {
  </label>
  <input
  inputMode="url"
- className="w-full px-3 py-2 bg-slate-50 border-2 border-transparent focus:border-pink-500/20 focus:bg-white transition-all outline-none text-sm leading-[1.4]"
+ className="w-full px-3 py-2 bg-slate-50 border-2 border-transparent focus:border-pink-500/20 focus:bg-white transition-all outline-none text-sm leading-[1.4] rounded-md"
  placeholder="https://yourpage.com"
  value={formData.socials.website}
  onChange={(e) =>
@@ -408,7 +408,7 @@ export default function MemberManagement({ type, title, subtitle }) {
  </button>
  <button
  type="submit"
- className="flex-[2] py-2.5 bg-slate-900 text-white font-black shadow-xl shadow-slate-900/20 hover:bg-black transition-all flex items-center justify-center gap-1.5 leading-[1.4]"
+ className="flex-[2] py-2.5 bg-slate-900 text-white font-black shadow-xl shadow-slate-900/20 hover:bg-black transition-all flex items-center justify-center gap-1.5 leading-[1.4] rounded-md"
  >
  <LuCheck className="w-5 h-5" />
  {editingMember ? "Update Member" : "Save Member"}

@@ -80,7 +80,7 @@ export default function SupportContent() {
  initial={{ opacity: 0, y: 10 }}
  animate={{ opacity: 1, y: 0 }}
  transition={{ delay: i * 0.05 }}
- className="bg-white border border-neutral-100 p-5 flex items-center justify-between hover:shadow-lg hover:shadow-neutral-500/5 transition-all group"
+ className="bg-white border border-neutral-100 p-5 flex items-center justify-between hover:shadow-lg hover:shadow-neutral-500/5 transition-all group rounded-lg"
  >
  <div className="flex items-center gap-4">
  <div className={`w-10 h-10 flex items-center justify-center ${
@@ -116,7 +116,7 @@ export default function SupportContent() {
  </motion.div>
  ))
  ) : (
- <div className="bg-white border-2 border-dashed border-neutral-100 p-12 text-center">
+ <div className="bg-white border-2 border-dashed border-neutral-100 p-12 text-center rounded-lg">
  <div className="w-16 h-16 bg-neutral-50 flex items-center justify-center text-neutral-200 mx-auto mb-4">
  <HiOutlineLifebuoy size={32} />
  </div>
@@ -151,20 +151,20 @@ export default function SupportContent() {
  </div>
  </div>
 
- <div className="bg-white border border-neutral-100 p-6 shadow-sm">
+ <div className="bg-white border border-neutral-100 p-6 shadow-sm rounded-lg">
  <h3 className="font-bold text-neutral-900 mb-4 flex items-center gap-2 leading-snug">
  <HiOutlineExclamationCircle className="text-blue-500" /> Quick FAQs
  </h3>
  <div className="space-y-3 text-sm font-medium text-neutral-600">
- <p className="hover:text-blue-600 transition-colors cursor-pointer flex items-center justify-between leading-normal">
+ <p className="hover:text-blue-600 transition-colors cursor-pointer flex items-center justify-between leading-normal rounded-md">
  Payment failed? 
  <HiChevronRight />
  </p>
- <p className="hover:text-blue-600 transition-colors cursor-pointer flex items-center justify-between leading-normal">
+ <p className="hover:text-blue-600 transition-colors cursor-pointer flex items-center justify-between leading-normal rounded-md">
  Certificate not issued?
  <HiChevronRight />
  </p>
- <p className="hover:text-blue-600 transition-colors cursor-pointer flex items-center justify-between leading-normal">
+ <p className="hover:text-blue-600 transition-colors cursor-pointer flex items-center justify-between leading-normal rounded-md">
  Login issues?
  <HiChevronRight />
  </p>
@@ -187,7 +187,7 @@ export default function SupportContent() {
  initial={{ opacity: 0, scale: 0.95, y: 10 }}
  animate={{ opacity: 1, scale: 1, y: 0 }}
  exit={{ opacity: 0, scale: 0.95, y: 10 }}
- className="relative w-full max-w-xl bg-white shadow-2xl p-6 overflow-hidden z-[10000]"
+ className="relative w-full max-w-xl bg-white shadow-2xl p-6 overflow-hidden z-[10000] rounded-lg"
  >
  <div className="absolute top-0 right-0 p-4">
  <button onClick={() => setShowCreate(false)} className="w-8 h-8 bg-neutral-50 text-neutral-400 flex items-center justify-center hover:bg-neutral-100 transition-colors">
@@ -202,7 +202,7 @@ export default function SupportContent() {
  <div className="space-y-1.5">
  <label className="text-[10px] font-black text-neutral-400 uppercase tracking-widest ml-1 leading-none">Subject</label>
  <input 
- required className="w-full bg-neutral-50 border-none px-4 py-3 text-sm font-bold focus:ring-2 focus:ring-blue-600 transition-all outline-none leading-tight" 
+ required className="w-full bg-neutral-50 border-none px-4 py-3 text-sm font-bold focus:ring-2 focus:ring-blue-600 transition-all outline-none leading-tight rounded-md" 
  placeholder="e.g. Cannot access Lesson 5"
  value={form.subject} onChange={(e) => setForm({...form, subject: e.target.value})}
  />
@@ -230,7 +230,7 @@ export default function SupportContent() {
  </div>
 
  <div className="pt-2">
- <button type="submit" disabled={submitting} className="w-full py-3 bg-blue-600 text-white font-extrabold text-sm shadow-lg shadow-blue-600/20 hover:bg-blue-700 transition-all disabled:opacity-50 leading-tight">
+ <button type="submit" disabled={submitting} className="w-full py-3 bg-blue-600 text-white font-extrabold text-sm shadow-lg shadow-blue-600/20 hover:bg-blue-700 transition-all disabled:opacity-50 leading-tight rounded-md">
  {submitting ? 'Raising Ticket...' : 'Submit Support Request'}
  </button>
  </div>

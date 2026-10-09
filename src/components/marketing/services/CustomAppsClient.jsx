@@ -36,7 +36,7 @@ export default function CustomAppsClient({ data }) {
             <motion.div
               initial={{ opacity: 0, x: -20 }}
               animate={{ opacity: 1, x: 0 }}
-              className="inline-flex items-center gap-2 px-3 py-1.5 bg-violet-50 border border-violet-100 text-violet-700 text-[10px] font-black tracking-widest uppercase mb-6 leading-[1.4]"
+              className="inline-flex items-center gap-2 px-3 py-1.5 bg-violet-50 border border-violet-100 text-violet-700 text-[10px] font-black tracking-widest uppercase mb-6 leading-[1.4] rounded-md"
             >
               <IoRocketOutline className="text-sm" /> {hero.badge}
             </motion.div>
@@ -61,12 +61,12 @@ export default function CustomAppsClient({ data }) {
             </motion.p>
 
             <div className="flex flex-col sm:flex-row gap-4">
-              <button className="w-full sm:w-[240px] min-h-[48px] px-4 py-3 md:py-4 bg-violet-600 text-white font-bold hover:bg-violet-700 transition-all shadow-xl shadow-violet-600/20 uppercase tracking-widest text-[10px] flex items-center justify-center leading-[1.4]">
+              <button className="w-full sm:w-[240px] min-h-[48px] px-4 py-3 md:py-4 bg-violet-600 text-white font-bold hover:bg-violet-700 transition-all shadow-xl shadow-violet-600/20 uppercase tracking-widest text-[10px] flex items-center justify-center leading-[1.4] rounded-md">
                 Initialize Product Brief
               </button>
               <Link
                 href="/services/custom-apps/details"
-                className="w-full sm:w-[240px] min-h-[48px] px-4 py-3 md:py-4 bg-white border border-slate-200 text-slate-900 font-bold hover:bg-slate-50 transition-all uppercase tracking-widest text-[10px] flex items-center justify-center text-center leading-[1.4]"
+                className="w-full sm:w-[240px] min-h-[48px] px-4 py-3 md:py-4 bg-white border border-slate-200 text-slate-900 font-bold hover:bg-slate-50 transition-all uppercase tracking-widest text-[10px] flex items-center justify-center text-center leading-[1.4] rounded-md"
               >
                 Technical Specifications
               </Link>
@@ -78,28 +78,28 @@ export default function CustomAppsClient({ data }) {
               initial={{ opacity: 0, scale: 0.9, rotate: -5 }}
               animate={{ opacity: 1, scale: 1, rotate: 0 }}
               transition={{ duration: 1 }}
-              className="relative p-8 xl:p-12 bg-white xl:-[4rem] border border-slate-100 shadow-2xl overflow-hidden group"
+              className="relative p-8 xl:p-12 bg-white xl:-[4rem] border border-slate-100 shadow-2xl overflow-hidden group rounded-lg"
             >
               <div className="absolute inset-0 opacity-5 pointer-events-none" style={{ backgroundImage: "linear-gradient(#4f46e5 1px, transparent 1px), linear-gradient(90deg, #4f46e5 1px, transparent 1px)", backgroundSize: "40px 40px" }}></div>
 
               <div className="grid grid-cols-2 gap-4 xl:gap-8 relative z-10 aspect-square">
-                <motion.div animate={{ y: [0, -10, 0] }} transition={{ duration: 4, repeat: Infinity }} className="p-6 xl:p-8 bg-violet-50 xl: border border-violet-100 flex flex-col justify-between shadow-sm">
-                  <div className="w-8 h-8 xl:w-10 xl:h-10 bg-violet-600 xl: shadow-lg shadow-violet-200"></div>
+                <motion.div animate={{ y: [0, -10, 0] }} transition={{ duration: 4, repeat: Infinity }} className="p-6 xl:p-8 bg-violet-50 xl: border border-violet-100 flex flex-col justify-between shadow-sm rounded-lg">
+                  <div className="w-8 h-8 xl:w-10 xl:h-10 bg-violet-600 xl: shadow-lg shadow-violet-200 rounded-lg"></div>
                   <div className="space-y-1.5 xl:space-y-2">
                     <div className="h-1.5 w-full bg-violet-200"></div>
                     <div className="h-1.5 w-3/4 bg-violet-200"></div>
                   </div>
                 </motion.div>
-                <motion.div animate={{ y: [10, 0, 10] }} transition={{ duration: 4, repeat: Infinity }} className="p-6 xl:p-8 bg-slate-900 xl: flex flex-col justify-end shadow-xl">
+                <motion.div animate={{ y: [10, 0, 10] }} transition={{ duration: 4, repeat: Infinity }} className="p-6 xl:p-8 bg-slate-900 xl: flex flex-col justify-end shadow-xl rounded-lg">
                   <div className="h-8 xl:h-10 bg-white/10 flex items-center justify-center text-[10px] xl:text-xs font-black text-violet-400">ENGINE_SYNC</div>
                 </motion.div>
-                <motion.div className="col-span-2 p-6 xl:p-10 bg-white xl:-[2.5rem] border border-slate-100 shadow-xl flex items-center justify-between">
+                <motion.div className="col-span-2 p-6 xl:p-10 bg-white xl:-[2.5rem] border border-slate-100 shadow-xl flex items-center justify-between rounded-lg">
                   <div className="flex gap-2 xl:gap-3">
                     <div className="w-5 h-5 xl:w-6 xl:h-6 bg-violet-500"></div>
                     <div className="w-5 h-5 xl:w-6 xl:h-6 bg-indigo-500"></div>
                     <div className="w-5 h-5 xl:w-6 xl:h-6 bg-slate-200"></div>
                   </div>
-                  <div className="w-24 xl:w-32 h-5 xl:h-6 bg-slate-50 border border-slate-100 flex items-center justify-center">
+                  <div className="w-24 xl:w-32 h-5 xl:h-6 bg-slate-50 border border-slate-100 flex items-center justify-center rounded-lg">
                     <div className="w-16 xl:w-24 h-1.5 bg-slate-200"></div>
                   </div>
                 </motion.div>
@@ -114,7 +114,7 @@ export default function CustomAppsClient({ data }) {
 
         {/* SERVICE VERTICALS */}
         <div className="mb-16 lg:mb-24">
-          <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-10 gap-4 lg:gap-6 border-l-4 border-violet-600 pl-6 lg:pl-8">
+          <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-10 gap-4 lg:gap-6 border-l-4 border-violet-600 pl-6 lg:pl-8 rounded-lg">
             <div className="max-w-xl">
               <h2 className="text-[10px] md:text-xs font-black text-violet-600 uppercase tracking-widest mb-3 leading-[1.4]">Custom Engineering</h2>
               <p className="text-3xl md:text-5xl font-black text-slate-900 leading-[1.1]">
@@ -133,9 +133,9 @@ export default function CustomAppsClient({ data }) {
                 transition={{ delay: i * 0.1 }}
                 className="group cursor-default"
               >
-                <div className="bg-white md:-[2rem] p-6 md:p-10 h-full border border-slate-100 shadow-sm shadow-slate-200/50 hover:shadow-xl transition-all group-hover:-translate-y-1 relative overflow-hidden">
+                <div className="bg-white md:-[2rem] p-6 md:p-10 h-full border border-slate-100 shadow-sm shadow-slate-200/50 hover:shadow-xl transition-all group-hover:-translate-y-1 relative overflow-hidden rounded-lg">
                   <div
-                    className={`w-12 h-12 md:w-14 md:h-14 rounded-xl md:rounded-2xl bg-gradient-to-br ${item.color} text-white flex items-center justify-center text-2xl md:text-3xl mb-6 md:mb-8 shadow-md`}
+                    className={`w-12 h-12 md:w-14 md:h-14 rounded-lg md:rounded-lg bg-gradient-to-br ${item.color} text-white flex items-center justify-center text-2xl md:text-3xl mb-6 md:mb-8 shadow-md`}
                   >
                     {getIcon(item.icon)}
                   </div>
@@ -152,7 +152,7 @@ export default function CustomAppsClient({ data }) {
         </div>
 
         {/* TECH STACK HUB */}
-        <div className="mb-16 lg:mb-24 bg-white lg:-[4rem] p-6 lg:p-12 border border-slate-100 shadow-xl relative overflow-hidden">
+        <div className="mb-16 lg:mb-24 bg-white lg:-[4rem] p-6 lg:p-12 border border-slate-100 shadow-xl relative overflow-hidden rounded-lg">
           <div className="hidden lg:block absolute top-0 right-0 w-1/3 h-full bg-violet-50/50 -skew-x-[20deg] origin-top translate-x-1/2 opacity-50"></div>
 
           <div className="flex flex-col lg:grid lg:grid-cols-2 gap-8 lg:gap-12 items-center relative z-10">
@@ -163,7 +163,7 @@ export default function CustomAppsClient({ data }) {
               <div className="pt-6 lg:pt-8 border-t border-slate-200">
                 {/* Mobile Accordion */}
                 <details className="lg:hidden group">
-                  <summary className="cursor-pointer min-h-[48px] list-none font-bold text-sm text-violet-600 flex justify-between items-center bg-violet-50 p-4 border border-violet-100 leading-[1.4]">
+                  <summary className="cursor-pointer min-h-[48px] list-none font-bold text-sm text-violet-600 flex justify-between items-center bg-violet-50 p-4 border border-violet-100 leading-[1.4] rounded-md">
                     View Full Tech Stack
                     <span className="transition group-open:rotate-180 text-xs">▼</span>
                   </summary>
@@ -173,7 +173,7 @@ export default function CustomAppsClient({ data }) {
                         <h4 className="text-[10px] font-black text-slate-900 uppercase tracking-widest leading-[1.4]">{int.group}</h4>
                         <div className="flex overflow-x-auto snap-x scrollbar-hide gap-2 pb-2 -mb-2">
                           {int.tags?.map(tag => (
-                            <span key={tag} className="shrink-0 snap-start px-2 py-1 bg-slate-50 border border-slate-100 text-[10px] font-bold text-slate-500 leading-[1.4]">{tag}</span>
+                            <span key={tag} className="shrink-0 snap-start px-2 py-1 bg-slate-50 border border-slate-100 text-[10px] font-bold text-slate-500 leading-[1.4] rounded-md">{tag}</span>
                           ))}
                         </div>
                       </div>
@@ -188,7 +188,7 @@ export default function CustomAppsClient({ data }) {
                       <h4 className="text-[10px] font-black text-slate-900 uppercase tracking-widest leading-[1.4]">{int.group}</h4>
                       <div className="flex flex-wrap gap-2">
                         {int.tags?.map(tag => (
-                          <span key={tag} className="px-2 py-1 bg-slate-50 border border-slate-100 text-[10px] font-bold text-slate-500 leading-[1.4]">{tag}</span>
+                          <span key={tag} className="px-2 py-1 bg-slate-50 border border-slate-100 text-[10px] font-bold text-slate-500 leading-[1.4] rounded-md">{tag}</span>
                         ))}
                       </div>
                     </div>
@@ -198,7 +198,7 @@ export default function CustomAppsClient({ data }) {
             </div>
 
             <div className="relative group w-full lg:w-auto lg:scale-105">
-              <div className="p-6 lg:p-10 bg-slate-900 lg:-[3rem] text-white shadow-xl relative overflow-hidden">
+              <div className="p-6 lg:p-10 bg-slate-900 lg:-[3rem] text-white shadow-xl relative overflow-hidden rounded-lg">
                 <div className="absolute inset-0 bg-gradient-to-br from-violet-500/10 to-transparent pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity"></div>
                 <div className="flex justify-between items-center mb-8 lg:mb-10 border-b border-white/5 pb-4 lg:pb-6 font-mono text-[10px] tracking-widest text-white/40 leading-[1.4]">
                   <span>SYS_LOGIC_PROX</span>
@@ -213,7 +213,7 @@ export default function CustomAppsClient({ data }) {
                       <div className="h-1.5 bg-white/5 w-1/3"></div>
                     </div>
                   </div>
-                  <div className="p-6 bg-white/5 border border-white/5 relative overflow-hidden flex flex-col items-center justify-center">
+                  <div className="p-6 bg-white/5 border border-white/5 relative overflow-hidden flex flex-col items-center justify-center rounded-lg">
                     <IoSyncOutline className="text-3xl text-violet-500 animate-spin-slow opacity-50" />
                     <p className="text-[10px] font-mono text-emerald-400 mt-3 tracking-tighter leading-[1.4]">DATASTREAM::VERIFIED</p>
                   </div>
@@ -232,7 +232,7 @@ export default function CustomAppsClient({ data }) {
 
           <div className="flex overflow-x-auto snap-x snap-mandatory md:grid md:grid-cols-2 lg:grid-cols-3 gap-4 lg:gap-6 pb-6 scrollbar-hide">
             {pricing?.map((tier, idx) => (
-              <div key={idx} className={`snap-center shrink-0 w-[85vw] md:w-auto bg-white rounded-2xl md:rounded-[2.5rem] p-6 md:p-8 border ${tier.highlight ? "border-violet-600 shadow-xl shadow-violet-600/10 md:-translate-y-2" : "border-slate-100 shadow-md"} flex flex-col h-full relative overflow-hidden group transition-all`}>
+              <div key={idx} className={`snap-center shrink-0 w-[85vw] md:w-auto bg-white rounded-lg md:rounded-lg p-6 md:p-8 border ${tier.highlight ? "border-violet-600 shadow-xl shadow-violet-600/10 md:-translate-y-2" : "border-slate-100 shadow-md"} flex flex-col h-full relative overflow-hidden group transition-all`}>
                 <h4 className="text-2xl font-black text-slate-900 mb-1 uppercase tracking-tighter leading-[1.1]">{tier.t}</h4>
                 <p className="text-3xl md:text-4xl font-black text-slate-900 mb-6 md:mb-8 leading-[1.1]">{tier.p}</p>
 
@@ -244,7 +244,7 @@ export default function CustomAppsClient({ data }) {
                   ))}
                 </div>
 
-                <button className={`w-full min-h-[48px] py-3 rounded-xl font-black uppercase tracking-widest text-[10px] transition-all shadow-md leading-[1.4] ${tier.highlight ? "bg-violet-600 text-white shadow-violet-600/30" : "bg-slate-900 text-white hover:bg-violet-600 font-black"}`}>Initialize Build</button>
+                <button className={`w-full min-h-[48px] py-3 rounded-lg font-black uppercase tracking-widest text-[10px] transition-all shadow-md leading-[1.4] ${tier.highlight ? "bg-violet-600 text-white shadow-violet-600/30" : "bg-slate-900 text-white hover:bg-violet-600 font-black"}`}>Initialize Build</button>
               </div>
             ))}
           </div>
@@ -255,12 +255,12 @@ export default function CustomAppsClient({ data }) {
           <IoCubeOutline className="text-5xl lg:text-6xl text-violet-600 mb-6 md:mb-8 mx-auto opacity-10" />
           <h3 className="text-3xl sm:text-4xl lg:text-5xl font-black text-slate-900 mb-6 md:mb-8 leading-[1.1]">{cta.title?.split('your ')[0]}your <br /><span className="text-transparent bg-clip-text bg-gradient-to-r from-violet-600 to-indigo-600 font-serif italic font-medium">{cta.title?.split('your ')[1]}</span></h3>
           <div className="flex flex-col sm:flex-row gap-3 md:gap-4 justify-center">
-            <button className="w-full sm:w-[240px] min-h-[48px] px-4 py-3 md:py-4 bg-violet-600 text-white font-bold hover:bg-violet-700 transition-all shadow-xl shadow-violet-600/40 uppercase tracking-widest text-[10px] flex items-center justify-center leading-[1.4]">
+            <button className="w-full sm:w-[240px] min-h-[48px] px-4 py-3 md:py-4 bg-violet-600 text-white font-bold hover:bg-violet-700 transition-all shadow-xl shadow-violet-600/40 uppercase tracking-widest text-[10px] flex items-center justify-center leading-[1.4] rounded-md">
               Initialize Build
             </button>
               <Link
               href="/services/custom-apps/details"
-              className="w-full sm:w-[240px] min-h-[48px] px-4 py-3 md:py-4 bg-slate-900 text-white font-bold hover:bg-slate-800 transition-all uppercase tracking-widest text-[10px] flex items-center justify-center text-center leading-[1.4]"
+              className="w-full sm:w-[240px] min-h-[48px] px-4 py-3 md:py-4 bg-slate-900 text-white font-bold hover:bg-slate-800 transition-all uppercase tracking-widest text-[10px] flex items-center justify-center text-center leading-[1.4] rounded-md"
             >
               Technical Specifications
             </Link>
@@ -274,7 +274,7 @@ export default function CustomAppsClient({ data }) {
             <p className="text-[10px] font-black text-slate-500 uppercase tracking-widest leading-[1.4]">Ready?</p>
             <p className="text-slate-900 font-bold text-sm leading-[1.4]">Start Building</p>
          </div>
-         <button className="px-5 py-3 min-h-[48px] bg-violet-600 text-white font-black text-[10px] uppercase tracking-widest shadow-md shadow-violet-600/30 leading-[1.4] flex items-center justify-center">
+         <button className="px-5 py-3 min-h-[48px] bg-violet-600 text-white font-black text-[10px] uppercase tracking-widest shadow-md shadow-violet-600/30 leading-[1.4] flex items-center justify-center rounded-md">
             Initialize Brief
          </button>
       </div>
