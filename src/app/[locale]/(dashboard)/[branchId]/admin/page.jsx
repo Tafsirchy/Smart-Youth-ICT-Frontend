@@ -12,45 +12,67 @@ import {
  IoCheckmarkCircle, IoTimeOutline, IoArrowUpOutline
 } from 'react-icons/io5';
 import { HiOutlineAcademicCap } from 'react-icons/hi';
+import { HiShieldExclamation } from 'react-icons/hi';
+import { useRole } from '@/hooks/useRole';
+import { useSearchParams } from 'next/navigation';
 
 const stagger = { animate: { transition: { staggerChildren: 0.09 } } };
 const card = { initial: { opacity: 0, y: 18 }, animate: { opacity: 1, y: 0, transition: { duration: 0.4 } } };
 
 const QUICK_LINKS = [
- { href: '/admin/students', label: 'Students', icon: IoPeopleOutline, color: 'from-blue-500 to-blue-600' },
- { href: '/admin/courses', label: 'Courses', icon: IoBookOutline, color: 'from-violet-500 to-purple-600' },
- { href: '/admin/payments', label: 'Payments', icon: IoCashOutline, color: 'from-emerald-500 to-green-600' },
- { href: '/admin/blog', label: 'Blog', icon: IoCalendarOutline, color: 'from-pink-500 to-rose-500' },
- { href: '/admin/testimonials', label: 'Testimonials', icon: IoRibbonOutline, color: 'from-amber-500 to-orange-500' },
- { href: '/admin/seminars', label: 'Seminars', icon: HiOutlineAcademicCap, color: 'from-cyan-500 to-blue-500' },
+ { href: '/admin/students', label: 'Students', icon: IoPeopleOutline, color: 'from-blue-500 to-blue-600', permission: 'students:view' },
+ { href: '/admin/courses', label: 'Courses', icon: IoBookOutline, color: 'from-violet-500 to-purple-600', permission: 'courses:view' },
+ { href: '/admin/payments', label: 'Payments', icon: IoCashOutline, color: 'from-emerald-500 to-green-600', permission: 'payments:view' },
+ { href: '/admin/blog', label: 'Blog', icon: IoCalendarOutline, color: 'from-pink-500 to-rose-500', adminOnly: true },
+ { href: '/admin/testimonials', label: 'Testimonials', icon: IoRibbonOutline, color: 'from-amber-500 to-orange-500', adminOnly: true },
+ { href: '/admin/seminars', label: 'Seminars', icon: HiOutlineAcademicCap, color: 'from-cyan-500 to-blue-500', permission: 'seminars:view' },
 ];
 
 export default function AdminDashboardPage() {
  const locale = useLocale();
  const { branchId } = useParams();
+ const searchParams = useSearchParams();
+ const accessDenied = searchParams?.get('access') === 'denied';
+ const { isSuperAdmin, isBranchManager, hasPermission } = useRole();
+
  const [stats, setStats] = useState(null);
  const [recent, setRecent] = useState([]);
  const [loading, setLoading] = useState(true);
 
  useEffect(() => {
  Promise.all([
- api.get(`/branches/stats`),
+ api.get('/branches/stats', { params: { branchId } }).catch(() => ({ data: { success: false } })),
  api.get('/enrollments', { params: { limit: 8, sort: '-createdAt' } }).catch(() => ({ data: { data: [] } })),
  ]).then(([sRes, eRes]) => {
  if (sRes.data?.success) setStats(sRes.data.data);
  setRecent(eRes.data?.data || []);
  }).catch(console.error).finally(() => setLoading(false));
- }, []);
+ }, [branchId]);
 
+ // Employees only see quick links they have permission for
+ const visibleQuickLinks = QUICK_LINKS.filter((link) => {
+ if (isSuperAdmin || isBranchManager) return true;
+ if (link.adminOnly) return false;
+ return link.permission ? hasPermission(link.permission) : false;
+ });
+
+ // Employees only see stat cards for their permitted modules
  const STAT_CARDS = [
- { label: 'Total Students', value: stats?.totalStudents ?? stats?.enrolledCourses ?? '—', icon: IoPeopleOutline, bg: 'bg-blue-50', txt: 'text-blue-600', ring: 'ring-blue-100', trend: '+12%' },
- { label: 'Active Courses', value: stats?.totalCourses ?? '—', icon: IoBookOutline, bg: 'bg-violet-50', txt: 'text-violet-600', ring: 'ring-violet-100', trend: '+3%' },
- { label: 'Revenue (৳)', value: stats?.totalRevenue?.toLocaleString() ?? '—', icon: IoCashOutline, bg: 'bg-emerald-50', txt: 'text-emerald-600',ring: 'ring-emerald-100',trend: '+24%' },
- { label: 'Certificates', value: stats?.certificates ?? '—', icon: IoRibbonOutline, bg: 'bg-amber-50', txt: 'text-amber-600', ring: 'ring-amber-100', trend: '+8%' },
- ];
+ { label: 'Total Students', value: stats?.totalStudents ?? stats?.enrolledCourses ?? '—', icon: IoPeopleOutline, bg: 'bg-blue-50', txt: 'text-blue-600', ring: 'ring-blue-100', trend: '+12%', show: isSuperAdmin || isBranchManager || hasPermission('students:view') },
+ { label: 'Active Courses', value: stats?.totalCourses ?? '—', icon: IoBookOutline, bg: 'bg-violet-50', txt: 'text-violet-600', ring: 'ring-violet-100', trend: '+3%', show: isSuperAdmin || isBranchManager || hasPermission('courses:view') },
+ { label: 'Revenue (৳)', value: stats?.totalRevenue?.toLocaleString() ?? '—', icon: IoCashOutline, bg: 'bg-emerald-50', txt: 'text-emerald-600', ring: 'ring-emerald-100', trend: '+24%', show: isSuperAdmin || isBranchManager || hasPermission('payments:view') },
+ { label: 'Certificates', value: stats?.certificates ?? '—', icon: IoRibbonOutline, bg: 'bg-amber-50', txt: 'text-amber-600', ring: 'ring-amber-100', trend: '+8%', show: isSuperAdmin || isBranchManager || hasPermission('students:view') },
+ ].filter(s => s.show);
 
  return (
  <div className="space-y-8 pb-12">
+ {/* ── Access Denied Banner ── */}
+ {accessDenied && (
+ <div className="flex items-center gap-3 px-5 py-3.5 bg-rose-50 border border-rose-200 text-rose-700 text-sm font-medium rounded-md">
+ <HiShieldExclamation size={20} className="shrink-0" />
+ You don&apos;t have permission to access that page. Contact your Branch Manager.
+ </div>
+ )}
  {/* ── Welcome Banner ── */}
  <motion.div initial={{ opacity: 0, y: -16 }} animate={{ opacity: 1, y: 0 }}
  className="relative overflow-hidden px-8 py-7"
@@ -96,7 +118,7 @@ export default function AdminDashboardPage() {
  <div>
  <h2 className="text-sm font-semibold text-textSecondary mb-3">Quick Access</h2>
  <div className="grid grid-cols-3 sm:grid-cols-6 gap-3">
- {QUICK_LINKS.map((link, i) => (
+ {visibleQuickLinks.map((link, i) => (
  <motion.div key={link.href} initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }} transition={{ delay: i * 0.06 }}>
  <Link href={`/${locale}/${branchId}${link.href}`}
  className={`flex flex-col items-center justify-center gap-1.5 py-4 bg-gradient-to-br ${link.color} text-white font-semibold text-xs shadow-md hover:scale-105 hover:shadow-lg transition-all`}>
