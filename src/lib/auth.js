@@ -23,6 +23,7 @@ const toSessionUser = (authData) => ({
   role: authData.user.role,
   branchId: authData.user.branchId || null,
   secondaryBranches: authData.user.secondaryBranches || [],
+  permissions: authData.user.permissions || [],
   providers: authData.user.providers || [],
   accessToken: authData.accessToken || authData.token,
 });
@@ -102,6 +103,7 @@ export const authOptions = {
         token.role = user.role;
         token.branchId = user.branchId;
         token.secondaryBranches = user.secondaryBranches || [];
+        token.permissions = user.permissions || [];
         token.providers = user.providers || [];
         token.accessToken = user.accessToken;
         token.picture = user.image || token.picture;
@@ -114,6 +116,7 @@ export const authOptions = {
         if (session?.user?.role) token.role = session.user.role;
         if (session?.user?.branchId !== undefined) token.branchId = session.user.branchId;
         if (session?.user?.secondaryBranches) token.secondaryBranches = session.user.secondaryBranches;
+        if (session?.user?.permissions) token.permissions = session.user.permissions;
         if (session?.user?.accessToken) token.accessToken = session.user.accessToken;
       }
 
@@ -124,6 +127,7 @@ export const authOptions = {
       session.user.role = token.role;
       session.user.branchId = token.branchId;
       session.user.secondaryBranches = token.secondaryBranches || [];
+      session.user.permissions = token.permissions || [];
       session.user.providers = token.providers || [];
       session.user.accessToken = token.accessToken;
       session.user.token = token.accessToken;
