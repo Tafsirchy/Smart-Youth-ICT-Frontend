@@ -32,13 +32,15 @@ export const NAVIGATION_CONFIG = {
   ],
   
   admin: [
-    { href: '/admin',          Icon: HiChartBar,       label: 'Branch Overview'},
-    { href: '/admin/courses',  Icon: HiCollection,    label: 'Courses'   },
-    { href: '/admin/students', Icon: HiUserGroup,     label: 'Students'  },
-    { href: '/admin/payments', Icon: HiCreditCard,    label: 'Payments'  },
-    { href: '/admin/staff',    Icon: HiUsers,         label: 'Staff Room'},
-    { href: '/admin/assets',   Icon: HiClipboardList, label: 'Assets' },
-    { href: '/admin/crm',      Icon: HiAnnotation,    label: 'Leads/CRM' },
+    { href: '/admin',          Icon: HiChartBar,       label: 'Branch Overview', permission: null },
+    { href: '/admin/courses',  Icon: HiCollection,    label: 'Courses',          permission: 'courses:view' },
+    { href: '/admin/students', Icon: HiUserGroup,     label: 'Students',         permission: 'students:view' },
+    { href: '/admin/payments', Icon: HiCreditCard,    label: 'Payments',         permission: 'payments:view' },
+    { href: '/admin/staff',    Icon: HiUsers,         label: 'Staff Room',       permission: 'staff:manage' },
+    { href: '/admin/crm',      Icon: HiAnnotation,    label: 'Leads/CRM',        permission: 'leads:view' },
+    { href: '/admin/seminars', Icon: HiAcademicCap,   label: 'Seminars',         permission: 'seminars:view' },
+    { href: '/admin/blog',     Icon: HiAnnotation,    label: 'Blog',             adminOnly: true },
+    { href: '/admin/testimonials', Icon: HiBadgeCheck,label: 'Testimonials',     adminOnly: true },
   ],
   
   super_admin: [
