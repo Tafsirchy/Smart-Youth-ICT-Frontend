@@ -42,7 +42,7 @@ export default function AdminDashboardPage() {
  useEffect(() => {
  Promise.all([
  api.get('/branches/stats', { params: { branchId } }).catch(() => ({ data: { success: false } })),
- api.get('/enrollments', { params: { limit: 8, sort: '-createdAt' } }).catch(() => ({ data: { data: [] } })),
+ api.get('/enrollments', { params: { branchId, limit: 8, sort: '-createdAt' } }).catch(() => ({ data: { data: [] } })),
  ]).then(([sRes, eRes]) => {
  if (sRes.data?.success) setStats(sRes.data.data);
  setRecent(eRes.data?.data || []);
@@ -135,7 +135,7 @@ export default function AdminDashboardPage() {
  <h2 className="font-bold text-textPrimary flex items-center gap-2">
  <IoTrendingUpOutline size={18} className="text-blue-500" /> Recent Enrollments
  </h2>
- <Link href={`/${locale}/${branchId}/admin/payments`} className="text-xs font-semibold text-blue-600 hover:underline flex items-center gap-1">
+ <Link href={`/${locale}/${branchId}/admin/students`} className="text-xs font-semibold text-blue-600 hover:underline flex items-center gap-1">
  View All <IoArrowForwardOutline size={12} />
  </Link>
  </div>
@@ -160,7 +160,7 @@ export default function AdminDashboardPage() {
  <p className="text-xs text-textSecondary truncate">{e.course?.title?.en || e.course?.title || 'Course'}</p>
  </div>
  <div className="text-right shrink-0">
- <p className="text-xs font-bold text-emerald-600">৳{e.amount?.toLocaleString() || '—'}</p>
+ <p className="text-xs font-bold text-emerald-600">৳{(e.amount || e.course?.price || 0).toLocaleString()}</p>
  <p className="text-xs text-textSecondary flex items-center gap-1 justify-end mt-0.5">
  <IoTimeOutline size={11} />
  {e.createdAt ? new Date(e.createdAt).toLocaleDateString() : '—'}

@@ -35,7 +35,8 @@ const METHOD_LABELS = {
 };
 
 export default function AdminPaymentsPage() {
- const { isLoading: guardLoading, isDenied } = usePermissionGuard(['payments:view', 'payments:verify']);
+ const { branchId } = useParams();
+  const { isLoading: guardLoading, isDenied } = usePermissionGuard(['payments:view', 'payments:verify']);
 
  const [search, setSearch] = useState("");
  const [statusFilter, setStatusFilter] = useState("");
@@ -48,11 +49,12 @@ export default function AdminPaymentsPage() {
  const queryClient = useQueryClient();
 
  const { data: paymentsRes, isLoading: loading } = useQuery({
- queryKey: ["payments", { page, statusFilter }],
+ queryKey: ["payments", { page, statusFilter, branchId }],
  queryFn: async () => {
  if (guardLoading || isDenied) return { data: [], total: 0 };
  const params = { page, limit };
  if (statusFilter) params.status = statusFilter;
+      if (branchId) params.branchId = branchId;
  const res = await api.get("/payments", { params });
  return res.data || { data: [], total: 0 };
  },
