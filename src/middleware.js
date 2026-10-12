@@ -35,18 +35,16 @@ const authMiddleware = withAuth(
       const targetBranchId = dashboardMatch[1];
       const targetDashboardType = dashboardMatch[2];
 
-      // a. Super Admin Protection: Prevent super admins from staying in branch dashboard pages
-      if (role === "super_admin") {
-        return NextResponse.redirect(new URL("/super", req.url));
-      }
-
-      // b. Dashboard Type vs Role Validation
+      // a. Dashboard Type vs Role Validation
       const roleToDashboardMap = {
         student: "student",
         instructor: "instructor",
         admin: "admin",
         branch_admin: "admin",
         branch_management: "admin",
+        employee: "admin",
+        super_admin: "admin",
+        super_management: "admin",
       };
 
       if (roleToDashboardMap[role] !== targetDashboardType) {
@@ -56,13 +54,16 @@ const authMiddleware = withAuth(
         return NextResponse.redirect(new URL("/auth-redirect", req.url));
       }
 
-      // c. Branch ID Validation (Strict Isolation)
-      const allowedBranches = [userBranchId, ...secondaryBranches].filter(Boolean);
-      if (allowedBranches.length > 0 && !allowedBranches.includes(targetBranchId)) {
-        console.warn(
-          `[Middleware] Branch mismatch. Allowed branches [${allowedBranches.join(',')}] attempted to access branch ${targetBranchId}.`,
-        );
-        return NextResponse.redirect(new URL("/auth-redirect", req.url));
+      // b. Branch ID Validation (Strict Isolation for non-super admins)
+      const isSuper = role === "super_admin" || role === "super_management";
+      if (!isSuper) {
+        const allowedBranches = [userBranchId, ...secondaryBranches].filter(Boolean);
+        if (allowedBranches.length === 0 || !allowedBranches.includes(targetBranchId)) {
+          console.warn(
+            `[Middleware] Branch mismatch. Allowed branches [${allowedBranches.join(',')}] attempted to access branch ${targetBranchId}.`,
+          );
+          return NextResponse.redirect(new URL("/auth-redirect", req.url));
+        }
       }
     }
 
