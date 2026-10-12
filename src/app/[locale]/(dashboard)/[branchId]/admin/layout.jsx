@@ -7,7 +7,7 @@ export default async function AdminLayout({ children, params }) {
  const { locale, branchId } = params;
 
  // Roles allowed to access the admin dashboard
- const allowedRoles = ['super_admin', 'super_management', 'branch_admin', 'branch_management'];
+  const allowedRoles = ['super_admin', 'super_management', 'branch_admin', 'branch_management', 'employee'];
 
  if (!session) {
  redirect(`/${locale}/login`);
