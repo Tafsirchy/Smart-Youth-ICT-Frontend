@@ -104,32 +104,32 @@ export default function AdminStudentsPage() {
 
  return (
  <div>
- <div className="flex items-center justify-between mb-6 flex-wrap gap-3">
+ <div className="flex items-center justify-between mb-4 flex-wrap gap-2">
  <div>
  <h1 className="text-2xl font-bold text-textPrimary">All Students</h1>
- <p className="text-textSecondary text-sm mt-1">
+ <p className="text-textSecondary text-sm mt-0.5">
  {total} total registered users
  </p>
  </div>
  </div>
 
  {/* Filters */}
- <div className="flex flex-wrap gap-3 mb-6">
+ <div className="flex flex-wrap gap-2 mb-4">
  <div className="relative flex-1 min-w-[200px]">
  <IoSearch
  className="absolute left-3 top-1/2 -translate-y-1/2 text-neutral-400"
- size={18}
+ size={16}
  />
  <input
  type="text"
  placeholder="Search by name or email…"
- className="input pl-10 w-full rounded-md"
+ className="input pl-9 py-2 text-sm w-full rounded-md"
  value={search}
  onChange={(e) => setSearch(e.target.value)}
  />
  </div>
  <select
- className="input min-w-[140px]"
+ className="input min-w-[130px] py-2 text-sm"
  value={roleFilter}
  onChange={(e) => {
  setRoleFilter(e.target.value);
@@ -150,22 +150,22 @@ export default function AdminStudentsPage() {
  <table className="w-full text-sm">
  <thead className="bg-neutral-50 border-b border-neutral-200">
  <tr>
- <th className="text-left px-5 py-3 font-semibold text-neutral-600">
+ <th className="text-left px-3 py-2.5 font-semibold text-neutral-600 text-xs uppercase tracking-wide">
  User
  </th>
- <th className="text-left px-5 py-3 font-semibold text-neutral-600">
+ <th className="text-left px-3 py-2.5 font-semibold text-neutral-600 text-xs uppercase tracking-wide">
  Phone
  </th>
- <th className="text-left px-5 py-3 font-semibold text-neutral-600">
+ <th className="text-left px-3 py-2.5 font-semibold text-neutral-600 text-xs uppercase tracking-wide">
  Role
  </th>
- <th className="text-left px-5 py-3 font-semibold text-neutral-600">
+ <th className="text-left px-3 py-2.5 font-semibold text-neutral-600 text-xs uppercase tracking-wide">
  Joined
  </th>
- <th className="text-left px-5 py-3 font-semibold text-neutral-600">
+ <th className="text-left px-3 py-2.5 font-semibold text-neutral-600 text-xs uppercase tracking-wide">
  Status
  </th>
- <th className="text-left px-5 py-3 font-semibold text-neutral-600">
+ <th className="text-left px-3 py-2.5 font-semibold text-neutral-600 text-xs uppercase tracking-wide">
  Action
  </th>
  </tr>
@@ -196,8 +196,8 @@ export default function AdminStudentsPage() {
  key={user._id}
  className="hover:bg-neutral-50 transition-colors rounded-md"
  >
- <td className="px-5 py-4">
- <div className="flex items-center gap-3">
+ <td className="px-3 py-2.5">
+ <div className="flex items-center gap-2">
  <div className="w-8 h-8 bg-blue-100 flex items-center justify-center shrink-0">
  {user.avatar ? (
  <Image
@@ -227,8 +227,8 @@ decoding="async"/>
  </div>
  </div>
  </td>
- <td className="px-5 py-4 text-neutral-600">{user.phone}</td>
- <td className="px-5 py-4">
+ <td className="px-3 py-2.5 text-neutral-600 text-xs">{user.phone || '—'}</td>
+ <td className="px-3 py-2.5">
  <span
  className={`inline-flex items-center gap-1 px-2.5 py-1 text-xs font-semibold ${
  ["super_admin", "super_management"].includes(
@@ -250,10 +250,10 @@ decoding="async"/>
  {user.role}
  </span>
  </td>
- <td className="px-5 py-4 text-neutral-500">
+ <td className="px-3 py-2.5 text-neutral-500 text-xs">
  {new Date(user.createdAt).toLocaleDateString()}
  </td>
- <td className="px-5 py-4">
+ <td className="px-3 py-2.5">
  <span
  className={`inline-flex items-center gap-1 px-2.5 py-1 text-xs font-semibold ${
  user.isActive
@@ -269,8 +269,8 @@ decoding="async"/>
  {user.isActive ? "Active" : "Inactive"}
  </span>
  </td>
- <td className="px-5 py-4">
- <div className="flex gap-2">
+ <td className="px-3 py-2.5">
+ <div className="flex gap-1.5">
  {user.role !== "super_admin" && (
  <button
  onClick={() =>

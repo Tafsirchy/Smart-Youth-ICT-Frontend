@@ -41,6 +41,7 @@ import {
  HiOutlineMegaphone,
  HiOutlineXMark,
  HiOutlineCheck,
+ HiOutlineTrash,
 } from "react-icons/hi2";
 import { IoLogoWhatsapp } from "react-icons/io5";
 
@@ -333,6 +334,29 @@ export default function AllBranchesPage() {
  }
  } catch (err) {
  toast.error(err.response?.data?.message || "Failed to toggle status");
+ }
+ };
+
+ const handleDeleteBranch = async (branch) => {
+ const confirmed = window.confirm(
+ `⚠️ PERMANENT DELETE\n\nAre you sure you want to delete "${branch.name}"?\n\nThis will permanently remove the branch and all associated data. This action CANNOT be undone.`
+ );
+ if (!confirmed) return;
+
+ // Second safety confirmation
+ const doubleConfirm = window.confirm(
+ `Final confirmation: Delete "${branch.name}" (${branch.code})?`
+ );
+ if (!doubleConfirm) return;
+
+ try {
+ const res = await api.delete(`/super/branches/${branch._id}`);
+ if (res.data?.success) {
+ toast.success(`Branch "${branch.name}" deleted successfully.`);
+ fetchBranches();
+ }
+ } catch (err) {
+ toast.error(err.response?.data?.message || "Failed to delete branch");
  }
  };
 
@@ -880,6 +904,15 @@ export default function AllBranchesPage() {
  >
  <HiOutlineArrowTopRightOnSquare size={18} />
  </Link>
+
+ {/* Delete Branch */}
+ <button
+ onClick={() => handleDeleteBranch(branch)}
+ title="Delete Branch Permanently"
+ className="p-2 text-slate-400 hover:text-red-600 hover:bg-red-50 dark:hover:bg-red-900/20 transition-colors rounded-md"
+ >
+ <HiOutlineTrash size={18} />
+ </button>
  </div>
  </td>
  </tr>
@@ -958,6 +991,13 @@ export default function AllBranchesPage() {
  >
  Admin
  </Link>
+ <button
+ onClick={() => handleDeleteBranch(branch)}
+ className="min-h-[40px] px-3.5 py-2 bg-red-50 hover:bg-red-100 dark:bg-red-900/20 text-red-600 dark:text-red-400 font-bold text-xs flex items-center justify-center gap-1.5 active:scale-95 rounded-md"
+ aria-label={`Delete branch ${branch.name}`}
+ >
+ <HiOutlineTrash size={16} />
+ </button>
  </div>
  </div>
  </div>
