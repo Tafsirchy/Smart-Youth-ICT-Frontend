@@ -16,8 +16,11 @@ import {
  IoPencilOutline,
  IoTrashOutline,
 } from "react-icons/io5";
+import { usePermissionGuard } from "@/hooks/usePermissionGuard";
+import AccessDenied from "@/components/ui/AccessDenied";
 
 export default function AdminCoursesPage() {
+ const { isLoading: guardLoading, isDenied } = usePermissionGuard(['courses:view', 'courses:manage']);
  const params = useParams();
  const [courses, setCourses] = useState([]);
  const [total, setTotal] = useState(0);
@@ -47,8 +50,8 @@ export default function AdminCoursesPage() {
  }, [page, params.branchId]);
 
  useEffect(() => {
- fetchCourses();
- }, [fetchCourses]);
+ if (!guardLoading && !isDenied) fetchCourses();
+ }, [fetchCourses, guardLoading, isDenied]);
 
  const handleDelete = async (id) => {
  if (
@@ -74,6 +77,9 @@ export default function AdminCoursesPage() {
  .includes(search.toLowerCase()),
  )
  : courses;
+
+ if (guardLoading) return null;
+ if (isDenied) return <AccessDenied permission="courses:view" moduleName="Courses" />;
 
  return (
  <div>
