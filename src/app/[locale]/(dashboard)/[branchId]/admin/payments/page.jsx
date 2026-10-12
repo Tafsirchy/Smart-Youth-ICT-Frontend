@@ -18,6 +18,8 @@ import {
  IoEyeOutline,
 } from "react-icons/io5";
 import Portal from "@/components/ui/Portal";
+import { usePermissionGuard } from "@/hooks/usePermissionGuard";
+import AccessDenied from "@/components/ui/AccessDenied";
 
 const STATUS_COLORS = {
  completed: "bg-emerald-100 text-emerald-700",
@@ -33,10 +35,12 @@ const METHOD_LABELS = {
 };
 
 export default function AdminPaymentsPage() {
+ const { isLoading: guardLoading, isDenied } = usePermissionGuard(['payments:view', 'payments:verify']);
+
  const [search, setSearch] = useState("");
  const [statusFilter, setStatusFilter] = useState("");
  const [page, setPage] = useState(1);
- const [selectedPayment, setSelectedPayment] = useState(null); // For modal
+ const [selectedPayment, setSelectedPayment] = useState(null);
  const [note, setNote] = useState("");
  const [actionLoading, setActionLoading] = useState(false);
  const limit = 20;
@@ -46,11 +50,13 @@ export default function AdminPaymentsPage() {
  const { data: paymentsRes, isLoading: loading } = useQuery({
  queryKey: ["payments", { page, statusFilter }],
  queryFn: async () => {
+ if (guardLoading || isDenied) return { data: [], total: 0 };
  const params = { page, limit };
  if (statusFilter) params.status = statusFilter;
  const res = await api.get("/payments", { params });
  return res.data || { data: [], total: 0 };
  },
+ enabled: !guardLoading && !isDenied,
  placeholderData: keepPreviousData,
  staleTime: 30000,
  });
@@ -93,6 +99,9 @@ export default function AdminPaymentsPage() {
  setActionLoading(false);
  }
  };
+
+ if (guardLoading) return null;
+ if (isDenied) return <AccessDenied permission="payments:view" moduleName="Payments" />;
 
  return (
  <div>
