@@ -4,6 +4,8 @@ import { useState, useEffect, useCallback } from 'react';
 import { motion } from 'framer-motion';
 import api from '@/lib/api';
 import toast from 'react-hot-toast';
+import { usePermissionGuard } from '@/hooks/usePermissionGuard';
+import AccessDenied from '@/components/ui/AccessDenied';
 import {
  IoCheckmarkCircle, IoCloseCircle, IoTrashOutline,
  IoStar, IoChatbubblesOutline, IoRefreshOutline
@@ -23,6 +25,7 @@ const AVATAR_GRADS = [
 ];
 
 export default function AdminTestimonialsPage() {
+  const { isLoading: guardLoading, isDenied } = usePermissionGuard('admin:only');
  const [items, setItems] = useState([]);
  const [filter, setFilter] = useState('pending');
  const [loading, setLoading] = useState(true);
@@ -37,7 +40,7 @@ export default function AdminTestimonialsPage() {
  finally { setLoading(false); }
  }, [filter]);
 
- useEffect(() => { fetchItems(); }, [fetchItems]);
+ useEffect(() => { if (!guardLoading && !isDenied) fetchItems(); }, [fetchItems, guardLoading, isDenied]);
 
  const handleAction = async (id, action) => {
  setActing(id + action);
@@ -53,9 +56,11 @@ export default function AdminTestimonialsPage() {
  } catch { toast.error('Action failed.'); }
  finally { setActing(null); }
  };
+  if (guardLoading) return null;
+  if (isDenied) return <AccessDenied moduleName="Testimonials" />;
 
- return (
- <div className="pb-10">
+  return (
+  <div className="pb-10">
  <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-8">
  <div>
  <h1 className="text-3xl font-extrabold text-textPrimary flex items-center gap-3">
