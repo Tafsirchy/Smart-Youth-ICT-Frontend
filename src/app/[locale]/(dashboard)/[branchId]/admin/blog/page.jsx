@@ -3,6 +3,8 @@
 import { useState, useEffect, useCallback } from "react";
 import { useSession } from "next-auth/react";
 import { getApiBaseUrl } from "@/lib/api-base";
+import { usePermissionGuard } from "@/hooks/usePermissionGuard";
+import AccessDenied from "@/components/ui/AccessDenied";
 
 const API = getApiBaseUrl();
 
@@ -153,6 +155,7 @@ decoding="async"/>
 
 // ─── Main Page ──────────────────────────────────────────────────────────────
 export default function AdminBlogPage() {
+  const { isLoading: guardLoading, isDenied } = usePermissionGuard('admin:only');
  const { data: session } = useSession();
  const token = session?.accessToken;
 
@@ -176,8 +179,8 @@ export default function AdminBlogPage() {
  }, [token]);
 
  useEffect(() => {
- fetchPosts();
- }, [fetchPosts]);
+    if (!guardLoading && !isDenied) fetchPosts();
+  }, [fetchPosts, guardLoading, isDenied]);
 
  async function togglePublish(post) {
  const res = await fetch(`${API}/blog/${post._id}/publish`, {
@@ -207,9 +210,11 @@ export default function AdminBlogPage() {
  if (isNew) setPosts((ps) => [post, ...ps]);
  else setPosts((ps) => ps.map((p) => (p._id === post._id ? post : p)));
  }
+  if (guardLoading) return null;
+  if (isDenied) return <AccessDenied moduleName="Blog Management" />;
 
- return (
- <div className="admin-blog-page">
+  return (
+    <div className="admin-blog-page">
  <div className="crm-page__header">
  <div>
  <h1 className="crm-page__title">Blog Management</h1>
