@@ -10,6 +10,8 @@ import {
  IoSearch, IoRefreshOutline
 } from 'react-icons/io5';
 import { HiOutlineAcademicCap as Cap } from 'react-icons/hi';
+import { usePermissionGuard } from '@/hooks/usePermissionGuard';
+import AccessDenied from '@/components/ui/AccessDenied';
 
 const ATTENDANCE_COLORS = {
  registered: 'bg-blue-100 text-blue-700',
@@ -18,6 +20,7 @@ const ATTENDANCE_COLORS = {
 };
 
 export default function AdminSeminarsPage() {
+ const { isLoading: guardLoading, isDenied } = usePermissionGuard(['seminars:view', 'seminars:manage']);
  const [items, setItems] = useState([]);
  const [loading, setLoading] = useState(true);
  const [search, setSearch] = useState('');
@@ -32,7 +35,9 @@ export default function AdminSeminarsPage() {
  finally { setLoading(false); }
  }, []);
 
- useEffect(() => { fetchItems(); }, [fetchItems]);
+ useEffect(() => {
+ if (!guardLoading && !isDenied) fetchItems();
+ }, [fetchItems, guardLoading, isDenied]);
 
  const markAttendance = async (id, status) => {
  setActing(id);
@@ -49,6 +54,9 @@ export default function AdminSeminarsPage() {
  r.phone?.includes(search) ||
  r.email?.toLowerCase().includes(search.toLowerCase())
  );
+
+ if (guardLoading) return null;
+ if (isDenied) return <AccessDenied permission="seminars:view" moduleName="Seminars & Workshops" />;
 
  return (
  <div className="pb-10">
