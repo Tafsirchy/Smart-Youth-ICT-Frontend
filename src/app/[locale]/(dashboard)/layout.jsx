@@ -6,6 +6,7 @@ import { redirect, useParams } from 'next/navigation';
 import Sidebar from '@/components/layout/Sidebar';
 import DashboardTopbar from '@/components/layout/DashboardTopbar';
 import SessionSync from '@/components/dashboard/SessionSync';
+import SuperAdminBranchSwitcher from '@/components/dashboard/SuperAdminBranchSwitcher';
 
 /**
  * Common Dashboard Layout for all roles (Student, Instructor, Admin, Super Admin)
@@ -42,6 +43,7 @@ export default function SharedDashboardLayout({ children }) {
  {/* Main Content Area */}
  <div className="dashboard-main w-full max-w-[100vw] overflow-x-hidden">
  <main className="dashboard-main-content px-[var(--gutter,16px)] pb-[env(safe-area-inset-bottom)]">
+ <SuperAdminBranchSwitcher user={session.user} />
  {children}
  </main>
  </div>
