@@ -12,8 +12,12 @@ import {
  IoShieldOutline,
 } from "react-icons/io5";
 import Portal from "@/components/ui/Portal";
+import { usePermissionGuard } from "@/hooks/usePermissionGuard";
+import AccessDenied from "@/components/ui/AccessDenied";
 
 export default function AdminStudentsPage() {
+ const { isLoading: guardLoading, isDenied } = usePermissionGuard(['students:view', 'students:enroll', 'students:manage']);
+
  const [users, setUsers] = useState([]);
  const [total, setTotal] = useState(0);
  const [loading, setLoading] = useState(true);
@@ -42,8 +46,8 @@ export default function AdminStudentsPage() {
  }, [page, roleFilter]);
 
  useEffect(() => {
- fetchUsers();
- }, [fetchUsers]);
+ if (!guardLoading && !isDenied) fetchUsers();
+ }, [fetchUsers, guardLoading, isDenied]);
 
  const handleToggle = async (userId, currentStatus) => {
  setTogglingId(userId);
@@ -92,6 +96,9 @@ export default function AdminStudentsPage() {
  : users;
 
  const totalPages = Math.ceil(total / limit);
+
+ if (guardLoading) return null;
+ if (isDenied) return <AccessDenied permission="students:view" moduleName="Students" />;
 
  return (
  <div>
