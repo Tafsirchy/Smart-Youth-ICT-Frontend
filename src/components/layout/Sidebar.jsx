@@ -75,17 +75,32 @@ export default function Sidebar({ initialRole, initialUser, isOpen, onClose }) {
 
  // Determine current role status
  const isSuperAdmin = role === "super_admin" || role === "super_management";
- const isAdmin =
- role === "admin" || role === "branch_admin" || role === "branch_management";
+ const isBranchManager = role === "branch_admin" || role === "branch_management";
+ const isAdmin = role === "admin" || isBranchManager;
+ const isEmployee = role === "employee";
  const isInstructor = role === "instructor";
+ const userPermissions = user?.permissions || [];
 
  // Determine which navigation set to display (avoid defaulting to student if role is undefined)
  let navItems = [];
- if (isSuperAdmin) navItems = NAVIGATION_CONFIG.super_admin;
- else if (isAdmin) navItems = NAVIGATION_CONFIG.admin;
- else if (isInstructor) navItems = NAVIGATION_CONFIG.instructor;
- else if (role === "student") navItems = NAVIGATION_CONFIG.student;
- else if (!role && !isLoading) navItems = NAVIGATION_CONFIG.student; // Final fallback
+ if (isSuperAdmin) {
+   navItems = NAVIGATION_CONFIG.super_admin;
+ } else if (isAdmin) {
+   navItems = NAVIGATION_CONFIG.admin;
+ } else if (isEmployee) {
+   // Dynamically filter admin navigation according to employee's assigned tasks
+   navItems = NAVIGATION_CONFIG.admin.filter((item) => {
+     if (item.adminOnly || item.permission === 'staff:manage') return false;
+     if (item.href === '/admin') return true;
+     if (!item.permission) return false;
+     const moduleKey = item.permission.split(':')[0];
+     return userPermissions.some((p) => p.startsWith(moduleKey));
+   });
+ } else if (isInstructor) {
+   navItems = NAVIGATION_CONFIG.instructor;
+ } else if (role === "student" || (!role && !isLoading)) {
+   navItems = NAVIGATION_CONFIG.student; // Final fallback
+ }
 
  return (
  <aside className={`sidebar dashboard-sidebar w-72 h-full flex flex-col shrink-0 fixed inset-y-0 left-0 z-[200] transform transition-transform duration-300 lg:relative lg:translate-x-0 ${isOpen ? 'translate-x-0' : '-translate-x-full'}`}>
