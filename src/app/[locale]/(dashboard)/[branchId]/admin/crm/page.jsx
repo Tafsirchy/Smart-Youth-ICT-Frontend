@@ -3,6 +3,8 @@
 import { useState, useEffect, useCallback } from "react";
 import { useSession } from "next-auth/react";
 import { getApiBaseUrl } from "@/lib/api-base";
+import { usePermissionGuard } from "@/hooks/usePermissionGuard";
+import AccessDenied from "@/components/ui/AccessDenied";
 
 const API = getApiBaseUrl();
 
@@ -330,6 +332,7 @@ function AddLeadModal({ onClose, onCreated }) {
 
 // ─── Main Page ──────────────────────────────────────────────────────────────
 export default function AdminCRMPage() {
+ const { isLoading: guardLoading, isDenied } = usePermissionGuard(['leads:view', 'leads:manage']);
  const { data: session } = useSession();
  const token = session?.accessToken;
 
@@ -408,6 +411,9 @@ export default function AdminCRMPage() {
  }
 
  const STATUS_TABS = ["all", ...Object.keys(STATUS_CONFIG)];
+
+ if (guardLoading) return null;
+ if (isDenied) return <AccessDenied permission="leads:view" moduleName="Leads &amp; CRM" />;
 
  return (
  <div className="crm-page">
