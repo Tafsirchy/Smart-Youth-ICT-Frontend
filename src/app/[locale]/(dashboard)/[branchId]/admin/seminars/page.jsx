@@ -21,6 +21,7 @@ const ATTENDANCE_COLORS = {
 
 export default function AdminSeminarsPage() {
  const { isLoading: guardLoading, isDenied } = usePermissionGuard(['seminars:view', 'seminars:manage']);
+ const { branchId } = useParams();
  const [items, setItems] = useState([]);
  const [loading, setLoading] = useState(true);
  const [search, setSearch] = useState('');
@@ -29,11 +30,11 @@ export default function AdminSeminarsPage() {
  const fetchItems = useCallback(async () => {
  setLoading(true);
  try {
- const res = await api.get('/seminars/registrations', { params: { limit: 100 } });
+ const res = await api.get('/seminars/registrations', { params: { limit: 100, branchId } });
  setItems(res.data?.data || []);
  } catch { toast.error('Failed to load registrations.'); }
  finally { setLoading(false); }
- }, []);
+ }, [branchId]);
 
  useEffect(() => {
  if (!guardLoading && !isDenied) fetchItems();

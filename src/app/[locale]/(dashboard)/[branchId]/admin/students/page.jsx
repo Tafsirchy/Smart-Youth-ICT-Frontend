@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect, useCallback } from "react";
+import { useParams } from "next/navigation";
 import api from "@/lib/api";
 import toast from "react-hot-toast";
 import Image from "next/image";
@@ -17,6 +18,7 @@ import AccessDenied from "@/components/ui/AccessDenied";
 
 export default function AdminStudentsPage() {
  const { isLoading: guardLoading, isDenied } = usePermissionGuard(['students:view', 'students:enroll', 'students:manage']);
+ const { branchId } = useParams();
 
  const [users, setUsers] = useState([]);
  const [total, setTotal] = useState(0);
@@ -33,7 +35,7 @@ export default function AdminStudentsPage() {
  const fetchUsers = useCallback(async () => {
  setLoading(true);
  try {
- const params = { page, limit };
+ const params = { page, limit, branchId };
  if (roleFilter) params.role = roleFilter;
  const res = await api.get("/users", { params });
  setUsers(res.data.data || []);
@@ -43,7 +45,7 @@ export default function AdminStudentsPage() {
  } finally {
  setLoading(false);
  }
- }, [page, roleFilter]);
+ }, [page, roleFilter, branchId]);
 
  useEffect(() => {
  if (!guardLoading && !isDenied) fetchUsers();

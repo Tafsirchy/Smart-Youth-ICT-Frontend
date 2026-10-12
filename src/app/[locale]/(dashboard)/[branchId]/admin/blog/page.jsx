@@ -3,13 +3,14 @@
 import { useState, useEffect, useCallback } from "react";
 import { useSession } from "next-auth/react";
 import { getApiBaseUrl } from "@/lib/api-base";
+import { useParams } from "next/navigation";
 import { usePermissionGuard } from "@/hooks/usePermissionGuard";
 import AccessDenied from "@/components/ui/AccessDenied";
 
 const API = getApiBaseUrl();
 
 // ─── Create / Edit Modal ────────────────────────────────────────────────────
-function PostModal({ post, onClose, onSaved }) {
+function PostModal({ post, onClose, onSaved, branchId }) {
  const { data: session } = useSession();
  const token = session?.accessToken;
 
@@ -30,6 +31,7 @@ function PostModal({ post, onClose, onSaved }) {
  setLoading(true);
  const body = {
  ...form,
+ branchId,
  tags: form.tags
  .split(",")
  .map((t) => t.trim())
@@ -168,7 +170,7 @@ export default function AdminBlogPage() {
  setLoading(true);
  try {
  // Admin sees all (published + drafts) — pass Authorization header
- const res = await fetch(`${API}/blog?limit=100`, {
+ const res = await fetch(`${API}/blog?limit=100${branchId ? `&branchId=${branchId}` : ""}`, {
  headers: { Authorization: `Bearer ${token}` },
  });
  const json = await res.json();
@@ -176,7 +178,7 @@ export default function AdminBlogPage() {
  } finally {
  setLoading(false);
  }
- }, [token]);
+ }, [token, branchId]);
 
  useEffect(() => {
     if (!guardLoading && !isDenied) fetchPosts();
@@ -298,6 +300,7 @@ export default function AdminBlogPage() {
  post={modal === "new" ? null : modal}
  onClose={() => setModal(null)}
  onSaved={handleSaved}
+ branchId={branchId}
  />
  )}
  </div>

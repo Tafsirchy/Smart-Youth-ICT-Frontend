@@ -92,7 +92,7 @@ export default function AdminCoursesPage() {
  </p>
  </div>
  <Link
- href={`/${params.locale}/${params.branchId}/admin/courses/create`}
+ href={`/${params.locale || "en"}/${params.branchId}/admin/courses/create`}
  className="flex items-center gap-2 btn-primary px-5 py-2.5 text-sm"
  >
  <IoAddOutline size={18} /> New Course

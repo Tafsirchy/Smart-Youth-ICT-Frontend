@@ -26,6 +26,7 @@ const AVATAR_GRADS = [
 
 export default function AdminTestimonialsPage() {
   const { isLoading: guardLoading, isDenied } = usePermissionGuard('admin:only');
+ const { branchId } = useParams();
  const [items, setItems] = useState([]);
  const [filter, setFilter] = useState('pending');
  const [loading, setLoading] = useState(true);
@@ -34,11 +35,11 @@ export default function AdminTestimonialsPage() {
  const fetchItems = useCallback(async () => {
  setLoading(true);
  try {
- const res = await api.get('/testimonials', { params: { status: filter, limit: 50 } });
+ const res = await api.get('/testimonials', { params: { status: filter, limit: 50, branchId } });
  setItems(res.data?.data || []);
  } catch { toast.error('Failed to load testimonials.'); }
  finally { setLoading(false); }
- }, [filter]);
+ }, [filter, branchId]);
 
  useEffect(() => { if (!guardLoading && !isDenied) fetchItems(); }, [fetchItems, guardLoading, isDenied]);
 
