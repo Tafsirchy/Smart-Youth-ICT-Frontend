@@ -6,6 +6,7 @@ import { getApiBaseUrl } from "@/lib/api-base";
 import { useParams } from "next/navigation";
 import { usePermissionGuard } from "@/hooks/usePermissionGuard";
 import AccessDenied from "@/components/ui/AccessDenied";
+import Portal from "@/components/ui/Portal";
 
 const API = getApiBaseUrl();
 
@@ -158,6 +159,7 @@ decoding="async"/>
 // ─── Main Page ──────────────────────────────────────────────────────────────
 export default function AdminBlogPage() {
   const { isLoading: guardLoading, isDenied } = usePermissionGuard('admin:only');
+  const { branchId } = useParams();
  const { data: session } = useSession();
  const token = session?.accessToken;
 
@@ -296,12 +298,14 @@ export default function AdminBlogPage() {
 
  {/* Modal */}
  {modal && (
+ <Portal>
  <PostModal
  post={modal === "new" ? null : modal}
  onClose={() => setModal(null)}
  onSaved={handleSaved}
  branchId={branchId}
  />
+ </Portal>
  )}
  </div>
  );
