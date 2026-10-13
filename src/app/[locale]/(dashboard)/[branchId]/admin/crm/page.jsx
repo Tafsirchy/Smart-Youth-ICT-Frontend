@@ -5,6 +5,7 @@ import { useSession } from "next-auth/react";
 import { getApiBaseUrl } from "@/lib/api-base";
 import { usePermissionGuard } from "@/hooks/usePermissionGuard";
 import AccessDenied from "@/components/ui/AccessDenied";
+import Portal from "@/components/ui/Portal";
 
 const API = getApiBaseUrl();
 
@@ -542,17 +543,21 @@ export default function AdminCRMPage() {
 
  {/* Modals */}
  {selected && (
+ <Portal>
  <LeadDetailModal
  lead={selected}
  onClose={() => setSelected(null)}
  onSave={handleSaved}
  />
+ </Portal>
  )}
  {showAdd && (
+ <Portal>
  <AddLeadModal
  onClose={() => setShowAdd(false)}
  onCreated={handleCreated}
  />
+ </Portal>
  )}
  </div>
  );
