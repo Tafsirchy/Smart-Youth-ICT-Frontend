@@ -21,51 +21,67 @@ export default function ManualPaymentModal({ courseId, amount, onClose }) {
 
  const isMFS = ['bkash', 'nagad', 'rocket'].includes(method);
 
- const handleSubmit = async (e) => {
- e.preventDefault();
- 
- if (isMFS) {
- if (!transactionId || !senderNumber) {
- return toast.error('Please enter the Sender Number and Transaction ID');
- }
- } else {
- if (!bankName || !transactionId || !slipFile) {
- return toast.error('Please fill all bank details and upload the deposit slip');
- }
- }
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    
+    const validCourseId = typeof courseId === "object" ? courseId?._id : courseId;
+    if (!validCourseId) {
+      return toast.error("Course information is missing.");
+    }
+    if (!amount) {
+      return toast.error("Payment amount is missing.");
+    }
 
- setLoading(true);
- try {
- const submitData = new FormData();
- submitData.append('courseId', courseId);
- submitData.append('amount', amount);
- submitData.append('method', method);
- submitData.append('transactionId', transactionId);
- 
- if (isMFS) {
- submitData.append('senderNumber', senderNumber);
- } else {
- submitData.append('bankName', bankName);
- submitData.append('slip', slipFile);
- }
+    if (isMFS) {
+      if (!transactionId || !senderNumber) {
+        return toast.error("Please enter the Sender Number and Transaction ID");
+      }
+    } else {
+      if (!bankName || !transactionId || !slipFile) {
+        return toast.error("Please fill all bank details and upload the deposit slip");
+      }
+    }
 
- const res = await api.post('/payments/manual/submit', submitData, {
- headers: { 'Content-Type': 'multipart/form-data' }
- });
+    setLoading(true);
+    try {
+      let res;
+      if (isMFS) {
+        res = await api.post("/payments/manual/submit", {
+          courseId: validCourseId,
+          amount,
+          method,
+          transactionId,
+          senderNumber,
+        });
+      } else {
+        const submitData = new FormData();
+        submitData.append("courseId", validCourseId);
+        submitData.append("amount", amount);
+        submitData.append("method", method);
+        submitData.append("transactionId", transactionId);
+        submitData.append("bankName", bankName);
+        if (slipFile) {
+          submitData.append("slip", slipFile);
+        }
 
- if (res.data?.success) {
- toast.success(res.data.message || 'Payment submitted for review');
- onClose();
- } else {
- toast.error(res.data?.message || 'Failed to submit payment');
- }
- } catch (error) {
- console.error(error);
- toast.error('An error occurred');
- } finally {
- setLoading(false);
- }
- };
+        res = await api.post("/payments/manual/submit", submitData, {
+          headers: { "Content-Type": "multipart/form-data" }
+        });
+      }
+
+      if (res.data?.success) {
+        toast.success(res.data.message || "Payment submitted for review");
+        onClose();
+      } else {
+        toast.error(res.data?.message || "Failed to submit payment");
+      }
+    } catch (error) {
+      console.error(error);
+      toast.error(error?.response?.data?.message || error.message || "An error occurred");
+    } finally {
+      setLoading(false);
+    }
+  };
 
  const getInstructions = () => {
  switch (method) {

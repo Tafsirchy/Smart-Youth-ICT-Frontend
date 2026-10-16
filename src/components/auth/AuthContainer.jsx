@@ -16,6 +16,8 @@ import {
 import { FaGoogle, FaArrowLeft } from "react-icons/fa";
 import toast from "react-hot-toast";
 import { authService } from "@/services/authService";
+import api from "@/lib/api";
+import AuthBackground from "./AuthBackground";
 
 const GOOGLE_AUTH_ENABLED =
  process.env.NEXT_PUBLIC_GOOGLE_AUTH_ENABLED?.trim() === "true";
@@ -31,6 +33,7 @@ export default function AuthContainer({ defaultTab = "login" }) {
  const router = useRouter();
  const locale = useLocale();
  const [tab, setTab] = useState(defaultTab);
+  const [registrationOpen, setRegistrationOpen] = useState(true);
 
  const [form, setForm] = useState({
  name: "",
@@ -132,43 +135,11 @@ export default function AuthContainer({ defaultTab = "login" }) {
 
  return (
  <div className="relative min-h-[100dvh] w-full flex items-center justify-center p-4 bg-slate-50 overflow-hidden">
- {/* ── Futuristic Infinite Marquee Background ──────────────────────────── */}
- <div className="absolute inset-0 z-0 flex items-center justify-center pointer-events-none opacity-[0.04]">
- <div className="absolute w-[200%] h-[200%] -rotate-12 flex flex-col justify-center gap-10">
- <motion.div 
- className="flex whitespace-nowrap text-[140px] font-black uppercase tracking-tighter text-slate-900"
- animate={{ x: [0, -1030] }}
- transition={{ repeat: Infinity, ease: "linear", duration: 20 }}
- >
- {[...Array(5)].map((_, i) => (
- <span key={i} className="mr-8">INNOVATION • TECHNOLOGY • FUTURE • AI • CYBERNETICS •</span>
- ))}
- </motion.div>
- 
- <motion.div 
- className="flex whitespace-nowrap text-[140px] font-black uppercase tracking-tighter text-slate-900"
- animate={{ x: [-1030, 0] }}
- transition={{ repeat: Infinity, ease: "linear", duration: 25 }}
- >
- {[...Array(5)].map((_, i) => (
- <span key={i} className="mr-8">ROBOTICS • AUTOMATION • CLOUD • DATA • MACHINE LEARNING •</span>
- ))}
- </motion.div>
+      {/* ── High-Performance GPU Marquee Background ──────────────────────── */}
+      <AuthBackground />
 
- <motion.div 
- className="flex whitespace-nowrap text-[140px] font-black uppercase tracking-tighter text-slate-900"
- animate={{ x: [0, -1030] }}
- transition={{ repeat: Infinity, ease: "linear", duration: 22 }}
- >
- {[...Array(5)].map((_, i) => (
- <span key={i} className="mr-8">WEB3 • DESIGN • ENGINEERING • NEURAL NETWORKS • SYSTEM •</span>
- ))}
- </motion.div>
- </div>
- </div>
-
- {/* ── Top Left Back Button ────────────────────────────── */}
- <Link
+      {/* ── Top Left Back Button ────────────────────────────── */}
+      <Link
  href="/"
  className="absolute top-6 left-6 z-20 flex items-center gap-2 text-slate-500 hover:text-slate-800 transition-colors text-sm font-medium rounded-md"
  >
@@ -240,7 +211,16 @@ decoding="async"/>
  {/* Form */}
  <form onSubmit={isLogin ? handleLoginSubmit : handleRegisterSubmit} className="space-y-3">
  
- {error && (
+ {!isLogin && !registrationOpen && (
+          <div className="p-3 bg-rose-50 border border-rose-200 text-rose-700 text-xs rounded-lg mb-3">
+            <p className="font-bold">New Registrations Closed</p>
+            <p className="text-[11px] text-rose-600 mt-0.5">
+              New account creation is currently paused by administration. Existing students and staff can sign in using their credentials.
+            </p>
+          </div>
+        )}
+
+        {error && (
  <div className="flex items-start gap-2 p-3 text-xs text-brand-pink bg-brand-pink/5 border border-brand-pink/10 rounded-sm">
  ⚠️ {error}
  </div>
@@ -379,7 +359,7 @@ decoding="async"/>
 
  <button
  type="submit"
- disabled={loading}
+ disabled={loading || (!isLogin && !registrationOpen)}
  className="w-full py-2.5 mt-2 text-sm font-bold text-white shadow-[0_4px_14px_0_rgba(255,44,109,0.39)] bg-gradient-to-r from-brand-pink to-brand-accent hover:shadow-[0_6px_20px_rgba(255,44,109,0.23)] active:scale-[0.98] transition-all disabled:opacity-60 rounded-md"
  >
  {loading ? "Processing…" : (isLogin ? "Sign In" : "Create Account")}

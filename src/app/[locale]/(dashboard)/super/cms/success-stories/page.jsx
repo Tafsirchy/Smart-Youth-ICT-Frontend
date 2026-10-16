@@ -441,39 +441,16 @@ export default function SuccessStoriesPage() {
  }
  />
  </div>
- <div>
- <label className="block text-[10px] font-black uppercase text-slate-400 mb-0.5 leading-[1.4]">
- Video Thumbnail Upload
- </label>
- <input
- type="file"
- accept="image/*"
- className="w-full px-3 py-1.5 bg-slate-50 border-2 border-transparent focus:border-indigo-500/20 focus:bg-white transition-all outline-none text-sm rounded-md"
- onChange={(e) => {
- const file = e.target.files?.[0];
- if (file) {
- const objectUrl = URL.createObjectURL(file);
- setFormData({
- ...formData,
- videoThumbnail: objectUrl,
- });
- }
- }}
- />
- {formData.videoThumbnail && (
- <div className="mt-2">
- <img
- src={formData.videoThumbnail}
- alt="Preview"
- loading="lazy"
- decoding="async"
- onError={(e) => { e.target.src = '/images/placeholder.png'; }}
- className="object-cover bg-[#f0f0f0]"
- style={{ maxWidth: '100%', maxHeight: '160px' }}
- />
- </div>
- )}
- </div>
+                  <div>
+                    <ImageUpload
+                      value={formData.videoThumbnail}
+                      onChange={(url) =>
+                        setFormData({ ...formData, videoThumbnail: url })
+                      }
+                      label="Video Thumbnail"
+                      aspect="video"
+                    />
+                  </div>
  </motion.div>
  )}
 

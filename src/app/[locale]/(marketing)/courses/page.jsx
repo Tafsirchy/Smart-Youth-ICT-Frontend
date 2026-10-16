@@ -120,22 +120,35 @@ export default function CoursesPage() {
  style={{ background: "var(--color-background)" }}
  >
  {/* ── Hero Banner ───────────────────────────────── */}
+ {heroConfig?.mode === 'image_only' && heroConfig?.imageUrl ? (
+ <section className="relative w-full overflow-hidden flex items-center justify-center bg-slate-950">
+ <img
+ src={heroConfig.imageUrl}
+ alt="Courses Hero Banner"
+ className="w-full h-auto max-h-[85vh] object-contain mx-auto block"
+ />
+ </section>
+ ) : (
  <section
- className={`relative w-full overflow-hidden ${
- heroConfig?.mode === 'image_only' 
- ? 'h-[250px] sm:h-[350px] md:h-[450px]' 
- : 'py-12 sm:py-20 text-center px-4'
- }`}
+ className="relative w-full overflow-hidden py-14 sm:py-24 text-center px-4"
  style={{
  background: heroConfig?.imageUrl 
- ? `url(${heroConfig.imageUrl}) center/cover no-repeat` 
+ ? (heroConfig?.imageFit === 'contain'
+ ? `url(${heroConfig.imageUrl}) center/contain no-repeat, url(${heroConfig.imageUrl}) center/cover no-repeat`
+ : `url(${heroConfig.imageUrl}) ${heroConfig?.imagePosition || 'top center'}/${heroConfig?.imageFit || 'cover'} no-repeat`)
  : "linear-gradient(135deg, #0f172a 0%, #1e1b4b 60%, #312e81 100%)",
  }}
  >
- {heroConfig?.mode !== 'image_only' && (
- <>
- {heroConfig?.imageUrl && <div className="absolute inset-0 bg-slate-900/60 backdrop-blur-[2px] z-0" />}
- 
+ {heroConfig?.imageUrl && (
+ <div
+ className={`absolute inset-0 z-0 ${
+ heroConfig?.imageFit === 'contain'
+ ? 'backdrop-blur-md bg-slate-950/70'
+ : 'bg-slate-900/60 backdrop-blur-[2px]'
+ }`}
+ />
+ )}
+
  {!heroConfig?.imageUrl && (
  <>
  <motion.div
@@ -197,9 +210,8 @@ export default function CoursesPage() {
  )}
  </div>
  </motion.div>
- </>
+    </section>
  )}
- </section>
 
  {/* ── Category Filter Bar ─────────────────────── */}
  {/* Sticky offset top-[72px] matching the height of the sticky global Navbar, slides up on scroll down */}

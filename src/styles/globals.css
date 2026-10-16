@@ -934,4 +934,72 @@ div:has(> [data-toaster]) {
   z-index: 99999999 !important;
 }
 
+/* ============================================
+   HARDWARE-ACCELERATED MARQUEE ANIMATIONS
+   Compositor-thread-only animations (zero main-thread contention)
+   ============================================ */
+@keyframes syict-marquee-left {
+  0% {
+    transform: translate3d(0, 0, 0);
+  }
+  100% {
+    transform: translate3d(-50%, 0, 0);
+  }
+}
+
+@keyframes syict-marquee-right {
+  0% {
+    transform: translate3d(-50%, 0, 0);
+  }
+  100% {
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+.animate-syict-marquee-left {
+  display: flex;
+  width: max-content;
+  will-change: transform;
+  transform: translate3d(0, 0, 0);
+  backface-visibility: hidden;
+  animation: syict-marquee-left 110s linear infinite;
+}
+
+.animate-syict-marquee-right {
+  display: flex;
+  width: max-content;
+  will-change: transform;
+  transform: translate3d(0, 0, 0);
+  backface-visibility: hidden;
+  animation: syict-marquee-right 135s linear infinite;
+}
+
+.animate-syict-marquee-left-alt {
+  display: flex;
+  width: max-content;
+  will-change: transform;
+  transform: translate3d(0, 0, 0);
+  backface-visibility: hidden;
+  animation: syict-marquee-left 120s linear infinite;
+}
+
+.animate-syict-marquee-right-alt {
+  display: flex;
+  width: max-content;
+  will-change: transform;
+  transform: translate3d(0, 0, 0);
+  backface-visibility: hidden;
+  animation: syict-marquee-right 145s linear infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-syict-marquee-left,
+  .animate-syict-marquee-right,
+  .animate-syict-marquee-left-alt,
+  .animate-syict-marquee-right-alt {
+    animation: none;
+  }
+}
+
+
 
