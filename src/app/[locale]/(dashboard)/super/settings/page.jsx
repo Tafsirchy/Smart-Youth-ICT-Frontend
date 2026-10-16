@@ -31,45 +31,90 @@ const item = {
  show: { opacity: 1, scale: 1 }
 };
 
+const DEFAULT_SETTINGS = {
+  maintenanceMode: false,
+  registrationOpen: true,
+};
+
 export default function SystemSettingsPage() {
- const [settings, setSettings] = useState({});
- const [articles, setArticles] = useState([]);
- const [loading, setLoading] = useState(true);
- const [showArticleModal, setShowArticleModal] = useState(false);
- const [editingArticle, setEditingArticle] = useState(null);
- const [articleForm, setArticleForm] = useState({ title: '', category: 'getting-started', content: '', isPublished: false });
- const [newBroadcast, setNewBroadcast] = useState({ text: '', type: 'general' });
- const [editingBroadcastId, setEditingBroadcastId] = useState(null);
+  const [settings, setSettings] = useState(DEFAULT_SETTINGS);
+  const [pendingKeys, setPendingKeys] = useState({});
+  const [articles, setArticles] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [showArticleModal, setShowArticleModal] = useState(false);
+  const [editingArticle, setEditingArticle] = useState(null);
+  const [articleForm, setArticleForm] = useState({ title: '', category: 'getting-started', content: '', isPublished: false });
+  const [newBroadcast, setNewBroadcast] = useState({ text: '', type: 'general' });
+  const [editingBroadcastId, setEditingBroadcastId] = useState(null);
 
- useEffect(() => {
- fetchData();
- }, []);
+  useEffect(() => {
+    fetchSettings();
+    fetchArticles();
 
- const fetchData = async () => {
- try {
- const [setRes, artRes] = await Promise.all([
- api.get('/super/settings'),
- api.get('/super/help-center')
- ]);
- if (setRes.data?.success) setSettings(setRes.data.data.reduce((acc, curr) => ({ ...acc, [curr.key]: curr.value }), {}));
- if (artRes.data?.success) setArticles(artRes.data.data);
- } catch (err) {
- toast.error('Session data partially loaded from cache');
- } finally {
- setLoading(false);
- }
- };
+    const handleSync = (e) => {
+      if (typeof e.detail?.maintenanceMode === 'boolean') {
+        setSettings(prev => ({ ...prev, maintenanceMode: e.detail.maintenanceMode }));
+      }
+    };
+    window.addEventListener('maintenanceModeChanged', handleSync);
+    return () => window.removeEventListener('maintenanceModeChanged', handleSync);
+  }, []);
 
- const toggleSetting = async (key) => {
- const newVal = !settings[key];
- setSettings({ ...settings, [key]: newVal });
- try {
- await api.put('/super/settings', { key, value: newVal });
- toast.success(`${key} updated`);
- } catch (err) {
- toast.error('Failed to sync setting');
- }
- };
+  const fetchSettings = async () => {
+    try {
+      const res = await api.get('/super/settings');
+      if (res.data?.success && Array.isArray(res.data.data)) {
+        const map = {};
+        res.data.data.forEach(item => { map[item.key] = item.value; });
+        setSettings(prev => ({ ...prev, ...map }));
+      }
+    } catch (err) {
+      console.error('[Fetch Settings Error]', err);
+    }
+  };
+
+  const fetchArticles = async () => {
+    try {
+      const res = await api.get('/super/help-center');
+      if (res.data?.success) setArticles(res.data.data);
+    } catch (err) {
+      console.error('[Fetch Articles Error]', err);
+    }
+  };
+
+  const toggleSetting = async (key) => {
+    const currentVal = Boolean(settings[key]);
+    const nextVal = !currentVal;
+
+    // Instant 0ms Optimistic UI update
+    setSettings(prev => ({ ...prev, [key]: nextVal }));
+    setPendingKeys(prev => ({ ...prev, [key]: true }));
+
+    if (key === 'maintenanceMode' && typeof window !== 'undefined') {
+      window.dispatchEvent(new CustomEvent('maintenanceModeChanged', { detail: { maintenanceMode: nextVal } }));
+    }
+
+    try {
+      const res = await api.put('/super/settings', { key, value: nextVal });
+      if (res.data?.success) {
+        const label = key === 'maintenanceMode' ? 'Maintenance Mode' : 'New Registrations';
+        toast.success(`${label} ${nextVal ? 'Enabled' : 'Disabled'}`);
+      }
+    } catch (err) {
+      // Revert on error
+      setSettings(prev => ({ ...prev, [key]: currentVal }));
+      if (key === 'maintenanceMode' && typeof window !== 'undefined') {
+        window.dispatchEvent(new CustomEvent('maintenanceModeChanged', { detail: { maintenanceMode: currentVal } }));
+      }
+      toast.error('Failed to update setting');
+    } finally {
+      setPendingKeys(prev => {
+        const updated = { ...prev };
+        delete updated[key];
+        return updated;
+      });
+    }
+  };
 
  const updateGlobalMessages = async (newMessages) => {
  try {
@@ -154,30 +199,81 @@ export default function SystemSettingsPage() {
  >
  {/* Left Column: Toggles & Flags */}
  <div className="lg:col-span-2 space-y-5">
- <motion.div variants={item} className="bg-white p-6 -[2.5rem] border border-slate-100 shadow-sm rounded-lg">
- <h3 className="text-xl font-black text-slate-900 mb-4 flex items-center gap-2">
- <HiOutlineShieldCheck className="text-rose-500" /> Security & Access
- </h3>
- <div className="space-y-3">
- {[
- { key: 'maintenanceMode', label: 'Maintenance Mode', desc: 'Take the entire platform offline for updates.' },
- { key: 'registrationOpen', label: 'New Registrations', desc: 'Allow new students to create accounts globally.' },
- ].map((s) => (
- <div key={s.key} className="flex items-center justify-between p-4 bg-slate-50/50 border border-slate-100/50 rounded-lg">
- <div className="max-w-md">
- <p className="font-black text-slate-800 text-sm leading-[1.4]">{s.label}</p>
- <p className="text-xs text-slate-400 font-medium leading-[1.6]">{s.desc}</p>
- </div>
- <button 
- onClick={() => toggleSetting(s.key)}
- className={`w-14 h-8 relative transition-all duration-300 shadow-inner ${settings[s.key] ? 'bg-rose-500' : 'bg-slate-200'}`}
- >
- <div className={`absolute top-1 left-1 w-6 h-6 bg-white shadow-md transition-all duration-300 ${settings[s.key] ? 'translate-x-6' : ''}`} />
- </button>
- </div>
- ))}
- </div>
- </motion.div>
+ <motion.div variants={item} className="bg-white p-5 sm:p-6 rounded-2xl border border-slate-200/80 shadow-sm">
+            <div className="flex items-center justify-between mb-4">
+              <h3 className="text-lg sm:text-xl font-black text-slate-900 flex items-center gap-2">
+                <HiOutlineShieldCheck className="text-rose-500" size={24} /> Security & Access Controls
+              </h3>
+              <span className="text-[10px] font-black uppercase tracking-wider text-slate-400 bg-slate-100 px-2.5 py-0.5 rounded-full">
+                Global Policy
+              </span>
+            </div>
+
+            <div className="space-y-3">
+              {[
+                { 
+                  key: 'maintenanceMode', 
+                  label: 'Maintenance Mode', 
+                  desc: 'Suspend public access & student dashboards for platform updates. Super Admins retain full access.',
+                  activeColor: 'bg-rose-500',
+                  badgeColor: 'bg-rose-50 text-rose-700 border-rose-200'
+                },
+                { 
+                  key: 'registrationOpen', 
+                  label: 'New Student Registrations', 
+                  desc: 'Allow new students to register accounts globally via email and Google OAuth.',
+                  activeColor: 'bg-emerald-600',
+                  badgeColor: 'bg-emerald-50 text-emerald-700 border-emerald-200'
+                },
+              ].map((s) => {
+                const isActive = Boolean(settings[s.key]);
+                const isPending = Boolean(pendingKeys[s.key]);
+
+                return (
+                  <div 
+                    key={s.key} 
+                    onClick={() => toggleSetting(s.key)}
+                    className="flex items-center justify-between p-4 bg-slate-50/70 hover:bg-slate-100/70 border border-slate-200/80 rounded-xl transition-all cursor-pointer group select-none"
+                  >
+                    <div className="max-w-md pr-4">
+                      <div className="flex items-center gap-2 mb-1">
+                        <p className="font-black text-slate-900 text-sm">{s.label}</p>
+                        <span className={`px-2 py-0.5 rounded-full text-[9px] font-black uppercase tracking-wider border ${
+                          isActive ? s.badgeColor : 'bg-slate-100 text-slate-400 border-slate-200'
+                        }`}>
+                          {isActive ? 'Active' : 'Disabled'}
+                        </span>
+                        {isPending && (
+                          <span className="w-1.5 h-1.5 rounded-full bg-indigo-500 animate-ping" />
+                        )}
+                      </div>
+                      <p className="text-xs text-slate-500 font-medium leading-relaxed">{s.desc}</p>
+                    </div>
+
+                    {/* Instant 1-Click iOS / Linear Pill Switch */}
+                    <button 
+                      type="button"
+                      role="switch"
+                      aria-checked={isActive}
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        toggleSetting(s.key);
+                      }}
+                      className={`w-[52px] h-[28px] rounded-full p-1 transition-colors duration-200 ease-out focus:outline-none flex items-center shrink-0 cursor-pointer ${
+                        isActive ? s.activeColor : 'bg-slate-300'
+                      }`}
+                    >
+                      <div 
+                        className={`w-5 h-5 rounded-full bg-white shadow-md transform transition-transform duration-200 ease-out ${
+                          isActive ? 'translate-x-[24px]' : 'translate-x-0'
+                        }`}
+                      />
+                    </button>
+                  </div>
+                );
+              })}
+            </div>
+          </motion.div>
 
  <motion.div variants={item} className="bg-slate-900 p-6 -[2.5rem] shadow-2xl relative overflow-hidden flex flex-col rounded-lg">
  <div className="absolute top-0 right-0 p-6 opacity-5 text-white pointer-events-none">
