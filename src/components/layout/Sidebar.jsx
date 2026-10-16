@@ -181,7 +181,7 @@ decoding="async"/>
  label="Support Hub"
  />
  <NavItem
- href="/contact"
+ href="/help"
  Icon={HiQuestionMarkCircle}
  label="Help Center"
  />

@@ -98,6 +98,6 @@ export const NAVIGATION_CONFIG = {
 
 export const SUPPORT_LINKS = [
   { href: '/student/support', Icon: HiAnnotation, label: 'Support Hub' },
-  { href: '/contact',         Icon: HiHome,       label: 'Help Center' },
+  { href: '/help',            Icon: HiHome,       label: 'Help Center' },
   { href: '/profile',         Icon: HiUserCircle, label: 'Profile Settings' },
 ];
