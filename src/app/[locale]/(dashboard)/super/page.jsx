@@ -2,6 +2,8 @@
 
 import { useState, useEffect } from 'react';
 import { useQuery } from '@tanstack/react-query';
+import { useParams } from 'next/navigation';
+import Link from 'next/link';
 import { motion } from 'framer-motion';
 import api from '@/lib/api';
 import toast from 'react-hot-toast';
@@ -142,21 +144,25 @@ export default function GlobalDashboard() {
  animate={{ opacity: 1, x: 0 }}
  className="bg-indigo-600 p-6 text-white shadow-xl shadow-indigo-600/20 group rounded-lg"
  >
- <h3 className="text-lg font-black mb-4">Strategic Quick-Actions</h3>
- <div className="space-y-2">
- {[
- { label: 'Issue Global Notice', icon: HiOutlineChevronRight },
- { label: 'Audit Master Courses', icon: HiOutlineChevronRight },
- { label: 'Review Support Tickets', icon: HiOutlineChevronRight },
- { label: 'Generate Monthly Report', icon: HiOutlineChevronRight },
- ].map((action, i) => (
- <button key={i} className="w-full flex items-center justify-between p-3 bg-white/10 hover:bg-white/20 border border-white/10 text-sm font-bold transition-all group/btn rounded-md">
- {action.label}
- <action.icon className="group-hover/btn:translate-x-1 transition-transform" />
- </button>
- ))}
- </div>
- </motion.div>
+ <h3 className="text-lg font-black mb-4 !text-white text-white">Strategic Quick-Actions</h3>
+            <div className="space-y-2">
+              {[
+                { label: 'Issue Global Notice', href: '/super/settings' },
+                { label: 'Audit Master Courses', href: '/super/curriculum' },
+                { label: 'Review Support Tickets', href: '/super/support' },
+                { label: 'System Pulse & Reports', href: '/super/reports' },
+              ].map((action, i) => (
+                <Link 
+                  key={i} 
+                  href={action.href}
+                  className="w-full flex items-center justify-between p-3 bg-white/10 hover:bg-white/20 border border-white/10 text-sm font-bold !text-white text-white transition-all group/btn rounded-md"
+                >
+                  <span>{action.label}</span>
+                  <HiOutlineChevronRight className="group-hover/btn:translate-x-1 transition-transform text-white/80" />
+                </Link>
+              ))}
+            </div>
+          </motion.div>
  
  <motion.div 
  initial={{ opacity: 0, scale: 0.9 }}
