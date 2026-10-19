@@ -12,7 +12,7 @@ import {
  IoCheckmarkCircle, IoTimeOutline, IoArrowUpOutline,
  IoDesktopOutline, IoGiftOutline
 } from 'react-icons/io5';
-import { HiOutlineAcademicCap, HiReceiptTax, HiCalendar } from 'react-icons/hi';
+import { HiOutlineAcademicCap, HiReceiptTax, HiCalendar, HiTag, HiSpeakerphone } from 'react-icons/hi';
 import { HiShieldExclamation } from 'react-icons/hi';
 import { useRole } from '@/hooks/useRole';
 import { useSearchParams } from 'next/navigation';
@@ -31,6 +31,8 @@ const QUICK_LINKS = [
  { href: '/admin/affiliate', label: 'Affiliates', icon: IoGiftOutline, color: 'from-emerald-600 to-teal-600', adminOnly: true },
  { href: '/admin/expenses', label: 'Expenses & P&L', icon: HiReceiptTax, color: 'from-amber-600 to-rose-600', permission: 'staff:manage' },
  { href: '/admin/counseling', label: 'Counseling Hub', icon: HiCalendar, color: 'from-purple-500 to-indigo-600', permission: 'leads:view' },
+ { href: '/admin/coupons', label: 'Coupons & Promos', icon: HiTag, color: 'from-orange-500 to-amber-600', permission: 'payments:view' },
+ { href: '/admin/notices', label: 'Notice Board', icon: HiSpeakerphone, color: 'from-blue-600 to-indigo-600', permission: null },
  { href: '/admin/seminars', label: 'Seminars', icon: HiOutlineAcademicCap, color: 'from-cyan-500 to-blue-500', permission: 'seminars:view' },
 ];
 

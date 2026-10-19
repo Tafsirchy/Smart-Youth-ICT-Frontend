@@ -4,7 +4,8 @@ import {
   HiAnnotation, HiCollection, HiUserCircle, HiGift,
   HiGlobeAlt, HiBriefcase, HiLightningBolt, HiSparkles,
   HiChatAlt2, HiPuzzle, HiServer, HiShieldCheck, HiUserAdd,
-  HiDesktopComputer, HiReceiptTax, HiCalendar, HiIdentification
+  HiDesktopComputer, HiReceiptTax, HiCalendar, HiIdentification,
+  HiTag, HiSpeakerphone
 } from 'react-icons/hi';
 
 /**
@@ -20,6 +21,7 @@ export const NAVIGATION_CONFIG = {
     { href: '/student',              Icon: HiHome,          label: 'Dashboard'   },
     { href: '/student/my-courses',   Icon: HiAcademicCap,   label: 'My Courses'  },
     { href: '/student/routine',      Icon: HiCalendar,      label: 'Class Routine' },
+    { href: '/student/notices',      Icon: HiSpeakerphone,  label: 'Notices & Alerts' },
     { href: '/student/progress',     Icon: HiChartBar,      label: 'Progress'    },
     { href: '/student/assignments',  Icon: HiClipboardList, label: 'Assignments' },
     { href: '/student/certificates', Icon: HiBadgeCheck,    label: 'Certificates'},
@@ -40,6 +42,8 @@ export const NAVIGATION_CONFIG = {
     { href: '/admin/routines', Icon: HiClipboardList, label: 'Class Routines',   permission: 'courses:view' },
     { href: '/admin/students', Icon: HiUserGroup,     label: 'Students',         permission: 'students:view' },
     { href: '/admin/payments', Icon: HiCreditCard,    label: 'Payments',         permission: 'payments:view' },
+    { href: '/admin/coupons',  Icon: HiTag,           label: 'Coupons & Promos', permission: 'payments:view' },
+    { href: '/admin/notices',  Icon: HiSpeakerphone,  label: 'Notice Board',     permission: null },
     { href: '/admin/expenses', Icon: HiReceiptTax,    label: 'Expenses & P&L',   permission: 'staff:manage' },
     { href: '/admin/counseling', Icon: HiCalendar,    label: 'Counseling Hub',   permission: 'leads:view' },
     { href: '/admin/staff',    Icon: HiUsers,         label: 'Staff Room',       permission: 'staff:manage' },
