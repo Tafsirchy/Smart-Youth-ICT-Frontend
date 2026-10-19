@@ -22,6 +22,13 @@ const api = axios.create({
 
 // Attach JWT from NextAuth session on every request
 api.interceptors.request.use(async (config) => {
+  // If sending FormData, delete Content-Type to allow browser/axios to set boundary automatically
+  if (typeof FormData !== "undefined" && config.data instanceof FormData) {
+    if (config.headers) {
+      delete config.headers["Content-Type"];
+    }
+  }
+
   const requestPath = config.url || "";
   if (PUBLIC_AUTH_PATHS.has(requestPath)) {
     return config;

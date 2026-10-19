@@ -16,7 +16,7 @@ export default function CourseInstructor({ instructor }) {
  <div className="shrink-0 mx-auto sm:mx-0">
  <div className="relative h-24 w-24 sm:h-32 sm:w-32 overflow-hidden border-4 border-blue-50">
  <ImageLoader
- src={instructor.avatar || '/images/default-avatar.png'}
+ src={instructor.avatar || '/images/placeholder.png'}
  alt={instructor.name || 'Instructor'}
  fill
  className="object-cover rounded-md"

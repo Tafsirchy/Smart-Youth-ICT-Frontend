@@ -51,7 +51,7 @@ export default function CertificationSection() {
  <div className="relative bg-white p-2 rounded-lg shadow-2xl transition duration-500 hover:-translate-y-1">
  <div className="aspect-[1.414/1] bg-slate-100 overflow-hidden relative rounded-lg border border-slate-200">
  <Image 
- src="/images/certificate-placeholder.png" 
+ src="/images/placeholder.png" 
  alt="Certificate"
  fill
  sizes="400px"

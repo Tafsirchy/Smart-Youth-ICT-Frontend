@@ -24,7 +24,7 @@ export default function ManualPaymentModal({ courseId, amount, onClose }) {
   const handleSubmit = async (e) => {
     e.preventDefault();
     
-    const validCourseId = typeof courseId === "object" ? courseId?._id : courseId;
+    const validCourseId = typeof courseId === "object" ? (courseId?._id || courseId?.id) : courseId;
     if (!validCourseId) {
       return toast.error("Course information is missing.");
     }
@@ -44,30 +44,18 @@ export default function ManualPaymentModal({ courseId, amount, onClose }) {
 
     setLoading(true);
     try {
-      let res;
-      if (isMFS) {
-        res = await api.post("/payments/manual/submit", {
-          courseId: validCourseId,
-          amount,
-          method,
-          transactionId,
-          senderNumber,
-        });
-      } else {
-        const submitData = new FormData();
-        submitData.append("courseId", validCourseId);
-        submitData.append("amount", amount);
-        submitData.append("method", method);
-        submitData.append("transactionId", transactionId);
-        submitData.append("bankName", bankName);
-        if (slipFile) {
-          submitData.append("slip", slipFile);
-        }
-
-        res = await api.post("/payments/manual/submit", submitData, {
-          headers: { "Content-Type": "multipart/form-data" }
-        });
+      const submitData = new FormData();
+      submitData.append("courseId", validCourseId);
+      submitData.append("amount", String(amount));
+      submitData.append("method", method);
+      if (transactionId) submitData.append("transactionId", transactionId.trim());
+      if (senderNumber) submitData.append("senderNumber", senderNumber.trim());
+      if (bankName) submitData.append("bankName", bankName.trim());
+      if (slipFile) {
+        submitData.append("slip", slipFile);
       }
+
+      const res = await api.post("/payments/manual/submit", submitData);
 
       if (res.data?.success) {
         toast.success(res.data.message || "Payment submitted for review");

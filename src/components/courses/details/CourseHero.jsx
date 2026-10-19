@@ -122,7 +122,7 @@ export default function CourseHero({ course, onEnroll }) {
  {/* Instructor */}
  <div className="flex items-center gap-2">
  <div className="w-7 h-7 relative overflow-hidden rounded-full border border-slate-200">
- <Image src={course?.instructor?.avatar || '/images/default-avatar.png'} alt="Instructor" fill sizes="28px" className="object-cover bg-[#f0f0f0] rounded-md" priority={true} fetchPriority="high" onError={(e) => { e.target.srcset = ''; e.target.src = '/images/placeholder.png'; }} decoding="async"/>
+ <Image src={course?.instructor?.avatar || '/images/placeholder.png'} alt="Instructor" fill sizes="28px" className="object-cover bg-[#f0f0f0] rounded-md" priority={true} fetchPriority="high" onError={(e) => { e.target.srcset = ''; e.target.src = '/images/placeholder.png'; }} decoding="async"/>
  </div>
  <span>By <span className="font-semibold text-slate-800">{instructorName}</span></span>
  </div>

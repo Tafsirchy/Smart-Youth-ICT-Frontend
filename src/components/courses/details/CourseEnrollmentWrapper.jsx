@@ -105,8 +105,8 @@ export default function CourseEnrollmentWrapper({ course, locale, children }) {
  <AnimatePresence>
  {showManualBank && (
  <ManualPaymentModal 
- courseId={course._id} 
- amount={course.price} 
+ courseId={course?._id || course?.id} 
+ amount={course?.price} 
  onClose={() => setShowManualBank(false)} 
  />
  )}

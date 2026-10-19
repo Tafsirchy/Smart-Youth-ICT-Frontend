@@ -8,7 +8,7 @@ import { IoLogoLinkedin, IoLogoTwitter, IoLogoGithub, IoRibbonOutline, IoPeopleO
 export default function InstructorSection({ course }) {
  const instructor = course?.instructor || {
  name: 'Expert Instructor',
- avatar: '/images/default-avatar.png',
+ avatar: '/images/placeholder.png',
  bio: 'A passionate developer with years of delivering high-quality client projects in the global marketplace. This instructor brings both teaching clarity and industry depth to every lesson, preparing you for real-world scenarios.',
  experience: '8+ Years',
  title: 'Senior Software Engineer'
