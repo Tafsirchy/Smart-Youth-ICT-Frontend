@@ -9,7 +9,8 @@ import api from '@/lib/api';
 import {
  IoPeopleOutline, IoBookOutline, IoCashOutline, IoRibbonOutline,
  IoTrendingUpOutline, IoArrowForwardOutline, IoCalendarOutline,
- IoCheckmarkCircle, IoTimeOutline, IoArrowUpOutline
+ IoCheckmarkCircle, IoTimeOutline, IoArrowUpOutline,
+ IoDesktopOutline, IoGiftOutline
 } from 'react-icons/io5';
 import { HiOutlineAcademicCap } from 'react-icons/hi';
 import { HiShieldExclamation } from 'react-icons/hi';
@@ -25,6 +26,8 @@ const QUICK_LINKS = [
  { href: '/admin/payments', label: 'Payments', icon: IoCashOutline, color: 'from-emerald-500 to-green-600', permission: 'payments:view' },
  { href: '/admin/blog', label: 'Blog', icon: IoCalendarOutline, color: 'from-pink-500 to-rose-500', adminOnly: true },
  { href: '/admin/testimonials', label: 'Testimonials', icon: IoRibbonOutline, color: 'from-amber-500 to-orange-500', adminOnly: true },
+ { href: '/admin/assets', label: 'Assets & Lab', icon: IoDesktopOutline, color: 'from-indigo-500 to-blue-600', permission: 'staff:manage' },
+ { href: '/admin/affiliate', label: 'Affiliates', icon: IoGiftOutline, color: 'from-emerald-600 to-teal-600', adminOnly: true },
  { href: '/admin/seminars', label: 'Seminars', icon: HiOutlineAcademicCap, color: 'from-cyan-500 to-blue-500', permission: 'seminars:view' },
 ];
 

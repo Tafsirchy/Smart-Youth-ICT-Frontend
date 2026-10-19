@@ -3,7 +3,8 @@ import {
   HiBadgeCheck, HiCreditCard, HiUsers, HiUserGroup,
   HiAnnotation, HiCollection, HiUserCircle, HiGift,
   HiGlobeAlt, HiBriefcase, HiLightningBolt, HiSparkles,
-  HiChatAlt2, HiPuzzle, HiServer, HiShieldCheck, HiUserAdd
+  HiChatAlt2, HiPuzzle, HiServer, HiShieldCheck, HiUserAdd,
+  HiDesktopComputer
 } from 'react-icons/hi';
 
 /**
@@ -39,6 +40,8 @@ export const NAVIGATION_CONFIG = {
     { href: '/admin/staff',    Icon: HiUsers,         label: 'Staff Room',       permission: 'staff:manage' },
     { href: '/admin/crm',      Icon: HiAnnotation,    label: 'Leads/CRM',        permission: 'leads:view' },
     { href: '/admin/seminars', Icon: HiAcademicCap,   label: 'Seminars',         permission: 'seminars:view' },
+    { href: '/admin/assets',   Icon: HiDesktopComputer, label: 'Assets & Lab',   permission: 'staff:manage' },
+    { href: '/admin/affiliate', Icon: HiGift,         label: 'Affiliates',       adminOnly: true },
     { href: '/admin/blog',     Icon: HiAnnotation,    label: 'Blog',             adminOnly: true },
     { href: '/admin/testimonials', Icon: HiBadgeCheck,label: 'Testimonials',     adminOnly: true },
   ],
