@@ -4,7 +4,7 @@ import {
   HiAnnotation, HiCollection, HiUserCircle, HiGift,
   HiGlobeAlt, HiBriefcase, HiLightningBolt, HiSparkles,
   HiChatAlt2, HiPuzzle, HiServer, HiShieldCheck, HiUserAdd,
-  HiDesktopComputer, HiReceiptTax, HiCalendar
+  HiDesktopComputer, HiReceiptTax, HiCalendar, HiIdentification
 } from 'react-icons/hi';
 
 /**
@@ -19,9 +19,11 @@ export const NAVIGATION_CONFIG = {
   student: [
     { href: '/student',              Icon: HiHome,          label: 'Dashboard'   },
     { href: '/student/my-courses',   Icon: HiAcademicCap,   label: 'My Courses'  },
+    { href: '/student/routine',      Icon: HiCalendar,      label: 'Class Routine' },
     { href: '/student/progress',     Icon: HiChartBar,      label: 'Progress'    },
     { href: '/student/assignments',  Icon: HiClipboardList, label: 'Assignments' },
     { href: '/student/certificates', Icon: HiBadgeCheck,    label: 'Certificates'},
+    { href: '/student/id-card',      Icon: HiIdentification, label: 'Student ID' },
     { href: '/student/payments',     Icon: HiCreditCard,    label: 'Payments'    },
     { href: '/student/portfolio',    Icon: HiUserCircle,    label: 'Portfolio'   },
     { href: '/student/affiliate',    Icon: HiGift,          label: 'Affiliate'   },
@@ -35,6 +37,7 @@ export const NAVIGATION_CONFIG = {
   admin: [
     { href: '/admin',          Icon: HiChartBar,       label: 'Branch Overview', permission: null },
     { href: '/admin/courses',  Icon: HiCollection,    label: 'Courses',          permission: 'courses:view' },
+    { href: '/admin/routines', Icon: HiClipboardList, label: 'Class Routines',   permission: 'courses:view' },
     { href: '/admin/students', Icon: HiUserGroup,     label: 'Students',         permission: 'students:view' },
     { href: '/admin/payments', Icon: HiCreditCard,    label: 'Payments',         permission: 'payments:view' },
     { href: '/admin/expenses', Icon: HiReceiptTax,    label: 'Expenses & P&L',   permission: 'staff:manage' },

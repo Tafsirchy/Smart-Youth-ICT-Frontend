@@ -23,6 +23,7 @@ const card = { initial: { opacity: 0, y: 18 }, animate: { opacity: 1, y: 0, tran
 const QUICK_LINKS = [
  { href: '/admin/students', label: 'Students', icon: IoPeopleOutline, color: 'from-blue-500 to-blue-600', permission: 'students:view' },
  { href: '/admin/courses', label: 'Courses', icon: IoBookOutline, color: 'from-violet-500 to-purple-600', permission: 'courses:view' },
+ { href: '/admin/routines', label: 'Class Routines', icon: IoCalendarOutline, color: 'from-blue-600 to-indigo-600', permission: 'courses:view' },
  { href: '/admin/payments', label: 'Payments', icon: IoCashOutline, color: 'from-emerald-500 to-green-600', permission: 'payments:view' },
  { href: '/admin/blog', label: 'Blog', icon: IoCalendarOutline, color: 'from-pink-500 to-rose-500', adminOnly: true },
  { href: '/admin/testimonials', label: 'Testimonials', icon: IoRibbonOutline, color: 'from-amber-500 to-orange-500', adminOnly: true },
