@@ -44,18 +44,28 @@ export default function ManualPaymentModal({ courseId, amount, onClose }) {
 
     setLoading(true);
     try {
-      const submitData = new FormData();
-      submitData.append("courseId", validCourseId);
-      submitData.append("amount", String(amount));
-      submitData.append("method", method);
-      if (transactionId) submitData.append("transactionId", transactionId.trim());
-      if (senderNumber) submitData.append("senderNumber", senderNumber.trim());
-      if (bankName) submitData.append("bankName", bankName.trim());
+      let res;
       if (slipFile) {
+        const submitData = new FormData();
+        submitData.append("courseId", validCourseId);
+        submitData.append("amount", String(amount));
+        submitData.append("method", method);
+        if (transactionId) submitData.append("transactionId", transactionId.trim());
+        if (senderNumber) submitData.append("senderNumber", senderNumber.trim());
+        if (bankName) submitData.append("bankName", bankName.trim());
         submitData.append("slip", slipFile);
-      }
 
-      const res = await api.post("/payments/manual/submit", submitData);
+        res = await api.post("/payments/manual/submit", submitData);
+      } else {
+        res = await api.post("/payments/manual/submit", {
+          courseId: validCourseId,
+          amount: Number(amount),
+          method,
+          transactionId: transactionId ? transactionId.trim() : undefined,
+          senderNumber: senderNumber ? senderNumber.trim() : undefined,
+          bankName: bankName ? bankName.trim() : undefined,
+        });
+      }
 
       if (res.data?.success) {
         toast.success(res.data.message || "Payment submitted for review");
