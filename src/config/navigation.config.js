@@ -4,7 +4,7 @@ import {
   HiAnnotation, HiCollection, HiUserCircle, HiGift,
   HiGlobeAlt, HiBriefcase, HiLightningBolt, HiSparkles,
   HiChatAlt2, HiPuzzle, HiServer, HiShieldCheck, HiUserAdd,
-  HiDesktopComputer
+  HiDesktopComputer, HiReceiptTax, HiCalendar
 } from 'react-icons/hi';
 
 /**
@@ -37,6 +37,8 @@ export const NAVIGATION_CONFIG = {
     { href: '/admin/courses',  Icon: HiCollection,    label: 'Courses',          permission: 'courses:view' },
     { href: '/admin/students', Icon: HiUserGroup,     label: 'Students',         permission: 'students:view' },
     { href: '/admin/payments', Icon: HiCreditCard,    label: 'Payments',         permission: 'payments:view' },
+    { href: '/admin/expenses', Icon: HiReceiptTax,    label: 'Expenses & P&L',   permission: 'staff:manage' },
+    { href: '/admin/counseling', Icon: HiCalendar,    label: 'Counseling Hub',   permission: 'leads:view' },
     { href: '/admin/staff',    Icon: HiUsers,         label: 'Staff Room',       permission: 'staff:manage' },
     { href: '/admin/crm',      Icon: HiAnnotation,    label: 'Leads/CRM',        permission: 'leads:view' },
     { href: '/admin/seminars', Icon: HiAcademicCap,   label: 'Seminars',         permission: 'seminars:view' },
