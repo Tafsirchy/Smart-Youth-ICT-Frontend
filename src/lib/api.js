@@ -15,9 +15,6 @@ const PUBLIC_AUTH_PATHS = new Set([
 
 const api = axios.create({
   baseURL: API_BASE_URL,
-  headers: {
-    "Content-Type": "application/json",
-  },
 });
 
 // Attach JWT from NextAuth session on every request
@@ -25,7 +22,13 @@ api.interceptors.request.use(async (config) => {
   // If sending FormData, delete Content-Type to allow browser/axios to set boundary automatically
   if (typeof FormData !== "undefined" && config.data instanceof FormData) {
     if (config.headers) {
-      delete config.headers["Content-Type"];
+      if (typeof config.headers.delete === "function") {
+        config.headers.delete("Content-Type");
+        config.headers.delete("content-type");
+      } else {
+        delete config.headers["Content-Type"];
+        delete config.headers["content-type"];
+      }
     }
   }
 
