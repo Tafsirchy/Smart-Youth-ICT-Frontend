@@ -12,7 +12,7 @@ import {
  IoCheckmarkCircle, IoTimeOutline, IoArrowUpOutline,
  IoDesktopOutline, IoGiftOutline
 } from 'react-icons/io5';
-import { HiOutlineAcademicCap, HiReceiptTax, HiCalendar, HiTag, HiSpeakerphone } from 'react-icons/hi';
+import { HiOutlineAcademicCap, HiReceiptTax, HiCalendar, HiTag, HiSpeakerphone, HiArchive } from 'react-icons/hi';
 import { HiShieldExclamation } from 'react-icons/hi';
 import { useRole } from '@/hooks/useRole';
 import { useSearchParams } from 'next/navigation';
@@ -28,6 +28,7 @@ const QUICK_LINKS = [
  { href: '/admin/blog', label: 'Blog', icon: IoCalendarOutline, color: 'from-pink-500 to-rose-500', adminOnly: true },
  { href: '/admin/testimonials', label: 'Testimonials', icon: IoRibbonOutline, color: 'from-amber-500 to-orange-500', adminOnly: true },
  { href: '/admin/assets', label: 'Assets & Lab', icon: IoDesktopOutline, color: 'from-indigo-500 to-blue-600', permission: 'staff:manage' },
+ { href: '/admin/requisitions', label: 'HQ Requisitions', icon: HiArchive, color: 'from-teal-600 to-cyan-600', permission: 'staff:manage' },
  { href: '/admin/affiliate', label: 'Affiliates', icon: IoGiftOutline, color: 'from-emerald-600 to-teal-600', adminOnly: true },
  { href: '/admin/expenses', label: 'Expenses & P&L', icon: HiReceiptTax, color: 'from-amber-600 to-rose-600', permission: 'staff:manage' },
  { href: '/admin/counseling', label: 'Counseling Hub', icon: HiCalendar, color: 'from-purple-500 to-indigo-600', permission: 'leads:view' },

@@ -5,7 +5,7 @@ import {
   HiGlobeAlt, HiBriefcase, HiLightningBolt, HiSparkles,
   HiChatAlt2, HiPuzzle, HiServer, HiShieldCheck, HiUserAdd,
   HiDesktopComputer, HiReceiptTax, HiCalendar, HiIdentification,
-  HiTag, HiSpeakerphone
+  HiTag, HiSpeakerphone, HiArchive
 } from 'react-icons/hi';
 
 /**
@@ -50,6 +50,7 @@ export const NAVIGATION_CONFIG = {
     { href: '/admin/crm',      Icon: HiAnnotation,    label: 'Leads/CRM',        permission: 'leads:view' },
     { href: '/admin/seminars', Icon: HiAcademicCap,   label: 'Seminars',         permission: 'seminars:view' },
     { href: '/admin/assets',   Icon: HiDesktopComputer, label: 'Assets & Lab',   permission: 'staff:manage' },
+    { href: '/admin/requisitions', Icon: HiArchive,   label: 'HQ Requisitions', permission: 'staff:manage' },
     { href: '/admin/affiliate', Icon: HiGift,         label: 'Affiliates',       adminOnly: true },
     { href: '/admin/blog',     Icon: HiAnnotation,    label: 'Blog',             adminOnly: true },
     { href: '/admin/testimonials', Icon: HiBadgeCheck,label: 'Testimonials',     adminOnly: true },
@@ -58,6 +59,8 @@ export const NAVIGATION_CONFIG = {
   super_admin: [
     { href: '/super',             Icon: HiChartBar,     label: 'Global Stats' },
     { href: '/super/branches',    Icon: HiHome,         label: 'All Branches' },
+    { href: '/super/branches/analytics', Icon: HiChartBar, label: 'Campus Leaderboard' },
+    { href: '/super/requisitions', Icon: HiArchive,     label: 'Branch Requisitions' },
     { href: '/super/users',       Icon: HiUsers,        label: 'Global Users' },
     { href: '/super/curriculum',  Icon: HiAcademicCap,  label: 'Master Courses'},
     { href: '/super/finance',     Icon: HiCreditCard,   label: 'Global Finance'},
