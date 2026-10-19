@@ -39,19 +39,31 @@ export default function CourseEnrollmentWrapper({ course, locale, children }) {
  executeEnrollment();
  };
 
- const executeEnrollment = async (targetBranchId = null) => {
- setEnrolling(true);
- try {
- const payload = targetBranchId ? { targetBranchId } : {};
- await api.post(`/courses/${course._id}/enroll`, payload);
- toast.success("Enrollment initiated! Please complete your payment.");
- setShowBranchModal(false);
- } catch (err) {
- toast.error(err?.response?.data?.message || "Enrollment failed.");
- } finally {
- setEnrolling(false);
- }
- };
+  const executeEnrollment = async (targetBranchId = null) => {
+    setEnrolling(true);
+    try {
+      const payload = targetBranchId ? { targetBranchId } : {};
+      const res = await api.post(`/courses/${course._id}/enroll`, payload);
+      setShowBranchModal(false);
+
+      if (course?.price && Number(course.price) > 0) {
+        toast.success(res.data?.message || "Enrollment initiated! Please complete your payment.");
+        setShowManualBank(true);
+      } else {
+        toast.success("Successfully enrolled in this course!");
+        router.push(`/${locale}/student/my-courses`);
+      }
+    } catch (err) {
+      if (err?.response?.status === 409) {
+        toast.success("You are already enrolled! Redirecting to your courses...");
+        router.push(`/${locale}/student/my-courses`);
+      } else {
+        toast.error(err?.response?.data?.message || "Enrollment failed.");
+      }
+    } finally {
+      setEnrolling(false);
+    }
+  };
 
  // We use a Render Prop or specific component map to inject the enrollment logic 
  // into the child components passed from the Server Component.
