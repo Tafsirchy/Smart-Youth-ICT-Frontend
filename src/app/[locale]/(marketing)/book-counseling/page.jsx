@@ -59,7 +59,7 @@ export default function BookCounselingPage() {
 
   useEffect(() => {
     Promise.all([
-      api.get('/branches').catch(() => ({ data: { data: [] } })),
+      api.get('/branches/public/list').catch(() => ({ data: { data: [] } })),
       api.get('/courses', { params: { limit: 50 } }).catch(() => ({ data: { data: [] } })),
     ]).then(([bRes, cRes]) => {
       const bList = bRes.data?.data || [];
