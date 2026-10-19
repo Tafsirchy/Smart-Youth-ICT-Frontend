@@ -17,7 +17,8 @@ import {
   HiOutlineXMark,
   HiOutlineStar,
   HiOutlineArrowTopRightOnSquare,
-  HiChevronRight
+  HiChevronRight,
+  HiOutlineLightBulb
 } from 'react-icons/hi2';
 import { FaWhatsapp, FaStar } from 'react-icons/fa6';
 import api from '@/lib/api';
