@@ -23,6 +23,7 @@ export default function CourseEnrollmentWrapper({ course, locale, children }) {
  const [showManualBank, setShowManualBank] = useState(false);
  const [showBranchModal, setShowBranchModal] = useState(false);
  const [enrolling, setEnrolling] = useState(false);
+ const [coupon, setCoupon] = useState(null); // { code, discountAmount, finalAmount }
 
  const handleEnroll = async () => {
  if (!session) {
@@ -83,6 +84,8 @@ export default function CourseEnrollmentWrapper({ course, locale, children }) {
  onEnroll={handleEnroll} 
  enrolling={enrolling} 
  session={session} 
+ coupon={coupon}
+ onCouponChange={setCoupon}
  onShowManualBank={() => setShowManualBank(true)} 
  />
  </div>
@@ -118,7 +121,8 @@ export default function CourseEnrollmentWrapper({ course, locale, children }) {
  {showManualBank && (
  <ManualPaymentModal 
  courseId={course?._id || course?.id} 
- amount={course?.price} 
+ amount={coupon ? coupon.finalAmount : course?.price} 
+ couponCode={coupon?.code}
  onClose={() => setShowManualBank(false)} 
  />
  )}
