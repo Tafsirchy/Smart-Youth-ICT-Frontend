@@ -505,9 +505,7 @@ export default function AllBranchesPage() {
             <header className="flex flex-col md:flex-row md:items-center justify-between gap-4">
                 <div>
                     <div className="flex items-center gap-3">
-                        <span className="p-2.5 bg-gradient-to-tr from-pink-600 to-rose-500 text-white shadow-lg shadow-pink-500/20 rounded-lg">
-                            <HiOutlineBuildingOffice size={26} />
-                        </span>
+                        <HiOutlineBuildingOffice size={26} className="text-pink-600 shrink-0" />
                         <div>
                             <h1 className="text-2xl md:text-3xl font-black text-slate-900 dark:text-white tracking-tight">
                                 Branch Network Command
