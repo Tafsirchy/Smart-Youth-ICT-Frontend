@@ -24,6 +24,16 @@ export default function StudentIdCardPage() {
   const [enrollments, setEnrollments] = useState([]);
   const [loading, setLoading] = useState(true);
   const [flipBack, setFlipBack] = useState(false);
+  const [baseUrl, setBaseUrl] = useState('');
+
+  useEffect(() => {
+    const configured = process.env.NEXT_PUBLIC_SITE_URL || process.env.NEXT_PUBLIC_APP_URL;
+    if (configured) {
+      setBaseUrl(configured.replace(/\/$/, ''));
+    } else if (typeof window !== 'undefined') {
+      setBaseUrl(window.location.origin);
+    }
+  }, []);
 
   useEffect(() => {
     Promise.all([
@@ -42,7 +52,7 @@ export default function StudentIdCardPage() {
   const branchCode = branch?.code || 'HQ';
   const studentUid = user?._id || '';
   const formattedStudentId = `SYICT-${branchCode}-${studentUid.slice(-6).toUpperCase()}`;
-  const verificationUrl = `https://www.smartyouthict.com/verify-id/${studentUid}`;
+  const verificationUrl = baseUrl ? `${baseUrl}/verify-id/${studentUid}` : '';
 
   const primaryCourse = enrollments[0]?.course?.title || 'Professional Skill Development';
   const issueDate = user?.createdAt ? new Date(user.createdAt).toLocaleDateString() : 'Active';
