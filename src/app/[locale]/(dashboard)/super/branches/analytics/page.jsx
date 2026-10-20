@@ -88,7 +88,7 @@ export default function CentralBranchAnalyticsPage() {
             <HiChartBar className="h-4 w-4 text-cyan-400" />
             <span>Central Multi-Tenant Governance</span>
           </div>
-          <h1 className="mt-3 text-2xl font-black tracking-tight sm:text-3xl">
+          <h1 className="mt-3 text-2xl font-black tracking-tight sm:text-3xl text-white">
             Campus Leaderboard & Comparative Intelligence
           </h1>
           <p className="mt-1 text-sm text-slate-300">
@@ -221,14 +221,14 @@ export default function CentralBranchAnalyticsPage() {
             <table className="w-full text-left text-sm">
               <thead className="border-b border-slate-100 bg-slate-50/70 text-xs font-semibold uppercase tracking-wider text-slate-400 dark:border-slate-800 dark:bg-slate-800/50">
                 <tr>
-                  <th className="px-6 py-4">Rank</th>
-                  <th className="px-6 py-4">Campus / Branch</th>
-                  <th className="px-6 py-4 text-center">Students</th>
-                  <th className="px-6 py-4 text-right">Gross Revenue</th>
-                  <th className="px-6 py-4 text-right">Expenses</th>
-                  <th className="px-6 py-4 text-right">Net Margin</th>
-                  <th className="px-6 py-4 text-center">Leads Conv.</th>
-                  <th className="px-6 py-4 text-center">Active Courses</th>
+                  <th className="px-3 py-3.5">Rank</th>
+                  <th className="px-3 py-3.5">Campus / Branch</th>
+                  <th className="px-3 py-3.5 text-center">Students</th>
+                  <th className="px-3 py-3.5 text-right">Gross Revenue</th>
+                  <th className="px-3 py-3.5 text-right">Expenses</th>
+                  <th className="px-3 py-3.5 text-right">Net Margin</th>
+                  <th className="px-3 py-3.5 text-center">Leads Conv.</th>
+                  <th className="px-3 py-3.5 text-center">Active Courses</th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-slate-100 dark:divide-slate-800">
@@ -242,55 +242,72 @@ export default function CentralBranchAnalyticsPage() {
                       className="transition-colors hover:bg-slate-50/80 dark:hover:bg-slate-800/40"
                     >
                       {/* Rank Badge */}
-                      <td className="px-6 py-4 whitespace-nowrap">
+                      <td className="px-3 py-3 whitespace-nowrap">
                         <span
-                          className={`inline-flex items-center rounded-full px-3 py-1 text-xs font-black border ${rank.bg}`}
+                          className={`inline-flex items-center rounded-full px-2.5 py-1 text-[11px] font-black border ${rank.bg}`}
                         >
                           {rank.label}
                         </span>
                       </td>
 
                       {/* Campus Details */}
-                      <td className="px-6 py-4">
-                        <div className="flex items-center gap-3">
-                          <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-gradient-to-br from-blue-500 to-indigo-600 text-xs font-black text-white shadow-md shadow-blue-500/20">
+                      <td className="px-3 py-3">
+                        <div className="flex items-center gap-2.5">
+                          {b.logo ? (
+                            <img
+                              src={b.logo}
+                              alt={b.name}
+                              className="h-9 w-9 shrink-0 rounded-lg object-cover border border-slate-200 dark:border-slate-700"
+                              onError={(e) => {
+                                e.currentTarget.onerror = null;
+                                e.currentTarget.style.display = 'none';
+                                if (e.currentTarget.nextSibling) {
+                                  e.currentTarget.nextSibling.style.display = 'flex';
+                                }
+                              }}
+                            />
+                          ) : null}
+                          <div
+                            className="h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-gradient-to-br from-blue-500 to-indigo-600 text-[11px] font-black text-white shadow-sm shadow-blue-500/20"
+                            style={{ display: b.logo ? 'none' : 'flex' }}
+                          >
                             {b.code?.toUpperCase() || 'HQ'}
                           </div>
-                          <div>
-                            <div className="font-bold text-slate-800 dark:text-white">
+                          <div className="min-w-0">
+                            <div className="font-bold text-slate-800 dark:text-white truncate">
                               {b.name}
                             </div>
-                            <div className="flex items-center gap-1 text-xs text-slate-400">
-                              <HiLocationMarker className="h-3.5 w-3.5" />
-                              <span>{b.city || 'Headquarters'}</span>
+                            <div className="flex items-center gap-1 text-[11px] text-slate-400 truncate">
+                              <HiLocationMarker className="h-3.5 w-3.5 shrink-0" />
+                              <span className="truncate">{b.city || 'Headquarters'}</span>
                             </div>
                           </div>
                         </div>
                       </td>
 
                       {/* Students */}
-                      <td className="px-6 py-4 text-center whitespace-nowrap">
+                      <td className="px-3 py-3 text-center whitespace-nowrap">
                         <span className="font-black text-slate-800 dark:text-white">
                           {b.studentCount}
                         </span>
                       </td>
 
                       {/* Gross Revenue */}
-                      <td className="px-6 py-4 text-right whitespace-nowrap">
+                      <td className="px-3 py-3 text-right whitespace-nowrap">
                         <span className="font-black text-emerald-600">
                           ৳{(b.revenue || 0).toLocaleString()}
                         </span>
                       </td>
 
                       {/* Expenses */}
-                      <td className="px-6 py-4 text-right whitespace-nowrap">
+                      <td className="px-3 py-3 text-right whitespace-nowrap">
                         <span className="font-medium text-slate-500 dark:text-slate-400">
                           ৳{(b.expenses || 0).toLocaleString()}
                         </span>
                       </td>
 
                       {/* Net Margin */}
-                      <td className="px-6 py-4 text-right whitespace-nowrap">
+                      <td className="px-3 py-3 text-right whitespace-nowrap">
                         <span
                           className={`inline-flex items-center gap-1 font-black ${
                             isMarginPositive ? 'text-purple-600' : 'text-rose-600'
@@ -306,7 +323,7 @@ export default function CentralBranchAnalyticsPage() {
                       </td>
 
                       {/* Counseling Conversion */}
-                      <td className="px-6 py-4 text-center whitespace-nowrap">
+                      <td className="px-3 py-3 text-center whitespace-nowrap">
                         <div className="inline-flex flex-col items-center">
                           <span className="font-bold text-slate-800 dark:text-white">
                             {b.conversionRate}%
@@ -318,7 +335,7 @@ export default function CentralBranchAnalyticsPage() {
                       </td>
 
                       {/* Active Courses */}
-                      <td className="px-6 py-4 text-center whitespace-nowrap">
+                      <td className="px-3 py-3 text-center whitespace-nowrap">
                         <span className="rounded-full bg-slate-100 px-2.5 py-1 text-xs font-semibold text-slate-600 dark:bg-slate-800 dark:text-slate-300">
                           {b.activeCourses} Courses
                         </span>
