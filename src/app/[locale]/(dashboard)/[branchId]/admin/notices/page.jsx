@@ -5,6 +5,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { useParams } from 'next/navigation';
 import api from '@/lib/api';
 import { useRole } from '@/hooks/useRole';
+import LoadErrorBanner from '@/components/ui/LoadErrorBanner';
 import {
   HiSpeakerphone,
   HiBell,
@@ -44,6 +45,7 @@ export default function BranchNoticesPage() {
     pinnedCount: 0
   });
   const [loading, setLoading] = useState(true);
+  const [loadError, setLoadError] = useState(null);
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('all');
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -65,6 +67,7 @@ export default function BranchNoticesPage() {
   const fetchNotices = useCallback(async () => {
     try {
       setLoading(true);
+      setLoadError(null);
       const res = await api.get('/notices/admin', {
         params: {
           branchId: branchId || undefined,
@@ -77,6 +80,7 @@ export default function BranchNoticesPage() {
       }
     } catch (err) {
       console.error('Failed to load notices:', err);
+      setLoadError(err.response?.data?.message || 'Failed to load notices. Please retry.');
     } finally {
       setLoading(false);
     }
@@ -300,6 +304,7 @@ export default function BranchNoticesPage() {
       </div>
 
       {/* Notices Grid */}
+      <LoadErrorBanner message={loadError} onRetry={fetchNotices} />
       {loading ? (
         <div className="flex h-64 items-center justify-center">
           <div className="h-8 w-8 animate-spin rounded-full border-4 border-indigo-500 border-t-transparent" />
