@@ -60,6 +60,7 @@ export const NAVIGATION_CONFIG = {
     { href: '/super',             Icon: HiChartBar,     label: 'Global Stats' },
     { href: '/super/branches',    Icon: HiHome,         label: 'All Branches' },
     { href: '/super/branches/analytics', Icon: HiChartBar, label: 'Campus Leaderboard' },
+    { href: '/super/branches/audit', Icon: HiClipboardList, label: '360° Branch Audit' },
     { href: '/super/requisitions', Icon: HiArchive,     label: 'Branch Requisitions' },
     { href: '/super/users',       Icon: HiUsers,        label: 'Global Users' },
     { href: '/super/curriculum',  Icon: HiAcademicCap,  label: 'Master Courses'},

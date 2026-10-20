@@ -2,6 +2,8 @@
 
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { useParams } from 'next/navigation';
+import Link from 'next/link';
 import api from '@/lib/api';
 import toast from 'react-hot-toast';
 import { 
@@ -31,6 +33,8 @@ const item = {
 };
 
 export default function AuditReportsPage() {
+  const params = useParams();
+  const locale = params?.locale || 'en';
   const [logs, setLogs] = useState([]);
   const [loading, setLoading] = useState(true);
   const [search, setSearch] = useState('');
@@ -116,6 +120,32 @@ export default function AuditReportsPage() {
           />
         </div>
       </header>
+
+      {/* 360° Branch Executive Audit Banner Link */}
+      <div className="bg-gradient-to-r from-slate-900 via-indigo-950 to-slate-900 text-white p-4 sm:p-5 rounded-2xl shadow-md border border-slate-800 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+        <div className="flex items-center gap-3.5">
+          <div className="w-10 h-10 rounded-xl bg-white/10 backdrop-blur-xs flex items-center justify-center text-amber-400 shrink-0">
+            <HiOutlineBuildingOffice2 size={22} />
+          </div>
+          <div>
+            <h3 className="text-sm font-bold tracking-tight text-white flex items-center gap-2">
+              <span>Looking for Comprehensive 360° Branch Audit & P&L?</span>
+              <span className="px-2 py-0.5 rounded text-[10px] font-black uppercase tracking-wider bg-amber-400 text-slate-950">
+                New Executive System
+              </span>
+            </h3>
+            <p className="text-xs text-slate-300 mt-0.5">
+              Monitor daily, weekly & monthly campus collections, petty cash vouchers, routine conflicts, and red flags.
+            </p>
+          </div>
+        </div>
+        <Link
+          href={`/${locale}/super/branches/audit`}
+          className="px-4 py-2 bg-white text-slate-900 hover:bg-slate-100 rounded-xl text-xs font-bold transition-all shrink-0 text-center shadow-xs cursor-pointer"
+        >
+          Open 360° Branch Audit →
+        </Link>
+      </div>
 
       {/* Main Audit Feed */}
       <div className="bg-white border border-slate-200/80 shadow-xs relative overflow-hidden rounded-2xl">
