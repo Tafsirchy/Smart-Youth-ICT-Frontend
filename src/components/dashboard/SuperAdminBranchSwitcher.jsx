@@ -100,7 +100,7 @@ export default function SuperAdminBranchSwitcher({ user }) {
   };
 
   return (
-    <div className="mb-4 bg-slate-900 border border-slate-800 text-white px-4 py-2.5 rounded-xl shadow-lg flex flex-wrap items-center justify-between gap-3 text-xs transition-all">
+    <div className="mb-4 max-w-7xl mx-auto bg-slate-900 border border-slate-800 text-white px-4 py-2.5 rounded-xl shadow-lg flex flex-wrap items-center justify-between gap-3 text-xs transition-all">
       {/* Left side: Mode identifier & Global HQ shortcut */}
       <div className="flex items-center flex-wrap gap-2.5">
         <div className="flex items-center gap-1.5 px-2.5 py-1 bg-pink-500/15 border border-pink-500/30 text-pink-400 rounded-lg font-bold">
