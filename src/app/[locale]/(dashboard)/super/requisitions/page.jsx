@@ -3,6 +3,7 @@
 import { useState, useEffect, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import api from '@/lib/api';
+import LoadErrorBanner from '@/components/ui/LoadErrorBanner';
 import {
   HiArchive,
   HiTruck,
@@ -32,6 +33,7 @@ export default function SuperRequisitionsPage() {
   const [selectedBranch, setSelectedBranch] = useState('all');
   const [selectedStatus, setSelectedStatus] = useState('all');
   const [loading, setLoading] = useState(true);
+  const [loadError, setLoadError] = useState(null);
   const [searchQuery, setSearchQuery] = useState('');
   const [expandedId, setExpandedId] = useState(null);
   const [reviewModalTicket, setReviewModalTicket] = useState(null);
@@ -56,6 +58,7 @@ export default function SuperRequisitionsPage() {
   const fetchRequisitions = useCallback(async () => {
     try {
       setLoading(true);
+      setLoadError(null);
       const res = await api.get('/requisitions', {
         params: {
           branchId: selectedBranch !== 'all' ? selectedBranch : undefined,
@@ -67,6 +70,7 @@ export default function SuperRequisitionsPage() {
       }
     } catch (err) {
       console.error('Failed to load requisitions:', err);
+      setLoadError(err.response?.data?.message || 'Failed to load requisitions. Please retry.');
     } finally {
       setLoading(false);
     }
@@ -132,7 +136,7 @@ export default function SuperRequisitionsPage() {
             <HiArchive className="h-4 w-4 text-teal-400" />
             <span>Central Inventory & Dispatch Management</span>
           </div>
-          <h1 className="mt-3 text-2xl font-black tracking-tight sm:text-3xl">
+          <h1 className="mt-3 text-2xl font-black tracking-tight sm:text-3xl text-white">
             Branch Stock Requisitions & Dispatches
           </h1>
           <p className="mt-1 text-sm text-teal-100">
@@ -202,6 +206,7 @@ export default function SuperRequisitionsPage() {
       </div>
 
       {/* Requisitions List */}
+      <LoadErrorBanner message={loadError} onRetry={fetchRequisitions} />
       {loading ? (
         <div className="flex h-64 items-center justify-center">
           <div className="h-8 w-8 animate-spin rounded-full border-4 border-teal-500 border-t-transparent" />
