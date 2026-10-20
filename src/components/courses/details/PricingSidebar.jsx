@@ -1,19 +1,59 @@
 "use client";
 
-import React from 'react';
+import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { IoShieldCheckmarkOutline, IoPlayCircleOutline, IoCheckmarkCircle, IoTimeOutline, IoMedalOutline, IoChatbubblesOutline } from 'react-icons/io5';
 import VideoPlayer from '@/components/courses/VideoPlayer';
 import PaymentGatewayButton from '@/components/payments/PaymentGatewayButton';
+import api from '@/lib/api';
+import toast from 'react-hot-toast';
 
 export default function PricingSidebar({ 
  course, 
  onEnroll, 
  enrolling, 
  session, 
+ coupon,
+ onCouponChange,
  onShowManualBank 
 }) {
  const originalPrice = course?.price ? Math.round(course.price * 1.5) : 0;
+
+ const [couponInput, setCouponInput] = useState('');
+ const [validatingCoupon, setValidatingCoupon] = useState(false);
+
+ const handleApplyCoupon = async () => {
+  if (!couponInput.trim()) return;
+  setValidatingCoupon(true);
+  try {
+    const res = await api.post('/coupons/validate', {
+      code: couponInput.trim(),
+      courseId: course?._id,
+      branchId: typeof course?.branchId === 'object' ? course?.branchId?._id : course?.branchId,
+      originalAmount: course?.price
+    });
+    if (res.data?.success && res.data?.data) {
+      onCouponChange?.({
+        code: res.data.data.code,
+        discountAmount: res.data.data.discountAmount,
+        finalAmount: res.data.data.finalAmount
+      });
+      toast.success(res.data.data.message || 'Coupon applied!');
+    }
+  } catch (err) {
+    onCouponChange?.(null);
+    toast.error(err.response?.data?.message || 'Invalid coupon code');
+  } finally {
+    setValidatingCoupon(false);
+  }
+ };
+
+ const handleRemoveCoupon = () => {
+  setCouponInput('');
+  onCouponChange?.(null);
+ };
+
+ const payableAmount = coupon ? coupon.finalAmount : course?.price;
 
  return (
  <div className="sticky top-28 bg-white border border-slate-200 rounded-lg shadow-sm transition-all overflow-hidden">
@@ -28,19 +68,47 @@ export default function PricingSidebar({
 
  <div className="p-6 md:p-8 shrink-0 relative overflow-hidden bg-white rounded-lg">
  
- <div className="mb-6 flex flex-col">
+ <div className="mb-4 flex flex-col">
  <div className="flex items-center gap-3 mb-1">
- <span className="text-4xl font-bold text-slate-900 tracking-tight">৳{course?.price?.toLocaleString()}</span>
+ <span className="text-4xl font-bold text-slate-900 tracking-tight">৳{payableAmount?.toLocaleString()}</span>
  {course?.price && (
  <span className="text-lg text-slate-400 line-through font-medium">৳{originalPrice.toLocaleString()}</span>
  )}
  </div>
+ {coupon && (
+ <div className="flex items-center gap-2 text-xs font-bold text-emerald-700 bg-emerald-50 border border-emerald-200 px-3 py-1.5 rounded-lg self-start">
+  <span>PROMO "{coupon.code}" applied — you save ৳{coupon.discountAmount.toLocaleString()}</span>
+  <button type="button" onClick={handleRemoveCoupon} className="text-emerald-600 hover:text-emerald-900 underline">Remove</button>
+ </div>
+ )}
  {course?.installmentsAllowed && (
  <span className="text-xs font-semibold text-emerald-700 bg-emerald-50 px-3 py-1 inline-flex self-start border border-emerald-100 rounded-full mt-2">
  Installment Available
  </span>
  )}
  </div>
+
+ {/* Coupon Code */}
+ {!coupon && (
+ <div className="flex gap-2 mb-6">
+  <input
+    type="text"
+    value={couponInput}
+    onChange={(e) => setCouponInput(e.target.value)}
+    onKeyDown={(e) => { if (e.key === 'Enter') { e.preventDefault(); handleApplyCoupon(); } }}
+    placeholder="Promo code"
+    className="flex-1 min-w-0 border-2 border-slate-200 rounded-lg px-3 py-2.5 text-sm font-semibold uppercase tracking-wide outline-none focus:border-slate-400 transition-all"
+  />
+  <button
+    type="button"
+    onClick={handleApplyCoupon}
+    disabled={validatingCoupon || !couponInput.trim()}
+    className="px-4 py-2.5 bg-slate-100 hover:bg-slate-200 text-slate-700 border-2 border-slate-200 rounded-lg text-xs font-black uppercase tracking-widest transition-all disabled:opacity-50"
+  >
+    {validatingCoupon ? '...' : 'Apply'}
+  </button>
+ </div>
+ )}
 
  {/* Primary CTAs */}
  <div className="space-y-4 relative z-10">
@@ -55,9 +123,9 @@ export default function PricingSidebar({
  </motion.button>
  
  <div className="grid grid-cols-1 gap-3 mt-4">
- <PaymentGatewayButton gateway="bkash" courseId={course?._id} amount={course?.price} />
- <PaymentGatewayButton gateway="nagad" courseId={course?._id} amount={course?.price} />
- <PaymentGatewayButton gateway="stripe" courseId={course?._id} amount={course?.price} />
+ <PaymentGatewayButton gateway="bkash" courseId={course?._id} amount={payableAmount} couponCode={coupon?.code} />
+ <PaymentGatewayButton gateway="nagad" courseId={course?._id} amount={payableAmount} couponCode={coupon?.code} />
+ <PaymentGatewayButton gateway="stripe" courseId={course?._id} amount={payableAmount} couponCode={coupon?.code} />
  </div>
 
  <div className="flex items-center gap-3 my-5">
