@@ -5,6 +5,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { useParams } from 'next/navigation';
 import api from '@/lib/api';
 import { useRole } from '@/hooks/useRole';
+import LoadErrorBanner from '@/components/ui/LoadErrorBanner';
 import {
   HiGift,
   HiTag,
@@ -36,6 +37,7 @@ export default function BranchCouponsPage() {
     totalRevenueGenerated: 0
   });
   const [loading, setLoading] = useState(true);
+  const [loadError, setLoadError] = useState(null);
   const [searchQuery, setSearchQuery] = useState('');
   const [statusFilter, setStatusFilter] = useState('all');
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -58,6 +60,7 @@ export default function BranchCouponsPage() {
   const fetchCoupons = useCallback(async () => {
     try {
       setLoading(true);
+      setLoadError(null);
       const res = await api.get('/coupons', {
         params: { branchId: branchId || undefined }
       });
@@ -67,6 +70,7 @@ export default function BranchCouponsPage() {
       }
     } catch (err) {
       console.error('Failed to load coupons:', err);
+      setLoadError(err.response?.data?.message || 'Failed to load coupons. Please retry.');
     } finally {
       setLoading(false);
     }
@@ -312,6 +316,7 @@ export default function BranchCouponsPage() {
       </div>
 
       {/* Coupons Grid */}
+      <LoadErrorBanner message={loadError} onRetry={fetchCoupons} />
       {loading ? (
         <div className="flex h-64 items-center justify-center">
           <div className="h-8 w-8 animate-spin rounded-full border-4 border-orange-500 border-t-transparent" />
