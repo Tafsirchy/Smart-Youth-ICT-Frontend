@@ -89,7 +89,7 @@ export default function BranchRoutinesPage() {
           },
         }),
         api.get('/courses', { params: { limit: 100 } }).catch(() => ({ data: { data: [] } })),
-        api.get('/users/branch-staff', { params: { branchId } }).catch(() => ({ data: { data: [] } })),
+        api.get('/users/branch/staff', { params: { branchId } }).catch(() => ({ data: { data: [] } })),
       ]);
 
       if (schedRes.data?.success) {
