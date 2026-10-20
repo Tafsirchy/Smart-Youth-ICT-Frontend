@@ -10,7 +10,7 @@ import api from '@/lib/api';
 /**
  * Generic Payment Button that calls the backend checkout initialization
  */
-export default function PaymentGatewayButton({ gateway, courseId, amount, children }) {
+export default function PaymentGatewayButton({ gateway, courseId, amount, couponCode, children }) {
  const router = useRouter();
  const [loading, setLoading] = useState(false);
 
@@ -36,6 +36,7 @@ export default function PaymentGatewayButton({ gateway, courseId, amount, childr
  courseId,
  paymentMethod: gateway,
  isInstallment: false, // Defaulting to full payment for now
+ couponCode: couponCode || undefined,
  });
 
  if (res.data?.success) {
