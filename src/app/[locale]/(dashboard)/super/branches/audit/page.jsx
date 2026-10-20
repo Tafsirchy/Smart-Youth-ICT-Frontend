@@ -106,9 +106,7 @@ export default function BranchExecutiveAuditPage() {
       return;
     }
 
-    const targetBranch = selectedBranchId !== 'all' 
-      ? selectedBranchId 
-      : report?.availableBranches?.[0]?._id;
+    const targetBranch = selectedBranchId !== 'all' ? selectedBranchId : null;
 
     if (!targetBranch) {
       toast.error('Please select a specific branch to dispatch this audit directive');
@@ -183,13 +181,11 @@ export default function BranchExecutiveAuditPage() {
       <header className="flex flex-col lg:flex-row lg:items-center justify-between gap-3 bg-white p-3.5 md:p-4 rounded-2xl border border-slate-200/80 shadow-xs print:hidden">
         <div>
           <div className="flex items-center gap-2.5">
-            <div className="p-2.5 bg-slate-900 text-white rounded-xl shadow-md shadow-slate-900/20 shrink-0">
-              <HiOutlineClipboardDocumentList size={28} />
-            </div>
             <div>
               <div className="flex items-center gap-2 flex-wrap">
-                <h1 className="text-2xl sm:text-3xl font-black text-slate-900">
-                  Executive 360° Branch Audit
+                <h1 className="text-2xl sm:text-3xl font-black text-slate-900 flex items-center gap-2.5">
+                  <HiOutlineClipboardDocumentList className="text-slate-900 shrink-0" size={38} />
+                  <span>Executive 360° Branch Audit</span>
                 </h1>
                 <span className="px-2.5 py-0.5 rounded-full text-[11px] font-black uppercase tracking-wider bg-indigo-50 text-indigo-700 border border-indigo-200">
                   Real-time Governance
@@ -239,7 +235,13 @@ export default function BranchExecutiveAuditPage() {
 
           <button
             type="button"
-            onClick={() => setDirectiveModalOpen(true)}
+            onClick={() => {
+              if (selectedBranchId === 'all') {
+                toast.error('Please select a specific branch before issuing a directive');
+                return;
+              }
+              setDirectiveModalOpen(true);
+            }}
             className="px-3.5 py-1.5 bg-slate-900 hover:bg-slate-800 text-white rounded-xl text-xs font-bold transition-all flex items-center gap-1.5 shadow-sm active:scale-95 cursor-pointer"
           >
             <HiOutlinePaperAirplane size={16} />
@@ -496,6 +498,10 @@ export default function BranchExecutiveAuditPage() {
                   <button
                     type="button"
                     onClick={() => {
+                      if (selectedBranchId === 'all') {
+                        toast.error('Please select a specific branch before issuing a directive');
+                        return;
+                      }
                       setDirectiveForm({
                         title: flag.title,
                         message: flag.description,
