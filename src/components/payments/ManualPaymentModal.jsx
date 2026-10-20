@@ -5,7 +5,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import api from '@/lib/api';
 import toast from 'react-hot-toast';
 
-export default function ManualPaymentModal({ courseId, amount, onClose }) {
+export default function ManualPaymentModal({ courseId, amount, couponCode, onClose }) {
  const [loading, setLoading] = useState(false);
  const [method, setMethod] = useState('bkash');
  
@@ -53,6 +53,7 @@ export default function ManualPaymentModal({ courseId, amount, onClose }) {
         if (transactionId) submitData.append("transactionId", transactionId.trim());
         if (senderNumber) submitData.append("senderNumber", senderNumber.trim());
         if (bankName) submitData.append("bankName", bankName.trim());
+        if (couponCode) submitData.append("couponCode", couponCode);
         submitData.append("slip", slipFile);
 
         res = await api.post("/payments/manual/submit", submitData);
@@ -64,6 +65,7 @@ export default function ManualPaymentModal({ courseId, amount, onClose }) {
           transactionId: transactionId ? transactionId.trim() : undefined,
           senderNumber: senderNumber ? senderNumber.trim() : undefined,
           bankName: bankName ? bankName.trim() : undefined,
+          couponCode: couponCode || undefined,
         });
       }
 
