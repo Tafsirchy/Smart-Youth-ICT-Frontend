@@ -16,7 +16,9 @@ import {
  HiOutlineCheckBadge,
  HiOutlineEye,
  HiOutlineEyeSlash,
- HiOutlineXMark
+ HiOutlineXMark,
+ HiOutlineCpuChip,
+ HiOutlineArrowPath
 } from 'react-icons/hi2';
 import { AnimatePresence } from 'framer-motion';
 import Portal from '@/components/ui/Portal';
@@ -34,6 +36,7 @@ const item = {
 const DEFAULT_SETTINGS = {
   maintenanceMode: false,
   registrationOpen: true,
+  enforceAdmin2FA: false,
 };
 
 export default function SystemSettingsPage() {
@@ -47,9 +50,62 @@ export default function SystemSettingsPage() {
   const [newBroadcast, setNewBroadcast] = useState({ text: '', type: 'general' });
   const [editingBroadcastId, setEditingBroadcastId] = useState(null);
 
+  // DevOps Pulse Telemetry State
+  const [devopsData, setDevopsData] = useState(null);
+  const [devopsLoading, setDevopsLoading] = useState(false);
+
+  // Disaster Recovery / Database Backup State
+  const [backupStats, setBackupStats] = useState(null);
+  const [downloadingBackup, setDownloadingBackup] = useState(false);
+
+  const fetchBackupPreview = async () => {
+    try {
+      const res = await api.get('/super/system/backup/preview');
+      if (res.data?.success) setBackupStats(res.data.data);
+    } catch (e) {
+      console.error('[Backup Preview Error]', e);
+    }
+  };
+
+  const handleDownloadBackup = async () => {
+    try {
+      setDownloadingBackup(true);
+      toast.loading('Compiling and encrypting database snapshot...', { id: 'db-backup' });
+      const res = await api.get('/super/system/backup/download', { responseType: 'blob' });
+      const blob = new Blob([res.data], { type: 'application/gzip' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = `SYICT_DB_BACKUP_${new Date().toISOString().slice(0, 10)}.json.gz`;
+      a.click();
+      URL.revokeObjectURL(url);
+      toast.success('Database backup archive downloaded successfully!', { id: 'db-backup' });
+    } catch (err) {
+      toast.error('Failed to generate database backup', { id: 'db-backup' });
+    } finally {
+      setDownloadingBackup(false);
+    }
+  };
+
+  const fetchDevopsProbe = async () => {
+    try {
+      setDevopsLoading(true);
+      const res = await api.get('/super/devops-probe');
+      if (res.data?.success) {
+        setDevopsData(res.data.data);
+      }
+    } catch (e) {
+      console.error('[DevOps Probe Error]', e);
+    } finally {
+      setDevopsLoading(false);
+    }
+  };
+
   useEffect(() => {
     fetchSettings();
     fetchArticles();
+    fetchDevopsProbe();
+    fetchBackupPreview();
 
     const handleSync = (e) => {
       if (typeof e.detail?.maintenanceMode === 'boolean') {
@@ -225,6 +281,13 @@ export default function SystemSettingsPage() {
                   activeColor: 'bg-emerald-600',
                   badgeColor: 'bg-emerald-50 text-emerald-700 border-emerald-200'
                 },
+                { 
+                  key: 'enforceAdmin2FA', 
+                  label: 'Mandatory Admin & Staff 2FA', 
+                  desc: 'Enforce Two-Factor Authentication on all administrative accounts. Registered Email OTP is the default method.',
+                  activeColor: 'bg-indigo-600',
+                  badgeColor: 'bg-indigo-50 text-indigo-700 border-indigo-200'
+                },
               ].map((s) => {
                 const isActive = Boolean(settings[s.key]);
                 const isPending = Boolean(pendingKeys[s.key]);
@@ -272,6 +335,134 @@ export default function SystemSettingsPage() {
                   </div>
                 );
               })}
+            </div>
+          </motion.div>
+
+          {/* DevOps Health Probe & Server Diagnostics */}
+          <motion.div variants={item} className="bg-slate-900 border border-slate-800 p-6 rounded-2xl shadow-xl space-y-4">
+            <div className="flex items-center justify-between border-b border-slate-800 pb-3">
+              <div className="flex items-center gap-2.5">
+                <div className="p-2 rounded-xl bg-indigo-500/10 text-indigo-400 border border-indigo-500/20">
+                  <HiOutlineCpuChip size={22} />
+                </div>
+                <div>
+                  <h3 className="text-sm font-extrabold text-white flex items-center gap-2">
+                    <span>DevOps Pulse & Server Diagnostics</span>
+                    {devopsData?.status === 'healthy' ? (
+                      <span className="px-2 py-0.5 rounded-full text-[9px] font-black uppercase tracking-wider bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
+                        ● Healthy
+                      </span>
+                    ) : (
+                      <span className="px-2 py-0.5 rounded-full text-[9px] font-black uppercase tracking-wider bg-amber-500/10 text-amber-400 border border-amber-500/20">
+                        ● Degraded
+                      </span>
+                    )}
+                  </h3>
+                  <p className="text-[11px] text-slate-400 font-medium">Real-time Node.js process runtime, heap memory & cluster metrics</p>
+                </div>
+              </div>
+
+              <button
+                type="button"
+                onClick={fetchDevopsProbe}
+                disabled={devopsLoading}
+                title="Refresh diagnostic probe"
+                className="p-2 rounded-xl bg-slate-800 text-slate-300 hover:text-white hover:bg-slate-700 transition-all border border-slate-700 disabled:opacity-50"
+              >
+                <HiOutlineArrowPath size={16} className={devopsLoading ? 'animate-spin' : ''} />
+              </button>
+            </div>
+
+            {devopsData ? (
+              <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 text-xs">
+                <div className="bg-slate-800/60 p-3 rounded-xl border border-slate-800">
+                  <div className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Node Runtime</div>
+                  <div className="mt-1 text-sm font-black text-white font-mono">{devopsData.process?.nodeVersion || 'N/A'}</div>
+                  <div className="text-[10px] text-slate-500 mt-0.5">PID: {devopsData.process?.pid}</div>
+                </div>
+
+                <div className="bg-slate-800/60 p-3 rounded-xl border border-slate-800">
+                  <div className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Memory (Heap)</div>
+                  <div className="mt-1 text-sm font-black text-emerald-400 font-mono">
+                    {devopsData.process?.memory?.heapUsedMB} MB
+                  </div>
+                  <div className="text-[10px] text-slate-500 mt-0.5">
+                    of {devopsData.process?.memory?.heapTotalMB} MB total
+                  </div>
+                </div>
+
+                <div className="bg-slate-800/60 p-3 rounded-xl border border-slate-800">
+                  <div className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">MongoDB Cluster</div>
+                  <div className="mt-1 text-sm font-black text-indigo-400 font-mono capitalize">
+                    {devopsData.database?.state}
+                  </div>
+                  <div className="text-[10px] text-slate-500 mt-0.5">
+                    Ping: <strong className="text-white">{devopsData.database?.pingMs !== null ? `${devopsData.database?.pingMs}ms` : '—'}</strong>
+                  </div>
+                </div>
+
+                <div className="bg-slate-800/60 p-3 rounded-xl border border-slate-800">
+                  <div className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Uptime</div>
+                  <div className="mt-1 text-sm font-black text-amber-400 font-mono">
+                    {Math.floor((devopsData.process?.uptimeSeconds || 0) / 3600)}h {Math.floor(((devopsData.process?.uptimeSeconds || 0) % 3600) / 60)}m
+                  </div>
+                  <div className="text-[10px] text-slate-500 mt-0.5">
+                    {devopsData.system?.cpuCount} CPU Cores ({devopsData.system?.platform})
+                  </div>
+                </div>
+              </div>
+            ) : (
+              <div className="py-4 text-center text-xs text-slate-500 font-bold">
+                Probing server diagnostics telemetry...
+              </div>
+            )}
+          </motion.div>
+
+          {/* Database Backup & Disaster Recovery */}
+          <motion.div variants={item} className="bg-white p-5 sm:p-6 rounded-2xl border border-slate-200/80 shadow-sm space-y-4">
+            <div className="flex items-center justify-between">
+              <div className="flex items-center gap-2.5">
+                <div className="p-2 rounded-xl bg-indigo-50 text-indigo-600 border border-indigo-100">
+                  <HiOutlineArrowDownTray size={20} />
+                </div>
+                <div>
+                  <h3 className="text-base sm:text-lg font-black text-slate-900 flex items-center gap-2">
+                    Disaster Recovery & Database Archive
+                  </h3>
+                  <p className="text-[11px] text-slate-500 font-medium">1-Click gzipped snapshot archive with immutable audit trail</p>
+                </div>
+              </div>
+
+              <span className="px-2.5 py-0.5 rounded-full text-[9px] font-black uppercase tracking-wider bg-indigo-50 text-indigo-600 border border-indigo-200">
+                .json.gz Snapshot
+              </span>
+            </div>
+
+            <div className="bg-slate-50 border border-slate-200/80 rounded-xl p-4 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+              <div className="grid grid-cols-2 sm:grid-cols-3 gap-4 w-full sm:w-auto">
+                <div>
+                  <div className="text-[10px] font-black uppercase tracking-wider text-slate-400">Database</div>
+                  <div className="text-sm font-black text-slate-800 font-mono mt-0.5">{backupStats?.databaseName || 'MongoDB'}</div>
+                </div>
+                <div>
+                  <div className="text-[10px] font-black uppercase tracking-wider text-slate-400">Collections</div>
+                  <div className="text-sm font-black text-indigo-600 font-mono mt-0.5">{backupStats?.totalCollections ?? '...'}</div>
+                </div>
+                <div>
+                  <div className="text-[10px] font-black uppercase tracking-wider text-slate-400">Total Records</div>
+                  <div className="text-sm font-black text-emerald-600 font-mono mt-0.5">{backupStats?.totalDocuments?.toLocaleString() ?? '...'}</div>
+                </div>
+              </div>
+
+              <button
+                type="button"
+                onClick={handleDownloadBackup}
+                disabled={downloadingBackup}
+                className="w-full sm:w-auto px-5 py-2.5 bg-indigo-600 hover:bg-indigo-500 text-white rounded-xl text-xs font-black uppercase tracking-wider shadow-lg shadow-indigo-600/20 active:scale-95 transition-all flex items-center justify-center gap-2 disabled:opacity-50 cursor-pointer"
+              >
+                <HiOutlineArrowDownTray size={16} />
+                <span>{downloadingBackup ? 'Encrypting & Archiving...' : 'Download Backup (.json.gz)'}</span>
+              </button>
             </div>
           </motion.div>
 
