@@ -106,7 +106,7 @@ export default function NotificationsHubPage() {
       if (res.data?.success) {
         setNotifications(res.data.data || []);
         setTotalCount(res.data.total || 0);
-        setTotalPages(res.data.pages || 1);
+        setTotalPages(res.data.totalPages || res.data.pages || 1);
       }
     } catch (err) {
       console.error("[NotificationsHub] fetch error:", err.message);
