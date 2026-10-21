@@ -7,6 +7,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import api from '@/lib/api';
 import toast from 'react-hot-toast';
 import Portal from '@/components/ui/Portal';
+import BulkUserImportModal from '@/components/dashboard/BulkUserImportModal';
 import { useRole } from '@/hooks/useRole';
 import { 
  HiOutlineUserPlus, 
@@ -26,7 +27,10 @@ import {
  HiOutlineKey,
  HiOutlineArrowRightOnRectangle,
  HiOutlineArrowPath,
- HiOutlineArrowsRightLeft
+ HiOutlineArrowsRightLeft,
+ HiOutlineArrowUpTray,
+ HiOutlineCheck,
+ HiOutlineUserGroup
 } from 'react-icons/hi2';
 
 export default function GlobalUserManagement() {
@@ -60,6 +64,15 @@ export default function GlobalUserManagement() {
  const [transferReason, setTransferReason] = useState('relocation');
  const [transferNotes, setTransferNotes] = useState('');
  const [transferring, setTransferring] = useState(false);
+
+ // Bulk Import (CSV) State
+ const [showBulkImport, setShowBulkImport] = useState(false);
+
+ // Bulk Action State
+ const [selectedUserIds, setSelectedUserIds] = useState([]);
+ const [bulkAction, setBulkAction] = useState('activate');
+ const [bulkNewRole, setBulkNewRole] = useState('instructor');
+ const [bulkRunning, setBulkRunning] = useState(false);
 
  const administrativeRoles = ['super_admin', 'super_management', 'admin', 'branch_admin', 'branch_management'];
 
@@ -258,7 +271,7 @@ export default function GlobalUserManagement() {
   try {
    const res = await api.post('/super/transfers/student', {
     studentId: transferModalStudent._id,
-    targetBranchId,
+    toBranchId: targetBranchId,
     reason: transferReason,
     transferNotes,
    });
@@ -289,6 +302,45 @@ export default function GlobalUserManagement() {
  setShowModal(true);
  };
 
+ const toggleUserSelection = (userId) => {
+ setSelectedUserIds((prev) =>
+ prev.includes(userId) ? prev.filter((id) => id !== userId) : [...prev, userId]
+ );
+ };
+
+ const toggleSelectAll = () => {
+ setSelectedUserIds((prev) =>
+ prev.length === users.length ? [] : users.map((u) => u._id)
+ );
+ };
+
+ const clearSelection = () => setSelectedUserIds([]);
+
+ const handleBulkAction = async () => {
+ if (!selectedUserIds.length) {
+ toast.error('Select at least one user node first');
+ return;
+ }
+ setBulkRunning(true);
+ const loadingToast = toast.loading(`Applying "${bulkAction}" to ${selectedUserIds.length} user node(s)...`);
+ try {
+ const payload = { userIds: selectedUserIds, action: bulkAction };
+ if (bulkAction === 'change_role') payload.newRole = bulkNewRole;
+ const res = await api.post('/users/bulk-action', payload);
+ toast.success(res.data?.message || 'Bulk action completed successfully', { id: loadingToast });
+ setSelectedUserIds([]);
+ queryClient.invalidateQueries(['users']);
+ } catch (err) {
+ toast.error(err?.response?.data?.message || 'Bulk action failed', { id: loadingToast });
+ } finally {
+ setBulkRunning(false);
+ }
+ };
+
+ const handleBulkImportSuccess = () => {
+ queryClient.invalidateQueries(['users']);
+ };
+
  return (
  <div className="space-y-6 pb-10 max-w-7xl mx-auto">
  {/* Dynamic Header */}
@@ -297,6 +349,14 @@ export default function GlobalUserManagement() {
  <h1 className="text-3xl font-black text-slate-900 tracking-tighter leading-tight">User Registry</h1>
  <p className="text-slate-400 font-medium text-sm mt-1 uppercase tracking-widest text-[10px]">Global Ecosystem Oversight</p>
  </div>
+ <div className="flex items-center gap-2">
+ <button 
+ onClick={() => setShowBulkImport(true)}
+ className="hidden md:flex px-4 py-3 bg-white text-slate-700 border border-slate-200 hover:bg-slate-50 font-black shadow-sm hover:scale-[1.02] active:scale-95 transition-all items-center gap-2 rounded-lg"
+ >
+ <HiOutlineArrowUpTray size={18} />
+ Bulk Import
+ </button>
  <button 
  onClick={() => openForm()}
  className="hidden md:flex px-6 py-3 bg-indigo-600 text-white font-black shadow-xl shadow-indigo-600/20 hover:scale-[1.02] active:scale-95 transition-all items-center gap-2"
@@ -304,7 +364,59 @@ export default function GlobalUserManagement() {
  <HiOutlineUserPlus size={20} />
  Provision User
  </button>
+ </div>
  </header>
+
+ {/* Bulk Action Bar */}
+ {selectedUserIds.length > 0 && (
+ <div className="flex flex-col lg:flex-row items-stretch lg:items-center gap-3 bg-indigo-50 border border-indigo-200 p-4 rounded-lg">
+ <div className="flex items-center gap-2 text-indigo-700 font-black text-sm">
+ <HiOutlineUserGroup size={20} />
+ {selectedUserIds.length} node(s) selected
+ </div>
+ <div className="flex-1 flex flex-wrap items-center gap-2">
+ <select
+ value={bulkAction}
+ onChange={(e) => setBulkAction(e.target.value)}
+ className="px-3 py-2 bg-white border border-indigo-200 text-xs font-bold focus:ring-2 focus:ring-indigo-500 rounded-md"
+ >
+ <option value="activate">Activate</option>
+ <option value="suspend">Suspend</option>
+ <option value="force_logout">Force Logout</option>
+ <option value="change_role">Change Role</option>
+ </select>
+ {bulkAction === 'change_role' && (
+ <select
+ value={bulkNewRole}
+ onChange={(e) => setBulkNewRole(e.target.value)}
+ className="px-3 py-2 bg-white border border-indigo-200 text-xs font-bold focus:ring-2 focus:ring-indigo-500 rounded-md"
+ >
+ <option value="student">Student</option>
+ <option value="instructor">Instructor</option>
+ <option value="employee">Employee</option>
+ <option value="branch_admin">Branch Admin</option>
+ <option value="branch_management">Branch Management</option>
+ </select>
+ )}
+ <button
+ type="button"
+ onClick={handleBulkAction}
+ disabled={bulkRunning}
+ className="px-4 py-2 bg-indigo-600 hover:bg-indigo-500 text-white rounded-lg text-xs font-black uppercase tracking-wider shadow-md shadow-indigo-600/20 disabled:opacity-50 transition-all flex items-center gap-1.5 cursor-pointer"
+ >
+ {bulkRunning ? <HiOutlineArrowPath className="animate-spin" size={14} /> : <HiOutlineCheck size={14} />}
+ {bulkRunning ? 'Applying...' : 'Apply'}
+ </button>
+ <button
+ type="button"
+ onClick={clearSelection}
+ className="px-3 py-2 text-xs font-bold text-slate-500 hover:text-slate-800 transition-colors"
+ >
+ Clear
+ </button>
+ </div>
+ </div>
+ )}
 
  {/* Control Bar */}
  <div className="grid grid-cols-1 lg:grid-cols-4 gap-3 bg-white p-4 shadow-sm border border-slate-50 rounded-lg">
@@ -358,6 +470,13 @@ export default function GlobalUserManagement() {
  <div key={user._id} className="bg-white p-4 border border-slate-100 shadow-sm flex flex-col gap-4 rounded-lg">
  <div className="flex justify-between items-start">
  <div className="flex items-center gap-3">
+ <input
+ type="checkbox"
+ checked={selectedUserIds.includes(user._id)}
+ onChange={() => toggleUserSelection(user._id)}
+ className="w-4 h-4 rounded border-slate-300 text-indigo-600 focus:ring-indigo-500 cursor-pointer shrink-0"
+ aria-label={`Select ${user.name}`}
+ />
  <div className="w-10 h-10 bg-indigo-50 text-indigo-500 font-black flex items-center justify-center border border-indigo-100 shrink-0 rounded-lg">
  {user.name.charAt(0)}
  </div>
@@ -432,6 +551,15 @@ export default function GlobalUserManagement() {
  <table className="w-full text-left border-collapse">
  <thead>
  <tr className="bg-slate-50 text-slate-400 uppercase text-[10px] font-black tracking-widest">
+ <th className="px-4 py-4 w-10">
+ <input
+ type="checkbox"
+ checked={users.length > 0 && selectedUserIds.length === users.length}
+ onChange={toggleSelectAll}
+ className="w-4 h-4 rounded border-slate-300 text-indigo-600 focus:ring-indigo-500 cursor-pointer"
+ title="Select all nodes on this page"
+ />
+ </th>
  <th className="px-6 py-4">Identity Node</th>
  <th className="px-6 py-4">Access Layer</th>
  <th className="px-6 py-4">Branch Assignment</th>
@@ -443,12 +571,21 @@ export default function GlobalUserManagement() {
  {loading ? (
  [...Array(5)].map((_, i) => (
  <tr key={i} className="animate-pulse">
- <td colSpan={5} className="px-6 py-6 h-16 bg-slate-50/20 rounded-md" />
+ <td colSpan={6} className="px-6 py-6 h-16 bg-slate-50/20 rounded-md" />
  </tr>
  ))
  ) : (
  users.map(user => (
  <tr key={user._id} className="group hover:bg-slate-50/50 transition-all rounded-md">
+ <td className="px-4 py-4">
+ <input
+ type="checkbox"
+ checked={selectedUserIds.includes(user._id)}
+ onChange={() => toggleUserSelection(user._id)}
+ className="w-4 h-4 rounded border-slate-300 text-indigo-600 focus:ring-indigo-500 cursor-pointer"
+ aria-label={`Select ${user.name}`}
+ />
+ </td>
  <td className="px-6 py-4">
  <div className="flex items-center gap-3">
  <div className="w-10 h-10 bg-indigo-50 text-indigo-500 font-black flex items-center justify-center border border-indigo-100 rounded-lg">
@@ -1051,6 +1188,17 @@ export default function GlobalUserManagement() {
  )}
  </AnimatePresence>
  </Portal>
+
+ {/* Bulk User Import (CSV) Modal */}
+ {showBulkImport && (
+ <Portal>
+ <BulkUserImportModal
+ isOpen={showBulkImport}
+ onClose={() => setShowBulkImport(false)}
+ onSuccess={handleBulkImportSuccess}
+ />
+ </Portal>
+ )}
  </div>
  );
 }
