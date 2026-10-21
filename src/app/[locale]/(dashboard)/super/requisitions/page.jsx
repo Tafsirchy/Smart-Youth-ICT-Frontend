@@ -134,10 +134,19 @@ export default function SuperRequisitionsPage() {
   const fetchWarehouseInventory = async () => {
     try {
       setWarehouseLoading(true);
-      const res = await api.get('/requisitions/warehouse/inventory');
+      const res = await api.get('/requisitions/warehouse/items');
       if (res.data?.success) {
-        setWarehouseInventory(res.data.data?.inventory || []);
-        setWarehouseStats(res.data.data?.stats || { totalItems: 0, lowStockCount: 0, totalUnits: 0, totalValuation: 0 });
+        // Canonical backend shape: { success, metrics: { totalItems, lowStockCount,
+        // totalStockUnits, totalValuation }, data: items[] }
+        const items = Array.isArray(res.data.data) ? res.data.data : (res.data.data?.inventory || []);
+        const metrics = res.data.metrics || res.data.data?.stats || {};
+        setWarehouseInventory(items);
+        setWarehouseStats({
+          totalItems: metrics.totalItems ?? items.length,
+          lowStockCount: metrics.lowStockCount ?? 0,
+          totalUnits: metrics.totalStockUnits ?? metrics.totalUnits ?? 0,
+          totalValuation: metrics.totalValuation ?? 0,
+        });
       }
     } catch (err) {
       console.error('Failed to load warehouse inventory:', err);
@@ -155,7 +164,7 @@ export default function SuperRequisitionsPage() {
       return;
     }
     try {
-      const res = await api.patch(`/requisitions/warehouse/inventory/${itemId}`, { stockQuantity: newQty });
+      const res = await api.put(`/requisitions/warehouse/items/${itemId}`, { stockQuantity: newQty });
       if (res.data?.success) {
         setFeedback({ type: 'success', message: 'Warehouse stock updated successfully' });
         fetchWarehouseInventory();
@@ -168,7 +177,7 @@ export default function SuperRequisitionsPage() {
   const handleCreateItem = async (e) => {
     e.preventDefault();
     try {
-      const res = await api.post('/requisitions/warehouse/inventory', newItemForm);
+      const res = await api.post('/requisitions/warehouse/items', newItemForm);
       if (res.data?.success) {
         setFeedback({ type: 'success', message: `Added ${newItemForm.name} to Central Warehouse` });
         setShowAddItem(false);
