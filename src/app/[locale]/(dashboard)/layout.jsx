@@ -5,8 +5,11 @@ import { useSession } from 'next-auth/react';
 import { redirect, useParams } from 'next/navigation';
 import Sidebar from '@/components/layout/Sidebar';
 import DashboardTopbar from '@/components/layout/DashboardTopbar';
+import DashboardDesktopHeader from '@/components/layout/DashboardDesktopHeader';
 import SessionSync from '@/components/dashboard/SessionSync';
+import EnterpriseRealtimeSync from '@/components/dashboard/EnterpriseRealtimeSync';
 import SuperAdminBranchSwitcher from '@/components/dashboard/SuperAdminBranchSwitcher';
+import ImpersonationBanner from '@/components/layout/ImpersonationBanner';
 
 /**
  * Common Dashboard Layout for all roles (Student, Instructor, Admin, Super Admin)
@@ -28,6 +31,7 @@ export default function SharedDashboardLayout({ children }) {
  return (
  <div className="dashboard-layout">
  <SessionSync />
+      <EnterpriseRealtimeSync />
  
  {/* Mobile / Tablet Topbar */}
  <DashboardTopbar user={session.user} toggleSidebar={() => setSidebarOpen(!sidebarOpen)} />
@@ -41,7 +45,9 @@ export default function SharedDashboardLayout({ children }) {
  />
  
  {/* Main Content Area */}
- <div className="dashboard-main w-full max-w-[100vw] overflow-x-hidden">
+ <div className="dashboard-main w-full max-w-[100vw] overflow-x-hidden flex flex-col">
+  <DashboardDesktopHeader user={session.user} />
+        <ImpersonationBanner />
  <main className="dashboard-main-content px-[var(--gutter,16px)] pb-[env(safe-area-inset-bottom)]">
  <SuperAdminBranchSwitcher user={session.user} />
  {children}
