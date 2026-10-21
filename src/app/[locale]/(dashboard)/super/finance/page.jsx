@@ -27,6 +27,7 @@ const item = {
 export default function GlobalFinancePage() {
  const [finance, setFinance] = useState(null);
  const [loading, setLoading] = useState(true);
+ const [exporting, setExporting] = useState(false);
 
  useEffect(() => {
  fetchFinance();
@@ -42,6 +43,28 @@ export default function GlobalFinancePage() {
  setLoading(false);
  }
  };
+
+ const handleExportLedger = async () => {
+ try {
+ setExporting(true);
+ toast.loading('Preparing Global Ledger...', { id: 'export-ledger' });
+ const res = await api.get('/super/finance/export-ledger', { responseType: 'blob' });
+ const blob = new Blob([res.data], { type: 'text/csv;charset=utf-8;' });
+ const url = URL.createObjectURL(blob);
+ const link = document.createElement('a');
+ link.href = url;
+ link.setAttribute('download', `SYICT_Global_Ledger_${new Date().toISOString().slice(0, 10)}.csv`);
+ document.body.appendChild(link);
+ link.click();
+ document.body.removeChild(link);
+ toast.success('Global Ledger exported successfully!', { id: 'export-ledger' });
+ } catch (err) {
+ toast.error('Failed to export ledger', { id: 'export-ledger' });
+ } finally {
+ setExporting(false);
+ }
+ };
+
 
  const getStatusTotal = (status) => {
  return finance?.summary?.find(s => s._id === status)?.total || 0;
@@ -73,10 +96,10 @@ export default function GlobalFinancePage() {
  <motion.button
  whileHover={{ scale: 1.02 }}
  whileTap={{ scale: 0.98 }}
- className="hidden md:flex items-center gap-2 bg-slate-900 text-white px-4 py-2 font-bold shadow-xl shadow-slate-900/20 hover:bg-slate-800 transition-all text-sm rounded-md"
+ onClick={handleExportLedger} disabled={exporting} className="hidden md:flex items-center gap-2 bg-slate-900 text-white px-4 py-2 font-bold shadow-xl shadow-slate-900/20 hover:bg-slate-800 transition-all text-sm rounded-md disabled:opacity-50"
  >
  <HiOutlineArrowDownTray size={20} />
- Export Global Ledger
+ {exporting ? 'Exporting...' : 'Export Global Ledger'}
  </motion.button>
  </header>
 
@@ -94,8 +117,8 @@ export default function GlobalFinancePage() {
  <p className="text-emerald-400 font-black text-xs uppercase tracking-[0.2em] mb-2">Total Revenue Collected</p>
  <h2 className="text-5xl font-black text-white tracking-tighter">৳{paidTotal.toLocaleString()}</h2>
  <div className="mt-4 flex items-center gap-2 text-emerald-400 font-bold text-sm">
- <span className="bg-emerald-500/20 px-2 py-1 rounded-md">+12.4%</span>
- <span className="text-slate-500 font-medium uppercase text-[10px]">From last month</span>
+ <span className="bg-emerald-500/20 px-2 py-1 rounded-md">{finance?.pnl?.profitMargin != null ? `${finance.pnl.profitMargin}%` : '+100%'}</span>
+ <span className="text-slate-500 font-medium uppercase text-[10px]">From P&L</span>
  </div>
  </motion.div>
 
