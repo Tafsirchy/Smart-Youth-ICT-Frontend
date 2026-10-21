@@ -13,6 +13,7 @@ import {
  HiOutlineXMark,
  HiOutlineChevronRight,
  HiOutlinePaperAirplane,
+ HiOutlineArrowPath,
 } from "react-icons/hi2";
 import Portal from "@/components/ui/Portal";
 import { useState, useEffect } from "react";
@@ -234,6 +235,7 @@ export default function MasterCurriculumPage() {
  const [editingCourse, setEditingCourse] = useState(null);
  const [selectedBranches, setSelectedBranches] = useState([]);
  const [deployingCourse, setDeployingCourse] = useState(null);
+ const [syncingId, setSyncingId] = useState(null);
  const [courseForm, setCourseForm] = useState(createBlankCourseForm());
 
  useEffect(() => {
@@ -295,6 +297,20 @@ export default function MasterCurriculumPage() {
  }
  };
 
+ const handleSyncLessons = async (courseId) => {
+ try {
+ setSyncingId(courseId);
+ const res = await api.post(`/super/courses/${courseId}/sync-lessons`);
+ if (res.data?.success) {
+ toast.success(res.data.message || "Lessons synchronized across all branches!");
+ }
+ } catch (err) {
+ toast.error(err.response?.data?.message || "Failed to sync lessons to branches");
+ } finally {
+ setSyncingId(null);
+ }
+ };
+
  const handleDeploy = async () => {
  if (selectedBranches.length === 0)
  return toast.error("Select at least one branch");
@@ -304,8 +320,10 @@ export default function MasterCurriculumPage() {
  branchIds: selectedBranches,
  });
  if (res.data?.success) {
+ const deployedLocations = res.data.data.filter((r) => r.status === "deployed").length;
+ const lessonsCount = res.data.data.find((r) => r.status === "deployed")?.lessonsCount || 0;
  toast.success(
- `Successfully pushed to ${res.data.data.filter((r) => r.status === "deployed").length} locations`,
+ `Successfully pushed to ${deployedLocations} branches with ${lessonsCount} lessons each!`,
  );
  setShowDeployModal(false);
  setSelectedBranches([]);
@@ -665,16 +683,24 @@ decoding="async"/>
  setDeployingCourse(course);
  setShowDeployModal(true);
  }}
- className="flex-1 bg-slate-900 text-white py-3 text-xs font-black uppercase tracking-widest hover:bg-slate-800 transition-colors shadow-lg shadow-slate-900/10 flex items-center justify-center gap-2"
+ className="flex-1 bg-slate-900 text-white py-3 text-xs font-black uppercase tracking-widest hover:bg-slate-800 transition-colors shadow-lg shadow-slate-900/10 flex items-center justify-center gap-2 rounded-md"
  >
  <HiOutlinePaperAirplane size={14} className="rotate-45" />
- Deploy Course
+ Deploy
+ </button>
+ <button
+ title="Sync lessons to all deployed branches"
+ onClick={() => handleSyncLessons(course._id)}
+ disabled={syncingId === course._id}
+ className="p-3 bg-slate-50 text-slate-500 hover:text-indigo-600 hover:bg-indigo-50 transition-all rounded-md flex items-center justify-center"
+ >
+ <HiOutlineArrowPath size={18} className={syncingId === course._id ? "animate-spin text-indigo-600" : ""} />
  </button>
  <button
  onClick={() => handleDeleteCourse(course._id)}
- className="p-3 bg-slate-50 text-slate-400 hover:text-red-500 hover:bg-red-50 transition-all"
+ className="p-3 bg-slate-50 text-slate-400 hover:text-red-500 hover:bg-red-50 transition-all rounded-md"
  >
- <HiOutlineTrash size={20} />
+ <HiOutlineTrash size={18} />
  </button>
  </div>
  </div>
