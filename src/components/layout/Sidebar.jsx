@@ -26,7 +26,7 @@ function NavItem({ href, Icon, label }) {
  const { branchId } = useParams();
 
  // Identify global routes that should not get branchId prepended
- const isGlobalRoute = href.startsWith("/profile") || href.startsWith("/contact") || href.startsWith("/super");
+ const isGlobalRoute = href.startsWith("/profile") || href.startsWith("/contact") || href.startsWith("/super") || href.startsWith("/notifications");
  const fullHref = (branchId && !isGlobalRoute) ? `/${branchId}${href}` : href;
  
  // Remove locale prefix (e.g. /en, /bn) from pathname for accurate matching
