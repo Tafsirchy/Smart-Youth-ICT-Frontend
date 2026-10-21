@@ -18,6 +18,7 @@ import toast from "react-hot-toast";
 import { authService } from "@/services/authService";
 import api from "@/lib/api";
 import AuthBackground from "./AuthBackground";
+import TwoFactorChallenge from "./TwoFactorChallenge";
 
 const GOOGLE_AUTH_ENABLED =
  process.env.NEXT_PUBLIC_GOOGLE_AUTH_ENABLED?.trim() === "true";
@@ -34,6 +35,7 @@ export default function AuthContainer({ defaultTab = "login" }) {
  const locale = useLocale();
  const [tab, setTab] = useState(defaultTab);
   const [registrationOpen, setRegistrationOpen] = useState(true);
+  const [twoFactorData, setTwoFactorData] = useState(null);
 
  const [form, setForm] = useState({
  name: "",
@@ -65,25 +67,33 @@ export default function AuthContainer({ defaultTab = "login" }) {
  return e;
  };
 
- const handleLoginSubmit = async (e) => {
- e.preventDefault();
- setLoading(true);
- setError("");
- const res = await signIn("credentials", {
- redirect: false,
- email: form.email,
- password: form.password,
- });
- setLoading(false);
- if (res?.ok) {
- toast.success("Welcome back! Redirecting...");
- router.push(`/${locale}/`);
- } else {
- const msg = res?.error || "Invalid email or password.";
- setError(msg);
- toast.error(msg);
- }
- };
+   const handleLoginSubmit = async (e) => {
+    e.preventDefault();
+    setLoading(true);
+    setError("");
+    const res = await signIn("credentials", {
+      redirect: false,
+      email: form.email,
+      password: form.password,
+    });
+    setLoading(false);
+    if (res?.ok) {
+      toast.success("Welcome back! Redirecting...");
+      router.push(`/${locale}/`);
+    } else {
+      if (res?.error && res.error.startsWith("2FA_REQUIRED:")) {
+        try {
+          const payload = JSON.parse(res.error.replace("2FA_REQUIRED:", ""));
+          setTwoFactorData(payload);
+          toast.success(payload.message || "2FA verification required.");
+          return;
+        } catch (err) {}
+      }
+      const msg = res?.error || "Invalid email or password.";
+      setError(msg);
+      toast.error(msg);
+    }
+  };
 
  const handleRegisterSubmit = async (e) => {
  e.preventDefault();
