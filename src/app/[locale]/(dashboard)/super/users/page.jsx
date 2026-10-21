@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useEffect, useMemo, useRef } from 'react';
+import { useRouter, useParams } from 'next/navigation';
 import { useQuery, useQueryClient, keepPreviousData } from '@tanstack/react-query';
 import { motion, AnimatePresence } from 'framer-motion';
 import api from '@/lib/api';
@@ -21,7 +22,11 @@ import {
  HiOutlineDevicePhoneMobile,
  HiOutlineBuildingOffice,
  HiOutlineCheckCircle,
- HiOutlineXCircle
+ HiOutlineXCircle,
+ HiOutlineKey,
+ HiOutlineArrowRightOnRectangle,
+ HiOutlineArrowPath,
+ HiOutlineArrowsRightLeft
 } from 'react-icons/hi2';
 
 export default function GlobalUserManagement() {
@@ -41,6 +46,21 @@ export default function GlobalUserManagement() {
  const [filterRole, setFilterRole] = useState('');
  const [filterBranch, setFilterBranch] = useState('');
 
+ const router = useRouter();
+ const params = useParams();
+ const locale = params?.locale || 'bn';
+
+ const [permissionsModalUser, setPermissionsModalUser] = useState(null);
+ const [selectedPermissions, setSelectedPermissions] = useState([]);
+ const [savingPermissions, setSavingPermissions] = useState(false);
+
+ // Campus Transfer State
+ const [transferModalStudent, setTransferModalStudent] = useState(null);
+ const [targetBranchId, setTargetBranchId] = useState('');
+ const [transferReason, setTransferReason] = useState('relocation');
+ const [transferNotes, setTransferNotes] = useState('');
+ const [transferring, setTransferring] = useState(false);
+
  const administrativeRoles = ['super_admin', 'super_management', 'admin', 'branch_admin', 'branch_management'];
 
  const { data: branchesData } = useQuery({
@@ -53,6 +73,15 @@ export default function GlobalUserManagement() {
  });
 
  const branches = branchesData || [];
+
+ const { data: permissionsCatalog = [] } = useQuery({
+  queryKey: ['permissions-catalog'],
+  queryFn: async () => {
+   const res = await api.get('/users/permissions/catalog');
+   return res.data?.data?.catalog || [];
+  },
+  staleTime: 10 * 60 * 1000
+ });
 
  const { data: usersData, isLoading: loading, isPlaceholderData } = useQuery({
  queryKey: ['users', { page, filterRole, filterBranch, search }],
@@ -121,6 +150,128 @@ export default function GlobalUserManagement() {
  } catch (err) {
  toast.error('Purge failed');
  }
+ };
+
+ const handleImpersonate = async (user) => {
+  if (user._id === currentUser?.id) {
+   toast.error('You are already active in this administrative session');
+   return;
+  }
+  if (['super_admin', 'super_management'].includes(user.role)) {
+   toast.error('Impersonating another Super Administrator is prohibited by security policy');
+   return;
+  }
+  if (!confirm(`AUDIT WARNING: Enter platform session as ${user.name} (${user.role.replace('_', ' ')})?\n\nAll actions performed will be auditable under your Super Admin credentials.`)) {
+   return;
+  }
+
+  const loadingToast = toast.loading(`Generating secure session credentials for ${user.name}...`);
+  try {
+   const res = await api.post(`/auth/impersonate/${user._id}`);
+   if (res.data?.success && res.data?.token) {
+    localStorage.setItem(
+     'syict_impersonation',
+     JSON.stringify({
+      token: res.data.token,
+      targetUser: res.data.targetUser,
+      originalAdmin: res.data.impersonation?.originalAdmin,
+     })
+    );
+    window.dispatchEvent(new Event('syict-impersonation-change'));
+    toast.success(`Session active: Viewing as ${user.name}`, { id: loadingToast });
+
+    // Determine target dashboard workspace
+    let targetWorkspace = `/${locale}/super`;
+    if (user.role === 'student') targetWorkspace = `/${locale}/student`;
+    else if (user.role === 'instructor') targetWorkspace = `/${locale}/instructor`;
+    else if (['branch_admin', 'branch_management', 'employee'].includes(user.role)) targetWorkspace = `/${locale}/branch`;
+
+    window.location.href = targetWorkspace;
+   }
+  } catch (err) {
+   toast.error(err?.response?.data?.message || 'Impersonation failed', { id: loadingToast });
+  }
+ };
+
+ const handleForceLogout = async (user) => {
+  if (!confirm(`Revoke all active sessions for ${user.name}?\n\nThis will invalidate their active JWT token immediately across all devices.`)) {
+   return;
+  }
+
+  const loadingToast = toast.loading(`Revoking all active sessions for ${user.name}...`);
+  try {
+   const res = await api.post(`/users/${user._id}/force-logout`);
+   toast.success(res.data?.message || `Sessions revoked for ${user.name}`, { id: loadingToast });
+   queryClient.invalidateQueries(['users']);
+  } catch (err) {
+   toast.error(err?.response?.data?.message || 'Failed to revoke user sessions', { id: loadingToast });
+  }
+ };
+
+ const openPermissionsModal = (user) => {
+  setPermissionsModalUser(user);
+  setSelectedPermissions(user.permissions || []);
+ };
+
+ const handleSavePermissions = async () => {
+  if (!permissionsModalUser) return;
+  setSavingPermissions(true);
+  const loadingToast = toast.loading(`Deploying PBAC policy to ${permissionsModalUser.name}...`);
+  try {
+   await api.put(`/users/${permissionsModalUser._id}/permissions`, {
+    permissions: selectedPermissions,
+   });
+   toast.success('Permissions successfully synchronized', { id: loadingToast });
+   queryClient.invalidateQueries(['users']);
+   setPermissionsModalUser(null);
+  } catch (err) {
+   toast.error(err?.response?.data?.message || 'Failed to synchronize permissions', { id: loadingToast });
+  } finally {
+   setSavingPermissions(false);
+  }
+ };
+
+ const togglePermission = (permId) => {
+  setSelectedPermissions((prev) =>
+   prev.includes(permId) ? prev.filter((p) => p !== permId) : [...prev, permId]
+  );
+ };
+
+ const toggleCategoryPermissions = (permsInCategory) => {
+  const permIds = permsInCategory.map((p) => p.id);
+  const allSelected = permIds.every((id) => selectedPermissions.includes(id));
+  if (allSelected) {
+   setSelectedPermissions((prev) => prev.filter((id) => !permIds.includes(id)));
+  } else {
+   setSelectedPermissions((prev) => [...new Set([...prev, ...permIds])]);
+  }
+ };
+
+ const handleTransferCampus = async (e) => {
+  e.preventDefault();
+  if (!transferModalStudent || !targetBranchId) {
+   toast.error('Please select a target campus');
+   return;
+  }
+  setTransferring(true);
+  const loadingToast = toast.loading(`Transferring student ${transferModalStudent.name} to target campus...`);
+  try {
+   const res = await api.post('/super/transfers/student', {
+    studentId: transferModalStudent._id,
+    targetBranchId,
+    reason: transferReason,
+    transferNotes,
+   });
+   toast.success(res.data?.message || 'Campus transfer completed successfully!', { id: loadingToast });
+   queryClient.invalidateQueries(['users']);
+   setTransferModalStudent(null);
+   setTargetBranchId('');
+   setTransferNotes('');
+  } catch (err) {
+   toast.error(err?.response?.data?.message || 'Transfer failed', { id: loadingToast });
+  } finally {
+   setTransferring(false);
+  }
  };
 
  const openForm = (user = null) => {
@@ -239,12 +390,31 @@ export default function GlobalUserManagement() {
  </div>
  </div>
  
- <div className="grid grid-cols-2 gap-2 mt-1">
- <button onClick={() => handleDeactivate(user)} className="w-full py-2 bg-slate-50 text-slate-600 text-xs font-bold hover:bg-slate-100 flex justify-center items-center gap-2 transition-all">
- <HiOutlineShieldCheck size={16} /> {user.isActive ? 'Deactivate' : 'Activate'}
+ <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 mt-1">
+ {!['super_admin', 'super_management'].includes(user.role) && user._id !== currentUser?.id && (
+ <button onClick={() => handleImpersonate(user)} className="w-full py-2 bg-amber-50 text-amber-700 text-xs font-bold hover:bg-amber-100 flex justify-center items-center gap-1.5 rounded transition-all">
+ <HiOutlineArrowRightOnRectangle size={15} /> Login As
  </button>
- <button onClick={() => handleDelete(user)} className="w-full py-2 bg-rose-50 text-rose-600 text-xs font-bold hover:bg-rose-100 flex justify-center items-center gap-2 transition-all">
- <HiOutlineTrash size={16} /> Delete
+ )}
+ {user.role === 'student' && (
+ <button onClick={() => {
+  setTransferModalStudent(user);
+  setTargetBranchId(branches.find(b => b._id !== user.branchId)?._id || '');
+ }} className="w-full py-2 bg-teal-50 text-teal-700 text-xs font-bold hover:bg-teal-100 flex justify-center items-center gap-1.5 rounded transition-all">
+  <HiOutlineArrowsRightLeft size={15} /> Transfer
+ </button>
+ )}
+ <button onClick={() => openPermissionsModal(user)} className="w-full py-2 bg-indigo-50 text-indigo-700 text-xs font-bold hover:bg-indigo-100 flex justify-center items-center gap-1.5 rounded transition-all">
+ <HiOutlineKey size={15} /> PBAC
+ </button>
+ <button onClick={() => handleForceLogout(user)} className="w-full py-2 bg-rose-50 text-rose-700 text-xs font-bold hover:bg-rose-100 flex justify-center items-center gap-1.5 rounded transition-all">
+ <HiOutlineLockClosed size={15} /> Revoke
+ </button>
+ <button onClick={() => handleDeactivate(user)} className="w-full py-2 bg-slate-50 text-slate-600 text-xs font-bold hover:bg-slate-100 flex justify-center items-center gap-1.5 rounded transition-all">
+ <HiOutlineShieldCheck size={15} /> {user.isActive ? 'Suspend' : 'Activate'}
+ </button>
+ <button onClick={() => handleDelete(user)} className="w-full py-2 bg-rose-50 text-rose-600 text-xs font-bold hover:bg-rose-100 flex justify-center items-center gap-1.5 rounded transition-all col-span-2 sm:col-span-1">
+ <HiOutlineTrash size={15} /> Delete
  </button>
  </div>
  </div>
@@ -291,6 +461,7 @@ export default function GlobalUserManagement() {
  </div>
  </td>
  <td className="px-6 py-4">
+ <div className="flex flex-col items-start gap-1">
  <span className={`px-2 py-1 text-[10px] font-black uppercase tracking-widest ${
  user.role === 'super_admin' ? 'bg-pink-100 text-pink-600' :
  user.role === 'branch_admin' ? 'bg-blue-100 text-blue-600' :
@@ -299,6 +470,17 @@ export default function GlobalUserManagement() {
  }`}>
  {user.role.replace('_', ' ')}
  </span>
+ {user.permissions?.length > 0 && (
+ <button
+ type="button"
+ onClick={() => openPermissionsModal(user)}
+ className="inline-flex items-center gap-1 px-1.5 py-0.5 rounded text-[9px] font-black bg-indigo-50 text-indigo-600 border border-indigo-200/50 hover:bg-indigo-100 transition-colors"
+ title={user.permissions.join(', ')}
+ >
+ <HiOutlineKey size={10} /> {user.permissions.length} PBAC
+ </button>
+ )}
+ </div>
  </td>
  <td className="px-6 py-4">
  <div className="flex items-center gap-2 text-xs font-bold text-slate-500">
@@ -313,14 +495,53 @@ export default function GlobalUserManagement() {
  </div>
  </td>
  <td className="px-6 py-4 text-right font-medium">
- <div className="flex justify-end gap-1 opacity-100 md:opacity-0 md:group-hover:opacity-100 transition-opacity">
- <button onClick={() => openForm(user)} className="p-1.5 hover:bg-white hover:text-indigo-600 transition-all text-slate-300">
+ <div className="flex justify-end items-center gap-1 opacity-100 md:opacity-0 md:group-hover:opacity-100 transition-opacity">
+ {user.role === 'student' && (
+ <button 
+ type="button"
+ onClick={() => {
+  setTransferModalStudent(user);
+  setTargetBranchId(branches.find(b => b._id !== user.branchId)?._id || '');
+ }}
+ title="Transfer Student to Another Campus"
+ className="p-1.5 hover:bg-teal-50 hover:text-teal-600 transition-all text-slate-400 rounded"
+ >
+ <HiOutlineArrowsRightLeft size={18} />
+ </button>
+ )}
+ {!['super_admin', 'super_management'].includes(user.role) && user._id !== currentUser?.id && (
+ <button 
+ type="button"
+ onClick={() => handleImpersonate(user)} 
+ title="Impersonate / Login As this user"
+ className="p-1.5 hover:bg-amber-50 hover:text-amber-600 transition-all text-slate-400 rounded"
+ >
+ <HiOutlineArrowRightOnRectangle size={18} />
+ </button>
+ )}
+ <button 
+ type="button"
+ onClick={() => openPermissionsModal(user)} 
+ title="Manage PBAC Permissions Matrix"
+ className="p-1.5 hover:bg-indigo-50 hover:text-indigo-600 transition-all text-slate-400 rounded"
+ >
+ <HiOutlineKey size={18} />
+ </button>
+ <button 
+ type="button"
+ onClick={() => handleForceLogout(user)} 
+ title="Revoke All Active Sessions (Force Logout)"
+ className="p-1.5 hover:bg-rose-50 hover:text-rose-600 transition-all text-slate-400 rounded"
+ >
+ <HiOutlineLockClosed size={18} />
+ </button>
+ <button type="button" onClick={() => openForm(user)} title="Edit Node" className="p-1.5 hover:bg-white hover:text-indigo-600 transition-all text-slate-400 rounded">
  <HiOutlinePencilSquare size={18} />
  </button>
- <button onClick={() => handleDeactivate(user)} className="p-1.5 hover:bg-white hover:text-amber-600 transition-all text-slate-300">
+ <button type="button" onClick={() => handleDeactivate(user)} title={user.isActive ? "Deactivate" : "Activate"} className="p-1.5 hover:bg-white hover:text-amber-600 transition-all text-slate-400 rounded">
  <HiOutlineShieldCheck size={18} />
  </button>
- <button onClick={() => handleDelete(user)} className="p-1.5 hover:bg-white hover:text-rose-600 transition-all text-slate-300">
+ <button type="button" onClick={() => handleDelete(user)} title="Delete Node" className="p-1.5 hover:bg-white hover:text-rose-600 transition-all text-slate-400 rounded">
  <HiOutlineTrash size={18} />
  </button>
  </div>
@@ -541,6 +762,287 @@ export default function GlobalUserManagement() {
  </div>
  <button type="submit" className="px-6 py-3 bg-indigo-600 text-white font-black shadow-xl shadow-indigo-600/30 hover:-translate-y-1 transition-all rounded-md">
  {editingUser ? 'Synchronize Updates' : 'Establish Access Node'}
+ </button>
+ </div>
+ </form>
+ </motion.div>
+ </div>
+ )}
+ </AnimatePresence>
+ </Portal>
+
+ {/* PBAC Permissions Matrix Modal */}
+ <Portal>
+ <AnimatePresence>
+ {permissionsModalUser && (
+ <div className="fixed inset-0 z-[1000] flex items-center justify-center p-3 md:p-6">
+ <motion.div 
+ initial={{ opacity: 0 }}
+ animate={{ opacity: 1 }}
+ exit={{ opacity: 0 }}
+ onClick={() => setPermissionsModalUser(null)}
+ className="absolute inset-0 bg-slate-900/90 backdrop-blur-sm"
+ />
+ <motion.div 
+ initial={{ scale: 0.95, opacity: 0, y: 20 }}
+ animate={{ scale: 1, opacity: 1, y: 0 }}
+ exit={{ scale: 0.95, opacity: 0, y: 20 }}
+ className="relative w-full max-w-4xl bg-white rounded-2xl max-h-[90vh] flex flex-col shadow-2xl overflow-hidden z-10"
+ >
+ {/* Header */}
+ <div className="p-6 bg-slate-900 text-white flex justify-between items-center shrink-0">
+ <div className="flex items-center gap-3">
+ <div className="w-10 h-10 rounded-xl bg-indigo-500/20 border border-indigo-400/30 flex items-center justify-center text-indigo-400">
+ <HiOutlineKey size={22} />
+ </div>
+ <div>
+ <h3 className="text-xl font-black tracking-tight flex items-center gap-2">
+ <span>PBAC Permissions Matrix</span>
+ <span className="text-xs px-2 py-0.5 rounded bg-indigo-500/30 text-indigo-300 font-bold uppercase">
+ {permissionsModalUser.role.replace('_', ' ')}
+ </span>
+ </h3>
+ <p className="text-xs text-slate-400 mt-0.5">
+ Managing granular access for <strong className="text-white">{permissionsModalUser.name}</strong> ({permissionsModalUser.email})
+ </p>
+ </div>
+ </div>
+ <button 
+ onClick={() => setPermissionsModalUser(null)}
+ className="w-9 h-9 rounded-lg bg-white/10 hover:bg-white/20 text-slate-300 flex items-center justify-center transition-all"
+ >
+ <HiOutlineXCircle size={22} />
+ </button>
+ </div>
+
+ {/* Sub-header info bar */}
+ <div className="px-6 py-3 bg-slate-50 border-b border-slate-100 flex items-center justify-between text-xs shrink-0">
+ <div className="flex items-center gap-2 font-bold text-slate-600">
+ <span>Selected Permissions:</span>
+ <span className="px-2 py-0.5 rounded-full bg-indigo-600 text-white font-black text-[11px]">
+ {selectedPermissions.length} Active
+ </span>
+ </div>
+ <div className="flex items-center gap-2">
+ <button
+ type="button"
+ onClick={() => setSelectedPermissions([])}
+ className="px-3 py-1 bg-white border border-slate-200 text-slate-600 hover:bg-slate-100 rounded text-xs font-bold transition-all"
+ >
+ Clear All
+ </button>
+ </div>
+ </div>
+
+ {/* Body: Grouped Categories */}
+ <div className="p-6 overflow-y-auto space-y-6 flex-1">
+ {permissionsCatalog && permissionsCatalog.length > 0 ? (
+ permissionsCatalog.map((category) => {
+ const catPermIds = category.permissions.map(p => p.id);
+ const allCatSelected = catPermIds.length > 0 && catPermIds.every(id => selectedPermissions.includes(id));
+
+ return (
+ <div key={category.category} className="border border-slate-200 rounded-xl overflow-hidden bg-white shadow-sm">
+ <div className="px-4 py-3 bg-slate-50 border-b border-slate-200 flex items-center justify-between">
+ <div className="flex items-center gap-2 font-black text-slate-800 text-sm">
+ <span className="w-2.5 h-2.5 rounded-full bg-indigo-600"></span>
+ <span>{category.category}</span>
+ <span className="text-[11px] font-bold text-slate-400">
+ ({catPermIds.filter(id => selectedPermissions.includes(id)).length}/{category.permissions.length})
+ </span>
+ </div>
+ <button
+ type="button"
+ onClick={() => toggleCategoryPermissions(category.permissions)}
+ className={`text-xs font-bold px-2.5 py-1 rounded transition-colors ${
+ allCatSelected
+ ? 'bg-rose-50 text-rose-600 hover:bg-rose-100'
+ : 'bg-indigo-50 text-indigo-600 hover:bg-indigo-100'
+ }`}
+ >
+ {allCatSelected ? 'Deselect Category' : 'Select Category'}
+ </button>
+ </div>
+
+ <div className="p-4 grid grid-cols-1 md:grid-cols-2 gap-3">
+ {category.permissions.map((perm) => {
+ const isChecked = selectedPermissions.includes(perm.id);
+ return (
+ <label
+ key={perm.id}
+ className={`flex items-start gap-3 p-3 rounded-lg border transition-all cursor-pointer ${
+ isChecked
+ ? 'bg-indigo-50/50 border-indigo-300 ring-1 ring-indigo-200'
+ : 'bg-white border-slate-100 hover:border-slate-300'
+ }`}
+ >
+ <input
+ type="checkbox"
+ checked={isChecked}
+ onChange={() => togglePermission(perm.id)}
+ className="mt-1 w-4 h-4 text-indigo-600 rounded border-slate-300 focus:ring-indigo-500 cursor-pointer"
+ />
+ <div className="flex-1">
+ <div className="flex items-center justify-between">
+ <span className="text-xs font-black text-slate-900">{perm.name}</span>
+ <code className="text-[10px] font-mono text-slate-400 bg-slate-100 px-1.5 py-0.5 rounded">
+ {perm.id}
+ </code>
+ </div>
+ <p className="text-[11px] text-slate-500 mt-0.5 leading-snug">{perm.description}</p>
+ </div>
+ </label>
+ );
+ })}
+ </div>
+ </div>
+ );
+ })
+ ) : (
+ <div className="py-12 text-center text-slate-400 text-xs font-bold">
+ Loading permissions catalog...
+ </div>
+ )}
+ </div>
+
+ {/* Footer */}
+ <div className="p-4 px-6 bg-slate-50 border-t border-slate-200 flex flex-col sm:flex-row items-center justify-between gap-3 shrink-0">
+ <p className="text-xs text-slate-400 font-medium text-center sm:text-left">
+ Changes take effect immediately upon next user authentication token verification.
+ </p>
+ <div className="flex items-center gap-3">
+ <button
+ type="button"
+ onClick={() => setPermissionsModalUser(null)}
+ className="px-4 py-2 rounded-lg border border-slate-200 text-slate-700 font-bold text-xs hover:bg-slate-100 transition-all"
+ >
+ Cancel
+ </button>
+ <button
+ type="button"
+ disabled={savingPermissions}
+ onClick={handleSavePermissions}
+ className="px-6 py-2 rounded-lg bg-indigo-600 text-white font-black text-xs shadow-lg shadow-indigo-600/30 hover:bg-indigo-700 transition-all disabled:opacity-50 flex items-center gap-2"
+ >
+ {savingPermissions ? <HiOutlineArrowPath className="animate-spin" size={16} /> : <HiOutlineKey size={16} />}
+ <span>Save Permissions Matrix</span>
+ </button>
+ </div>
+ </div>
+ </motion.div>
+ </div>
+ )}
+ </AnimatePresence>
+ </Portal>
+
+ {/* Transfer Student Campus Modal */}
+ <Portal>
+ <AnimatePresence>
+ {transferModalStudent && (
+ <div className="fixed inset-0 z-[1000] flex items-center justify-center p-4">
+ <motion.div
+ initial={{ opacity: 0 }}
+ animate={{ opacity: 1 }}
+ exit={{ opacity: 0 }}
+ onClick={() => setTransferModalStudent(null)}
+ className="absolute inset-0 bg-slate-900/90 backdrop-blur-sm"
+ />
+ <motion.div
+ initial={{ scale: 0.95, opacity: 0 }}
+ animate={{ scale: 1, opacity: 1 }}
+ exit={{ scale: 0.95, opacity: 0 }}
+ className="relative w-full max-w-lg bg-white rounded-2xl shadow-2xl overflow-hidden border border-slate-100 z-10"
+ >
+ <div className="p-6 border-b border-slate-100 flex items-center justify-between">
+ <div className="flex items-center gap-3">
+ <div className="w-10 h-10 rounded-xl bg-teal-50 text-teal-600 flex items-center justify-center">
+ <HiOutlineArrowsRightLeft size={20} />
+ </div>
+ <div>
+ <h3 className="font-extrabold text-base text-slate-900">Transfer Student Campus</h3>
+ <p className="text-xs text-slate-400">Reassign campus, active enrollments, and ledger</p>
+ </div>
+ </div>
+ <button
+ type="button"
+ onClick={() => setTransferModalStudent(null)}
+ className="text-slate-400 hover:text-slate-600 text-lg font-bold"
+ >
+ ✕
+ </button>
+ </div>
+
+ <form onSubmit={handleTransferCampus} className="p-6 space-y-4">
+ <div className="rounded-xl bg-slate-50 p-3.5 border border-slate-100 text-xs">
+ <div className="font-bold text-slate-800">{transferModalStudent.name}</div>
+ <div className="text-slate-500">{transferModalStudent.email} • Phone: {transferModalStudent.phone || 'N/A'}</div>
+ <div className="mt-1 font-semibold text-teal-700">
+ Current Campus: {branches.find(b => b._id === transferModalStudent.branchId)?.name || 'Unknown / Global'}
+ </div>
+ </div>
+
+ <div>
+ <label className="block text-xs font-bold text-slate-700 mb-1">
+ Target Destination Campus *
+ </label>
+ <select
+ required
+ value={targetBranchId}
+ onChange={(e) => setTargetBranchId(e.target.value)}
+ className="w-full p-2.5 rounded-xl border border-slate-200 text-xs font-medium text-slate-800 outline-none focus:border-teal-500"
+ >
+ <option value="">Select Target Campus...</option>
+ {branches.filter(b => b._id !== transferModalStudent.branchId).map(b => (
+ <option key={b._id} value={b._id}>{b.name} ({b.city})</option>
+ ))}
+ </select>
+ </div>
+
+ <div>
+ <label className="block text-xs font-bold text-slate-700 mb-1">
+ Reason for Transfer
+ </label>
+ <select
+ value={transferReason}
+ onChange={(e) => setTransferReason(e.target.value)}
+ className="w-full p-2.5 rounded-xl border border-slate-200 text-xs font-medium text-slate-800 outline-none focus:border-teal-500"
+ >
+ <option value="relocation">Student Residential Relocation</option>
+ <option value="schedule_conflict">Schedule & Batch Timing Preference</option>
+ <option value="course_availability">Specific Course/Lab Facility Availability</option>
+ <option value="administrative">Administrative Reorganization</option>
+ <option value="other">Other Official Reason</option>
+ </select>
+ </div>
+
+ <div>
+ <label className="block text-xs font-bold text-slate-700 mb-1">
+ Transfer Audit Notes / Approval Reference
+ </label>
+ <textarea
+ rows={3}
+ value={transferNotes}
+ onChange={(e) => setTransferNotes(e.target.value)}
+ placeholder="Official approval reference or instructions for destination campus..."
+ className="w-full p-2.5 rounded-xl border border-slate-200 text-xs text-slate-800 outline-none focus:border-teal-500"
+ />
+ </div>
+
+ <div className="pt-3 border-t border-slate-100 flex items-center justify-end gap-2">
+ <button
+ type="button"
+ onClick={() => setTransferModalStudent(null)}
+ className="px-4 py-2 text-xs font-bold text-slate-500 hover:bg-slate-50 rounded-lg"
+ >
+ Cancel
+ </button>
+ <button
+ type="submit"
+ disabled={transferring || !targetBranchId}
+ className="px-5 py-2 text-xs font-black text-white bg-teal-600 hover:bg-teal-700 rounded-lg shadow-md shadow-teal-600/20 disabled:opacity-50 flex items-center gap-1.5"
+ >
+ {transferring ? <HiOutlineArrowPath className="animate-spin" size={14} /> : <HiOutlineArrowsRightLeft size={14} />}
+ <span>{transferring ? 'Transferring...' : 'Execute Campus Transfer'}</span>
  </button>
  </div>
  </form>
