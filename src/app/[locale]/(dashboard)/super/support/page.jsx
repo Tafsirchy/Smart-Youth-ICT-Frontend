@@ -57,6 +57,13 @@ export default function SupportHubPage() {
 
   useEffect(() => {
     fetchTickets();
+    const handleRealtime = () => fetchTickets();
+    window.addEventListener('newSupportTicketReceived', handleRealtime);
+    window.addEventListener('ticketEscalatedReceived', handleRealtime);
+    return () => {
+      window.removeEventListener('newSupportTicketReceived', handleRealtime);
+      window.removeEventListener('ticketEscalatedReceived', handleRealtime);
+    };
   }, []);
 
   useEffect(() => {
@@ -278,9 +285,22 @@ export default function SupportHubPage() {
     }
   };
 
+  const handleEscalate = async (ticketId) => {
+    try {
+      const res = await api.post(`/super/tickets/${ticketId}/escalate`);
+      if (res.data?.success) {
+        toast.success('Ticket escalated to Critical HQ SLA status');
+        fetchTickets(true);
+      }
+    } catch (err) {
+      toast.error(err?.response?.data?.message || 'Failed to escalate ticket');
+    }
+  };
+
   // Filtered tickets
   const filteredTickets = tickets.filter(t => {
-    const matchesStatus = statusFilter === 'all' || t.status === statusFilter;
+    const isEscalatedMatch = statusFilter === 'escalated' ? (t.isEscalated || t.isSlaBreached) : true;
+    const matchesStatus = statusFilter === 'all' || statusFilter === 'escalated' || t.status === statusFilter;
     const matchesPriority = priorityFilter === 'all' || t.priority === priorityFilter;
     const matchesCategory = categoryFilter === 'all' || t.category === categoryFilter;
     const q = searchQuery.toLowerCase().trim();
@@ -291,7 +311,7 @@ export default function SupportHubPage() {
       t.user?.email?.toLowerCase().includes(q) ||
       t.category?.toLowerCase().includes(q) ||
       t._id?.toLowerCase().includes(q);
-    return matchesStatus && matchesPriority && matchesCategory && matchesSearch;
+    return isEscalatedMatch && matchesStatus && matchesPriority && matchesCategory && matchesSearch;
   });
 
   // KPI counters
@@ -299,6 +319,7 @@ export default function SupportHubPage() {
   const openCount = tickets.filter(t => t.status === 'open').length;
   const inProgressCount = tickets.filter(t => t.status === 'in-progress').length;
   const resolvedCount = tickets.filter(t => t.status === 'resolved').length;
+  const escalatedCount = tickets.filter(t => t.isEscalated || t.isSlaBreached).length;
 
   const statusStyles = {
     'open': 'text-amber-700 bg-amber-50 border-amber-200 dark:bg-amber-950/40 dark:text-amber-300 dark:border-amber-800',
@@ -307,6 +328,7 @@ export default function SupportHubPage() {
   };
 
   const priorityStyles = {
+    'critical': 'text-rose-900 bg-rose-100 border-rose-300 dark:bg-rose-950/60 dark:text-rose-200 dark:border-rose-800 animate-pulse font-black',
     'high': 'text-rose-700 bg-rose-50 border-rose-200 dark:bg-rose-950/30 dark:text-rose-300 dark:border-rose-800',
     'medium': 'text-amber-700 bg-amber-50 border-amber-200 dark:bg-amber-950/30 dark:text-amber-300 dark:border-amber-800',
     'low': 'text-slate-600 bg-slate-100 border-slate-200 dark:bg-slate-800 dark:text-slate-300 dark:border-slate-700'
@@ -370,6 +392,18 @@ export default function SupportHubPage() {
             }`}
           >
             In Progress ({inProgressCount})
+          </button>
+
+          <button 
+            onClick={() => setStatusFilter(statusFilter === 'escalated' ? 'all' : 'escalated')}
+            className={`px-2.5 py-1 rounded-lg text-xs font-bold transition-all border flex items-center gap-1.5 ${
+              statusFilter === 'escalated' 
+                ? 'bg-rose-600 text-white border-rose-600 shadow-md shadow-rose-600/30' 
+                : 'bg-rose-50/80 dark:bg-rose-950/40 text-rose-700 dark:text-rose-400 border-rose-200 dark:border-rose-800/60 hover:bg-rose-100'
+            }`}
+          >
+            <span className="w-1.5 h-1.5 rounded-full bg-rose-500 animate-ping" />
+            SLA Breached ({escalatedCount})
           </button>
 
           <button 
@@ -499,6 +533,19 @@ export default function SupportHubPage() {
                       <span className={`px-1.5 py-0.5 rounded text-[9px] font-black uppercase tracking-wider border ${statusStyles[ticket.status] || statusStyles['open']}`}>
                         {ticket.status}
                       </span>
+                      {ticket.isEscalated || ticket.isSlaBreached ? (
+                        <span className="px-1.5 py-0.5 rounded text-[8px] font-black uppercase tracking-wider bg-rose-600 text-white animate-pulse">
+                          🚨 SLA Breached
+                        </span>
+                      ) : ticket.status === 'resolved' ? (
+                        <span className="px-1.5 py-0.5 rounded text-[8px] font-bold uppercase tracking-wider bg-emerald-100 text-emerald-800">
+                          ✓ SLA Met
+                        </span>
+                      ) : (
+                        <span className="px-1.5 py-0.5 rounded text-[8px] font-bold uppercase tracking-wider bg-amber-100 text-amber-800">
+                          ⏰ SLA Active
+                        </span>
+                      )}
                       {isHigh && (
                         <span className="px-1.5 py-0.5 rounded text-[8px] font-black uppercase tracking-wider bg-rose-500 text-white animate-pulse">
                           High
@@ -654,7 +701,18 @@ export default function SupportHubPage() {
                     <option value="low">Low</option>
                     <option value="medium">Medium</option>
                     <option value="high">High</option>
+                    <option value="critical">Critical</option>
                   </select>
+
+                  {!selectedTicket.isEscalated && selectedTicket.status !== 'resolved' && (
+                    <button
+                      onClick={() => handleEscalate(selectedTicket._id)}
+                      title="Escalate ticket to HQ Critical SLA"
+                      className="px-2.5 py-1 rounded-md bg-rose-600 hover:bg-rose-700 text-white font-black text-[10px] flex items-center gap-1 shadow-sm transition-all active:scale-95"
+                    >
+                      🚨 Escalate
+                    </button>
+                  )}
 
                   {selectedTicket.status !== 'resolved' && (
                     <button
