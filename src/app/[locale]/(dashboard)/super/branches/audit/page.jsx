@@ -64,6 +64,8 @@ export default function BranchExecutiveAuditPage() {
     actionRequired: ''
   });
 
+  const [autoEnforcing, setAutoEnforcing] = useState(false);
+
   // Fetch Audit Data
   const fetchAuditReport = useCallback(async () => {
     try {
@@ -142,6 +144,35 @@ export default function BranchExecutiveAuditPage() {
       return;
     }
     router.push(`/${locale}/${selectedBranchId}/admin`);
+  };
+
+  const handleAutoEnforce = async () => {
+    const targetLabel = selectedBranchId === 'all' ? 'all network campuses' : 'the selected campus';
+    if (!window.confirm(`Execute automated executive audit directive evaluation for ${targetLabel}? This will automatically freeze discretionary expenditures and dispatch mandatory remediation directives to campuses with health deficits.`)) {
+      return;
+    }
+
+    try {
+      setAutoEnforcing(true);
+      const res = await api.post('/super/audit/auto-enforce', {
+        branchId: selectedBranchId,
+        forceThreshold: 50,
+      });
+
+      if (res.data?.success) {
+        const enforced = res.data.data?.filter((d) => d.enforced) || [];
+        if (enforced.length > 0) {
+          toast.success(`HQ Directives enforced for ${enforced.length} campus(es) with financial deficits!`);
+        } else {
+          toast.success('All evaluated campuses have healthy audit metrics. No remediation needed.');
+        }
+        fetchAuditReport();
+      }
+    } catch (err) {
+      toast.error(err.response?.data?.message || 'Auto-enforcement failed');
+    } finally {
+      setAutoEnforcing(false);
+    }
   };
 
   const score = report?.auditScore?.score ?? 100;
@@ -232,6 +263,17 @@ export default function BranchExecutiveAuditPage() {
               <span>Jump to Branch</span>
             </button>
           )}
+
+          <button
+            type="button"
+            onClick={handleAutoEnforce}
+            disabled={autoEnforcing}
+            className="px-3.5 py-1.5 bg-rose-600 hover:bg-rose-500 text-white rounded-xl text-xs font-bold transition-all flex items-center gap-1.5 shadow-sm active:scale-95 cursor-pointer disabled:opacity-50"
+            title="Automatically audit financial deficits and high-risk health scores, then dispatch mandatory HQ remediation directives."
+          >
+            <HiOutlineShieldCheck size={16} />
+            <span>{autoEnforcing ? 'Evaluating...' : 'Auto-Enforce'}</span>
+          </button>
 
           <button
             type="button"
