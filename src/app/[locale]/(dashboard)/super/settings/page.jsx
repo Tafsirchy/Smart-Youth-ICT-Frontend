@@ -18,7 +18,8 @@ import {
  HiOutlineEyeSlash,
  HiOutlineXMark,
  HiOutlineCpuChip,
- HiOutlineArrowPath
+ HiOutlineArrowPath,
+ HiOutlineArrowDownTray
 } from 'react-icons/hi2';
 import { AnimatePresence } from 'framer-motion';
 import Portal from '@/components/ui/Portal';
