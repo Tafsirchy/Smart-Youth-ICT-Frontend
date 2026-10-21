@@ -39,15 +39,26 @@ export default function AuditReportsPage() {
   const [loading, setLoading] = useState(true);
   const [search, setSearch] = useState('');
   const [selectedLog, setSelectedLog] = useState(null);
+  const [page, setPage] = useState(1);
+  const [total, setTotal] = useState(0);
+  const [totalPages, setTotalPages] = useState(1);
+  const [actionFilter, setActionFilter] = useState('');
 
   useEffect(() => {
-    fetchLogs();
+    fetchLogs(page, actionFilter);
   }, []);
 
-  const fetchLogs = async () => {
+  const fetchLogs = async (targetPage = page, targetAction = actionFilter) => {
     try {
-      const res = await api.get('/super/audit-logs');
-      if (res.data?.success) setLogs(res.data.data);
+      setLoading(true);
+      const params = { page: targetPage, limit: 50 };
+      if (targetAction) params.action = targetAction;
+      const res = await api.get('/super/audit-logs', { params });
+      if (res.data?.success) {
+        setLogs(res.data.data || []);
+        setTotal(res.data.total || (res.data.data ? res.data.data.length : 0));
+        setTotalPages(res.data.totalPages || 1);
+      }
     } catch (err) {
       toast.error('Failed to load audit logs');
     } finally {
@@ -109,15 +120,36 @@ export default function AuditReportsPage() {
           </p>
         </div>
 
-        <div className="relative group">
-          <HiOutlineMagnifyingGlass className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 group-focus-within:text-slate-900 transition-colors" />
-          <input 
-            type="text"
-            placeholder="Search logs, branches, actors..."
-            value={search}
-            onChange={(e) => setSearch(e.target.value)}
-            className="pl-11 pr-6 py-3 bg-white border border-slate-200 w-full md:w-80 focus:ring-4 focus:ring-slate-900/5 focus:border-slate-900 transition-all outline-none font-medium text-slate-700 shadow-xs rounded-xl text-sm"
-          />
+        <div className="flex items-center gap-3 w-full md:w-auto">
+          <select
+            value={actionFilter}
+            onChange={(e) => {
+              const val = e.target.value;
+              setActionFilter(val);
+              setPage(1);
+              fetchLogs(1, val);
+            }}
+            className="py-3 px-3.5 bg-white border border-slate-200 text-slate-700 text-xs font-bold rounded-xl outline-none focus:border-slate-900 shadow-xs cursor-pointer"
+          >
+            <option value="">All Actions</option>
+            <option value="CREATE">Create</option>
+            <option value="UPDATE">Update</option>
+            <option value="DELETE">Delete</option>
+            <option value="DEPLOY">Deploy</option>
+            <option value="SYNC">Sync</option>
+            <option value="TOGGLE">Toggle</option>
+          </select>
+
+          <div className="relative group flex-1 md:w-72">
+            <HiOutlineMagnifyingGlass className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 group-focus-within:text-slate-900 transition-colors" />
+            <input 
+              type="text"
+              placeholder="Search logs, branches, actors..."
+              value={search}
+              onChange={(e) => setSearch(e.target.value)}
+              className="pl-11 pr-6 py-3 bg-white border border-slate-200 w-full focus:ring-4 focus:ring-slate-900/5 focus:border-slate-900 transition-all outline-none font-medium text-slate-700 shadow-xs rounded-xl text-sm"
+            />
+          </div>
         </div>
       </header>
 
@@ -248,6 +280,33 @@ export default function AuditReportsPage() {
             </div>
           )}
         </motion.div>
+
+        {/* Pagination Bar */}
+        {totalPages > 1 && (
+          <div className="p-4 bg-slate-50 border-t border-slate-100 flex flex-col sm:flex-row items-center justify-between gap-3 relative z-20">
+            <p className="text-xs font-semibold text-slate-500">
+              Showing page <span className="font-bold text-slate-900">{page}</span> of <span className="font-bold text-slate-900">{totalPages}</span> ({total} records)
+            </p>
+            <div className="flex items-center gap-2">
+              <button
+                type="button"
+                disabled={page <= 1 || loading}
+                onClick={() => { const prev = Math.max(1, page - 1); setPage(prev); fetchLogs(prev, actionFilter); }}
+                className="px-3.5 py-1.5 text-xs font-bold rounded-lg bg-white border border-slate-200 text-slate-700 disabled:opacity-40 hover:bg-slate-100 transition-all cursor-pointer shadow-2xs"
+              >
+                Previous
+              </button>
+              <button
+                type="button"
+                disabled={page >= totalPages || loading}
+                onClick={() => { const next = Math.min(totalPages, page + 1); setPage(next); fetchLogs(next, actionFilter); }}
+                className="px-3.5 py-1.5 text-xs font-bold rounded-lg bg-white border border-slate-200 text-slate-700 disabled:opacity-40 hover:bg-slate-100 transition-all cursor-pointer shadow-2xs"
+              >
+                Next
+              </button>
+            </div>
+          </div>
+        )}
       </div>
 
       {/* Audit Log Inspector Modal */}
