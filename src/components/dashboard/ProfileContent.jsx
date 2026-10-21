@@ -19,6 +19,8 @@ import {
  HiOutlineKey,
 } from "react-icons/hi2";
 
+import TwoFactorSecurityCard from "./TwoFactorSecurityCard";
+
 export default function ProfileContent() {
  const { data: session, update } = useSession();
  const [loading, setLoading] = useState(true);
@@ -299,7 +301,8 @@ decoding="async"/>
  </div>
 
  {/* Security Controls */}
- <div className="space-y-6">
+        <div className="space-y-6">
+          <TwoFactorSecurityCard userEmail={session?.user?.email} />
  <motion.form
  initial={{ opacity: 0, x: 10 }}
  animate={{ opacity: 1, x: 0 }}
