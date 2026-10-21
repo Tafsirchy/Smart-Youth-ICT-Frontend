@@ -82,7 +82,7 @@ export default function GlobalDashboard() {
  {[
  { label: 'Ecosystem Students', val: stats?.students, icon: HiOutlineUserGroup, color: 'text-blue-500', bg: 'bg-blue-50' },
  { label: 'Branch Network', val: stats?.branches, icon: HiOutlineGlobeAlt, color: 'text-pink-500', bg: 'bg-pink-50' },
- { label: 'Global Curriculum', val: '48', icon: HiOutlineAcademicCap, color: 'text-emerald-500', bg: 'bg-emerald-50' },
+ { label: 'Global Curriculum', val: stats?.curriculum ?? stats?.courses ?? 0, icon: HiOutlineAcademicCap, color: 'text-emerald-500', bg: 'bg-emerald-50' },
  { label: 'Total Receipts', val: `৳${stats?.revenue?.toLocaleString()}`, icon: HiOutlineBanknotes, color: 'text-indigo-500', bg: 'bg-indigo-50' },
  ].map((card, i) => (
  <motion.div 
@@ -174,9 +174,9 @@ export default function GlobalDashboard() {
  </div>
  <h3 className="text-lg font-black text-slate-900 mb-1">Branch Map</h3>
  <p className="text-slate-400 font-medium text-sm mb-4 leading-snug">Visualize your educational ecosystem's footprint.</p>
- <button className="text-emerald-600 font-black text-[10px] uppercase tracking-wider border-b-2 border-emerald-100 hover:border-emerald-500 transition-all rounded-md">
+ <Link href="/super/branches" className="inline-block text-emerald-600 font-black text-[10px] uppercase tracking-wider border-b-2 border-emerald-100 hover:border-emerald-500 transition-all rounded-md">
  Open Interactive Map
- </button>
+ </Link>
  </motion.div>
  </div>
  </section>
