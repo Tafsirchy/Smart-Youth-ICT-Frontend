@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState, useEffect, useCallback, useRef } from "react";
 import { HiBell } from "react-icons/hi";
 import api from "@/lib/api";
 import NotificationDrawer from "./NotificationDrawer";
@@ -9,6 +9,7 @@ export default function NotificationBell({ user, className = "", iconSize = 22 }
   const [unreadCount, setUnreadCount] = useState(0);
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
   const [hasNewAlert, setHasNewAlert] = useState(false);
+  const seenNotificationIdsRef = useRef(new Set());
 
   // Fetch initial unread count
   const fetchUnreadCount = useCallback(async () => {
@@ -29,7 +30,19 @@ export default function NotificationBell({ user, className = "", iconSize = 22 }
 
   // Listen for real-time inbound notification & cross-component sync events
   useEffect(() => {
-    const handleNew = () => {
+    const handleNew = (e) => {
+      // Guard against double counting when the same broadcast is delivered
+      // to more than one socket room (e.g. branch room + executive room).
+      const notificationId = e?.detail?._id || e?.detail?.id;
+      if (notificationId) {
+        if (seenNotificationIdsRef.current.has(notificationId)) return;
+        seenNotificationIdsRef.current.add(notificationId);
+        if (seenNotificationIdsRef.current.size > 200) {
+          const oldest = seenNotificationIdsRef.current.values().next().value;
+          seenNotificationIdsRef.current.delete(oldest);
+        }
+      }
+
       setUnreadCount((prev) => prev + 1);
       setHasNewAlert(true);
       const timer = setTimeout(() => setHasNewAlert(false), 3000);
