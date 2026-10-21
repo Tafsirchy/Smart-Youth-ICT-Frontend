@@ -14,7 +14,10 @@ import {
   HiClipboardList,
   HiChevronDown,
   HiChevronUp,
-  HiFilter
+  HiFilter,
+  HiPlus,
+  HiRefresh,
+  HiExclamation
 } from 'react-icons/hi';
 import { IoCloseOutline } from 'react-icons/io5';
 
@@ -39,6 +42,17 @@ export default function SuperRequisitionsPage() {
   const [reviewModalTicket, setReviewModalTicket] = useState(null);
   const [submitting, setSubmitting] = useState(false);
   const [feedback, setFeedback] = useState(null);
+
+  // Warehouse Central Inventory state
+  const [warehouseModalOpen, setWarehouseModalOpen] = useState(false);
+  const [warehouseInventory, setWarehouseInventory] = useState([]);
+  const [warehouseStats, setWarehouseStats] = useState({ totalItems: 0, lowStockCount: 0, totalUnits: 0, totalValuation: 0 });
+  const [warehouseLoading, setWarehouseLoading] = useState(false);
+  const [showAddItem, setShowAddItem] = useState(false);
+  const [newItemForm, setNewItemForm] = useState({
+    name: '', sku: '', category: 'stationery', stockQuantity: 50, minStockAlert: 10, unitCost: 100, unit: 'pcs', location: 'Dhaka Central Hub'
+  });
+  const [simulatingCourierId, setSimulatingCourierId] = useState(null);
 
   // Review form state
   const [reviewStatus, setReviewStatus] = useState('approved');
@@ -117,6 +131,70 @@ export default function SuperRequisitionsPage() {
     }
   };
 
+  const fetchWarehouseInventory = async () => {
+    try {
+      setWarehouseLoading(true);
+      const res = await api.get('/requisitions/warehouse/inventory');
+      if (res.data?.success) {
+        setWarehouseInventory(res.data.data?.inventory || []);
+        setWarehouseStats(res.data.data?.stats || { totalItems: 0, lowStockCount: 0, totalUnits: 0, totalValuation: 0 });
+      }
+    } catch (err) {
+      console.error('Failed to load warehouse inventory:', err);
+    } finally {
+      setWarehouseLoading(false);
+    }
+  };
+
+  const handleUpdateStock = async (itemId, currentQty) => {
+    const qtyStr = prompt(`Update stock quantity (Current: ${currentQty}):`, currentQty);
+    if (qtyStr === null) return;
+    const newQty = parseInt(qtyStr, 10);
+    if (isNaN(newQty) || newQty < 0) {
+      alert('Invalid quantity entered');
+      return;
+    }
+    try {
+      const res = await api.patch(`/requisitions/warehouse/inventory/${itemId}`, { stockQuantity: newQty });
+      if (res.data?.success) {
+        setFeedback({ type: 'success', message: 'Warehouse stock updated successfully' });
+        fetchWarehouseInventory();
+      }
+    } catch (err) {
+      setFeedback({ type: 'error', message: err.response?.data?.message || 'Stock update failed' });
+    }
+  };
+
+  const handleCreateItem = async (e) => {
+    e.preventDefault();
+    try {
+      const res = await api.post('/requisitions/warehouse/inventory', newItemForm);
+      if (res.data?.success) {
+        setFeedback({ type: 'success', message: `Added ${newItemForm.name} to Central Warehouse` });
+        setShowAddItem(false);
+        setNewItemForm({ name: '', sku: '', category: 'stationery', stockQuantity: 50, minStockAlert: 10, unitCost: 100, unit: 'pcs', location: 'Dhaka Central Hub' });
+        fetchWarehouseInventory();
+      }
+    } catch (err) {
+      setFeedback({ type: 'error', message: err.response?.data?.message || 'Failed to create warehouse item' });
+    }
+  };
+
+  const handleSimulateDelivery = async (requisitionId) => {
+    try {
+      setSimulatingCourierId(requisitionId);
+      const res = await api.post(`/requisitions/${requisitionId}/simulate-delivery`);
+      if (res.data?.success) {
+        setFeedback({ type: 'success', message: '⚡ Automated Courier Webhook processed! Requisition moved to Received status.' });
+        fetchRequisitions();
+      }
+    } catch (err) {
+      setFeedback({ type: 'error', message: err.response?.data?.message || 'Failed to simulate courier webhook' });
+    } finally {
+      setSimulatingCourierId(null);
+    }
+  };
+
   const filteredRequisitions = requisitions.filter(r => {
     const q = searchQuery.toLowerCase();
     return (
@@ -130,7 +208,7 @@ export default function SuperRequisitionsPage() {
   return (
     <div className="space-y-8 pb-12">
       {/* Top Banner */}
-      <div className="relative overflow-hidden rounded-3xl bg-gradient-to-r from-teal-800 via-cyan-900 to-slate-900 p-8 text-white shadow-xl">
+      <div className="relative overflow-hidden rounded-3xl bg-gradient-to-r from-teal-800 via-cyan-900 to-slate-900 p-8 text-white shadow-xl flex flex-col md:flex-row md:items-center justify-between gap-6">
         <div className="relative z-10 max-w-2xl">
           <div className="inline-flex items-center gap-2 rounded-full bg-white/10 px-3.5 py-1 text-xs font-semibold backdrop-blur-md">
             <HiArchive className="h-4 w-4 text-teal-400" />
@@ -142,6 +220,19 @@ export default function SuperRequisitionsPage() {
           <p className="mt-1 text-sm text-teal-100">
             Review material supply requests from all campuses, approve stock allocations, and enter courier tracking information.
           </p>
+        </div>
+
+        <div className="relative z-10 flex flex-wrap gap-3">
+          <button
+            onClick={() => {
+              fetchWarehouseInventory();
+              setWarehouseModalOpen(true);
+            }}
+            className="flex items-center gap-2.5 rounded-2xl bg-white/15 px-5 py-3.5 text-xs font-black text-white backdrop-blur-md border border-white/20 hover:bg-white/25 transition-all shadow-lg active:scale-95"
+          >
+            <HiArchive className="h-5 w-5 text-teal-300" />
+            <span>Warehouse Inventory Catalog</span>
+          </button>
         </div>
 
         <div className="absolute -right-16 -top-16 h-64 w-64 rounded-full bg-teal-500/10 blur-3xl" />
@@ -278,10 +369,29 @@ export default function SuperRequisitionsPage() {
                   </div>
 
                   {req.courierInfo?.trackingNumber && (
-                    <div className="mt-4 rounded-2xl border border-purple-200 bg-purple-50/60 p-3.5 text-xs dark:border-purple-900/50 dark:bg-purple-950/20">
-                      <span className="font-bold text-purple-900 dark:text-purple-300">
-                        📦 Shipment: {req.courierInfo.provider} • Tracking: {req.courierInfo.trackingNumber}
-                      </span>
+                    <div className="mt-4 flex flex-col sm:flex-row sm:items-center justify-between gap-3 rounded-2xl border border-purple-200 bg-purple-50/60 p-3.5 text-xs dark:border-purple-900/50 dark:bg-purple-950/20">
+                      <div>
+                        <span className="font-bold text-purple-900 dark:text-purple-300">
+                          📦 Shipment: {req.courierInfo.provider} • Tracking: <span className="font-mono">{req.courierInfo.trackingNumber}</span>
+                        </span>
+                        {req.courierInfo.deliveryStatus && (
+                          <span className="ml-2 inline-flex items-center rounded bg-purple-100 px-2 py-0.5 font-bold uppercase text-[10px] text-purple-700">
+                            {req.courierInfo.deliveryStatus}
+                          </span>
+                        )}
+                      </div>
+
+                      {req.status === 'dispatched' && (
+                        <button
+                          disabled={simulatingCourierId === req._id}
+                          onClick={() => handleSimulateDelivery(req._id)}
+                          className="inline-flex items-center gap-1.5 rounded-xl bg-purple-600 px-3.5 py-1.5 text-xs font-bold text-white shadow-sm hover:bg-purple-700 disabled:opacity-50 transition-all shrink-0"
+                          title="Simulate courier delivery webhook callback from Pathao / Steadfast"
+                        >
+                          <HiTruck className="h-4 w-4" />
+                          <span>{simulatingCourierId === req._id ? 'Processing...' : '⚡ Simulate Delivery Webhook'}</span>
+                        </button>
+                      )}
                     </div>
                   )}
                 </div>
@@ -433,6 +543,232 @@ export default function SuperRequisitionsPage() {
                   </button>
                 </div>
               </form>
+            </motion.div>
+          </div>
+        )}
+      </AnimatePresence>
+
+      {/* Central Warehouse Inventory Modal */}
+      <AnimatePresence>
+        {warehouseModalOpen && (
+          <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/70 backdrop-blur-sm">
+            <motion.div
+              initial={{ scale: 0.95, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              exit={{ scale: 0.95, opacity: 0 }}
+              className="relative w-full max-w-4xl max-h-[90vh] flex flex-col overflow-hidden rounded-3xl bg-white shadow-2xl dark:bg-slate-900 dark:border dark:border-slate-800"
+            >
+              {/* Header */}
+              <div className="flex items-center justify-between border-b border-slate-100 p-6 dark:border-slate-800 shrink-0">
+                <div className="flex items-center gap-3">
+                  <div className="p-2.5 rounded-2xl bg-teal-50 text-teal-600 dark:bg-teal-950/50 dark:text-teal-400">
+                    <HiArchive className="h-6 w-6" />
+                  </div>
+                  <div>
+                    <h3 className="font-extrabold text-lg text-slate-800 dark:text-white">Central Warehouse Inventory</h3>
+                    <p className="text-xs text-slate-500">Live HQ stock valuation and item replenishment</p>
+                  </div>
+                </div>
+
+                <div className="flex items-center gap-2">
+                  <button
+                    onClick={fetchWarehouseInventory}
+                    className="p-2 rounded-xl text-slate-400 hover:text-slate-600 hover:bg-slate-100 dark:hover:bg-slate-800"
+                    title="Refresh Inventory"
+                  >
+                    <HiRefresh className="h-5 w-5" />
+                  </button>
+                  <button
+                    onClick={() => setWarehouseModalOpen(false)}
+                    className="rounded-xl p-2 text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800"
+                  >
+                    <IoCloseOutline className="h-5 w-5" />
+                  </button>
+                </div>
+              </div>
+
+              {/* Body */}
+              <div className="p-6 overflow-y-auto space-y-6 flex-1">
+                {/* Stats */}
+                <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
+                  <div className="rounded-2xl border border-slate-200 bg-slate-50/50 p-4 dark:border-slate-800 dark:bg-slate-800/40">
+                    <span className="text-[11px] font-bold text-slate-400 uppercase tracking-wider">Total Valuation</span>
+                    <p className="mt-1 text-xl font-black text-slate-900 dark:text-white">৳{(warehouseStats.totalValuation || 0).toLocaleString()}</p>
+                  </div>
+                  <div className="rounded-2xl border border-slate-200 bg-slate-50/50 p-4 dark:border-slate-800 dark:bg-slate-800/40">
+                    <span className="text-[11px] font-bold text-slate-400 uppercase tracking-wider">Total Units in Stock</span>
+                    <p className="mt-1 text-xl font-black text-teal-600 dark:text-teal-400">{(warehouseStats.totalUnits || 0).toLocaleString()}</p>
+                  </div>
+                  <div className="rounded-2xl border border-slate-200 bg-slate-50/50 p-4 dark:border-slate-800 dark:bg-slate-800/40">
+                    <span className="text-[11px] font-bold text-slate-400 uppercase tracking-wider">Low Stock Alerts</span>
+                    <p className={`mt-1 text-xl font-black ${warehouseStats.lowStockCount > 0 ? 'text-rose-600' : 'text-slate-900 dark:text-white'}`}>
+                      {warehouseStats.lowStockCount || 0}
+                    </p>
+                  </div>
+                  <div className="rounded-2xl border border-slate-200 bg-slate-50/50 p-4 dark:border-slate-800 dark:bg-slate-800/40">
+                    <span className="text-[11px] font-bold text-slate-400 uppercase tracking-wider">Catalog SKUs</span>
+                    <p className="mt-1 text-xl font-black text-indigo-600 dark:text-indigo-400">{warehouseStats.totalItems || 0}</p>
+                  </div>
+                </div>
+
+                {/* Add Item Trigger / Form */}
+                <div className="rounded-2xl border border-dashed border-teal-200 bg-teal-50/30 p-4 dark:border-teal-900/50 dark:bg-teal-950/20">
+                  <div className="flex items-center justify-between">
+                    <div className="text-xs font-bold text-teal-900 dark:text-teal-300">
+                      Catalog Provisioning
+                    </div>
+                    <button
+                      type="button"
+                      onClick={() => setShowAddItem(!showAddItem)}
+                      className="inline-flex items-center gap-1 rounded-xl bg-teal-600 px-3 py-1.5 text-xs font-bold text-white shadow-sm hover:bg-teal-700"
+                    >
+                      <HiPlus className="h-4 w-4" />
+                      <span>{showAddItem ? 'Cancel' : 'Add New Item SKU'}</span>
+                    </button>
+                  </div>
+
+                  {showAddItem && (
+                    <form onSubmit={handleCreateItem} className="mt-4 grid grid-cols-1 sm:grid-cols-3 gap-3 border-t border-teal-100 pt-3 dark:border-teal-900/40">
+                      <div>
+                        <label className="text-[11px] font-bold text-slate-600 dark:text-slate-400">Item Name *</label>
+                        <input
+                          type="text"
+                          required
+                          value={newItemForm.name}
+                          onChange={e => setNewItemForm({ ...newItemForm, name: e.target.value })}
+                          placeholder="e.g. SYICT Welcome Bag"
+                          className="mt-1 w-full rounded-xl border border-slate-200 p-2 text-xs outline-none focus:border-teal-500 dark:border-slate-700 dark:bg-slate-800 dark:text-white"
+                        />
+                      </div>
+                      <div>
+                        <label className="text-[11px] font-bold text-slate-600 dark:text-slate-400">SKU Code *</label>
+                        <input
+                          type="text"
+                          required
+                          value={newItemForm.sku}
+                          onChange={e => setNewItemForm({ ...newItemForm, sku: e.target.value.toUpperCase() })}
+                          placeholder="e.g. BAG-01"
+                          className="mt-1 w-full rounded-xl border border-slate-200 p-2 text-xs uppercase outline-none focus:border-teal-500 dark:border-slate-700 dark:bg-slate-800 dark:text-white"
+                        />
+                      </div>
+                      <div>
+                        <label className="text-[11px] font-bold text-slate-600 dark:text-slate-400">Category</label>
+                        <select
+                          value={newItemForm.category}
+                          onChange={e => setNewItemForm({ ...newItemForm, category: e.target.value })}
+                          className="mt-1 w-full rounded-xl border border-slate-200 p-2 text-xs outline-none focus:border-teal-500 dark:border-slate-700 dark:bg-slate-800 dark:text-white"
+                        >
+                          <option value="stationery">Stationery</option>
+                          <option value="electronics">Electronics</option>
+                          <option value="books">Books & Guides</option>
+                          <option value="branding">Branding & Merch</option>
+                          <option value="hardware">Hardware</option>
+                          <option value="other">Other</option>
+                        </select>
+                      </div>
+                      <div>
+                        <label className="text-[11px] font-bold text-slate-600 dark:text-slate-400">Stock Quantity</label>
+                        <input
+                          type="number"
+                          min="0"
+                          value={newItemForm.stockQuantity}
+                          onChange={e => setNewItemForm({ ...newItemForm, stockQuantity: parseInt(e.target.value, 10) || 0 })}
+                          className="mt-1 w-full rounded-xl border border-slate-200 p-2 text-xs outline-none focus:border-teal-500 dark:border-slate-700 dark:bg-slate-800 dark:text-white"
+                        />
+                      </div>
+                      <div>
+                        <label className="text-[11px] font-bold text-slate-600 dark:text-slate-400">Unit Cost (BDT)</label>
+                        <input
+                          type="number"
+                          min="0"
+                          value={newItemForm.unitCost}
+                          onChange={e => setNewItemForm({ ...newItemForm, unitCost: parseFloat(e.target.value) || 0 })}
+                          className="mt-1 w-full rounded-xl border border-slate-200 p-2 text-xs outline-none focus:border-teal-500 dark:border-slate-700 dark:bg-slate-800 dark:text-white"
+                        />
+                      </div>
+                      <div className="flex items-end">
+                        <button
+                          type="submit"
+                          className="w-full rounded-xl bg-teal-600 py-2.5 text-xs font-bold text-white shadow-md hover:bg-teal-700"
+                        >
+                          Save New Item
+                        </button>
+                      </div>
+                    </form>
+                  )}
+                </div>
+
+                {/* Table */}
+                <div className="overflow-x-auto rounded-2xl border border-slate-200 dark:border-slate-800">
+                  <table className="w-full text-left text-xs">
+                    <thead className="bg-slate-50 dark:bg-slate-800/60 border-b border-slate-200 dark:border-slate-700 text-slate-400">
+                      <tr>
+                        <th className="p-3 font-semibold">SKU</th>
+                        <th className="p-3 font-semibold">Item Name</th>
+                        <th className="p-3 font-semibold">Category</th>
+                        <th className="p-3 font-semibold">Unit Cost</th>
+                        <th className="p-3 font-semibold">Stock Level</th>
+                        <th className="p-3 font-semibold text-right">Action</th>
+                      </tr>
+                    </thead>
+                    <tbody className="divide-y divide-slate-100 dark:divide-slate-800">
+                      {warehouseLoading ? (
+                        <tr>
+                          <td colSpan={6} className="p-6 text-center text-slate-400">Loading Central Inventory...</td>
+                        </tr>
+                      ) : warehouseInventory.length === 0 ? (
+                        <tr>
+                          <td colSpan={6} className="p-6 text-center text-slate-400">No warehouse items registered yet.</td>
+                        </tr>
+                      ) : (
+                        warehouseInventory.map((item) => {
+                          const isLowStock = item.stockQuantity <= (item.minStockAlert || 10);
+                          return (
+                            <tr key={item._id} className="hover:bg-slate-50/50 dark:hover:bg-slate-800/30">
+                              <td className="p-3 font-mono font-bold text-teal-600 dark:text-teal-400">{item.sku}</td>
+                              <td className="p-3 font-bold text-slate-900 dark:text-white">{item.name}</td>
+                              <td className="p-3 capitalize text-slate-500">{item.category}</td>
+                              <td className="p-3 font-mono">৳{(item.unitCost || 0).toLocaleString()}</td>
+                              <td className="p-3">
+                                <div className="flex items-center gap-2">
+                                  <span className={`font-black ${isLowStock ? 'text-rose-600' : 'text-slate-900 dark:text-white'}`}>
+                                    {item.stockQuantity} {item.unit || 'pcs'}
+                                  </span>
+                                  {isLowStock && (
+                                    <span className="inline-flex items-center gap-1 rounded bg-rose-50 px-1.5 py-0.5 text-[10px] font-bold text-rose-700 border border-rose-200">
+                                      <HiExclamation className="h-3 w-3" /> Low
+                                    </span>
+                                  )}
+                                </div>
+                              </td>
+                              <td className="p-3 text-right">
+                                <button
+                                  type="button"
+                                  onClick={() => handleUpdateStock(item._id, item.stockQuantity)}
+                                  className="rounded-lg bg-slate-100 px-3 py-1 text-[11px] font-bold text-slate-700 hover:bg-slate-200 dark:bg-slate-800 dark:text-slate-300 dark:hover:bg-slate-700"
+                                >
+                                  Restock
+                                </button>
+                              </td>
+                            </tr>
+                          );
+                        })
+                      )}
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+
+              {/* Footer */}
+              <div className="p-4 px-6 border-t border-slate-100 dark:border-slate-800 bg-slate-50/50 dark:bg-slate-800/30 flex justify-end shrink-0">
+                <button
+                  type="button"
+                  onClick={() => setWarehouseModalOpen(false)}
+                  className="rounded-xl bg-slate-800 px-5 py-2 text-xs font-bold text-white hover:bg-slate-700"
+                >
+                  Close
+                </button>
+              </div>
             </motion.div>
           </div>
         )}
