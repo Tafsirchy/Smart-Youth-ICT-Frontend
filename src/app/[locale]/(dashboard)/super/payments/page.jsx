@@ -17,7 +17,8 @@ import {
  IoCloseCircle,
  IoEyeOutline,
  IoFilter,
- IoDownloadOutline
+ IoDownloadOutline,
+ IoRefreshOutline
 } from "react-icons/io5";
 import Portal from "@/components/ui/Portal";
 
@@ -86,12 +87,29 @@ export default function SuperPaymentsPage() {
 
  const totalPages = Math.ceil(total / limit);
 
- // Stats
- const paidCount = payments.filter((p) => p.status === "completed").length;
- const pendingCount = payments.filter((p) => p.status === "pending").length;
- const totalRevenue = payments
+ // Stats - computed across full database match
+ const summary = paymentsRes?.summary;
+ const paidCount = summary ? summary.completedCount : payments.filter((p) => p.status === "completed").length;
+ const pendingCount = summary ? summary.pendingCount : payments.filter((p) => p.status === "pending").length;
+ const totalRevenue = summary ? summary.totalRevenue : payments
  .filter((p) => p.status === "completed")
  .reduce((acc, p) => acc + (p.amount || 0), 0);
+ const netRevenue = summary?.netRevenue ?? totalRevenue;
+ const totalGatewayFees = summary?.totalGatewayFees ?? 0;
+
+ const handleReplayWebhook = async (paymentId) => {
+ setActionLoading(true);
+ const loadingToast = toast.loading("Replaying payment gateway webhook...");
+ try {
+ const res = await api.post(`/payments/${paymentId}/replay-webhook`);
+ toast.success(res.data?.message || "Webhook replayed successfully", { id: loadingToast });
+ queryClient.invalidateQueries(["payments"]);
+ } catch (err) {
+ toast.error(err?.response?.data?.message || "Webhook replay failed", { id: loadingToast });
+ } finally {
+ setActionLoading(false);
+ }
+ };
 
  const handleAction = async (paymentId, actionStatus) => {
  setActionLoading(true);
@@ -111,42 +129,25 @@ export default function SuperPaymentsPage() {
  }
  };
 
- const handleExportCSV = () => {
- if (filtered.length === 0) return toast.error("No data to export.");
- 
- // Create CSV Headers
- const headers = ["Student Name", "Email", "Course", "Branch", "Method", "Amount", "Status", "Transaction ID", "Date"];
- 
- // Create CSV Rows
- const rows = filtered.map(payment => {
- const branchName = branches.find(b => b._id === payment.branchId)?.name || "Unknown";
- const date = payment.createdAt ? new Date(payment.createdAt).toISOString().split('T')[0] : "";
- const courseName = payment.course?.title?.en || payment.course?.title || "";
- const studentName = payment.user?.name || "";
- const email = payment.user?.email || "";
- 
- return [
- `"${studentName}"`,
- `"${email}"`,
- `"${courseName}"`,
- `"${branchName}"`,
- `"${METHOD_LABELS[payment.method] || payment.method}"`,
- payment.amount,
- `"${payment.status}"`,
- `"${payment.transactionId || ""}"`,
- `=" ${date}"`
- ].join(",");
- });
-
- const csvContent = [headers.join(","), ...rows].join("\n");
- const blob = new Blob([csvContent], { type: "text/csv;charset=utf-8;" });
+ const handleExportCSV = async () => {
+ try {
+ toast.loading("Exporting payments ledger...", { id: "export-csv" });
+ const params = {};
+ if (statusFilter) params.status = statusFilter;
+ if (branchFilter) params.branchId = branchFilter;
+ const res = await api.get("/payments/export", { params, responseType: "blob" });
+ const blob = new Blob([res.data], { type: "text/csv;charset=utf-8;" });
  const url = URL.createObjectURL(blob);
  const link = document.createElement("a");
  link.href = url;
- link.setAttribute("download", `payments_export_${new Date().getTime()}.csv`);
+ link.setAttribute("download", `SYICT_Payments_Ledger_${new Date().toISOString().split("T")[0]}.csv`);
  document.body.appendChild(link);
  link.click();
  document.body.removeChild(link);
+ toast.success("Payments ledger exported successfully!", { id: "export-csv" });
+ } catch (err) {
+ toast.error("Failed to export payments ledger.", { id: "export-csv" });
+ }
  };
 
  return (
@@ -171,33 +172,44 @@ export default function SuperPaymentsPage() {
  </div>
 
  {/* Summary Cards */}
- <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-6">
+ <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
  {[
  {
- label: "Total Revenue (Filtered)",
+ label: "Gross Revenue (Filtered)",
  value: `৳${totalRevenue.toLocaleString()}`,
+ subtext: "Total collected gross",
+ color: "text-slate-900",
+ bg: "bg-slate-50",
+ },
+ {
+ label: "Net Operating Revenue",
+ value: `৳${netRevenue.toLocaleString()}`,
+ subtext: `-৳${totalGatewayFees.toLocaleString()} Gateway Fees`,
  color: "text-emerald-600",
  bg: "bg-emerald-50",
  },
  {
- label: "Paid",
+ label: "Paid Orders",
  value: paidCount,
+ subtext: "Completed fulfillments",
  color: "text-blue-600",
  bg: "bg-blue-50",
  },
  {
- label: "Pending",
+ label: "Pending Verification",
  value: pendingCount,
+ subtext: "Awaiting staff action",
  color: "text-amber-600",
  bg: "bg-amber-50",
  },
  ].map((card) => (
  <div
  key={card.label}
- className={`${card.bg} p-5 ring-1 ring-neutral-200`}
+ className={`${card.bg} p-5 ring-1 ring-neutral-200 rounded-lg`}
  >
- <p className="text-sm text-neutral-600 mb-1">{card.label}</p>
- <p className={`text-2xl font-bold ${card.color}`}>{card.value}</p>
+ <p className="text-xs font-bold uppercase tracking-wider text-neutral-500 mb-1">{card.label}</p>
+ <p className={`text-2xl font-black ${card.color}`}>{card.value}</p>
+ {card.subtext && <p className="text-[11px] text-neutral-500 font-semibold mt-1">{card.subtext}</p>}
  </div>
  ))}
  </div>
@@ -307,8 +319,11 @@ export default function SuperPaymentsPage() {
  {METHOD_LABELS[payment.method] || payment.method || "—"}
  </span>
  </td>
- <td className="px-5 py-4 font-semibold text-neutral-900">
- ৳{payment.amount?.toLocaleString() || "—"}
+ <td className="px-5 py-4">
+ <div className="font-semibold text-neutral-900">৳{payment.amount?.toLocaleString() || "—"}</div>
+ <div className="text-[11px] text-neutral-400 mt-0.5">
+ Fee: -৳{payment.gatewayFee || 0} • Net: <strong className="text-emerald-600 font-bold">৳{(payment.netAmount || payment.amount || 0).toLocaleString()}</strong>
+ </div>
  </td>
  <td className="px-5 py-4">
  <span className={`inline-flex items-center gap-1 px-2.5 py-1 text-xs font-semibold ${STATUS_COLORS[payment.status] || "bg-neutral-100 text-neutral-600"}`}>
@@ -325,14 +340,29 @@ export default function SuperPaymentsPage() {
  {payment.transactionId || "—"}
  </td>
  <td className="px-5 py-4">
+ <div className="flex items-center gap-2">
  {payment.status === "pending" && (
  <button
  onClick={() => setSelectedPayment(payment)}
- className="px-3 py-1.5 bg-blue-50 text-blue-600 text-xs font-semibold hover:bg-blue-100 transition flex items-center gap-1"
+ className="px-2.5 py-1 bg-blue-50 text-blue-600 text-xs font-semibold hover:bg-blue-100 transition rounded flex items-center gap-1"
  >
  <IoEyeOutline size={14} /> Review
  </button>
  )}
+ <button
+ onClick={() => handleReplayWebhook(payment._id)}
+ disabled={actionLoading}
+ title="Replay Webhook & Synchronize Student Enrollment"
+ className="px-2.5 py-1 bg-purple-50 text-purple-700 text-xs font-semibold hover:bg-purple-100 transition rounded flex items-center gap-1 border border-purple-200/60 disabled:opacity-40"
+ >
+ <IoRefreshOutline size={13} /> Replay
+ </button>
+ {payment.webhookReplayed && (
+ <span className="text-[10px] bg-purple-100 text-purple-800 font-bold px-1.5 py-0.5 rounded" title={`Replayed: ${new Date(payment.webhookReplayedAt).toLocaleString()}`}>
+ Sync&apos;d
+ </span>
+ )}
+ </div>
  </td>
  </tr>
  )
