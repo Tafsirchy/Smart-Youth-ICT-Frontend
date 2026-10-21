@@ -3,7 +3,8 @@
 import React from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { HiMenuAlt2, HiBell } from "react-icons/hi";
+import { HiMenuAlt2 } from "react-icons/hi";
+import NotificationBell from "@/components/notifications/NotificationBell";
 
 export default function DashboardTopbar({ user, toggleSidebar }) {
  return (
@@ -38,15 +39,9 @@ decoding="async"/>
 
  {/* Right: Actions */}
  <div className="flex items-center gap-2">
- <button
- type="button"
- className="p-3 text-slate-500 hover:text-brand-pink active:scale-95 transition-all rounded-md"
- aria-label="Notifications"
- >
- <HiBell size={22} />
- </button>
+ <NotificationBell user={user} iconSize={22} />
 
- <div className="w-8 h-8 border border-border flex items-center justify-center bg-slate-100 text-slate-700 font-bold text-xs ml-1 shrink-0">
+ <div className="w-8 h-8 border border-border flex items-center justify-center bg-slate-100 text-slate-700 font-bold text-xs ml-1 shrink-0 rounded-full">
  {user?.name?.charAt(0) || "U"}
  </div>
  </div>
