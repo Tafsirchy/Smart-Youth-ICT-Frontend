@@ -37,6 +37,25 @@ api.interceptors.request.use(async (config) => {
     return config;
   }
 
+  // 🛡️ Super Admin Impersonation Override
+  if (typeof window !== "undefined") {
+    try {
+      const impRaw =
+        sessionStorage.getItem("syict_impersonation") ||
+        localStorage.getItem("syict_impersonation");
+      if (impRaw) {
+        const parsed = JSON.parse(impRaw);
+        if (parsed?.token) {
+          config.headers = config.headers || {};
+          config.headers.Authorization = `Bearer ${parsed.token}`;
+          return config;
+        }
+      }
+    } catch {
+      // Ignore JSON parse errors in storage
+    }
+  }
+
   try {
     const session = await getSession();
     const accessToken =
