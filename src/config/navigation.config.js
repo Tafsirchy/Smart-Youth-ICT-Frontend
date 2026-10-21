@@ -1,5 +1,5 @@
 import {
-  HiHome, HiAcademicCap, HiChartBar, HiClipboardList,
+  HiHome, HiBell, HiAcademicCap, HiChartBar, HiClipboardList,
   HiBadgeCheck, HiCreditCard, HiUsers, HiUserGroup,
   HiAnnotation, HiCollection, HiUserCircle, HiGift,
   HiGlobeAlt, HiBriefcase, HiLightningBolt, HiSparkles,
@@ -29,11 +29,13 @@ export const NAVIGATION_CONFIG = {
     { href: '/student/payments',     Icon: HiCreditCard,    label: 'Payments'    },
     { href: '/student/portfolio',    Icon: HiUserCircle,    label: 'Portfolio'   },
     { href: '/student/affiliate',    Icon: HiGift,          label: 'Affiliate'   },
+    { href: '/notifications',        Icon: HiBell,          label: 'Notifications Hub' },
   ],
   
   instructor: [
     { href: '/instructor/courses', Icon: HiCollection, label: 'My Courses' },
     { href: '/instructor/lessons', Icon: HiAnnotation, label: 'Lessons'    },
+    { href: '/notifications',      Icon: HiBell,       label: 'Notifications Hub' },
   ],
   
   admin: [
@@ -44,6 +46,7 @@ export const NAVIGATION_CONFIG = {
     { href: '/admin/payments', Icon: HiCreditCard,    label: 'Payments',         permission: 'payments:view' },
     { href: '/admin/coupons',  Icon: HiTag,           label: 'Coupons & Promos', permission: 'payments:view' },
     { href: '/admin/notices',  Icon: HiSpeakerphone,  label: 'Notice Board',     permission: null },
+    { href: '/notifications',  Icon: HiBell,          label: 'Live Notifications', permission: null },
     { href: '/admin/expenses', Icon: HiReceiptTax,    label: 'Expenses & P&L',   permission: 'staff:manage' },
     { href: '/admin/counseling', Icon: HiCalendar,    label: 'Counseling Hub',   permission: 'leads:view' },
     { href: '/admin/staff',    Icon: HiUsers,         label: 'Staff Room',       permission: 'staff:manage' },
@@ -67,6 +70,8 @@ export const NAVIGATION_CONFIG = {
     { href: '/super/finance',     Icon: HiCreditCard,   label: 'Global Finance'},
     { href: '/super/payments',    Icon: HiCreditCard,   label: 'Global Payments'},
     { href: '/super/reports',     Icon: HiClipboardList,label: 'Audit Reports'},
+    { href: '/super/broadcast',   Icon: HiSpeakerphone, label: 'Emergency Broadcast' },
+    { href: '/notifications',     Icon: HiBell,         label: 'Notifications Hub' },
   ],
 
   about_cms: [
