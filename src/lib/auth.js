@@ -34,20 +34,29 @@ const providers = [
     credentials: {
       email: { label: "Email", type: "email" },
       password: { label: "Password", type: "password" },
+      twoFactorCode: { label: "2FA Code", type: "text" },
+      tempToken: { label: "Temp Token", type: "text" },
     },
     async authorize(credentials) {
-      if (!credentials?.email || !credentials?.password) {
-        throw new Error("Email and password are required");
+      if ((!credentials?.email || !credentials?.password) && (!credentials?.tempToken || !credentials?.twoFactorCode)) {
+        throw new Error("Email and password or 2FA verification code are required");
       }
 
       try {
         const data = await exchangeAuth("/auth/login", credentials);
+        if (data?.require2FA) {
+          throw new Error(`2FA_REQUIRED:${JSON.stringify(data)}`);
+        }
         if (!data?.accessToken && !data?.token) {
           return null;
         }
 
         return toSessionUser(data);
       } catch (error) {
+        if (error.message?.startsWith("2FA_REQUIRED:")) {
+          throw error;
+        }
+
         const message = error?.response?.data?.message;
         if (message) throw new Error(message);
 
@@ -55,7 +64,7 @@ const providers = [
           throw new Error("Unable to connect to authentication server. Please try again later.");
         }
 
-        throw new Error("An unexpected error occurred. Please try again.");
+        throw new Error(error.message || "An unexpected error occurred. Please try again.");
       }
     },
   }),
