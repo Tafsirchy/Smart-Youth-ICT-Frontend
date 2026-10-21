@@ -20,7 +20,7 @@
     "jspdf-autotable": "^5.0.7",
     "leaflet": "^1.9.4",
     "next": "^14.2.35",
-    "next-auth": "^4.24.7",
+    "next-auth": "^4.24.15",
     "next-intl": "^4.9.1",
     "nextjs-toploader": "^3.9.17",
     "qrcode.react": "^4.2.0",
