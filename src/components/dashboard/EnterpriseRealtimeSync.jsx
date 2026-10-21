@@ -45,6 +45,7 @@ const playNotificationSound = (type = "info") => {
 export default function EnterpriseRealtimeSync() {
   const { data: session } = useSession();
   const socketRef = useRef(null);
+  const seenNotificationIdsRef = useRef(new Set());
 
   useEffect(() => {
     if (!session?.user) return;
@@ -156,6 +157,19 @@ export default function EnterpriseRealtimeSync() {
     
     // 5. Enterprise Inbound Notification (Universal)
     const handleInboundNotification = (data) => {
+      // The same broadcast is delivered to the branch room AND the executive HQ
+      // room, so a super admin would otherwise receive it (and badge it) twice.
+      // De-duplicate on the notification id before surfacing it.
+      const notificationId = data?._id || data?.id;
+      if (notificationId) {
+        if (seenNotificationIdsRef.current.has(notificationId)) return;
+        seenNotificationIdsRef.current.add(notificationId);
+        if (seenNotificationIdsRef.current.size > 200) {
+          const oldest = seenNotificationIdsRef.current.values().next().value;
+          seenNotificationIdsRef.current.delete(oldest);
+        }
+      }
+
       const isUrgent = data?.priority === "urgent";
       const isHigh = data?.priority === "high";
 
@@ -207,7 +221,6 @@ export default function EnterpriseRealtimeSync() {
     };
 
     socket.on("NOTIFICATION_RECEIVED", handleInboundNotification);
-    socket.on("SUPER_HQ_NOTIFICATION", handleInboundNotification);
 
     return () => {
       if (socket) {
