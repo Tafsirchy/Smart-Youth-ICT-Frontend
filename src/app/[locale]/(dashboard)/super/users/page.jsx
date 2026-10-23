@@ -344,26 +344,26 @@ export default function GlobalUserManagement() {
  };
 
  return (
- <div className="space-y-6 pb-10 w-full">
+ <div className="space-y-4 pb-6 w-full">
  {/* Dynamic Header */}
- <header className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+ <header className="flex flex-col md:flex-row justify-between items-start md:items-center gap-3">
  <div>
- <h1 className="text-3xl font-black text-slate-900 tracking-tighter leading-tight">User Registry</h1>
- <p className="text-slate-400 font-medium text-sm mt-1 uppercase tracking-widest text-[10px]">Global Ecosystem Oversight</p>
+ <h1 className="text-2xl sm:text-3xl font-black text-slate-900 tracking-tighter leading-tight">User Registry</h1>
+ <p className="text-slate-400 font-medium text-xs mt-0.5 uppercase tracking-widest text-[10px] leading-tight">Global Ecosystem Oversight</p>
  </div>
  <div className="flex items-center gap-2">
  <button 
  onClick={() => setShowBulkImport(true)}
- className="hidden md:flex px-4 py-3 bg-white text-slate-700 border border-slate-200 hover:bg-slate-50 font-black shadow-sm hover:scale-[1.02] active:scale-95 transition-all items-center gap-2 rounded-lg"
+ className="hidden md:flex px-3.5 py-2 bg-white text-slate-700 border border-slate-200 hover:bg-slate-50 font-black shadow-xs hover:scale-[1.02] active:scale-95 transition-all items-center gap-2 rounded-lg text-xs sm:text-sm leading-tight"
  >
- <HiOutlineArrowUpTray size={18} />
+ <HiOutlineArrowUpTray size={16} />
  Bulk Import
  </button>
  <button 
  onClick={() => openForm()}
- className="hidden md:flex px-6 py-3 bg-indigo-600 text-white font-black shadow-xl shadow-indigo-600/20 hover:scale-[1.02] active:scale-95 transition-all items-center gap-2"
+ className="hidden md:flex px-4 py-2 bg-indigo-600 text-white font-black shadow-md shadow-indigo-600/20 hover:scale-[1.02] active:scale-95 transition-all items-center gap-2 rounded-lg text-xs sm:text-sm leading-tight"
  >
- <HiOutlineUserPlus size={20} />
+ <HiOutlineUserPlus size={18} />
  Provision User
  </button>
  </div>
@@ -371,16 +371,16 @@ export default function GlobalUserManagement() {
 
  {/* Bulk Action Bar */}
  {selectedUserIds.length > 0 && (
- <div className="flex flex-col lg:flex-row items-stretch lg:items-center gap-3 bg-indigo-50 border border-indigo-200 p-4 rounded-lg">
- <div className="flex items-center gap-2 text-indigo-700 font-black text-sm">
- <HiOutlineUserGroup size={20} />
+ <div className="flex flex-col lg:flex-row items-stretch lg:items-center gap-2.5 bg-indigo-50 border border-indigo-200 p-2.5 sm:p-3 rounded-lg">
+ <div className="flex items-center gap-2 text-indigo-700 font-black text-xs sm:text-sm leading-tight">
+ <HiOutlineUserGroup size={18} />
  {selectedUserIds.length} node(s) selected
  </div>
  <div className="flex-1 flex flex-wrap items-center gap-2">
  <select
  value={bulkAction}
  onChange={(e) => setBulkAction(e.target.value)}
- className="px-3 py-2 bg-white border border-indigo-200 text-xs font-bold focus:ring-2 focus:ring-indigo-500 rounded-md"
+ className="px-2.5 py-1.5 bg-white border border-indigo-200 text-xs font-bold focus:ring-2 focus:ring-indigo-500 rounded-md leading-tight"
  >
  <option value="activate">Activate</option>
  <option value="suspend">Suspend</option>
@@ -391,7 +391,7 @@ export default function GlobalUserManagement() {
  <select
  value={bulkNewRole}
  onChange={(e) => setBulkNewRole(e.target.value)}
- className="px-3 py-2 bg-white border border-indigo-200 text-xs font-bold focus:ring-2 focus:ring-indigo-500 rounded-md"
+ className="px-2.5 py-1.5 bg-white border border-indigo-200 text-xs font-bold focus:ring-2 focus:ring-indigo-500 rounded-md leading-tight"
  >
  <option value="student">Student</option>
  <option value="instructor">Instructor</option>
@@ -404,7 +404,7 @@ export default function GlobalUserManagement() {
  type="button"
  onClick={handleBulkAction}
  disabled={bulkRunning}
- className="px-4 py-2 bg-indigo-600 hover:bg-indigo-500 text-white rounded-lg text-xs font-black uppercase tracking-wider shadow-md shadow-indigo-600/20 disabled:opacity-50 transition-all flex items-center gap-1.5 cursor-pointer"
+ className="px-3 py-1.5 bg-indigo-600 hover:bg-indigo-500 text-white rounded-lg text-xs font-black uppercase tracking-wider shadow-sm shadow-indigo-600/20 disabled:opacity-50 transition-all flex items-center gap-1.5 cursor-pointer leading-tight"
  >
  {bulkRunning ? <HiOutlineArrowPath className="animate-spin" size={14} /> : <HiOutlineCheck size={14} />}
  {bulkRunning ? 'Applying...' : 'Apply'}
@@ -412,7 +412,7 @@ export default function GlobalUserManagement() {
  <button
  type="button"
  onClick={clearSelection}
- className="px-3 py-2 text-xs font-bold text-slate-500 hover:text-slate-800 transition-colors"
+ className="px-2.5 py-1.5 text-xs font-bold text-slate-500 hover:text-slate-800 transition-colors leading-tight"
  >
  Clear
  </button>
@@ -421,21 +421,21 @@ export default function GlobalUserManagement() {
  )}
 
  {/* Control Bar */}
- <div className="grid grid-cols-1 lg:grid-cols-4 gap-3 bg-white p-4 shadow-sm border border-slate-50 rounded-lg">
+ <div className="grid grid-cols-1 lg:grid-cols-4 gap-2.5 bg-white p-2.5 sm:p-3 shadow-xs border border-slate-50 rounded-lg">
  <div className="lg:col-span-2 relative">
- <HiOutlineMagnifyingGlass className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400" size={20} />
+ <HiOutlineMagnifyingGlass className="absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400" size={18} />
  <input 
  type="text"
  placeholder="Search by name, email, or credentials..."
- className="w-full pl-12 pr-4 py-3 bg-slate-50 border-none text-sm font-bold focus:ring-2 focus:ring-indigo-500 transition-all rounded-md"
+ className="w-full pl-10 pr-3.5 py-2 bg-slate-50 border-none text-xs sm:text-sm font-bold focus:ring-2 focus:ring-indigo-500 transition-all rounded-md leading-tight"
  value={search}
  onChange={(e) => setSearch(e.target.value)}
  />
  </div>
  <div className="relative">
- <HiOutlineFunnel className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400" size={18} />
+ <HiOutlineFunnel className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" size={16} />
  <select 
- className="w-full pl-10 pr-4 py-3 bg-slate-50 border-none text-sm font-bold focus:ring-2 focus:ring-indigo-500 transition-all appearance-none"
+ className="w-full pl-9 pr-3.5 py-2 bg-slate-50 border-none text-xs sm:text-sm font-bold focus:ring-2 focus:ring-indigo-500 transition-all appearance-none leading-tight"
  value={filterRole}
  onChange={(e) => setFilterRole(e.target.value)}
  >
@@ -445,9 +445,9 @@ export default function GlobalUserManagement() {
   </select>
  </div>
  <div className="relative">
- <HiOutlineBuildingOffice className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400" size={18} />
+ <HiOutlineBuildingOffice className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" size={16} />
  <select 
- className="w-full pl-10 pr-4 py-3 bg-slate-50 border-none text-sm font-bold focus:ring-2 focus:ring-indigo-500 transition-all appearance-none"
+ className="w-full pl-9 pr-3.5 py-2 bg-slate-50 border-none text-xs sm:text-sm font-bold focus:ring-2 focus:ring-indigo-500 transition-all appearance-none leading-tight"
  value={filterBranch}
  onChange={(e) => setFilterBranch(e.target.value)}
  >
@@ -458,16 +458,16 @@ export default function GlobalUserManagement() {
  </div>
 
  {/* Mobile Card Grid (Visible on SM) */}
- <div className="grid grid-cols-1 gap-4 md:hidden">
+ <div className="grid grid-cols-1 gap-2.5 md:hidden">
  {loading ? (
  [...Array(3)].map((_, i) => (
- <div key={i} className="bg-white p-4 border border-slate-100 shadow-sm h-32 animate-pulse rounded-lg" />
+ <div key={i} className="bg-white p-3 border border-slate-100 shadow-xs h-28 animate-pulse rounded-lg" />
  ))
  ) : (
  users.length > 0 ? users.map(user => (
- <div key={user._id} className="bg-white p-4 border border-slate-100 shadow-sm flex flex-col gap-4 rounded-lg">
+ <div key={user._id} className="bg-white p-3 border border-slate-100 shadow-xs flex flex-col gap-2.5 rounded-lg">
  <div className="flex justify-between items-start">
- <div className="flex items-center gap-3">
+ <div className="flex items-center gap-2.5">
  <input
  type="checkbox"
  checked={selectedUserIds.includes(user._id)}
@@ -475,21 +475,21 @@ export default function GlobalUserManagement() {
  className="w-4 h-4 rounded border-slate-300 text-indigo-600 focus:ring-indigo-500 cursor-pointer shrink-0"
  aria-label={`Select ${user.name}`}
  />
- <div className="w-10 h-10 bg-indigo-50 text-indigo-500 font-black flex items-center justify-center border border-indigo-100 shrink-0 rounded-lg">
+ <div className="w-9 h-9 bg-indigo-50 text-indigo-500 font-black flex items-center justify-center border border-indigo-100 shrink-0 rounded-lg text-sm">
  {user.name.charAt(0)}
  </div>
  <div>
- <p className="font-extrabold text-slate-900 leading-none mb-1">{user.name}</p>
- <p className="text-xs text-slate-400 font-medium">{user.email}</p>
+ <p className="font-extrabold text-slate-900 leading-tight mb-0.5 text-xs sm:text-sm">{user.name}</p>
+ <p className="text-[11px] text-slate-400 font-medium leading-tight">{user.email}</p>
  </div>
  </div>
- <button onClick={() => openForm(user)} className="p-2 text-indigo-600 bg-indigo-50 shrink-0">
- <HiOutlinePencilSquare size={20} />
+ <button onClick={() => openForm(user)} className="p-1.5 text-indigo-600 bg-indigo-50 shrink-0 rounded-md">
+ <HiOutlinePencilSquare size={18} />
  </button>
  </div>
  
- <div className="flex flex-wrap items-center gap-2 pt-3 border-t border-slate-50">
- <span className={`px-2 py-1 text-[10px] font-black uppercase tracking-widest ${
+ <div className="flex flex-wrap items-center gap-1.5 pt-2 border-t border-slate-50">
+ <span className={`px-2 py-0.5 text-[10px] font-black uppercase tracking-widest leading-tight ${
  user.role === 'super_admin' ? 'bg-pink-100 text-pink-600' :
  user.role === 'branch_admin' ? 'bg-blue-100 text-blue-600' :
  user.role === 'instructor' ? 'bg-amber-100 text-amber-600' :
@@ -497,59 +497,59 @@ export default function GlobalUserManagement() {
  }`}>
  {user.role.replace('_', ' ')}
  </span>
- <div className="flex items-center gap-1.5 text-[10px] font-bold text-slate-500 uppercase tracking-widest">
- <HiOutlineBuildingOffice className="text-slate-300" size={14} />
+ <div className="flex items-center gap-1 text-[10px] font-bold text-slate-500 uppercase tracking-widest leading-tight">
+ <HiOutlineBuildingOffice className="text-slate-300" size={13} />
  {user.branchId ? (branches.find(b => b._id === user.branchId)?.name || 'Unknown Node') : 'Global HQ'}
  </div>
- <div className={`ml-auto flex items-center gap-1.5 text-[10px] font-black uppercase tracking-widest ${user.isActive ? 'text-emerald-500' : 'text-rose-500'}`}>
- {user.isActive ? <HiOutlineCheckCircle size={14} /> : <HiOutlineXCircle size={14} />}
+ <div className={`ml-auto flex items-center gap-1 text-[10px] font-black uppercase tracking-widest leading-tight ${user.isActive ? 'text-emerald-500' : 'text-rose-500'}`}>
+ {user.isActive ? <HiOutlineCheckCircle size={13} /> : <HiOutlineXCircle size={13} />}
  {user.isActive ? 'Active' : 'Suspended'}
  </div>
  </div>
  
- <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 mt-1">
+ <div className="grid grid-cols-2 sm:grid-cols-4 gap-1.5 mt-0.5">
  {!['super_admin', 'super_management'].includes(user.role) && user._id !== currentUser?.id && (
- <button onClick={() => handleImpersonate(user)} className="w-full py-2 bg-amber-50 text-amber-700 text-xs font-bold hover:bg-amber-100 flex justify-center items-center gap-1.5 rounded transition-all">
- <HiOutlineArrowRightOnRectangle size={15} /> Login As
+ <button onClick={() => handleImpersonate(user)} className="w-full py-1.5 bg-amber-50 text-amber-700 text-xs font-bold hover:bg-amber-100 flex justify-center items-center gap-1.5 rounded transition-all leading-tight">
+ <HiOutlineArrowRightOnRectangle size={14} /> Login As
  </button>
  )}
  {user.role === 'student' && (
  <button onClick={() => {
   setTransferModalStudent(user);
   setTargetBranchId(branches.find(b => b._id !== user.branchId)?._id || '');
- }} className="w-full py-2 bg-teal-50 text-teal-700 text-xs font-bold hover:bg-teal-100 flex justify-center items-center gap-1.5 rounded transition-all">
-  <HiOutlineArrowsRightLeft size={15} /> Transfer
+ }} className="w-full py-1.5 bg-teal-50 text-teal-700 text-xs font-bold hover:bg-teal-100 flex justify-center items-center gap-1.5 rounded transition-all leading-tight">
+  <HiOutlineArrowsRightLeft size={14} /> Transfer
  </button>
  )}
- <button onClick={() => openPermissionsModal(user)} className="w-full py-2 bg-indigo-50 text-indigo-700 text-xs font-bold hover:bg-indigo-100 flex justify-center items-center gap-1.5 rounded transition-all">
- <HiOutlineKey size={15} /> PBAC
+ <button onClick={() => openPermissionsModal(user)} className="w-full py-1.5 bg-indigo-50 text-indigo-700 text-xs font-bold hover:bg-indigo-100 flex justify-center items-center gap-1.5 rounded transition-all leading-tight">
+ <HiOutlineKey size={14} /> PBAC
  </button>
- <button onClick={() => handleForceLogout(user)} className="w-full py-2 bg-rose-50 text-rose-700 text-xs font-bold hover:bg-rose-100 flex justify-center items-center gap-1.5 rounded transition-all">
- <HiOutlineLockClosed size={15} /> Revoke
+ <button onClick={() => handleForceLogout(user)} className="w-full py-1.5 bg-rose-50 text-rose-700 text-xs font-bold hover:bg-rose-100 flex justify-center items-center gap-1.5 rounded transition-all leading-tight">
+ <HiOutlineLockClosed size={14} /> Revoke
  </button>
- <button onClick={() => handleDeactivate(user)} className="w-full py-2 bg-slate-50 text-slate-600 text-xs font-bold hover:bg-slate-100 flex justify-center items-center gap-1.5 rounded transition-all">
- <HiOutlineShieldCheck size={15} /> {user.isActive ? 'Suspend' : 'Activate'}
+ <button onClick={() => handleDeactivate(user)} className="w-full py-1.5 bg-slate-50 text-slate-600 text-xs font-bold hover:bg-slate-100 flex justify-center items-center gap-1.5 rounded transition-all leading-tight">
+ <HiOutlineShieldCheck size={14} /> {user.isActive ? 'Suspend' : 'Activate'}
  </button>
- <button onClick={() => handleDelete(user)} className="w-full py-2 bg-rose-50 text-rose-600 text-xs font-bold hover:bg-rose-100 flex justify-center items-center gap-1.5 rounded transition-all col-span-2 sm:col-span-1">
- <HiOutlineTrash size={15} /> Delete
+ <button onClick={() => handleDelete(user)} className="w-full py-1.5 bg-rose-50 text-rose-600 text-xs font-bold hover:bg-rose-100 flex justify-center items-center gap-1.5 rounded transition-all col-span-2 sm:col-span-1 leading-tight">
+ <HiOutlineTrash size={14} /> Delete
  </button>
  </div>
  </div>
  )) : (
- <div className="py-10 text-center space-y-2 bg-white border border-slate-100 rounded-lg">
- <HiOutlineUserPlus size={40} className="mx-auto text-slate-200" />
- <p className="text-slate-400 font-bold uppercase tracking-widest text-[10px]">No biological nodes detected</p>
+ <div className="py-6 text-center space-y-1.5 bg-white border border-slate-100 rounded-lg">
+ <HiOutlineUserPlus size={32} className="mx-auto text-slate-200" />
+ <p className="text-slate-400 font-bold uppercase tracking-widest text-[10px] leading-tight">No biological nodes detected</p>
  </div>
  )
  )}
  </div>
 
  {/* Desktop Registry Table (Hidden on SM) */}
- <div className="hidden md:block bg-white border border-slate-100 shadow-sm overflow-hidden overflow-x-auto rounded-lg">
+ <div className="hidden md:block bg-white border border-slate-100 shadow-xs overflow-hidden overflow-x-auto rounded-lg">
  <table className="w-full text-left border-collapse">
  <thead>
- <tr className="bg-slate-50 text-slate-400 uppercase text-[10px] font-black tracking-widest">
- <th className="px-4 py-4 w-10">
+ <tr className="bg-slate-50 text-slate-400 uppercase text-[10px] font-black tracking-widest border-b border-slate-100">
+ <th className="px-3 py-2.5 w-10">
  <input
  type="checkbox"
  checked={users.length > 0 && selectedUserIds.length === users.length}
@@ -558,24 +558,24 @@ export default function GlobalUserManagement() {
  title="Select all nodes on this page"
  />
  </th>
- <th className="px-6 py-4">Identity Node</th>
- <th className="px-6 py-4">Access Layer</th>
- <th className="px-6 py-4">Branch Assignment</th>
- <th className="px-6 py-4">State</th>
- <th className="px-6 py-4 text-right">Actions</th>
+ <th className="px-4 py-2.5">Identity Node</th>
+ <th className="px-4 py-2.5">Access Layer</th>
+ <th className="px-4 py-2.5">Branch Assignment</th>
+ <th className="px-4 py-2.5">State</th>
+ <th className="px-4 py-2.5 text-right">Actions</th>
  </tr>
  </thead>
  <tbody className="divide-y divide-slate-50 text-slate-700">
  {loading ? (
  [...Array(5)].map((_, i) => (
  <tr key={i} className="animate-pulse">
- <td colSpan={6} className="px-6 py-6 h-16 bg-slate-50/20 rounded-md" />
+ <td colSpan={6} className="px-4 py-4 h-12 bg-slate-50/20 rounded-md" />
  </tr>
  ))
  ) : (
  users.map(user => (
  <tr key={user._id} className="group hover:bg-slate-50/50 transition-all rounded-md">
- <td className="px-4 py-4">
+ <td className="px-3 py-2.5">
  <input
  type="checkbox"
  checked={selectedUserIds.includes(user._id)}
@@ -584,20 +584,20 @@ export default function GlobalUserManagement() {
  aria-label={`Select ${user.name}`}
  />
  </td>
- <td className="px-6 py-4">
- <div className="flex items-center gap-3">
- <div className="w-10 h-10 bg-indigo-50 text-indigo-500 font-black flex items-center justify-center border border-indigo-100 rounded-lg">
+ <td className="px-4 py-2.5">
+ <div className="flex items-center gap-2.5">
+ <div className="w-9 h-9 bg-indigo-50 text-indigo-500 font-black flex items-center justify-center border border-indigo-100 rounded-lg text-sm shrink-0">
  {user.name.charAt(0)}
  </div>
  <div>
- <p className="font-extrabold text-slate-900 leading-none mb-1">{user.name}</p>
- <p className="text-xs text-slate-400 font-medium">{user.email}</p>
+ <p className="font-extrabold text-slate-900 leading-tight mb-0.5 text-xs sm:text-sm">{user.name}</p>
+ <p className="text-[11px] text-slate-400 font-medium leading-tight">{user.email}</p>
  </div>
  </div>
  </td>
- <td className="px-6 py-4">
- <div className="flex flex-col items-start gap-1">
- <span className={`px-2 py-1 text-[10px] font-black uppercase tracking-widest ${
+ <td className="px-4 py-2.5">
+ <div className="flex flex-col items-start gap-0.5">
+ <span className={`px-2 py-0.5 text-[10px] font-black uppercase tracking-widest leading-tight ${
  user.role === 'super_admin' ? 'bg-pink-100 text-pink-600' :
  user.role === 'branch_admin' ? 'bg-blue-100 text-blue-600' :
  user.role === 'instructor' ? 'bg-amber-100 text-amber-600' :
@@ -609,7 +609,7 @@ export default function GlobalUserManagement() {
  <button
  type="button"
  onClick={() => openPermissionsModal(user)}
- className="inline-flex items-center gap-1 px-1.5 py-0.5 rounded text-[9px] font-black bg-indigo-50 text-indigo-600 border border-indigo-200/50 hover:bg-indigo-100 transition-colors"
+ className="inline-flex items-center gap-1 px-1.5 py-0.5 rounded text-[9px] font-black bg-indigo-50 text-indigo-600 border border-indigo-200/50 hover:bg-indigo-100 transition-colors leading-tight"
  title={user.permissions.join(', ')}
  >
  <HiOutlineKey size={10} /> {user.permissions.length} PBAC
@@ -617,19 +617,19 @@ export default function GlobalUserManagement() {
  )}
  </div>
  </td>
- <td className="px-6 py-4">
- <div className="flex items-center gap-2 text-xs font-bold text-slate-500">
+ <td className="px-4 py-2.5">
+ <div className="flex items-center gap-1.5 text-xs font-bold text-slate-500 leading-tight">
  <HiOutlineBuildingOffice className="text-slate-300" size={14} />
  {user.branchId ? (branches.find(b => b._id === user.branchId)?.name || 'Unknown Node') : 'Global HQ'}
  </div>
  </td>
- <td className="px-6 py-4">
- <div className={`flex items-center gap-2 text-[10px] font-black uppercase tracking-widest ${user.isActive ? 'text-emerald-500' : 'text-rose-500'}`}>
- {user.isActive ? <HiOutlineCheckCircle size={14} /> : <HiOutlineXCircle size={14} />}
+ <td className="px-4 py-2.5">
+ <div className={`flex items-center gap-1.5 text-[10px] font-black uppercase tracking-widest leading-tight ${user.isActive ? 'text-emerald-500' : 'text-rose-500'}`}>
+ {user.isActive ? <HiOutlineCheckCircle size={13} /> : <HiOutlineXCircle size={13} />}
  {user.isActive ? 'Active Node' : 'Suspended'}
  </div>
  </td>
- <td className="px-6 py-4 text-right font-medium">
+ <td className="px-4 py-2.5 text-right font-medium">
  <div className="flex justify-end items-center gap-1 opacity-100 md:opacity-0 md:group-hover:opacity-100 transition-opacity">
  {user.role === 'student' && (
  <button 
@@ -639,9 +639,9 @@ export default function GlobalUserManagement() {
   setTargetBranchId(branches.find(b => b._id !== user.branchId)?._id || '');
  }}
  title="Transfer Student to Another Campus"
- className="p-1.5 hover:bg-teal-50 hover:text-teal-600 transition-all text-slate-400 rounded"
+ className="p-1 hover:bg-teal-50 hover:text-teal-600 transition-all text-slate-400 rounded"
  >
- <HiOutlineArrowsRightLeft size={18} />
+ <HiOutlineArrowsRightLeft size={16} />
  </button>
  )}
  {!['super_admin', 'super_management'].includes(user.role) && user._id !== currentUser?.id && (
@@ -649,35 +649,35 @@ export default function GlobalUserManagement() {
  type="button"
  onClick={() => handleImpersonate(user)} 
  title="Impersonate / Login As this user"
- className="p-1.5 hover:bg-amber-50 hover:text-amber-600 transition-all text-slate-400 rounded"
+ className="p-1 hover:bg-amber-50 hover:text-amber-600 transition-all text-slate-400 rounded"
  >
- <HiOutlineArrowRightOnRectangle size={18} />
+ <HiOutlineArrowRightOnRectangle size={16} />
  </button>
  )}
  <button 
  type="button"
  onClick={() => openPermissionsModal(user)} 
  title="Manage PBAC Permissions Matrix"
- className="p-1.5 hover:bg-indigo-50 hover:text-indigo-600 transition-all text-slate-400 rounded"
+ className="p-1 hover:bg-indigo-50 hover:text-indigo-600 transition-all text-slate-400 rounded"
  >
- <HiOutlineKey size={18} />
+ <HiOutlineKey size={16} />
  </button>
  <button 
  type="button"
  onClick={() => handleForceLogout(user)} 
  title="Revoke All Active Sessions (Force Logout)"
- className="p-1.5 hover:bg-rose-50 hover:text-rose-600 transition-all text-slate-400 rounded"
+ className="p-1 hover:bg-rose-50 hover:text-rose-600 transition-all text-slate-400 rounded"
  >
- <HiOutlineLockClosed size={18} />
+ <HiOutlineLockClosed size={16} />
  </button>
- <button type="button" onClick={() => openForm(user)} title="Edit Node" className="p-1.5 hover:bg-white hover:text-indigo-600 transition-all text-slate-400 rounded">
- <HiOutlinePencilSquare size={18} />
+ <button type="button" onClick={() => openForm(user)} title="Edit Node" className="p-1 hover:bg-white hover:text-indigo-600 transition-all text-slate-400 rounded">
+ <HiOutlinePencilSquare size={16} />
  </button>
- <button type="button" onClick={() => handleDeactivate(user)} title={user.isActive ? "Deactivate" : "Activate"} className="p-1.5 hover:bg-white hover:text-amber-600 transition-all text-slate-400 rounded">
- <HiOutlineShieldCheck size={18} />
+ <button type="button" onClick={() => handleDeactivate(user)} title={user.isActive ? "Deactivate" : "Activate"} className="p-1 hover:bg-white hover:text-amber-600 transition-all text-slate-400 rounded">
+ <HiOutlineShieldCheck size={16} />
  </button>
- <button type="button" onClick={() => handleDelete(user)} title="Delete Node" className="p-1.5 hover:bg-white hover:text-rose-600 transition-all text-slate-400 rounded">
- <HiOutlineTrash size={18} />
+ <button type="button" onClick={() => handleDelete(user)} title="Delete Node" className="p-1 hover:bg-white hover:text-rose-600 transition-all text-slate-400 rounded">
+ <HiOutlineTrash size={16} />
  </button>
  </div>
  </td>
@@ -689,20 +689,20 @@ export default function GlobalUserManagement() {
 
  {/* Pagination Footer */}
  {!loading && users.length > 0 && (
- <div className="px-6 py-4 bg-slate-50/50 border-t border-slate-50 flex items-center justify-between">
- <div className="text-[10px] font-black uppercase tracking-widest text-slate-400">
+ <div className="px-4 py-2.5 bg-slate-50/50 border-t border-slate-50 flex items-center justify-between">
+ <div className="text-[10px] font-black uppercase tracking-widest text-slate-400 leading-tight">
  {total > 0 ? (
  <>Showing <span className="text-slate-900">{(page-1)*limit + 1}</span> - <span className="text-slate-900">{Math.min(page*limit, total)}</span> of <span className="text-slate-900">{total}</span> nodes</>
  ) : (
  "No active nodes matching criteria"
  )}
  </div>
- <div className="flex items-center gap-2">
+ <div className="flex items-center gap-1.5">
  <button 
  type="button"
  disabled={page === 1}
  onClick={() => setPage(p => p - 1)}
- className="p-1.5 bg-white border border-slate-100 text-slate-600 disabled:opacity-30 hover:bg-slate-50 transition-all font-bold text-xs px-3"
+ className="py-1 px-2.5 bg-white border border-slate-100 text-slate-600 disabled:opacity-30 hover:bg-slate-50 transition-all font-bold text-xs rounded leading-tight"
  >
  Previous
  </button>
@@ -718,7 +718,7 @@ export default function GlobalUserManagement() {
  key={p}
  type="button"
  onClick={() => setPage(p)}
- className={`w-8 h-8 text-xs font-black transition-all ${page === p ? 'bg-indigo-600 text-white shadow-lg shadow-indigo-600/20' : 'bg-white text-slate-400 hover:bg-slate-50'}`}
+ className={`w-7 h-7 text-xs font-black rounded transition-all leading-tight ${page === p ? 'bg-indigo-600 text-white shadow-md shadow-indigo-600/20' : 'bg-white text-slate-400 hover:bg-slate-50'}`}
  >
  {p}
  </button>
@@ -729,7 +729,7 @@ export default function GlobalUserManagement() {
  type="button"
  disabled={page === totalPages}
  onClick={() => setPage(p => p + 1)}
- className="p-1.5 bg-white border border-slate-100 text-slate-600 disabled:opacity-30 hover:bg-slate-50 transition-all font-bold text-xs px-3"
+ className="py-1 px-2.5 bg-white border border-slate-100 text-slate-600 disabled:opacity-30 hover:bg-slate-50 transition-all font-bold text-xs rounded leading-tight"
  >
  Next
  </button>
@@ -738,20 +738,20 @@ export default function GlobalUserManagement() {
  )}
 
  {users.length === 0 && !loading && (
- <div className="py-10 text-center space-y-2">
- <HiOutlineUserPlus size={40} className="mx-auto text-slate-200" />
- <p className="text-slate-400 font-bold uppercase tracking-widest text-[10px]">No biological nodes detected with current parameters</p>
+ <div className="py-6 text-center space-y-1.5">
+ <HiOutlineUserPlus size={32} className="mx-auto text-slate-200" />
+ <p className="text-slate-400 font-bold uppercase tracking-widest text-[10px] leading-tight">No biological nodes detected with current parameters</p>
  </div>
  )}
  </div>
 
  {/* Mobile Sticky CTA */}
- <div className="md:hidden fixed bottom-0 left-0 right-0 p-4 bg-white/80 backdrop-blur-md border-t border-slate-100 pb-[calc(env(safe-area-inset-bottom)+1rem)] z-40">
+ <div className="md:hidden fixed bottom-0 left-0 right-0 p-3 bg-white/80 backdrop-blur-md border-t border-slate-100 pb-[calc(env(safe-area-inset-bottom)+0.75rem)] z-40">
  <button 
  onClick={() => openForm()}
- className="w-full py-4 bg-indigo-600 text-white font-black shadow-xl shadow-indigo-600/30 flex items-center justify-center gap-2 active:scale-95 transition-all"
+ className="w-full py-2.5 bg-indigo-600 text-white font-black shadow-xl shadow-indigo-600/30 flex items-center justify-center gap-2 active:scale-95 transition-all rounded-lg leading-tight text-xs sm:text-sm"
  >
- <HiOutlineUserPlus size={20} />
+ <HiOutlineUserPlus size={18} />
  Provision User
  </button>
  </div>
@@ -760,7 +760,7 @@ export default function GlobalUserManagement() {
  <Portal>
  <AnimatePresence>
  {showModal && (
- <div className="fixed inset-0 z-[1000] flex items-end md:items-center justify-center p-0 md:p-4">
+ <div className="fixed inset-0 z-[1000] flex items-end md:items-center justify-center p-0 md:p-3">
  <motion.div 
  initial={{ opacity: 0 }}
  animate={{ opacity: 1 }}
@@ -772,37 +772,37 @@ export default function GlobalUserManagement() {
  initial={{ scale: 0.95, opacity: 0, y: 40 }}
  animate={{ scale: 1, opacity: 1, y: 0 }}
  exit={{ scale: 0.95, opacity: 0, y: 40 }}
- className="relative w-full max-w-2xl bg-white -[2rem] md: max-h-[90vh] overflow-y-auto shadow-2xl"
+ className="relative w-full max-w-2xl bg-white rounded-2xl max-h-[90vh] overflow-y-auto shadow-2xl"
  >
- <form onSubmit={handleSubmit} className="p-6 md:p-8 space-y-4 pb-[calc(env(safe-area-inset-bottom)+1.5rem)] md:pb-8">
- <div className="flex justify-between items-center mb-4">
+ <form onSubmit={handleSubmit} className="p-4 md:p-5 space-y-3 pb-[calc(env(safe-area-inset-bottom)+1rem)] md:pb-5">
+ <div className="flex justify-between items-center mb-2.5">
  <div>
- <h3 className="text-2xl font-black text-slate-900 tracking-tighter leading-tight">
+ <h3 className="text-xl sm:text-2xl font-black text-slate-900 tracking-tighter leading-tight">
  {editingUser ? 'Synchronize Identity' : 'Provision New Identity'}
  </h3>
- <p className="text-slate-400 font-medium text-xs uppercase tracking-widest mt-1">Ecosystem Node Management</p>
+ <p className="text-slate-400 font-medium text-xs uppercase tracking-widest mt-0.5 leading-tight">Ecosystem Node Management</p>
  </div>
- <button type="button" onClick={() => setShowModal(false)} className="w-10 h-10 bg-slate-50 text-slate-400 flex items-center justify-center hover:bg-slate-100">
- <HiOutlineXCircle size={24} />
+ <button type="button" onClick={() => setShowModal(false)} className="w-8 h-8 bg-slate-50 text-slate-400 flex items-center justify-center hover:bg-slate-100 rounded-lg">
+ <HiOutlineXCircle size={20} />
  </button>
  </div>
 
- <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+ <div className="grid grid-cols-1 md:grid-cols-2 gap-2.5">
  <div className="space-y-1">
- <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest ml-1">Universal Name</label>
+ <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest ml-1 leading-tight">Universal Name</label>
  <input 
  required
- className="w-full px-4 py-3 bg-slate-50 border-none text-sm font-bold focus:ring-2 focus:ring-indigo-500 transition-all rounded-md"
+ className="w-full px-3 py-2 bg-slate-50 border-none text-xs sm:text-sm font-bold focus:ring-2 focus:ring-indigo-500 transition-all rounded-md leading-tight"
  value={formData.name}
  onChange={(e) => setFormData({...formData, name: e.target.value})}
  />
  </div>
  <div className="space-y-1">
- <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest ml-1">Email Credentials</label>
+ <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest ml-1 leading-tight">Email Credentials</label>
  <input 
  required
  type="email"
- className="w-full px-4 py-3 bg-slate-50 border-none text-sm font-bold focus:ring-2 focus:ring-indigo-500 transition-all rounded-md"
+ className="w-full px-3 py-2 bg-slate-50 border-none text-xs sm:text-sm font-bold focus:ring-2 focus:ring-indigo-500 transition-all rounded-md leading-tight"
  value={formData.email}
  onChange={(e) => setFormData({...formData, email: e.target.value})}
  />
@@ -810,37 +810,37 @@ export default function GlobalUserManagement() {
  </div>
 
  {!editingUser && (
- <div className="bg-slate-50 p-4 space-y-3 rounded-md">
- <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Account Setup Method</p>
- <div className="grid grid-cols-2 gap-2">
+ <div className="bg-slate-50 p-2.5 sm:p-3 space-y-2 rounded-md">
+ <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest leading-tight">Account Setup Method</p>
+ <div className="grid grid-cols-2 gap-1.5">
  <button
  type="button"
  onClick={() => setSetupMode('invite')}
- className={`px-4 py-3 text-xs font-bold transition-all flex items-center justify-center gap-2 ${setupMode === 'invite' ? 'bg-indigo-600 text-white shadow-lg shadow-indigo-600/20' : 'bg-white text-slate-500 hover:bg-slate-100'}`}
+ className={`px-3 py-2 text-xs font-bold transition-all flex items-center justify-center gap-1.5 rounded-md leading-tight ${setupMode === 'invite' ? 'bg-indigo-600 text-white shadow-md shadow-indigo-600/20' : 'bg-white text-slate-500 hover:bg-slate-100'}`}
  >
- <HiOutlineEnvelope size={16} /> Email Invite Link
+ <HiOutlineEnvelope size={15} /> Email Invite Link
  </button>
  <button
  type="button"
  onClick={() => setSetupMode('password')}
- className={`px-4 py-3 text-xs font-bold transition-all flex items-center justify-center gap-2 ${setupMode === 'password' ? 'bg-indigo-600 text-white shadow-lg shadow-indigo-600/20' : 'bg-white text-slate-500 hover:bg-slate-100'}`}
+ className={`px-3 py-2 text-xs font-bold transition-all flex items-center justify-center gap-1.5 rounded-md leading-tight ${setupMode === 'password' ? 'bg-indigo-600 text-white shadow-md shadow-indigo-600/20' : 'bg-white text-slate-500 hover:bg-slate-100'}`}
  >
- <HiOutlineLockClosed size={16} /> Set Password Now
+ <HiOutlineLockClosed size={15} /> Set Password Now
  </button>
  </div>
 
  {setupMode === 'invite' ? (
- <p className="text-[11px] font-medium text-slate-400 leading-relaxed">
+ <p className="text-[11px] font-medium text-slate-400 leading-normal">
  The staff member receives an email with their role and branch pre-assigned. They set their own secure password via a link (valid 72 hours). Recommended for Instructor / Branch Admin / Branch Management.
  </p>
  ) : (
  <div className="space-y-1">
- <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest ml-1">Initial Secure Key (Password)</label>
+ <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest ml-1 leading-tight">Initial Secure Key (Password)</label>
  <input
  required
  type="password"
  minLength={8}
- className="w-full px-4 py-3 bg-white border-none text-sm font-bold focus:ring-2 focus:ring-indigo-500 transition-all rounded-md"
+ className="w-full px-3 py-2 bg-white border-none text-xs sm:text-sm font-bold focus:ring-2 focus:ring-indigo-500 transition-all rounded-md leading-tight"
  value={formData.password}
  onChange={(e) => setFormData({...formData, password: e.target.value})}
  />
@@ -849,11 +849,11 @@ export default function GlobalUserManagement() {
  </div>
  )}
 
- <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+ <div className="grid grid-cols-1 md:grid-cols-2 gap-2.5">
  <div className="space-y-1">
- <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest ml-1">Hierarchy Role</label>
+ <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest ml-1 leading-tight">Hierarchy Role</label>
  <select 
- className="w-full px-4 py-3 bg-slate-50 border-none text-sm font-bold focus:ring-2 focus:ring-indigo-500 transition-all disabled:opacity-50"
+ className="w-full px-3 py-2 bg-slate-50 border-none text-xs sm:text-sm font-bold focus:ring-2 focus:ring-indigo-500 transition-all disabled:opacity-50 leading-tight rounded-md"
  value={formData.role}
  disabled={editingUser && (editingUser._id === currentUser?.id || administrativeRoles.includes(editingUser.role))}
  onChange={(e) => setFormData({...formData, role: e.target.value})}
@@ -866,15 +866,15 @@ export default function GlobalUserManagement() {
  <option value="super_management">Super Management</option>
  </select>
  {editingUser && (editingUser._id === currentUser?.id || administrativeRoles.includes(editingUser.role)) && (
- <p className="text-[9px] font-bold text-rose-500 uppercase tracking-tighter ml-1 italic">
+ <p className="text-[9px] font-bold text-rose-500 uppercase tracking-tighter ml-1 italic leading-tight">
  {editingUser._id === currentUser?.id ? 'Self-role reconfiguration restricted' : 'Administrative hierarchy nodes are protected'}
  </p>
  )}
  </div>
  <div className="space-y-1">
- <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest ml-1">Geographical Node (Branch)</label>
+ <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest ml-1 leading-tight">Geographical Node (Branch)</label>
  <select 
- className="w-full px-4 py-3 bg-slate-50 border-none text-sm font-bold focus:ring-2 focus:ring-indigo-500 transition-all"
+ className="w-full px-3 py-2 bg-slate-50 border-none text-xs sm:text-sm font-bold focus:ring-2 focus:ring-indigo-500 transition-all leading-tight rounded-md"
  value={formData.branchId}
  onChange={(e) => setFormData({...formData, branchId: e.target.value})}
  >
@@ -884,18 +884,18 @@ export default function GlobalUserManagement() {
  </div>
  </div>
 
- <div className="flex items-center justify-between pt-2">
- <div className="flex items-center gap-3">
- <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Active Access Node</p>
+ <div className="flex items-center justify-between pt-1.5">
+ <div className="flex items-center gap-2.5">
+ <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest leading-tight">Active Access Node</p>
  <button 
  type="button"
  onClick={() => setFormData({...formData, isActive: !formData.isActive})}
- className={`w-14 h-8 transition-all relative ${formData.isActive ? 'bg-emerald-500' : 'bg-slate-200'}`}
+ className={`w-12 h-6 transition-all relative rounded-full ${formData.isActive ? 'bg-emerald-500' : 'bg-slate-200'}`}
  >
- <div className={`absolute top-1 w-6 h-6 bg-white transition-all ${formData.isActive ? 'right-1' : 'left-1'}`} />
+ <div className={`absolute top-0.5 w-5 h-5 rounded-full bg-white transition-all ${formData.isActive ? 'right-0.5' : 'left-0.5'}`} />
  </button>
  </div>
- <button type="submit" className="px-6 py-3 bg-indigo-600 text-white font-black shadow-xl shadow-indigo-600/30 hover:-translate-y-1 transition-all rounded-md">
+ <button type="submit" className="px-4 py-2 bg-indigo-600 text-white font-black shadow-lg shadow-indigo-600/30 hover:-translate-y-0.5 transition-all rounded-md text-xs sm:text-sm leading-tight">
  {editingUser ? 'Synchronize Updates' : 'Establish Access Node'}
  </button>
  </div>
@@ -910,7 +910,7 @@ export default function GlobalUserManagement() {
  <Portal>
  <AnimatePresence>
  {permissionsModalUser && (
- <div className="fixed inset-0 z-[1000] flex items-center justify-center p-3 md:p-6">
+ <div className="fixed inset-0 z-[1000] flex items-center justify-center p-2.5 md:p-4">
  <motion.div 
  initial={{ opacity: 0 }}
  animate={{ opacity: 1 }}
@@ -925,36 +925,36 @@ export default function GlobalUserManagement() {
  className="relative w-full max-w-4xl bg-white rounded-2xl max-h-[90vh] flex flex-col shadow-2xl overflow-hidden z-10"
  >
  {/* Header */}
- <div className="p-6 bg-slate-900 text-white flex justify-between items-center shrink-0">
- <div className="flex items-center gap-3">
- <div className="w-10 h-10 rounded-xl bg-indigo-500/20 border border-indigo-400/30 flex items-center justify-center text-indigo-400">
- <HiOutlineKey size={22} />
+ <div className="p-3.5 sm:p-4 bg-slate-900 text-white flex justify-between items-center shrink-0">
+ <div className="flex items-center gap-2.5">
+ <div className="w-9 h-9 rounded-xl bg-indigo-500/20 border border-indigo-400/30 flex items-center justify-center text-indigo-400 shrink-0">
+ <HiOutlineKey size={20} />
  </div>
  <div>
- <h3 className="text-xl font-black tracking-tight flex items-center gap-2">
+ <h3 className="text-base sm:text-lg font-black tracking-tight flex items-center gap-2 leading-tight">
  <span>PBAC Permissions Matrix</span>
- <span className="text-xs px-2 py-0.5 rounded bg-indigo-500/30 text-indigo-300 font-bold uppercase">
+ <span className="text-[10px] px-2 py-0.5 rounded bg-indigo-500/30 text-indigo-300 font-bold uppercase leading-tight">
  {permissionsModalUser.role.replace('_', ' ')}
  </span>
  </h3>
- <p className="text-xs text-slate-400 mt-0.5">
+ <p className="text-xs text-slate-400 mt-0.5 leading-tight">
  Managing granular access for <strong className="text-white">{permissionsModalUser.name}</strong> ({permissionsModalUser.email})
  </p>
  </div>
  </div>
  <button 
  onClick={() => setPermissionsModalUser(null)}
- className="w-9 h-9 rounded-lg bg-white/10 hover:bg-white/20 text-slate-300 flex items-center justify-center transition-all"
+ className="w-8 h-8 rounded-lg bg-white/10 hover:bg-white/20 text-slate-300 flex items-center justify-center transition-all"
  >
- <HiOutlineXCircle size={22} />
+ <HiOutlineXCircle size={20} />
  </button>
  </div>
 
  {/* Sub-header info bar */}
- <div className="px-6 py-3 bg-slate-50 border-b border-slate-100 flex items-center justify-between text-xs shrink-0">
- <div className="flex items-center gap-2 font-bold text-slate-600">
+ <div className="px-4 py-2 bg-slate-50 border-b border-slate-100 flex items-center justify-between text-xs shrink-0">
+ <div className="flex items-center gap-2 font-bold text-slate-600 leading-tight">
  <span>Selected Permissions:</span>
- <span className="px-2 py-0.5 rounded-full bg-indigo-600 text-white font-black text-[11px]">
+ <span className="px-2 py-0.5 rounded-full bg-indigo-600 text-white font-black text-[11px] leading-tight">
  {selectedPermissions.length} Active
  </span>
  </div>
@@ -962,7 +962,7 @@ export default function GlobalUserManagement() {
  <button
  type="button"
  onClick={() => setSelectedPermissions([])}
- className="px-3 py-1 bg-white border border-slate-200 text-slate-600 hover:bg-slate-100 rounded text-xs font-bold transition-all"
+ className="px-2.5 py-1 bg-white border border-slate-200 text-slate-600 hover:bg-slate-100 rounded text-xs font-bold transition-all leading-tight"
  >
  Clear All
  </button>
@@ -970,17 +970,17 @@ export default function GlobalUserManagement() {
  </div>
 
  {/* Body: Grouped Categories */}
- <div className="p-6 overflow-y-auto space-y-6 flex-1">
+ <div className="p-3.5 sm:p-4 overflow-y-auto space-y-3 flex-1">
  {permissionsCatalog && permissionsCatalog.length > 0 ? (
  permissionsCatalog.map((category) => {
  const catPermIds = category.permissions.map(p => p.id);
  const allCatSelected = catPermIds.length > 0 && catPermIds.every(id => selectedPermissions.includes(id));
 
  return (
- <div key={category.category} className="border border-slate-200 rounded-xl overflow-hidden bg-white shadow-sm">
- <div className="px-4 py-3 bg-slate-50 border-b border-slate-200 flex items-center justify-between">
- <div className="flex items-center gap-2 font-black text-slate-800 text-sm">
- <span className="w-2.5 h-2.5 rounded-full bg-indigo-600"></span>
+ <div key={category.category} className="border border-slate-200 rounded-xl overflow-hidden bg-white shadow-xs">
+ <div className="px-3 py-2 bg-slate-50 border-b border-slate-200 flex items-center justify-between">
+ <div className="flex items-center gap-2 font-black text-slate-800 text-xs sm:text-sm leading-tight">
+ <span className="w-2 h-2 rounded-full bg-indigo-600"></span>
  <span>{category.category}</span>
  <span className="text-[11px] font-bold text-slate-400">
  ({catPermIds.filter(id => selectedPermissions.includes(id)).length}/{category.permissions.length})
@@ -989,7 +989,7 @@ export default function GlobalUserManagement() {
  <button
  type="button"
  onClick={() => toggleCategoryPermissions(category.permissions)}
- className={`text-xs font-bold px-2.5 py-1 rounded transition-colors ${
+ className={`text-xs font-bold px-2 py-0.5 rounded transition-colors leading-tight ${
  allCatSelected
  ? 'bg-rose-50 text-rose-600 hover:bg-rose-100'
  : 'bg-indigo-50 text-indigo-600 hover:bg-indigo-100'
@@ -999,13 +999,13 @@ export default function GlobalUserManagement() {
  </button>
  </div>
 
- <div className="p-4 grid grid-cols-1 md:grid-cols-2 gap-3">
+ <div className="p-2.5 sm:p-3 grid grid-cols-1 md:grid-cols-2 gap-2">
  {category.permissions.map((perm) => {
  const isChecked = selectedPermissions.includes(perm.id);
  return (
  <label
  key={perm.id}
- className={`flex items-start gap-3 p-3 rounded-lg border transition-all cursor-pointer ${
+ className={`flex items-start gap-2.5 p-2 rounded-lg border transition-all cursor-pointer ${
  isChecked
  ? 'bg-indigo-50/50 border-indigo-300 ring-1 ring-indigo-200'
  : 'bg-white border-slate-100 hover:border-slate-300'
@@ -1015,12 +1015,12 @@ export default function GlobalUserManagement() {
  type="checkbox"
  checked={isChecked}
  onChange={() => togglePermission(perm.id)}
- className="mt-1 w-4 h-4 text-indigo-600 rounded border-slate-300 focus:ring-indigo-500 cursor-pointer"
+ className="mt-0.5 w-3.5 h-3.5 text-indigo-600 rounded border-slate-300 focus:ring-indigo-500 cursor-pointer"
  />
  <div className="flex-1">
  <div className="flex items-center justify-between">
- <span className="text-xs font-black text-slate-900">{perm.name}</span>
- <code className="text-[10px] font-mono text-slate-400 bg-slate-100 px-1.5 py-0.5 rounded">
+ <span className="text-xs font-black text-slate-900 leading-tight">{perm.name}</span>
+ <code className="text-[10px] font-mono text-slate-400 bg-slate-100 px-1.5 py-0.5 rounded leading-tight">
  {perm.id}
  </code>
  </div>
@@ -1034,22 +1034,22 @@ export default function GlobalUserManagement() {
  );
  })
  ) : (
- <div className="py-12 text-center text-slate-400 text-xs font-bold">
+ <div className="py-6 text-center text-slate-400 text-xs font-bold leading-tight">
  Loading permissions catalog...
  </div>
  )}
  </div>
 
  {/* Footer */}
- <div className="p-4 px-6 bg-slate-50 border-t border-slate-200 flex flex-col sm:flex-row items-center justify-between gap-3 shrink-0">
- <p className="text-xs text-slate-400 font-medium text-center sm:text-left">
+ <div className="p-3 px-4 sm:px-5 bg-slate-50 border-t border-slate-200 flex flex-col sm:flex-row items-center justify-between gap-2.5 shrink-0">
+ <p className="text-xs text-slate-400 font-medium text-center sm:text-left leading-normal">
  Changes take effect immediately upon next user authentication token verification.
  </p>
- <div className="flex items-center gap-3">
+ <div className="flex items-center gap-2">
  <button
  type="button"
  onClick={() => setPermissionsModalUser(null)}
- className="px-4 py-2 rounded-lg border border-slate-200 text-slate-700 font-bold text-xs hover:bg-slate-100 transition-all"
+ className="px-3 py-1.5 rounded-lg border border-slate-200 text-slate-700 font-bold text-xs hover:bg-slate-100 transition-all leading-tight"
  >
  Cancel
  </button>
@@ -1057,9 +1057,9 @@ export default function GlobalUserManagement() {
  type="button"
  disabled={savingPermissions}
  onClick={handleSavePermissions}
- className="px-6 py-2 rounded-lg bg-indigo-600 text-white font-black text-xs shadow-lg shadow-indigo-600/30 hover:bg-indigo-700 transition-all disabled:opacity-50 flex items-center gap-2"
+ className="px-4 py-1.5 rounded-lg bg-indigo-600 text-white font-black text-xs shadow-md shadow-indigo-600/30 hover:bg-indigo-700 transition-all disabled:opacity-50 flex items-center gap-1.5 leading-tight"
  >
- {savingPermissions ? <HiOutlineArrowPath className="animate-spin" size={16} /> : <HiOutlineKey size={16} />}
+ {savingPermissions ? <HiOutlineArrowPath className="animate-spin" size={14} /> : <HiOutlineKey size={14} />}
  <span>Save Permissions Matrix</span>
  </button>
  </div>
@@ -1074,7 +1074,7 @@ export default function GlobalUserManagement() {
  <Portal>
  <AnimatePresence>
  {transferModalStudent && (
- <div className="fixed inset-0 z-[1000] flex items-center justify-center p-4">
+ <div className="fixed inset-0 z-[1000] flex items-center justify-center p-3">
  <motion.div
  initial={{ opacity: 0 }}
  animate={{ opacity: 1 }}
@@ -1088,14 +1088,14 @@ export default function GlobalUserManagement() {
  exit={{ scale: 0.95, opacity: 0 }}
  className="relative w-full max-w-lg bg-white rounded-2xl shadow-2xl overflow-hidden border border-slate-100 z-10"
  >
- <div className="p-6 border-b border-slate-100 flex items-center justify-between">
- <div className="flex items-center gap-3">
- <div className="w-10 h-10 rounded-xl bg-teal-50 text-teal-600 flex items-center justify-center">
- <HiOutlineArrowsRightLeft size={20} />
+ <div className="p-3.5 sm:p-4 border-b border-slate-100 flex items-center justify-between">
+ <div className="flex items-center gap-2.5">
+ <div className="w-9 h-9 rounded-xl bg-teal-50 text-teal-600 flex items-center justify-center shrink-0">
+ <HiOutlineArrowsRightLeft size={18} />
  </div>
  <div>
- <h3 className="font-extrabold text-base text-slate-900">Transfer Student Campus</h3>
- <p className="text-xs text-slate-400">Reassign campus, active enrollments, and ledger</p>
+ <h3 className="font-extrabold text-sm sm:text-base text-slate-900 leading-tight">Transfer Student Campus</h3>
+ <p className="text-xs text-slate-400 leading-tight mt-0.5">Reassign campus, active enrollments, and ledger</p>
  </div>
  </div>
  <button
@@ -1107,24 +1107,24 @@ export default function GlobalUserManagement() {
  </button>
  </div>
 
- <form onSubmit={handleTransferCampus} className="p-6 space-y-4">
- <div className="rounded-xl bg-slate-50 p-3.5 border border-slate-100 text-xs">
- <div className="font-bold text-slate-800">{transferModalStudent.name}</div>
- <div className="text-slate-500">{transferModalStudent.email} • Phone: {transferModalStudent.phone || 'N/A'}</div>
- <div className="mt-1 font-semibold text-teal-700">
+ <form onSubmit={handleTransferCampus} className="p-3.5 sm:p-4 space-y-2.5">
+ <div className="rounded-xl bg-slate-50 p-2.5 border border-slate-100 text-xs">
+ <div className="font-bold text-slate-800 leading-tight">{transferModalStudent.name}</div>
+ <div className="text-slate-500 leading-tight mt-0.5">{transferModalStudent.email} • Phone: {transferModalStudent.phone || 'N/A'}</div>
+ <div className="mt-1 font-semibold text-teal-700 leading-tight">
  Current Campus: {branches.find(b => b._id === transferModalStudent.branchId)?.name || 'Unknown / Global'}
  </div>
  </div>
 
  <div>
- <label className="block text-xs font-bold text-slate-700 mb-1">
+ <label className="block text-xs font-bold text-slate-700 mb-1 leading-tight">
  Target Destination Campus *
  </label>
  <select
  required
  value={targetBranchId}
  onChange={(e) => setTargetBranchId(e.target.value)}
- className="w-full p-2.5 rounded-xl border border-slate-200 text-xs font-medium text-slate-800 outline-none focus:border-teal-500"
+ className="w-full p-2 rounded-xl border border-slate-200 text-xs font-medium text-slate-800 outline-none focus:border-teal-500 leading-tight"
  >
  <option value="">Select Target Campus...</option>
  {branches.filter(b => b._id !== transferModalStudent.branchId).map(b => (
@@ -1134,13 +1134,13 @@ export default function GlobalUserManagement() {
  </div>
 
  <div>
- <label className="block text-xs font-bold text-slate-700 mb-1">
+ <label className="block text-xs font-bold text-slate-700 mb-1 leading-tight">
  Reason for Transfer
  </label>
  <select
  value={transferReason}
  onChange={(e) => setTransferReason(e.target.value)}
- className="w-full p-2.5 rounded-xl border border-slate-200 text-xs font-medium text-slate-800 outline-none focus:border-teal-500"
+ className="w-full p-2 rounded-xl border border-slate-200 text-xs font-medium text-slate-800 outline-none focus:border-teal-500 leading-tight"
  >
  <option value="relocation">Student Residential Relocation</option>
  <option value="schedule_conflict">Schedule & Batch Timing Preference</option>
@@ -1151,7 +1151,7 @@ export default function GlobalUserManagement() {
  </div>
 
  <div>
- <label className="block text-xs font-bold text-slate-700 mb-1">
+ <label className="block text-xs font-bold text-slate-700 mb-1 leading-tight">
  Transfer Audit Notes / Approval Reference
  </label>
  <textarea
@@ -1159,22 +1159,22 @@ export default function GlobalUserManagement() {
  value={transferNotes}
  onChange={(e) => setTransferNotes(e.target.value)}
  placeholder="Official approval reference or instructions for destination campus..."
- className="w-full p-2.5 rounded-xl border border-slate-200 text-xs text-slate-800 outline-none focus:border-teal-500"
+ className="w-full p-2 rounded-xl border border-slate-200 text-xs text-slate-800 outline-none focus:border-teal-500"
  />
  </div>
 
- <div className="pt-3 border-t border-slate-100 flex items-center justify-end gap-2">
+ <div className="pt-2 border-t border-slate-100 flex items-center justify-end gap-1.5">
  <button
  type="button"
  onClick={() => setTransferModalStudent(null)}
- className="px-4 py-2 text-xs font-bold text-slate-500 hover:bg-slate-50 rounded-lg"
+ className="px-3 py-1.5 text-xs font-bold text-slate-500 hover:bg-slate-50 rounded-lg leading-tight"
  >
  Cancel
  </button>
  <button
  type="submit"
  disabled={transferring || !targetBranchId}
- className="px-5 py-2 text-xs font-black text-white bg-teal-600 hover:bg-teal-700 rounded-lg shadow-md shadow-teal-600/20 disabled:opacity-50 flex items-center gap-1.5"
+ className="px-4 py-1.5 text-xs font-black text-white bg-teal-600 hover:bg-teal-700 rounded-lg shadow-sm shadow-teal-600/20 disabled:opacity-50 flex items-center gap-1.5 leading-tight"
  >
  {transferring ? <HiOutlineArrowPath className="animate-spin" size={14} /> : <HiOutlineArrowsRightLeft size={14} />}
  <span>{transferring ? 'Transferring...' : 'Execute Campus Transfer'}</span>
