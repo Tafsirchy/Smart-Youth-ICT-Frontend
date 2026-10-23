@@ -1,7 +1,6 @@
 "use client";
 
 import React, { useState, useEffect, useCallback, useMemo } from "react";
-import Link from "next/link";
 import { useRouter, useParams } from "next/navigation";
 import { useSession } from "next-auth/react";
 import {
@@ -14,7 +13,6 @@ import {
   HiCheckCircle,
   HiTrash,
   HiSearch,
-  HiFilter,
   HiExternalLink,
   HiCheck,
   HiChevronLeft,
@@ -197,7 +195,6 @@ export default function NotificationsHubPage() {
     if (notif.link) {
       let link = notif.link.trim();
 
-      // Intelligent route aliasing
       if (link === "/notices") {
         if (user?.role === "student") link = "/student/notices";
         else if (["branch_admin", "branch_management"].includes(user?.role)) link = "/admin/notices";
@@ -237,119 +234,118 @@ export default function NotificationsHubPage() {
   const unreadCount = notifications.filter((n) => !n.isRead).length;
   const academicCount = notifications.filter((n) => n.category === "academic").length;
   const financialCount = notifications.filter((n) => n.category === "financial").length;
-  const adminCount = notifications.filter((n) => n.category === "administrative").length;
 
   return (
-    <div className="w-full space-y-6 pb-12">
+    <div className="w-full space-y-4 pb-6">
       {/* Page Header */}
-      <div className="bg-white border border-slate-200 rounded-2xl p-6 shadow-xs relative">
-        <div className="relative z-10 flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
+      <div className="bg-white border border-slate-200 rounded-xl p-4 sm:p-5 shadow-xs relative">
+        <div className="relative z-10 flex flex-col md:flex-row items-start md:items-center justify-between gap-3">
           <div>
-            <div className="flex items-center gap-2 mb-2">
-              <span className="px-2.5 py-0.5 rounded-full text-[11px] font-bold uppercase tracking-wider bg-blue-50 text-blue-700 border border-blue-200 flex items-center gap-1.5">
+            <div className="flex items-center gap-2 mb-1">
+              <span className="px-2 py-0.5 rounded-full text-[11px] font-bold uppercase tracking-wider bg-blue-50 text-blue-700 border border-blue-200 flex items-center gap-1.5 leading-normal">
                 <HiSparkles size={13} />
                 Live Notification Center
               </span>
               <span className="text-slate-300">•</span>
-              <span className="text-xs text-slate-500 font-medium">
+              <span className="text-xs text-slate-500 font-medium leading-normal">
                 Multi-Tenant Real-time Gateway
               </span>
             </div>
 
-            <h1 className="text-2xl md:text-3xl font-bold text-slate-900 tracking-tight">
+            <h1 className="text-2xl md:text-3xl font-bold text-slate-900 tracking-tight leading-tight">
               Enterprise Notification Hub
             </h1>
-            <p className="text-xs md:text-sm text-slate-500 mt-1 max-w-2xl leading-relaxed">
+            <p className="text-xs md:text-sm text-slate-500 mt-0.5 max-w-2xl leading-normal">
               Consolidated command feed for campus announcements, student submissions, class routines, tuition receipts, and system alerts.
             </p>
           </div>
 
           {/* Quick Actions */}
-          <div className="flex items-center gap-2 flex-wrap">
+          <div className="flex items-center gap-1.5 flex-wrap">
             <button
               type="button"
               onClick={toggleSound}
-              className={`px-3 py-2 rounded-xl border transition flex items-center gap-2 text-xs font-semibold ${
+              className={`px-2.5 py-1.5 rounded-lg border transition flex items-center gap-1.5 text-xs font-semibold leading-normal ${
                 isMuted
                   ? "bg-white text-slate-600 border-slate-200 hover:bg-slate-50"
                   : "bg-blue-50 text-blue-700 border-blue-200 hover:bg-blue-100"
               }`}
               title={isMuted ? "Unmute chimes" : "Mute chimes"}
             >
-              {isMuted ? <HiVolumeOff size={16} /> : <HiVolumeUp size={16} />}
+              {isMuted ? <HiVolumeOff size={15} /> : <HiVolumeUp size={15} />}
               <span>{isMuted ? "Sound Off" : "Sound On"}</span>
             </button>
 
             <button
               type="button"
               onClick={handleMarkAllRead}
-              className="px-3.5 py-2 rounded-xl bg-blue-600 hover:bg-blue-700 text-white text-xs font-semibold transition flex items-center gap-1.5 shadow-xs"
+              className="px-3 py-1.5 rounded-lg bg-blue-600 hover:bg-blue-700 text-white text-xs font-semibold transition flex items-center gap-1.5 shadow-xs leading-normal"
             >
-              <HiCheckCircle size={16} />
+              <HiCheckCircle size={15} />
               <span>Mark All Read</span>
             </button>
 
             <button
               type="button"
               onClick={handleClearRead}
-              className="px-3 py-2 rounded-xl bg-white hover:bg-rose-50 text-slate-600 hover:text-rose-700 border border-slate-200 text-xs font-medium transition flex items-center gap-1.5"
+              className="px-2.5 py-1.5 rounded-lg bg-white hover:bg-rose-50 text-slate-600 hover:text-rose-700 border border-slate-200 text-xs font-medium transition flex items-center gap-1.5 leading-normal"
               title="Remove read notifications"
             >
-              <HiTrash size={15} />
+              <HiTrash size={14} />
               <span>Clear Read</span>
             </button>
 
             <button
               type="button"
               onClick={fetchNotifications}
-              className="p-2 rounded-xl bg-white text-slate-600 hover:text-slate-900 hover:bg-slate-50 border border-slate-200 text-xs transition"
+              className="p-1.5 rounded-lg bg-white text-slate-600 hover:text-slate-900 hover:bg-slate-50 border border-slate-200 text-xs transition"
               title="Refresh"
             >
-              <HiRefresh size={16} />
+              <HiRefresh size={15} />
             </button>
           </div>
         </div>
 
         {/* Metric Cards Banner */}
-        <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 mt-6 pt-6 border-t border-slate-100">
-          <div className="p-4 bg-slate-50 rounded-xl border border-slate-200">
-            <span className="text-xs font-medium text-slate-500 block">Total Alerts</span>
-            <span className="text-2xl font-bold text-slate-900 mt-0.5 block">{totalCount}</span>
+        <div className="grid grid-cols-2 sm:grid-cols-4 gap-2.5 mt-4 pt-3.5 border-t border-slate-100">
+          <div className="p-3 bg-slate-50 rounded-lg border border-slate-200">
+            <span className="text-xs font-medium text-slate-500 block leading-normal">Total Alerts</span>
+            <span className="text-2xl font-bold text-slate-900 mt-0.5 block leading-tight">{totalCount}</span>
           </div>
-          <div className="p-4 bg-blue-50 rounded-xl border border-blue-200">
-            <span className="text-xs font-semibold text-blue-700 block">Unread Priority</span>
-            <span className="text-2xl font-bold text-blue-700 mt-0.5 block">{unreadCount}</span>
+          <div className="p-3 bg-blue-50 rounded-lg border border-blue-200">
+            <span className="text-xs font-semibold text-blue-700 block leading-normal">Unread Priority</span>
+            <span className="text-2xl font-bold text-blue-700 mt-0.5 block leading-tight">{unreadCount}</span>
           </div>
-          <div className="p-4 bg-indigo-50 rounded-xl border border-indigo-200">
-            <span className="text-xs font-semibold text-indigo-700 block">Academic Notices</span>
-            <span className="text-2xl font-bold text-indigo-700 mt-0.5 block">{academicCount}</span>
+          <div className="p-3 bg-indigo-50 rounded-lg border border-indigo-200">
+            <span className="text-xs font-semibold text-indigo-700 block leading-normal">Academic Notices</span>
+            <span className="text-2xl font-bold text-indigo-700 mt-0.5 block leading-tight">{academicCount}</span>
           </div>
-          <div className="p-4 bg-emerald-50 rounded-xl border border-emerald-200">
-            <span className="text-xs font-semibold text-emerald-700 block">Financial Records</span>
-            <span className="text-2xl font-bold text-emerald-700 mt-0.5 block">{financialCount}</span>
+          <div className="p-3 bg-emerald-50 rounded-lg border border-emerald-200">
+            <span className="text-xs font-semibold text-emerald-700 block leading-normal">Financial Records</span>
+            <span className="text-2xl font-bold text-emerald-700 mt-0.5 block leading-tight">{financialCount}</span>
           </div>
         </div>
       </div>
 
       {/* Filter & Controls Panel */}
-      <div className="bg-white border border-slate-200 rounded-2xl p-4 shadow-xs space-y-3">
-        <div className="flex flex-col lg:flex-row items-stretch lg:items-center justify-between gap-3">
+      <div className="bg-white border border-slate-200 rounded-xl p-3 shadow-xs space-y-2">
+        <div className="flex flex-col lg:flex-row items-stretch lg:items-center justify-between gap-2.5">
           {/* Search Box */}
           <div className="relative flex-1">
-            <HiSearch className="absolute left-3.5 top-3 text-slate-400" size={16} />
+            <HiSearch className="absolute left-3 top-2.5 text-slate-400" size={15} />
             <input
               type="text"
               value={search}
               onChange={(e) => setSearch(e.target.value)}
               placeholder="Search notifications by title, details, or campus..."
-              className="w-full pl-10 pr-4 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs text-slate-900 placeholder-slate-400 focus:outline-none focus:bg-white focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition"
+              className="w-full pl-9 pr-3 py-1.5 bg-slate-50 border border-slate-200 rounded-lg text-xs text-slate-900 placeholder-slate-400 focus:outline-none focus:bg-white focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition leading-normal"
             />
           </div>
 
           {/* Super Admin Campus Dropdown */}
           {isSuperAdmin && (
-            <div className="flex items-center gap-2">
-              <span className="text-xs text-slate-500 font-medium whitespace-nowrap">
+            <div className="flex items-center gap-1.5">
+              <span className="text-xs text-slate-500 font-medium whitespace-nowrap leading-normal">
                 Campus:
               </span>
               <select
@@ -358,7 +354,7 @@ export default function NotificationsHubPage() {
                   setSelectedBranch(e.target.value);
                   setPage(1);
                 }}
-                className="bg-white border border-slate-200 text-slate-800 rounded-xl px-3 py-2 text-xs focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 outline-none"
+                className="bg-white border border-slate-200 text-slate-800 rounded-lg px-2.5 py-1.5 text-xs focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 outline-none leading-normal"
               >
                 <option value="all">🌐 All Campuses (Global HQ)</option>
                 {branches.map((b) => (
@@ -371,7 +367,7 @@ export default function NotificationsHubPage() {
           )}
 
           {/* Unread Only Toggle */}
-          <label className="flex items-center gap-2 cursor-pointer text-xs text-slate-700 bg-slate-50 hover:bg-slate-100 px-3 py-2 rounded-xl border border-slate-200 select-none transition">
+          <label className="flex items-center gap-1.5 cursor-pointer text-xs text-slate-700 bg-slate-50 hover:bg-slate-100 px-2.5 py-1.5 rounded-lg border border-slate-200 select-none transition leading-normal">
             <input
               type="checkbox"
               checked={unreadOnly}
@@ -386,7 +382,7 @@ export default function NotificationsHubPage() {
         </div>
 
         {/* Category Filter Pills */}
-        <div className="flex items-center gap-1.5 overflow-x-auto pt-1 no-scrollbar">
+        <div className="flex items-center gap-1 overflow-x-auto pt-0.5 no-scrollbar">
           {CATEGORIES.map((cat) => {
             const Icon = cat.icon;
             const isSelected = selectedCategory === cat.id;
@@ -398,13 +394,13 @@ export default function NotificationsHubPage() {
                   setSelectedCategory(cat.id);
                   setPage(1);
                 }}
-                className={`flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-semibold transition whitespace-nowrap ${
+                className={`flex items-center gap-1.5 px-2.5 py-1 rounded-lg text-xs font-semibold transition whitespace-nowrap leading-normal ${
                   isSelected
                     ? "bg-blue-600 text-white shadow-xs"
                     : "bg-slate-100 text-slate-600 hover:bg-slate-200 hover:text-slate-900"
                 }`}
               >
-                <Icon size={14} />
+                <Icon size={13} />
                 <span>{cat.label}</span>
               </button>
             );
@@ -413,19 +409,19 @@ export default function NotificationsHubPage() {
       </div>
 
       {/* Notifications List */}
-      <div className="space-y-2.5">
+      <div className="space-y-1.5">
         {loading ? (
-          <div className="p-16 text-center text-slate-500 bg-white border border-slate-200 rounded-2xl flex flex-col items-center gap-3">
-            <div className="w-8 h-8 border-2 border-blue-600 border-t-transparent rounded-full animate-spin" />
-            <span className="text-xs font-medium">Synchronizing notifications...</span>
+          <div className="p-8 text-center text-slate-500 bg-white border border-slate-200 rounded-xl flex flex-col items-center gap-2">
+            <div className="w-7 h-7 border-2 border-blue-600 border-t-transparent rounded-full animate-spin" />
+            <span className="text-xs font-medium leading-normal">Synchronizing notifications...</span>
           </div>
         ) : filteredNotifications.length === 0 ? (
-          <div className="p-16 text-center text-slate-400 bg-white border border-slate-200 rounded-2xl flex flex-col items-center gap-3">
-            <div className="w-14 h-14 rounded-2xl bg-slate-100 border border-slate-200 flex items-center justify-center text-slate-500 text-3xl">
+          <div className="p-8 text-center text-slate-400 bg-white border border-slate-200 rounded-xl flex flex-col items-center gap-2">
+            <div className="w-12 h-12 rounded-xl bg-slate-100 border border-slate-200 flex items-center justify-center text-slate-500 text-2xl">
               📭
             </div>
-            <h3 className="text-base font-bold text-slate-800">No Notifications Found</h3>
-            <p className="text-xs text-slate-500 max-w-md">
+            <h3 className="text-base font-bold text-slate-800 leading-tight">No Notifications Found</h3>
+            <p className="text-xs text-slate-500 max-w-md leading-normal">
               No notifications match your current category and campus filter. Real-time notifications will arrive here when activity occurs.
             </p>
           </div>
@@ -448,32 +444,32 @@ export default function NotificationsHubPage() {
               <div
                 key={notif._id}
                 onClick={() => handleItemClick(notif)}
-                className={`group p-4 rounded-2xl border transition-all cursor-pointer flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 ${
+                className={`group p-3 rounded-xl border transition-all cursor-pointer flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 ${
                   notif.isRead
                     ? "bg-white border-slate-200 hover:border-slate-300 text-slate-600"
                     : "bg-blue-50/40 border-blue-200 hover:border-blue-300 text-slate-900 shadow-2xs"
                 }`}
               >
-                <div className="flex items-start gap-3.5 flex-1 min-w-0">
+                <div className="flex items-start gap-2.5 flex-1 min-w-0">
                   <div className="mt-1">
                     {!notif.isRead ? (
-                      <span className="w-2.5 h-2.5 rounded-full bg-blue-600 block shadow-xs" />
+                      <span className="w-2 h-2 rounded-full bg-blue-600 block shadow-xs" />
                     ) : (
-                      <span className="w-2.5 h-2.5 rounded-full bg-slate-200 block" />
+                      <span className="w-2 h-2 rounded-full bg-slate-200 block" />
                     )}
                   </div>
 
-                  <div className="flex-1 min-w-0 space-y-1">
-                    <div className="flex items-center gap-2 flex-wrap">
+                  <div className="flex-1 min-w-0 space-y-0.5">
+                    <div className="flex items-center gap-1.5 flex-wrap">
                       <span
-                        className={`px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider rounded border ${catColor}`}
+                        className={`px-1.5 py-0.5 text-[10px] font-bold uppercase tracking-wider rounded border leading-normal ${catColor}`}
                       >
                         {notif.category}
                       </span>
 
                       {(isUrgent || isHigh) && (
                         <span
-                          className={`px-2 py-0.5 text-[10px] font-bold uppercase rounded border ${
+                          className={`px-1.5 py-0.5 text-[10px] font-bold uppercase rounded border leading-normal ${
                             isUrgent
                               ? "bg-rose-100 text-rose-800 border-rose-300"
                               : "bg-amber-100 text-amber-800 border-amber-300"
@@ -484,20 +480,20 @@ export default function NotificationsHubPage() {
                       )}
 
                       {notif.metadata?.branchName && (
-                        <span className="text-[10px] text-slate-600 bg-slate-100 px-2 py-0.5 rounded border border-slate-200">
+                        <span className="text-[10px] text-slate-600 bg-slate-100 px-1.5 py-0.5 rounded border border-slate-200 leading-normal">
                           📍 {notif.metadata.branchName}
                         </span>
                       )}
 
                       {notif.metadata?.actorName && (
-                        <span className="text-[10px] text-slate-500">
+                        <span className="text-[10px] text-slate-500 leading-normal">
                           By: {notif.metadata.actorName}
                         </span>
                       )}
                     </div>
 
                     <h3
-                      className={`text-sm font-bold ${
+                      className={`text-sm font-bold leading-snug ${
                         notif.isRead ? "text-slate-800" : "text-slate-900"
                       }`}
                     >
@@ -510,8 +506,8 @@ export default function NotificationsHubPage() {
                 </div>
 
                 {/* Right Metadata & Actions */}
-                <div className="flex sm:flex-col items-center sm:items-end justify-between w-full sm:w-auto gap-2 text-xs shrink-0 pt-2 sm:pt-0 border-t sm:border-t-0 border-slate-100">
-                  <span className="text-[11px] text-slate-400 whitespace-nowrap">
+                <div className="flex sm:flex-col items-center sm:items-end justify-between w-full sm:w-auto gap-1.5 text-xs shrink-0 pt-1.5 sm:pt-0 border-t sm:border-t-0 border-slate-100">
+                  <span className="text-[11px] text-slate-400 whitespace-nowrap leading-normal">
                     {notif.createdAt
                       ? new Date(notif.createdAt).toLocaleDateString([], {
                           month: "short",
@@ -522,10 +518,10 @@ export default function NotificationsHubPage() {
                       : ""}
                   </span>
 
-                  <div className="flex items-center gap-2">
+                  <div className="flex items-center gap-1.5">
                     {notif.link && (
-                      <span className="text-blue-600 hover:text-blue-800 flex items-center gap-1 font-semibold text-xs">
-                        Open Action <HiExternalLink size={14} />
+                      <span className="text-blue-600 hover:text-blue-800 flex items-center gap-1 font-semibold text-xs leading-normal">
+                        Open Action <HiExternalLink size={13} />
                       </span>
                     )}
 
@@ -533,10 +529,10 @@ export default function NotificationsHubPage() {
                       <button
                         type="button"
                         onClick={(e) => handleMarkAsRead(notif._id, e)}
-                        className="px-2.5 py-1 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-700 hover:text-slate-900 border border-slate-200 text-[11px] font-medium transition flex items-center gap-1"
+                        className="px-2 py-0.5 rounded-md bg-slate-100 hover:bg-slate-200 text-slate-700 hover:text-slate-900 border border-slate-200 text-[11px] font-medium transition flex items-center gap-1 leading-normal"
                         title="Mark as read"
                       >
-                        <HiCheck size={13} />
+                        <HiCheck size={12} />
                         <span>Read</span>
                       </button>
                     )}
@@ -550,26 +546,26 @@ export default function NotificationsHubPage() {
 
       {/* Pagination Footer */}
       {totalPages > 1 && (
-        <div className="flex items-center justify-between p-4 bg-white border border-slate-200 rounded-2xl text-xs text-slate-600 shadow-xs">
+        <div className="flex items-center justify-between px-3.5 py-2 bg-white border border-slate-200 rounded-xl text-xs text-slate-600 shadow-xs leading-normal">
           <span>
             Page {page} of {totalPages} ({totalCount} total)
           </span>
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-1.5">
             <button
               type="button"
               disabled={page <= 1}
               onClick={() => setPage((p) => Math.max(1, p - 1))}
-              className="p-2 rounded-lg bg-slate-50 hover:bg-slate-100 text-slate-700 border border-slate-200 disabled:opacity-40 disabled:cursor-not-allowed transition"
+              className="p-1.5 rounded-lg bg-slate-50 hover:bg-slate-100 text-slate-700 border border-slate-200 disabled:opacity-40 disabled:cursor-not-allowed transition"
             >
-              <HiChevronLeft size={16} />
+              <HiChevronLeft size={15} />
             </button>
             <button
               type="button"
               disabled={page >= totalPages}
               onClick={() => setPage((p) => Math.min(totalPages, p + 1))}
-              className="p-2 rounded-lg bg-slate-50 hover:bg-slate-100 text-slate-700 border border-slate-200 disabled:opacity-40 disabled:cursor-not-allowed transition"
+              className="p-1.5 rounded-lg bg-slate-50 hover:bg-slate-100 text-slate-700 border border-slate-200 disabled:opacity-40 disabled:cursor-not-allowed transition"
             >
-              <HiChevronRight size={16} />
+              <HiChevronRight size={15} />
             </button>
           </div>
         </div>
