@@ -5,6 +5,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { HiSearch, HiX, HiBriefcase } from 'react-icons/hi';
 import { useQuery } from '@tanstack/react-query';
 import api from '@/lib/api';
+import { queryKeys } from '@/lib/queryKeys';
 import { ProjectCardSkeleton } from '@/components/ui/Skeleton';
 import ProjectCard from './ProjectCard';
 
@@ -74,7 +75,7 @@ export default function FreelancingDirectory() {
  const [selectedCategory, setSelectedCategory] = useState('All Categories');
 
  const { data: projectsData, isLoading: loading } = useQuery({
- queryKey: ['freelancing-projects'],
+ queryKey: queryKeys.freelancingProjects(),
  queryFn: async () => {
  const res = await api.get("/projects");
  return res.data?.data || [];
@@ -83,7 +84,7 @@ export default function FreelancingDirectory() {
  gcTime: 10 * 60 * 1000
  });
 
- const projects = projectsData || [];
+ const projects = useMemo(() => projectsData || [], [projectsData]);
 
  const processedProjects = useMemo(() => {
  const hasData = projects && projects.length > 0;
