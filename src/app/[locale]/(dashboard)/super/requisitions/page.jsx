@@ -4,6 +4,7 @@ import { useState, useEffect, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import api from '@/lib/api';
 import LoadErrorBanner from '@/components/ui/LoadErrorBanner';
+import Portal from '@/components/ui/Portal';
 import {
   HiArchive,
   HiTruck,
@@ -28,6 +29,13 @@ const STATUS_CONFIG = {
   dispatched: { label: 'Dispatched (In Transit)', bg: 'bg-purple-50 text-purple-700 border-purple-200' },
   received: { label: 'Received by Campus', bg: 'bg-teal-50 text-teal-700 border-teal-200' },
   rejected: { label: 'Rejected', bg: 'bg-rose-50 text-rose-700 border-rose-200' },
+};
+
+const resolveText = (val) => {
+  if (!val) return '';
+  if (typeof val === 'string') return val;
+  if (typeof val === 'object') return val.en || val.bn || '';
+  return String(val);
 };
 
 export default function SuperRequisitionsPage() {
@@ -284,7 +292,7 @@ export default function SuperRequisitionsPage() {
           >
             <option value="all">All Campuses / Branches</option>
             {branches.map(b => (
-              <option key={b._id} value={b._id}>{b.name} ({b.city})</option>
+              <option key={b._id} value={b._id}>{resolveText(b.name)} ({b.city})</option>
             ))}
           </select>
         </div>
@@ -342,18 +350,18 @@ export default function SuperRequisitionsPage() {
                           {statusStyle.label}
                         </span>
                         <span className="rounded-full bg-slate-100 px-2.5 py-0.5 text-xs font-bold text-slate-600 dark:bg-slate-800 dark:text-slate-300">
-                          {req.branchId?.name}
+                          {resolveText(req.branchId?.name)}
                         </span>
                       </div>
 
                       <h3 className="mt-2 text-lg font-bold text-slate-800 dark:text-white">
-                        {req.title}
+                        {resolveText(req.title)}
                       </h3>
 
                       <p className="mt-1 text-xs text-slate-400">
                         Requested by{' '}
                         <strong className="text-slate-600 dark:text-slate-300">
-                          {req.requestedBy?.name}
+                          {resolveText(req.requestedBy?.name)}
                         </strong>{' '}
                         on {new Date(req.createdAt).toLocaleDateString()}
                       </p>
@@ -431,7 +439,7 @@ export default function SuperRequisitionsPage() {
                           <tbody className="divide-y divide-slate-100 dark:divide-slate-800">
                             {req.items.map((it, idx) => (
                               <tr key={idx} className="text-slate-700 dark:text-slate-300">
-                                <td className="py-2.5 font-bold">{it.itemName}</td>
+                                <td className="py-2.5 font-bold">{resolveText(it.itemName)}</td>
                                 <td className="py-2.5 capitalize">{it.category}</td>
                                 <td className="py-2.5 font-black text-teal-600 dark:text-teal-400">{it.quantity}</td>
                                 <td className="py-2.5">{it.unit}</td>
@@ -453,13 +461,14 @@ export default function SuperRequisitionsPage() {
       {/* Review & Dispatch Modal */}
       <AnimatePresence>
         {reviewModalTicket && (
-          <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-sm">
-            <motion.div
-              initial={{ scale: 0.95, opacity: 0 }}
-              animate={{ scale: 1, opacity: 1 }}
-              exit={{ scale: 0.95, opacity: 0 }}
-              className="relative w-full max-w-lg overflow-hidden rounded-3xl bg-white shadow-2xl dark:bg-slate-900 dark:border dark:border-slate-800"
-            >
+          <Portal>
+            <div className="fixed inset-0 z-[300] flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-sm">
+              <motion.div
+                initial={{ scale: 0.95, opacity: 0 }}
+                animate={{ scale: 1, opacity: 1 }}
+                exit={{ scale: 0.95, opacity: 0 }}
+                className="relative w-full max-w-lg overflow-hidden rounded-3xl bg-white shadow-2xl dark:bg-slate-900 dark:border dark:border-slate-800"
+              >
               <div className="flex items-center justify-between border-b border-slate-100 p-6 dark:border-slate-800">
                 <div>
                   <h3 className="font-bold text-slate-800 dark:text-white">Review & Dispatch Stock</h3>
@@ -554,19 +563,21 @@ export default function SuperRequisitionsPage() {
               </form>
             </motion.div>
           </div>
+        </Portal>
         )}
       </AnimatePresence>
 
       {/* Central Warehouse Inventory Modal */}
       <AnimatePresence>
         {warehouseModalOpen && (
-          <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/70 backdrop-blur-sm">
-            <motion.div
-              initial={{ scale: 0.95, opacity: 0 }}
-              animate={{ scale: 1, opacity: 1 }}
-              exit={{ scale: 0.95, opacity: 0 }}
-              className="relative w-full max-w-4xl max-h-[90vh] flex flex-col overflow-hidden rounded-3xl bg-white shadow-2xl dark:bg-slate-900 dark:border dark:border-slate-800"
-            >
+          <Portal>
+            <div className="fixed inset-0 z-[300] flex items-center justify-center p-4 bg-slate-900/70 backdrop-blur-sm">
+              <motion.div
+                initial={{ scale: 0.95, opacity: 0 }}
+                animate={{ scale: 1, opacity: 1 }}
+                exit={{ scale: 0.95, opacity: 0 }}
+                className="relative w-full max-w-4xl max-h-[90vh] flex flex-col overflow-hidden rounded-3xl bg-white shadow-2xl dark:bg-slate-900 dark:border dark:border-slate-800"
+              >
               {/* Header */}
               <div className="flex items-center justify-between border-b border-slate-100 p-6 dark:border-slate-800 shrink-0">
                 <div className="flex items-center gap-3">
@@ -735,7 +746,7 @@ export default function SuperRequisitionsPage() {
                           return (
                             <tr key={item._id} className="hover:bg-slate-50/50 dark:hover:bg-slate-800/30">
                               <td className="p-3 font-mono font-bold text-teal-600 dark:text-teal-400">{item.sku}</td>
-                              <td className="p-3 font-bold text-slate-900 dark:text-white">{item.name}</td>
+                              <td className="p-3 font-bold text-slate-900 dark:text-white">{resolveText(item.name)}</td>
                               <td className="p-3 capitalize text-slate-500">{item.category}</td>
                               <td className="p-3 font-mono">৳{(item.unitCost || 0).toLocaleString()}</td>
                               <td className="p-3">
@@ -780,6 +791,7 @@ export default function SuperRequisitionsPage() {
               </div>
             </motion.div>
           </div>
+        </Portal>
         )}
       </AnimatePresence>
     </div>

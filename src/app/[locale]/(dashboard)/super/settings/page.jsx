@@ -73,16 +73,16 @@ export default function SystemSettingsPage() {
       setDownloadingBackup(true);
       toast.loading('Compiling and encrypting database snapshot...', { id: 'db-backup' });
       const res = await api.get('/super/system/backup/download', { responseType: 'blob' });
-      const blob = new Blob([res.data], { type: 'application/gzip' });
+      const blob = new Blob([res.data], { type: 'application/octet-stream' });
       const url = URL.createObjectURL(blob);
       const a = document.createElement('a');
       a.href = url;
-      a.download = `SYICT_DB_BACKUP_${new Date().toISOString().slice(0, 10)}.json.gz`;
+      a.download = `SYICT_DB_BACKUP_${new Date().toISOString().slice(0, 10)}.json.gz.enc`;
       a.click();
       URL.revokeObjectURL(url);
-      toast.success('Database backup archive downloaded successfully!', { id: 'db-backup' });
+      toast.success('Encrypted database backup downloaded. Keep the key safe - the archive cannot be opened without it.', { id: 'db-backup' });
     } catch (err) {
-      toast.error('Failed to generate database backup', { id: 'db-backup' });
+      toast.error(err?.response?.data?.message || 'Failed to generate database backup', { id: 'db-backup' });
     } finally {
       setDownloadingBackup(false);
     }
@@ -233,7 +233,7 @@ export default function SystemSettingsPage() {
  };
 
  return (
- <div className="space-y-6 max-w-7xl mx-auto pb-10">
+ <div className="space-y-6 w-full pb-10">
  {/* Header */}
  <header>
  <motion.h1 

@@ -9,6 +9,8 @@ import toast from 'react-hot-toast';
 import Portal from '@/components/ui/Portal';
 import BulkUserImportModal from '@/components/dashboard/BulkUserImportModal';
 import { useRole } from '@/hooks/useRole';
+import { ROLE_FILTERS } from '@/components/super/tables/userTableSchema';
+import { superQueryKeys } from '@/lib/queryKeys';
 import { 
  HiOutlineUserPlus, 
  HiOutlineMagnifyingGlass, 
@@ -77,7 +79,7 @@ export default function GlobalUserManagement() {
  const administrativeRoles = ['super_admin', 'super_management', 'admin', 'branch_admin', 'branch_management'];
 
  const { data: branchesData } = useQuery({
- queryKey: ['branches'],
+ queryKey: superQueryKeys.branches(),
  queryFn: async () => {
  const res = await api.get('/super/branches');
  return res.data?.data || [];
@@ -88,7 +90,7 @@ export default function GlobalUserManagement() {
  const branches = branchesData || [];
 
  const { data: permissionsCatalog = [] } = useQuery({
-  queryKey: ['permissions-catalog'],
+  queryKey: superQueryKeys.permissionsCatalog(),
   queryFn: async () => {
    const res = await api.get('/users/permissions/catalog');
    return res.data?.data?.catalog || [];
@@ -97,7 +99,7 @@ export default function GlobalUserManagement() {
  });
 
  const { data: usersData, isLoading: loading, isPlaceholderData } = useQuery({
- queryKey: ['users', { page, filterRole, filterBranch, search }],
+ queryKey: superQueryKeys.users({ page, filterRole, filterBranch, search }),
  queryFn: async () => {
  const res = await api.get('/users', {
  params: {
@@ -342,7 +344,7 @@ export default function GlobalUserManagement() {
  };
 
  return (
- <div className="space-y-6 pb-10 max-w-7xl mx-auto">
+ <div className="space-y-6 pb-10 w-full">
  {/* Dynamic Header */}
  <header className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
  <div>
@@ -437,14 +439,10 @@ export default function GlobalUserManagement() {
  value={filterRole}
  onChange={(e) => setFilterRole(e.target.value)}
  >
- <option value="">All Roles</option>
- <option value="student">Students</option>
- <option value="instructor">Instructors</option>
- <option value="branch_admin">Branch Admins</option>
- <option value="branch_management">Branch Management</option>
- <option value="super_admin">Super Admins</option>
- <option value="super_management">Super Management</option>
- </select>
+  {ROLE_FILTERS.map(role => (
+  <option key={role.value} value={role.value}>{role.label}</option>
+  ))}
+  </select>
  </div>
  <div className="relative">
  <HiOutlineBuildingOffice className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400" size={18} />

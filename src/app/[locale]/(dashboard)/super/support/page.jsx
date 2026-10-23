@@ -81,7 +81,7 @@ export default function SupportHubPage() {
     if (isDrawerOpen && !isMinimized && selectedTicket?.responses?.length && chatBottomRef.current) {
       chatBottomRef.current.scrollIntoView({ behavior: 'smooth' });
     }
-  }, [selectedTicket?.responses?.length]);
+  }, [selectedTicket?.responses?.length, isDrawerOpen, isMinimized]);
 
   // Handle ESC key to close drawer or modal
   useEffect(() => {
