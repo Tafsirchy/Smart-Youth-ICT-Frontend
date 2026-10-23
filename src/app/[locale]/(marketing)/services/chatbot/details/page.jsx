@@ -1,3 +1,4 @@
+import { toServiceContent } from "@/lib/cms/serviceContent";
 import { fetchServer } from "@/lib/api-server";
 import ChatbotDetailsClient from "@/components/marketing/services/ChatbotDetailsClient";
 
@@ -14,5 +15,5 @@ export default async function ChatbotDetailsPage() {
     console.error("Failed to load chatbot details on server", err);
   }
 
-  return <ChatbotDetailsClient data={content?.details} />;
+  return <ChatbotDetailsClient data={toServiceContent(content).details} />;
 }

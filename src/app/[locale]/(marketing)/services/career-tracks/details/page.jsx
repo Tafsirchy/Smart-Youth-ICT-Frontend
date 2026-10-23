@@ -1,3 +1,4 @@
+import { toServiceContent } from "@/lib/cms/serviceContent";
 import { fetchServer } from "@/lib/api-server";
 import CareerTracksDetailsClient from "@/components/marketing/services/CareerTracksDetailsClient";
 
@@ -12,5 +13,5 @@ export default async function CareerTracksDetailsPage() {
     console.error("Failed to load career tracks details on server", err);
   }
 
-  return <CareerTracksDetailsClient data={content?.details} />;
+  return <CareerTracksDetailsClient data={toServiceContent(content).details} />;
 }

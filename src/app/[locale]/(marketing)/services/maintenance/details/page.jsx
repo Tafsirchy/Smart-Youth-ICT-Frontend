@@ -1,3 +1,4 @@
+import { toServiceContent } from "@/lib/cms/serviceContent";
 import { fetchServer } from "@/lib/api-server";
 import MaintenanceDetailsClient from "@/components/marketing/services/MaintenanceDetailsClient";
 
@@ -12,5 +13,5 @@ export default async function MaintenanceDetailsPage() {
     console.error("Failed to load maintenance details on server", err);
   }
 
-  return <MaintenanceDetailsClient data={content?.details} />;
+  return <MaintenanceDetailsClient data={toServiceContent(content).details} />;
 }

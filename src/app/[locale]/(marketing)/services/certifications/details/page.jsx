@@ -1,3 +1,4 @@
+import { toServiceContent } from "@/lib/cms/serviceContent";
 import { fetchServer } from "@/lib/api-server";
 import CertificationsDetailsClient from "@/components/marketing/services/CertificationsDetailsClient";
 
@@ -12,5 +13,5 @@ export default async function CertificationsDetailsPage() {
     console.error("Failed to load certifications details on server", err);
   }
 
-  return <CertificationsDetailsClient data={content?.details} />;
+  return <CertificationsDetailsClient data={toServiceContent(content).details} />;
 }

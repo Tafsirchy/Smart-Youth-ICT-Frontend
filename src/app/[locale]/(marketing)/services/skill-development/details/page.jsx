@@ -1,3 +1,4 @@
+import { toServiceContent } from "@/lib/cms/serviceContent";
 import { fetchServer } from "@/lib/api-server";
 import SkillDevelopmentDetailsClient from "@/components/marketing/services/SkillDevelopmentDetailsClient";
 
@@ -12,5 +13,5 @@ export default async function SkillDevelopmentDetailsPage() {
     console.error("Failed to load skill development details on server", err);
   }
 
-  return <SkillDevelopmentDetailsClient data={content?.details} />;
+  return <SkillDevelopmentDetailsClient data={toServiceContent(content).details} />;
 }
