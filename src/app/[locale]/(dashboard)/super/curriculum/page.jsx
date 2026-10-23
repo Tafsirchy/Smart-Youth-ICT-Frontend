@@ -16,10 +16,18 @@ import {
  HiOutlineArrowPath,
 } from "react-icons/hi2";
 import Portal from "@/components/ui/Portal";
-import { useState, useEffect } from "react";
+import { useState, useMemo } from "react";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
+import { superQueryKeys } from "@/lib/queryKeys";
 import { motion, AnimatePresence } from "framer-motion";
 import api from "@/lib/api";
 import toast from "react-hot-toast";
+import useSuperTable from "@/hooks/useSuperTable";
+import {
+  COURSE_PAGE_SIZE,
+  courseSearchFields,
+  courseFilter,
+} from "@/components/super/tables/courseTableSchema";
 
 const container = {
  hidden: { opacity: 0 },
@@ -31,7 +39,7 @@ const item = {
  show: { opacity: 1, scale: 1 },
 };
 
-const PAGE_SIZE = 12;
+const PAGE_SIZE = COURSE_PAGE_SIZE;
 
 const createBlankCourseForm = () => ({
  title: { en: "", bn: "" },
@@ -221,11 +229,30 @@ const buildCoursePayload = (form, existingCourse) => ({
 });
 
 export default function MasterCurriculumPage() {
- const [courses, setCourses] = useState([]);
- const [branches, setBranches] = useState([]);
- const [loading, setLoading] = useState(true);
- const [search, setSearch] = useState("");
- const [page, setPage] = useState(1);
+ const queryClient = useQueryClient();
+
+ const {
+   data: courses = [],
+   isLoading: loading,
+   refetch: fetchCourses,
+ } = useQuery({
+   queryKey: superQueryKeys.superCourses(),
+   queryFn: async () => {
+     const res = await api.get("/super/courses");
+     return res.data?.data || [];
+   },
+ });
+
+ const {
+   data: branches = [],
+   refetch: fetchBranches,
+ } = useQuery({
+   queryKey: superQueryKeys.superBranches(),
+   queryFn: async () => {
+     const res = await api.get("/super/branches");
+     return res.data?.data || [];
+   },
+ });
  const [selectedCategories, setSelectedCategories] = useState([]);
  const [priceRange, setPriceRange] = useState({ min: 0, max: 50000 });
  const [showFilters, setShowFilters] = useState(false);
@@ -237,29 +264,6 @@ export default function MasterCurriculumPage() {
  const [deployingCourse, setDeployingCourse] = useState(null);
  const [syncingId, setSyncingId] = useState(null);
  const [courseForm, setCourseForm] = useState(createBlankCourseForm());
-
- useEffect(() => {
- fetchCourses();
- fetchBranches();
- }, []);
-
- const fetchCourses = async () => {
- try {
- const res = await api.get("/super/courses");
- if (res.data?.success) setCourses(res.data.data);
- } catch (err) {
- toast.error("Failed to load master curriculum");
- } finally {
- setLoading(false);
- }
- };
-
- const fetchBranches = async () => {
- try {
- const res = await api.get("/super/branches");
- if (res.data?.success) setBranches(res.data.data);
- } catch (err) {}
- };
 
  const handleCourseSubmit = async (e) => {
  e.preventDefault();
@@ -275,6 +279,7 @@ export default function MasterCurriculumPage() {
  setShowCourseModal(false);
  setEditingCourse(null);
  setCourseForm(createBlankCourseForm());
+ queryClient.invalidateQueries({ queryKey: superQueryKeys.superCourses() });
  fetchCourses();
  } catch (err) {
  toast.error("Failed to save master course");
@@ -291,6 +296,7 @@ export default function MasterCurriculumPage() {
  try {
  await api.delete(`/super/courses/${id}`);
  toast.success("Course deactivated");
+ queryClient.invalidateQueries({ queryKey: superQueryKeys.superCourses() });
  fetchCourses();
  } catch (err) {
  toast.error("Failed to delete");
@@ -342,46 +348,36 @@ export default function MasterCurriculumPage() {
  return prices.length > 0 ? Math.max(...prices) : 50000;
  };
 
- const filteredCourses = courses.filter((c) => {
- const matchesSearch =
- c.title?.en?.toLowerCase().includes(search.toLowerCase()) ||
- c.category?.toLowerCase().includes(search.toLowerCase());
-
- const matchesCategory =
- selectedCategories.length === 0 ||
- selectedCategories.includes(c.category);
-
- const matchesPrice = c.price >= priceRange.min && c.price <= priceRange.max;
-
- return matchesSearch && matchesCategory && matchesPrice;
- });
-
- const totalFiltered = filteredCourses.length;
- const totalPages = Math.max(1, Math.ceil(totalFiltered / PAGE_SIZE));
- const paginatedCourses = filteredCourses.slice(
- (page - 1) * PAGE_SIZE,
- page * PAGE_SIZE,
+ const courseFilterPredicate = useMemo(
+  () => courseFilter(selectedCategories, priceRange),
+  [selectedCategories, priceRange],
  );
 
+ const {
+  search,
+  setSearch,
+  page,
+  setPage,
+  totalPages,
+  total: totalFiltered,
+  rows: paginatedCourses,
+  reset: resetTable,
+ } = useSuperTable({
+  data: courses,
+  searchFields: courseSearchFields,
+  filter: courseFilterPredicate,
+  pageSize: PAGE_SIZE,
+ });
+
  const clearFilters = () => {
- setSearch("");
- setSelectedCategories([]);
- setPriceRange({ min: 0, max: getMaxPrice() });
- setPage(1);
+  resetTable();
+  setSelectedCategories([]);
+  setPriceRange({ min: 0, max: getMaxPrice() });
  };
 
- useEffect(() => {
- setPage(1);
- }, [search, selectedCategories, priceRange]);
-
- useEffect(() => {
- if (page > totalPages) {
- setPage(totalPages);
- }
- }, [page, totalPages]);
 
  return (
- <div className="space-y-6 max-w-7xl mx-auto pb-8">
+ <div className="space-y-6 w-full pb-8">
  {/* Dynamic Header */}
  <header className="flex flex-col md:flex-row md:items-end justify-between gap-4">
  <div>
