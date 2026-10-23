@@ -123,15 +123,39 @@ body {
 h1, h2, h3, h4, h5, h6 {
   font-family: var(--font-display);
   font-weight: 800;
-  line-height: 1.1;
+  line-height: 1.15;
   color: var(--color-text-primary);
   letter-spacing: -0.02em;
 }
 
-h1 { font-size: var(--text-fluid-h1); margin-bottom: 2rem; }
-h2 { font-size: var(--text-fluid-h2); margin-bottom: 1.5rem; }
-h3 { font-size: var(--text-fluid-h3); margin-bottom: 1.25rem; }
-h4 { font-size: var(--text-xl); margin-bottom: 1rem; }
+h1 { font-size: var(--text-fluid-h1); }
+h2 { font-size: var(--text-fluid-h2); }
+h3 { font-size: var(--text-fluid-h3); }
+h4 { font-size: var(--text-xl); }
+
+/* Global optical alignment: strip margins when headings are paired inside flex containers (e.g. with icons or badges) */
+.flex > h1,
+.flex > h2,
+.flex > h3,
+.flex > h4,
+.flex > h5,
+.flex > h6,
+.inline-flex > h1,
+.inline-flex > h2,
+.inline-flex > h3,
+.inline-flex > h4,
+.inline-flex > h5,
+.inline-flex > h6 {
+  margin-top: 0 !important;
+  margin-bottom: 0 !important;
+}
+
+/* Ensure SVG icons in badges and flex rows have zero baseline descent distortion */
+.flex > svg,
+.inline-flex > svg,
+span > svg {
+  display: block;
+}
 
 
 img,
