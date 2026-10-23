@@ -1,3 +1,4 @@
+import { toServiceContent } from "@/lib/cms/serviceContent";
 import { fetchServer } from "@/lib/api-server";
 import CustomAppsClient from "@/components/marketing/services/CustomAppsClient";
 
@@ -8,7 +9,7 @@ export default async function CustomAppsPage() {
       revalidate: 60,
     });
     if (res.data) {
-      data = res.data.landing;
+      data = toServiceContent(res.data).landing;
     }
   } catch (err) {
     console.error("Failed to fetch custom apps data on server", err);

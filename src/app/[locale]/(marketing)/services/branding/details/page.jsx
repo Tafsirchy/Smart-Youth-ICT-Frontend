@@ -1,3 +1,4 @@
+import { toServiceContent } from "@/lib/cms/serviceContent";
 import { fetchServer } from "@/lib/api-server";
 import BrandingDetailsClient from "@/components/marketing/services/BrandingDetailsClient";
 
@@ -12,5 +13,5 @@ export default async function BrandingDetailsPage() {
     console.error("Failed to fetch branding details on server", err);
   }
 
-  return <BrandingDetailsClient data={content?.details} />;
+  return <BrandingDetailsClient data={toServiceContent(content).details} />;
 }
