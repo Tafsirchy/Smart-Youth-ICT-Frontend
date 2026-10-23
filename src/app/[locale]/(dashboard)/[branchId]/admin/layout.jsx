@@ -3,8 +3,8 @@ import { redirect } from 'next/navigation';
 import { authOptions } from '@/lib/auth';
 
 export default async function AdminLayout({ children, params }) {
- const session = await getServerSession(authOptions);
- const { locale, branchId } = params;
+  const session = await getServerSession(authOptions);
+  const { locale, branchId } = await params;
 
  // Roles allowed to access the admin dashboard
   const allowedRoles = ['super_admin', 'super_management', 'branch_admin', 'branch_management', 'employee'];

@@ -7,8 +7,8 @@ import { authOptions } from '@/lib/auth';
  * Enforces global management permissions for all /super routes.
  */
 export default async function SuperDashboardLayout({ children, params }) {
- const session = await getServerSession(authOptions);
- const { locale } = params;
+  const session = await getServerSession(authOptions);
+  const { locale } = await params;
 
  // Roles allowed to access global management
  const allowedRoles = ['super_admin', 'super_management'];

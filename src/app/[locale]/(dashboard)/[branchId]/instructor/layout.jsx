@@ -3,8 +3,8 @@ import { redirect } from 'next/navigation';
 import { authOptions } from '@/lib/auth';
 
 export default async function InstructorLayout({ children, params }) {
- const session = await getServerSession(authOptions);
- const { locale, branchId } = params;
+  const session = await getServerSession(authOptions);
+  const { locale, branchId } = await params;
 
  // Roles allowed to access the instructor dashboard
  const allowedRoles = [
