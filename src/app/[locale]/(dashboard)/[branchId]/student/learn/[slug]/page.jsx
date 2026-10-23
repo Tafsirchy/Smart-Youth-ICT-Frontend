@@ -1,14 +1,14 @@
 'use client';
 
 import React, { useState, useEffect, useCallback } from 'react';
-import { notFound } from 'next/navigation';
+import { notFound, useParams } from 'next/navigation';
 import { IoPlayCircleOutline, IoCheckmarkCircle, IoTimeOutline, IoDocumentTextOutline, IoLockClosedOutline } from 'react-icons/io5';
 import api from '@/lib/api';
 import VideoPlayer from '@/components/courses/VideoPlayer';
 import toast from 'react-hot-toast';
 
-export default function CourseLearningInterface({ params }) {
- const { slug } = params;
+export default function CourseLearningInterface() {
+  const { slug } = useParams();
  const [course, setCourse] = useState(null);
  const [lessons, setLessons] = useState([]);
  const [progress, setProgress] = useState(null);
