@@ -30,6 +30,15 @@ import {
   HiOutlineCurrencyBangladeshi
 } from 'react-icons/hi2';
 
+const formatCourseTitle = (courseOrTitle) => {
+  if (!courseOrTitle) return 'Course';
+  if (typeof courseOrTitle === 'string') return courseOrTitle;
+  if (typeof courseOrTitle === 'object') {
+    return courseOrTitle.en || courseOrTitle.bn || courseOrTitle.title?.en || courseOrTitle.title?.bn || 'Course';
+  }
+  return String(courseOrTitle);
+};
+
 export default function BranchExecutiveAuditPage() {
   const params = useParams();
   const router = useRouter();
@@ -76,7 +85,10 @@ export default function BranchExecutiveAuditPage() {
       };
       if (period === 'custom') {
         if (!customStart || !customEnd) {
-          toast.error('Please select both Start and End dates for custom range');
+          toast('Please select both Start and End dates for custom range', {
+            icon: '📅',
+            duration: 4000
+          });
           setLoading(false);
           return;
         }
@@ -185,7 +197,7 @@ export default function BranchExecutiveAuditPage() {
   const staff = report?.staffingHealth;
 
   return (
-    <div className="min-h-screen space-y-4 max-w-7xl mx-auto px-3 sm:px-6 md:px-8 py-4 pb-10 print:p-0 print:m-0 print:max-w-none text-slate-800">
+    <div className="min-h-screen space-y-4 w-full py-4 pb-10 print:p-0 print:m-0 print:max-w-none text-slate-800">
       
       {/* ─── PRINT HEADER (Visible only when printed) ─── */}
       <div className="hidden print:block border-b-2 border-slate-900 pb-2 mb-3">
@@ -701,7 +713,7 @@ export default function BranchExecutiveAuditPage() {
                           <tr key={idx} className="hover:bg-slate-50">
                             <td className="px-3 py-2 font-bold text-slate-900">{item.studentName || 'N/A'}</td>
                             <td className="px-3 py-2 font-mono">{item.phone || 'N/A'}</td>
-                            <td className="px-3 py-2">{item.course || 'N/A'}</td>
+                            <td className="px-3 py-2">{formatCourseTitle(item.course)}</td>
                             <td className="px-3 py-2 font-bold text-rose-600">৳{item.amount?.toLocaleString()}</td>
                             <td className="px-3 py-2 text-slate-500">{new Date(item.dueDate).toLocaleDateString('en-GB')}</td>
                             <td className="px-3 py-2 text-right">
@@ -764,7 +776,7 @@ export default function BranchExecutiveAuditPage() {
                     acad.popularCourses.map((c, i) => (
                       <div key={i} className="p-2.5 bg-slate-50 rounded-xl border border-slate-200/80 flex items-center justify-between gap-2">
                         <div className="min-w-0">
-                          <p className="text-xs font-bold text-slate-900 truncate leading-[1.4]">{c.title || 'Course'}</p>
+                          <p className="text-xs font-bold text-slate-900 truncate leading-[1.4]">{formatCourseTitle(c.title)}</p>
                           <p className="text-[10px] text-slate-400 font-mono">#{c.courseId?.slice(-6)}</p>
                         </div>
                         <span className="px-2 py-1 bg-indigo-50 text-indigo-700 font-black text-xs rounded-lg shrink-0">
