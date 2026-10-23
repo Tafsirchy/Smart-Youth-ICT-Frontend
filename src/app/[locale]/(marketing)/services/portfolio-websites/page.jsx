@@ -1,3 +1,4 @@
+import { toServiceContent } from "@/lib/cms/serviceContent";
 import { fetchServer } from "@/lib/api-server";
 import PortfolioWebsitesClient from "@/components/marketing/services/PortfolioWebsitesClient";
 
@@ -8,7 +9,7 @@ export default async function PortfolioWebsitesPage() {
       revalidate: 60,
     });
     if (res.data) {
-      data = res.data.landing;
+      data = toServiceContent(res.data).landing;
     }
   } catch (err) {
     console.error("Failed to load portfolio data on server", err);

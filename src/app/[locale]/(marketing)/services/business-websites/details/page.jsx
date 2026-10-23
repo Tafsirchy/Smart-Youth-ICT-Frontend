@@ -1,3 +1,4 @@
+import { toServiceContent } from "@/lib/cms/serviceContent";
 import { fetchServer } from "@/lib/api-server";
 import BusinessDetailsClient from "@/components/marketing/services/BusinessDetailsClient";
 
@@ -8,7 +9,7 @@ export default async function BusinessDetailsPage() {
       revalidate: 60,
     });
     if (res.data) {
-      content = res.data.details;
+      content = toServiceContent(res.data).details;
     }
   } catch (err) {
     console.error("Failed to load business details on server", err);

@@ -1,3 +1,4 @@
+import { toServiceContent } from "@/lib/cms/serviceContent";
 import { fetchServer } from "@/lib/api-server";
 import PortfolioDetailsClient from "@/components/marketing/services/PortfolioDetailsClient";
 
@@ -7,7 +8,7 @@ export default async function PortfolioDetailsPage() {
     const res = await fetchServer("/cms/services/web-software/portfolio-websites", {
       revalidate: 60,
     });
-    if (res.data) content = res.data.details;
+    if (res.data) content = toServiceContent(res.data).details;
   } catch (err) {
     console.error("Failed to load portfolio details on server", err);
   }

@@ -1,3 +1,4 @@
+import { toServiceContent } from "@/lib/cms/serviceContent";
 import { fetchServer } from "@/lib/api-server";
 import BusinessWebsitesClient from "@/components/marketing/services/BusinessWebsitesClient";
 
@@ -8,7 +9,7 @@ export default async function BusinessWebsitesPage() {
       revalidate: 60, // Revalidate every minute
     });
     if (res.data) {
-      data = res.data.landing;
+      data = toServiceContent(res.data).landing;
     }
   } catch (err) {
     console.error("Failed to load business data on server", err);
