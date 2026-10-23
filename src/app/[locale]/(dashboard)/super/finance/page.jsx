@@ -5,212 +5,213 @@ import { motion } from 'framer-motion';
 import api from '@/lib/api';
 import toast from 'react-hot-toast';
 import { 
- HiOutlineCreditCard, 
- HiOutlineChartBar, 
- HiOutlineChartPie,
- HiOutlineBanknotes,
- HiOutlineClock,
- HiOutlineCheckCircle,
- HiOutlineArrowDownTray
+  HiOutlineCreditCard, 
+  HiOutlineChartBar, 
+  HiOutlineChartPie,
+  HiOutlineBanknotes,
+  HiOutlineClock,
+  HiOutlineCheckCircle,
+  HiOutlineArrowDownTray
 } from 'react-icons/hi2';
 
 const container = {
- hidden: { opacity: 0 },
- show: { opacity: 1, transition: { staggerChildren: 0.1 } }
+  hidden: { opacity: 0 },
+  show: { opacity: 1, transition: { staggerChildren: 0.1 } }
 };
 
 const item = {
- hidden: { opacity: 0, y: 20 },
- show: { opacity: 1, y: 0 }
+  hidden: { opacity: 0, y: 20 },
+  show: { opacity: 1, y: 0 }
 };
 
 export default function GlobalFinancePage() {
- const [finance, setFinance] = useState(null);
- const [loading, setLoading] = useState(true);
- const [exporting, setExporting] = useState(false);
+  const [finance, setFinance] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [exporting, setExporting] = useState(false);
 
- useEffect(() => {
- fetchFinance();
- }, []);
+  useEffect(() => {
+    fetchFinance();
+  }, []);
 
- const fetchFinance = async () => {
- try {
- const res = await api.get('/super/finance');
- if (res.data?.success) setFinance(res.data.data);
- } catch (err) {
- toast.error('Failed to load finance report');
- } finally {
- setLoading(false);
- }
- };
+  const fetchFinance = async () => {
+    try {
+      const res = await api.get('/super/finance');
+      if (res.data?.success) setFinance(res.data.data);
+    } catch (err) {
+      toast.error('Failed to load finance report');
+    } finally {
+      setLoading(false);
+    }
+  };
 
- const handleExportLedger = async () => {
- try {
- setExporting(true);
- toast.loading('Preparing Global Ledger...', { id: 'export-ledger' });
- const res = await api.get('/super/finance/export-ledger', { responseType: 'blob' });
- const blob = new Blob([res.data], { type: 'text/csv;charset=utf-8;' });
- const url = URL.createObjectURL(blob);
- const link = document.createElement('a');
- link.href = url;
- link.setAttribute('download', `SYICT_Global_Ledger_${new Date().toISOString().slice(0, 10)}.csv`);
- document.body.appendChild(link);
- link.click();
- document.body.removeChild(link);
- toast.success('Global Ledger exported successfully!', { id: 'export-ledger' });
- } catch (err) {
- toast.error('Failed to export ledger', { id: 'export-ledger' });
- } finally {
- setExporting(false);
- }
- };
+  const handleExportLedger = async () => {
+    try {
+      setExporting(true);
+      toast.loading('Preparing Global Ledger...', { id: 'export-ledger' });
+      const res = await api.get('/super/finance/export-ledger', { responseType: 'blob' });
+      const blob = new Blob([res.data], { type: 'text/csv;charset=utf-8;' });
+      const url = URL.createObjectURL(blob);
+      const link = document.createElement('a');
+      link.href = url;
+      link.setAttribute('download', `SYICT_Global_Ledger_${new Date().toISOString().slice(0, 10)}.csv`);
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      toast.success('Global Ledger exported successfully!', { id: 'export-ledger' });
+    } catch (err) {
+      toast.error('Failed to export ledger', { id: 'export-ledger' });
+    } finally {
+      setExporting(false);
+    }
+  };
 
+  const getStatusTotal = (status) => {
+    return finance?.summary?.find(s => s._id === status)?.total || 0;
+  };
 
- const getStatusTotal = (status) => {
- return finance?.summary?.find(s => s._id === status)?.total || 0;
- };
+  const grandTotal = finance?.summary?.reduce((acc, curr) => acc + curr.total, 0) || 0;
+  const paidTotal = getStatusTotal('paid');
 
- const grandTotal = finance?.summary?.reduce((acc, curr) => acc + curr.total, 0) || 0;
- const paidTotal = getStatusTotal('paid');
+  return (
+    <div className="space-y-4 w-full pb-4">
+      {/* Header */}
+      <header className="flex flex-col md:flex-row md:items-end justify-between gap-3">
+        <div>
+          <motion.h1 
+            initial={{ opacity: 0, x: -20 }}
+            animate={{ opacity: 1, x: 0 }}
+            className="text-4xl font-black text-slate-900 flex items-center gap-2.5 leading-tight"
+          >
+            <span className="p-1.5 bg-emerald-500 text-white shadow-lg shadow-emerald-500/20 rounded-lg">
+              <HiOutlineCreditCard size={32} />
+            </span>
+            Global Finance
+          </motion.h1>
+          <p className="mt-1 text-slate-500 font-medium max-w-md leading-relaxed text-sm">
+            Consolidated fiscal oversight of the entire SYICT network. Real-time revenue tracking and branch-level financial performance.
+          </p>
+        </div>
 
- return (
- <div className="space-y-6 w-full pb-8">
- {/* Header */}
- <header className="flex flex-col md:flex-row md:items-end justify-between gap-4">
- <div>
- <motion.h1 
- initial={{ opacity: 0, x: -20 }}
- animate={{ opacity: 1, x: 0 }}
- className="text-4xl font-black text-slate-900 tracking-tight flex items-center gap-4"
- >
- <span className="p-2 bg-emerald-500 text-white shadow-lg shadow-emerald-500/20 rounded-lg">
- <HiOutlineCreditCard size={32} />
- </span>
- Global Finance
- </motion.h1>
- <p className="mt-2 text-slate-500 font-medium max-w-md">
- Consolidated fiscal oversight of the entire SYICT network. Real-time revenue tracking and branch-level financial performance.
- </p>
- </div>
+        <motion.button
+          whileHover={{ scale: 1.02 }}
+          whileTap={{ scale: 0.98 }}
+          onClick={handleExportLedger} 
+          disabled={exporting} 
+          className="hidden md:flex items-center gap-2 bg-slate-900 text-white px-3 py-1.5 font-bold shadow-xl shadow-slate-900/20 hover:bg-slate-800 transition-all text-sm rounded-md disabled:opacity-50"
+        >
+          <HiOutlineArrowDownTray size={18} />
+          {exporting ? 'Exporting...' : 'Export Global Ledger'}
+        </motion.button>
+      </header>
 
- <motion.button
- whileHover={{ scale: 1.02 }}
- whileTap={{ scale: 0.98 }}
- onClick={handleExportLedger} disabled={exporting} className="hidden md:flex items-center gap-2 bg-slate-900 text-white px-4 py-2 font-bold shadow-xl shadow-slate-900/20 hover:bg-slate-800 transition-all text-sm rounded-md disabled:opacity-50"
- >
- <HiOutlineArrowDownTray size={20} />
- {exporting ? 'Exporting...' : 'Export Global Ledger'}
- </motion.button>
- </header>
+      {/* Hero Stats */}
+      <motion.section 
+        variants={container}
+        initial="hidden"
+        animate="show"
+        className="grid grid-cols-1 md:grid-cols-3 gap-3"
+      >
+        <motion.div variants={item} className="bg-slate-900 p-3.5 shadow-2xl relative overflow-hidden group rounded-md">
+          <div className="absolute top-0 right-0 p-3.5 opacity-10 text-white group-hover:scale-125 transition-transform duration-700">
+            <HiOutlineChartBar size={120} />
+          </div>
+          <p className="text-emerald-400 font-black text-xs uppercase tracking-[0.2em] mb-1 leading-normal">Total Revenue Collected</p>
+          <h2 className="text-5xl font-black text-white">৳{paidTotal.toLocaleString()}</h2>
+          <div className="mt-2.5 flex items-center gap-2 text-emerald-400 font-bold text-sm leading-normal">
+            <span className="bg-emerald-500/20 px-1.5 py-0.5 rounded-md text-xs">{finance?.pnl?.profitMargin != null ? `${finance.pnl.profitMargin}%` : '+100%'}</span>
+            <span className="text-slate-500 font-medium uppercase text-[10px]">From P&L</span>
+          </div>
+        </motion.div>
 
- {/* Hero Stats */}
- <motion.section 
- variants={container}
- initial="hidden"
- animate="show"
- className="grid grid-cols-1 md:grid-cols-3 gap-4"
- >
- <motion.div variants={item} className="bg-slate-900 p-5 shadow-2xl relative overflow-hidden group rounded-md">
- <div className="absolute top-0 right-0 p-5 opacity-10 text-white group-hover:scale-125 transition-transform duration-700">
- <HiOutlineChartBar size={120} />
- </div>
- <p className="text-emerald-400 font-black text-xs uppercase tracking-[0.2em] mb-2">Total Revenue Collected</p>
- <h2 className="text-5xl font-black text-white tracking-tighter">৳{paidTotal.toLocaleString()}</h2>
- <div className="mt-4 flex items-center gap-2 text-emerald-400 font-bold text-sm">
- <span className="bg-emerald-500/20 px-2 py-1 rounded-md">{finance?.pnl?.profitMargin != null ? `${finance.pnl.profitMargin}%` : '+100%'}</span>
- <span className="text-slate-500 font-medium uppercase text-[10px]">From P&L</span>
- </div>
- </motion.div>
+        <motion.div variants={item} className="bg-white p-3.5 border border-slate-100 shadow-sm rounded-md">
+          <p className="text-amber-500 font-black text-xs uppercase tracking-[0.2em] mb-1 leading-normal">Accounts Receivable</p>
+          <h2 className="text-5xl font-black text-slate-900">৳{getStatusTotal('pending').toLocaleString()}</h2>
+          <p className="mt-2.5 text-slate-400 font-medium text-sm flex items-center gap-2 leading-normal">
+            <HiOutlineClock size={16} className="text-amber-400" />
+            Unpaid invoices across all branches
+          </p>
+        </motion.div>
 
- <motion.div variants={item} className="bg-white p-5 border border-slate-100 shadow-sm rounded-md">
- <p className="text-amber-500 font-black text-xs uppercase tracking-[0.2em] mb-2">Accounts Receivable</p>
- <h2 className="text-5xl font-black text-slate-900 tracking-tighter">৳{getStatusTotal('pending').toLocaleString()}</h2>
- <p className="mt-4 text-slate-400 font-medium text-sm flex items-center gap-2">
- <HiOutlineClock size={18} className="text-amber-400" />
- Unpaid invoices across all branches
- </p>
- </motion.div>
+        <motion.div variants={item} className="bg-white p-3.5 border border-slate-100 shadow-sm relative overflow-hidden rounded-md">
+          <div className="absolute inset-0 bg-gradient-to-br from-indigo-50/50 to-transparent opacity-50" />
+          <p className="text-indigo-500 font-black text-xs uppercase tracking-[0.2em] mb-1 relative z-10 leading-normal">Net Cash Flow</p>
+          <h2 className="text-5xl font-black text-slate-900 relative z-10">৳{grandTotal.toLocaleString()}</h2>
+          <p className="mt-2.5 text-slate-400 font-medium text-sm flex items-center gap-2 relative z-10 leading-normal">
+            <HiOutlineChartPie size={16} className="text-indigo-400" />
+            Total processed volume
+          </p>
+        </motion.div>
+      </motion.section>
 
- <motion.div variants={item} className="bg-white p-5 border border-slate-100 shadow-sm relative overflow-hidden rounded-md">
- <div className="absolute inset-0 bg-gradient-to-br from-indigo-50/50 to-transparent opacity-50" />
- <p className="text-indigo-500 font-black text-xs uppercase tracking-[0.2em] mb-2 relative z-10">Net Cash Flow</p>
- <h2 className="text-5xl font-black text-slate-900 tracking-tighter relative z-10">৳{grandTotal.toLocaleString()}</h2>
- <p className="mt-4 text-slate-400 font-medium text-sm flex items-center gap-2 relative z-10">
- <HiOutlineChartPie size={18} className="text-indigo-400" />
- Total processed volume
- </p>
- </motion.div>
- </motion.section>
+      {/* Branch Performance Section */}
+      <section className="grid grid-cols-1 lg:grid-cols-2 gap-3">
+        {/* Branch Leaderboard */}
+        <motion.div 
+          initial={{ opacity: 0, scale: 0.95 }}
+          whileInView={{ opacity: 1, scale: 1 }}
+          viewport={{ once: true }}
+          className="bg-white border border-slate-100 shadow-sm p-3.5 rounded-md"
+        >
+          <div className="flex justify-between items-center mb-3">
+            <h2 className="text-2xl font-black text-slate-900 leading-tight">Branch Revenue</h2>
+            <HiOutlineBanknotes size={20} className="text-slate-300" />
+          </div>
+          <div className="space-y-2">
+            {finance?.branches?.map((branch, idx) => (
+              <div key={branch._id} className="group flex items-center justify-between p-2.5 bg-slate-50/50 hover:bg-slate-50 transition-all rounded-md">
+                <div className="flex items-center gap-3">
+                  <div className="w-7 h-7 bg-white border border-slate-100 flex items-center justify-center font-black text-xs text-slate-400 group-hover:text-emerald-500 group-hover:bg-emerald-50 transition-all rounded-lg">
+                    {idx + 1}
+                  </div>
+                  <div>
+                    <h4 className="font-bold text-slate-800 leading-snug">{branch.name}</h4>
+                    <p className="text-[10px] text-slate-400 font-black uppercase tracking-widest leading-normal">Active Branch</p>
+                  </div>
+                </div>
+                <div className="text-right">
+                  <p className="text-base font-black text-slate-800 leading-snug">৳{branch.revenue.toLocaleString()}</p>
+                  <p className="text-[10px] text-amber-500 font-bold uppercase leading-normal">৳{branch.pending.toLocaleString()} Due</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </motion.div>
 
- {/* Branch Performance Section */}
- <section className="grid grid-cols-1 lg:grid-cols-2 gap-4">
- {/* Branch Leaderboard */}
- <motion.div 
- initial={{ opacity: 0, scale: 0.95 }}
- whileInView={{ opacity: 1, scale: 1 }}
- viewport={{ once: true }}
- className="bg-white border border-slate-100 shadow-sm p-5 rounded-md"
- >
- <div className="flex justify-between items-center mb-5">
- <h2 className="text-2xl font-black text-slate-900 tracking-tight">Branch Revenue</h2>
- <HiOutlineBanknotes size={24} className="text-slate-300" />
- </div>
- <div className="space-y-3">
- {finance?.branches?.map((branch, idx) => (
- <div key={branch._id} className="group flex items-center justify-between p-3 bg-slate-50/50 hover:bg-slate-50 transition-all rounded-md">
- <div className="flex items-center gap-4">
- <div className="w-8 h-8 bg-white border border-slate-100 flex items-center justify-center font-black text-slate-400 group-hover:text-emerald-500 group-hover:bg-emerald-50 transition-all rounded-lg">
- {idx + 1}
- </div>
- <div>
- <h4 className="font-bold text-slate-800">{branch.name}</h4>
- <p className="text-[10px] text-slate-400 font-black uppercase tracking-widest">Active Branch</p>
- </div>
- </div>
- <div className="text-right">
- <p className="text-lg font-black text-slate-800">৳{branch.revenue.toLocaleString()}</p>
- <p className="text-[10px] text-amber-500 font-bold uppercase">৳{branch.pending.toLocaleString()} Due</p>
- </div>
- </div>
- ))}
- </div>
- </motion.div>
+        {/* Global Finance Breakdown (Quick Table) */}
+        <motion.div 
+          initial={{ opacity: 0, scale: 0.95 }}
+          whileInView={{ opacity: 1, scale: 1 }}
+          viewport={{ once: true }}
+          className="bg-white border border-slate-100 shadow-sm overflow-hidden rounded-md"
+        >
+          <div className="px-3.5 py-2.5 border-b border-slate-50">
+            <h2 className="text-2xl font-black text-slate-900 leading-tight">Transaction Status</h2>
+          </div>
+          <div className="divide-y divide-slate-50">
+            {finance?.summary?.map((state) => (
+              <div key={state._id} className="px-3.5 py-2.5 flex items-center justify-between hover:bg-slate-50/50 transition-colors">
+                <div className="flex items-center gap-3">
+                  <div className={`p-1.5 rounded-md ${state._id === 'paid' ? 'bg-emerald-50 text-emerald-500' : 'bg-amber-50 text-amber-500'}`}>
+                    {state._id === 'paid' ? <HiOutlineCheckCircle size={20} /> : <HiOutlineClock size={20} />}
+                  </div>
+                  <div>
+                    <h4 className="font-black text-slate-800 uppercase tracking-widest text-xs leading-normal">{state._id}</h4>
+                    <p className="text-slate-400 font-medium text-xs leading-normal">{state.count} Transactions</p>
+                  </div>
+                </div>
+                <p className="text-xl font-black text-slate-900 font-mono leading-tight">৳{state.total.toLocaleString()}</p>
+              </div>
+            ))}
+          </div>
+        </motion.div>
+      </section>
 
- {/* Global Finance Breakdown (Quick Table) */}
- <motion.div 
- initial={{ opacity: 0, scale: 0.95 }}
- whileInView={{ opacity: 1, scale: 1 }}
- viewport={{ once: true }}
- className="bg-white border border-slate-100 shadow-sm overflow-hidden"
- >
- <div className="p-5 border-b border-slate-50">
- <h2 className="text-2xl font-black text-slate-900 tracking-tight">Transaction Status</h2>
- </div>
- <div className="divide-y divide-slate-50">
- {finance?.summary?.map((state) => (
- <div key={state._id} className="p-5 flex items-center justify-between hover:bg-slate-50/50 transition-colors rounded-md">
- <div className="flex items-center gap-4">
- <div className={`p-2 ${state._id === 'paid' ? 'bg-emerald-50 text-emerald-500' : 'bg-amber-50 text-amber-500'}`}>
- {state._id === 'paid' ? <HiOutlineCheckCircle size={24} /> : <HiOutlineClock size={24} />}
- </div>
- <div>
- <h4 className="font-black text-slate-800 uppercase tracking-widest text-xs">{state._id}</h4>
- <p className="text-slate-400 font-medium text-sm">{state.count} Transactions</p>
- </div>
- </div>
- <p className="text-2xl font-black text-slate-900 font-mono">৳{state.total.toLocaleString()}</p>
- </div>
- ))}
- </div>
- </motion.div>
- </section>
-
- {/* Mobile Sticky CTA */}
- <div className="md:hidden fixed bottom-0 left-0 right-0 p-4 bg-white/80 backdrop-blur-md border-t border-slate-100 pb-[calc(env(safe-area-inset-bottom)+1rem)] z-40">
- <button className="w-full py-4 bg-slate-900 text-white font-black shadow-xl shadow-slate-900/20 flex items-center justify-center gap-2 active:scale-95 transition-all rounded-md">
- <HiOutlineArrowDownTray size={20} /> Export Ledger
- </button>
- </div>
- </div>
- );
+      {/* Mobile Sticky CTA */}
+      <div className="md:hidden fixed bottom-0 left-0 right-0 p-3 bg-white/80 backdrop-blur-md border-t border-slate-100 pb-[calc(env(safe-area-inset-bottom)+0.5rem)] z-40">
+        <button className="w-full py-2.5 bg-slate-900 text-white font-black shadow-xl shadow-slate-900/20 flex items-center justify-center gap-2 active:scale-95 transition-all rounded-md">
+          <HiOutlineArrowDownTray size={18} /> Export Ledger
+        </button>
+      </div>
+    </div>
+  );
 }
