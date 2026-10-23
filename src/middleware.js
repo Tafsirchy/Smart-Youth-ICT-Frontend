@@ -88,6 +88,14 @@ const authMiddleware = withAuth(
 export default function middleware(req) {
   const { pathname } = req.nextUrl;
 
+  // Intercept and rewrite any localized API requests (e.g. /en/api/auth/session -> /api/auth/session)
+  const localizedApiMatch = pathname.match(/^\/(?:en|bn)\/api\/(.*)/);
+  if (localizedApiMatch) {
+    const targetUrl = new URL(`/api/${localizedApiMatch[1]}`, req.url);
+    targetUrl.search = req.nextUrl.search;
+    return NextResponse.rewrite(targetUrl);
+  }
+
   // Protected Dashboard & Role Route Detection
   const isProtectedPath =
     pathname.includes("/super") ||
