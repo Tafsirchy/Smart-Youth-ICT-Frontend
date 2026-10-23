@@ -335,24 +335,24 @@ export default function SupportHubPage() {
   };
 
   return (
-    <div className="relative min-h-[calc(100vh-4rem)] flex flex-col gap-3 max-w-[1600px] mx-auto px-2 sm:px-4 lg:px-6 pb-4">
+    <div className="relative min-h-[calc(100vh-4rem)] flex flex-col gap-2.5 max-w-[1600px] mx-auto px-2 sm:px-3 lg:px-4 pb-3">
       
       {/* Top Header Card - Compact */}
-      <header className="bg-white dark:bg-slate-900 py-3 px-4 rounded-xl border border-slate-200/80 dark:border-slate-800 shadow-sm flex flex-col md:flex-row md:items-center justify-between gap-2.5 flex-shrink-0">
-        <div className="flex items-center gap-3">
-          <div className="p-2 bg-gradient-to-tr from-indigo-600 to-indigo-700 text-white rounded-lg shadow-md shadow-indigo-600/20">
-            <HiOutlineLifebuoy size={22} />
+      <header className="bg-white dark:bg-slate-900 py-2.5 px-3.5 rounded-xl border border-slate-200/80 dark:border-slate-800 shadow-sm flex flex-col md:flex-row md:items-center justify-between gap-2 flex-shrink-0">
+        <div className="flex items-center gap-2.5">
+          <div className="p-1.5 bg-gradient-to-tr from-indigo-600 to-indigo-700 text-white rounded-lg shadow-md shadow-indigo-600/20">
+            <HiOutlineLifebuoy size={20} />
           </div>
           <div>
             <div className="flex items-center gap-2">
-              <h1 className="text-lg sm:text-xl font-black text-slate-900 dark:text-white tracking-tight">
+              <h1 className="text-lg sm:text-xl font-black text-slate-900 dark:text-white tracking-tight leading-tight">
                 Support Central
               </h1>
               <span className="px-2 py-0.5 text-[9px] font-black uppercase tracking-wider bg-indigo-50 dark:bg-indigo-950/60 text-indigo-600 dark:text-indigo-300 rounded-full border border-indigo-200/60 dark:border-indigo-800/60">
                 Live Desk
               </span>
             </div>
-            <p className="text-[11px] text-slate-500 dark:text-slate-400 font-medium">
+            <p className="text-[11px] text-slate-500 dark:text-slate-400 font-medium leading-tight">
               Click any ticket to open the interactive right-side conversation modal
             </p>
           </div>
@@ -362,7 +362,7 @@ export default function SupportHubPage() {
         <div className="flex items-center gap-1.5 flex-wrap">
           <button 
             onClick={() => { setStatusFilter('all'); setPriorityFilter('all'); setCategoryFilter('all'); }}
-            className={`px-2.5 py-1 rounded-lg text-xs font-bold transition-all border ${
+            className={`px-2 py-0.5 rounded-lg text-xs font-bold transition-all border leading-tight ${
               statusFilter === 'all' 
                 ? 'bg-slate-900 text-white border-slate-900 dark:bg-white dark:text-slate-900' 
                 : 'bg-slate-50 dark:bg-slate-800/60 text-slate-600 dark:text-slate-400 border-slate-200 dark:border-slate-700 hover:bg-slate-100'
@@ -373,7 +373,7 @@ export default function SupportHubPage() {
 
           <button 
             onClick={() => setStatusFilter('open')}
-            className={`px-2.5 py-1 rounded-lg text-xs font-bold transition-all border flex items-center gap-1.5 ${
+            className={`px-2 py-0.5 rounded-lg text-xs font-bold transition-all border flex items-center gap-1.5 leading-tight ${
               statusFilter === 'open' 
                 ? 'bg-amber-500 text-white border-amber-500' 
                 : 'bg-amber-50/70 dark:bg-amber-950/30 text-amber-700 dark:text-amber-400 border-amber-200 dark:border-amber-800/50 hover:bg-amber-100'
@@ -385,7 +385,7 @@ export default function SupportHubPage() {
 
           <button 
             onClick={() => setStatusFilter('in-progress')}
-            className={`px-2.5 py-1 rounded-lg text-xs font-bold transition-all border flex items-center gap-1.5 ${
+            className={`px-2 py-0.5 rounded-lg text-xs font-bold transition-all border flex items-center gap-1.5 leading-tight ${
               statusFilter === 'in-progress' 
                 ? 'bg-indigo-600 text-white border-indigo-600' 
                 : 'bg-indigo-50/70 dark:bg-indigo-950/30 text-indigo-700 dark:text-indigo-400 border-indigo-200 dark:border-indigo-800/50 hover:bg-indigo-100'
@@ -396,7 +396,7 @@ export default function SupportHubPage() {
 
           <button 
             onClick={() => setStatusFilter(statusFilter === 'escalated' ? 'all' : 'escalated')}
-            className={`px-2.5 py-1 rounded-lg text-xs font-bold transition-all border flex items-center gap-1.5 ${
+            className={`px-2 py-0.5 rounded-lg text-xs font-bold transition-all border flex items-center gap-1.5 leading-tight ${
               statusFilter === 'escalated' 
                 ? 'bg-rose-600 text-white border-rose-600 shadow-md shadow-rose-600/30' 
                 : 'bg-rose-50/80 dark:bg-rose-950/40 text-rose-700 dark:text-rose-400 border-rose-200 dark:border-rose-800/60 hover:bg-rose-100'
@@ -408,7 +408,7 @@ export default function SupportHubPage() {
 
           <button 
             onClick={() => setStatusFilter('resolved')}
-            className={`px-2.5 py-1 rounded-lg text-xs font-bold transition-all border flex items-center gap-1.5 ${
+            className={`px-2 py-0.5 rounded-lg text-xs font-bold transition-all border flex items-center gap-1.5 leading-tight ${
               statusFilter === 'resolved' 
                 ? 'bg-emerald-600 text-white border-emerald-600' 
                 : 'bg-emerald-50/70 dark:bg-emerald-950/30 text-emerald-700 dark:text-emerald-400 border-emerald-200 dark:border-emerald-800/50 hover:bg-emerald-100'
@@ -420,29 +420,29 @@ export default function SupportHubPage() {
           <button
             onClick={() => fetchTickets(false)}
             title="Refresh tickets"
-            className="p-1.5 rounded-lg text-slate-500 hover:text-slate-900 dark:text-slate-400 dark:hover:text-white bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 hover:bg-slate-100 transition-all"
+            className="p-1 rounded-lg text-slate-500 hover:text-slate-900 dark:text-slate-400 dark:hover:text-white bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 hover:bg-slate-100 transition-all"
           >
-            <HiOutlineArrowPath size={16} className={loading ? 'animate-spin' : ''} />
+            <HiOutlineArrowPath size={15} className={loading ? 'animate-spin' : ''} />
           </button>
         </div>
       </header>
 
       {/* Control Bar: Compact Search & Filters */}
-      <div className="flex flex-col sm:flex-row items-center justify-between gap-2.5 bg-white dark:bg-slate-900 py-2 px-3 rounded-xl border border-slate-200/80 dark:border-slate-800 shadow-sm flex-shrink-0">
+      <div className="flex flex-col sm:flex-row items-center justify-between gap-2 bg-white dark:bg-slate-900 py-1.5 px-3 rounded-xl border border-slate-200/80 dark:border-slate-800 shadow-sm flex-shrink-0">
         {/* Search Input */}
         <div className="relative w-full sm:max-w-md">
-          <HiOutlineMagnifyingGlass className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" size={16} />
+          <HiOutlineMagnifyingGlass className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" size={15} />
           <input
             type="text"
             placeholder="Search by student, subject, ID..."
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            className="w-full pl-9 pr-8 py-1.5 text-xs font-medium rounded-lg border border-slate-200 dark:border-slate-700 bg-slate-50/60 dark:bg-slate-800/60 text-slate-900 dark:text-slate-100 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 transition-all"
+            className="w-full pl-8 pr-7 py-1.5 text-xs font-medium rounded-lg border border-slate-200 dark:border-slate-700 bg-slate-50/60 dark:bg-slate-800/60 text-slate-900 dark:text-slate-100 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 transition-all leading-snug"
           />
           {searchQuery && (
             <button 
               onClick={() => setSearchQuery('')}
-              className="absolute right-2.5 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600 dark:hover:text-slate-200"
+              className="absolute right-2 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600 dark:hover:text-slate-200"
             >
               <HiOutlineXMark size={14} />
             </button>
@@ -450,14 +450,14 @@ export default function SupportHubPage() {
         </div>
 
         {/* Priority & Category selectors */}
-        <div className="flex items-center gap-2 w-full sm:w-auto overflow-x-auto pb-0.5 sm:pb-0">
+        <div className="flex items-center gap-1.5 w-full sm:w-auto overflow-x-auto pb-0.5 sm:pb-0">
           <div className="flex items-center gap-1 text-[11px] font-semibold text-slate-400 flex-shrink-0">
             <span className="uppercase tracking-wider text-[10px]">Priority:</span>
             {['all', 'high', 'medium', 'low'].map((p) => (
               <button
                 key={p}
                 onClick={() => setPriorityFilter(p)}
-                className={`px-2 py-0.5 rounded uppercase font-black text-[9px] transition-all ${
+                className={`px-1.5 py-0.5 rounded uppercase font-black text-[9px] transition-all leading-tight ${
                   priorityFilter === p 
                     ? 'bg-indigo-600 text-white shadow-sm' 
                     : 'bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400 hover:bg-slate-200 dark:hover:bg-slate-700'
@@ -468,12 +468,12 @@ export default function SupportHubPage() {
             ))}
           </div>
 
-          <div className="h-3.5 w-px bg-slate-200 dark:bg-slate-700 mx-1 hidden sm:block" />
+          <div className="h-3.5 w-px bg-slate-200 dark:bg-slate-700 mx-0.5 hidden sm:block" />
 
           <select
             value={categoryFilter}
             onChange={(e) => setCategoryFilter(e.target.value)}
-            className="text-xs font-bold px-2.5 py-1 rounded-lg border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-slate-700 dark:text-slate-200 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+            className="text-xs font-bold px-2 py-1 rounded-lg border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-slate-700 dark:text-slate-200 focus:outline-none focus:ring-2 focus:ring-indigo-500 leading-snug"
           >
             <option value="all">All Categories</option>
             <option value="course">Course & Academics</option>
@@ -488,24 +488,24 @@ export default function SupportHubPage() {
       {/* Main Full-Width Ticket Workspace Table / Cards */}
       <div className="flex-1 bg-white dark:bg-slate-900 rounded-xl border border-slate-200/80 dark:border-slate-800 shadow-sm overflow-hidden flex flex-col min-h-0">
         {loading ? (
-          <div className="p-6 space-y-3">
+          <div className="p-4 space-y-2.5">
             {[1, 2, 3, 4, 5].map((i) => (
-              <div key={i} className="animate-pulse flex items-center justify-between p-3 bg-slate-50 dark:bg-slate-800/40 rounded-lg">
-                <div className="space-y-1.5 w-1/2">
-                  <div className="h-3.5 bg-slate-200 dark:bg-slate-700 rounded w-3/4"></div>
-                  <div className="h-2.5 bg-slate-100 dark:bg-slate-800 rounded w-1/3"></div>
+              <div key={i} className="animate-pulse flex items-center justify-between p-2.5 bg-slate-50 dark:bg-slate-800/40 rounded-lg">
+                <div className="space-y-1 w-1/2">
+                  <div className="h-3 bg-slate-200 dark:bg-slate-700 rounded w-3/4"></div>
+                  <div className="h-2 bg-slate-100 dark:bg-slate-800 rounded w-1/3"></div>
                 </div>
-                <div className="h-5 bg-slate-200 dark:bg-slate-700 rounded w-16"></div>
+                <div className="h-4 bg-slate-200 dark:bg-slate-700 rounded w-16"></div>
               </div>
             ))}
           </div>
         ) : filteredTickets.length === 0 ? (
-          <div className="p-12 text-center text-slate-400 space-y-2">
-            <div className="w-12 h-12 mx-auto rounded-full bg-slate-100 dark:bg-slate-800 flex items-center justify-center text-slate-400">
-              <HiOutlineLifebuoy size={24} />
+          <div className="p-8 text-center text-slate-400 space-y-1.5">
+            <div className="w-10 h-10 mx-auto rounded-full bg-slate-100 dark:bg-slate-800 flex items-center justify-center text-slate-400">
+              <HiOutlineLifebuoy size={22} />
             </div>
-            <p className="text-sm font-bold text-slate-700 dark:text-slate-200">No tickets found</p>
-            <p className="text-xs max-w-sm mx-auto">
+            <p className="text-xs font-bold text-slate-700 dark:text-slate-200">No tickets found</p>
+            <p className="text-[11px] max-w-sm mx-auto">
               Try switching your filter or clearing search terms.
             </p>
           </div>
@@ -521,7 +521,7 @@ export default function SupportHubPage() {
                 <div
                   key={ticket._id}
                   onClick={() => handleOpenTicket(ticket)}
-                  className={`py-2.5 sm:py-3 px-3 sm:px-4 transition-all cursor-pointer flex flex-col md:flex-row md:items-center justify-between gap-2.5 hover:bg-indigo-50/40 dark:hover:bg-indigo-950/20 group relative border-l-4 ${
+                  className={`py-2 sm:py-2.5 px-3 sm:px-3.5 transition-all cursor-pointer flex flex-col md:flex-row md:items-center justify-between gap-2 hover:bg-indigo-50/40 dark:hover:bg-indigo-950/20 group relative border-l-4 ${
                     isSelected 
                       ? 'bg-indigo-50/70 dark:bg-indigo-950/40 border-indigo-600' 
                       : 'border-transparent hover:border-indigo-400'
@@ -529,29 +529,29 @@ export default function SupportHubPage() {
                 >
                   {/* Left Column: Subject & Excerpt */}
                   <div className="flex-1 min-w-0 pr-2">
-                    <div className="flex items-center gap-1.5 flex-wrap mb-1">
-                      <span className={`px-1.5 py-0.5 rounded text-[9px] font-black uppercase tracking-wider border ${statusStyles[ticket.status] || statusStyles['open']}`}>
+                    <div className="flex items-center gap-1.5 flex-wrap mb-0.5">
+                      <span className={`px-1.5 py-0.5 rounded text-[9px] font-black uppercase tracking-wider border leading-tight ${statusStyles[ticket.status] || statusStyles['open']}`}>
                         {ticket.status}
                       </span>
                       {ticket.isEscalated || ticket.isSlaBreached ? (
-                        <span className="px-1.5 py-0.5 rounded text-[8px] font-black uppercase tracking-wider bg-rose-600 text-white animate-pulse">
+                        <span className="px-1.5 py-0.5 rounded text-[8px] font-black uppercase tracking-wider bg-rose-600 text-white animate-pulse leading-tight">
                           🚨 SLA Breached
                         </span>
                       ) : ticket.status === 'resolved' ? (
-                        <span className="px-1.5 py-0.5 rounded text-[8px] font-bold uppercase tracking-wider bg-emerald-100 text-emerald-800">
+                        <span className="px-1.5 py-0.5 rounded text-[8px] font-bold uppercase tracking-wider bg-emerald-100 text-emerald-800 leading-tight">
                           ✓ SLA Met
                         </span>
                       ) : (
-                        <span className="px-1.5 py-0.5 rounded text-[8px] font-bold uppercase tracking-wider bg-amber-100 text-amber-800">
+                        <span className="px-1.5 py-0.5 rounded text-[8px] font-bold uppercase tracking-wider bg-amber-100 text-amber-800 leading-tight">
                           ⏰ SLA Active
                         </span>
                       )}
                       {isHigh && (
-                        <span className="px-1.5 py-0.5 rounded text-[8px] font-black uppercase tracking-wider bg-rose-500 text-white animate-pulse">
+                        <span className="px-1.5 py-0.5 rounded text-[8px] font-black uppercase tracking-wider bg-rose-500 text-white animate-pulse leading-tight">
                           High
                         </span>
                       )}
-                      <span className="px-1.5 py-0.5 rounded text-[9px] font-bold uppercase tracking-wider bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400">
+                      <span className="px-1.5 py-0.5 rounded text-[9px] font-bold uppercase tracking-wider bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400 leading-tight">
                         {ticket.category || 'General'}
                       </span>
                       <span className="text-[10px] font-bold text-slate-400">
@@ -564,38 +564,38 @@ export default function SupportHubPage() {
                       )}
                     </div>
 
-                    <h3 className="text-xs sm:text-sm font-bold text-slate-900 dark:text-white group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors line-clamp-1">
+                    <h3 className="text-xs sm:text-sm font-bold text-slate-900 dark:text-white group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors line-clamp-1 leading-snug">
                       {ticket.subject}
                     </h3>
                     
-                    <p className="text-[11px] text-slate-500 dark:text-slate-400 line-clamp-1 mt-0.5 font-medium">
+                    <p className="text-[11px] text-slate-500 dark:text-slate-400 line-clamp-1 mt-0.5 font-medium leading-normal">
                       {ticket.message}
                     </p>
                   </div>
 
                   {/* Middle: Student Details */}
-                  <div className="flex items-center gap-2.5 sm:min-w-[180px]">
-                    <div className="w-8 h-8 rounded-lg bg-indigo-100 dark:bg-indigo-950 text-indigo-700 dark:text-indigo-300 font-black flex items-center justify-center text-xs shadow-sm flex-shrink-0">
+                  <div className="flex items-center gap-2 sm:min-w-[160px]">
+                    <div className="w-7 h-7 rounded-lg bg-indigo-100 dark:bg-indigo-950 text-indigo-700 dark:text-indigo-300 font-black flex items-center justify-center text-xs shadow-sm flex-shrink-0">
                       {ticket.user?.name ? ticket.user.name.charAt(0).toUpperCase() : 'U'}
                     </div>
                     <div className="min-w-0">
-                      <p className="text-xs font-bold text-slate-800 dark:text-slate-200 truncate">
+                      <p className="text-xs font-bold text-slate-800 dark:text-slate-200 truncate leading-tight">
                         {ticket.user?.name || 'Unknown User'}
                       </p>
-                      <p className="text-[10px] text-slate-400 truncate">
+                      <p className="text-[10px] text-slate-400 truncate leading-tight">
                         {ticket.user?.email || 'No email'}
                       </p>
                     </div>
                   </div>
 
                   {/* Right Column: Time & Open Action */}
-                  <div className="flex items-center justify-between md:justify-end gap-3 flex-shrink-0 pt-1 md:pt-0 border-t md:border-t-0 border-slate-100 dark:border-slate-800">
+                  <div className="flex items-center justify-between md:justify-end gap-2.5 flex-shrink-0 pt-1 md:pt-0 border-t md:border-t-0 border-slate-100 dark:border-slate-800">
                     <div className="text-right">
-                      <p className="text-[10px] font-semibold text-slate-500 dark:text-slate-400 flex items-center gap-1 justify-end">
-                        <HiOutlineClock size={12} />
+                      <p className="text-[10px] font-semibold text-slate-500 dark:text-slate-400 flex items-center gap-1 justify-end leading-tight">
+                        <HiOutlineClock size={11} />
                         {formatDistanceToNow(createdDate, { addSuffix: true })}
                       </p>
-                      <p className="text-[10px] text-slate-400">
+                      <p className="text-[10px] text-slate-400 leading-tight">
                         {ticket.responses?.length || 0} response{ticket.responses?.length === 1 ? '' : 's'}
                         {hasAttachment && ' • 📎'}
                       </p>
@@ -606,11 +606,11 @@ export default function SupportHubPage() {
                         e.stopPropagation();
                         handleOpenTicket(ticket);
                       }}
-                      className="px-2.5 py-1.5 rounded-lg bg-indigo-50 dark:bg-indigo-950/60 hover:bg-indigo-600 text-indigo-600 dark:text-indigo-300 hover:text-white font-bold text-xs flex items-center gap-1 transition-all shadow-sm"
+                      className="px-2 py-1 rounded-lg bg-indigo-50 dark:bg-indigo-950/60 hover:bg-indigo-600 text-indigo-600 dark:text-indigo-300 hover:text-white font-bold text-xs flex items-center gap-1 transition-all shadow-sm leading-tight"
                     >
-                      <HiOutlineChatBubbleLeftRight size={14} />
+                      <HiOutlineChatBubbleLeftRight size={13} />
                       <span>Chat</span>
-                      <HiOutlineChevronRight size={12} className="group-hover:translate-x-0.5 transition-transform" />
+                      <HiOutlineChevronRight size={11} className="group-hover:translate-x-0.5 transition-transform" />
                     </button>
                   </div>
                 </div>
@@ -644,25 +644,25 @@ export default function SupportHubPage() {
               className="fixed top-0 right-0 bottom-0 w-full sm:w-[620px] md:w-[700px] lg:w-[760px] bg-white dark:bg-slate-900 shadow-2xl border-l border-slate-200 dark:border-slate-800 z-50 flex flex-col overflow-hidden transform-gpu"
             >
               {/* Unified Compact Header (Minimizes vertical negative space) */}
-              <div className="px-3.5 py-2.5 border-b border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 flex items-center justify-between gap-2 flex-shrink-0 z-10">
+              <div className="px-3 py-2 border-b border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 flex items-center justify-between gap-1.5 flex-shrink-0 z-10">
                 {/* Left: User Avatar + Name + Status & Priority */}
                 <div className="flex items-center gap-2 min-w-0">
-                  <div className="w-8 h-8 rounded-lg bg-indigo-100 dark:bg-indigo-950 text-indigo-700 dark:text-indigo-300 font-black flex items-center justify-center text-xs flex-shrink-0 border border-indigo-200/50">
+                  <div className="w-7 h-7 rounded-lg bg-indigo-100 dark:bg-indigo-950 text-indigo-700 dark:text-indigo-300 font-black flex items-center justify-center text-xs flex-shrink-0 border border-indigo-200/50">
                     {selectedTicket.user?.name ? selectedTicket.user.name.charAt(0).toUpperCase() : 'U'}
                   </div>
                   <div className="min-w-0">
                     <div className="flex items-center gap-1.5 flex-wrap">
-                      <span className="text-xs font-bold text-slate-900 dark:text-white truncate">
+                      <span className="text-xs font-bold text-slate-900 dark:text-white truncate leading-tight">
                         {selectedTicket.user?.name || 'Student'}
                       </span>
                       <span className="text-[10px] text-slate-400 font-bold uppercase tracking-wider">
                         #{selectedTicket._id.slice(-6)}
                       </span>
-                      <span className={`px-1.5 py-0.2 rounded text-[9px] font-black uppercase tracking-wider border ${statusStyles[selectedTicket.status] || statusStyles['open']}`}>
+                      <span className={`px-1.5 py-0.2 rounded text-[9px] font-black uppercase tracking-wider border leading-tight ${statusStyles[selectedTicket.status] || statusStyles['open']}`}>
                         {selectedTicket.status}
                       </span>
                     </div>
-                    <div className="flex items-center gap-2 text-[10px] text-slate-400 font-medium">
+                    <div className="flex items-center gap-2 text-[10px] text-slate-400 font-medium leading-tight">
                       {selectedTicket.user?.email && (
                         <a 
                           href={`mailto:${selectedTicket.user.email}`} 
@@ -680,12 +680,12 @@ export default function SupportHubPage() {
                 </div>
 
                 {/* Right: Status Dropdowns & Modal Controls */}
-                <div className="flex items-center gap-1.5 flex-shrink-0">
+                <div className="flex items-center gap-1 flex-shrink-0">
                   <select
                     value={selectedTicket.status || 'open'}
                     onChange={(e) => handleUpdateStatus(e.target.value)}
                     disabled={updatingStatus}
-                    className="text-[11px] font-bold px-2 py-1 rounded-md border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-slate-800 dark:text-slate-200 focus:outline-none focus:ring-1 focus:ring-indigo-500"
+                    className="text-[11px] font-bold px-1.5 py-0.5 rounded-md border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-slate-800 dark:text-slate-200 focus:outline-none focus:ring-1 focus:ring-indigo-500 leading-tight"
                   >
                     <option value="open">Open</option>
                     <option value="in-progress">In Progress</option>
@@ -696,7 +696,7 @@ export default function SupportHubPage() {
                     value={selectedTicket.priority || 'medium'}
                     onChange={(e) => handleUpdatePriority(e.target.value)}
                     disabled={updatingStatus}
-                    className="text-[11px] font-bold px-2 py-1 rounded-md border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-slate-800 dark:text-slate-200 focus:outline-none focus:ring-1 focus:ring-indigo-500"
+                    className="text-[11px] font-bold px-1.5 py-0.5 rounded-md border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-slate-800 dark:text-slate-200 focus:outline-none focus:ring-1 focus:ring-indigo-500 leading-tight"
                   >
                     <option value="low">Low</option>
                     <option value="medium">Medium</option>
@@ -708,7 +708,7 @@ export default function SupportHubPage() {
                     <button
                       onClick={() => handleEscalate(selectedTicket._id)}
                       title="Escalate ticket to HQ Critical SLA"
-                      className="px-2.5 py-1 rounded-md bg-rose-600 hover:bg-rose-700 text-white font-black text-[10px] flex items-center gap-1 shadow-sm transition-all active:scale-95"
+                      className="px-2 py-0.5 rounded-md bg-rose-600 hover:bg-rose-700 text-white font-black text-[10px] flex items-center gap-1 shadow-sm transition-all active:scale-95 leading-tight"
                     >
                       🚨 Escalate
                     </button>
@@ -718,73 +718,73 @@ export default function SupportHubPage() {
                     <button
                       onClick={() => handleUpdateStatus('resolved')}
                       disabled={updatingStatus}
-                      className="px-2.5 py-1 rounded-md bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-[11px] flex items-center gap-1 shadow-sm transition-all active:scale-95"
+                      className="px-2 py-0.5 rounded-md bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-[11px] flex items-center gap-1 shadow-sm transition-all active:scale-95 leading-tight"
                     >
-                      <HiOutlineCheckCircle size={14} />
+                      <HiOutlineCheckCircle size={13} />
                       Resolve
                     </button>
                   )}
 
-                  <div className="h-4 w-px bg-slate-200 dark:bg-slate-700 mx-0.5" />
+                  <div className="h-3.5 w-px bg-slate-200 dark:bg-slate-700 mx-0.5" />
 
                   <button
                     onClick={handleMinimizeToggle}
                     title="Minimize (keep in dock)"
-                    className="p-1.5 rounded-lg text-slate-400 hover:text-slate-700 dark:hover:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 transition-all"
+                    className="p-1 rounded-lg text-slate-400 hover:text-slate-700 dark:hover:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 transition-all"
                   >
-                    <HiOutlineMinus size={16} />
+                    <HiOutlineMinus size={15} />
                   </button>
                   <button
                     onClick={handleCloseDrawer}
                     title="Close (Esc)"
-                    className="p-1.5 rounded-lg text-slate-400 hover:text-rose-600 hover:bg-rose-50 dark:hover:bg-rose-950/30 transition-all"
+                    className="p-1 rounded-lg text-slate-400 hover:text-rose-600 hover:bg-rose-50 dark:hover:bg-rose-950/30 transition-all"
                   >
-                    <HiOutlineXMark size={18} />
+                    <HiOutlineXMark size={16} />
                   </button>
                 </div>
               </div>
 
               {/* Subject Ribbon (Compact single-line) */}
-              <div className="px-3.5 py-1.5 bg-slate-50/70 dark:bg-slate-950/40 border-b border-slate-100 dark:border-slate-800/80 flex items-center justify-between text-xs flex-shrink-0">
-                <p className="font-bold text-slate-800 dark:text-slate-100 truncate flex-1 pr-2">
+              <div className="px-3 py-1 bg-slate-50/70 dark:bg-slate-950/40 border-b border-slate-100 dark:border-slate-800/80 flex items-center justify-between text-xs flex-shrink-0">
+                <p className="font-bold text-slate-800 dark:text-slate-100 truncate flex-1 pr-2 leading-tight">
                   <span className="text-slate-400 font-semibold mr-1">Subject:</span> {selectedTicket.subject}
                 </p>
                 {selectedTicket.createdAt && (
-                  <span className="text-[10px] text-slate-400 flex items-center gap-1 flex-shrink-0">
+                  <span className="text-[10px] text-slate-400 flex items-center gap-1 flex-shrink-0 leading-tight">
                     <HiOutlineClock size={11} /> {format(new Date(selectedTicket.createdAt), 'MMM dd, HH:mm')}
                   </span>
                 )}
               </div>
 
               {/* Expanded Conversation Area (Takes maximum vertical height) */}
-              <div className="flex-1 overflow-y-auto p-3 sm:p-4 space-y-3 custom-scrollbar bg-slate-50/40 dark:bg-slate-950/30 min-h-0">
+              <div className="flex-1 overflow-y-auto p-2.5 sm:p-3 space-y-2.5 custom-scrollbar bg-slate-50/40 dark:bg-slate-950/30 min-h-0">
                 {/* Original Question Card (Compact) */}
-                <div className="flex gap-2.5">
-                  <div className="w-8 h-8 rounded-lg bg-indigo-100 dark:bg-indigo-950 text-indigo-700 dark:text-indigo-300 font-black flex items-center justify-center text-xs flex-shrink-0 shadow-sm border border-indigo-200 dark:border-indigo-800">
+                <div className="flex gap-2">
+                  <div className="w-7 h-7 rounded-lg bg-indigo-100 dark:bg-indigo-950 text-indigo-700 dark:text-indigo-300 font-black flex items-center justify-center text-xs flex-shrink-0 shadow-sm border border-indigo-200 dark:border-indigo-800">
                     {selectedTicket.user?.name ? selectedTicket.user.name.charAt(0).toUpperCase() : 'S'}
                   </div>
-                  <div className="flex-1 space-y-1">
+                  <div className="flex-1 space-y-0.5">
                     <div className="flex items-center gap-2">
-                      <span className="text-xs font-bold text-slate-900 dark:text-white">
+                      <span className="text-xs font-bold text-slate-900 dark:text-white leading-tight">
                         {selectedTicket.user?.name || 'Inquirer'}
                       </span>
-                      <span className="text-[9px] text-slate-400 font-semibold">
+                      <span className="text-[9px] text-slate-400 font-semibold leading-tight">
                         Initial Query
                       </span>
                     </div>
 
-                    <div className="py-2.5 px-3.5 rounded-xl rounded-tl-none bg-white dark:bg-slate-800 border border-slate-200/80 dark:border-slate-700 shadow-sm text-slate-800 dark:text-slate-100 text-xs sm:text-sm leading-relaxed whitespace-pre-wrap">
+                    <div className="py-2 px-3 rounded-xl rounded-tl-none bg-white dark:bg-slate-800 border border-slate-200/80 dark:border-slate-700 shadow-sm text-slate-800 dark:text-slate-100 text-xs sm:text-sm leading-normal whitespace-pre-wrap">
                       {selectedTicket.message}
 
                       {/* Original Attachment */}
                       {selectedTicket.attachment && (
-                        <div className="mt-2 pt-2 border-t border-slate-100 dark:border-slate-700">
-                          <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1 flex items-center gap-1">
-                            <HiOutlinePaperClip size={12} /> Attachment
+                        <div className="mt-1.5 pt-1.5 border-t border-slate-100 dark:border-slate-700">
+                          <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1 flex items-center gap-1 leading-tight">
+                            <HiOutlinePaperClip size={11} /> Attachment
                           </p>
                           <div 
                             onClick={() => setPreviewImage(selectedTicket.attachment)}
-                            className="relative group cursor-pointer inline-block overflow-hidden rounded-lg border border-slate-200 dark:border-slate-700 max-w-xs max-h-36"
+                            className="relative group cursor-pointer inline-block overflow-hidden rounded-lg border border-slate-200 dark:border-slate-700 max-w-xs max-h-32"
                           >
                             <img 
                               src={selectedTicket.attachment} 
@@ -792,7 +792,7 @@ export default function SupportHubPage() {
                               className="object-cover w-full h-auto transition-transform group-hover:scale-105" 
                             />
                             <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center text-white text-[11px] font-bold gap-1">
-                              <HiOutlineEye size={14} /> View
+                              <HiOutlineEye size={13} /> View
                             </div>
                           </div>
                         </div>
@@ -807,32 +807,32 @@ export default function SupportHubPage() {
                   return (
                     <div 
                       key={idx} 
-                      className={`flex gap-2.5 ${isStaff ? 'flex-row-reverse' : ''}`}
+                      className={`flex gap-2 ${isStaff ? 'flex-row-reverse' : ''}`}
                     >
-                      <div className={`w-8 h-8 rounded-lg flex items-center justify-center flex-shrink-0 shadow-sm font-black text-xs ${
+                      <div className={`w-7 h-7 rounded-lg flex items-center justify-center flex-shrink-0 shadow-sm font-black text-xs ${
                         isStaff 
                           ? 'bg-gradient-to-br from-indigo-600 to-indigo-800 text-white shadow-indigo-500/20' 
                           : 'bg-indigo-100 dark:bg-indigo-950 text-indigo-700 dark:text-indigo-300 border border-indigo-200 dark:border-indigo-800'
                       }`}>
-                        {isStaff ? <HiOutlineLifebuoy size={16} /> : (resp.user?.name ? resp.user.name.charAt(0).toUpperCase() : 'U')}
+                        {isStaff ? <HiOutlineLifebuoy size={15} /> : (resp.user?.name ? resp.user.name.charAt(0).toUpperCase() : 'U')}
                       </div>
 
-                      <div className={`flex-1 space-y-1 ${isStaff ? 'items-end' : ''}`}>
-                        <div className={`flex items-center gap-2 ${isStaff ? 'justify-end' : ''}`}>
-                          <span className="text-xs font-bold text-slate-900 dark:text-white">
+                      <div className={`flex-1 space-y-0.5 ${isStaff ? 'items-end' : ''}`}>
+                        <div className={`flex items-center gap-1.5 ${isStaff ? 'justify-end' : ''}`}>
+                          <span className="text-xs font-bold text-slate-900 dark:text-white leading-tight">
                             {resp.user?.name || (isStaff ? 'Head Office Support' : 'Student')}
                           </span>
                           {isStaff && (
-                            <span className="px-1.5 py-0.2 rounded text-[8px] font-black uppercase tracking-wider bg-indigo-100 dark:bg-indigo-950 text-indigo-700 dark:text-indigo-300">
+                            <span className="px-1.5 py-0.2 rounded text-[8px] font-black uppercase tracking-wider bg-indigo-100 dark:bg-indigo-950 text-indigo-700 dark:text-indigo-300 leading-tight">
                               Staff
                             </span>
                           )}
-                          <span className="text-[9px] text-slate-400 font-semibold">
+                          <span className="text-[9px] text-slate-400 font-semibold leading-tight">
                             {resp.createdAt ? format(new Date(resp.createdAt), 'MMM dd, HH:mm') : ''}
                           </span>
                         </div>
 
-                        <div className={`py-2.5 px-3.5 rounded-xl text-xs sm:text-sm leading-relaxed whitespace-pre-wrap shadow-sm ${
+                        <div className={`py-2 px-3 rounded-xl text-xs sm:text-sm leading-normal whitespace-pre-wrap shadow-sm ${
                           isStaff 
                             ? 'rounded-tr-none bg-gradient-to-br from-indigo-600 to-indigo-700 text-white shadow-indigo-600/10' 
                             : 'rounded-tl-none bg-white dark:bg-slate-800 border border-slate-200/80 dark:border-slate-700 text-slate-800 dark:text-slate-100'
@@ -841,13 +841,13 @@ export default function SupportHubPage() {
 
                           {/* Response Attachment */}
                           {resp.attachment && (
-                            <div className={`mt-2 pt-2 border-t ${isStaff ? 'border-white/20' : 'border-slate-100 dark:border-slate-700'}`}>
-                              <p className={`text-[10px] font-bold uppercase tracking-wider mb-1 flex items-center gap-1 ${isStaff ? 'text-indigo-100' : 'text-slate-400'}`}>
-                                <HiOutlinePaperClip size={12} /> Attachment
+                            <div className={`mt-1.5 pt-1.5 border-t ${isStaff ? 'border-white/20' : 'border-slate-100 dark:border-slate-700'}`}>
+                              <p className={`text-[10px] font-bold uppercase tracking-wider mb-1 flex items-center gap-1 leading-tight ${isStaff ? 'text-indigo-100' : 'text-slate-400'}`}>
+                                <HiOutlinePaperClip size={11} /> Attachment
                               </p>
                               <div 
                                 onClick={() => setPreviewImage(resp.attachment)}
-                                className="relative group cursor-pointer inline-block overflow-hidden rounded-lg border border-white/20 max-w-xs max-h-36"
+                                className="relative group cursor-pointer inline-block overflow-hidden rounded-lg border border-white/20 max-w-xs max-h-32"
                               >
                                 <img 
                                   src={resp.attachment} 
@@ -855,7 +855,7 @@ export default function SupportHubPage() {
                                   className="object-cover w-full h-auto transition-transform group-hover:scale-105" 
                                 />
                                 <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center text-white text-[11px] font-bold gap-1">
-                                  <HiOutlineEye size={14} /> View
+                                  <HiOutlineEye size={13} /> View
                                 </div>
                               </div>
                             </div>
@@ -869,10 +869,10 @@ export default function SupportHubPage() {
               </div>
 
               {/* Quick Canned Responses & Compact Reply Bar */}
-              <div className="p-2 sm:p-2.5 border-t border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 flex-shrink-0 space-y-1.5">
+              <div className="p-1.5 sm:p-2 border-t border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 flex-shrink-0 space-y-1">
                 {/* Ultra-compact Canned Responses Pills */}
-                <div className="flex items-center gap-1.5 overflow-x-auto pb-0.5 custom-scrollbar text-[10px]">
-                  <span className="text-[9px] font-black uppercase tracking-wider text-slate-400 flex items-center gap-1 flex-shrink-0">
+                <div className="flex items-center gap-1 overflow-x-auto pb-0.5 custom-scrollbar text-[10px]">
+                  <span className="text-[9px] font-black uppercase tracking-wider text-slate-400 flex items-center gap-1 flex-shrink-0 leading-tight">
                     <HiOutlineSparkles size={11} className="text-amber-500" /> Quick:
                   </span>
                   {QUICK_CAN_RESPONSES.map((qr, i) => (
@@ -880,17 +880,17 @@ export default function SupportHubPage() {
                       key={i}
                       type="button"
                       onClick={() => setReply(prev => (prev ? `${prev} ${qr}` : qr))}
-                      className="px-2 py-0.5 rounded-md bg-slate-100 dark:bg-slate-800 hover:bg-indigo-50 dark:hover:bg-indigo-950/50 hover:text-indigo-600 dark:hover:text-indigo-400 text-slate-600 dark:text-slate-300 font-medium whitespace-nowrap transition-all flex-shrink-0 border border-slate-200/50 dark:border-slate-700/50 text-[10px]"
+                      className="px-1.5 py-0.5 rounded-md bg-slate-100 dark:bg-slate-800 hover:bg-indigo-50 dark:hover:bg-indigo-950/50 hover:text-indigo-600 dark:hover:text-indigo-400 text-slate-600 dark:text-slate-300 font-medium whitespace-nowrap transition-all flex-shrink-0 border border-slate-200/50 dark:border-slate-700/50 text-[10px] leading-tight"
                     >
-                      {qr.slice(0, 28)}...
+                      {qr.slice(0, 26)}...
                     </button>
                   ))}
                 </div>
 
                 {/* Attachment Preview Chip */}
                 {replyAttachment && (
-                  <div className="flex items-center gap-2 py-1 px-2 rounded-lg bg-indigo-50 dark:bg-indigo-950/40 border border-indigo-200 dark:border-indigo-800 w-fit">
-                    <img src={replyAttachment} alt="Preview" className="w-8 h-8 object-cover rounded" />
+                  <div className="flex items-center gap-2 py-0.5 px-2 rounded-lg bg-indigo-50 dark:bg-indigo-950/40 border border-indigo-200 dark:border-indigo-800 w-fit">
+                    <img src={replyAttachment} alt="Preview" className="w-7 h-7 object-cover rounded" />
                     <div className="text-[11px]">
                       <p className="font-bold text-indigo-900 dark:text-indigo-200 leading-tight">Screenshot Attached</p>
                     </div>
@@ -904,7 +904,7 @@ export default function SupportHubPage() {
                 )}
 
                 {/* Compact Textarea + Actions */}
-                <div className="flex items-end gap-1.5 bg-slate-50 dark:bg-slate-800/80 p-1.5 rounded-xl border border-slate-200 dark:border-slate-700 focus-within:border-indigo-500 focus-within:ring-2 focus-within:ring-indigo-500/20 transition-all">
+                <div className="flex items-end gap-1.5 bg-slate-50 dark:bg-slate-800/80 p-1 sm:p-1.5 rounded-xl border border-slate-200 dark:border-slate-700 focus-within:border-indigo-500 focus-within:ring-2 focus-within:ring-indigo-500/20 transition-all">
                   <input 
                     type="file" 
                     ref={fileInputRef} 
@@ -917,9 +917,9 @@ export default function SupportHubPage() {
                     type="button"
                     onClick={() => fileInputRef.current?.click()}
                     title="Attach image/screenshot"
-                    className="p-1.5 text-slate-400 hover:text-indigo-600 dark:hover:text-indigo-400 hover:bg-slate-200/60 dark:hover:bg-slate-700 rounded-lg transition-all flex-shrink-0"
+                    className="p-1 text-slate-400 hover:text-indigo-600 dark:hover:text-indigo-400 hover:bg-slate-200/60 dark:hover:bg-slate-700 rounded-lg transition-all flex-shrink-0"
                   >
-                    <HiOutlinePaperClip size={18} />
+                    <HiOutlinePaperClip size={16} />
                   </button>
 
                   <textarea
@@ -933,20 +933,20 @@ export default function SupportHubPage() {
                     }}
                     placeholder="Type reply to student... (Ctrl+Enter to send)"
                     rows={1}
-                    className="flex-1 bg-transparent border-none outline-none resize-none text-xs sm:text-sm font-medium text-slate-800 dark:text-slate-100 placeholder-slate-400 py-1 max-h-24"
+                    className="flex-1 bg-transparent border-none outline-none resize-none text-xs sm:text-sm font-medium text-slate-800 dark:text-slate-100 placeholder-slate-400 py-1 max-h-24 leading-snug"
                   />
 
                   <button
                     type="button"
                     onClick={handleReply}
                     disabled={submittingReply || (!reply.trim() && !replyAttachment)}
-                    className={`p-2 rounded-lg font-bold text-white shadow transition-all flex-shrink-0 flex items-center justify-center ${
+                    className={`p-1.5 rounded-lg font-bold text-white shadow transition-all flex-shrink-0 flex items-center justify-center ${
                       submittingReply || (!reply.trim() && !replyAttachment)
                         ? 'bg-slate-300 dark:bg-slate-700 cursor-not-allowed shadow-none'
                         : 'bg-indigo-600 hover:bg-indigo-700 hover:scale-105 active:scale-95 shadow-indigo-600/30'
                     }`}
                   >
-                    <HiArrowUp size={16} className={submittingReply ? 'animate-bounce' : ''} />
+                    <HiArrowUp size={15} className={submittingReply ? 'animate-bounce' : ''} />
                   </button>
                 </div>
               </div>
