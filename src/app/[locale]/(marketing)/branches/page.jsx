@@ -9,8 +9,8 @@ export const metadata = {
 export default async function BranchesPage({ params }) {
   const { locale } = await params;
   return (
- <div className="min-h-screen bg-neutral-50 dark:bg-neutral-950 pt-24 pb-12">
- <BranchDirectory locale={locale} />
- </div>
- );
+    <div className="min-h-screen bg-neutral-50 dark:bg-neutral-950 pt-16 sm:pt-20 pb-6">
+      <BranchDirectory locale={locale} />
+    </div>
+  );
 }
