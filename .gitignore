@@ -32,3 +32,8 @@ Thumbs.db
 *.sw?
 .vercel
 .env*
+
+# User uploads
+public/uploads/*
+!public/uploads/.gitkeep
+
