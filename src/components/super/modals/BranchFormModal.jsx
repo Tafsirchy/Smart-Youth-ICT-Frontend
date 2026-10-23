@@ -340,7 +340,7 @@ export default function BranchFormModal({
                         initial={{ scale: 0.95, opacity: 0, y: 20 }}
                         animate={{ scale: 1, opacity: 1, y: 0 }}
                         exit={{ scale: 0.95, opacity: 0, y: 20 }}
-                        className="bg-white dark:bg-slate-900 w-full max-w-4xl shadow-2xl overflow-hidden flex flex-col max-h-[90vh] border border-slate-100 dark:border-slate-800"
+                        className="bg-white dark:bg-slate-900 w-full max-w-4xl shadow-2xl overflow-hidden flex flex-col max-h-[90vh] border border-slate-100 dark:border-slate-800 rounded-2xl"
                     >
                         {/* Modal Header */}
                         <div className="p-6 pb-4 border-b border-slate-100 dark:border-slate-800 flex justify-between items-start bg-slate-50/50 dark:bg-slate-800/50">
@@ -361,7 +361,7 @@ export default function BranchFormModal({
                         </div>
 
                         {/* Modal 4 Tabs */}
-                        <div className="px-6 py-2.5 flex gap-2 border-b border-slate-100 dark:border-slate-800 overflow-x-auto no-scrollbar bg-slate-50/20">
+                        <div className="px-6 py-3 flex items-center gap-2 border-b border-slate-100 dark:border-slate-800 overflow-x-auto no-scrollbar bg-slate-50/30 dark:bg-slate-800/20">
                             {[
                                 { id: "identity", label: "Identity & Media", icon: HiOutlineGlobeAlt },
                                 { id: "presence", label: "Geospatial & Map", icon: HiOutlineMapPin },
@@ -370,14 +370,15 @@ export default function BranchFormModal({
                             ].map((t) => (
                                 <button
                                     key={t.id}
+                                    type="button"
                                     onClick={() => setActiveTab(t.id)}
-                                    className={`flex items-center gap-2 px-4 py-2 text-xs font-black uppercase tracking-wider transition-all whitespace-nowrap ${
+                                    className={`flex items-center gap-2 px-4 py-2.5 text-xs font-bold uppercase tracking-wider transition-all whitespace-nowrap rounded-xl ${
                                         activeTab === t.id
-                                            ? "bg-slate-900 dark:bg-pink-600 text-white shadow-sm"
-                                            : "text-slate-500 hover:text-slate-800 dark:hover:text-slate-200"
+                                            ? "bg-slate-900 dark:bg-pink-600 text-white shadow-md shadow-slate-900/10 font-black"
+                                            : "text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-800"
                                     }`}
                                 >
-                                    <t.icon size={16} />
+                                    <t.icon size={16} className={activeTab === t.id ? "text-pink-400 dark:text-pink-200" : "text-slate-400"} />
                                     {t.label}
                                 </button>
                             ))}
