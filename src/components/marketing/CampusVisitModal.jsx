@@ -1,212 +1,294 @@
 'use client';
 
 import React, { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import { IoCloseOutline, IoCalendarOutline, IoLocationOutline, IoCallOutline, IoPersonOutline, IoMailOutline, IoBookOutline, IoChatbubbleEllipsesOutline } from 'react-icons/io5';
+import { motion } from 'framer-motion';
+import {
+  IoCloseOutline,
+  IoCalendarOutline,
+  IoLocationOutline,
+  IoCallOutline,
+  IoPersonOutline,
+  IoMailOutline,
+  IoCheckmarkCircleOutline,
+  IoLogoWhatsapp,
+} from 'react-icons/io5';
 import axios from 'axios';
 import { getApiBaseUrl } from '@/lib/api-base';
 import toast from 'react-hot-toast';
 
+const TIME_SLOTS = [
+  'Morning (10:30 AM - 12:30 PM)',
+  'Afternoon (02:30 PM - 04:30 PM)',
+  'Evening (05:30 PM - 07:30 PM)',
+];
+
+const PURPOSES = [
+  'Campus & Lab Tour',
+  'Career & Course Counseling',
+  'Offline Spot Admission',
+];
+
 export default function CampusVisitModal({ branch, onClose }) {
- const [formData, setFormData] = useState({
- name: '',
- phone: '',
- email: '',
- interest: '',
- message: ''
- });
- const [submitting, setSubmitting] = useState(false);
- const [submitted, setSubmitted] = useState(false);
+  const tomorrow = new Date();
+  tomorrow.setDate(tomorrow.getDate() + 1);
+  const minDateStr = tomorrow.toISOString().split('T')[0];
 
- if (!branch) return null;
+  const [purpose, setPurpose] = useState(PURPOSES[0]);
+  const [preferredDate, setPreferredDate] = useState(minDateStr);
+  const [timeSlot, setTimeSlot] = useState(TIME_SLOTS[0]);
 
- const handleSubmit = async (e) => {
- e.preventDefault();
- if (!formData.name || !formData.phone) {
- toast.error('Please enter your name and phone number');
- return;
- }
+  const [formData, setFormData] = useState({
+    name: '',
+    phone: '',
+    email: '',
+    note: '',
+  });
 
- setSubmitting(true);
- try {
- const res = await axios.post(`${getApiBaseUrl()}/branches/public/${branch._id}/inquiry`, formData);
- if (res.data?.success) {
- setSubmitted(true);
- toast.success('Inquiry submitted successfully!');
- }
- } catch (err) {
- toast.error(err.response?.data?.message || 'Failed to submit inquiry. Please try again.');
- } finally {
- setSubmitting(false);
- }
- };
+  const [submitting, setSubmitting] = useState(false);
+  const [bookingRef, setBookingRef] = useState(null);
 
- return (
- <div className="fixed inset-0 z-[1000] flex items-center justify-center p-2 sm:p-4 bg-black/60 backdrop-blur-sm animate-in fade-in duration-200">
- <motion.div
- initial={{ opacity: 0, scale: 0.95, y: 15 }}
- animate={{ opacity: 1, scale: 1, y: 0 }}
- exit={{ opacity: 0, scale: 0.95, y: 15 }}
- className="relative w-full max-w-lg bg-white dark:bg-neutral-900 sm: shadow-2xl overflow-hidden border border-neutral-100 dark:border-neutral-800"
- >
- {/* Header */}
- <div className="p-5 sm:p-6 pb-4 border-b border-neutral-100 dark:border-neutral-800 flex items-start justify-between bg-gradient-to-r from-blue-50/50 to-indigo-50/50 dark:from-neutral-900 dark:to-neutral-900">
- <div>
- <div className="flex items-center gap-2 mb-1">
- <span className="p-1.5 bg-blue-600 text-white shadow-md shadow-blue-500/20 rounded-md">
- <IoCalendarOutline size={16} />
- </span>
- <span className="text-xs font-bold uppercase tracking-wider text-blue-600 dark:text-blue-400">
- Schedule Campus Visit
- </span>
- </div>
- <h3 className="text-xl font-black text-neutral-900 dark:text-white">
- Visit {branch.name}
- </h3>
- <p className="text-xs text-neutral-500 dark:text-neutral-400 mt-0.5 flex items-center gap-1">
- <IoLocationOutline size={14} className="text-blue-600 shrink-0" />
- <span>{[branch.address?.area, branch.address?.city].filter(Boolean).join(', ') || 'Campus Location'}</span>
- </p>
- </div>
- <button
- onClick={onClose}
- aria-label="Close modal"
- className="p-2.5 text-neutral-400 hover:text-neutral-600 dark:hover:text-white bg-white dark:bg-neutral-800 shadow-sm hover:bg-neutral-100 active:scale-95 transition-all min-h-[44px] min-w-[44px] flex items-center justify-center rounded-md"
- >
- <IoCloseOutline size={20} />
- </button>
- </div>
+  if (!branch) return null;
 
- {/* Content */}
- <div className="p-5 sm:p-6 max-h-[75vh] overflow-y-auto pb-[max(1.25rem,env(safe-area-inset-bottom))]">
- {submitted ? (
- <div className="text-center py-8 space-y-4">
- <div className="w-16 h-16 bg-emerald-100 dark:bg-emerald-900/30 text-emerald-600 flex items-center justify-center mx-auto text-3xl">
- ✓
- </div>
- <h4 className="text-xl font-black text-neutral-900 dark:text-white">
- Visit Request Received!
- </h4>
- <p className="text-sm text-neutral-600 dark:text-neutral-400 max-w-sm mx-auto leading-relaxed">
- Thank you, <strong className="text-neutral-900 dark:text-white">{formData.name}</strong>. Our campus counselor at <strong className="text-neutral-900 dark:text-white">{branch.name}</strong> will reach out via <strong className="text-neutral-900 dark:text-white">{formData.phone}</strong> to confirm your appointment and lab tour.
- </p>
- <button
- onClick={onClose}
- className="mt-4 min-h-[44px] px-6 py-2.5 bg-blue-600 hover:bg-blue-700 active:scale-95 text-white font-bold text-xs uppercase tracking-wider transition-all shadow-lg shadow-blue-600/20 rounded-md"
- >
- Close Window
- </button>
- </div>
- ) : (
- <form onSubmit={handleSubmit} className="space-y-4">
- <div>
- <label className="block text-xs font-bold text-neutral-700 dark:text-neutral-300 uppercase tracking-wider mb-1.5">
- Your Full Name <span className="text-red-500">*</span>
- </label>
- <div className="relative">
- <IoPersonOutline className="absolute left-3.5 top-1/2 -translate-y-1/2 text-neutral-400" size={16} />
- <input
- type="text"
- required
- placeholder="e.g. Abdullah Al Mamun"
- value={formData.name}
- onChange={(e) => setFormData({ ...formData, name: e.target.value })}
- className="w-full min-h-[44px] pl-10 pr-4 py-2.5 bg-neutral-50 dark:bg-neutral-800/60 border border-neutral-200 dark:border-neutral-700 text-base sm:text-sm font-medium focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 outline-none transition-all dark:text-white"
- />
- </div>
- </div>
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    if (!formData.name.trim() || !formData.phone.trim()) {
+      toast.error('Please enter your full name and phone number');
+      return;
+    }
 
- <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
- <div>
- <label className="block text-xs font-bold text-neutral-700 dark:text-neutral-300 uppercase tracking-wider mb-1.5">
- Phone Number <span className="text-red-500">*</span>
- </label>
- <div className="relative">
- <IoCallOutline className="absolute left-3.5 top-1/2 -translate-y-1/2 text-neutral-400" size={16} />
- <input
- type="tel"
- required
- placeholder="017XXXXXXXX"
- value={formData.phone}
- onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
- className="w-full min-h-[44px] pl-10 pr-4 py-2.5 bg-neutral-50 dark:bg-neutral-800/60 border border-neutral-200 dark:border-neutral-700 text-base sm:text-sm font-medium focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 outline-none transition-all dark:text-white"
- />
- </div>
- </div>
+    setSubmitting(true);
+    const refCode = `SY-${Math.floor(1000 + Math.random() * 9000)}`;
 
- <div>
- <label className="block text-xs font-bold text-neutral-700 dark:text-neutral-300 uppercase tracking-wider mb-1.5">
- Email Address
- </label>
- <div className="relative">
- <IoMailOutline className="absolute left-3.5 top-1/2 -translate-y-1/2 text-neutral-400" size={16} />
- <input
- type="email"
- placeholder="your.email@gmail.com"
- value={formData.email}
- onChange={(e) => setFormData({ ...formData, email: e.target.value })}
- className="w-full min-h-[44px] pl-10 pr-4 py-2.5 bg-neutral-50 dark:bg-neutral-800/60 border border-neutral-200 dark:border-neutral-700 text-base sm:text-sm font-medium focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 outline-none transition-all dark:text-white"
- />
- </div>
- </div>
- </div>
+    const payload = {
+      name: formData.name.trim(),
+      phone: formData.phone.trim(),
+      email: formData.email.trim(),
+      interest: `${purpose} @ ${branch.name}`,
+      message: `[Ref: ${refCode}] Date: ${preferredDate} | Slot: ${timeSlot} | Purpose: ${purpose}${
+        formData.note ? ` | Note: ${formData.note}` : ''
+      }`,
+    };
 
- <div>
- <label className="block text-xs font-bold text-neutral-700 dark:text-neutral-300 uppercase tracking-wider mb-1.5">
- Course of Interest (Optional)
- </label>
- <div className="relative">
- <IoBookOutline className="absolute left-3.5 top-1/2 -translate-y-1/2 text-neutral-400" size={16} />
- <input
- type="text"
- placeholder="e.g. MERN Stack, Graphic Design, AI Prompt Engineering"
- value={formData.interest}
- onChange={(e) => setFormData({ ...formData, interest: e.target.value })}
- className="w-full min-h-[44px] pl-10 pr-4 py-2.5 bg-neutral-50 dark:bg-neutral-800/60 border border-neutral-200 dark:border-neutral-700 text-base sm:text-sm font-medium focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 outline-none transition-all dark:text-white"
- />
- </div>
- </div>
+    try {
+      const res = await axios.post(
+        `${getApiBaseUrl()}/branches/public/${branch._id}/inquiry`,
+        payload
+      );
 
- <div>
- <label className="block text-xs font-bold text-neutral-700 dark:text-neutral-300 uppercase tracking-wider mb-1.5">
- Questions or Preferred Visiting Date
- </label>
- <div className="relative">
- <IoChatbubbleEllipsesOutline className="absolute left-3.5 top-3 text-neutral-400" size={16} />
- <textarea
- rows={3}
- placeholder="Let us know what day or time works best for you, or any specific questions..."
- value={formData.message}
- onChange={(e) => setFormData({ ...formData, message: e.target.value })}
- className="w-full pl-10 pr-4 py-2.5 bg-neutral-50 dark:bg-neutral-800/60 border border-neutral-200 dark:border-neutral-700 text-base sm:text-sm font-medium focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 outline-none transition-all dark:text-white resize-none"
- ></textarea>
- </div>
- </div>
+      if (res.data?.success) {
+        setBookingRef(refCode);
+        toast.success('Visit scheduled successfully!');
+      }
+    } catch (err) {
+      toast.error(
+        err.response?.data?.message || 'Failed to submit request. Please try again.'
+      );
+    } finally {
+      setSubmitting(false);
+    }
+  };
 
- <div className="pt-2 flex flex-col sm:flex-row items-center justify-end gap-2.5">
- <button
- type="button"
- onClick={onClose}
- className="w-full sm:w-auto min-h-[44px] px-5 py-2.5 text-neutral-600 dark:text-neutral-400 hover:bg-neutral-100 dark:hover:bg-neutral-800 font-bold text-xs uppercase tracking-wider transition-colors active:scale-95 flex items-center justify-center rounded-md"
- >
- Cancel
- </button>
- <button
- type="submit"
- disabled={submitting}
- className="w-full sm:w-auto min-h-[44px] px-6 py-2.5 bg-blue-600 hover:bg-blue-700 disabled:opacity-50 text-white font-bold text-xs uppercase tracking-wider transition-all shadow-md shadow-blue-600/20 active:scale-95 flex items-center justify-center gap-2 rounded-md"
- >
- {submitting ? (
- <div className="w-4 h-4 border-2 border-white border-t-transparent animate-spin" />
- ) : (
- 'Confirm Visit Request'
- )}
- </button>
- </div>
- </form>
- )}
- </div>
- </motion.div>
- </div>
- );
+  const getWhatsAppUrl = () => {
+    const rawPhone = branch.whatsapp || branch.contact?.phones?.[0] || '01922772303';
+    const cleanPhone = rawPhone.replace(/[^0-9]/g, '');
+    const phoneWithCountry = cleanPhone.startsWith('88') ? cleanPhone : `88${cleanPhone}`;
+    const text = encodeURIComponent(
+      `Hello Smart Youth ICT ${branch.name}!\nI have scheduled a campus visit.\n• Name: ${formData.name}\n• Ref: ${bookingRef}\n• Date: ${preferredDate} (${timeSlot})\n• Purpose: ${purpose}`
+    );
+    return `https://wa.me/${phoneWithCountry}?text=${text}`;
+  };
+
+  return (
+    <div className="fixed inset-0 z-[1100] flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm animate-in fade-in duration-200">
+      <motion.div
+        initial={{ opacity: 0, scale: 0.96 }}
+        animate={{ opacity: 1, scale: 1 }}
+        exit={{ opacity: 0, scale: 0.96 }}
+        className="relative w-full max-w-md bg-white dark:bg-neutral-900 rounded-2xl shadow-xl overflow-hidden border border-neutral-200 dark:border-neutral-800"
+      >
+        {/* Header */}
+        <div className="p-5 border-b border-neutral-100 dark:border-neutral-800 flex items-center justify-between">
+          <div>
+            <span className="text-[10px] font-bold uppercase tracking-wider text-blue-600 dark:text-blue-400">
+              Schedule Campus Visit
+            </span>
+            <h3 className="text-lg font-bold text-neutral-900 dark:text-white leading-tight m-0 mt-0.5">
+              {branch.name}
+            </h3>
+            <p className="text-xs text-neutral-500 mt-0.5 flex items-center gap-1">
+              <IoLocationOutline size={13} className="text-blue-600 shrink-0" />
+              <span>{[branch.address?.area, branch.address?.city].filter(Boolean).join(', ')}</span>
+            </p>
+          </div>
+
+          <button
+            type="button"
+            onClick={onClose}
+            className="p-1.5 text-neutral-400 hover:text-neutral-700 dark:hover:text-white rounded-lg transition-colors"
+          >
+            <IoCloseOutline size={20} />
+          </button>
+        </div>
+
+        {/* Content */}
+        <div className="p-5">
+          {bookingRef ? (
+            <div className="text-center py-4 space-y-4">
+              <div className="w-12 h-12 bg-emerald-50 dark:bg-emerald-950/40 text-emerald-600 rounded-full flex items-center justify-center mx-auto">
+                <IoCheckmarkCircleOutline size={28} />
+              </div>
+
+              <div>
+                <span className="text-[11px] font-bold px-2.5 py-1 bg-emerald-50 text-emerald-700 dark:bg-emerald-950/40 dark:text-emerald-400 rounded-md">
+                  Reference: {bookingRef}
+                </span>
+                <h4 className="text-lg font-bold text-neutral-900 dark:text-white mt-2">
+                  Visit Request Submitted!
+                </h4>
+                <p className="text-xs text-neutral-500 mt-1">
+                  Our coordinator at {branch.name} will contact you shortly to confirm your visit.
+                </p>
+              </div>
+
+              <div className="pt-2 flex flex-col gap-2">
+                <a
+                  href={getWhatsAppUrl()}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="w-full py-2.5 bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs uppercase tracking-wider rounded-xl transition-colors flex items-center justify-center gap-1.5"
+                >
+                  <IoLogoWhatsapp size={16} />
+                  Confirm on WhatsApp
+                </a>
+
+                <button
+                  type="button"
+                  onClick={onClose}
+                  className="w-full py-2 text-neutral-500 hover:text-neutral-800 dark:hover:text-neutral-200 text-xs font-semibold"
+                >
+                  Done
+                </button>
+              </div>
+            </div>
+          ) : (
+            <form onSubmit={handleSubmit} className="space-y-4">
+              {/* Purpose */}
+              <div>
+                <label className="block text-xs font-bold text-neutral-700 dark:text-neutral-300 uppercase tracking-wider mb-1">
+                  Reason for Visit
+                </label>
+                <select
+                  value={purpose}
+                  onChange={(e) => setPurpose(e.target.value)}
+                  className="w-full px-3 py-2 bg-neutral-50 dark:bg-neutral-800 border border-neutral-200 dark:border-neutral-700 text-xs font-medium rounded-xl outline-none focus:border-blue-500 dark:text-white"
+                >
+                  {PURPOSES.map((p) => (
+                    <option key={p} value={p}>
+                      {p}
+                    </option>
+                  ))}
+                </select>
+              </div>
+
+              {/* Date & Time */}
+              <div className="grid grid-cols-2 gap-3">
+                <div>
+                  <label className="block text-xs font-bold text-neutral-700 dark:text-neutral-300 uppercase tracking-wider mb-1">
+                    Date
+                  </label>
+                  <input
+                    type="date"
+                    required
+                    min={minDateStr}
+                    value={preferredDate}
+                    onChange={(e) => setPreferredDate(e.target.value)}
+                    className="w-full px-3 py-2 bg-neutral-50 dark:bg-neutral-800 border border-neutral-200 dark:border-neutral-700 text-xs font-medium rounded-xl outline-none focus:border-blue-500 dark:text-white"
+                  />
+                </div>
+
+                <div>
+                  <label className="block text-xs font-bold text-neutral-700 dark:text-neutral-300 uppercase tracking-wider mb-1">
+                    Time Window
+                  </label>
+                  <select
+                    value={timeSlot}
+                    onChange={(e) => setTimeSlot(e.target.value)}
+                    className="w-full px-2 py-2 bg-neutral-50 dark:bg-neutral-800 border border-neutral-200 dark:border-neutral-700 text-xs font-medium rounded-xl outline-none focus:border-blue-500 dark:text-white"
+                  >
+                    {TIME_SLOTS.map((s) => (
+                      <option key={s} value={s}>
+                        {s.split(' ')[0]}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+              </div>
+
+              {/* Name & Phone */}
+              <div className="space-y-3">
+                <div>
+                  <label className="block text-xs font-bold text-neutral-700 dark:text-neutral-300 uppercase tracking-wider mb-1">
+                    Full Name <span className="text-red-500">*</span>
+                  </label>
+                  <div className="relative">
+                    <IoPersonOutline className="absolute left-3 top-1/2 -translate-y-1/2 text-neutral-400" size={15} />
+                    <input
+                      type="text"
+                      required
+                      placeholder="e.g. Abdullah Al Mamun"
+                      value={formData.name}
+                      onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                      className="w-full pl-9 pr-3 py-2 bg-neutral-50 dark:bg-neutral-800 border border-neutral-200 dark:border-neutral-700 text-xs font-medium rounded-xl outline-none focus:border-blue-500 dark:text-white"
+                    />
+                  </div>
+                </div>
+
+                <div>
+                  <label className="block text-xs font-bold text-neutral-700 dark:text-neutral-300 uppercase tracking-wider mb-1">
+                    Phone Number <span className="text-red-500">*</span>
+                  </label>
+                  <div className="relative">
+                    <IoCallOutline className="absolute left-3 top-1/2 -translate-y-1/2 text-neutral-400" size={15} />
+                    <input
+                      type="tel"
+                      required
+                      placeholder="017XXXXXXXX"
+                      value={formData.phone}
+                      onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
+                      className="w-full pl-9 pr-3 py-2 bg-neutral-50 dark:bg-neutral-800 border border-neutral-200 dark:border-neutral-700 text-xs font-medium rounded-xl outline-none focus:border-blue-500 dark:text-white"
+                    />
+                  </div>
+                </div>
+              </div>
+
+              {/* Submit */}
+              <div className="pt-2 flex items-center justify-end gap-2">
+                <button
+                  type="button"
+                  onClick={onClose}
+                  className="px-4 py-2 text-xs font-bold text-neutral-500 hover:text-neutral-800 dark:hover:text-neutral-200 transition-colors"
+                >
+                  Cancel
+                </button>
+                <button
+                  type="submit"
+                  disabled={submitting}
+                  className="px-5 py-2.5 bg-blue-600 hover:bg-blue-700 disabled:opacity-50 text-white text-xs font-bold uppercase tracking-wider rounded-xl transition-colors shadow-sm inline-flex items-center gap-1.5"
+                >
+                  {submitting ? (
+                    <div className="w-3.5 h-3.5 border-2 border-white border-t-transparent animate-spin rounded-full" />
+                  ) : (
+                    <>
+                      <IoCalendarOutline size={14} />
+                      <span>Confirm Visit</span>
+                    </>
+                  )}
+                </button>
+              </div>
+            </form>
+          )}
+        </div>
+      </motion.div>
+    </div>
+  );
 }
