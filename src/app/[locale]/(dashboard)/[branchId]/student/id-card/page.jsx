@@ -17,6 +17,7 @@ import {
   HiRefresh
 } from 'react-icons/hi';
 import { IoCheckmarkCircle, IoSparkles } from 'react-icons/io5';
+import { resolveCourseTitle } from '@/utils/text';
 
 export default function StudentIdCardPage() {
   const { data: session } = useSession();
@@ -54,7 +55,7 @@ export default function StudentIdCardPage() {
   const formattedStudentId = `SYICT-${branchCode}-${studentUid.slice(-6).toUpperCase()}`;
   const verificationUrl = baseUrl ? `${baseUrl}/verify-id/${studentUid}` : '';
 
-  const primaryCourse = enrollments[0]?.course?.title || 'Professional Skill Development';
+  const primaryCourse = resolveCourseTitle(enrollments[0]?.course, 'Professional Skill Development');
   const issueDate = user?.createdAt ? new Date(user.createdAt).toLocaleDateString() : 'Active';
 
   const handlePrint = () => {
