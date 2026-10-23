@@ -1,3 +1,4 @@
+import { toServiceContent } from "@/lib/cms/serviceContent";
 import { fetchServer } from "@/lib/api-server";
 import AutomationClient from "@/components/marketing/services/AutomationClient";
 
@@ -12,5 +13,5 @@ export default async function BusinessAutomationPage() {
     console.error("Failed to load automation content on server", err);
   }
 
-  return <AutomationClient data={content?.landing} />;
+  return <AutomationClient data={toServiceContent(content).landing} />;
 }
