@@ -377,35 +377,35 @@ export default function MasterCurriculumPage() {
 
 
  return (
- <div className="space-y-6 w-full pb-8">
+ <div className="space-y-4 w-full pb-6">
  {/* Dynamic Header */}
- <header className="flex flex-col md:flex-row md:items-end justify-between gap-4">
+ <header className="flex flex-col md:flex-row md:items-end justify-between gap-3">
  <div>
  <motion.h1
  initial={{ opacity: 0, scale: 0.9 }}
  animate={{ opacity: 1, scale: 1 }}
- className="text-4xl font-black text-slate-900 tracking-tight flex items-center gap-4"
+ className="text-3xl sm:text-4xl font-black text-slate-900 tracking-tight flex items-center gap-3 leading-tight"
  >
- <span className="p-3 bg-indigo-600 text-white shadow-lg shadow-indigo-600/20 rounded-lg">
- <HiOutlineAcademicCap size={32} />
+ <span className="p-2 bg-indigo-600 text-white shadow-md shadow-indigo-600/20 rounded-lg">
+ <HiOutlineAcademicCap size={28} />
  </span>
  Central Curriculum
  </motion.h1>
- <p className="mt-4 text-slate-500 font-medium max-w-md">
+ <p className="mt-1.5 text-slate-500 font-medium max-w-md text-xs sm:text-sm leading-normal">
  The core intellectual property of SYICT. Define master courses here
  and deploy them instantly to any branch in your network.
  </p>
  </div>
 
- <div className="flex items-center gap-3">
+ <div className="flex items-center gap-2">
  <div className="relative group">
- <HiOutlineMagnifyingGlass className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 group-focus-within:text-indigo-600 transition-colors" />
+ <HiOutlineMagnifyingGlass className="absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400 group-focus-within:text-indigo-600 transition-colors" />
  <input
  type="text"
  placeholder="Search master courses..."
  value={search}
  onChange={(e) => setSearch(e.target.value)}
- className="pl-11 pr-4 py-2.5 bg-white border border-slate-200 w-full md:w-64 focus:ring-4 focus:ring-indigo-500/10 focus:border-indigo-500 transition-all outline-none font-medium text-slate-700 shadow-sm"
+ className="pl-10 pr-3.5 py-2 bg-white border border-slate-200 w-full md:w-64 focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 transition-all outline-none font-medium text-slate-700 shadow-xs text-xs sm:text-sm rounded-md leading-tight"
  />
  </div>
  <motion.button
@@ -460,9 +460,9 @@ export default function MasterCurriculumPage() {
  });
  setShowCourseModal(true);
  }}
- className="hidden md:flex items-center gap-2 bg-indigo-600 text-white px-6 py-3.5 font-bold shadow-xl shadow-indigo-600/20 hover:bg-indigo-700 transition-all text-sm whitespace-nowrap"
+ className="hidden md:flex items-center gap-1.5 bg-indigo-600 text-white px-4 py-2 font-bold shadow-md shadow-indigo-600/20 hover:bg-indigo-700 transition-all text-xs sm:text-sm whitespace-nowrap rounded-lg leading-tight"
  >
- <HiOutlinePlus size={20} />
+ <HiOutlinePlus size={18} />
  New Master Course
  </motion.button>
  </div>
@@ -472,10 +472,10 @@ export default function MasterCurriculumPage() {
  <motion.div
  initial={{ opacity: 0, y: -10 }}
  animate={{ opacity: 1, y: 0 }}
- className="border border-slate-100 bg-white shadow-sm p-4 space-y-3 rounded-md"
+ className="border border-slate-100 bg-white shadow-xs p-2.5 sm:p-3 space-y-2.5 rounded-lg"
  >
  <div className="flex items-center justify-between">
- <h3 className="text-sm font-black text-slate-900 uppercase tracking-widest">
+ <h3 className="text-xs sm:text-sm font-black text-slate-900 uppercase tracking-widest leading-tight">
  Filter & Refine
  </h3>
  {(selectedCategories.length > 0 ||
@@ -483,24 +483,24 @@ export default function MasterCurriculumPage() {
  priceRange.max < getMaxPrice()) && (
  <button
  onClick={clearFilters}
- className="text-xs font-bold text-indigo-600 hover:text-indigo-700 uppercase tracking-widest transition-colors rounded-md"
+ className="text-xs font-bold text-indigo-600 hover:text-indigo-700 uppercase tracking-widest transition-colors rounded-md leading-tight"
  >
  Clear All
  </button>
  )}
  </div>
 
- <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+ <div className="grid grid-cols-1 md:grid-cols-3 gap-2.5">
  {/* Category Filter */}
- <div className="space-y-3">
- <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest block">
+ <div className="space-y-2">
+ <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest block leading-tight">
  Category
  </label>
- <div className="space-y-1.5">
+ <div className="space-y-1">
  {uniqueCategories.map((cat) => (
  <label
  key={cat}
- className="flex items-center gap-3 cursor-pointer group rounded-md"
+ className="flex items-center gap-2 cursor-pointer group rounded-md leading-tight"
  >
  <input
  type="checkbox"
@@ -514,12 +514,12 @@ export default function MasterCurriculumPage() {
  );
  }
  }}
- className="w-4 h-4 border-slate-200 text-indigo-600 cursor-pointer"
+ className="w-3.5 h-3.5 border-slate-200 text-indigo-600 cursor-pointer rounded"
  />
- <span className="text-sm font-semibold text-slate-600 group-hover:text-slate-900 transition-colors capitalize">
+ <span className="text-xs sm:text-sm font-semibold text-slate-600 group-hover:text-slate-900 transition-colors capitalize leading-tight">
  {cat.replace(/-/g, " ")}
  </span>
- <span className="text-xs font-bold text-slate-300 ml-auto">
+ <span className="text-xs font-bold text-slate-300 ml-auto leading-tight">
  ({courses.filter((c) => c.category === cat).length})
  </span>
  </label>
@@ -528,11 +528,11 @@ export default function MasterCurriculumPage() {
  </div>
 
  {/* Price Range Filter */}
- <div className="space-y-3">
- <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest block">
+ <div className="space-y-2">
+ <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest block leading-tight">
  Price Range (৳)
  </label>
- <div className="space-y-4">
+ <div className="space-y-2">
  <div className="space-y-1">
  <input
  type="range"
@@ -546,9 +546,9 @@ export default function MasterCurriculumPage() {
  min: parseInt(e.target.value),
  })
  }
- className="w-full h-2 bg-slate-200 appearance-none cursor-pointer accent-indigo-600"
+ className="w-full h-1.5 bg-slate-200 appearance-none cursor-pointer accent-indigo-600 rounded"
  />
- <div className="flex items-center justify-between text-xs font-bold text-slate-600">
+ <div className="flex items-center justify-between text-xs font-bold text-slate-600 leading-tight">
  <span>Min: ৳{priceRange.min.toLocaleString()}</span>
  </div>
  </div>
@@ -565,9 +565,9 @@ export default function MasterCurriculumPage() {
  max: parseInt(e.target.value),
  })
  }
- className="w-full h-2 bg-slate-200 appearance-none cursor-pointer accent-indigo-600"
+ className="w-full h-1.5 bg-slate-200 appearance-none cursor-pointer accent-indigo-600 rounded"
  />
- <div className="flex items-center justify-between text-xs font-bold text-slate-600">
+ <div className="flex items-center justify-between text-xs font-bold text-slate-600 leading-tight">
  <span>Max: ৳{priceRange.max.toLocaleString()}</span>
  </div>
  </div>
@@ -575,12 +575,12 @@ export default function MasterCurriculumPage() {
  </div>
 
  {/* Filter Results Info */}
- <div className="flex flex-col items-start md:items-end gap-4 md:justify-end">
+ <div className="flex flex-col items-start md:items-end gap-2 md:justify-end">
  <div className="text-right">
- <p className="text-2xl font-black text-indigo-600">
+ <p className="text-xl sm:text-2xl font-black text-indigo-600 leading-tight">
  {totalFiltered}
  </p>
- <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">
+ <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest leading-tight">
  Master Courses Match
  </p>
  </div>
@@ -593,42 +593,41 @@ export default function MasterCurriculumPage() {
  variants={container}
  initial="hidden"
  animate="show"
- className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4"
+ className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2.5 sm:gap-3"
  >
  {loading
  ? [...Array(6)].map((_, i) => (
  <div
  key={i}
- className="h-72 bg-slate-100 animate-pulse"
+ className="h-64 bg-slate-100 animate-pulse rounded-lg"
  />
  ))
  : paginatedCourses.map((course) => (
  <motion.div
  key={course._id}
  variants={item}
- className="bg-white group border border-slate-100 shadow-sm hover:shadow-2xl hover:-translate-y-2 transition-all duration-500 p-2 rounded-md"
+ className="bg-white group border border-slate-100 shadow-xs hover:shadow-lg hover:-translate-y-1 transition-all duration-300 p-2 rounded-lg"
  >
- <div className="relative h-36 overflow-hidden bg-slate-900 mb-3">
+ <div className="relative h-32 overflow-hidden bg-slate-900 mb-2.5 rounded-lg">
  {course.thumbnail ? (
  <img
  src={course.thumbnail}
  alt=""
- className="w-full h-full object-cover opacity-80 group-hover:scale-110 transition-transform duration-700 bg-[#f0f0f0] rounded-md"
- 
-loading="lazy"
-onError={(e) => { e.target.onerror = null; e.target.srcset = ''; e.target.src = '/assets/fallback.png'; }}
-decoding="async"/>
+ className="w-full h-full object-cover opacity-80 group-hover:scale-105 transition-transform duration-500 bg-[#f0f0f0] rounded-md"
+ loading="lazy"
+ onError={(e) => { e.target.onerror = null; e.target.srcset = ''; e.target.src = '/assets/fallback.png'; }}
+ decoding="async"/>
  ) : (
  <div className="w-full h-full flex items-center justify-center bg-gradient-to-br from-indigo-500/20 to-purple-500/20">
  <HiOutlineCube
- size={48}
+ size={40}
  className="text-indigo-400 opacity-40 group-hover:rotate-12 transition-transform"
  />
  </div>
  )}
- <div className="absolute top-4 left-4">
- <span className="bg-white/90 backdrop-blur-md px-3 py-1.5 text-[10px] font-black text-indigo-600 uppercase tracking-widest flex items-center gap-1.5 shadow-sm rounded-md">
- <HiOutlineCheckBadge size={14} />
+ <div className="absolute top-2.5 left-2.5">
+ <span className="bg-white/90 backdrop-blur-md px-2 py-1 text-[10px] font-black text-indigo-600 uppercase tracking-widest flex items-center gap-1 shadow-xs rounded-md leading-tight">
+ <HiOutlineCheckBadge size={13} />
  Master Certified
  </span>
  </div>
@@ -639,64 +638,64 @@ decoding="async"/>
  setCourseForm(mapCourseToForm(course));
  setShowCourseModal(true);
  }}
- className="absolute top-4 right-4 p-2 bg-white/90 backdrop-blur-md text-slate-400 hover:text-indigo-600 transition-all opacity-100 md:opacity-0 md:group-hover:opacity-100 shadow-sm"
+ className="absolute top-2.5 right-2.5 p-1.5 bg-white/90 backdrop-blur-md text-slate-400 hover:text-indigo-600 transition-all opacity-100 md:opacity-0 md:group-hover:opacity-100 shadow-xs rounded-md"
  >
- <HiOutlinePencilSquare size={18} />
+ <HiOutlinePencilSquare size={16} />
  </button>
  </div>
 
- <div className="px-3 pb-4">
- <div className="flex justify-between items-start mb-2">
- <span className="text-[10px] font-bold text-slate-400 uppercase tracking-tighter">
+ <div className="px-2 pb-2.5">
+ <div className="flex justify-between items-start mb-1 leading-tight">
+ <span className="text-[10px] font-bold text-slate-400 uppercase tracking-tighter leading-tight">
  {course.category || "General"}
  </span>
- <p className="text-xl font-black text-indigo-600">
+ <p className="text-lg font-black text-indigo-600 leading-tight">
  ৳{course.price}
  </p>
  </div>
- <h3 className="text-xl font-black text-slate-800 leading-tight mb-3 group-hover:text-indigo-600 transition-colors line-clamp-2">
+ <h3 className="text-base sm:text-lg font-black text-slate-800 leading-snug mb-2 group-hover:text-indigo-600 transition-colors line-clamp-2">
  {course.title?.en}
  </h3>
 
- <div className="grid grid-cols-2 gap-2 mb-4">
- <div className="flex items-center gap-2 bg-slate-50 p-2 border border-slate-100/50 rounded-lg">
- <HiOutlineRectangleStack className="text-slate-400" />
- <span className="text-xs font-bold text-slate-600">
+ <div className="grid grid-cols-2 gap-1.5 mb-2.5">
+ <div className="flex items-center gap-1.5 bg-slate-50 p-1.5 border border-slate-100/50 rounded-lg">
+ <HiOutlineRectangleStack className="text-slate-400" size={14} />
+ <span className="text-xs font-bold text-slate-600 leading-tight">
  {course.curriculum?.length || 0} Modules
  </span>
  </div>
- <div className="flex items-center gap-2 bg-slate-50 p-2.5 border border-slate-100/50 rounded-lg">
- <HiOutlineCloudArrowUp className="text-slate-400" />
- <span className="text-xs font-bold text-slate-600">
+ <div className="flex items-center gap-1.5 bg-slate-50 p-1.5 border border-slate-100/50 rounded-lg">
+ <HiOutlineCloudArrowUp className="text-slate-400" size={14} />
+ <span className="text-xs font-bold text-slate-600 leading-tight">
  Active Node
  </span>
  </div>
  </div>
 
- <div className="flex gap-2">
+ <div className="flex gap-1.5">
  <button
  onClick={() => {
  setDeployingCourse(course);
  setShowDeployModal(true);
  }}
- className="flex-1 bg-slate-900 text-white py-3 text-xs font-black uppercase tracking-widest hover:bg-slate-800 transition-colors shadow-lg shadow-slate-900/10 flex items-center justify-center gap-2 rounded-md"
+ className="flex-1 bg-slate-900 text-white py-1.5 px-3 text-xs font-black uppercase tracking-widest hover:bg-slate-800 transition-colors shadow-sm shadow-slate-900/10 flex items-center justify-center gap-1.5 rounded-md leading-tight"
  >
- <HiOutlinePaperAirplane size={14} className="rotate-45" />
+ <HiOutlinePaperAirplane size={13} className="rotate-45" />
  Deploy
  </button>
  <button
  title="Sync lessons to all deployed branches"
  onClick={() => handleSyncLessons(course._id)}
  disabled={syncingId === course._id}
- className="p-3 bg-slate-50 text-slate-500 hover:text-indigo-600 hover:bg-indigo-50 transition-all rounded-md flex items-center justify-center"
+ className="p-1.5 bg-slate-50 text-slate-500 hover:text-indigo-600 hover:bg-indigo-50 transition-all rounded-md flex items-center justify-center"
  >
- <HiOutlineArrowPath size={18} className={syncingId === course._id ? "animate-spin text-indigo-600" : ""} />
+ <HiOutlineArrowPath size={16} className={syncingId === course._id ? "animate-spin text-indigo-600" : ""} />
  </button>
  <button
  onClick={() => handleDeleteCourse(course._id)}
- className="p-3 bg-slate-50 text-slate-400 hover:text-red-500 hover:bg-red-50 transition-all rounded-md"
+ className="p-1.5 bg-slate-50 text-slate-400 hover:text-red-500 hover:bg-red-50 transition-all rounded-md"
  >
- <HiOutlineTrash size={18} />
+ <HiOutlineTrash size={16} />
  </button>
  </div>
  </div>
@@ -705,8 +704,8 @@ decoding="async"/>
  </motion.div>
 
  {!loading && totalFiltered > 0 && totalPages > 1 && (
- <div className="border border-slate-100 bg-white px-4 py-3 md:px-5 md:py-3 shadow-sm flex flex-col gap-3 md:flex-row md:items-center md:justify-between rounded-lg">
- <p className="text-[11px] font-black uppercase tracking-widest text-slate-400">
+ <div className="border border-slate-100 bg-white px-3.5 py-2 sm:px-4 sm:py-2.5 shadow-xs flex flex-col gap-2 md:flex-row md:items-center md:justify-between rounded-lg">
+ <p className="text-[11px] font-black uppercase tracking-widest text-slate-400 leading-tight">
  Showing{" "}
  <span className="text-slate-900">{(page - 1) * PAGE_SIZE + 1}</span>{" "}
  -{" "}
@@ -716,12 +715,12 @@ decoding="async"/>
  of <span className="text-slate-900">{totalFiltered}</span> master
  courses
  </p>
- <div className="flex items-center gap-2">
+ <div className="flex items-center gap-1.5">
  <button
  type="button"
  disabled={page === 1}
  onClick={() => setPage((p) => p - 1)}
- className="px-4 py-2 border border-slate-200 text-xs font-bold text-slate-600 hover:bg-slate-50 disabled:opacity-40 transition-all"
+ className="px-2.5 py-1 border border-slate-200 text-xs font-bold text-slate-600 hover:bg-slate-50 disabled:opacity-40 transition-all rounded leading-tight"
  >
  Previous
  </button>
@@ -738,7 +737,7 @@ decoding="async"/>
  return (
  <span
  key={`ellipsis-${p}`}
- className="px-2 text-slate-300"
+ className="px-1 text-slate-300"
  >
  ...
  </span>
@@ -751,9 +750,9 @@ decoding="async"/>
  key={p}
  type="button"
  onClick={() => setPage(p)}
- className={`w-8 h-8 text-xs font-black transition-all ${
+ className={`w-7 h-7 text-xs font-black transition-all rounded leading-tight ${
  page === p
- ? "bg-indigo-600 text-white shadow-lg shadow-indigo-600/20"
+ ? "bg-indigo-600 text-white shadow-md shadow-indigo-600/20"
  : "bg-slate-50 text-slate-500 hover:bg-slate-100"
  }`}
  >
@@ -766,7 +765,7 @@ decoding="async"/>
  type="button"
  disabled={page === totalPages}
  onClick={() => setPage((p) => p + 1)}
- className="px-4 py-2 border border-slate-200 text-xs font-bold text-slate-600 hover:bg-slate-50 disabled:opacity-40 transition-all"
+ className="px-2.5 py-1 border border-slate-200 text-xs font-bold text-slate-600 hover:bg-slate-50 disabled:opacity-40 transition-all rounded leading-tight"
  >
  Next
  </button>
@@ -775,7 +774,7 @@ decoding="async"/>
  )}
 
  {/* Mobile Sticky CTA */}
- <div className="md:hidden fixed bottom-0 left-0 right-0 p-4 bg-white/80 backdrop-blur-md border-t border-slate-100 pb-[calc(env(safe-area-inset-bottom)+1rem)] z-40">
+ <div className="md:hidden fixed bottom-0 left-0 right-0 p-3 bg-white/80 backdrop-blur-md border-t border-slate-100 pb-[calc(env(safe-area-inset-bottom)+0.75rem)] z-40">
  <button 
  onClick={() => {
  setEditingCourse(null);
@@ -783,9 +782,9 @@ decoding="async"/>
  setCourseForm(createBlankCourseForm());
  setShowCourseModal(true);
  }}
- className="w-full py-4 bg-indigo-600 text-white font-black shadow-xl shadow-indigo-600/30 flex items-center justify-center gap-2 active:scale-95 transition-all"
+ className="w-full py-2.5 bg-indigo-600 text-white font-black shadow-xl shadow-indigo-600/30 flex items-center justify-center gap-2 active:scale-95 transition-all rounded-lg leading-tight text-xs sm:text-sm"
  >
- <HiOutlinePlus size={20} />
+ <HiOutlinePlus size={18} />
  New Master Course
  </button>
  </div>
@@ -794,29 +793,29 @@ decoding="async"/>
  <Portal>
  <AnimatePresence>
  {showCourseModal && (
- <div className="fixed inset-0 z-[9999] flex items-end md:items-center justify-center p-0 md:p-6 bg-black/95 backdrop-blur-sm">
+ <div className="fixed inset-0 z-[9999] flex items-end md:items-center justify-center p-0 md:p-3 bg-black/95 backdrop-blur-sm">
  <motion.div
  initial={{ scale: 0.95, opacity: 0, y: 40 }}
  animate={{ scale: 1, opacity: 1, y: 0 }}
  exit={{ scale: 0.95, opacity: 0, y: 40 }}
- className="bg-white w-full max-w-2xl -[2rem] md:-[2.5rem] shadow-2xl p-6 md:p-10 max-h-[90vh] overflow-y-auto custom-scrollbar relative z-[10000] mt-auto md:mt-0 rounded-lg"
+ className="bg-white w-full max-w-2xl shadow-2xl p-4 md:p-5 max-h-[90vh] overflow-y-auto custom-scrollbar relative z-[10000] mt-auto md:mt-0 rounded-xl"
  >
- <div className="flex justify-between items-center mb-8">
- <h2 className="text-2xl font-black text-slate-900">
+ <div className="flex justify-between items-center mb-3">
+ <h2 className="text-xl sm:text-2xl font-black text-slate-900 leading-tight">
  {editingCourse
  ? "Refine Curriculum"
  : "Establish Master Course"}
  </h2>
  <button
  onClick={() => setShowCourseModal(false)}
- className="p-2 bg-slate-100 hover:bg-slate-200"
+ className="p-1.5 bg-slate-100 hover:bg-slate-200 rounded-lg text-slate-500"
  >
- <HiOutlineXMark />
+ <HiOutlineXMark size={20} />
  </button>
  </div>
 
  {/* Tab Navigation */}
- <div className="flex gap-2 mb-6 border-b border-slate-200 overflow-x-auto [&::-webkit-scrollbar]:hidden pb-2">
+ <div className="flex gap-1.5 mb-3 border-b border-slate-200 overflow-x-auto [&::-webkit-scrollbar]:hidden pb-1.5">
  {[
  { id: "basic", label: "Basic Info" },
  { id: "overview", label: "Overview" },
@@ -828,9 +827,9 @@ decoding="async"/>
  key={tab.id}
  type="button"
  onClick={() => setCourseModalTab(tab.id)}
- className={`px-4 py-3 text-xs font-bold uppercase tracking-widest whitespace-nowrap transition-all ${
+ className={`px-3 py-1.5 text-xs font-bold uppercase tracking-widest whitespace-nowrap transition-all rounded leading-tight ${
  courseModalTab === tab.id
- ? "text-indigo-600 border-b-2 border-indigo-600"
+ ? "text-indigo-600 border-b-2 border-indigo-600 font-black"
  : "text-slate-400 hover:text-slate-600"
  }`}
  >
@@ -841,14 +840,14 @@ decoding="async"/>
 
  <form
  onSubmit={handleCourseSubmit}
- className="space-y-6 max-h-[calc(90vh-200px)] overflow-y-auto pr-4"
+ className="space-y-3.5 max-h-[calc(90vh-160px)] overflow-y-auto pr-2"
  >
  {/* BASIC INFO TAB */}
  {courseModalTab === "basic" && (
- <div className="space-y-6">
- <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
- <div className="space-y-2">
- <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest">
+ <div className="space-y-3">
+ <div className="grid grid-cols-1 md:grid-cols-2 gap-2.5">
+ <div className="space-y-1">
+ <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest leading-tight">
  Title (English)
  </label>
  <input
@@ -863,11 +862,11 @@ decoding="async"/>
  },
  })
  }
- className="w-full bg-slate-50 border-none p-4 font-bold text-slate-700 outline-none"
+ className="w-full bg-slate-50 border-none p-2 font-bold text-xs sm:text-sm text-slate-700 outline-none rounded-md leading-tight"
  />
  </div>
- <div className="space-y-2">
- <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest">
+ <div className="space-y-1">
+ <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest leading-tight">
  Title (Bengali)
  </label>
  <input
@@ -881,13 +880,13 @@ decoding="async"/>
  },
  })
  }
- className="w-full bg-slate-50 border-none p-4 font-bold text-slate-700 outline-none"
+ className="w-full bg-slate-50 border-none p-2 font-bold text-xs sm:text-sm text-slate-700 outline-none rounded-md leading-tight"
  />
  </div>
  </div>
- <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
- <div className="space-y-2">
- <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest">
+ <div className="grid grid-cols-1 md:grid-cols-2 gap-2.5">
+ <div className="space-y-1">
+ <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest leading-tight">
  Tagline (English)
  </label>
  <input
@@ -902,11 +901,11 @@ decoding="async"/>
  })
  }
  placeholder="Short value proposition"
- className="w-full bg-slate-50 border-none p-4 font-bold text-slate-700 outline-none"
+ className="w-full bg-slate-50 border-none p-2 font-bold text-xs sm:text-sm text-slate-700 outline-none rounded-md leading-tight"
  />
  </div>
- <div className="space-y-2">
- <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest">
+ <div className="space-y-1">
+ <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest leading-tight">
  Category
  </label>
  <select
@@ -917,7 +916,7 @@ decoding="async"/>
  category: e.target.value,
  })
  }
- className="w-full bg-slate-50 border-none p-4 font-bold text-slate-700 outline-none"
+ className="w-full bg-slate-50 border-none p-2 font-bold text-xs sm:text-sm text-slate-700 outline-none rounded-md leading-tight"
  >
  <option value="web-dev">Web Development</option>
  <option value="graphic-design">
@@ -928,8 +927,8 @@ decoding="async"/>
  </select>
  </div>
  </div>
- <div className="space-y-2">
- <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest">
+ <div className="space-y-1">
+ <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest leading-tight">
  Thumbnail Upload
  </label>
  <input
@@ -945,24 +944,23 @@ decoding="async"/>
  });
  }
  }}
- className="w-full bg-slate-50 border-none p-4 font-bold text-slate-700 outline-none"
+ className="w-full bg-slate-50 border-none p-2 font-bold text-xs sm:text-sm text-slate-700 outline-none rounded-md leading-tight"
  />
  {courseForm.thumbnail && (
- <div className="mt-2">
+ <div className="mt-1.5">
  <img
  src={courseForm.thumbnail}
  alt="Preview"
  className="object-cover bg-[#f0f0f0] rounded-md"
- style={{ maxWidth: '100%', maxHeight: '300px' }}
- 
-loading="lazy"
-onError={(e) => { e.target.onerror = null; e.target.srcset = ''; e.target.src = '/assets/fallback.png'; }}
-decoding="async"/>
+ style={{ maxWidth: '100%', maxHeight: '200px' }}
+ loading="lazy"
+ onError={(e) => { e.target.onerror = null; e.target.srcset = ''; e.target.src = '/assets/fallback.png'; }}
+ decoding="async"/>
  </div>
  )}
  </div>
- <div className="space-y-2">
- <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest">
+ <div className="space-y-1">
+ <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest leading-tight">
  Intro Video URL
  </label>
  <input
@@ -974,7 +972,7 @@ decoding="async"/>
  })
  }
  placeholder="https://youtube.com/..."
- className="w-full bg-slate-50 border-none p-4 font-bold text-slate-700 outline-none"
+ className="w-full bg-slate-50 border-none p-2 font-bold text-xs sm:text-sm text-slate-700 outline-none rounded-md leading-tight"
  />
  </div>
  </div>
@@ -982,9 +980,9 @@ decoding="async"/>
 
  {/* OVERVIEW TAB */}
  {courseModalTab === "overview" && (
- <div className="space-y-6">
- <div className="space-y-2">
- <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest">
+ <div className="space-y-3">
+ <div className="space-y-1">
+ <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest leading-tight">
  Description (English)
  </label>
  <textarea
@@ -999,11 +997,11 @@ decoding="async"/>
  },
  })
  }
- className="w-full bg-slate-50 border-none p-4 font-medium text-slate-700 outline-none min-h-[120px]"
+ className="w-full bg-slate-50 border-none p-2.5 font-medium text-xs sm:text-sm text-slate-700 outline-none min-h-[90px] rounded-md leading-normal"
  />
  </div>
- <div className="space-y-2">
- <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest">
+ <div className="space-y-1">
+ <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest leading-tight">
  Target Audience
  </label>
  <select
@@ -1014,15 +1012,15 @@ decoding="async"/>
  targetAudience: e.target.value,
  })
  }
- className="w-full bg-slate-50 border-none p-4 font-bold text-slate-700 outline-none"
+ className="w-full bg-slate-50 border-none p-2 font-bold text-xs sm:text-sm text-slate-700 outline-none rounded-md leading-tight"
  >
  <option value="beginner">Beginner</option>
  <option value="intermediate">Intermediate</option>
  <option value="advanced">Advanced</option>
  </select>
  </div>
- <div className="space-y-3">
- <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest">
+ <div className="space-y-1.5">
+ <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest block leading-tight">
  Key Outcomes (English)
  </label>
  {courseForm.keyOutcomes.map((outcome, idx) => (
@@ -1041,7 +1039,7 @@ decoding="async"/>
  });
  }}
  placeholder={`Outcome ${idx + 1}`}
- className="w-full bg-slate-50 border-none p-4 font-bold text-slate-700 outline-none"
+ className="w-full bg-slate-50 border-none p-2 font-bold text-xs sm:text-sm text-slate-700 outline-none rounded-md leading-tight"
  />
  ))}
  </div>
@@ -1050,11 +1048,11 @@ decoding="async"/>
 
  {/* CURRICULUM TAB */}
  {courseModalTab === "curriculum" && (
- <div className="space-y-6">
+ <div className="space-y-2.5">
  {courseForm.curriculum.map((module, modIdx) => (
  <div
  key={modIdx}
- className="border border-slate-200 p-4 space-y-3 rounded-lg"
+ className="border border-slate-200 p-2.5 space-y-2 rounded-lg"
  >
  <input
  value={module.title.en}
@@ -1073,10 +1071,10 @@ decoding="async"/>
  });
  }}
  placeholder={`Module ${modIdx + 1} Title`}
- className="w-full bg-slate-50 border-none p-3 font-bold text-slate-700 outline-none"
+ className="w-full bg-slate-50 border-none p-2 font-bold text-xs sm:text-sm text-slate-700 outline-none rounded-md leading-tight"
  />
  {module.lessons.map((lesson, lesIdx) => (
- <div key={lesIdx} className="flex gap-2">
+ <div key={lesIdx} className="flex gap-1.5">
  <input
  value={lesson.title.en}
  onChange={(e) => {
@@ -1094,7 +1092,7 @@ decoding="async"/>
  });
  }}
  placeholder="Lesson title"
- className="flex-1 bg-slate-50 border-none p-3 text-sm text-slate-700 outline-none"
+ className="flex-1 bg-slate-50 border-none p-2 text-xs sm:text-sm text-slate-700 outline-none rounded-md leading-tight"
  />
  <input
  value={lesson.duration}
@@ -1110,7 +1108,7 @@ decoding="async"/>
  });
  }}
  placeholder="1h 30m"
- className="w-20 bg-slate-50 border-none p-3 text-sm text-slate-700 outline-none"
+ className="w-20 bg-slate-50 border-none p-2 text-xs sm:text-sm text-slate-700 outline-none rounded-md leading-tight"
  />
  </div>
  ))}
@@ -1121,10 +1119,10 @@ decoding="async"/>
 
  {/* PRICING & DETAILS TAB */}
  {courseModalTab === "pricing" && (
- <div className="space-y-6">
- <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
- <div className="space-y-2">
- <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest">
+ <div className="space-y-3">
+ <div className="grid grid-cols-1 md:grid-cols-2 gap-2.5">
+ <div className="space-y-1">
+ <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest leading-tight">
  Base Price (৳)
  </label>
  <input
@@ -1137,11 +1135,11 @@ decoding="async"/>
  price: parseInt(e.target.value),
  })
  }
- className="w-full bg-slate-50 border-none p-4 font-bold text-slate-700 outline-none"
+ className="w-full bg-slate-50 border-none p-2 font-bold text-xs sm:text-sm text-slate-700 outline-none rounded-md leading-tight"
  />
  </div>
- <div className="space-y-2">
- <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest">
+ <div className="space-y-1">
+ <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest leading-tight">
  Discounted Price (৳)
  </label>
  <input
@@ -1153,16 +1151,16 @@ decoding="async"/>
  discountedPrice: parseInt(e.target.value),
  })
  }
- className="w-full bg-slate-50 border-none p-4 font-bold text-slate-700 outline-none"
+ className="w-full bg-slate-50 border-none p-2 font-bold text-xs sm:text-sm text-slate-700 outline-none rounded-md leading-tight"
  />
  </div>
  </div>
- <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
- <div className="space-y-2">
- <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest">
+ <div className="grid grid-cols-1 md:grid-cols-3 gap-2.5">
+ <div className="space-y-1">
+ <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest leading-tight">
  Duration
  </label>
- <div className="flex gap-2">
+ <div className="flex gap-1.5">
  <input
  type="number"
  value={courseForm.duration.value}
@@ -1175,7 +1173,7 @@ decoding="async"/>
  },
  })
  }
- className="flex-1 bg-slate-50 border-none p-4 font-bold text-slate-700 outline-none"
+ className="flex-1 bg-slate-50 border-none p-2 font-bold text-xs sm:text-sm text-slate-700 outline-none rounded-md leading-tight"
  />
  <select
  value={courseForm.duration.unit}
@@ -1188,7 +1186,7 @@ decoding="async"/>
  },
  })
  }
- className="w-32 bg-slate-50 border-none p-4 font-bold text-slate-700 outline-none"
+ className="w-28 bg-slate-50 border-none p-2 font-bold text-xs sm:text-sm text-slate-700 outline-none rounded-md leading-tight"
  >
  <option value="weeks">Weeks</option>
  <option value="months">Months</option>
@@ -1196,8 +1194,8 @@ decoding="async"/>
  </select>
  </div>
  </div>
- <div className="space-y-2">
- <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest">
+ <div className="space-y-1">
+ <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest leading-tight">
  Total Lectures
  </label>
  <input
@@ -1209,11 +1207,11 @@ decoding="async"/>
  totalLectures: parseInt(e.target.value),
  })
  }
- className="w-full bg-slate-50 border-none p-4 font-bold text-slate-700 outline-none"
+ className="w-full bg-slate-50 border-none p-2 font-bold text-xs sm:text-sm text-slate-700 outline-none rounded-md leading-tight"
  />
  </div>
- <div className="space-y-2">
- <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest">
+ <div className="space-y-1">
+ <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest leading-tight">
  Projects
  </label>
  <input
@@ -1225,13 +1223,13 @@ decoding="async"/>
  projectsCount: parseInt(e.target.value),
  })
  }
- className="w-full bg-slate-50 border-none p-4 font-bold text-slate-700 outline-none"
+ className="w-full bg-slate-50 border-none p-2 font-bold text-xs sm:text-sm text-slate-700 outline-none rounded-md leading-tight"
  />
  </div>
  </div>
- <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
- <div className="space-y-2">
- <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest">
+ <div className="grid grid-cols-1 md:grid-cols-2 gap-2.5">
+ <div className="space-y-1">
+ <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest leading-tight">
  Language
  </label>
  <select
@@ -1242,15 +1240,15 @@ decoding="async"/>
  language: e.target.value,
  })
  }
- className="w-full bg-slate-50 border-none p-4 font-bold text-slate-700 outline-none"
+ className="w-full bg-slate-50 border-none p-2 font-bold text-xs sm:text-sm text-slate-700 outline-none rounded-md leading-tight"
  >
  <option value="english">English</option>
  <option value="bengali">Bengali</option>
  <option value="both">Both</option>
  </select>
  </div>
- <div className="space-y-2">
- <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest">
+ <div className="space-y-1">
+ <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest leading-tight">
  Mode
  </label>
  <select
@@ -1261,7 +1259,7 @@ decoding="async"/>
  mode: e.target.value,
  })
  }
- className="w-full bg-slate-50 border-none p-4 font-bold text-slate-700 outline-none"
+ className="w-full bg-slate-50 border-none p-2 font-bold text-xs sm:text-sm text-slate-700 outline-none rounded-md leading-tight"
  >
  <option value="online">Online</option>
  <option value="offline">Offline</option>
@@ -1274,10 +1272,10 @@ decoding="async"/>
 
  {/* ADDITIONAL TAB */}
  {courseModalTab === "additional" && (
- <div className="space-y-6">
- <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
- <div className="space-y-2">
- <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest">
+ <div className="space-y-3">
+ <div className="grid grid-cols-1 md:grid-cols-2 gap-2.5">
+ <div className="space-y-1">
+ <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest leading-tight">
  Instructor Name
  </label>
  <input
@@ -1288,11 +1286,11 @@ decoding="async"/>
  instructorName: e.target.value,
  })
  }
- className="w-full bg-slate-50 border-none p-4 font-bold text-slate-700 outline-none"
+ className="w-full bg-slate-50 border-none p-2 font-bold text-xs sm:text-sm text-slate-700 outline-none rounded-md leading-tight"
  />
  </div>
- <div className="space-y-2">
- <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest">
+ <div className="space-y-1">
+ <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest leading-tight">
  Certification Details
  </label>
  <input
@@ -1304,12 +1302,12 @@ decoding="async"/>
  })
  }
  placeholder="Industry-recognized certificate"
- className="w-full bg-slate-50 border-none p-4 font-bold text-slate-700 outline-none"
+ className="w-full bg-slate-50 border-none p-2 font-bold text-xs sm:text-sm text-slate-700 outline-none rounded-md leading-tight"
  />
  </div>
  </div>
- <div className="space-y-2">
- <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest">
+ <div className="space-y-1">
+ <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest leading-tight">
  Instructor Bio
  </label>
  <textarea
@@ -1320,7 +1318,7 @@ decoding="async"/>
  instructorBio: e.target.value,
  })
  }
- className="w-full bg-slate-50 border-none p-4 font-medium text-slate-700 outline-none min-h-[80px]"
+ className="w-full bg-slate-50 border-none p-2 font-medium text-xs sm:text-sm text-slate-700 outline-none min-h-[60px] rounded-md leading-normal"
  />
  </div>
  </div>
@@ -1328,7 +1326,7 @@ decoding="async"/>
 
  <button
  type="submit"
- className="w-full bg-indigo-600 text-white py-5 font-black text-xs uppercase tracking-widest hover:bg-indigo-700 shadow-xl shadow-indigo-600/20 rounded-md"
+ className="w-full bg-indigo-600 text-white py-2.5 font-black text-xs uppercase tracking-widest hover:bg-indigo-700 shadow-md shadow-indigo-600/20 rounded-md leading-tight"
  >
  {editingCourse
  ? "Update Curriculum"
@@ -1345,24 +1343,24 @@ decoding="async"/>
  <Portal>
  <AnimatePresence>
  {showDeployModal && (
- <div className="fixed inset-0 z-[9999] flex items-end md:items-center justify-center p-0 md:p-6 bg-black/95 backdrop-blur-sm">
+ <div className="fixed inset-0 z-[9999] flex items-end md:items-center justify-center p-0 md:p-3 bg-black/95 backdrop-blur-sm">
  <motion.div
  initial={{ y: 40, opacity: 0 }}
  animate={{ y: 0, opacity: 1 }}
  exit={{ y: 40, opacity: 0 }}
- className="bg-white w-full max-w-xl -[2rem] md:-[2.5rem] shadow-2xl p-6 md:p-10 relative z-[10000] max-h-[90vh] overflow-y-auto mt-auto md:mt-0 rounded-lg"
+ className="bg-white w-full max-w-xl shadow-2xl p-4 md:p-5 relative z-[10000] max-h-[90vh] overflow-y-auto mt-auto md:mt-0 rounded-xl"
  >
- <h2 className="text-2xl font-black text-slate-900 mb-2">
+ <h2 className="text-xl sm:text-2xl font-black text-slate-900 mb-1 leading-tight">
  Mass Deployment
  </h2>
- <p className="text-slate-400 font-medium mb-8">
+ <p className="text-slate-400 font-medium mb-3 text-xs sm:text-sm leading-normal">
  Select branches to push{" "}
  <span className="text-indigo-600 font-bold">
  "{deployingCourse?.title?.en}"
  </span>
  </p>
 
- <div className="max-h-[300px] overflow-y-auto space-y-3 mb-8 pr-2 custom-scrollbar">
+ <div className="max-h-[260px] overflow-y-auto space-y-2 mb-3.5 pr-1.5 custom-scrollbar">
  {branches.map((b) => (
  <button
  key={b._id}
@@ -1373,21 +1371,21 @@ decoding="async"/>
  );
  else setSelectedBranches([...selectedBranches, b._id]);
  }}
- className={`w-full flex items-center justify-between p-4 border-2 transition-all ${
+ className={`w-full flex items-center justify-between p-2.5 border-2 transition-all rounded-lg ${
  selectedBranches.includes(b._id)
  ? "border-indigo-600 bg-indigo-50/50"
  : "border-slate-50 hover:border-slate-100"
  }`}
  >
- <div className="flex items-center gap-3">
- <div className="w-10 h-10 bg-slate-100 flex items-center justify-center text-[10px] font-black">
+ <div className="flex items-center gap-2.5">
+ <div className="w-8 h-8 bg-slate-100 flex items-center justify-center text-[10px] font-black rounded-md">
  {b.code}
  </div>
  <div className="text-left">
- <p className="font-bold text-slate-800 text-sm">
+ <p className="font-bold text-slate-800 text-xs sm:text-sm leading-tight">
  {b.name}
  </p>
- <p className="text-[10px] font-black text-slate-400 uppercase">
+ <p className="text-[10px] font-black text-slate-400 uppercase leading-tight">
  {b.type}
  </p>
  </div>
@@ -1395,24 +1393,24 @@ decoding="async"/>
  {selectedBranches.includes(b._id) && (
  <HiOutlineCheckBadge
  className="text-indigo-600"
- size={24}
+ size={22}
  />
  )}
  </button>
  ))}
  </div>
 
- <div className="flex gap-4">
+ <div className="flex gap-2">
  <button
  onClick={handleDeploy}
- className="flex-1 bg-indigo-600 text-white py-4 font-black text-xs uppercase tracking-widest hover:bg-indigo-700 shadow-xl shadow-indigo-600/20 flex items-center justify-center gap-2 rounded-md"
+ className="flex-1 bg-indigo-600 text-white py-2 px-4 font-black text-xs uppercase tracking-widest hover:bg-indigo-700 shadow-md shadow-indigo-600/20 flex items-center justify-center gap-1.5 rounded-md leading-tight"
  >
  Push to {selectedBranches.length} Nodes
  <HiOutlineChevronRight />
  </button>
  <button
  onClick={() => setShowDeployModal(false)}
- className="px-8 bg-slate-100 text-slate-600 font-black text-xs uppercase tracking-widest whitespace-nowrap"
+ className="px-4 py-2 bg-slate-100 text-slate-600 font-black text-xs uppercase tracking-widest whitespace-nowrap rounded-md leading-tight"
  >
  Cancel
  </button>
