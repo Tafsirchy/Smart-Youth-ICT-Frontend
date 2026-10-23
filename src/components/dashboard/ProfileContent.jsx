@@ -135,7 +135,7 @@ export default function ProfileContent() {
  );
 
  return (
- <div className="space-y-6 pb-8 max-w-6xl mx-auto">
+ <div className="space-y-6 pb-8 w-full">
  {/* Identity Header */}
  <div className="relative p-6 bg-slate-900 overflow-hidden shadow-xl rounded-lg">
  <div className="absolute top-0 right-0 w-96 h-96 -mr-48 -mt-48 bg-blue-500/10 blur-[100px]" />
