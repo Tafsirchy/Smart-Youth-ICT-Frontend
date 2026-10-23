@@ -1,5 +1,6 @@
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import api from '@/lib/api';
+import { queryKeys } from '@/lib/queryKeys';
 
 // ─── Courses Hooks ────────────────────────────────────────────────────────────
 
@@ -8,7 +9,7 @@ import api from '@/lib/api';
  */
 export function useCourses(params = {}) {
   return useQuery({
-    queryKey: ['courses', params],
+    queryKey: queryKeys.coursesWithParams(params),
     queryFn:  () => api.get('/courses', { params }).then(res => res.data),
     staleTime: 1000 * 60 * 5, // 5-minute cache
   });
@@ -19,7 +20,7 @@ export function useCourses(params = {}) {
  */
 export function useCourse(slug) {
   return useQuery({
-    queryKey:  ['course', slug],
+    queryKey:  queryKeys.course(slug),
     queryFn:   () => api.get(`/courses/${slug}`).then(res => res.data.data),
     enabled:   Boolean(slug),
     staleTime: 1000 * 60 * 5,
@@ -31,7 +32,7 @@ export function useCourse(slug) {
  */
 export function useEnrolledCourses() {
   return useQuery({
-    queryKey: ['enrolledCourses'],
+    queryKey: queryKeys.enrolledCoursesApi(),
     queryFn:  () => api.get('/courses/enrolled').then(res => res.data.data),
     staleTime: 1000 * 60 * 2,
   });
@@ -44,7 +45,7 @@ export function useEnrolledCourses() {
  */
 export function useCourseProgress(courseId) {
   return useQuery({
-    queryKey:  ['progress', courseId],
+    queryKey:  queryKeys.progress(courseId),
     queryFn:   () => api.get(`/progress/${courseId}`).then(res => res.data.data),
     enabled:   Boolean(courseId),
     staleTime: 1000 * 30,
@@ -56,7 +57,7 @@ export function useCourseProgress(courseId) {
  */
 export function useDashboardStats() {
   return useQuery({
-    queryKey: ['dashboardStats'],
+    queryKey: queryKeys.dashboardStats(),
     queryFn:  () => api.get('/progress/dashboard/stats').then(res => res.data.data),
     staleTime: 1000 * 60,
   });
@@ -70,8 +71,8 @@ export function useMarkLessonComplete(courseId) {
   return useMutation({
     mutationFn: (lessonId) => api.put(`/progress/${courseId}/complete-lesson`, { lessonId }).then(res => res.data.data),
     onSuccess: (updatedProgress) => {
-      queryClient.setQueryData(['progress', courseId], updatedProgress);
-      queryClient.invalidateQueries({ queryKey: ['dashboardStats'] });
+      queryClient.setQueryData(queryKeys.progress(courseId), updatedProgress);
+      queryClient.invalidateQueries({ queryKey: queryKeys.dashboardStats() });
     },
   });
 }
@@ -83,7 +84,7 @@ export function useMarkLessonComplete(courseId) {
  */
 export function useLessons(courseId) {
   return useQuery({
-    queryKey:  ['lessons', courseId],
+    queryKey:  queryKeys.lessons(courseId),
     queryFn:   () => api.get('/lessons', { params: { courseId } }).then(res => res.data.data),
     enabled:   Boolean(courseId),
     staleTime: 1000 * 60 * 5,
