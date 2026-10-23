@@ -1,3 +1,4 @@
+import { toServiceContent } from "@/lib/cms/serviceContent";
 import { fetchServer } from "@/lib/api-server";
 import ErpCrmDetailsClient from "@/components/marketing/services/ErpCrmDetailsClient";
 
@@ -7,7 +8,7 @@ export default async function ErpCrmDetailsPage() {
     const res = await fetchServer("/cms/services/web-software/erp-crm", {
       revalidate: 60,
     });
-    if (res.data) content = res.data.details;
+    if (res.data) content = toServiceContent(res.data).details;
   } catch (err) {
     console.error("Failed to load erp-crm details on server", err);
   }
