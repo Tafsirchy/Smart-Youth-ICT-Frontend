@@ -155,7 +155,16 @@ export const authOptions = {
     error: "/login",
   },
   session: { strategy: "jwt", maxAge: 60 * 60 * 24 * 7 },
-  secret: process.env.NEXTAUTH_SECRET?.trim(),
+  secret: (() => {
+    const s = process.env.NEXTAUTH_SECRET?.trim();
+    if (!s || s.startsWith('REPLACE_') || s.length < 16) {
+      if (process.env.NODE_ENV === 'production') {
+        throw new Error('FATAL: A strong, unguessable NEXTAUTH_SECRET (min 32 chars) is required in production.');
+      }
+      console.warn('[SECURITY WARNING] NEXTAUTH_SECRET is weak or unset. Sessions are vulnerable.');
+    }
+    return s;
+  })(),
 };
 
 const handler = NextAuth(authOptions);
