@@ -1,3 +1,4 @@
+import { toServiceContent } from "@/lib/cms/serviceContent";
 import { fetchServer } from "@/lib/api-server";
 import EcommerceClient from "@/components/marketing/services/EcommerceClient";
 
@@ -8,7 +9,7 @@ export default async function EcommercePage() {
       revalidate: 60,
     });
     if (res.data) {
-      data = res.data.landing;
+      data = toServiceContent(res.data).landing;
     }
   } catch (err) {
     console.error("Failed to fetch ecommerce data on server", err);
