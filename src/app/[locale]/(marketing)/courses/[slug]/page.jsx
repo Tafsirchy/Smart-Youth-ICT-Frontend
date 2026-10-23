@@ -21,7 +21,7 @@ import FAQAccordion from "@/components/courses/details/FAQAccordion";
  * improve SEO, and accelerate LCP.
  */
 export default async function CourseDetailPage({ params }) {
- const { slug, locale } = params;
+  const { slug, locale } = await params;
  
  try {
  // 1. Fetch Session & Course Data in parallel on the server

@@ -8,6 +8,7 @@ import { useLocale } from "next-intl";
 import CourseCard from "@/components/courses/CourseCard";
 import { CourseCardSkeleton } from "@/components/ui/Skeleton";
 import api from "@/lib/api";
+import { queryKeys } from "@/lib/queryKeys";
 import {
  IoSearchOutline,
  IoCloseOutline,
@@ -50,7 +51,7 @@ export default function CoursesPage() {
  });
 
  const { data: coursesData, isLoading: loading } = useQuery({
- queryKey: ['courses'],
+ queryKey: queryKeys.courses(),
  queryFn: async () => {
  const params = { page: 1, limit: 1000 };
  const res = await api.get("/courses", { params });
@@ -61,7 +62,7 @@ export default function CoursesPage() {
  });
 
  const { data: heroConfig } = useQuery({
- queryKey: ['courses_hero_config'],
+ queryKey: queryKeys.coursesHeroConfig(),
  queryFn: async () => {
  try {
  const res = await api.get("/cms/settings/courses_hero_config");
@@ -73,7 +74,7 @@ export default function CoursesPage() {
  staleTime: 10 * 60 * 1000,
  });
 
- const courses = coursesData || [];
+ const courses = useMemo(() => coursesData || [], [coursesData]);
 
  const branchOptions = useMemo(() => {
  const set = new Set();
