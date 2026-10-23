@@ -6,8 +6,9 @@ export const metadata = {
  description: 'Find a branch near you and explore the available courses and expert instructors at each location.',
 };
 
-export default function BranchesPage({ params: { locale } }) {
- return (
+export default async function BranchesPage({ params }) {
+  const { locale } = await params;
+  return (
  <div className="min-h-screen bg-neutral-50 dark:bg-neutral-950 pt-24 pb-12">
  <BranchDirectory locale={locale} />
  </div>
