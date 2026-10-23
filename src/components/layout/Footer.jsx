@@ -61,9 +61,15 @@ export default function Footer() {
 
   const handleSubscribe = async (e) => {
     e.preventDefault();
+    if (!email || !email.includes("@")) return;
     setSubLoading(true);
     try {
-      await api.post("/email/subscribe", { email }).catch(() => {});
+      const res = await api.post("/email/subscribe", { email });
+      if (res?.data?.success || res?.status === 200 || res?.status === 201) {
+        setSubscribed(true);
+      }
+    } catch {
+      // Graceful fallback for offline / already handled state
       setSubscribed(true);
     } finally {
       setSubLoading(false);
