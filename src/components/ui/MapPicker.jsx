@@ -65,10 +65,9 @@ const MapPicker = React.memo(({ value, onChange }) => {
  // Sync internal position with prop value when it changes externally
  useEffect(() => {
  if (value?.lat && value?.long) {
- const newPos = { lat: parseFloat(value.lat), lng: parseFloat(value.long) };
- if (newPos.lat !== position.lat || newPos.lng !== position.lng) {
- setPosition(newPos);
- }
+ const newLat = parseFloat(value.lat);
+      const newLng = parseFloat(value.long);
+      setPosition((prev) => (prev.lat === newLat && prev.lng === newLng ? prev : { lat: newLat, lng: newLng }));
  }
  }, [value?.lat, value?.long]);
 
@@ -118,7 +117,10 @@ const MapPicker = React.memo(({ value, onChange }) => {
  };
 
  const handleSearch = async (e) => {
- e.preventDefault();
+    if (e && typeof e.preventDefault === 'function') {
+      e.preventDefault();
+      e.stopPropagation();
+    }
  if (!searchQuery) return;
  
  try {
@@ -137,7 +139,7 @@ const MapPicker = React.memo(({ value, onChange }) => {
 
  return (
  <div className="space-y-4">
- <form onSubmit={handleSearch} className="relative group">
+ <div className="relative group">
  <HiOutlineMagnifyingGlass className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 group-focus-within:text-pink-500 transition-colors" size={20} />
  <input 
  type="text"
@@ -145,15 +147,23 @@ const MapPicker = React.memo(({ value, onChange }) => {
  className="w-full pl-12 pr-4 py-4 bg-slate-50 border-none text-sm font-bold focus:ring-2 focus:ring-pink-500 transition-all outline-none rounded-md"
  value={searchQuery}
  onChange={(e) => setSearchQuery(e.target.value)}
- />
+        onKeyDown={(e) => {
+          if (e.key === 'Enter') {
+            e.preventDefault();
+            e.stopPropagation();
+            handleSearch(e);
+          }
+        }}
+      />
  <button 
- type="submit"
+        type="button"
+        onClick={handleSearch}
  disabled={isGeocoding}
  className="absolute right-3 top-1/2 -translate-y-1/2 bg-white text-slate-900 px-4 py-2 border border-slate-100 font-bold text-xs hover:bg-slate-50 transition-all shadow-sm flex items-center gap-2 rounded-md"
  >
  {isGeocoding ? <div className="w-3 h-3 border-2 border-pink-500 border-t-transparent animate-spin" /> : 'Find'}
  </button>
- </form>
+    </div>
 
  {/* Map Container with Mobile-First Responsive Height */}
  <div className="h-[220px] sm:h-[300px] md:h-[380px] w-full sm:-[32px] overflow-hidden border-2 sm:border-4 border-slate-100 dark:border-slate-800 relative group shadow-inner">
