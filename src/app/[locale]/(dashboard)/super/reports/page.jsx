@@ -16,7 +16,6 @@ import {
   HiOutlineXMark,
   HiOutlineClipboardDocumentCheck,
   HiOutlineShieldCheck,
-  HiOutlineGlobeAlt,
   HiOutlineFingerPrint,
   HiOutlineBuildingOffice2
 } from 'react-icons/hi2';
@@ -101,26 +100,26 @@ export default function AuditReportsPage() {
   };
 
   return (
-    <div className="space-y-6 w-full pb-8">
+    <div className="space-y-4 w-full pb-4">
       {/* Header */}
-      <header className="flex flex-col md:flex-row md:items-end justify-between gap-4">
+      <header className="flex flex-col md:flex-row md:items-end justify-between gap-3">
         <div>
           <motion.h1 
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
-            className="text-4xl font-black text-slate-900 tracking-tight flex items-center gap-4 !m-0 !mb-2"
+            className="text-4xl font-black text-slate-900 flex items-center gap-2.5 !m-0 !mb-1 leading-tight"
           >
-            <span className="p-3 bg-slate-900 text-white shadow-lg shadow-slate-900/20 rounded-xl flex items-center justify-center shrink-0">
-              <HiOutlineClipboardDocumentList size={30} />
+            <span className="p-2 bg-slate-900 text-white shadow-lg shadow-slate-900/20 rounded-xl flex items-center justify-center shrink-0">
+              <HiOutlineClipboardDocumentList size={26} />
             </span>
             <span>System Pulse</span>
           </motion.h1>
-          <p className="text-slate-500 font-medium max-w-md text-sm leading-relaxed">
+          <p className="text-slate-500 font-medium max-w-md text-sm leading-relaxed mt-0.5">
             The definitive audit log for SYICT. Every critical action, configuration change, and administrative movement is recorded here for security oversight.
           </p>
         </div>
 
-        <div className="flex items-center gap-3 w-full md:w-auto">
+        <div className="flex items-center gap-2 w-full md:w-auto">
           <select
             value={actionFilter}
             onChange={(e) => {
@@ -129,7 +128,7 @@ export default function AuditReportsPage() {
               setPage(1);
               fetchLogs(1, val);
             }}
-            className="py-3 px-3.5 bg-white border border-slate-200 text-slate-700 text-xs font-bold rounded-xl outline-none focus:border-slate-900 shadow-xs cursor-pointer"
+            className="py-2 px-3 bg-white border border-slate-200 text-slate-700 text-xs font-bold rounded-xl outline-none focus:border-slate-900 shadow-xs cursor-pointer leading-normal"
           >
             <option value="">All Actions</option>
             <option value="CREATE">Create</option>
@@ -141,46 +140,46 @@ export default function AuditReportsPage() {
           </select>
 
           <div className="relative group flex-1 md:w-72">
-            <HiOutlineMagnifyingGlass className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 group-focus-within:text-slate-900 transition-colors" />
+            <HiOutlineMagnifyingGlass className="absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400 group-focus-within:text-slate-900 transition-colors" size={16} />
             <input 
               type="text"
               placeholder="Search logs, branches, actors..."
               value={search}
               onChange={(e) => setSearch(e.target.value)}
-              className="pl-11 pr-6 py-3 bg-white border border-slate-200 w-full focus:ring-4 focus:ring-slate-900/5 focus:border-slate-900 transition-all outline-none font-medium text-slate-700 shadow-xs rounded-xl text-sm"
+              className="pl-9 pr-4 py-2 bg-white border border-slate-200 w-full focus:ring-4 focus:ring-slate-900/5 focus:border-slate-900 transition-all outline-none font-medium text-slate-700 shadow-xs rounded-xl text-sm leading-normal"
             />
           </div>
         </div>
       </header>
 
       {/* 360° Branch Executive Audit Banner Link */}
-      <div className="bg-gradient-to-r from-slate-900 via-indigo-950 to-slate-900 text-white p-4 sm:p-5 rounded-2xl shadow-md border border-slate-800 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-        <div className="flex items-center gap-3.5">
-          <div className="w-10 h-10 rounded-xl bg-white/10 backdrop-blur-xs flex items-center justify-center text-amber-400 shrink-0">
-            <HiOutlineBuildingOffice2 size={22} />
+      <div className="bg-gradient-to-r from-slate-900 via-indigo-950 to-slate-900 text-white p-3 sm:p-3.5 rounded-xl shadow-md border border-slate-800 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+        <div className="flex items-center gap-3">
+          <div className="w-9 h-9 rounded-lg bg-white/10 backdrop-blur-xs flex items-center justify-center text-amber-400 shrink-0">
+            <HiOutlineBuildingOffice2 size={20} />
           </div>
           <div>
-            <h3 className="text-sm font-bold tracking-tight text-white flex items-center gap-2">
+            <h3 className="text-sm font-bold text-white flex items-center gap-2 leading-tight">
               <span>Looking for Comprehensive 360° Branch Audit & P&L?</span>
-              <span className="px-2 py-0.5 rounded text-[10px] font-black uppercase tracking-wider bg-amber-400 text-slate-950">
+              <span className="px-1.5 py-0.5 rounded text-[10px] font-black uppercase tracking-wider bg-amber-400 text-slate-950 leading-normal">
                 New Executive System
               </span>
             </h3>
-            <p className="text-xs text-slate-300 mt-0.5">
+            <p className="text-xs text-slate-300 mt-0.5 leading-normal">
               Monitor daily, weekly & monthly campus collections, petty cash vouchers, routine conflicts, and red flags.
             </p>
           </div>
         </div>
         <Link
           href={`/${locale}/super/branches/audit`}
-          className="px-4 py-2 bg-white text-slate-900 hover:bg-slate-100 rounded-xl text-xs font-bold transition-all shrink-0 text-center shadow-xs cursor-pointer"
+          className="px-3 py-1.5 bg-white text-slate-900 hover:bg-slate-100 rounded-lg text-xs font-bold transition-all shrink-0 text-center shadow-xs cursor-pointer leading-normal"
         >
           Open 360° Branch Audit →
         </Link>
       </div>
 
       {/* Main Audit Feed */}
-      <div className="bg-white border border-slate-200/80 shadow-xs relative overflow-hidden rounded-2xl">
+      <div className="bg-white border border-slate-200/80 shadow-xs relative overflow-hidden rounded-xl">
         <div className="absolute top-0 left-0 w-1 h-full bg-slate-100 ml-[3.5rem] hidden md:block" />
         
         <motion.div 
@@ -190,8 +189,8 @@ export default function AuditReportsPage() {
           className="divide-y divide-slate-100 relative z-10"
         >
           {loading ? (
-            [...Array(8)].map((_, i) => (
-              <div key={i} className="p-8 h-20 bg-slate-50/50 animate-pulse" />
+            [...Array(6)].map((_, i) => (
+              <div key={i} className="p-4 h-14 bg-slate-50/50 animate-pulse" />
             ))
           ) : filteredLogs.map((log) => {
             const branchName = getLogBranchName(log);
@@ -201,54 +200,54 @@ export default function AuditReportsPage() {
               <motion.div 
                 key={log._id} 
                 variants={item}
-                className="group p-4 md:p-5 flex flex-col md:flex-row md:items-center gap-4 hover:bg-slate-50/60 transition-all"
+                className="group p-3 md:p-3.5 flex flex-col md:flex-row md:items-center gap-3 hover:bg-slate-50/60 transition-all"
               >
-                <div className="flex items-center gap-3.5 shrink-0">
+                <div className="flex items-center gap-2.5 shrink-0">
                   {/* Timestamp box */}
-                  <div className="w-13 h-13 bg-white border border-slate-200/80 shadow-2xs flex flex-col items-center justify-center relative z-20 rounded-xl shrink-0 p-1">
+                  <div className="w-11 h-11 bg-white border border-slate-200/80 shadow-2xs flex flex-col items-center justify-center relative z-20 rounded-lg shrink-0 p-1">
                     <p className="text-[10px] font-black text-slate-400 uppercase leading-none">{format(new Date(log.createdAt), 'MMM')}</p>
-                    <p className="text-lg font-black text-slate-900 leading-none mt-1">{format(new Date(log.createdAt), 'dd')}</p>
+                    <p className="text-base font-black text-slate-900 leading-none mt-0.5">{format(new Date(log.createdAt), 'dd')}</p>
                   </div>
 
                   {/* Action Tag */}
-                  <div className={`px-3 py-1.5 border text-[10px] font-black uppercase tracking-wider whitespace-nowrap rounded-lg flex items-center justify-center shrink-0 leading-none ${getActionColor(log.action)}`}>
+                  <div className={`px-2.5 py-1 border text-[10px] font-black uppercase tracking-wider whitespace-nowrap rounded-md flex items-center justify-center shrink-0 leading-normal ${getActionColor(log.action)}`}>
                     {log.action.replace(/_/g, ' ')}
                   </div>
                 </div>
 
                 <div className="flex-1 min-w-0">
                   <div className="flex items-center gap-2 leading-none flex-wrap">
-                    <span className="text-slate-700 font-bold text-sm flex items-center gap-1.5 leading-none">
-                      <HiOutlineUser className="text-slate-400 shrink-0" size={15} />
+                    <span className="text-slate-700 font-bold text-sm flex items-center gap-1.5 leading-snug">
+                      <HiOutlineUser className="text-slate-400 shrink-0" size={14} />
                       <span className="text-slate-900">{log.actor?.name || 'System Agent'}</span>
                     </span>
                     {log.actor?.role && (
-                      <span className="px-1.5 py-0.5 rounded text-[9px] font-black uppercase tracking-wider bg-slate-100 text-slate-600 border border-slate-200/80 leading-none">
+                      <span className="px-1.5 py-0.5 rounded text-[9px] font-black uppercase tracking-wider bg-slate-100 text-slate-600 border border-slate-200/80 leading-normal">
                         {log.actor.role.replace(/_/g, ' ')}
                       </span>
                     )}
                   </div>
 
-                  <div className="flex flex-wrap items-center gap-3 mt-2 text-xs text-slate-500 font-medium leading-none">
-                    <span className="flex items-center gap-1 text-slate-400 leading-none">
+                  <div className="flex flex-wrap items-center gap-2.5 mt-1 text-xs text-slate-500 font-medium leading-normal">
+                    <span className="flex items-center gap-1 text-slate-400 leading-normal">
                       <HiOutlineCalendar size={13} className="shrink-0" />
                       <span>{format(new Date(log.createdAt), 'HH:mm:ss')}</span>
                     </span>
                     
                     {/* Entity & Branch Identification */}
-                    <span className="flex items-center gap-1.5 leading-none">
-                      <HiOutlineBolt size={14} className="text-amber-500 shrink-0" />
+                    <span className="flex items-center gap-1.5 leading-normal">
+                      <HiOutlineBolt size={13} className="text-amber-500 shrink-0" />
                       {branchName ? (
-                        <span className="inline-flex items-center gap-1.5 leading-none">
-                          <strong className="text-slate-900 font-bold bg-slate-100 px-2 py-0.5 rounded-md border border-slate-200/70 text-xs leading-none">
+                        <span className="inline-flex items-center gap-1 leading-normal">
+                          <strong className="text-slate-900 font-bold bg-slate-100 px-1.5 py-0.5 rounded-md border border-slate-200/70 text-xs leading-normal">
                             {branchName}
                           </strong>
-                          <span className="text-[11px] font-mono text-slate-400 uppercase leading-none">
+                          <span className="text-[11px] font-mono text-slate-400 uppercase leading-normal">
                             (#{log.entityId?.slice(-6) || branchCode || 'ID'})
                           </span>
                         </span>
                       ) : (
-                        <span className="uppercase tracking-tighter font-mono text-slate-600 leading-none">
+                        <span className="uppercase font-mono text-slate-600 leading-normal">
                           {log.entity} #{log.entityId?.slice(-6) || 'N/A'}
                         </span>
                       )}
@@ -256,15 +255,15 @@ export default function AuditReportsPage() {
                   </div>
                 </div>
 
-                <div className="flex items-center justify-between md:justify-end w-full md:w-auto mt-2 md:mt-0 gap-3 shrink-0">
-                  <div className="bg-slate-50 px-2.5 py-1.5 flex items-center gap-1.5 border border-slate-200/60 rounded-lg">
-                    <HiOutlineCommandLine className="text-slate-400 shrink-0" size={13} />
-                    <span className="text-[10px] font-mono font-bold text-slate-500 leading-none">{log.ipAddress || 'Internal'}</span>
+                <div className="flex items-center justify-between md:justify-end w-full md:w-auto mt-1 md:mt-0 gap-2 shrink-0">
+                  <div className="bg-slate-50 px-2 py-1 flex items-center gap-1 border border-slate-200/60 rounded-md">
+                    <HiOutlineCommandLine className="text-slate-400 shrink-0" size={12} />
+                    <span className="text-[10px] font-mono font-bold text-slate-500 leading-normal">{log.ipAddress || 'Internal'}</span>
                   </div>
                   <button 
                     type="button"
                     onClick={() => setSelectedLog(log)}
-                    className="text-slate-800 font-bold text-[11px] uppercase tracking-wider px-3.5 py-1.5 bg-slate-100 hover:bg-slate-900 hover:text-white active:scale-95 transition-all rounded-lg cursor-pointer border border-slate-200/80 shadow-2xs leading-none"
+                    className="text-slate-800 font-bold text-[10px] uppercase tracking-wider px-2.5 py-1 bg-slate-100 hover:bg-slate-900 hover:text-white active:scale-95 transition-all rounded-md cursor-pointer border border-slate-200/80 shadow-2xs leading-normal"
                   >
                     Details
                   </button>
@@ -274,17 +273,17 @@ export default function AuditReportsPage() {
           })}
           
           {!loading && filteredLogs.length === 0 && (
-            <div className="p-20 text-center">
-              <HiOutlineClipboardDocumentList size={48} className="mx-auto text-slate-200 mb-4" />
-              <p className="text-slate-400 font-medium italic">No pulse detected in the current filter.</p>
+            <div className="p-10 text-center">
+              <HiOutlineClipboardDocumentList size={36} className="mx-auto text-slate-200 mb-2" />
+              <p className="text-slate-400 font-medium italic text-xs leading-normal">No pulse detected in the current filter.</p>
             </div>
           )}
         </motion.div>
 
         {/* Pagination Bar */}
         {totalPages > 1 && (
-          <div className="p-4 bg-slate-50 border-t border-slate-100 flex flex-col sm:flex-row items-center justify-between gap-3 relative z-20">
-            <p className="text-xs font-semibold text-slate-500">
+          <div className="px-3.5 py-2.5 bg-slate-50 border-t border-slate-100 flex flex-col sm:flex-row items-center justify-between gap-2 relative z-20">
+            <p className="text-xs font-semibold text-slate-500 leading-normal">
               Showing page <span className="font-bold text-slate-900">{page}</span> of <span className="font-bold text-slate-900">{totalPages}</span> ({total} records)
             </p>
             <div className="flex items-center gap-2">
@@ -292,7 +291,7 @@ export default function AuditReportsPage() {
                 type="button"
                 disabled={page <= 1 || loading}
                 onClick={() => { const prev = Math.max(1, page - 1); setPage(prev); fetchLogs(prev, actionFilter); }}
-                className="px-3.5 py-1.5 text-xs font-bold rounded-lg bg-white border border-slate-200 text-slate-700 disabled:opacity-40 hover:bg-slate-100 transition-all cursor-pointer shadow-2xs"
+                className="px-3 py-1 text-xs font-bold rounded-md bg-white border border-slate-200 text-slate-700 disabled:opacity-40 hover:bg-slate-100 transition-all cursor-pointer shadow-2xs leading-normal"
               >
                 Previous
               </button>
@@ -300,7 +299,7 @@ export default function AuditReportsPage() {
                 type="button"
                 disabled={page >= totalPages || loading}
                 onClick={() => { const next = Math.min(totalPages, page + 1); setPage(next); fetchLogs(next, actionFilter); }}
-                className="px-3.5 py-1.5 text-xs font-bold rounded-lg bg-white border border-slate-200 text-slate-700 disabled:opacity-40 hover:bg-slate-100 transition-all cursor-pointer shadow-2xs"
+                className="px-3 py-1 text-xs font-bold rounded-md bg-white border border-slate-200 text-slate-700 disabled:opacity-40 hover:bg-slate-100 transition-all cursor-pointer shadow-2xs leading-normal"
               >
                 Next
               </button>
@@ -316,7 +315,7 @@ export default function AuditReportsPage() {
           const modalBranchCode = getLogBranchCode(selectedLog);
 
           return (
-            <div className="fixed inset-0 z-[99999999] flex items-center justify-center p-4">
+            <div className="fixed inset-0 z-[99999999] flex items-center justify-center p-3">
               {/* Backdrop */}
               <motion.div 
                 initial={{ opacity: 0 }}
@@ -332,13 +331,13 @@ export default function AuditReportsPage() {
                 animate={{ opacity: 1, scale: 1, y: 0 }}
                 exit={{ opacity: 0, scale: 0.95, y: 15 }}
                 transition={{ duration: 0.2, ease: [0.16, 1, 0.3, 1] }}
-                className="relative w-full max-w-2xl bg-white rounded-2xl shadow-2xl border border-slate-200 overflow-hidden flex flex-col max-h-[88vh] z-10"
+                className="relative w-full max-w-2xl bg-white rounded-xl shadow-2xl border border-slate-200 overflow-hidden flex flex-col max-h-[88vh] z-10"
               >
-                {/* Header with Perfect Vertical Alignment */}
-                <div className="p-4 sm:p-5 border-b border-slate-100 flex items-center justify-between bg-slate-50/80">
-                  <div className="flex items-center gap-3.5 min-w-0">
-                    <div className="w-11 h-11 rounded-xl bg-white border border-slate-200/90 flex items-center justify-center text-slate-900 shadow-2xs shrink-0">
-                      <HiOutlineFingerPrint size={22} />
+                {/* Header */}
+                <div className="p-3 sm:p-3.5 border-b border-slate-100 flex items-center justify-between bg-slate-50/80">
+                  <div className="flex items-center gap-3 min-w-0">
+                    <div className="w-9 h-9 rounded-lg bg-white border border-slate-200/90 flex items-center justify-center text-slate-900 shadow-2xs shrink-0">
+                      <HiOutlineFingerPrint size={20} />
                     </div>
                     <div className="flex flex-col justify-center min-w-0">
                       <div className="flex items-center gap-2 flex-wrap">
@@ -349,7 +348,7 @@ export default function AuditReportsPage() {
                           {selectedLog.action.replace(/_/g, ' ')}
                         </span>
                       </div>
-                      <div className="text-xs text-slate-500 font-mono flex items-center gap-1.5 mt-1 leading-none">
+                      <div className="text-xs text-slate-500 font-mono flex items-center gap-1 mt-0.5 leading-normal">
                         <span className="text-slate-400">ID:</span>
                         <span className="text-slate-700 font-semibold">{selectedLog._id}</span>
                         <button 
@@ -358,7 +357,7 @@ export default function AuditReportsPage() {
                           className="text-slate-400 hover:text-slate-900 transition-colors cursor-pointer inline-flex items-center p-0.5 rounded hover:bg-slate-200/60"
                           title="Copy ID"
                         >
-                          <HiOutlineClipboardDocumentCheck size={14} />
+                          <HiOutlineClipboardDocumentCheck size={13} />
                         </button>
                       </div>
                     </div>
@@ -367,28 +366,28 @@ export default function AuditReportsPage() {
                   <button 
                     type="button"
                     onClick={() => setSelectedLog(null)}
-                    className="w-8 h-8 rounded-lg bg-white hover:bg-slate-100 text-slate-400 hover:text-slate-700 flex items-center justify-center border border-slate-200 transition-all cursor-pointer shrink-0 ml-3"
+                    className="w-7 h-7 rounded-lg bg-white hover:bg-slate-100 text-slate-400 hover:text-slate-700 flex items-center justify-center border border-slate-200 transition-all cursor-pointer shrink-0 ml-2"
                   >
-                    <HiOutlineXMark size={18} />
+                    <HiOutlineXMark size={16} />
                   </button>
                 </div>
 
                 {/* Scrollable Content */}
-                <div className="p-5 sm:p-6 overflow-y-auto space-y-5">
+                <div className="p-3.5 sm:p-4 overflow-y-auto space-y-3.5">
                   {/* Meta Grid */}
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
                     {/* Initiator */}
-                    <div className="p-3.5 bg-slate-50/80 rounded-xl border border-slate-100 space-y-1.5">
-                      <p className="text-[10px] font-black uppercase tracking-wider text-slate-400 flex items-center gap-1.5 leading-none">
-                        <HiOutlineUser size={13} className="shrink-0" /> Initiator / Actor
+                    <div className="p-2.5 bg-slate-50/80 rounded-lg border border-slate-100 space-y-1">
+                      <p className="text-[10px] font-black uppercase tracking-wider text-slate-400 flex items-center gap-1 leading-normal">
+                        <HiOutlineUser size={12} className="shrink-0" /> Initiator / Actor
                       </p>
-                      <p className="text-sm font-bold text-slate-900 leading-tight">
+                      <p className="text-sm font-bold text-slate-900 leading-snug">
                         {selectedLog.actor?.name || 'System Agent'}
                       </p>
-                      <div className="flex items-center gap-2 text-xs text-slate-500 flex-wrap leading-tight">
+                      <div className="flex items-center gap-1.5 text-xs text-slate-500 flex-wrap leading-normal">
                         {selectedLog.actor?.email && <span>{selectedLog.actor.email}</span>}
                         {selectedLog.actor?.role && (
-                          <span className="px-1.5 py-0.5 rounded text-[9px] font-bold uppercase tracking-wider bg-white border border-slate-200 text-slate-600 leading-none">
+                          <span className="px-1.5 py-0.5 rounded text-[9px] font-bold uppercase tracking-wider bg-white border border-slate-200 text-slate-600 leading-normal">
                             {selectedLog.actor.role.replace(/_/g, ' ')}
                           </span>
                         )}
@@ -396,21 +395,21 @@ export default function AuditReportsPage() {
                     </div>
 
                     {/* Target Entity with Branch Name */}
-                    <div className="p-3.5 bg-slate-50/80 rounded-xl border border-slate-100 space-y-1.5">
-                      <p className="text-[10px] font-black uppercase tracking-wider text-slate-400 flex items-center gap-1.5 leading-none">
-                        <HiOutlineBolt size={13} className="shrink-0" /> Target Entity
+                    <div className="p-2.5 bg-slate-50/80 rounded-lg border border-slate-100 space-y-1">
+                      <p className="text-[10px] font-black uppercase tracking-wider text-slate-400 flex items-center gap-1 leading-normal">
+                        <HiOutlineBolt size={12} className="shrink-0" /> Target Entity
                       </p>
-                      <div className="flex items-center gap-2 flex-wrap">
-                        <p className="text-sm font-bold text-slate-900 leading-tight">
+                      <div className="flex items-center gap-1.5 flex-wrap">
+                        <p className="text-sm font-bold text-slate-900 leading-snug">
                           {modalBranchName || selectedLog.entity}
                         </p>
                         {modalBranchName && (
-                          <span className="px-2 py-0.5 rounded text-[9px] font-black uppercase tracking-wider bg-indigo-50 text-indigo-700 border border-indigo-200 leading-none">
+                          <span className="px-1.5 py-0.5 rounded text-[9px] font-black uppercase tracking-wider bg-indigo-50 text-indigo-700 border border-indigo-200 leading-normal">
                             Branch
                           </span>
                         )}
                       </div>
-                      <div className="text-xs text-slate-500 font-mono flex items-center gap-1.5 leading-tight">
+                      <div className="text-xs text-slate-500 font-mono flex items-center gap-1 leading-normal">
                         <span className="text-slate-400">Ref ID:</span>
                         <span className="text-slate-700 font-semibold">#{selectedLog.entityId || 'N/A'}</span>
                         {selectedLog.entityId && (
@@ -427,27 +426,27 @@ export default function AuditReportsPage() {
                     </div>
 
                     {/* Timestamp */}
-                    <div className="p-3.5 bg-slate-50/80 rounded-xl border border-slate-100 space-y-1.5">
-                      <p className="text-[10px] font-black uppercase tracking-wider text-slate-400 flex items-center gap-1.5 leading-none">
-                        <HiOutlineCalendar size={13} className="shrink-0" /> Timestamp
+                    <div className="p-2.5 bg-slate-50/80 rounded-lg border border-slate-100 space-y-1">
+                      <p className="text-[10px] font-black uppercase tracking-wider text-slate-400 flex items-center gap-1 leading-normal">
+                        <HiOutlineCalendar size={12} className="shrink-0" /> Timestamp
                       </p>
-                      <p className="text-xs font-bold text-slate-900 leading-tight">
+                      <p className="text-xs font-bold text-slate-900 leading-snug">
                         {format(new Date(selectedLog.createdAt), 'EEEE, MMMM dd, yyyy')}
                       </p>
-                      <p className="text-xs text-slate-500 font-mono leading-none">
+                      <p className="text-xs text-slate-500 font-mono leading-normal">
                         {format(new Date(selectedLog.createdAt), 'HH:mm:ss (xxx)')}
                       </p>
                     </div>
 
                     {/* Network Origin */}
-                    <div className="p-3.5 bg-slate-50/80 rounded-xl border border-slate-100 space-y-1.5">
-                      <p className="text-[10px] font-black uppercase tracking-wider text-slate-400 flex items-center gap-1.5 leading-none">
-                        <HiOutlineCommandLine size={13} className="shrink-0" /> Network Origin
+                    <div className="p-2.5 bg-slate-50/80 rounded-lg border border-slate-100 space-y-1">
+                      <p className="text-[10px] font-black uppercase tracking-wider text-slate-400 flex items-center gap-1 leading-normal">
+                        <HiOutlineCommandLine size={12} className="shrink-0" /> Network Origin
                       </p>
-                      <p className="text-xs font-bold font-mono text-slate-900 leading-tight">
+                      <p className="text-xs font-bold font-mono text-slate-900 leading-snug">
                         {selectedLog.ipAddress || 'Internal Cluster / localhost'}
                       </p>
-                      <p className="text-[11px] text-slate-500 truncate leading-none" title={selectedLog.userAgent || 'Direct API Call'}>
+                      <p className="text-[11px] text-slate-500 truncate leading-normal" title={selectedLog.userAgent || 'Direct API Call'}>
                         {selectedLog.userAgent ? selectedLog.userAgent.slice(0, 35) + '...' : 'Direct Server Execution'}
                       </p>
                     </div>
@@ -455,33 +454,33 @@ export default function AuditReportsPage() {
 
                   {/* Branch Callout Card */}
                   {modalBranchName && (
-                    <div className="p-3.5 bg-indigo-50/40 rounded-xl border border-indigo-100 flex items-center justify-between">
-                      <div className="flex items-center gap-3 min-w-0">
-                        <div className="w-10 h-10 rounded-lg bg-indigo-100 text-indigo-700 flex items-center justify-center shrink-0">
-                          <HiOutlineBuildingOffice2 size={20} />
+                    <div className="p-2.5 bg-indigo-50/40 rounded-lg border border-indigo-100 flex items-center justify-between">
+                      <div className="flex items-center gap-2.5 min-w-0">
+                        <div className="w-8 h-8 rounded-md bg-indigo-100 text-indigo-700 flex items-center justify-center shrink-0">
+                          <HiOutlineBuildingOffice2 size={18} />
                         </div>
                         <div className="min-w-0">
-                          <p className="text-[10px] font-black uppercase tracking-wider text-indigo-500 leading-none mb-1">Target Branch</p>
-                          <p className="text-sm font-bold text-slate-900 leading-tight">
+                          <p className="text-[10px] font-black uppercase tracking-wider text-indigo-500 leading-none mb-0.5">Target Branch</p>
+                          <p className="text-sm font-bold text-slate-900 leading-snug">
                             {modalBranchName}
                             {modalBranchCode && (
-                              <span className="text-xs font-mono text-slate-500 font-medium ml-1.5">
+                              <span className="text-xs font-mono text-slate-500 font-medium ml-1">
                                 ({modalBranchCode})
                               </span>
                             )}
                           </p>
                         </div>
                       </div>
-                      <span className="px-2.5 py-1 rounded-md text-[10px] font-black uppercase tracking-wider bg-white border border-indigo-200 text-indigo-700 shadow-2xs shrink-0 ml-2 leading-none">
+                      <span className="px-2 py-0.5 rounded-md text-[10px] font-black uppercase tracking-wider bg-white border border-indigo-200 text-indigo-700 shadow-2xs shrink-0 ml-2 leading-normal">
                         Verified Branch
                       </span>
                     </div>
                   )}
 
                   {/* Data Mutation Payload */}
-                  <div className="space-y-2">
+                  <div className="space-y-1.5">
                     <div className="flex items-center justify-between">
-                      <p className="text-xs font-black uppercase tracking-wider text-slate-700 flex items-center gap-1.5 leading-none">
+                      <p className="text-xs font-black uppercase tracking-wider text-slate-700 flex items-center gap-1 leading-normal">
                         <HiOutlineShieldCheck size={14} className="text-indigo-600 shrink-0" />
                         Payload & State Details
                       </p>
@@ -489,21 +488,21 @@ export default function AuditReportsPage() {
                         <button 
                           type="button"
                           onClick={() => copyToClipboard(JSON.stringify(selectedLog.details, null, 2), 'Payload JSON copied')}
-                          className="px-2.5 py-1 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded text-[10px] font-bold uppercase tracking-wider flex items-center gap-1 transition-all cursor-pointer leading-none"
+                          className="px-2 py-0.5 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded text-[10px] font-bold uppercase tracking-wider flex items-center gap-1 transition-all cursor-pointer leading-normal"
                         >
-                          <HiOutlineClipboardDocumentCheck size={13} /> Copy JSON
+                          <HiOutlineClipboardDocumentCheck size={12} /> Copy JSON
                         </button>
                       )}
                     </div>
 
                     {selectedLog.details && Object.keys(selectedLog.details).length > 0 ? (
-                      <div className="bg-slate-900 text-slate-100 p-4 rounded-xl font-mono text-xs overflow-x-auto max-h-56 leading-relaxed border border-slate-800">
+                      <div className="bg-slate-900 text-slate-100 p-3 rounded-lg font-mono text-xs overflow-x-auto max-h-48 leading-relaxed border border-slate-800">
                         <pre>{JSON.stringify(selectedLog.details, null, 2)}</pre>
                       </div>
                     ) : (
-                      <div className="p-6 text-center bg-slate-50 border border-slate-100 rounded-xl">
-                        <HiOutlineShieldCheck size={28} className="mx-auto text-slate-300 mb-1.5" />
-                        <p className="text-xs font-medium text-slate-500 leading-relaxed">
+                      <div className="p-4 text-center bg-slate-50 border border-slate-100 rounded-lg">
+                        <HiOutlineShieldCheck size={24} className="mx-auto text-slate-300 mb-1" />
+                        <p className="text-xs font-medium text-slate-500 leading-normal">
                           Standard system event record without additional payload mutations. Action was committed directly to the core database entity.
                         </p>
                       </div>
@@ -512,18 +511,18 @@ export default function AuditReportsPage() {
                 </div>
 
                 {/* Footer */}
-                <div className="p-4 border-t border-slate-100 bg-slate-50/80 flex items-center justify-between">
+                <div className="px-3.5 py-2.5 border-t border-slate-100 bg-slate-50/80 flex items-center justify-between">
                   <button
                     type="button"
                     onClick={() => copyToClipboard(JSON.stringify(selectedLog, null, 2), 'Full Log record copied')}
-                    className="px-3 py-1.5 text-xs font-bold text-slate-600 hover:text-slate-900 transition-colors inline-flex items-center gap-1.5 cursor-pointer leading-none"
+                    className="px-2.5 py-1 text-xs font-bold text-slate-600 hover:text-slate-900 transition-colors inline-flex items-center gap-1 cursor-pointer leading-normal"
                   >
-                    <HiOutlineClipboardDocumentCheck size={14} /> Copy Full Record
+                    <HiOutlineClipboardDocumentCheck size={13} /> Copy Full Record
                   </button>
                   <button
                     type="button"
                     onClick={() => setSelectedLog(null)}
-                    className="px-4 py-2 bg-slate-900 hover:bg-slate-800 text-white rounded-lg text-xs font-bold transition-all shadow-xs active:scale-95 cursor-pointer leading-none"
+                    className="px-3.5 py-1.5 bg-slate-900 hover:bg-slate-800 text-white rounded-md text-xs font-bold transition-all shadow-xs active:scale-95 cursor-pointer leading-normal"
                   >
                     Close
                   </button>
