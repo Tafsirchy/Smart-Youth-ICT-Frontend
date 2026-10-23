@@ -8,6 +8,7 @@ import {
  keepPreviousData,
 } from "@tanstack/react-query";
 import api from "@/lib/api";
+import { superQueryKeys } from "@/lib/queryKeys";
 import toast from "react-hot-toast";
 import {
  IoCardOutline,
@@ -50,7 +51,7 @@ export default function SuperPaymentsPage() {
 
  // Fetch Branches for filter
  const { data: branchesRes } = useQuery({
- queryKey: ["super-branches"],
+ queryKey: superQueryKeys.superBranches(),
  queryFn: async () => {
  const res = await api.get("/super/branches");
  return res.data?.data || [];
@@ -61,7 +62,7 @@ export default function SuperPaymentsPage() {
  const branches = branchesRes || [];
 
  const { data: paymentsRes, isLoading: loading } = useQuery({
- queryKey: ["payments", { page, statusFilter, branchFilter }],
+ queryKey: superQueryKeys.payments({ page, statusFilter, branchFilter }),
  queryFn: async () => {
  const params = { page, limit };
  if (statusFilter) params.status = statusFilter;
@@ -122,12 +123,14 @@ export default function SuperPaymentsPage() {
  setSelectedPayment(null);
  setNote("");
  queryClient.invalidateQueries(["payments"]);
- } catch {
- toast.error("Failed to update payment status.");
- } finally {
- setActionLoading(false);
- }
- };
+  } catch (error) {
+  toast.error(
+  error?.response?.data?.message || "Failed to update payment status.",
+  );
+  } finally {
+  setActionLoading(false);
+  }
+  };
 
  const handleExportCSV = async () => {
  try {

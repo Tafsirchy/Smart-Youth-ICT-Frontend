@@ -74,7 +74,7 @@ export default function GlobalFinancePage() {
  const paidTotal = getStatusTotal('paid');
 
  return (
- <div className="space-y-6 max-w-7xl mx-auto px-4 md:px-8 pb-8">
+ <div className="space-y-6 w-full pb-8">
  {/* Header */}
  <header className="flex flex-col md:flex-row md:items-end justify-between gap-4">
  <div>
