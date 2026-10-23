@@ -14,6 +14,7 @@ import {
 } from "framer-motion";
 import { useQuery } from "@tanstack/react-query";
 import api from "@/lib/api";
+import { queryKeys } from "@/lib/queryKeys";
 import MobileMenu from "./MobileMenu";
 
 /* ─── ABOUT MEGA MENU ─────────────────────────────────────────────── */
@@ -208,7 +209,7 @@ export default function Navbar() {
  const { scrollY } = useScroll();
 
  const { data: globalMessage } = useQuery({
- queryKey: ['globalMessage'],
+ queryKey: queryKeys.globalMessage(),
  queryFn: async () => {
  try {
  const res = await api.get("/cms/settings/globalMessage");
