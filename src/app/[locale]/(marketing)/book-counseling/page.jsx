@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect, useTransition } from 'react';
+import { useState, useEffect, useTransition, Suspense } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useSearchParams } from 'next/navigation';
 import api from '@/lib/api';
@@ -35,7 +35,7 @@ const PERKS = [
   { icon: '🚀', title: 'Freelancing & Job Placement Advice', desc: 'Learn marketplace demand, batch schedules, and internship opportunities.' },
 ];
 
-export default function BookCounselingPage() {
+function BookCounselingContent() {
   const searchParams = useSearchParams();
   const preBranch = searchParams?.get('branch') || '';
 
@@ -434,5 +434,14 @@ export default function BookCounselingPage() {
         </div>
       </div>
     </div>
+  );
+}
+
+
+export default function BookCounselingPage() {
+  return (
+    <Suspense fallback={<div className="min-h-screen flex items-center justify-center"><div className="w-8 h-8 border-2 border-purple-500 border-t-transparent rounded-full animate-spin"></div></div>}>
+      <BookCounselingContent />
+    </Suspense>
   );
 }
