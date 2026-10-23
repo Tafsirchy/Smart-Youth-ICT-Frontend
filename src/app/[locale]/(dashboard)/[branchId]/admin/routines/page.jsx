@@ -20,6 +20,7 @@ import {
   HiFilter
 } from 'react-icons/hi';
 import { IoCloseOutline } from 'react-icons/io5';
+import { resolveCourseTitle } from '@/utils/text';
 
 const DAYS_OF_WEEK = [
   'Saturday',
@@ -355,7 +356,7 @@ export default function BranchRoutinesPage() {
                               {slot.batchName}
                             </h4>
                             <p className="text-xs text-gray-600 mt-0.5 font-medium">
-                              {slot.course?.title}
+                              {resolveCourseTitle(slot.course)}
                             </p>
                           </div>
 
@@ -458,7 +459,7 @@ export default function BranchRoutinesPage() {
                       <option value="">Select Course</option>
                       {courses.map((c) => (
                         <option key={c._id} value={c._id}>
-                          {c.title}
+                          {resolveCourseTitle(c)}
                         </option>
                       ))}
                     </select>
