@@ -1,3 +1,4 @@
+import { toServiceContent } from "@/lib/cms/serviceContent";
 import { fetchServer } from "@/lib/api-server";
 import HostingClient from "@/components/marketing/services/HostingClient";
 
@@ -12,5 +13,5 @@ export default async function HostingPage() {
     console.error("Failed to load hosting content on server", err);
   }
 
-  return <HostingClient data={content?.landing} />;
+  return <HostingClient data={toServiceContent(content).landing} />;
 }
