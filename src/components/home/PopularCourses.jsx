@@ -6,6 +6,7 @@ import { motion } from "framer-motion";
 import Link from "next/link";
 import { useLocale } from "next-intl";
 import api from "@/lib/api";
+import { queryKeys } from "@/lib/queryKeys";
 import {
  IoArrowForwardOutline,
  IoSearchOutline,
@@ -62,7 +63,7 @@ export default function PopularCourses() {
  }, [category, branch, debouncedSearch]);
 
  const { data, isLoading, isPlaceholderData } = useQuery({
- queryKey: ["popular-courses", page, category, branch, debouncedSearch],
+ queryKey: queryKeys.popularCourses(page, category, branch, debouncedSearch),
  queryFn: async () => {
  const params = {
  page,
