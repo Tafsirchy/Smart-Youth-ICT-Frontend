@@ -10,6 +10,7 @@ import {
 } from 'react-icons/hi';
 import api from '@/lib/api';
 import toast from 'react-hot-toast';
+import { resolveCourseTitle } from '@/utils/text';
 
 export default function GradingHub() {
  const [submissions, setSubmissions] = useState([]);
@@ -130,7 +131,7 @@ export default function GradingHub() {
  </td>
  <td className="px-8 py-6">
  <p className="font-bold text-neutral-900 text-sm line-clamp-1">{sub.assignment?.title}</p>
- <p className="text-[10px] text-neutral-400 font-bold uppercase tracking-widest">{sub.assignment?.course?.title}</p>
+ <p className="text-[10px] text-neutral-400 font-bold uppercase tracking-widest">{resolveCourseTitle(sub.assignment?.course)}</p>
  </td>
  <td className="px-8 py-6">
  <p className="text-sm font-medium text-neutral-600">{new Date(sub.createdAt).toLocaleDateString()}</p>
