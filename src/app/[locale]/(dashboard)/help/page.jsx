@@ -235,7 +235,7 @@ export default function HelpCenterPage() {
   }, [faqCategory, searchQuery]);
 
   return (
-    <div className="py-6 max-w-7xl mx-auto space-y-8">
+    <div className="py-6 w-full space-y-8">
       {/* ── Top Hero Banner ─────────────────────────────────── */}
       <div className="relative overflow-hidden rounded-2xl bg-gradient-to-r from-slate-900 via-indigo-950 to-slate-900 border border-slate-800 text-white p-6 sm:p-10 shadow-xl">
         <div className="relative z-10 max-w-3xl space-y-3">
