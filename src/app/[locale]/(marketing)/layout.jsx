@@ -3,9 +3,9 @@ import Footer from '@/components/layout/Footer';
 import PageLoader from '@/components/ui/PageLoader';
 import { cookies } from 'next/headers';
 
-export default function MarketingLayout({ children }) {
- const cookieStore = cookies();
- const hasSeenSplash = cookieStore.get('syict_splash_seen')?.value === 'true';
+export default async function MarketingLayout({ children }) {
+  const cookieStore = await cookies();
+  const hasSeenSplash = cookieStore.get('syict_splash_seen')?.value === 'true';
 
  return (
  <>

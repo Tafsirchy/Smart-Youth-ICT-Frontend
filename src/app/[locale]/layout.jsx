@@ -84,17 +84,42 @@ async function AppContent({ children }) {
  <WhatsAppButton />
  <ScrollToTopButton />
  <Toaster 
- position="top-right" 
- containerStyle={{ zIndex: 99999999 }}
- toastOptions={{ duration: 4000 }} 
- />
+  position="top-right" 
+  containerStyle={{ zIndex: 99999999 }}
+  toastOptions={{ 
+    duration: 4000,
+    style: {
+      background: '#ffffff',
+      color: '#0f172a',
+      border: '1px solid #e2e8f0',
+      boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -2px rgba(0, 0, 0, 0.05)',
+      fontSize: '13px',
+      fontWeight: '500',
+      borderRadius: '12px',
+      padding: '10px 14px',
+    },
+    success: {
+      iconTheme: {
+        primary: '#16a34a',
+        secondary: '#ffffff',
+      },
+    },
+    error: {
+      iconTheme: {
+        primary: '#dc2626',
+        secondary: '#ffffff',
+      },
+    },
+  }} 
+/>
  </Providers>
  </NextIntlClientProvider>
  );
 }
 
-export default function RootLayout({ children, params: { locale } }) {
- return (
+export default async function RootLayout({ children, params }) {
+  const { locale } = await params;
+  return (
  <html lang={locale} suppressHydrationWarning className={`${inter.variable} ${outfit.variable} ${cinzel.variable} ${playfair.variable}`}>
  <head>
  {/* Next.js automatically preloads priority images from components */}

@@ -48,7 +48,7 @@ export default function SharedDashboardLayout({ children }) {
  <div className="dashboard-main w-full max-w-[100vw] overflow-x-hidden flex flex-col">
   <DashboardDesktopHeader user={session.user} />
         <ImpersonationBanner />
- <main className="dashboard-main-content px-[var(--gutter,16px)] pb-[env(safe-area-inset-bottom)]">
+        <main className="dashboard-main-content px-4 sm:px-6 pb-[env(safe-area-inset-bottom)] w-full">
  <SuperAdminBranchSwitcher user={session.user} />
  {children}
  </main>
