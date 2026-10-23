@@ -13,6 +13,7 @@ import {
   HiBookOpen,
   HiCheckCircle
 } from 'react-icons/hi';
+import { resolveCourseTitle } from '@/utils/text';
 
 const DAYS_OF_WEEK = [
   'Saturday',
@@ -180,7 +181,7 @@ export default function StudentRoutinePage() {
                         <div>
                           <h4 className="text-sm font-bold text-gray-900">{item.batchName}</h4>
                           <p className="text-xs text-gray-600 font-medium mt-0.5">
-                            {item.course?.title}
+                            {resolveCourseTitle(item.course)}
                           </p>
                         </div>
 

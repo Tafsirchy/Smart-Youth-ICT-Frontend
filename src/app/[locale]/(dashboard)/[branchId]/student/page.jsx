@@ -6,6 +6,7 @@ import { motion } from 'framer-motion';
 import Link from 'next/link';
 import Image from 'next/image';
 import api from '@/lib/api';
+import { queryKeys } from '@/lib/queryKeys';
 import { useSession } from 'next-auth/react';
 import { useLocale } from 'next-intl';
 import { useDelayLoading } from '@/hooks/useDelayLoading';
@@ -29,7 +30,7 @@ export default function StudentDashboardPage() {
  const { data: session } = useSession();
  const locale = useLocale();
  const { data: coursesData, isLoading: coursesLoading } = useQuery({
- queryKey: ['enrolled-courses'],
+ queryKey: queryKeys.enrolledCourses(),
  queryFn: async () => {
  const res = await api.get('/courses/enrolled');
  return res.data?.data || [];
@@ -39,7 +40,7 @@ export default function StudentDashboardPage() {
  });
 
  const { data: statsData, isLoading: statsLoading } = useQuery({
- queryKey: ['student-stats'],
+ queryKey: queryKeys.studentStats(),
  queryFn: async () => {
  const res = await api.get('/progress/dashboard/stats');
  return res.data?.data || { enrolledCourses: 0, completedLessons: 0, certificates: 0 };

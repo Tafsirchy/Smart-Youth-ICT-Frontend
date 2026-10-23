@@ -7,6 +7,7 @@ import {
  HiOutlineAcademicCap, HiChevronRight
 } from 'react-icons/hi';
 import api from '@/lib/api';
+import { resolveCourseTitle } from '@/utils/text';
 
 export default function ProgressPage() {
  const [enrollments, setEnrollments] = useState([]);
@@ -60,7 +61,7 @@ export default function ProgressPage() {
  </div>
 
  <h3 className="text-xl font-black text-neutral-900 mb-2 truncate pr-4">
- {enr.course?.title?.en || enr.course?.title}
+ {resolveCourseTitle(enr.course)}
  </h3>
  <div className="flex items-center gap-2 mb-6">
  <HiOutlineTrendingUp className="text-emerald-500" />
