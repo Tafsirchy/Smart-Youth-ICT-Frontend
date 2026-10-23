@@ -16,6 +16,7 @@ import { HiOutlineAcademicCap, HiReceiptTax, HiCalendar, HiTag, HiSpeakerphone, 
 import { HiShieldExclamation } from 'react-icons/hi';
 import { useRole } from '@/hooks/useRole';
 import { useSearchParams } from 'next/navigation';
+import { resolveCourseTitle } from '@/utils/text';
 
 const stagger = { animate: { transition: { staggerChildren: 0.09 } } };
 const card = { initial: { opacity: 0, y: 18 }, animate: { opacity: 1, y: 0, transition: { duration: 0.4 } } };
@@ -166,7 +167,7 @@ export default function AdminDashboardPage() {
  </div>
  <div className="flex-1 min-w-0">
  <p className="font-semibold text-textPrimary text-sm truncate">{e.user?.name || 'Unknown Student'}</p>
- <p className="text-xs text-textSecondary truncate">{e.course?.title?.en || e.course?.title || 'Course'}</p>
+ <p className="text-xs text-textSecondary truncate">{resolveCourseTitle(e.course)}</p>
  </div>
  <div className="text-right shrink-0">
  <p className="text-xs font-bold text-emerald-600">৳{(e.amount || e.course?.price || 0).toLocaleString()}</p>
