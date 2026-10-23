@@ -12,15 +12,16 @@ const API = getApiBaseUrl({ absolute: true });
 export const revalidate = 3600;
 
 export async function generateMetadata({ params }) {
- return {
- title: "Blog — Smart Youth ICT",
- description:
- "IT tips, freelancing guides and career advice from Bangladesh's leading IT training platform.",
- openGraph: {
- title: "Blog — Smart Youth ICT",
- url: `${process.env.NEXT_PUBLIC_APP_URL}/${params.locale}/blog`,
- },
- };
+  const { locale } = await params;
+  return {
+    title: "Blog — Smart Youth ICT",
+    description:
+      "IT tips, freelancing guides and career advice from Bangladesh's leading IT training platform.",
+    openGraph: {
+      title: "Blog — Smart Youth ICT",
+      url: `${process.env.NEXT_PUBLIC_APP_URL}/${locale}/blog`,
+    },
+  };
 }
 
 async function getPosts(page = 1, tag = "", q = "") {
@@ -115,10 +116,11 @@ function BlogCard({ post, locale, priority = false }) {
 }
 
 export default async function BlogPage({ params, searchParams }) {
- const locale = params?.locale || "en";
- const page = Number(searchParams?.page) || 1;
- const tag = searchParams?.tag || "";
- const q = searchParams?.q || "";
+  const [resolvedParams, resolvedSearchParams] = await Promise.all([params, searchParams]);
+  const locale = resolvedParams?.locale || "en";
+  const page = Number(resolvedSearchParams?.page) || 1;
+  const tag = resolvedSearchParams?.tag || "";
+  const q = resolvedSearchParams?.q || "";
 
  const [{ data: posts, total }, tags] = await Promise.all([
  getPosts(page, tag, q),

@@ -38,7 +38,8 @@ async function getPost(slug) {
 }
 
 export async function generateMetadata({ params }) {
- const post = await getPost(params.slug);
+  const { slug } = await params;
+  const post = await getPost(slug);
  if (!post) return { title: "Post Not Found" };
  return {
  title: `${post.title} — SYICT Blog`,
@@ -54,10 +55,22 @@ export async function generateMetadata({ params }) {
  };
 }
 
+function sanitizeRawHtml(html) {
+  if (!html || typeof html !== "string") return "";
+  return html
+    .replace(/<script\b[^<]*(?:(?!<\/script>)<[^<]*)*<\/script>/gi, "")
+    .replace(/<iframe\b[^<]*(?:(?!<\/iframe>)<[^<]*)*<\/iframe>/gi, "")
+    .replace(/<object\b[^<]*(?:(?!<\/object>)<[^<]*)*<\/object>/gi, "")
+    .replace(/<embed\b[^<]*(?:(?!<\/embed>)<[^<]*)*<\/embed>/gi, "")
+    .replace(/\s*on\w+\s*=\s*("[^"]*"|'[^']*'|[^\s>]+)/gi, "")
+    .replace(/javascript:/gi, "");
+}
+
 export default async function BlogPostPage({ params }) {
- const post = await getPost(params.slug);
- if (!post) notFound();
- const locale = params.locale || "en";
+  const { slug, locale: routeLocale } = await params;
+  const post = await getPost(slug);
+  if (!post) notFound();
+  const locale = routeLocale || "en";
 
  const postUrl = `${process.env.NEXT_PUBLIC_APP_URL || ""}/${locale}/blog/${post.slug}`;
  const fbShare = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(postUrl)}`;
@@ -170,7 +183,7 @@ decoding="async"/>
  {/* Prose content */}
  <div
  className="prose prose-lg prose-neutral max-w-none prose-headings:font-extrabold prose-a:text-blue-600 prose-img:"
- dangerouslySetInnerHTML={{ __html: post.content }}
+ dangerouslySetInnerHTML={{ __html: sanitizeRawHtml(post.content) }}
  />
 
  {/* ── Share bar ── */}
