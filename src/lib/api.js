@@ -17,6 +17,43 @@ const api = axios.create({
   baseURL: API_BASE_URL,
 });
 
+let cachedSessionPromise = null;
+let cachedSessionData = null;
+let cachedSessionTime = 0;
+
+export function clearSessionCache() {
+  cachedSessionData = null;
+  cachedSessionTime = 0;
+  cachedSessionPromise = null;
+}
+
+async function getCachedSession() {
+  // Prevent cross-request contamination on server-side rendering
+  if (typeof window === "undefined") {
+    return await getSession();
+  }
+  const now = Date.now();
+  if (cachedSessionData && now - cachedSessionTime < 5000) {
+    return cachedSessionData;
+  }
+  if (!cachedSessionPromise) {
+    cachedSessionPromise = getSession()
+      .then((sess) => {
+        cachedSessionData = sess;
+        cachedSessionTime = Date.now();
+        return sess;
+      })
+      .catch((err) => {
+        console.warn("[API Interceptor] Auth check failed", err?.message);
+        return null;
+      })
+      .finally(() => {
+        cachedSessionPromise = null;
+      });
+  }
+  return cachedSessionPromise;
+}
+
 // Attach JWT from NextAuth session on every request
 api.interceptors.request.use(async (config) => {
   // If sending FormData, delete Content-Type to allow browser/axios to set boundary automatically
@@ -57,7 +94,7 @@ api.interceptors.request.use(async (config) => {
   }
 
   try {
-    const session = await getSession();
+    const session = await getCachedSession();
     const accessToken =
       session?.accessToken ||
       session?.user?.accessToken ||
@@ -85,6 +122,7 @@ api.interceptors.response.use(
     if (status === 403) {
       toast.error("Access Denied: You don't have permission for this action.");
     } else if (status === 401) {
+      clearSessionCache();
       // If we get a 401, the session is likely invalid.
       // We don't want to alert on public login pages though.
       const isLoginPage =
