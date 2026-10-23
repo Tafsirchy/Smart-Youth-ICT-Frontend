@@ -48,30 +48,42 @@ export default function EnterpriseRealtimeSync() {
   const seenNotificationIdsRef = useRef(new Set());
 
   useEffect(() => {
-    if (!session?.user) return;
+    // The gateway needs an access token in the handshake. Until the session
+    // carries one there is nothing to connect with.
+    if (!session?.user || !session.accessToken) return;
 
+    const dedicatedSocketUrl = process.env.NEXT_PUBLIC_SOCKET_URL;
     const backendUrl =
-      process.env.NEXT_PUBLIC_SOCKET_URL ||
+      dedicatedSocketUrl ||
       process.env.NEXT_PUBLIC_API_URL?.replace("/api", "") ||
       "http://localhost:5000";
 
+    // Vercel Serverless Functions do not support persistent WebSockets/Socket.io servers.
+    // If running in production on *.vercel.app without a dedicated socket server URL,
+    // skip socket connection to avoid 404 WebSocket handshake console spam.
+    const isVercelServerless = !dedicatedSocketUrl && backendUrl.includes("vercel.app");
+    if (isVercelServerless) {
+      return;
+    }
+
     const socket = io(backendUrl, {
       transports: ["websocket", "polling"],
-      reconnectionAttempts: 10,
-      reconnectionDelay: 2000,
+      reconnectionAttempts: 3,
+      reconnectionDelay: 5000,
       withCredentials: true,
+      auth: { token: session.accessToken },
     });
 
     socketRef.current = socket;
 
+    socket.on("connect_error", () => {
+      // Gracefully silent connection errors to avoid uncaught console spam
+    });
+
     socket.on("connect", () => {
-      // Register enterprise user and join role/branch rooms
-      const userId = session.user._id || session.user.id;
-      socket.emit("join_enterprise", {
-        userId,
-        role: session.user.role,
-        branchId: session.user.branchId,
-      });
+      // The server resolves the identity from the token; nothing about the
+      // user is asserted by the client.
+      socket.emit("join_enterprise");
     });
 
     // 1. New Support Ticket
@@ -79,16 +91,16 @@ export default function EnterpriseRealtimeSync() {
       playNotificationSound(data?.priority === "urgent" ? "critical" : "info");
       toast(
         (t) => (
-          <div className="flex items-start gap-2.5">
+          <div className="flex items-start gap-3 bg-white p-1 rounded-lg">
             <span className="text-xl">🎫</span>
-            <div>
-              <div className="text-xs font-black uppercase text-indigo-400">
+            <div className="min-w-0">
+              <div className="text-[10px] font-bold uppercase text-blue-600 tracking-wider">
                 New Support Ticket
               </div>
-              <p className="text-xs font-bold text-slate-800 line-clamp-1">
+              <p className="text-xs font-bold text-slate-900 line-clamp-1 mt-0.5">
                 {data.subject}
               </p>
-              <span className="text-[10px] text-slate-500">
+              <span className="text-[11px] text-slate-500">
                 From: {data.userName || "Student / Staff"}
               </span>
             </div>
@@ -124,13 +136,13 @@ export default function EnterpriseRealtimeSync() {
       playNotificationSound("critical");
       toast(
         (t) => (
-          <div className="flex items-start gap-2.5">
+          <div className="flex items-start gap-3 bg-white p-1 rounded-lg">
             <span className="text-xl">📢</span>
-            <div>
-              <div className="text-xs font-black uppercase text-rose-500">
+            <div className="min-w-0">
+              <div className="text-[10px] font-bold uppercase text-rose-600 tracking-wider">
                 Emergency HQ Notice
               </div>
-              <p className="text-xs font-bold text-slate-900 line-clamp-2">
+              <p className="text-xs font-bold text-slate-900 line-clamp-2 mt-0.5">
                 {data.title}: {data.message}
               </p>
             </div>
@@ -183,20 +195,20 @@ export default function EnterpriseRealtimeSync() {
 
       toast(
         (t) => (
-          <div className="flex items-start gap-2.5 max-w-sm">
+          <div className="flex items-start gap-3 max-w-sm bg-white p-1 rounded-lg">
             <span className="text-xl shrink-0 mt-0.5">{icon}</span>
-            <div className="flex-1">
-              <div className="flex items-center gap-1.5">
-                <span className="text-[10px] font-black uppercase text-pink-500 tracking-wider">
+            <div className="flex-1 min-w-0">
+              <div className="flex items-center gap-1.5 flex-wrap">
+                <span className="text-[10px] font-bold uppercase text-blue-700 tracking-wider">
                   {data?.category || "Notification"}
                 </span>
                 {isUrgent && (
-                  <span className="text-[9px] bg-rose-500 text-white px-1.5 py-0.2 rounded font-black">
+                  <span className="text-[9px] bg-rose-600 text-white px-1.5 py-0.5 rounded font-bold">
                     URGENT
                   </span>
                 )}
                 {data?.metadata?.branchName && (
-                  <span className="text-[10px] text-slate-400">
+                  <span className="text-[10px] text-slate-500 font-medium">
                     • {data.metadata.branchName}
                   </span>
                 )}
@@ -204,7 +216,7 @@ export default function EnterpriseRealtimeSync() {
               <p className="text-xs font-bold text-slate-900 line-clamp-1 mt-0.5">
                 {data?.title}
               </p>
-              <p className="text-[11px] text-slate-600 line-clamp-2 mt-0.5">
+              <p className="text-[11px] text-slate-600 line-clamp-2 mt-0.5 leading-relaxed">
                 {data?.message}
               </p>
             </div>
