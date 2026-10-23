@@ -133,7 +133,7 @@ export default function EmergencyBroadcastPage() {
   };
 
   return (
-    <div className="space-y-8 pb-16 max-w-7xl mx-auto">
+    <div className="space-y-8 pb-16 w-full">
       {/* Emergency Alert Header Banner */}
       <div className="relative overflow-hidden rounded-3xl bg-gradient-to-r from-rose-950 via-slate-900 to-amber-950 p-8 text-white shadow-2xl border border-rose-900/40">
         <div className="relative z-10 flex flex-col md:flex-row md:items-center justify-between gap-6">
