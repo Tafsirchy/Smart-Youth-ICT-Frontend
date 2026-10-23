@@ -1,3 +1,4 @@
+import { toServiceContent } from "@/lib/cms/serviceContent";
 import { fetchServer } from "@/lib/api-server";
 import FreelancingDetailsClient from "@/components/marketing/services/FreelancingDetailsClient";
 
@@ -12,5 +13,5 @@ export default async function FreelancingDetailsPage() {
     console.error("Failed to load freelancing details on server", err);
   }
 
-  return <FreelancingDetailsClient data={content?.details} />;
+  return <FreelancingDetailsClient data={toServiceContent(content).details} />;
 }

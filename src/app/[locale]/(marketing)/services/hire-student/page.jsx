@@ -1,3 +1,4 @@
+import { toServiceContent } from "@/lib/cms/serviceContent";
 import { fetchServer } from "@/lib/api-server";
 import HireStudentClient from "@/components/marketing/services/HireStudentClient";
 
@@ -12,5 +13,5 @@ export default async function HireStudentPage() {
     console.error("Failed to load hire-student content on server", err);
   }
 
-  return <HireStudentClient data={content?.landing} />;
+  return <HireStudentClient data={toServiceContent(content).landing} />;
 }

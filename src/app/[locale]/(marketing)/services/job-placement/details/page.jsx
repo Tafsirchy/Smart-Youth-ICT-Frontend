@@ -1,3 +1,4 @@
+import { toServiceContent } from "@/lib/cms/serviceContent";
 import { fetchServer } from "@/lib/api-server";
 import JobPlacementDetailsClient from "@/components/marketing/services/JobPlacementDetailsClient";
 
@@ -12,5 +13,5 @@ export default async function JobPlacementDetailsPage() {
     console.error("Failed to load job placement details on server", err);
   }
 
-  return <JobPlacementDetailsClient data={content?.details} />;
+  return <JobPlacementDetailsClient data={toServiceContent(content).details} />;
 }
