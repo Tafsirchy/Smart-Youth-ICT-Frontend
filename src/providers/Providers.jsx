@@ -33,7 +33,7 @@ export default function Providers({ children, session }) {
   );
 
   return (
-    <SessionProvider session={session}>
+    <SessionProvider session={session} basePath="/api/auth" refetchOnWindowFocus={false} refetchWhenOffline={false}>
       <QueryClientProvider client={queryClient}>
         <MaintenanceGuard>
           {children}
