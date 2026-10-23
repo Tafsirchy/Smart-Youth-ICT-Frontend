@@ -87,7 +87,11 @@ export default function AuthContainer({ defaultTab = "login" }) {
           setTwoFactorData(payload);
           toast.success(payload.message || "2FA verification required.");
           return;
-        } catch (err) {}
+        } catch (err) {
+          // The 2FA payload could not be read; fall through to the generic
+          // error message below instead of leaving the form idle.
+          console.error("[Auth] Failed to parse 2FA payload", err);
+        }
       }
       const msg = res?.error || "Invalid email or password.";
       setError(msg);
