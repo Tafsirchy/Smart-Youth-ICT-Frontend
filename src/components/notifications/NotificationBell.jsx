@@ -26,6 +26,8 @@ export default function NotificationBell({ user, className = "", iconSize = 22 }
 
   useEffect(() => {
     fetchUnreadCount();
+    const interval = setInterval(fetchUnreadCount, 30000);
+    return () => clearInterval(interval);
   }, [fetchUnreadCount]);
 
   // Listen for real-time inbound notification & cross-component sync events
@@ -71,8 +73,8 @@ export default function NotificationBell({ user, className = "", iconSize = 22 }
         type="button"
         id="topbar-notification-bell"
         onClick={() => setIsDrawerOpen(true)}
-        className={`relative p-2.5 rounded-xl text-slate-400 hover:text-pink-400 hover:bg-slate-800/80 active:scale-95 transition-all focus:outline-none focus:ring-2 focus:ring-pink-500/40 ${
-          hasNewAlert ? "animate-bounce text-pink-400" : ""
+        className={`relative p-2.5 rounded-xl text-slate-600 hover:text-blue-600 bg-white hover:bg-slate-50 border border-slate-200 shadow-xs active:scale-95 transition-all focus:outline-none focus:ring-2 focus:ring-blue-500/30 ${
+          hasNewAlert ? "ring-2 ring-blue-500 text-blue-600" : ""
         } ${className}`}
         aria-label={`Notifications (${unreadCount} unread)`}
         title="View Notifications"
@@ -81,7 +83,7 @@ export default function NotificationBell({ user, className = "", iconSize = 22 }
 
         {/* Unread Counter Badge */}
         {unreadCount > 0 && (
-          <span className="absolute -top-0.5 -right-0.5 min-w-[18px] h-[18px] px-1 bg-pink-500 text-white text-[10px] font-black rounded-full flex items-center justify-center shadow-lg shadow-pink-500/50 ring-2 ring-slate-900 animate-in fade-in zoom-in duration-200">
+          <span className="absolute -top-1 -right-1 min-w-[20px] h-[20px] px-1.5 bg-blue-600 text-white text-[11px] font-bold rounded-full flex items-center justify-center border-2 border-white shadow-xs">
             {unreadCount > 99 ? "99+" : unreadCount}
           </span>
         )}

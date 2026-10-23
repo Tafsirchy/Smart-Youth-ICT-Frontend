@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState, useEffect, useRef, useCallback } from "react";
+import { createPortal } from "react-dom";
 import Link from "next/link";
 import { useRouter, useParams } from "next/navigation";
 import {
@@ -35,6 +36,7 @@ export default function NotificationDrawer({ isOpen, onClose, user, onUnreadCoun
   const params = useParams();
   const locale = params?.locale || "en";
 
+  const [mounted, setMounted] = useState(false);
   const [activeCategory, setActiveCategory] = useState("all");
   const [selectedBranch, setSelectedBranch] = useState("all");
   const [branches, setBranches] = useState([]);
@@ -44,6 +46,23 @@ export default function NotificationDrawer({ isOpen, onClose, user, onUnreadCoun
   const drawerRef = useRef(null);
 
   const isSuperAdmin = user?.role === "super_admin" || user?.role === "super_management";
+
+  // Handle client-side mount for createPortal
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  // Prevent background scroll while drawer is open
+  useEffect(() => {
+    if (isOpen) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "";
+    }
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [isOpen]);
 
   // Initialize sound mute preference
   useEffect(() => {
@@ -221,46 +240,46 @@ export default function NotificationDrawer({ isOpen, onClose, user, onUnreadCoun
     }
   };
 
-  if (!isOpen) return null;
+  if (!isOpen || !mounted) return null;
 
   const unreadListCount = notifications.filter((n) => !n.isRead).length;
 
-  return (
+  return createPortal(
     <>
       {/* Backdrop */}
       <div
-        className="fixed inset-0 bg-slate-950/60 backdrop-blur-sm z-[200] transition-opacity"
+        className="fixed inset-0 bg-slate-900/40 z-[999998] transition-opacity"
         onClick={onClose}
         aria-hidden="true"
       />
 
-      {/* Slide-over Drawer Panel */}
+      {/* Slide-over Drawer Panel (Full Vertical Height) */}
       <aside
         ref={drawerRef}
-        className="fixed top-0 right-0 bottom-0 w-full sm:w-[460px] max-w-[100vw] bg-slate-900 border-l border-slate-800 text-slate-100 z-[210] shadow-2xl flex flex-col transform transition-transform duration-300 ease-in-out"
+        className="fixed inset-y-0 right-0 w-full sm:w-[460px] max-w-[100vw] h-screen h-[100dvh] bg-white border-l border-slate-200 text-slate-900 z-[999999] shadow-2xl flex flex-col"
         role="dialog"
         aria-modal="true"
         aria-label="Notification Center"
       >
         {/* Drawer Header */}
-        <div className="p-4 border-b border-slate-800/80 bg-slate-950/50 flex items-center justify-between">
+        <div className="shrink-0 p-4 border-b border-slate-200 bg-slate-50 flex items-center justify-between">
           <div className="flex items-center gap-2.5">
-            <div className="p-2 rounded-lg bg-pink-500/10 border border-pink-500/30 text-pink-400">
+            <div className="p-2.5 rounded-xl bg-blue-50 border border-blue-200 text-blue-600">
               <HiBell size={20} />
             </div>
             <div>
               <div className="flex items-center gap-2">
-                <h2 className="text-base font-bold text-white tracking-wide">
+                <h2 className="text-base font-bold text-slate-900 tracking-tight">
                   Notification Hub
                 </h2>
                 {unreadListCount > 0 && (
-                  <span className="px-2 py-0.5 text-[11px] font-black rounded-full bg-pink-500 text-white">
+                  <span className="px-2 py-0.5 text-[11px] font-bold rounded-full bg-blue-600 text-white">
                     {unreadListCount} new
                   </span>
                 )}
               </div>
-              <p className="text-[11px] text-slate-400">
-                Live alerts, cross-branch sync & updates
+              <p className="text-xs text-slate-500">
+                Live alerts, campus updates & activity feed
               </p>
             </div>
           </div>
@@ -270,10 +289,10 @@ export default function NotificationDrawer({ isOpen, onClose, user, onUnreadCoun
             <button
               type="button"
               onClick={toggleSoundMute}
-              className={`p-2 rounded-lg border transition ${
+              className={`p-2 rounded-xl border transition ${
                 isMuted
-                  ? "bg-slate-800/80 border-slate-700 text-slate-400 hover:text-slate-200"
-                  : "bg-pink-500/15 border-pink-500/40 text-pink-400 hover:bg-pink-500/25"
+                  ? "bg-white border-slate-200 text-slate-400 hover:text-slate-600"
+                  : "bg-blue-50 border-blue-200 text-blue-600 hover:bg-blue-100"
               }`}
               title={isMuted ? "Unmute alerts" : "Mute alerts"}
               aria-label={isMuted ? "Unmute alerts" : "Mute alerts"}
@@ -285,7 +304,7 @@ export default function NotificationDrawer({ isOpen, onClose, user, onUnreadCoun
             <button
               type="button"
               onClick={onClose}
-              className="p-2 rounded-lg text-slate-400 hover:text-white hover:bg-slate-800 transition"
+              className="p-2 rounded-xl text-slate-400 hover:text-slate-700 hover:bg-slate-100 transition"
               aria-label="Close notifications"
             >
               <HiX size={20} />
@@ -295,17 +314,17 @@ export default function NotificationDrawer({ isOpen, onClose, user, onUnreadCoun
 
         {/* Super Admin Cross-Branch Filter */}
         {isSuperAdmin && (
-          <div className="px-4 py-2.5 bg-slate-950/80 border-b border-slate-800 flex items-center justify-between gap-2 text-xs">
-            <span className="text-slate-400 flex items-center gap-1.5 font-medium shrink-0">
-              <HiFilter size={14} className="text-pink-400" />
+          <div className="shrink-0 px-4 py-2.5 bg-slate-50/70 border-b border-slate-200 flex items-center justify-between gap-2 text-xs">
+            <span className="text-slate-600 flex items-center gap-1.5 font-medium shrink-0">
+              <HiFilter size={14} className="text-blue-600" />
               Campus:
             </span>
             <select
               value={selectedBranch}
               onChange={(e) => setSelectedBranch(e.target.value)}
-              className="w-full max-w-[280px] bg-slate-900 border border-slate-700 text-slate-200 rounded-lg px-2.5 py-1 text-xs focus:ring-1 focus:ring-pink-500 outline-none"
+              className="w-full max-w-[280px] bg-white border border-slate-200 text-slate-800 rounded-lg px-2.5 py-1.5 text-xs focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none shadow-2xs"
             >
-              <option value="all">🌐 All Campuses (Global HQ Feed)</option>
+              <option value="all">🌐 All Campuses (Global Feed)</option>
               {branches.map((b) => (
                 <option key={b._id} value={b._id}>
                   📍 {b.name} ({b.code || "Branch"})
@@ -316,7 +335,7 @@ export default function NotificationDrawer({ isOpen, onClose, user, onUnreadCoun
         )}
 
         {/* Category Navigation Tabs */}
-        <div className="px-3 pt-2 pb-1 border-b border-slate-800/80 bg-slate-950/30 flex items-center gap-1 overflow-x-auto no-scrollbar">
+        <div className="shrink-0 px-3 py-2 border-b border-slate-200 bg-white flex items-center gap-1.5 overflow-x-auto no-scrollbar">
           {CATEGORY_TABS.map((tab) => {
             const Icon = tab.icon;
             const isActive = activeCategory === tab.id;
@@ -325,10 +344,10 @@ export default function NotificationDrawer({ isOpen, onClose, user, onUnreadCoun
                 key={tab.id}
                 type="button"
                 onClick={() => setActiveCategory(tab.id)}
-                className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold transition whitespace-nowrap ${
+                className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold transition whitespace-nowrap ${
                   isActive
-                    ? "bg-pink-500 text-white shadow-md shadow-pink-500/20"
-                    : "text-slate-400 hover:text-white hover:bg-slate-800/60"
+                    ? "bg-blue-600 text-white shadow-xs"
+                    : "bg-slate-100 text-slate-600 hover:bg-slate-200 hover:text-slate-900"
                 }`}
               >
                 <Icon size={14} />
@@ -339,8 +358,8 @@ export default function NotificationDrawer({ isOpen, onClose, user, onUnreadCoun
         </div>
 
         {/* Action Bar (Mark all read & clear) */}
-        <div className="px-4 py-2 bg-slate-900/90 border-b border-slate-800/60 flex items-center justify-between text-[11px]">
-          <span className="text-slate-400 font-medium">
+        <div className="shrink-0 px-4 py-2 bg-slate-50 border-b border-slate-200 flex items-center justify-between text-xs">
+          <span className="text-slate-500 font-medium">
             Showing {notifications.length} notifications
           </span>
           <div className="flex items-center gap-3">
@@ -348,39 +367,39 @@ export default function NotificationDrawer({ isOpen, onClose, user, onUnreadCoun
               <button
                 type="button"
                 onClick={handleMarkAllRead}
-                className="text-pink-400 hover:text-pink-300 font-bold flex items-center gap-1 transition"
+                className="text-blue-600 hover:text-blue-800 font-semibold flex items-center gap-1 transition"
               >
-                <HiCheckCircle size={14} />
+                <HiCheckCircle size={15} />
                 <span>Mark all read</span>
               </button>
             )}
             <button
               type="button"
               onClick={handleClearRead}
-              className="text-slate-400 hover:text-rose-400 font-semibold flex items-center gap-1 transition"
+              className="text-slate-500 hover:text-rose-600 font-medium flex items-center gap-1 transition"
               title="Remove all read notifications from view"
             >
-              <HiTrash size={13} />
+              <HiTrash size={14} />
               <span>Clear read</span>
             </button>
           </div>
         </div>
 
         {/* Notification List Scroll Area */}
-        <div className="flex-1 overflow-y-auto p-3 space-y-2.5">
+        <div className="flex-1 min-h-0 overflow-y-auto p-3 space-y-2 bg-slate-50/40">
           {loading ? (
-            <div className="py-16 text-center text-slate-400 flex flex-col items-center gap-3">
-              <div className="w-7 h-7 border-2 border-pink-500 border-t-transparent rounded-full animate-spin" />
-              <span className="text-xs">Loading live updates...</span>
+            <div className="py-16 text-center text-slate-500 flex flex-col items-center gap-3">
+              <div className="w-7 h-7 border-2 border-blue-600 border-t-transparent rounded-full animate-spin" />
+              <span className="text-xs font-medium">Loading updates...</span>
             </div>
           ) : notifications.length === 0 ? (
-            <div className="py-20 text-center text-slate-500 flex flex-col items-center gap-2">
-              <div className="w-12 h-12 rounded-2xl bg-slate-800 flex items-center justify-center text-slate-400 text-2xl">
+            <div className="py-20 text-center text-slate-400 flex flex-col items-center gap-2.5">
+              <div className="w-12 h-12 rounded-2xl bg-slate-100 border border-slate-200 flex items-center justify-center text-slate-500 text-2xl">
                 🔔
               </div>
-              <h3 className="text-sm font-bold text-slate-300">All Caught Up!</h3>
+              <h3 className="text-sm font-bold text-slate-800">All Caught Up!</h3>
               <p className="text-xs text-slate-500 max-w-xs">
-                No new notifications in this category. Live system and branch activity will appear here automatically.
+                No notifications in this category. New campus and system alerts will appear here in real-time.
               </p>
             </div>
           ) : (
@@ -388,15 +407,15 @@ export default function NotificationDrawer({ isOpen, onClose, user, onUnreadCoun
               const isUrgent = notif.priority === "urgent";
               const isHigh = notif.priority === "high";
 
-              let catBadgeColor = "bg-slate-800 text-slate-300 border-slate-700";
+              let catBadgeColor = "bg-slate-100 text-slate-700 border-slate-200";
               if (notif.category === "academic")
-                catBadgeColor = "bg-indigo-500/15 text-indigo-300 border-indigo-500/30";
+                catBadgeColor = "bg-indigo-50 text-indigo-700 border-indigo-200";
               if (notif.category === "financial")
-                catBadgeColor = "bg-emerald-500/15 text-emerald-300 border-emerald-500/30";
+                catBadgeColor = "bg-emerald-50 text-emerald-700 border-emerald-200";
               if (notif.category === "administrative")
-                catBadgeColor = "bg-amber-500/15 text-amber-300 border-amber-500/30";
+                catBadgeColor = "bg-amber-50 text-amber-800 border-amber-200";
               if (notif.category === "security")
-                catBadgeColor = "bg-rose-500/15 text-rose-300 border-rose-500/30";
+                catBadgeColor = "bg-rose-50 text-rose-700 border-rose-200";
 
               return (
                 <div
@@ -404,29 +423,29 @@ export default function NotificationDrawer({ isOpen, onClose, user, onUnreadCoun
                   onClick={() => handleNotificationClick(notif)}
                   className={`group relative p-3.5 rounded-xl border transition-all cursor-pointer ${
                     notif.isRead
-                      ? "bg-slate-900/60 border-slate-800/80 hover:border-slate-700 text-slate-400"
-                      : "bg-slate-800/90 border-slate-700/90 hover:border-pink-500/50 text-slate-200 shadow-md shadow-slate-950/50"
+                      ? "bg-white border-slate-200 hover:border-slate-300 text-slate-600"
+                      : "bg-blue-50/40 border-blue-200 hover:border-blue-300 text-slate-900 shadow-2xs"
                   }`}
                 >
                   {/* Unread Accent Indicator */}
                   {!notif.isRead && (
-                    <span className="absolute top-3.5 right-3.5 w-2 h-2 rounded-full bg-pink-500 shadow-sm shadow-pink-500 animate-pulse" />
+                    <span className="absolute top-3.5 right-3.5 w-2.5 h-2.5 rounded-full bg-blue-600" />
                   )}
 
                   {/* Header Row: Category & Priority */}
                   <div className="flex items-center gap-2 mb-1.5 flex-wrap">
                     <span
-                      className={`px-2 py-0.5 text-[10px] uppercase font-black tracking-wider rounded border ${catBadgeColor}`}
+                      className={`px-2 py-0.5 text-[10px] uppercase font-bold tracking-wider rounded border ${catBadgeColor}`}
                     >
                       {notif.category}
                     </span>
 
                     {(isUrgent || isHigh) && (
                       <span
-                        className={`px-2 py-0.5 text-[10px] font-black uppercase tracking-wider rounded ${
+                        className={`px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider rounded border ${
                           isUrgent
-                            ? "bg-rose-500/20 text-rose-400 border border-rose-500/40 animate-pulse"
-                            : "bg-amber-500/20 text-amber-300 border border-amber-500/30"
+                            ? "bg-rose-100 text-rose-800 border-rose-300"
+                            : "bg-amber-100 text-amber-800 border-amber-300"
                         }`}
                       >
                         {notif.priority}
@@ -434,7 +453,7 @@ export default function NotificationDrawer({ isOpen, onClose, user, onUnreadCoun
                     )}
 
                     {notif.metadata?.branchName && (
-                      <span className="text-[10px] text-slate-400 bg-slate-950/60 px-2 py-0.5 rounded border border-slate-800">
+                      <span className="text-[10px] text-slate-600 bg-slate-100 px-2 py-0.5 rounded border border-slate-200">
                         📍 {notif.metadata.branchName}
                       </span>
                     )}
@@ -443,19 +462,19 @@ export default function NotificationDrawer({ isOpen, onClose, user, onUnreadCoun
                   {/* Notification Title */}
                   <h4
                     className={`text-xs font-bold leading-snug line-clamp-2 ${
-                      notif.isRead ? "text-slate-300" : "text-white"
+                      notif.isRead ? "text-slate-800" : "text-slate-900"
                     }`}
                   >
                     {notif.title}
                   </h4>
 
                   {/* Notification Message */}
-                  <p className="text-[11px] text-slate-400 mt-1 line-clamp-2 leading-relaxed">
+                  <p className="text-[11px] text-slate-600 mt-1 line-clamp-2 leading-relaxed">
                     {notif.message}
                   </p>
 
                   {/* Footer Row: Timestamp & Actions */}
-                  <div className="mt-2.5 pt-2 border-t border-slate-800/60 flex items-center justify-between text-[10px] text-slate-500">
+                  <div className="mt-2.5 pt-2 border-t border-slate-100 flex items-center justify-between text-[11px] text-slate-400">
                     <span>
                       {notif.createdAt
                         ? new Date(notif.createdAt).toLocaleTimeString([], {
@@ -467,9 +486,9 @@ export default function NotificationDrawer({ isOpen, onClose, user, onUnreadCoun
                         : "Just now"}
                     </span>
 
-                    <div className="flex items-center gap-2 opacity-80 group-hover:opacity-100 transition">
+                    <div className="flex items-center gap-2">
                       {notif.link && (
-                        <span className="text-pink-400 flex items-center gap-1 font-semibold">
+                        <span className="text-blue-600 hover:text-blue-800 flex items-center gap-1 font-semibold text-[11px]">
                           Open <HiExternalLink size={12} />
                         </span>
                       )}
@@ -477,7 +496,7 @@ export default function NotificationDrawer({ isOpen, onClose, user, onUnreadCoun
                         <button
                           type="button"
                           onClick={(e) => handleMarkAsRead(notif._id, e)}
-                          className="hover:text-pink-400 p-1"
+                          className="hover:text-blue-600 p-1 text-slate-400 rounded transition"
                           title="Mark as read"
                         >
                           <HiCheck size={14} />
@@ -492,17 +511,18 @@ export default function NotificationDrawer({ isOpen, onClose, user, onUnreadCoun
         </div>
 
         {/* Drawer Footer Hub Shortcut */}
-        <div className="p-3 bg-slate-950/90 border-t border-slate-800 flex items-center justify-between text-xs">
+        <div className="shrink-0 p-3 bg-slate-50 border-t border-slate-200 flex items-center justify-between text-xs">
           <Link
             href={`/${locale}/notifications`}
             onClick={onClose}
-            className="w-full text-center py-2 px-3 rounded-lg bg-slate-800 hover:bg-pink-600 text-white font-bold transition flex items-center justify-center gap-1.5"
+            className="w-full text-center py-2.5 px-3 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-semibold transition flex items-center justify-center gap-1.5 shadow-xs"
           >
             <span>Open Full Notifications Hub</span>
             <HiExternalLink size={14} />
           </Link>
         </div>
       </aside>
-    </>
+    </>,
+    document.body
   );
 }
