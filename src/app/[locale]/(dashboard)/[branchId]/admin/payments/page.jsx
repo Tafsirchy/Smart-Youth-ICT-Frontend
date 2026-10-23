@@ -9,6 +9,7 @@ import {
  keepPreviousData,
 } from "@tanstack/react-query";
 import api from "@/lib/api";
+import { queryKeys } from "@/lib/queryKeys";
 import toast from "react-hot-toast";
 import {
  IoCardOutline,
@@ -21,6 +22,7 @@ import {
 import Portal from "@/components/ui/Portal";
 import { usePermissionGuard } from "@/hooks/usePermissionGuard";
 import AccessDenied from "@/components/ui/AccessDenied";
+import { resolveCourseTitle } from "@/utils/text";
 
 const STATUS_COLORS = {
  completed: "bg-emerald-100 text-emerald-700",
@@ -29,11 +31,19 @@ const STATUS_COLORS = {
 };
 
 const METHOD_LABELS = {
- bkash: "bKash",
- nagad: "Nagad",
- stripe: "Stripe / Card",
- bank: "Manual Bank",
+  bkash: "bKash",
+  nagad: "Nagad",
+  stripe: "Stripe / Card",
+  bank: "Manual Bank",
 };
+
+// A manual payment keeps both the amount the payer declared and the
+// authoritative course price. When the two differ, the record needs an
+// administrator override before it can be approved.
+const hasAmountMismatch = (payment) =>
+  payment?.declaredAmount !== undefined &&
+  payment?.declaredAmount !== null &&
+  Math.abs(Number(payment.declaredAmount) - Number(payment.amount)) > 0.5;
 
 export default function AdminPaymentsPage() {
  const { branchId } = useParams();
@@ -50,7 +60,7 @@ export default function AdminPaymentsPage() {
  const queryClient = useQueryClient();
 
  const { data: paymentsRes, isLoading: loading } = useQuery({
- queryKey: ["payments", { page, statusFilter, branchId }],
+ queryKey: queryKeys.payments({ page, statusFilter, branchId }),
  queryFn: async () => {
  if (guardLoading || isDenied) return { data: [], total: 0 };
  const params = { page, limit };
@@ -85,23 +95,25 @@ export default function AdminPaymentsPage() {
  .filter((p) => p.status === "completed")
  .reduce((acc, p) => acc + (p.amount || 0), 0);
 
- const handleAction = async (paymentId, actionStatus) => {
- setActionLoading(true);
- try {
- await api.put(`/payments/${paymentId}/verify`, {
- status: actionStatus,
- note,
- });
- toast.success(`Payment marked as ${actionStatus}`);
- setSelectedPayment(null);
- setNote("");
- queryClient.invalidateQueries(["payments"]);
- } catch {
- toast.error("Failed to update payment status.");
- } finally {
- setActionLoading(false);
- }
- };
+  const handleAction = async (paymentId, actionStatus) => {
+  setActionLoading(true);
+  try {
+  await api.put(`/payments/${paymentId}/verify`, {
+  status: actionStatus,
+  note,
+  });
+  toast.success(`Payment marked as ${actionStatus}`);
+  setSelectedPayment(null);
+  setNote("");
+  queryClient.invalidateQueries(["payments"]);
+  } catch (error) {
+  toast.error(
+  error?.response?.data?.message || "Failed to update payment status.",
+  );
+  } finally {
+  setActionLoading(false);
+  }
+  };
 
  if (guardLoading) return null;
  if (isDenied) return <AccessDenied permission="payments:view" moduleName="Payments" />;
@@ -259,9 +271,14 @@ export default function AdminPaymentsPage() {
  {METHOD_LABELS[payment.method] || payment.method || "—"}
  </span>
  </td>
- <td className="px-5 py-4 font-semibold text-neutral-900">
- ৳{payment.amount?.toLocaleString() || "—"}
- </td>
+  <td className="px-5 py-4 font-semibold text-neutral-900">
+  ৳{payment.amount?.toLocaleString() || "—"}
+  {hasAmountMismatch(payment) && (
+  <span className="mt-1 block w-fit bg-amber-100 px-1.5 py-0.5 text-[10px] font-bold text-amber-700 rounded">
+  Declared ৳{payment.declaredAmount?.toLocaleString()}
+  </span>
+  )}
+  </td>
  <td className="px-5 py-4">
  <span
  className={`inline-flex items-center gap-1 px-2.5 py-1 text-xs font-semibold ${STATUS_COLORS[payment.status] || "bg-neutral-100 text-neutral-600"}`}
@@ -360,12 +377,19 @@ export default function AdminPaymentsPage() {
  selectedPayment.course?.title}
  </div>
  </div>
- <div>
- <span className="text-neutral-500">Amount:</span>{" "}
- <div className="font-semibold">
- ৳{selectedPayment.amount}
- </div>
- </div>
+  <div>
+  <span className="text-neutral-500">Amount:</span>{" "}
+  <div className="font-semibold">
+  ৳{selectedPayment.amount}
+  </div>
+  {hasAmountMismatch(selectedPayment) && (
+  <div className="mt-1 bg-amber-50 border border-amber-200 text-amber-800 text-xs px-2 py-1 rounded">
+  Amount mismatch — the payer declared ৳
+  {selectedPayment.declaredAmount?.toLocaleString()}. Approving requires
+  amount-override rights.
+  </div>
+  )}
+  </div>
  <div>
  <span className="text-neutral-500">Method:</span>{" "}
  <div className="font-semibold">
