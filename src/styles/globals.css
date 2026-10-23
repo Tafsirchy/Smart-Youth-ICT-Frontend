@@ -397,16 +397,14 @@ a {
   }
 
   .dashboard-main-content {
-    padding: var(--content-gutter);
-    max-width: 1400px;
-    margin-inline: auto;
     width: 100%;
+    max-width: 100%;
+    margin-inline: 0;
   }
-  @media (min-width: 640px) {
-    :root { --content-gutter: 24px; }
-  }
-  @media (min-width: 1024px) {
-    :root { --topbar-height: 64px; --content-gutter: 32px; }
+  .dashboard-main-content > .max-w-7xl,
+  .dashboard-main-content > .max-w-6xl,
+  .dashboard-main-content > .max-w-5xl {
+    max-width: 100%;
   }
 }
 
