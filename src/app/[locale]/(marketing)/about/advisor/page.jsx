@@ -112,7 +112,12 @@ export default function AdvisoryBoardPage() {
  className="object-cover w-full h-full grayscale group-hover:grayscale-0 group-hover:scale-105 transition-all duration-700 z-10 relative"
  />
  ) : null}
- <LuUser className="w-20 h-20 text-slate-300 absolute z-0" />
+                <div className="w-full h-full flex flex-col items-center justify-center bg-gradient-to-br from-slate-900 via-slate-800 to-slate-950 text-white absolute inset-0 z-0 select-none">
+                  <div className="w-14 h-14 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center mb-2 shadow-inner group-hover:border-brand-pink/40 group-hover:bg-brand-pink/10 transition-all">
+                    <span className="text-2xl font-black text-brand-pink">{advisor.name ? advisor.name.charAt(0) : "A"}</span>
+                  </div>
+                  <span className="text-[10px] font-black tracking-[0.25em] text-slate-400 uppercase font-mono">Advisory</span>
+                </div>
  
  {/* Subtle gradient overlay */}
  <div className="absolute inset-0 bg-gradient-to-t from-slate-900/60 via-slate-900/0 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-20"></div>
@@ -189,7 +194,10 @@ export default function AdvisoryBoardPage() {
  className="object-cover object-top z-10 relative"
  />
  ) : null}
- <LuUser className="w-20 h-20 text-slate-300 absolute z-0" />
+                <div className="w-full h-full flex flex-col items-center justify-center bg-gradient-to-br from-slate-900 via-slate-800 to-slate-950 text-white absolute inset-0 z-0 select-none">
+                  <span className="text-4xl font-black text-brand-pink">{selectedMember.name ? selectedMember.name.charAt(0) : "A"}</span>
+                  <span className="text-[10px] font-black tracking-[0.25em] text-slate-400 uppercase font-mono mt-1">Advisory</span>
+                </div>
  </div>
  <div className="pt-2 md:pt-6">
  <h2 className="text-3xl md:text-4xl font-black text-slate-900 uppercase tracking-tighter mb-2 leading-[1.1]">
