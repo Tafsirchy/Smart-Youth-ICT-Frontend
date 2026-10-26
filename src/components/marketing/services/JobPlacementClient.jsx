@@ -128,7 +128,7 @@ export default function JobPlacementClient({ data, content }) {
             <h2 className="text-2xl lg:text-4xl font-black text-white text-left lg:text-center mb-8 lg:mb-12 leading-[1.4]">
               The Recruitment <span className="text-blue-500">Lifecycle.</span>
             </h2>
-            <div className="space-y-6 lg:space-y-10 relative">
+            <div className="space-y-6 lg:space-y-5 relative">
               <div className="absolute left-5 top-8 bottom-8 w-px bg-white/10 hidden md:block"></div>
               {data.lifecycle.map((l, i) => (
                 <motion.div
@@ -166,7 +166,7 @@ export default function JobPlacementClient({ data, content }) {
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="bg-white -[2rem] p-6 lg:p-16 flex flex-col lg:flex-row items-center gap-8 lg:gap-12 shadow-xl relative overflow-hidden text-slate-900 rounded-lg"
+          className="bg-white -[2rem] p-6 lg:p-16 flex flex-col lg:flex-row items-center gap-4 lg:gap-5 shadow-xl relative overflow-hidden text-slate-900 rounded-lg"
         >
           <div className="hidden md:block absolute top-0 right-0 w-[300px] h-[300px] bg-blue-100 blur-[80px] pointer-events-none -translate-y-1/2 translate-x-1/2 opacity-60 hidden"></div>
 
@@ -219,8 +219,8 @@ export default function JobPlacementClient({ data, content }) {
         </motion.div>
 
         {/* Global Stats Footer */}
-        <div className="mt-10 lg:mt-20 border-t border-white/5 pt-8 lg:pt-12 flex flex-col lg:flex-row items-start lg:items-center justify-between gap-8 text-left">
-          <div className="flex flex-col sm:flex-row gap-6 lg:gap-16 w-full lg:w-auto">
+        <div className="mt-5 lg:mt-20 border-t border-white/5 pt-8 lg:pt-12 flex flex-col lg:flex-row items-start lg:items-center justify-between gap-4 text-left">
+          <div className="flex flex-col sm:flex-row gap-6 lg:gap-6 w-full lg:w-auto">
             <div className="flex flex-col gap-1">
               <p className="text-blue-500 text-4xl lg:text-5xl font-black leading-[1.1]">
                 {data?.stats?.partners || "0+"}

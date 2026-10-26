@@ -108,7 +108,7 @@ export default function FreelancingClient({ data, content }) {
         {data?.phases?.length > 0 && (
           <div className="mb-10 lg:mb-20 max-w-5xl mx-auto">
             <h2 className="text-2xl lg:text-4xl font-black text-white text-left lg:text-center mb-8 lg:mb-12 leading-[1.4]">Mastery <span className="text-emerald-500">Roadmap.</span></h2>
-            <div className="space-y-6 lg:space-y-10 relative">
+            <div className="space-y-6 lg:space-y-5 relative">
               <div className="absolute left-5 top-8 bottom-8 w-px bg-white/10 hidden md:block"></div>
               {data.phases.map((p, i) => (
                 <motion.div
