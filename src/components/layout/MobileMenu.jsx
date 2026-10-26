@@ -6,7 +6,7 @@ import { usePathname } from "next/navigation";
 import { HiChevronDown } from "react-icons/hi";
 import { motion, AnimatePresence } from "framer-motion";
 
-import { serviceColumns, aboutColumns } from "./Navbar";
+import { serviceColumns, aboutColumns, BRANCH_DIVISIONS } from "./Navbar";
 function MobileAccordion({ label, children, isActiveAccordion }) {
  const [open, setOpen] = useState(isActiveAccordion || false);
  return (
@@ -44,7 +44,8 @@ function MobileAccordion({ label, children, isActiveAccordion }) {
  );
 }
 
-export default function MobileMenu({ links, session, onClose }) {
+export default function MobileMenu({ links, session, branchDivisions, onClose }) {
+  const divisionsList = branchDivisions && branchDivisions.length > 0 ? branchDivisions : BRANCH_DIVISIONS;
  const pathname = usePathname();
  const cleanPath = pathname.replace(/^\/[a-z]{2}(-[A-Z]{2})?(?=\/|$)/, "") || "/";
  const isActive = (href) =>
@@ -175,30 +176,39 @@ export default function MobileMenu({ links, session, onClose }) {
  ))}
  </MobileAccordion>
 
- {/* Partnership & Membership accordion */}
- <MobileAccordion
- label="Partnership & Membership"
- isActiveAccordion={isActive("/about/partnership-membership")}
- >
- <li>
- <Link
- href="/about/partnership-membership#memberships"
- onClick={onClose}
- className="flex items-center min-h-[44px] px-3 py-1.5 text-sm text-slate-600 hover:text-brand-green hover:bg-brand-green/5 rounded-md"
- >
- Our Memberships
- </Link>
- </li>
- <li>
- <Link
- href="/about/partnership-membership#partners"
- onClick={onClose}
- className="flex items-center min-h-[44px] px-3 py-1.5 text-sm text-slate-600 hover:text-brand-green hover:bg-brand-green/5 rounded-md"
- >
- Our Partnerships
- </Link>
- </li>
+ {/* Branches accordion */}
+ <MobileAccordion label="Branches" isActiveAccordion={isActive("/branches")}>
+  <li>
+  <Link
+   href="/branches"
+   onClick={onClose}
+   className="flex items-center min-h-[44px] px-3 py-1.5 text-xs font-black text-brand-pink uppercase tracking-widest"
+  >
+   All Campuses →
+  </Link>
+  </li>
+  {divisionsList.map((d) => {
+  const href = d.division === 'All' ? '/branches' : `/branches?division=${d.division}`;
+  const isItemActive = d.division === 'All'
+   ? cleanPath === '/branches' && !pathname.includes('division')
+   : pathname.includes(`division=${d.division}`);
+  return (
+   <li key={d.division}>
+   <Link
+    href={href}
+    onClick={onClose}
+    className={`flex items-center justify-between min-h-[40px] px-3 py-1.5 text-sm transition-colors ${
+    isItemActive ? "text-brand-green font-semibold bg-brand-green/5" : "text-slate-600 hover:text-brand-green hover:bg-brand-green/5"
+    }`}
+   >
+    <span>{d.division === 'All' ? 'All Divisions' : d.division}</span>
+    <span className="text-[10px] text-slate-400 font-semibold">{d.count}</span>
+   </Link>
+   </li>
+  );
+  })}
  </MobileAccordion>
+
  </ul>
 
  {/* Auth CTA */}
