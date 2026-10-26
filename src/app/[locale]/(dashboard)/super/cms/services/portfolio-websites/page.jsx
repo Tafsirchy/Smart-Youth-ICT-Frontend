@@ -123,20 +123,20 @@ export default function PortfolioCMS() {
  );
 
  return (
- <div className="min-h-screen bg-slate-50 p-4 max-w-7xl mx-auto pb-6 text-slate-900 selection:bg-rose-600 selection:text-white">
- <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-3 mb-6">
+ <div className="min-h-screen bg-slate-50 p-2.5 sm:p-3.5 max-w-7xl mx-auto pb-4 text-slate-900 selection:bg-rose-600 selection:text-white">
+ <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-2 mb-3 sm:mb-3.5">
  <div>
  <div className="flex items-center gap-2 text-rose-600 mb-1">
  <IoPrismOutline className="text-lg" />
  <span className="text-[9px] font-black uppercase tracking-[0.4em]">Service_Tier_Creative_Core</span>
  </div>
- <h1 className="text-3xl font-black text-slate-900 leading-none">Portfolio Websites</h1>
- <p className="text-slate-400 font-bold uppercase tracking-widest text-[9px] mt-1">Centralized Creative Node</p>
+ <h1 className="text-2xl sm:text-3xl font-black text-slate-900 tracking-tight leading-[1.2]">Portfolio Websites</h1>
+ <p className="text-slate-400 font-bold uppercase tracking-wider text-[9px] mt-0.5 leading-[1.4]">Centralized Creative Node</p>
  </div>
  <button 
  onClick={handleSave}
  disabled={saving}
- className="hidden md:flex group relative overflow-hidden px-4 py-2 bg-slate-900 text-white font-black uppercase tracking-widest text-[10px] items-center gap-2 hover:shadow-xl hover:shadow-rose-950/20 transition-all active:scale-95 disabled:opacity-50 rounded-md"
+ className="hidden md:flex group relative overflow-hidden px-3 py-1.5 bg-slate-900 text-white font-black uppercase tracking-wider text-[10px] items-center gap-1.5 leading-[1.4] hover:shadow-xl hover:shadow-rose-950/20 transition-all active:scale-95 disabled:opacity-50 rounded-md"
  >
  <div className="absolute inset-0 bg-gradient-to-r from-rose-600 to-pink-600 opacity-0 group-hover:opacity-100 transition-opacity" />
  <div className="relative flex items-center gap-2">
@@ -146,7 +146,7 @@ export default function PortfolioCMS() {
  </button>
  </div>
 
- <div className="flex gap-1 mb-6 bg-white p-1 border border-slate-200 w-fit shadow-sm rounded-lg">
+ <div className="flex gap-1 mb-3 sm:mb-3.5 bg-white p-1 border border-slate-200 w-fit shadow-sm rounded-md">
  {[
  { id: "landing", label: "Landing Architecture", icon: IoLayersOutline, color: "text-rose-500" },
  { id: "details", label: "Technical Manifest", icon: IoSettingsOutline, color: "text-indigo-500" },
@@ -154,7 +154,7 @@ export default function PortfolioCMS() {
  <button
  key={tab.id}
  onClick={() => setActiveTab(tab.id)}
- className={`flex items-center gap-2 px-3 py-1.5 font-black uppercase tracking-widest text-[9px] transition-all ${activeTab === tab.id ? 'bg-slate-900 text-white shadow-md' : 'text-slate-400 hover:text-slate-600 hover:bg-slate-50'}`}
+ className={`flex items-center gap-2 px-2.5 py-1 font-black uppercase tracking-wider text-[9px] leading-[1.4] transition-all ${activeTab === tab.id ? 'bg-slate-900 text-white shadow-md' : 'text-slate-400 hover:text-slate-600 hover:bg-slate-50'}`}
  >
  <tab.icon size={16} className={activeTab === tab.id ? 'text-rose-400' : tab.color} />
  {tab.label}
@@ -164,16 +164,16 @@ export default function PortfolioCMS() {
 
  <AnimatePresence mode="wait">
  {activeTab === "landing" ? (
- <motion.div key="landing" initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -10 }} className="space-y-6">
+ <motion.div key="landing" initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -10 }} className="space-y-2.5 sm:space-y-3">
  
- <section className="bg-white p-5 border border-slate-100 shadow-lg shadow-slate-200/30 rounded-lg">
- <div className="flex justify-between items-center mb-4 pb-2 border-b border-slate-100">
+ <section className="bg-white p-3 sm:p-3.5 border border-slate-100 shadow-sm rounded-md">
+ <div className="flex justify-between items-center mb-2 pb-1.5 border-b border-slate-100">
  <h2 className="text-xl font-black flex items-center gap-2">
- <div className="w-8 h-8 bg-rose-50 flex items-center justify-center text-rose-600"><IoPrismOutline /></div>
+ <div className="w-6 h-6 sm:w-7 sm:h-7 bg-rose-50 flex items-center justify-center text-rose-600 rounded"><IoPrismOutline /></div>
  Hero Protocol
  </h2>
  </div>
- <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
+ <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2">
  <Field label="Badge" value={content.landing.hero.badge} onChange={(v) => updateNested("landing", "hero.badge", v)} />
  <Field label="Title" value={content.landing.hero.title} onChange={(v) => updateNested("landing", "hero.title", v)} />
  <Field label="Subtitle" value={content.landing.hero.subtitle} onChange={(v) => updateNested("landing", "hero.subtitle", v)} />
@@ -186,20 +186,20 @@ export default function PortfolioCMS() {
  </div>
  </section>
 
- <section className="bg-white p-5 border border-slate-100 shadow-lg shadow-slate-200/30 rounded-lg">
- <div className="flex justify-between items-center mb-4 pb-2 border-b border-slate-100">
+ <section className="bg-white p-3 sm:p-3.5 border border-slate-100 shadow-sm rounded-md">
+ <div className="flex justify-between items-center mb-2 pb-1.5 border-b border-slate-100">
  <h2 className="text-xl font-black flex items-center gap-2">
- <div className="w-8 h-8 bg-indigo-50 flex items-center justify-center text-indigo-600"><IoColorPaletteOutline /></div>
+ <div className="w-6 h-6 sm:w-7 sm:h-7 bg-indigo-50 flex items-center justify-center text-indigo-600 rounded"><IoColorPaletteOutline /></div>
  Design Philosophies
  </h2>
  </div>
- <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
+ <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2">
  {content.landing.sections.philosophies?.map((item, idx) => (
  <CardWrapper key={idx} onRemove={() => {
  const newArr = content.landing.sections.philosophies.filter((_, i) => i !== idx);
  updateNested("landing", "sections.philosophies", newArr);
  }}>
- <div className="flex gap-3 mb-3">
+ <div className="flex gap-2 mb-3">
  <select className="bg-slate-50 border border-slate-100 p-1 text-[9px] font-black uppercase tracking-widest outline-none text-rose-600" value={item.icon} onChange={(e) => {
  const newArr = [...content.landing.sections.philosophies];
  newArr[idx].icon = e.target.value;
@@ -225,7 +225,7 @@ export default function PortfolioCMS() {
  </div>
  </div>
  </div>
- <textarea placeholder="Description" rows="3" className="w-full bg-slate-50 border border-transparent focus:bg-white focus:border-slate-100 p-2 text-base md:text-[11px] text-slate-500 leading-normal outline-none transition-all" value={item.desc} onChange={(e) => {
+ <textarea placeholder="Description" rows="2" className="w-full bg-slate-50 border border-transparent focus:bg-white focus:border-slate-100 p-2 text-base md:text-[11px] text-slate-500 leading-normal outline-none transition-all" value={item.desc} onChange={(e) => {
  const newArr = [...content.landing.sections.philosophies];
  newArr[idx].desc = e.target.value;
  updateNested("landing", "sections.philosophies", newArr);
@@ -240,20 +240,20 @@ export default function PortfolioCMS() {
  </section>
 
  <section className="bg-slate-900 p-5 text-white shadow-xl shadow-rose-900/10 rounded-md">
- <div className="flex justify-between items-center mb-4 pb-2 border-b border-white/10">
+ <div className="flex justify-between items-center mb-2 pb-1.5 border-b border-white/10">
  <h2 className="text-xl font-black flex items-center gap-2 text-white">
- <div className="w-8 h-8 bg-white/10 flex items-center justify-center text-rose-400"><IoGitNetworkOutline /></div>
+ <div className="w-6 h-6 sm:w-7 sm:h-7 bg-white/10 flex items-center justify-center text-rose-400 rounded"><IoGitNetworkOutline /></div>
  Development Roadmap
  </h2>
  </div>
- <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
+ <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2">
  {content.landing.sections.phases?.map((phase, idx) => (
- <div key={idx} className="bg-white/5 border border-white/10 p-4 relative group rounded-lg">
+ <div key={idx} className="bg-white/5 border border-white/10 p-2 sm:p-2.5 relative group rounded-md">
  <button onClick={() => {
  const newArr = content.landing.sections.phases.filter((_, i) => i !== idx);
  updateNested("landing", "sections.phases", newArr);
  }} className="absolute top-2 right-2 p-2 text-white/10 hover:text-rose-500 opacity-0 group-hover:opacity-100 transition-all"><IoTrashOutline size={16}/></button>
- <div className="flex items-center gap-3 mb-3">
+ <div className="flex items-center gap-2 mb-3">
  <div className="w-10 h-10 shrink-0 bg-white/10 flex items-center justify-center border border-white/5 shadow-inner rounded-lg">
  <input 
  placeholder="01" 
@@ -287,17 +287,17 @@ export default function PortfolioCMS() {
  <button onClick={() => {
  const newArr = [...(content.landing.sections.phases || []), { id: "0"+((content.landing.sections.phases?.length || 0)+1), t: "New Phase", d: "" }];
  updateNested("landing", "sections.phases", newArr);
- }} className="h-full min-h-[80px] border-2 border-dashed border-white/10 flex flex-col items-center justify-center gap-1 text-white/20 hover:text-rose-400 hover:border-rose-400/30 hover:bg-white/5 transition-all group">
+ }} className="h-full min-h-[56px] border-2 border-dashed border-white/10 flex flex-col items-center justify-center gap-1 text-white/20 hover:text-rose-400 hover:border-rose-400/30 hover:bg-white/5 transition-all group">
  <IoAddOutline size={24} />
  <span className="text-[9px] font-black uppercase tracking-widest">Append Phase</span>
  </button>
  </div>
  </section>
 
- <section className="bg-white p-5 border border-slate-100 shadow-lg shadow-slate-200/30 rounded-lg">
- <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-4 pb-2 border-b border-slate-100 gap-3">
+ <section className="bg-white p-3 sm:p-3.5 border border-slate-100 shadow-sm rounded-md">
+ <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-2 pb-1.5 border-b border-slate-100 gap-2">
  <h2 className="text-xl font-black flex items-center gap-2">
- <div className="w-8 h-8 bg-emerald-50 flex items-center justify-center text-emerald-600"><IoStatsChartOutline /></div>
+ <div className="w-6 h-6 sm:w-7 sm:h-7 bg-emerald-50 flex items-center justify-center text-emerald-600 rounded"><IoStatsChartOutline /></div>
  Service Tiers
  </h2>
  <div className="flex gap-2 w-full md:w-auto">
@@ -310,7 +310,7 @@ export default function PortfolioCMS() {
  <Field label="Section Title" value={content.landing.sections.pricingHeader?.title} onChange={(v) => updateNested("landing", "sections.pricingHeader.title", v)} />
  </div>
 
- <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
+ <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2">
  {content.landing.sections.pricing?.map((tier, idx) => (
  <CardWrapper 
  key={idx} 
@@ -329,17 +329,17 @@ export default function PortfolioCMS() {
  updateNested("landing", "sections.pricing", newArr);
  }} className={`p-1.5 transition-all ${tier.highlight ? 'bg-rose-600 text-white shadow-lg shadow-rose-500/30' : 'bg-slate-50 text-slate-300 hover:text-rose-500'}`}><IoSparklesOutline size={12}/></button>
  </div>
- <input placeholder="Price" className="text-3xl font-black text-slate-900 mb-4 bg-transparent outline-none w-full rounded-md" value={tier.p} onChange={(e) => {
+ <input placeholder="Price" className="text-xl sm:text-2xl font-black text-slate-900 mb-1.5 bg-transparent outline-none w-full rounded-md leading-none" value={tier.p} onChange={(e) => {
  const newArr = [...content.landing.sections.pricing];
  newArr[idx].p = e.target.value;
  updateNested("landing", "sections.pricing", newArr);
  }} />
- <div className="space-y-1 mb-6 min-h-[80px]">
+ <div className="space-y-1 mb-6 min-h-[56px]">
  <label className="text-[8px] font-black uppercase text-slate-400 tracking-widest block mb-1">Payload Features</label>
  {tier.list?.map((feature, fIdx) => (
  <div key={fIdx} className="flex gap-2 group/feat items-center">
  <IoCheckmarkOutline className="text-rose-500 shrink-0 text-xs" />
- <input className="text-base md:text-[11px] font-bold text-slate-600 bg-transparent outline-none w-full border-b border-transparent focus:border-slate-100 rounded-md" value={feature} onChange={(e) => {
+ <input className="text-xs font-bold text-slate-600 bg-transparent outline-none w-full border-b border-transparent focus:border-slate-100 rounded-md leading-[1.4]" value={feature} onChange={(e) => {
  const newArr = [...content.landing.sections.pricing];
  newArr[idx].list[fIdx] = e.target.value;
  updateNested("landing", "sections.pricing", newArr);
@@ -378,16 +378,16 @@ export default function PortfolioCMS() {
 
  </motion.div>
  ) : (
- <motion.div key="details" initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -10 }} className="space-y-6">
+ <motion.div key="details" initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -10 }} className="space-y-2.5 sm:space-y-3">
  
- <section className="bg-white p-5 border border-slate-100 shadow-lg shadow-slate-200/30 rounded-lg">
- <div className="flex justify-between items-center mb-4 pb-2 border-b border-slate-100">
+ <section className="bg-white p-3 sm:p-3.5 border border-slate-100 shadow-sm rounded-md">
+ <div className="flex justify-between items-center mb-2 pb-1.5 border-b border-slate-100">
  <h2 className="text-xl font-black flex items-center gap-2">
- <div className="w-8 h-8 bg-indigo-50 flex items-center justify-center text-indigo-600"><IoCodeSlashOutline /></div>
+ <div className="w-6 h-6 sm:w-7 sm:h-7 bg-indigo-50 flex items-center justify-center text-indigo-600 rounded"><IoCodeSlashOutline /></div>
  Technical Specifications
  </h2>
  </div>
- <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-3">
+ <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-2">
  <Field label="Technical Badge" value={content.details.hero.badge} onChange={(v) => updateNested("details", "hero.badge", v)} />
  <Field label="Hero Title" value={content.details.hero.title} onChange={(v) => updateNested("details", "hero.title", v)} />
  <Field label="Sub Header" value={content.details.hero.subtitle} onChange={(v) => updateNested("details", "hero.subtitle", v)} />
@@ -397,20 +397,20 @@ export default function PortfolioCMS() {
  </div>
  </section>
 
- <section className="bg-white p-5 border border-slate-100 shadow-lg shadow-slate-200/30 rounded-lg">
- <div className="flex justify-between items-center mb-4 pb-2 border-b border-slate-100">
+ <section className="bg-white p-3 sm:p-3.5 border border-slate-100 shadow-sm rounded-md">
+ <div className="flex justify-between items-center mb-2 pb-1.5 border-b border-slate-100">
  <h2 className="text-xl font-black flex items-center gap-2">
- <div className="w-8 h-8 bg-blue-50 flex items-center justify-center text-blue-600"><IoHardwareChipOutline /></div>
+ <div className="w-6 h-6 sm:w-7 sm:h-7 bg-blue-50 flex items-center justify-center text-blue-600 rounded"><IoHardwareChipOutline /></div>
  Technology Stack
  </h2>
  </div>
- <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
+ <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2">
  {content.details.sections.techStack?.map((tech, idx) => (
  <CardWrapper key={idx} onRemove={() => {
  const newArr = content.details.sections.techStack.filter((_, i) => i !== idx);
  updateNested("details", "sections.techStack", newArr);
  }}>
- <div className="flex gap-3 mb-3">
+ <div className="flex gap-2 mb-3">
  <select className="bg-slate-50 border border-slate-100 p-1 text-[9px] font-black uppercase tracking-widest outline-none text-blue-600" value={tech.icon} onChange={(e) => {
  const newArr = [...content.details.sections.techStack];
  newArr[idx].icon = e.target.value;
@@ -448,13 +448,13 @@ export default function PortfolioCMS() {
  </div>
  </section>
 
- <section className="bg-slate-900 p-5 text-white shadow-xl rounded-md">
+ <section className="bg-slate-900 p-3 sm:p-3.5 text-white shadow-md rounded-md">
  <div className="flex items-center gap-2 mb-6 pb-2 border-b border-white/10">
- <div className="w-8 h-8 bg-white/10 flex items-center justify-center text-blue-400"><IoTerminalOutline /></div>
+ <div className="w-6 h-6 sm:w-7 sm:h-7 bg-white/10 flex items-center justify-center text-blue-400 rounded"><IoTerminalOutline /></div>
  <h2 className="text-xl font-black">Code Architecture Manifest</h2>
  </div>
  <div className="grid lg:grid-cols-2 gap-6">
- <div className="space-y-4">
+ <div className="space-y-2">
  <Field label="Section Title" value={content.details.sections.codeSnippet?.title} onChange={(v) => updateNested("details", "sections.codeSnippet.title", v)} dark />
  <Field label="Description" value={content.details.sections.codeSnippet?.description} onChange={(v) => updateNested("details", "sections.codeSnippet.description", v)} textarea dark />
  <div>
@@ -502,11 +502,11 @@ export default function PortfolioCMS() {
  </AnimatePresence>
 
  {/* Mobile Sticky Bottom CTA */}
- <div className="md:hidden sticky bottom-0 left-0 w-full pt-4 pb-[calc(1rem+env(safe-area-inset-bottom))] bg-slate-50/90 backdrop-blur-md z-[90]">
+ <div className="md:hidden sticky bottom-0 left-0 w-full pt-2 pb-[calc(0.5rem+env(safe-area-inset-bottom))] bg-slate-50/90 backdrop-blur-md z-[90]">
  <button 
  onClick={handleSave}
  disabled={saving}
- className="w-full relative overflow-hidden px-4 py-4 bg-slate-900 text-white font-black uppercase tracking-widest text-[12px] flex items-center justify-center gap-2 active:scale-95 transition-transform disabled:opacity-50 shadow-xl shadow-slate-900/20 rounded-md"
+ className="w-full relative overflow-hidden px-3.5 py-2 bg-slate-900 text-white font-black uppercase tracking-wider text-[11px] flex items-center justify-center gap-1.5 leading-[1.4] active:scale-95 transition-transform disabled:opacity-50 shadow-xl shadow-slate-900/20 rounded-md"
  >
  <div className="absolute inset-0 bg-gradient-to-r from-rose-600 to-pink-600 opacity-0 hover:opacity-100 transition-opacity" />
  <div className="relative flex items-center gap-2">
@@ -523,7 +523,7 @@ function Field({ label, value, onChange, textarea = false, dark = false, small =
  const isImageField = label && label.toLowerCase().includes("image url");
  return (
  <div className={small ? "w-48" : "w-full"}>
- <label className={`block text-[9px] font-black uppercase mb-1 tracking-widest ${dark ? 'text-slate-500' : 'text-slate-400'}`}>
+ <label className={`block text-[9px] font-black uppercase mb-0.5 tracking-wider leading-[1.4] ${dark ? 'text-slate-500' : 'text-slate-400'}`}>
  {label}
  </label>
  <div className={`relative flex flex-col ${dark ? 'bg-white/5 border-white/5' : 'bg-slate-50 border-transparent'} border overflow-hidden focus-within:border-rose-500/10 transition-all p-1`}>
@@ -544,7 +544,7 @@ function Field({ label, value, onChange, textarea = false, dark = false, small =
  />
  ) : textarea ? (
  <textarea 
- rows="3" 
+ rows="2" 
  className={`w-full px-2 py-1.5 bg-transparent outline-none font-medium text-base md:text-[11px] leading-normal shrink-0 ${dark ? 'text-white' : 'text-slate-900'}`} 
  value={value || ""} 
  onChange={(e) => onChange(e.target.value)} 
@@ -577,7 +577,7 @@ function Field({ label, value, onChange, textarea = false, dark = false, small =
 
 function CardWrapper({ children, onRemove, highlight = false }) {
  return (
- <div className={`p-4 bg-white border border-slate-100 shadow-sm hover:shadow-lg transition-all relative group ${highlight ? 'ring-2 ring-rose-600 shadow-rose-600/10' : ''}`}>
+ <div className={`p-2 sm:p-2.5 bg-white border border-slate-100 shadow-sm hover:shadow-md transition-all relative group rounded-md ${highlight ? 'ring-2 ring-rose-600 shadow-rose-600/10' : ''}`}>
  {onRemove && (
  <button 
  onClick={onRemove} 
@@ -594,18 +594,18 @@ function CardWrapper({ children, onRemove, highlight = false }) {
 function AddButton({ onClick, label = "Add", small = false }) {
  if (small) return (
  <button onClick={onClick} className="p-1 bg-rose-50 text-rose-600 hover:bg-rose-600 hover:text-white transition-all rounded-md">
- <IoAddOutline size={18} />
+ <IoAddOutline size={16} />
  </button>
  );
  return (
  <button 
  onClick={onClick}
- className="h-full min-h-[80px] border-2 border-dashed border-slate-100 flex flex-col items-center justify-center gap-1 text-slate-300 hover:text-rose-500 hover:border-rose-200 hover:bg-rose-50/30 transition-all group rounded-md"
+ className="h-full min-h-[56px] border-2 border-dashed border-slate-100 flex flex-col items-center justify-center gap-1 text-slate-300 hover:text-rose-500 hover:border-rose-200 hover:bg-rose-50/30 transition-all group rounded-md"
  >
- <div className="w-10 h-10 border-2 border-dashed border-slate-200 flex items-center justify-center group-hover:scale-110 transition-transform rounded-lg">
- <IoAddOutline size={18} />
+ <div className="w-7 h-7 border-2 border-dashed border-slate-200 flex items-center justify-center group-hover:scale-110 transition-transform rounded-md">
+ <IoAddOutline size={16} />
  </div>
- <span className="text-[9px] font-black uppercase tracking-widest">{label}</span>
+ <span className="text-[9px] font-black uppercase tracking-wider leading-[1.4]">{label}</span>
  </button>
  );
 }
