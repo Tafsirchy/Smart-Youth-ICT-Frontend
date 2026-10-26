@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 import Link from "next/link";
 import { IoTimerOutline, IoBriefcaseOutline, IoSearchOutline, IoArrowBackOutline } from "react-icons/io5";
 
-export default function CareerTracksClient({ tracks, content }) {
+export default function CareerTracksClient({ tracks = [], content = {} }) {
   return (
     <section className="min-h-screen bg-slate-950 overflow-hidden relative flex flex-col">
       <div className="absolute inset-0 bg-[linear-gradient(to_right,#ffffff08_1px,transparent_1px),linear-gradient(to_bottom,#ffffff08_1px,transparent_1px)] bg-[size:40px_40px]"></div>
@@ -23,7 +23,7 @@ export default function CareerTracksClient({ tracks, content }) {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.1 }}
-              className="text-3xl sm:text-4xl lg:text-5xl font-black text-white leading-[1.1] mb-8 tracking-tighter"
+              className="text-3xl sm:text-4xl lg:text-5xl font-black text-white leading-[1.1] mb-4 tracking-tighter"
             >
               {content?.hero?.title || "Career Tracks"} <br />
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-500 via-teal-400 to-cyan-400 animate-gradient-x">
@@ -57,7 +57,7 @@ export default function CareerTracksClient({ tracks, content }) {
       </div>
 
       <div className="container-custom py-16">
-        <div className="flex flex-col gap-8 lg:gap-16 pb-8">
+        <div className="flex flex-col gap-4 lg:gap-6 pb-8">
           {tracks.length > 0 ? (
             tracks.map((track, i) => (
               <motion.div
@@ -69,7 +69,7 @@ export default function CareerTracksClient({ tracks, content }) {
               >
                 <div className={`absolute top-0 right-0 w-full h-2 bg-gradient-to-r ${track.color} opacity-80`}></div>
 
-                <div className="grid lg:grid-cols-12 gap-12">
+                <div className="grid lg:grid-cols-12 gap-5">
                   <div className="lg:col-span-5 space-y-6">
                     <h2 className="text-4xl font-black text-white">{track.title}</h2>
                     <p className="text-lg text-slate-400 leading-relaxed font-light">{track.description}</p>
@@ -91,7 +91,7 @@ export default function CareerTracksClient({ tracks, content }) {
                   </div>
 
                   <div className="lg:col-span-7 bg-black/40 p-8 border border-white/5 relative rounded-lg">
-                    <div className="space-y-8 relative z-10">
+                    <div className="space-y-4 relative z-10">
                       {[
                         { phase: "Phase 1: Basics", val: track.phase1 },
                         { phase: "Phase 2: Core", val: track.phase2 },

@@ -76,7 +76,7 @@ export default function CertificationsDetailsClient({ data }) {
             </div>
 
             {/* SECURITY SECTION */}
-            <div className="grid lg:grid-cols-2 gap-8 items-start mb-12">
+            <div className="grid lg:grid-cols-2 gap-4 items-start mb-12">
                <div className="relative lg:sticky lg:top-20">
                   <div className="w-12 h-12 bg-emerald-50 flex items-center justify-center text-2xl text-emerald-600 mb-4 border border-emerald-100 rounded-lg">
                      <IoFingerPrintOutline />
@@ -115,7 +115,7 @@ export default function CertificationsDetailsClient({ data }) {
             {/* BLOCKCHAIN SECTION */}
             <div className="bg-white p-6 lg:p-10 border border-slate-100 shadow-lg relative overflow-hidden mb-12 rounded-lg">
                <div className="absolute top-0 right-0 w-1/3 h-full bg-slate-50/50 border-l border-slate-100 skew-x-12 translate-x-6 rounded-lg"></div>
-               <div className="grid lg:grid-cols-2 gap-8 relative z-10">
+               <div className="grid lg:grid-cols-2 gap-4 relative z-10">
                   <div>
                      <div className="text-emerald-600 mb-4 flex items-center gap-2">
                         <div className="w-8 h-[2px] bg-emerald-600"></div>
