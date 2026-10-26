@@ -158,7 +158,7 @@ export default function AutomationCMS() {
  return (
  <div className="min-h-screen bg-slate-50 p-4 max-w-7xl mx-auto pb-6 text-slate-900 selection:bg-cyan-600 selection:text-white">
  {/* HEADER PROTOCOL */}
- <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-3 mb-6">
+ <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-3 mb-4">
  <div>
  <div className="flex items-center gap-2 text-cyan-600 mb-1">
  <IoSyncOutline className="text-lg shrink-0" />
@@ -193,7 +193,7 @@ export default function AutomationCMS() {
  </div>
 
  {/* TIER SELECTOR */}
- <div className="flex gap-1 mb-6 bg-white p-1 border border-slate-200 w-fit shadow-sm rounded-lg">
+ <div className="flex gap-1 mb-4 bg-white p-1 border border-slate-200 w-fit shadow-sm rounded-lg">
  {[
  { id: "landing", label: "Efficiency Landing", icon: IoLayersOutline, color: "text-cyan-500" },
  { id: "details", label: "Technical Manifest", icon: IoSettingsOutline, color: "text-slate-500" },
@@ -211,11 +211,11 @@ export default function AutomationCMS() {
 
  <AnimatePresence mode="wait">
  {activeTab === "landing" ? (
- <motion.div key="landing" initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -10 }} className="space-y-6">
+ <motion.div key="landing" initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -10 }} className="space-y-4">
  
  {/* HERO SECTION */}
- <section className="bg-white p-5 border border-slate-100 shadow-lg shadow-slate-200/30 rounded-lg">
- <div className="flex justify-between items-center mb-4 pb-2 border-b border-slate-100">
+ <section className="bg-white p-4 border border-slate-100 shadow-lg shadow-slate-200/30 rounded-lg">
+ <div className="flex justify-between items-center mb-3 pb-2 border-b border-slate-100">
  <h2 className="text-xl font-black tracking-tighter flex items-center gap-2">
  <div className="w-8 h-8 bg-cyan-50 flex items-center justify-center text-cyan-600 shrink-0"><IoPrismOutline /></div>
  Hero Architecture
@@ -231,8 +231,8 @@ export default function AutomationCMS() {
  </section>
 
  {/* PILLARS */}
- <section className="bg-white p-5 border border-slate-100 shadow-lg shadow-slate-200/30 rounded-lg">
- <div className="flex justify-between items-center mb-4 pb-2 border-b border-slate-100">
+ <section className="bg-white p-4 border border-slate-100 shadow-lg shadow-slate-200/30 rounded-lg">
+ <div className="flex justify-between items-center mb-3 pb-2 border-b border-slate-100">
  <h2 className="text-xl font-black tracking-tighter flex items-center gap-2">
  <div className="w-8 h-8 bg-cyan-50 flex items-center justify-center text-cyan-600 shrink-0"><IoSyncOutline /></div>
  Efficiency Pillars
@@ -244,7 +244,7 @@ export default function AutomationCMS() {
  const newArr = content.landing.sections.pillars.filter((_, i) => i !== idx);
  updateNested("landing", "sections.pillars", newArr);
  }} compact>
- <div className="flex gap-3 mb-3">
+ <div className="flex gap-3 mb-2">
  <div className="shrink-0 relative group/icon">
  <div className="w-10 h-10 bg-slate-50 flex items-center justify-center text-cyan-600 text-xl shadow-inner border border-slate-100 group-hover:scale-105 transition-all rounded-lg">
  {item.icon === "Sync" && <IoSyncOutline />}
@@ -303,8 +303,8 @@ export default function AutomationCMS() {
  </section>
 
  {/* METRICS */}
- <section className="bg-slate-900 p-5 text-white shadow-xl rounded-md">
- <div className="flex justify-between items-center mb-4 pb-2 border-b border-white/10">
+ <section className="bg-slate-900 p-4 text-white shadow-xl rounded-md">
+ <div className="flex justify-between items-center mb-3 pb-2 border-b border-white/10">
  <h2 className="text-xl font-black tracking-tighter flex items-center gap-2">
  <div className="w-8 h-8 bg-white/10 flex items-center justify-center text-cyan-400 shrink-0"><IoStatsChartOutline /></div>
  Logic Metrics
@@ -334,8 +334,8 @@ export default function AutomationCMS() {
  </section>
 
  {/* CALL TO ACTION */}
- <section className="bg-white p-5 border border-slate-100 shadow-lg shadow-slate-200/30 rounded-lg">
- <div className="flex justify-between items-center mb-4 pb-2 border-b border-slate-100">
+ <section className="bg-white p-4 border border-slate-100 shadow-lg shadow-slate-200/30 rounded-lg">
+ <div className="flex justify-between items-center mb-3 pb-2 border-b border-slate-100">
  <h2 className="text-xl font-black tracking-tighter flex items-center gap-2">
  <div className="w-8 h-8 bg-cyan-50 flex items-center justify-center text-cyan-600 shrink-0"><IoRocketOutline /></div>
  Call-To-Action Ribbon
@@ -353,11 +353,11 @@ export default function AutomationCMS() {
 
  </motion.div>
  ) : (
- <motion.div key="details" initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -10 }} className="space-y-6">
+ <motion.div key="details" initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -10 }} className="space-y-4">
  
  {/* IMPLEMENTATION LIFECYCLE (PHASES) */}
- <section className="bg-white p-5 border border-slate-100 shadow-lg shadow-slate-200/30 rounded-lg">
- <div className="flex justify-between items-center mb-4 pb-2 border-b border-slate-100">
+ <section className="bg-white p-4 border border-slate-100 shadow-lg shadow-slate-200/30 rounded-lg">
+ <div className="flex justify-between items-center mb-3 pb-2 border-b border-slate-100">
  <h2 className="text-xl font-black tracking-tighter flex items-center gap-2">
  <div className="w-8 h-8 bg-amber-50 flex items-center justify-center text-amber-600 shrink-0"><IoRocketOutline /></div>
  Implementation Lifecycle
@@ -396,8 +396,8 @@ export default function AutomationCMS() {
  </section>
 
  {/* ROI FEATURES (GROUPED) */}
- <section className="bg-white p-5 border border-slate-100 shadow-lg shadow-slate-200/30 rounded-lg">
- <div className="flex justify-between items-center mb-4 pb-2 border-b border-slate-100">
+ <section className="bg-white p-4 border border-slate-100 shadow-lg shadow-slate-200/30 rounded-lg">
+ <div className="flex justify-between items-center mb-3 pb-2 border-b border-slate-100">
  <h2 className="text-xl font-black tracking-tighter flex items-center gap-2">
  <div className="w-8 h-8 bg-cyan-50 flex items-center justify-center text-cyan-600 shrink-0"><IoFlashOutline /></div>
  Efficiency Frameworks
@@ -409,13 +409,13 @@ export default function AutomationCMS() {
  </div>
  <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
  {content.details.sections.roi?.map((spec, idx) => (
- <div key={idx} className="p-4 bg-slate-50 relative group border border-transparent hover:border-cyan-100 transition-all rounded-md">
+ <div key={idx} className="p-3 bg-slate-50 relative group border border-transparent hover:border-cyan-100 transition-all rounded-md">
  <button onClick={() => {
  const newArr = content.details.sections.roi.filter((_, i) => i !== idx);
  updateNested("details", "sections.roi", newArr);
  }} className="absolute top-2 right-2 w-8 h-8 flex items-center justify-center text-slate-400 active:text-rose-500 bg-white/80 backdrop-blur lg:opacity-0 group-hover:opacity-100 z-10 transition-all"><IoTrashOutline size={14}/></button>
  
- <div className="mb-3 pr-8">
+ <div className="mb-2 pr-8">
  <label className="text-[9px] font-black uppercase text-cyan-600 mb-0.5 block">Framework Group</label>
  <input placeholder="e.g. Integration Tier" className="w-full bg-transparent border-none outline-none font-black text-base md:text-sm tracking-tighter uppercase text-slate-900 focus:text-cyan-600 transition-colors rounded-md" value={spec.group} onChange={(e) => {
  const newArr = [...content.details.sections.roi];
@@ -444,8 +444,8 @@ export default function AutomationCMS() {
  </section>
 
  {/* CALL TO ACTION */}
- <section className="bg-white p-5 border border-slate-100 shadow-lg shadow-slate-200/30 rounded-lg">
- <div className="flex justify-between items-center mb-4 pb-2 border-b border-slate-100">
+ <section className="bg-white p-4 border border-slate-100 shadow-lg shadow-slate-200/30 rounded-lg">
+ <div className="flex justify-between items-center mb-3 pb-2 border-b border-slate-100">
  <h2 className="text-xl font-black tracking-tighter flex items-center gap-2">
  <div className="w-8 h-8 bg-cyan-50 flex items-center justify-center text-cyan-600 shrink-0"><IoRocketOutline /></div>
  Call-To-Action Ribbon
@@ -466,11 +466,11 @@ export default function AutomationCMS() {
  </AnimatePresence>
 
  {/* Mobile Sticky Bottom CTA */}
- <div className="md:hidden sticky bottom-0 left-0 w-full pt-4 pb-[calc(1rem+env(safe-area-inset-bottom))] bg-slate-50/90 backdrop-blur-md z-[90]">
+ <div className="md:hidden sticky bottom-0 left-0 w-full pt-2 pb-[calc(1rem+env(safe-area-inset-bottom))] bg-slate-50/90 backdrop-blur-md z-[90]">
  <button 
  onClick={handleSave}
  disabled={saving}
- className="w-full relative overflow-hidden px-4 py-4 bg-slate-900 text-white font-black uppercase tracking-widest text-[12px] flex items-center justify-center gap-2 active:scale-95 transition-transform disabled:opacity-50 shadow-xl shadow-slate-900/20 rounded-md"
+ className="w-full relative overflow-hidden px-4 py-3 bg-slate-900 text-white font-black uppercase tracking-widest text-[12px] flex items-center justify-center gap-2 active:scale-95 transition-transform disabled:opacity-50 shadow-xl shadow-slate-900/20 rounded-md"
  >
  <div className="absolute inset-0 bg-gradient-to-r from-cyan-600 to-blue-600 opacity-0 hover:opacity-100 transition-opacity" />
  <div className="relative flex items-center gap-2">
@@ -513,7 +513,7 @@ function Field({ label, value, onChange, textarea = false, dark = false, small =
 
 function CardWrapper({ children, onRemove, highlight = false, compact = false }) {
  return (
- <div className={`p-4 bg-white border border-slate-100 shadow-sm lg:hover:shadow-lg transition-all relative group ${highlight ? 'ring-2 ring-cyan-600 shadow-cyan-600/10' : ''}`}>
+ <div className={`p-3 bg-white border border-slate-100 shadow-sm lg:hover:shadow-lg transition-all relative group ${highlight ? 'ring-2 ring-cyan-600 shadow-cyan-600/10' : ''}`}>
  {onRemove && (
  <button 
  onClick={onRemove} 

@@ -121,7 +121,7 @@ export default function BrandingCMS() {
  return (
  <div className="min-h-screen bg-slate-50 p-4 max-w-7xl mx-auto pb-6 text-slate-900 selection:bg-indigo-600 selection:text-white">
  {/* HEADER PROTOCOL */}
- <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-3 mb-6">
+ <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-3 mb-4">
  <div>
  <div className="flex items-center gap-2 text-indigo-600 mb-1">
  <IoColorPaletteOutline className="text-lg" />
@@ -144,7 +144,7 @@ export default function BrandingCMS() {
  </div>
 
  {/* TIER SELECTOR */}
- <div className="flex gap-1 mb-6 bg-white p-1 border border-slate-200 w-fit shadow-sm rounded-lg">
+ <div className="flex gap-1 mb-4 bg-white p-1 border border-slate-200 w-fit shadow-sm rounded-lg">
  {[
  { id: "landing", label: "Identity Landing", icon: IoLayersOutline, color: "text-indigo-500" },
  { id: "details", label: "Visual Manifest", icon: IoSettingsOutline, color: "text-blue-500" },
@@ -162,11 +162,11 @@ export default function BrandingCMS() {
 
  <AnimatePresence mode="wait">
  {activeTab === "landing" ? (
- <motion.div key="landing" initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -10 }} className="space-y-6">
+ <motion.div key="landing" initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -10 }} className="space-y-4">
  
  {/* HERO SECTION */}
- <section className="bg-white p-5 border border-slate-100 shadow-lg shadow-slate-200/30 rounded-lg">
- <div className="flex justify-between items-center mb-4 pb-2 border-b border-slate-100">
+ <section className="bg-white p-4 border border-slate-100 shadow-lg shadow-slate-200/30 rounded-lg">
+ <div className="flex justify-between items-center mb-3 pb-2 border-b border-slate-100">
  <h2 className="text-xl font-black tracking-tighter flex items-center gap-2">
  <div className="w-8 h-8 bg-indigo-50 flex items-center justify-center text-indigo-600"><IoPrismOutline /></div>
  Hero Architecture
@@ -182,8 +182,8 @@ export default function BrandingCMS() {
  </section>
 
  {/* PILLARS */}
- <section className="bg-white p-5 border border-slate-100 shadow-lg shadow-slate-200/30 rounded-lg">
- <div className="flex justify-between items-center mb-4 pb-2 border-b border-slate-100">
+ <section className="bg-white p-4 border border-slate-100 shadow-lg shadow-slate-200/30 rounded-lg">
+ <div className="flex justify-between items-center mb-3 pb-2 border-b border-slate-100">
  <h2 className="text-xl font-black tracking-tighter flex items-center gap-2">
  <div className="w-8 h-8 bg-indigo-50 flex items-center justify-center text-indigo-600"><IoTriangleOutline /></div>
  Visual Pillars
@@ -195,7 +195,7 @@ export default function BrandingCMS() {
  const newArr = content.landing.sections.pillars.filter((_, i) => i !== idx);
  updateNested("landing", "sections.pillars", newArr);
  }} compact>
- <div className="flex gap-3 mb-3">
+ <div className="flex gap-3 mb-2">
  <div className="shrink-0 relative group/icon">
  <div className="w-10 h-10 bg-slate-50 flex items-center justify-center text-indigo-600 text-xl shadow-inner border border-slate-100 group-hover:scale-105 transition-all rounded-lg">
  {item.icon === "Triangle" && <IoTriangleOutline />}
@@ -255,8 +255,8 @@ export default function BrandingCMS() {
  </section>
 
  {/* METRICS */}
- <section className="bg-slate-900 p-5 text-white shadow-xl rounded-md">
- <div className="flex justify-between items-center mb-4 pb-2 border-b border-white/10">
+ <section className="bg-slate-900 p-4 text-white shadow-xl rounded-md">
+ <div className="flex justify-between items-center mb-3 pb-2 border-b border-white/10">
  <h2 className="text-xl font-black tracking-tighter flex items-center gap-2">
  <div className="w-8 h-8 bg-white/10 flex items-center justify-center text-indigo-400"><IoStatsChartOutline /></div>
  Brand Deliverables
@@ -264,7 +264,7 @@ export default function BrandingCMS() {
  </div>
  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-3">
  {content.landing.sections.metrics?.map((metric, idx) => (
- <div key={idx} className="bg-white/5 border border-white/10 p-4 relative group hover:bg-white/10 transition-all rounded-lg">
+ <div key={idx} className="bg-white/5 border border-white/10 p-3 relative group hover:bg-white/10 transition-all rounded-lg">
  <button onClick={() => {
  const newArr = content.landing.sections.metrics.filter((_, i) => i !== idx);
  updateNested("landing", "sections.metrics", newArr);
@@ -292,11 +292,11 @@ export default function BrandingCMS() {
 
  </motion.div>
  ) : (
- <motion.div key="details" initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -10 }} className="space-y-6">
+ <motion.div key="details" initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -10 }} className="space-y-4">
  
  {/* DESIGN PHASES */}
- <section className="bg-white p-5 border border-slate-100 shadow-lg shadow-slate-200/30 rounded-lg">
- <div className="flex justify-between items-center mb-4 pb-2 border-b border-slate-100">
+ <section className="bg-white p-4 border border-slate-100 shadow-lg shadow-slate-200/30 rounded-lg">
+ <div className="flex justify-between items-center mb-3 pb-2 border-b border-slate-100">
  <h2 className="text-xl font-black tracking-tighter flex items-center gap-2">
  <div className="w-8 h-8 bg-indigo-50 flex items-center justify-center text-indigo-600"><IoReaderOutline /></div>
  Creative Methodology
@@ -304,12 +304,12 @@ export default function BrandingCMS() {
  </div>
  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-px bg-slate-100 border border-slate-100 overflow-hidden rounded-lg">
  {content.details.sections.phases?.map((phase, idx) => (
- <div key={idx} className="p-4 bg-white hover:bg-slate-50 transition-colors relative group rounded-md">
+ <div key={idx} className="p-3 bg-white hover:bg-slate-50 transition-colors relative group rounded-md">
  <button onClick={() => {
  const newArr = content.details.sections.phases.filter((_, i) => i !== idx);
  updateNested("details", "sections.phases", newArr);
  }} className="absolute top-2 right-2 text-slate-200 hover:text-rose-500 transition-all opacity-0 group-hover:opacity-100 p-1 bg-white/5"><IoTrashOutline size={14}/></button>
- <div className="flex items-center gap-3 mb-3">
+ <div className="flex items-center gap-3 mb-2">
  <span className="text-[9px] font-black text-indigo-500 bg-indigo-50 px-2 py-1 shrink-0 rounded-md">{phase.step}</span>
  <input placeholder="Stage Title" className="bg-transparent border-none outline-none font-black text-base md:text-sm uppercase text-slate-900 flex-1 min-w-0 rounded-md" value={phase.stage} onChange={(e) => {
  const newArr = [...content.details.sections.phases];
@@ -335,8 +335,8 @@ export default function BrandingCMS() {
  </section>
 
  {/* ROI FEATURES */}
- <section className="bg-white p-5 border border-slate-100 shadow-lg shadow-slate-200/30 rounded-lg">
- <div className="flex justify-between items-center mb-4 pb-2 border-b border-slate-100">
+ <section className="bg-white p-4 border border-slate-100 shadow-lg shadow-slate-200/30 rounded-lg">
+ <div className="flex justify-between items-center mb-3 pb-2 border-b border-slate-100">
  <h2 className="text-xl font-black tracking-tighter flex items-center gap-2">
  <div className="w-8 h-8 bg-indigo-50 flex items-center justify-center text-indigo-600"><IoFlashOutline /></div>
  Technical ROI
@@ -348,12 +348,12 @@ export default function BrandingCMS() {
  </div>
  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
  {content.details.sections.roi?.map((spec, idx) => (
- <div key={idx} className="p-4 bg-slate-50 relative group border border-transparent hover:border-indigo-100 transition-all rounded-md">
+ <div key={idx} className="p-3 bg-slate-50 relative group border border-transparent hover:border-indigo-100 transition-all rounded-md">
  <button onClick={() => {
  const newArr = content.details.sections.roi.filter((_, i) => i !== idx);
  updateNested("details", "sections.roi", newArr);
  }} className="absolute top-2 right-2 text-slate-200 hover:text-rose-500 transition-all opacity-0 group-hover:opacity-100 p-1 bg-white/5"><IoTrashOutline size={14}/></button>
- <input placeholder="Group Heading" className="bg-transparent border-none outline-none font-black text-base md:text-[10px] uppercase tracking-widest text-indigo-900 mb-3 block w-full rounded-md" value={spec.group} onChange={(e) => {
+ <input placeholder="Group Heading" className="bg-transparent border-none outline-none font-black text-base md:text-[10px] uppercase tracking-widest text-indigo-900 mb-2 block w-full rounded-md" value={spec.group} onChange={(e) => {
  const newArr = [...content.details.sections.roi];
  newArr[idx].group = e.target.value;
  updateNested("details", "sections.roi", newArr);
@@ -386,8 +386,8 @@ export default function BrandingCMS() {
  </section>
 
  {/* MANIFEST */}
- <section className="bg-slate-900 p-5 text-white shadow-xl rounded-md">
- <div className="flex items-center gap-2 mb-4 pb-2 border-b border-white/10">
+ <section className="bg-slate-900 p-4 text-white shadow-xl rounded-md">
+ <div className="flex items-center gap-2 mb-3 pb-2 border-b border-white/10">
  <div className="w-8 h-8 bg-white/10 flex items-center justify-center text-indigo-400"><IoHardwareChipOutline /></div>
  <h2 className="text-xl font-black tracking-tighter">Standards Manifest</h2>
  </div>
@@ -450,11 +450,11 @@ export default function BrandingCMS() {
  </AnimatePresence>
 
  {/* Mobile Sticky Bottom CTA */}
- <div className="md:hidden sticky bottom-0 left-0 w-full pt-4 pb-[calc(1rem+env(safe-area-inset-bottom))] bg-slate-50/90 backdrop-blur-md z-[90]">
+ <div className="md:hidden sticky bottom-0 left-0 w-full pt-2 pb-[calc(1rem+env(safe-area-inset-bottom))] bg-slate-50/90 backdrop-blur-md z-[90]">
  <button 
  onClick={handleSave}
  disabled={saving}
- className="w-full relative overflow-hidden px-4 py-4 bg-slate-900 text-white font-black uppercase tracking-widest text-[12px] flex items-center justify-center gap-2 active:scale-95 transition-transform disabled:opacity-50 shadow-xl shadow-slate-900/20 rounded-md"
+ className="w-full relative overflow-hidden px-4 py-3 bg-slate-900 text-white font-black uppercase tracking-widest text-[12px] flex items-center justify-center gap-2 active:scale-95 transition-transform disabled:opacity-50 shadow-xl shadow-slate-900/20 rounded-md"
  >
  <div className="absolute inset-0 bg-gradient-to-r from-indigo-600 to-blue-600 opacity-0 hover:opacity-100 transition-opacity" />
  <div className="relative flex items-center gap-2">
@@ -497,7 +497,7 @@ function Field({ label, value, onChange, textarea = false, dark = false, small =
 
 function CardWrapper({ children, onRemove, highlight = false, compact = false }) {
  return (
- <div className={`p-4 bg-white border border-slate-100 shadow-sm hover:shadow-lg transition-all relative group ${highlight ? 'ring-2 ring-indigo-600 shadow-indigo-600/10' : ''}`}>
+ <div className={`p-3 bg-white border border-slate-100 shadow-sm hover:shadow-lg transition-all relative group ${highlight ? 'ring-2 ring-indigo-600 shadow-indigo-600/10' : ''}`}>
  {onRemove && (
  <button 
  onClick={onRemove} 
