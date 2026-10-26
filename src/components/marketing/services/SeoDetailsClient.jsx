@@ -36,7 +36,7 @@ export default function SeoDetailsClient({ data }) {
             {hero.title?.split(' ')[0]} <br />
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-pink-500 via-rose-500 to-indigo-600 animate-gradient-x">{hero.title?.split(' ').slice(1).join(' ')}</span>
           </h1>
-          <div className="flex flex-col md:flex-row gap-8 md:gap-12 items-start mt-8 md:mt-12">
+          <div className="flex flex-col md:flex-row gap-4 md:gap-5 items-start mt-8 md:mt-12">
             <div className="flex-1">
               <p className="text-slate-600 text-lg md:text-xl font-light leading-[1.6] mb-6 md:mb-8 italic">
                 &quot;{hero.description}&quot;
@@ -63,7 +63,7 @@ export default function SeoDetailsClient({ data }) {
         </div>
 
         {/* 6-PHASE PROTOCOL GRID */}
-        <div className="mb-12 lg:mb-24">
+        <div className="mb-6 lg:mb-10">
           <div className="flex items-center gap-4 md:gap-6 mb-8 md:mb-12">
             <h2 className="text-2xl md:text-3xl font-black text-slate-900 tracking-tighter uppercase leading-[1.1] italic">The SEO Protocol</h2>
             <div className="h-[1px] flex-1 bg-slate-200"></div>
@@ -84,12 +84,12 @@ export default function SeoDetailsClient({ data }) {
         </div>
 
         {/* OPTIMIZATION FRAMEWORKS */}
-        <div className="mb-12 lg:mb-24">
-          <div className="flex flex-col md:flex-row gap-6 md:gap-8 items-baseline mb-8 md:mb-12">
+        <div className="mb-6 lg:mb-10">
+          <div className="flex flex-col md:flex-row gap-6 md:gap-4 items-baseline mb-8 md:mb-12">
             <h2 className="text-[10px] font-black text-indigo-600 uppercase tracking-[0.4em] border-l-4 border-indigo-600 pl-3 md:pl-4 leading-[1.4]">Optimization Frameworks</h2>
           </div>
 
-          <div className="grid lg:grid-cols-3 gap-4 md:gap-8">
+          <div className="grid lg:grid-cols-3 gap-4 md:gap-4">
             {(sections.roi || []).map((group, idx) => (
               <div key={idx} className="bg-white md:-[3rem] p-6 md:p-10 border border-slate-100 shadow-xl shadow-slate-200/50 hover:shadow-2xl transition-all group rounded-lg">
                 <div className="w-10 h-10 md:w-12 md:h-12 bg-indigo-50 flex items-center justify-center text-xl md:text-2xl text-indigo-600 mb-6 md:mb-8 group-hover:scale-110 transition-transform"><IoFlashOutline /></div>

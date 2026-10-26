@@ -29,14 +29,14 @@ export default function SeoClient({ content }) {
         <div className="absolute top-[20%] right-[-100px] w-[600px] h-[600px] bg-indigo-50 blur-[160px]"></div>
       </div>
 
-      <div className="container-custom py-20 relative">
+      <div className="container-custom py-10 relative">
         {/* SEO HERO */}
-        <div className="flex flex-col lg:flex-row items-center gap-10 lg:gap-20 mb-20 lg:mb-48">
+        <div className="flex flex-col lg:flex-row items-center gap-4 lg:gap-5 mb-12 lg:mb-20">
           <div className="flex-1 text-left">
             <motion.div
               initial={{ opacity: 0, x: -20 }}
               animate={{ opacity: 1, x: 0 }}
-              className="inline-flex items-center gap-2 px-5 py-2 bg-indigo-50 border border-indigo-100 text-indigo-700 text-[10px] sm:text-xs font-black tracking-[0.2em] sm:tracking-[0.4em] uppercase mb-10 rounded-md"
+              className="inline-flex items-center gap-2 px-5 py-2 bg-indigo-50 border border-indigo-100 text-indigo-700 text-[10px] sm:text-xs font-black tracking-[0.2em] sm:tracking-[0.4em] uppercase mb-5 rounded-md"
             >
               <IoAnalyticsOutline className="text-sm" /> {hero.badge}
             </motion.div>
@@ -45,7 +45,7 @@ export default function SeoClient({ content }) {
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, ease: "circOut" }}
-              className="text-4xl sm:text-5xl lg:text-6xl font-black text-slate-900 leading-[1.1] sm:leading-[0.9] mb-8 tracking-tighter"
+              className="text-4xl sm:text-5xl lg:text-6xl font-black text-slate-900 leading-[1.1] sm:leading-[0.9] mb-4 tracking-tighter"
             >
               {hero.title?.split(' ')[0]} <br />
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-pink-500 via-rose-500 to-indigo-500 animate-gradient-x">
@@ -57,18 +57,18 @@ export default function SeoClient({ content }) {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: 0.4 }}
-              className="text-slate-600 text-lg sm:text-xl font-light leading-relaxed max-w-2xl mb-12"
+              className="text-slate-600 text-lg sm:text-xl font-light leading-relaxed max-w-2xl mb-6"
             >
               {hero.description}
             </motion.p>
 
-            <div className="flex flex-col sm:flex-row gap-4 sm:gap-6">
-              <button className="w-full sm:w-[280px] px-8 py-4 sm:py-6 bg-indigo-600 text-white font-black hover:bg-indigo-700 transition-all shadow-xl sm:shadow-2xl shadow-indigo-600/20 uppercase tracking-wider sm:tracking-widest text-xs sm:text-sm flex items-center justify-center min-h-[44px] rounded-md">
+            <div className="flex flex-col sm:flex-row gap-3 sm:gap-4">
+              <button className="w-full sm:w-[280px] px-6 py-3 sm:py-4 bg-indigo-600 text-white font-black hover:bg-indigo-700 transition-all shadow-xl sm:shadow-2xl shadow-indigo-600/20 uppercase tracking-wider sm:tracking-widest text-xs sm:text-sm flex items-center justify-center min-h-[44px] rounded-md">
                 Initialize Technical Audit
               </button>
               <Link
                 href="/services/seo/details"
-                className="w-full sm:w-[280px] px-8 py-4 sm:py-6 bg-white border border-slate-200 text-slate-900 font-black hover:bg-slate-50 transition-all uppercase tracking-wider sm:tracking-widest text-xs sm:text-sm flex items-center justify-center text-center min-h-[44px] rounded-md"
+                className="w-full sm:w-[280px] px-6 py-3 sm:py-4 bg-white border border-slate-200 text-slate-900 font-black hover:bg-slate-50 transition-all uppercase tracking-wider sm:tracking-widest text-xs sm:text-sm flex items-center justify-center text-center min-h-[44px] rounded-md"
               >
                 Technical Specifications
               </Link>
@@ -127,17 +127,17 @@ export default function SeoClient({ content }) {
         </div>
 
         {/* PILLARS SECTION */}
-        <div className="mb-20 lg:mb-48">
-          <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-12 lg:mb-24 gap-4 lg:gap-8 border-l-4 border-indigo-600 pl-6 lg:pl-8 rounded-lg">
+        <div className="mb-10 lg:mb-20">
+          <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-6 lg:mb-10 gap-4 lg:gap-4 border-l-4 border-indigo-600 pl-6 lg:pl-8 rounded-lg">
             <div className="max-w-xl">
-              <h2 className="text-[10px] sm:text-xs font-black text-indigo-600 uppercase tracking-[0.2em] sm:tracking-[0.4em] mb-4 font-bold">Search Mechanics</h2>
+              <h2 className="text-[10px] sm:text-xs font-black text-indigo-600 uppercase tracking-[0.2em] sm:tracking-[0.4em] mb-2 font-bold">Search Mechanics</h2>
               <p className="text-3xl sm:text-4xl md:text-5xl font-black text-slate-900 leading-tight">
                 The architecture of <span className="text-slate-400 italic font-serif font-light">global visibility.</span>
               </p>
             </div>
           </div>
 
-          <div className="flex overflow-x-auto snap-x snap-mandatory lg:grid lg:grid-cols-3 gap-6 lg:gap-8 pb-8 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
+          <div className="flex overflow-x-auto snap-x snap-mandatory lg:grid lg:grid-cols-3 gap-6 lg:gap-4 pb-4 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
             {pillars?.map((item, i) => (
               <motion.div
                 key={i}
@@ -147,14 +147,14 @@ export default function SeoClient({ content }) {
                 transition={{ delay: i * 0.1 }}
                 className="group cursor-default w-[85vw] sm:w-[320px] lg:w-auto shrink-0 snap-center"
               >
-                <div className="bg-white -[3rem] p-12 h-full border border-slate-100 shadow-sm shadow-slate-200/50 hover:shadow-2xl transition-all group-hover:-translate-y-2 relative overflow-hidden rounded-lg">
+                <div className="bg-white -[3rem] p-6 h-full border border-slate-100 shadow-sm shadow-slate-200/50 hover:shadow-2xl transition-all group-hover:-translate-y-2 relative overflow-hidden rounded-lg">
                   <div className="absolute top-0 right-0 w-24 h-24 bg-slate-50 -[4rem] opacity-0 group-hover:opacity-100 transition-opacity" />
                   <div
-                    className={`w-14 h-14 rounded-lg bg-gradient-to-br ${item.color} text-white flex items-center justify-center text-3xl mb-10 shadow-lg relative z-10`}
+                    className={`w-14 h-14 rounded-lg bg-gradient-to-br ${item.color} text-white flex items-center justify-center text-3xl mb-4 shadow-lg relative z-10`}
                   >
                     {getIcon(item.icon)}
                   </div>
-                  <h3 className="text-2xl font-black text-slate-900 mb-6 tracking-tighter uppercase leading-none relative z-10">
+                  <h3 className="text-2xl font-black text-slate-900 mb-3 tracking-tighter uppercase leading-none relative z-10">
                     {item.title}
                   </h3>
                   <p className="text-slate-500 leading-relaxed font-light text-lg relative z-10">
@@ -167,20 +167,20 @@ export default function SeoClient({ content }) {
         </div>
 
         {/* TECHNICAL AUDIT SECTION */}
-        <div className="mb-20 lg:mb-48">
-          <div className="grid lg:grid-cols-2 gap-10 lg:gap-20 items-center bg-white lg:-[4rem] p-8 sm:p-12 lg:p-24 border border-slate-100 shadow-xl lg:shadow-2xl shadow-slate-200/50 relative overflow-hidden rounded-lg">
+        <div className="mb-10 lg:mb-20">
+          <div className="grid lg:grid-cols-2 gap-5 lg:gap-8 items-center bg-white lg:-[4rem] p-5 sm:p-5 lg:p-8 border border-slate-100 shadow-xl lg:shadow-2xl shadow-slate-200/50 relative overflow-hidden rounded-lg">
             <div className="absolute top-0 right-0 w-1/3 h-full bg-indigo-50/20 -skew-x-[20deg] origin-top translate-x-1/2"></div>
 
-            <div className="relative z-10 space-y-8 sm:space-y-12">
+            <div className="relative z-10 space-y-4 sm:space-y-6">
               <div className="w-16 h-16 bg-indigo-50 flex items-center justify-center text-3xl text-indigo-600 border border-indigo-100 rounded-lg">
                 <IoBugOutline />
               </div>
               <h2 className="text-4xl sm:text-5xl lg:text-6xl font-black text-slate-900 leading-[1.1] sm:leading-[0.9] tracking-tighter sm:tracking-normal">Technical <br className="hidden sm:block" /><span className="text-indigo-600 block sm:inline mt-2 sm:mt-0">Integrity.</span></h2>
               <p className="text-slate-500 text-lg sm:text-xl font-light leading-relaxed">We perform deep-tissue technical audits covering Core Web Vitals, Structured Data (JSON-LD), and JavaScript rendering to eliminate every barrier to indexing.</p>
 
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-px bg-slate-50 border border-slate-100 overflow-hidden mt-8 sm:mt-10 shadow-sm rounded-lg">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-px bg-slate-50 border border-slate-100 overflow-hidden mt-4 sm:mt-5 shadow-sm rounded-lg">
                 {metrics?.map((item, idx) => (
-                  <div key={idx} className="p-6 sm:p-10 hover:bg-white transition-colors group rounded-md">
+                  <div key={idx} className="p-3 sm:p-5 hover:bg-white transition-colors group rounded-md">
                     <div className="text-indigo-600 mb-4 opacity-40 group-hover:opacity-100 transition-opacity">
                       {getIcon(item.icon)}
                     </div>
@@ -196,7 +196,7 @@ export default function SeoClient({ content }) {
               transition={{ duration: 5, repeat: Infinity }}
               className="relative lg:scale-110"
             >
-              <div className="bg-slate-900 lg:-[3rem] p-8 lg:p-12 border border-slate-800 shadow-2xl space-y-8 lg:space-y-10 group overflow-hidden rounded-lg">
+              <div className="bg-slate-900 lg:-[3rem] p-5 lg:p-8 border border-slate-800 shadow-2xl space-y-4 lg:space-y-5 group overflow-hidden rounded-lg">
                 <div className="absolute top-0 right-0 p-4 font-mono text-[7px] sm:text-[9px] text-indigo-400 bg-white/5 opacity-50 tracking-[0.2em] sm:tracking-[0.4em]">SYNCING_ENGINE::V4.2</div>
                 <div className="flex justify-between items-center text-white/40 font-mono text-[8px] sm:text-[9px] tracking-[0.2em] sm:tracking-[0.4em] uppercase">
                   <span>Authority Report</span>
@@ -233,9 +233,9 @@ export default function SeoClient({ content }) {
         </div>
 
         {/* CTA */}
-        <div className="text-center py-20 lg:py-40 border-t border-slate-200 pb-32 lg:pb-40">
-          <IoAnalyticsOutline className="text-6xl lg:text-7xl text-indigo-600 mb-8 lg:mb-12 mx-auto opacity-20" />
-          <h3 className="text-4xl sm:text-5xl lg:text-6xl font-black text-slate-900 mb-10 lg:mb-12 leading-tight tracking-tighter sm:tracking-normal">
+        <div className="text-center py-10 lg:py-16 border-t border-slate-200 pb-12 lg:pb-16">
+          <IoAnalyticsOutline className="text-6xl lg:text-7xl text-indigo-600 mb-4 lg:mb-6 mx-auto opacity-20" />
+          <h3 className="text-4xl sm:text-5xl lg:text-6xl font-black text-slate-900 mb-5 lg:mb-6 leading-tight tracking-tighter sm:tracking-normal">
             {cta.title?.includes('.') ? (
               <>
                 {cta.title.split('.')[0]}. <br className="hidden sm:block" />
@@ -252,16 +252,16 @@ export default function SeoClient({ content }) {
               </>
             )}
           </h3>
-          <div className="flex flex-col sm:flex-row gap-4 sm:gap-6 justify-center">
+          <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center">
             {/* Sticky Mobile CTA */}
             <div className="fixed bottom-0 left-0 w-full px-4 pt-4 pb-[max(1rem,env(safe-area-inset-bottom))] bg-white/90 backdrop-blur-md border-t border-slate-200 z-50 lg:relative lg:border-none lg:bg-transparent lg:p-0 lg:w-auto">
-              <button className="w-full lg:w-[280px] px-8 py-4 sm:py-6 bg-indigo-600 text-white font-black hover:bg-indigo-700 transition-all shadow-xl sm:shadow-2xl shadow-indigo-600/40 uppercase tracking-wider sm:tracking-widest text-xs sm:text-sm flex items-center justify-center min-h-[44px] rounded-md">
+              <button className="w-full lg:w-[280px] px-6 py-3 sm:py-4 bg-indigo-600 text-white font-black hover:bg-indigo-700 transition-all shadow-xl sm:shadow-2xl shadow-indigo-600/40 uppercase tracking-wider sm:tracking-widest text-xs sm:text-sm flex items-center justify-center min-h-[44px] rounded-md">
                 Initialize Technical Audit
               </button>
             </div>
             <Link
               href="/services/seo/details"
-              className="hidden lg:flex w-full sm:w-[280px] px-8 py-4 sm:py-6 bg-slate-900 text-white font-black hover:bg-slate-800 transition-all uppercase tracking-wider sm:tracking-widest text-xs sm:text-sm items-center justify-center text-center min-h-[44px] rounded-md"
+              className="hidden lg:flex w-full sm:w-[280px] px-6 py-3 sm:py-4 bg-slate-900 text-white font-black hover:bg-slate-800 transition-all uppercase tracking-wider sm:tracking-widest text-xs sm:text-sm items-center justify-center text-center min-h-[44px] rounded-md"
             >
               Technical Hub
             </Link>
