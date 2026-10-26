@@ -119,7 +119,7 @@ export default function HostingCMS() {
  return (
  <div className="min-h-screen bg-slate-50 p-4 max-w-7xl mx-auto pb-6 text-slate-900 selection:bg-blue-600 selection:text-white">
  {/* HEADER PROTOCOL */}
- <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-3 mb-6">
+ <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-3 mb-4">
  <div>
  <div className="flex items-center gap-2 text-blue-600 mb-1">
  <IoServerOutline className="text-lg" />
@@ -142,7 +142,7 @@ export default function HostingCMS() {
  </div>
 
  {/* TIER SELECTOR */}
- <div className="flex gap-1 mb-6 bg-white p-1 border border-slate-200 w-fit shadow-sm rounded-lg">
+ <div className="flex gap-1 mb-4 bg-white p-1 border border-slate-200 w-fit shadow-sm rounded-lg">
  {[
  { id: "landing", label: "Cloud Landing", icon: IoLayersOutline, color: "text-blue-500" },
  { id: "details", label: "Performance Manifest", icon: IoSettingsOutline, color: "text-slate-500" },
@@ -160,11 +160,11 @@ export default function HostingCMS() {
 
  <AnimatePresence mode="wait">
  {activeTab === "landing" ? (
- <motion.div key="landing" initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -10 }} className="space-y-6">
+ <motion.div key="landing" initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -10 }} className="space-y-4">
  
  {/* HERO SECTION */}
- <section className="bg-white p-5 border border-slate-100 shadow-lg shadow-slate-200/30 rounded-lg">
- <div className="flex justify-between items-center mb-4 pb-2 border-b border-slate-100">
+ <section className="bg-white p-4 border border-slate-100 shadow-lg shadow-slate-200/30 rounded-lg">
+ <div className="flex justify-between items-center mb-3 pb-2 border-b border-slate-100">
  <h2 className="text-xl font-black tracking-tighter flex items-center gap-2">
  <div className="w-8 h-8 bg-blue-50 flex items-center justify-center text-blue-600"><IoPrismOutline /></div>
  Hero Architecture
@@ -180,8 +180,8 @@ export default function HostingCMS() {
  </section>
 
  {/* PILLARS */}
- <section className="bg-white p-5 border border-slate-100 shadow-lg shadow-slate-200/30 rounded-lg">
- <div className="flex justify-between items-center mb-4 pb-2 border-b border-slate-100">
+ <section className="bg-white p-4 border border-slate-100 shadow-lg shadow-slate-200/30 rounded-lg">
+ <div className="flex justify-between items-center mb-3 pb-2 border-b border-slate-100">
  <h2 className="text-xl font-black tracking-tighter flex items-center gap-2">
  <div className="w-8 h-8 bg-blue-50 flex items-center justify-center text-blue-600"><IoCloudOutline /></div>
  Deployment Pillars
@@ -193,7 +193,7 @@ export default function HostingCMS() {
  const newArr = content.landing.sections.pillars.filter((_, i) => i !== idx);
  updateNested("landing", "sections.pillars", newArr);
  }} compact>
- <div className="flex gap-3 mb-3">
+ <div className="flex gap-3 mb-2">
  <div className="shrink-0 relative group/icon">
  <div className="w-10 h-10 bg-slate-50 flex items-center justify-center text-blue-600 text-xl shadow-inner border border-slate-100 group-hover:scale-105 transition-all rounded-lg">
  {item.icon === "Cloud" && <IoCloudOutline />}
@@ -252,8 +252,8 @@ export default function HostingCMS() {
  </section>
 
  {/* METRICS */}
- <section className="bg-slate-900 p-5 text-white shadow-xl rounded-md">
- <div className="flex justify-between items-center mb-4 pb-2 border-b border-white/10">
+ <section className="bg-slate-900 p-4 text-white shadow-xl rounded-md">
+ <div className="flex justify-between items-center mb-3 pb-2 border-b border-white/10">
  <h2 className="text-xl font-black tracking-tighter flex items-center gap-2">
  <div className="w-8 h-8 bg-white/10 flex items-center justify-center text-blue-400"><IoStatsChartOutline /></div>
  SLA Metrics
@@ -299,8 +299,8 @@ export default function HostingCMS() {
  </section>
 
  {/* INFRASTRUCTURE TIERS */}
- <section className="bg-white p-5 border border-slate-100 shadow-lg shadow-slate-200/30 rounded-lg">
- <div className="flex justify-between items-center mb-4 pb-2 border-b border-slate-100">
+ <section className="bg-white p-4 border border-slate-100 shadow-lg shadow-slate-200/30 rounded-lg">
+ <div className="flex justify-between items-center mb-3 pb-2 border-b border-slate-100">
  <h2 className="text-xl font-black tracking-tighter flex items-center gap-2">
  <div className="w-8 h-8 bg-blue-50 flex items-center justify-center text-blue-600"><IoLayersOutline /></div>
  Infrastructure Tiers
@@ -316,7 +316,7 @@ export default function HostingCMS() {
  const newArr = content.landing.sections.plans.filter((_, i) => i !== idx);
  updateNested("landing", "sections.plans", newArr);
  }} highlight={plan.popular} compact>
- <div className="flex items-center justify-between mb-3 pb-2 border-b border-slate-100">
+ <div className="flex items-center justify-between mb-2 pb-2 border-b border-slate-100">
  <label className="flex items-center gap-2 cursor-pointer rounded-md">
  <input type="checkbox" checked={plan.popular || false} onChange={e => {
  const newArr = [...content.landing.sections.plans];
@@ -327,7 +327,7 @@ export default function HostingCMS() {
  </label>
  </div>
  
- <div className="space-y-2 mb-3">
+ <div className="space-y-2 mb-2">
  <Field label="Tier Name" value={plan.name} onChange={v => {
  const newArr = [...content.landing.sections.plans];
  newArr[idx].name = v;
@@ -367,8 +367,8 @@ export default function HostingCMS() {
  </section>
 
  {/* CALL TO ACTION */}
- <section className="bg-white p-5 border border-slate-100 shadow-lg shadow-slate-200/30 rounded-lg">
- <div className="flex justify-between items-center mb-4 pb-2 border-b border-slate-100">
+ <section className="bg-white p-4 border border-slate-100 shadow-lg shadow-slate-200/30 rounded-lg">
+ <div className="flex justify-between items-center mb-3 pb-2 border-b border-slate-100">
  <h2 className="text-xl font-black tracking-tighter flex items-center gap-2">
  <div className="w-8 h-8 bg-blue-50 flex items-center justify-center text-blue-600"><IoCodeSlashOutline /></div>
  Call-To-Action Ribbon
@@ -379,11 +379,11 @@ export default function HostingCMS() {
 
  </motion.div>
  ) : (
- <motion.div key="details" initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -10 }} className="space-y-6">
+ <motion.div key="details" initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -10 }} className="space-y-4">
  
  {/* DETAILS HERO */}
- <section className="bg-white p-5 border border-slate-100 shadow-lg shadow-slate-200/30 rounded-lg">
- <div className="flex justify-between items-center mb-4 pb-2 border-b border-slate-100">
+ <section className="bg-white p-4 border border-slate-100 shadow-lg shadow-slate-200/30 rounded-lg">
+ <div className="flex justify-between items-center mb-3 pb-2 border-b border-slate-100">
  <h2 className="text-xl font-black tracking-tighter flex items-center gap-2">
  <div className="w-8 h-8 bg-blue-50 flex items-center justify-center text-blue-600"><IoPrismOutline /></div>
  Protocol Manifest (Hero)
@@ -399,8 +399,8 @@ export default function HostingCMS() {
  </section>
 
  {/* DEPLOYMENT LIFECYCLE (PHASES) */}
- <section className="bg-white p-5 border border-slate-100 shadow-lg shadow-slate-200/30 rounded-lg">
- <div className="flex justify-between items-center mb-4 pb-2 border-b border-slate-100">
+ <section className="bg-white p-4 border border-slate-100 shadow-lg shadow-slate-200/30 rounded-lg">
+ <div className="flex justify-between items-center mb-3 pb-2 border-b border-slate-100">
  <h2 className="text-xl font-black tracking-tighter flex items-center gap-2">
  <div className="w-8 h-8 bg-blue-50 flex items-center justify-center text-blue-600"><IoGitNetworkOutline /></div>
  The Deployment Lifecycle
@@ -439,8 +439,8 @@ export default function HostingCMS() {
  </section>
 
  {/* FRAMEWORKS */}
- <section className="bg-slate-900 p-5 border border-slate-800 shadow-xl rounded-md">
- <div className="flex justify-between items-center mb-4 pb-2 border-b border-white/10">
+ <section className="bg-slate-900 p-4 border border-slate-800 shadow-xl rounded-md">
+ <div className="flex justify-between items-center mb-3 pb-2 border-b border-white/10">
  <h2 className="text-xl font-black tracking-tighter flex items-center gap-2 text-white">
  <div className="w-8 h-8 bg-white/5 flex items-center justify-center text-blue-400"><IoLayersOutline /></div>
  Hardware & Software Frameworks
@@ -452,7 +452,7 @@ export default function HostingCMS() {
  </div>
  <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
  {content.details.sections.roi?.map((fw, idx) => (
- <div key={idx} className="bg-white/5 border border-white/10 p-4 relative group rounded-lg">
+ <div key={idx} className="bg-white/5 border border-white/10 p-3 relative group rounded-lg">
  <button onClick={() => {
  const newArr = content.details.sections.roi.filter((_, i) => i !== idx);
  updateNested("details", "sections.roi", newArr);
@@ -475,8 +475,8 @@ export default function HostingCMS() {
  </section>
 
  {/* CALL TO ACTION */}
- <section className="bg-white p-5 border border-slate-100 shadow-lg shadow-slate-200/30 rounded-lg">
- <div className="flex justify-between items-center mb-4 pb-2 border-b border-slate-100">
+ <section className="bg-white p-4 border border-slate-100 shadow-lg shadow-slate-200/30 rounded-lg">
+ <div className="flex justify-between items-center mb-3 pb-2 border-b border-slate-100">
  <h2 className="text-xl font-black tracking-tighter flex items-center gap-2">
  <div className="w-8 h-8 bg-blue-50 flex items-center justify-center text-blue-600"><IoCodeSlashOutline /></div>
  Call-To-Action Ribbon
@@ -490,11 +490,11 @@ export default function HostingCMS() {
  </AnimatePresence>
 
  {/* Mobile Sticky Bottom CTA */}
- <div className="md:hidden sticky bottom-0 left-0 w-full pt-4 pb-[calc(1rem+env(safe-area-inset-bottom))] bg-slate-50/90 backdrop-blur-md z-[90]">
+ <div className="md:hidden sticky bottom-0 left-0 w-full pt-2 pb-[calc(1rem+env(safe-area-inset-bottom))] bg-slate-50/90 backdrop-blur-md z-[90]">
  <button 
  onClick={handleSave}
  disabled={saving}
- className="w-full relative overflow-hidden px-4 py-4 bg-slate-900 text-white font-black uppercase tracking-widest text-[12px] flex items-center justify-center gap-2 active:scale-95 transition-transform disabled:opacity-50 shadow-xl shadow-slate-900/20 rounded-md"
+ className="w-full relative overflow-hidden px-4 py-3 bg-slate-900 text-white font-black uppercase tracking-widest text-[12px] flex items-center justify-center gap-2 active:scale-95 transition-transform disabled:opacity-50 shadow-xl shadow-slate-900/20 rounded-md"
  >
  <div className="absolute inset-0 bg-gradient-to-r from-blue-600 to-indigo-600 opacity-0 hover:opacity-100 transition-opacity" />
  <div className="relative flex items-center gap-2">
@@ -536,7 +536,7 @@ function Field({ label, value, onChange, textarea = false, dark = false, small =
 
 function CardWrapper({ children, onRemove, highlight = false, compact = false }) {
  return (
- <div className={`p-4 bg-white border border-slate-100 shadow-sm hover:shadow-lg transition-all relative group ${highlight ? 'ring-2 ring-blue-600 shadow-blue-600/10' : ''}`}>
+ <div className={`p-3 bg-white border border-slate-100 shadow-sm hover:shadow-lg transition-all relative group ${highlight ? 'ring-2 ring-blue-600 shadow-blue-600/10' : ''}`}>
  {onRemove && (
  <button 
  onClick={onRemove} 
