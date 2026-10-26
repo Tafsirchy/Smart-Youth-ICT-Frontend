@@ -127,7 +127,17 @@ export default function SuccessStoriesPage() {
                   onClick={() => setSelectedStory(story)}
                   className="relative overflow-hidden w-[300px] md:w-[400px] aspect-[4/5] bg-slate-200 cursor-pointer shadow-lg hover:shadow-2xl hover:-translate-y-2 shrink-0 group/card text-left focus:outline-none transition-all duration-300 border border-white"
                 >
-                  <Image src={story.videoThumbnail || story.studentAvatar || "/images/placeholder.png"} alt={story.studentName || "Student"} fill sizes="400px" loading="lazy" decoding="async" className="object-cover group-hover/card:scale-110 transition-transform duration-700 bg-slate-200 rounded-md" />
+                  <Image 
+                    src={story.videoThumbnail || story.studentAvatar || "/images/placeholder.png"} 
+                    alt={story.studentName || "Student"} 
+                    fill 
+                    sizes="400px" 
+                    loading="lazy" 
+                    decoding="async" 
+                    unoptimized={true}
+                    onError={(e) => { e.currentTarget.style.display = 'none'; }}
+                    className="object-cover group-hover/card:scale-110 transition-transform duration-700 bg-slate-200 rounded-md" 
+                  />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent"></div>
 
                   <div className="absolute inset-0 flex items-center justify-center">
@@ -173,8 +183,23 @@ export default function SuccessStoriesPage() {
                   <div className="absolute top-0 right-0 w-32 h-32 bg-brand-green/5 blur-2xl group-hover:bg-brand-green/10 transition-colors pointer-events-none hidden"></div>
 
                   <div className="flex gap-4 items-center mb-8 relative z-10">
-                    <div className="relative w-16 h-16 bg-slate-100 shrink-0 border-2 border-white shadow-md overflow-hidden rounded-lg">
-                      <Image src={story.studentAvatar || "/images/placeholder.png"} alt={story.studentName || "Student"} fill sizes="64px" loading="lazy" decoding="async" className="object-cover rounded-md" />
+                    <div className="relative w-16 h-16 bg-slate-100 shrink-0 border-2 border-white shadow-md overflow-hidden rounded-lg flex items-center justify-center">
+                      {story.studentAvatar ? (
+                        <Image 
+                          src={story.studentAvatar} 
+                          alt={story.studentName || "Student"} 
+                          fill 
+                          sizes="64px" 
+                          loading="lazy" 
+                          decoding="async" 
+                          unoptimized={true}
+                          onError={(e) => { e.currentTarget.style.display = 'none'; }}
+                          className="object-cover rounded-md z-10 relative" 
+                        />
+                      ) : null}
+                      <div className="w-full h-full flex items-center justify-center bg-indigo-50 text-indigo-600 font-bold text-lg absolute inset-0 z-0">
+                        {story.studentName ? story.studentName.charAt(0) : "S"}
+                      </div>
                     </div>
                     <div className="min-w-0">
                       <h4 className="font-extrabold text-slate-900 text-lg truncate mb-1">{story.studentName}</h4>
