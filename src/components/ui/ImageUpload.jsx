@@ -195,34 +195,34 @@ export default function ImageUpload({
       : "aspect-square w-32";
 
   return (
-    <div className="space-y-2">
+    <div className="space-y-1.5">
       <div className="flex items-center justify-between">
-        <label className="block text-[10px] font-black uppercase text-slate-400">
+        <label className="block text-[10px] font-black uppercase text-slate-400 leading-[1.4]">
           {label}
         </label>
         {!preview && (
-          <div className="flex bg-slate-100 dark:bg-slate-800 p-1 text-xs font-bold rounded-sm">
+          <div className="flex bg-slate-100 dark:bg-slate-800 p-0.5 text-xs font-bold rounded-sm">
             <button
               type="button"
               onClick={() => setActiveTab("device")}
-              className={`min-h-[36px] px-3 py-1.5 transition-all flex items-center gap-1.5 active:scale-95 ${
+              className={`min-h-[28px] px-2.5 py-1 transition-all flex items-center gap-1.5 active:scale-95 leading-[1.4] ${
                 activeTab === "device"
                   ? "bg-white dark:bg-slate-700 text-slate-800 dark:text-white shadow-sm"
                   : "text-slate-400 hover:text-slate-600"
               }`}
             >
-              <LuUpload size={14} /> Device
+              <LuUpload size={13} /> Device
             </button>
             <button
               type="button"
               onClick={() => setActiveTab("link")}
-              className={`min-h-[36px] px-3 py-1.5 transition-all flex items-center gap-1.5 active:scale-95 ${
+              className={`min-h-[28px] px-2.5 py-1 transition-all flex items-center gap-1.5 active:scale-95 leading-[1.4] ${
                 activeTab === "link"
                   ? "bg-white dark:bg-slate-700 text-slate-800 dark:text-white shadow-sm"
                   : "text-slate-400 hover:text-slate-600"
               }`}
             >
-              <LuLink size={14} /> Web Link
+              <LuLink size={13} /> Web Link
             </button>
           </div>
         )}
@@ -230,7 +230,7 @@ export default function ImageUpload({
 
       {preview ? (
         // Preview State with Replace & Clear
-        <div className="space-y-2">
+        <div className="space-y-1.5">
           <div
             className={`relative ${aspectClass} overflow-hidden border-2 border-slate-100 dark:border-slate-800 shadow-sm transition-all group bg-slate-100 dark:bg-slate-800 rounded-md`}
           >
@@ -250,19 +250,19 @@ export default function ImageUpload({
 
             {/* Touch-Friendly Action Overlay */}
             <div
-              className={`absolute inset-0 bg-slate-900/40 sm:bg-slate-900/60 sm:opacity-0 sm:group-hover:opacity-100 transition-opacity flex flex-col items-center justify-center gap-2 p-3 ${
+              className={`absolute inset-0 bg-slate-900/40 sm:bg-slate-900/60 sm:opacity-0 sm:group-hover:opacity-100 transition-opacity flex flex-col items-center justify-center gap-1.5 p-2 ${
                 uploading ? "opacity-100" : ""
               }`}
             >
               {uploading ? (
                 <div className="flex flex-col items-center gap-1 text-white">
-                  <LuRotateCw className="w-7 h-7 animate-spin text-pink-400" />
-                  <span className="text-xs font-bold">Compressing & Uploading...</span>
+                  <LuRotateCw className="w-6 h-6 animate-spin text-pink-400" />
+                  <span className="text-xs font-bold leading-[1.4]">Compressing & Uploading...</span>
                 </div>
               ) : (
-                <div className="flex flex-col items-stretch w-full max-w-[120px] gap-2">
-                  <label className="min-h-[36px] w-full px-2 py-1.5 bg-white text-slate-800 active:scale-95 transition-transform shadow-lg cursor-pointer text-[10px] font-black uppercase tracking-wider flex items-center justify-center gap-1.5 select-none rounded-md">
-                    <LuUpload size={14} />
+                <div className="flex flex-col items-stretch w-full max-w-[110px] gap-1.5">
+                  <label className="min-h-[30px] w-full px-2 py-1 bg-white text-slate-800 active:scale-95 transition-transform shadow-lg cursor-pointer text-[10px] font-black uppercase tracking-wider flex items-center justify-center gap-1 select-none rounded leading-[1.4]">
+                    <LuUpload size={13} />
                     <span>Replace</span>
                     <input
                       type="file"
@@ -277,9 +277,9 @@ export default function ImageUpload({
                     onClick={removeImage}
                     title="Remove Image"
                     aria-label="Remove Image"
-                    className="min-h-[36px] w-full p-1.5 bg-rose-600 hover:bg-rose-700 text-white active:scale-95 transition-transform shadow-lg flex items-center justify-center gap-1.5 rounded-md"
+                    className="min-h-[30px] w-full p-1 bg-rose-600 hover:bg-rose-700 text-white active:scale-95 transition-transform shadow-lg flex items-center justify-center gap-1 rounded leading-[1.4]"
                   >
-                    <LuX size={14} />
+                    <LuX size={13} />
                     <span className="text-[10px] uppercase font-black">Delete</span>
                   </button>
                 </div>
@@ -287,18 +287,18 @@ export default function ImageUpload({
             </div>
           </div>
 
-          <div className="flex items-center gap-2 max-w-sm">
+          <div className="flex items-center gap-1.5 max-w-sm">
             <input
               type="text"
               readOnly
               value={preview.startsWith("data:") ? `${preview.substring(0, 30)}... [Optimized ${Math.round(preview.length / 1024)} KB]` : preview}
               title={preview}
-              className="flex-1 px-2.5 py-1 bg-slate-50 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700 text-[10px] font-mono text-slate-500 truncate rounded-md"
+              className="flex-1 px-2 py-0.5 bg-slate-50 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700 text-[10px] font-mono text-slate-500 truncate rounded leading-[1.4]"
             />
             <button
               type="button"
               onClick={removeImage}
-              className="text-[10px] text-rose-600 font-bold hover:underline rounded-md"
+              className="text-[10px] text-rose-600 font-bold hover:underline rounded leading-[1.4]"
             >
               Remove
             </button>
@@ -306,24 +306,24 @@ export default function ImageUpload({
         </div>
       ) : activeTab === "device" ? (
         // Mode 1: Device File Upload
-        <label className="flex flex-col items-center justify-center w-full max-w-sm p-5 border-2 border-dashed border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800/40 cursor-pointer hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors hover:border-pink-500/50 group rounded-md">
+        <label className="flex flex-col items-center justify-center w-full max-w-sm p-3.5 border-2 border-dashed border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800/40 cursor-pointer hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors hover:border-pink-500/50 group rounded-md">
           <div className="flex flex-col items-center justify-center text-center">
             {uploading ? (
               <>
-                <LuRotateCw className="w-7 h-7 text-pink-500 animate-spin mb-2" />
-                <p className="text-xs font-bold text-slate-700 dark:text-slate-300">
+                <LuRotateCw className="w-6 h-6 text-pink-500 animate-spin mb-1.5" />
+                <p className="text-xs font-bold text-slate-700 dark:text-slate-300 leading-[1.4]">
                   Optimizing & Uploading...
                 </p>
               </>
             ) : (
               <>
-                <div className="w-10 h-10 bg-pink-50 dark:bg-pink-900/20 text-pink-600 flex items-center justify-center mb-2 group-hover:scale-110 transition-transform rounded-md">
-                  <LuUpload size={20} />
+                <div className="w-8 h-8 bg-pink-50 dark:bg-pink-900/20 text-pink-600 flex items-center justify-center mb-1.5 group-hover:scale-110 transition-transform rounded-md">
+                  <LuUpload size={16} />
                 </div>
-                <p className="text-xs font-bold text-slate-700 dark:text-slate-300">
+                <p className="text-xs font-bold text-slate-700 dark:text-slate-300 leading-[1.4]">
                   Click or drag image from device
                 </p>
-                <p className="text-[10px] font-medium text-slate-400 mt-0.5">
+                <p className="text-[10px] font-medium text-slate-400 mt-0.5 leading-[1.4]">
                   JPG, PNG, WEBP (Auto-optimized)
                 </p>
               </>
@@ -339,10 +339,10 @@ export default function ImageUpload({
         </label>
       ) : (
         // Mode 2: Web Link / URL Input
-        <div className="space-y-2 max-w-sm">
-          <div className="flex gap-2">
+        <div className="space-y-1.5 max-w-sm">
+          <div className="flex gap-1.5">
             <div className="relative flex-1">
-              <LuLink className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" size={14} />
+              <LuLink className="absolute left-2.5 top-1/2 -translate-y-1/2 text-slate-400" size={13} />
               <input
                 type="url"
                 placeholder="Paste direct image link (https://...)"
@@ -354,19 +354,19 @@ export default function ImageUpload({
                     handleApplyLink();
                   }
                 }}
-                className="w-full pl-9 pr-3 py-2 bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-xs font-medium outline-none focus:ring-2 focus:ring-pink-500/20 dark:text-white rounded-md"
+                className="w-full pl-8 pr-2.5 py-1.5 bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-xs font-medium outline-none focus:ring-2 focus:ring-pink-500/20 dark:text-white rounded-md leading-[1.4]"
               />
             </div>
             <button
               type="button"
               onClick={handleApplyLink}
               disabled={!linkInput.trim()}
-              className="px-4 py-2 bg-slate-900 dark:bg-pink-600 text-white text-xs font-bold uppercase tracking-wider hover:opacity-90 disabled:opacity-40 rounded-md"
+              className="px-3 py-1.5 bg-slate-900 dark:bg-pink-600 text-white text-xs font-bold uppercase tracking-wider hover:opacity-90 disabled:opacity-40 rounded-md leading-[1.4]"
             >
               Apply
             </button>
           </div>
-          <p className="text-[10px] text-slate-400">
+          <p className="text-[10px] text-slate-400 leading-[1.4]">
             Paste any direct image URL from Unsplash, ImgBB, or your CDN.
           </p>
         </div>
