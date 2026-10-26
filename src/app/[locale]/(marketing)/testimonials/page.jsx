@@ -97,16 +97,23 @@ export default function TestimonialsPage() {
                   </p>
 
                   <div className="flex items-center gap-4 relative z-10 border-t border-slate-100 pt-8 mt-auto">
-                    <div className="w-14 h-14 bg-slate-100 border-2 border-white shadow-sm overflow-hidden shrink-0 rounded-lg">
-                      <Image
-                        src={writerAvatar}
-                        alt={writerName}
-                        width={56}
-                        height={56}
-                        loading="lazy"
-                        decoding="async"
-                        className="w-full h-full object-cover rounded-md"
-                      />
+                    <div className="w-14 h-14 bg-slate-100 border-2 border-white shadow-sm overflow-hidden shrink-0 rounded-lg relative flex items-center justify-center">
+                      {writerAvatar ? (
+                        <Image
+                          src={writerAvatar}
+                          alt={writerName}
+                          width={56}
+                          height={56}
+                          loading="lazy"
+                          decoding="async"
+                          unoptimized={true}
+                          onError={(e) => { e.currentTarget.style.display = 'none'; }}
+                          className="w-full h-full object-cover rounded-md z-10 relative"
+                        />
+                      ) : null}
+                      <div className="w-full h-full flex items-center justify-center bg-indigo-50 text-indigo-600 font-bold text-base absolute inset-0 z-0">
+                        {writerName ? writerName.charAt(0) : "U"}
+                      </div>
                     </div>
                     <div className="min-w-0">
                       <h4 className="font-extrabold text-slate-900 truncate">{writerName}</h4>
