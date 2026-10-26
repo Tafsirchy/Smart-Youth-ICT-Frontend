@@ -45,14 +45,14 @@ export default function HostingClient({ data }) {
             <div className="absolute top-[15%] right-[-100px] w-[500px] h-[500px] bg-blue-50 blur-[140px]"></div>
          </div>
 
-         <div className="container-custom py-20 relative z-10">
+         <div className="container-custom py-10 relative z-10">
             {/* HOSTING HERO */}
-            <div className="flex flex-col lg:flex-row items-center gap-12 lg:gap-20 mb-32 lg:mb-48 pt-8 lg:pt-0">
+            <div className="flex flex-col lg:flex-row items-center gap-4 lg:gap-5 mb-12 lg:mb-20 pt-8 lg:pt-0">
                <div className="flex-1 text-left w-full">
                   <motion.div
                      initial={{ opacity: 0, x: -20 }}
                      animate={{ opacity: 1, x: 0 }}
-                     className="inline-flex items-center gap-2 px-4 sm:px-5 py-2 bg-blue-50 border border-blue-100 text-blue-700 text-[10px] sm:text-xs font-black tracking-wider sm:tracking-[0.4em] uppercase mb-8 sm:mb-10 rounded-md"
+                     className="inline-flex items-center gap-2 px-4 sm:px-5 py-2 bg-blue-50 border border-blue-100 text-blue-700 text-[10px] sm:text-xs font-black tracking-wider sm:tracking-[0.4em] uppercase mb-4 sm:mb-5 rounded-md"
                   >
                      <IoSparklesOutline className="text-sm" /> {data.hero.badge}
                   </motion.div>
@@ -61,7 +61,7 @@ export default function HostingClient({ data }) {
                      initial={{ opacity: 0, y: 30 }}
                      animate={{ opacity: 1, y: 0 }}
                      transition={{ duration: 0.8, ease: "circOut" }}
-                     className="text-4xl sm:text-5xl lg:text-6xl font-black text-slate-900 leading-[1.1] mb-6 sm:mb-8 tracking-tighter"
+                     className="text-4xl sm:text-5xl lg:text-6xl font-black text-slate-900 leading-[1.1] mb-4 sm:mb-6 tracking-tighter"
                   >
                      {data.hero.title?.split(' ')[0]} <br className="hidden sm:block" />
                      <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-600 via-violet-500 to-emerald-500 animate-gradient-x block sm:inline mt-2 sm:mt-0">{data.hero.title?.split(' ').slice(1).join(' ')}</span>
@@ -71,18 +71,18 @@ export default function HostingClient({ data }) {
                      initial={{ opacity: 0 }}
                      animate={{ opacity: 1 }}
                      transition={{ delay: 0.4 }}
-                     className="text-slate-600 text-lg sm:text-xl font-light leading-relaxed max-w-2xl mb-10 sm:mb-12"
+                     className="text-slate-600 text-lg sm:text-xl font-light leading-relaxed max-w-2xl mb-6 sm:mb-8"
                   >
                      {data.hero.description}
                   </motion.p>
 
-                  <div className="flex flex-col sm:flex-row gap-4 sm:gap-6 mb-16 lg:mb-0">
-                     <button className="w-full sm:w-[280px] px-8 py-4 sm:py-6 bg-blue-600 text-white font-black hover:bg-blue-700 transition-all shadow-xl sm:shadow-2xl shadow-blue-600/20 uppercase tracking-wider sm:tracking-widest text-xs sm:text-sm flex items-center justify-center min-h-[44px] rounded-md">
+                  <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 mb-8 lg:mb-0">
+                     <button className="w-full sm:w-[280px] px-6 py-3 sm:py-4 bg-blue-600 text-white font-black hover:bg-blue-700 transition-all shadow-xl sm:shadow-2xl shadow-blue-600/20 uppercase tracking-wider sm:tracking-widest text-xs sm:text-sm flex items-center justify-center min-h-[44px] rounded-md">
                         {data.cta?.title || "Initialize Plan"}
                      </button>
                      <Link
                         href="/services/hosting/details"
-                        className="w-full sm:w-[280px] px-8 py-4 sm:py-6 bg-white border border-slate-200 text-slate-900 font-black hover:bg-slate-50 transition-all uppercase tracking-wider sm:tracking-widest text-xs sm:text-sm flex items-center justify-center text-center min-h-[44px] rounded-md"
+                        className="w-full sm:w-[280px] px-6 py-3 sm:py-4 bg-white border border-slate-200 text-slate-900 font-black hover:bg-slate-50 transition-all uppercase tracking-wider sm:tracking-widest text-xs sm:text-sm flex items-center justify-center text-center min-h-[44px] rounded-md"
                      >
                         Technical Specifications
                      </Link>
@@ -127,7 +127,7 @@ export default function HostingClient({ data }) {
             </div>
 
             {/* DOMAIN SEARCH SECTION */}
-            <div className="mb-32 lg:mb-48">
+            <div className="mb-12 lg:mb-20">
                <div className="max-w-4xl mx-auto bg-white border border-slate-100 p-8 sm:p-12 lg:p-20 lg:-[4rem] shadow-xl lg:shadow-2xl shadow-slate-200/50 relative overflow-hidden rounded-lg">
                   <div className="absolute top-0 right-0 w-20 h-20 sm:w-32 sm:h-32 bg-blue-50 opacity-50"></div>
                   <h2 className="text-3xl sm:text-4xl font-black text-slate-900 mb-6 tracking-tighter">Claim Your <br className="block sm:hidden" /><span className="text-blue-600">Digital Node.</span></h2>
@@ -181,7 +181,7 @@ export default function HostingClient({ data }) {
 
             {/* SLA METRICS SECTION */}
             {data.sections.metrics && data.sections.metrics.length > 0 && (
-               <div className="mb-32 lg:mb-48 max-w-7xl mx-auto">
+               <div className="mb-12 lg:mb-20 max-w-7xl mx-auto">
                   <div className="flex items-center gap-6 mb-12 lg:mb-16">
                      <h2 className="text-xl sm:text-2xl lg:text-3xl font-black text-slate-900 tracking-tighter uppercase leading-none">SLA Metrics Matrix</h2>
                      <div className="h-[1px] flex-1 bg-slate-200"></div>
@@ -198,7 +198,7 @@ export default function HostingClient({ data }) {
             )}
 
             {/* PRICING TABLE */}
-            <div className="mb-32 lg:mb-48">
+            <div className="mb-12 lg:mb-20">
                <div className="flex flex-col items-center mb-16 lg:mb-24">
                   <h2 className="text-xs font-black text-blue-600 uppercase tracking-widest sm:tracking-[0.4em] mb-4">Infrastructure Tiers</h2>
                   <div className="flex flex-col sm:flex-row items-center gap-2 sm:gap-4 p-1 bg-white border border-slate-100 sm: shadow-lg w-full sm:w-auto">
@@ -219,7 +219,7 @@ export default function HostingClient({ data }) {
 
                {/* Full-bleed Mobile Carousel */}
                <div className="overflow-x-auto snap-x snap-mandatory hide-scrollbar pb-8 lg:pb-0 lg:overflow-visible lg:snap-none">
-                  <div className="flex lg:grid lg:grid-cols-3 gap-6 lg:gap-8 min-w-max lg:min-w-0 w-max lg:w-auto max-w-7xl mx-auto">
+                  <div className="flex lg:grid lg:grid-cols-3 gap-6 lg:gap-4 min-w-max lg:min-w-0 w-max lg:w-auto max-w-7xl mx-auto">
                      {(data.sections.plans || []).map((plan, i) => (
                         <motion.div
                            key={plan.name}
@@ -262,7 +262,7 @@ export default function HostingClient({ data }) {
             </div>
 
             {/* PILLARS SECTION */}
-            <div className="max-w-6xl mx-auto py-20 lg:py-32 border-t border-slate-100 mt-20 lg:mt-32">
+            <div className="max-w-6xl mx-auto py-20 lg:py-32 border-t border-slate-100 mt-20 lg:mt-12">
                <div className="text-center mb-16 lg:mb-24">
                   <h2 className="text-xs font-black text-blue-600 uppercase tracking-widest sm:tracking-[0.4em] mb-4">Core Principles</h2>
                   <h3 className="text-3xl sm:text-4xl md:text-5xl font-black text-slate-900 tracking-tighter">Industrial <br className="block sm:hidden" /><span className="text-blue-600">Infrastructure.</span></h3>
@@ -270,7 +270,7 @@ export default function HostingClient({ data }) {
                
                {/* Full-bleed Mobile Carousel */}
                <div className="overflow-x-auto snap-x snap-mandatory hide-scrollbar pb-8 lg:pb-0 lg:overflow-visible lg:snap-none">
-                  <div className="flex lg:grid lg:grid-cols-3 gap-6 lg:gap-12 min-w-max lg:min-w-0 w-max lg:w-auto">
+                  <div className="flex lg:grid lg:grid-cols-3 gap-6 lg:gap-5 min-w-max lg:min-w-0 w-max lg:w-auto">
                      {(data.sections.pillars || []).map((p, i) => (
                         <motion.div key={i} className="text-center group snap-center w-[85vw] max-w-[320px] lg:w-auto lg:max-w-none whitespace-normal bg-white lg:bg-transparent p-8 lg:p-0 border border-slate-100 lg:border-none shadow-xl lg:shadow-none rounded-lg">
                            <div className="w-16 h-16 sm:w-20 sm:h-20 bg-blue-50 text-blue-600 sm:-[2rem] flex items-center justify-center text-3xl sm:text-4xl mx-auto mb-6 sm:mb-10 lg:group-hover:scale-110 transition-transform shadow-lg sm:shadow-xl shadow-blue-600/10 shrink-0 rounded-lg">{getIcon(p.icon)}</div>
@@ -283,22 +283,22 @@ export default function HostingClient({ data }) {
             </div>
 
             {/* CTA */}
-            <div className="text-center py-20 lg:py-40 border-t border-slate-200 pb-32 lg:pb-40">
-               <IoServerOutline className="text-6xl lg:text-7xl text-blue-600 mb-8 lg:mb-12 mx-auto opacity-20" />
-               <h3 className="text-4xl sm:text-5xl lg:text-6xl font-black text-slate-900 mb-10 lg:mb-12 leading-tight tracking-tighter sm:tracking-normal">
+            <div className="text-center py-10 lg:py-16 border-t border-slate-200 pb-12 lg:pb-16">
+               <IoServerOutline className="text-6xl lg:text-7xl text-blue-600 mb-4 lg:mb-6 mx-auto opacity-20" />
+               <h3 className="text-4xl sm:text-5xl lg:text-6xl font-black text-slate-900 mb-5 lg:mb-6 leading-tight tracking-tighter sm:tracking-normal">
                   Scale your digital footprint. <br className="hidden sm:block" />
                   <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-indigo-600 font-serif italic font-medium block sm:inline mt-2 sm:mt-0">Command the Infrastructure.</span>
                </h3>
-               <div className="flex flex-col sm:flex-row gap-4 sm:gap-6 justify-center">
+               <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center">
                   {/* Sticky Mobile CTA */}
                   <div className="fixed bottom-0 left-0 w-full px-4 pt-4 pb-[max(1rem,env(safe-area-inset-bottom))] bg-slate-50/90 backdrop-blur-md border-t border-slate-200 z-50 lg:relative lg:border-none lg:bg-transparent lg:p-0 lg:w-auto">
-                     <button className="w-full lg:w-[280px] px-8 py-4 sm:py-6 bg-blue-600 text-white font-black hover:bg-blue-700 transition-all shadow-xl sm:shadow-2xl shadow-blue-600/40 uppercase tracking-wider sm:tracking-widest text-xs sm:text-sm flex items-center justify-center min-h-[44px] rounded-md">
+                     <button className="w-full lg:w-[280px] px-6 py-3 sm:py-4 bg-blue-600 text-white font-black hover:bg-blue-700 transition-all shadow-xl sm:shadow-2xl shadow-blue-600/40 uppercase tracking-wider sm:tracking-widest text-xs sm:text-sm flex items-center justify-center min-h-[44px] rounded-md">
                         {data.cta?.title || "Initialize Plan"}
                      </button>
                   </div>
                   <Link
                      href="/services/hosting/details"
-                     className="hidden lg:flex w-full sm:w-[280px] px-8 py-4 sm:py-6 bg-slate-900 text-white font-black hover:bg-slate-800 transition-all uppercase tracking-wider sm:tracking-widest text-xs sm:text-sm items-center justify-center text-center min-h-[44px] rounded-md"
+                     className="hidden lg:flex w-full sm:w-[280px] px-6 py-3 sm:py-4 bg-slate-900 text-white font-black hover:bg-slate-800 transition-all uppercase tracking-wider sm:tracking-widest text-xs sm:text-sm items-center justify-center text-center min-h-[44px] rounded-md"
                   >
                      Technical Hub
                   </Link>

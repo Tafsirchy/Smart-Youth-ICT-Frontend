@@ -57,7 +57,7 @@ export default function ChatbotDetailsClient({ data }) {
             </div>
 
             {/* 6-PHASE LIFECYCLE GRID */}
-            <div className="mb-12 lg:mb-24">
+            <div className="mb-6 lg:mb-10">
                <div className="flex items-center gap-4 md:gap-6 mb-8 md:mb-12">
                   <h2 className="text-2xl md:text-3xl font-black text-slate-900 tracking-tighter uppercase leading-[1.1] italic">Training Lifecycle</h2>
                   <div className="h-[1px] flex-1 bg-slate-200"></div>
@@ -78,7 +78,7 @@ export default function ChatbotDetailsClient({ data }) {
             </div>
 
             {/* LOGIC ARCHITECTURE SECTION */}
-            <div className="grid lg:grid-cols-2 gap-8 lg:gap-16 items-start mb-12 lg:mb-24">
+            <div className="grid lg:grid-cols-2 gap-4 lg:gap-6 items-start mb-6 lg:mb-10">
                <div className="relative lg:sticky lg:top-32 mb-8 lg:mb-0">
                   <div className="w-12 h-12 md:w-16 md:h-16 bg-emerald-50 md: flex items-center justify-center text-2xl md:text-3xl text-emerald-600 mb-6 md:mb-8 border border-emerald-100 rounded-lg">
                      <IoHardwareChipOutline />
@@ -101,7 +101,7 @@ export default function ChatbotDetailsClient({ data }) {
                <div className="space-y-4 md:space-y-6">
                   {(sections.roi || []).map((spec, idx) => (
                      <div key={idx} className="bg-white md:-[2.5rem] p-6 md:p-8 border border-slate-200 shadow-sm hover:shadow-xl transition-all rounded-lg">
-                        <h4 className="text-[10px] font-black text-emerald-600 uppercase tracking-[0.4em] mb-4 md:mb-6 leading-[1.4]">{spec.group} Framework</h4>
+                        <h4 className="text-[10px] font-black text-emerald-600 uppercase tracking-[0.4em] mb-2 md:mb-6 leading-[1.4]">{spec.group} Framework</h4>
                         <div className="grid grid-cols-2 gap-3 md:gap-4">
                            {spec.items?.map(item => (
                               <div key={item} className="flex items-center gap-2 md:gap-3 text-xs md:text-sm font-bold text-slate-600 leading-[1.4]">
@@ -116,9 +116,9 @@ export default function ChatbotDetailsClient({ data }) {
             </div>
 
             {/* SECURITY PROMPT SECTION */}
-            <div className="bg-white md:-[4rem] p-6 md:p-12 lg:p-24 border border-slate-100 shadow-2xl shadow-slate-200/50 relative overflow-hidden mb-12 lg:mb-24 rounded-lg">
+            <div className="bg-white md:-[4rem] p-6 md:p-12 lg:p-24 border border-slate-100 shadow-2xl shadow-slate-200/50 relative overflow-hidden mb-6 lg:mb-10 rounded-lg">
                <div className="absolute top-0 right-0 w-1/3 h-full bg-slate-50/50 border-l border-slate-100 skew-x-12 translate-x-12 rounded-lg"></div>
-               <div className="grid lg:grid-cols-2 gap-8 md:gap-12 lg:gap-20 relative z-10">
+               <div className="grid lg:grid-cols-2 gap-4 md:gap-5 lg:gap-8 relative z-10">
                   <div>
                      <div className="text-emerald-600 mb-4 md:mb-6 flex items-center gap-3 md:gap-4">
                         <div className="w-12 h-[2px] bg-emerald-600"></div>
@@ -147,7 +147,7 @@ export default function ChatbotDetailsClient({ data }) {
                   <div className="relative mt-8 lg:mt-0">
                      <div className="bg-slate-900 md:-[3rem] p-6 md:p-10 border border-slate-800 shadow-2xl aspect-auto md:aspect-[3/4] flex flex-col justify-between group overflow-hidden rounded-lg">
                         <div className="absolute inset-0 bg-gradient-to-br from-emerald-500/10 to-transparent pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity"></div>
-                        <div className="space-y-6 md:space-y-8 relative z-10 mb-8 md:mb-0">
+                        <div className="space-y-6 md:space-y-4 relative z-10 mb-8 md:mb-0">
                            <div className="flex justify-between items-center text-white/30 font-mono text-[8px] tracking-[0.4em] leading-[1.4]">
                               <span>SYS_INFERENCE_200</span>
                               <span>NEURAL_ BLUEPRINT</span>
