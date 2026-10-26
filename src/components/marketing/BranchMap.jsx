@@ -12,7 +12,6 @@ import {
   IoNavigateOutline,
   IoCloseOutline,
   IoVideocamOutline,
-  IoSchoolOutline,
 } from 'react-icons/io5';
 import { getBranchThumbnail, DIVISION_CAMPUS_FALLBACKS } from './BranchDirectory';
 
@@ -21,10 +20,10 @@ function MapLifecycleController({ selectedBranch, branches }) {
   const map = useMap();
 
   useEffect(() => {
-    // Invalidate size on mount and staggered intervals to avoid black quadrants
-    const t1 = setTimeout(() => map.invalidateSize(), 100);
-    const t2 = setTimeout(() => map.invalidateSize(), 400);
-    const t3 = setTimeout(() => map.invalidateSize(), 800);
+    // Invalidate size on mount and staggered intervals to avoid grey/black tiles
+    const t1 = setTimeout(() => map.invalidateSize(), 150);
+    const t2 = setTimeout(() => map.invalidateSize(), 500);
+    const t3 = setTimeout(() => map.invalidateSize(), 1000);
 
     const handleResize = () => map.invalidateSize();
     window.addEventListener('resize', handleResize);
@@ -37,7 +36,7 @@ function MapLifecycleController({ selectedBranch, branches }) {
     };
   }, [map]);
 
-  // Fly to selected branch when changed
+  // Smoothly fly to selected branch when changed
   useEffect(() => {
     if (selectedBranch && selectedBranch.location?.coordinates) {
       const [lng, lat] = selectedBranch.location.coordinates;
@@ -58,8 +57,8 @@ const markerIconCache = new Map();
 
 const getMarkerIcon = (branch, isSelected, isHovered) => {
   const isHQ = branch.type === 'head_office';
-  const shortCode = branch.code || (isHQ ? 'HQ' : 'CAMPUS');
-  const cacheKey = `${branch._id}_${shortCode}_${isSelected ? 's' : '0'}_${isHovered ? 'h' : '0'}`;
+  const displayName = isHQ ? 'Corporate HQ' : branch.name || branch.code || 'Campus';
+  const cacheKey = `${branch._id}_${displayName}_${isSelected ? 's' : '0'}_${isHovered ? 'h' : '0'}`;
 
   if (markerIconCache.has(cacheKey)) {
     return markerIconCache.get(cacheKey);
@@ -67,12 +66,12 @@ const getMarkerIcon = (branch, isSelected, isHovered) => {
 
   const bgGradient = isHQ
     ? 'background: linear-gradient(135deg, #FF2C6D, #E11D48);'
-    : 'background: linear-gradient(135deg, #2563EB, #4F46E5);';
+    : 'background: linear-gradient(135deg, #1E293B, #0F172A);';
 
-  const transform = isSelected || isHovered ? 'scale(1.15); z-index: 999;' : 'scale(1);';
+  const transform = isSelected || isHovered ? 'scale(1.12); z-index: 999;' : 'scale(1);';
   const shadow = isSelected || isHovered
-    ? 'box-shadow: 0 6px 18px -2px rgba(37, 99, 235, 0.45);'
-    : 'box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);';
+    ? 'box-shadow: 0 8px 24px -2px rgba(30, 41, 59, 0.45);'
+    : 'box-shadow: 0 4px 12px rgba(0, 0, 0, 0.18);';
 
   const pulseRing = isSelected || isHovered
     ? `<span style="position: absolute; inset: -4px; border-radius: 9999px; background-color: ${
@@ -83,23 +82,21 @@ const getMarkerIcon = (branch, isSelected, isHovered) => {
   const html = `
     <div style="position: relative; display: flex; flex-direction: column; align-items: center; cursor: pointer; transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1); transform: ${transform}">
       ${pulseRing}
-      <div style="${bgGradient} ${shadow} color: white; padding: 3px 8px; border-radius: 9px; font-weight: 800; font-size: 10px; letter-spacing: 0.03em; text-transform: uppercase; border: 1.5px solid #ffffff; display: flex; align-items: center; gap: 3px; white-space: nowrap;">
-        <svg xmlns="http://www.w3.org/2000/svg" style="width: 11px; height: 11px;" viewBox="0 0 20 20" fill="currentColor">
-          <path fill-rule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clip-rule="evenodd" />
-        </svg>
-        <span>${shortCode}</span>
+      <div style="${bgGradient} ${shadow} color: white; padding: 4px 9px; border-radius: 9999px; font-weight: 700; font-size: 10px; letter-spacing: 0.02em; border: 1.5px solid #ffffff; display: flex; align-items: center; gap: 4px; white-space: nowrap; font-family: system-ui, sans-serif;">
+        <span style="width: 6px; height: 6px; border-radius: 50%; background-color: ${isHQ ? '#FFD700' : '#38BDF8'};"></span>
+        <span>${displayName}</span>
       </div>
       <div style="width: 6px; height: 6px; background-color: ${
-        isHQ ? '#E11D48' : '#2563EB'
-      }; transform: rotate(45deg); margin-top: -3px;"></div>
+        isHQ ? '#E11D48' : '#0F172A'
+      }; transform: rotate(45deg); margin-top: -3px; border-bottom: 1px solid #fff; border-right: 1px solid #fff;"></div>
     </div>
   `;
 
   const icon = L.divIcon({
     html,
     className: 'custom-smart-marker',
-    iconSize: [52, 32],
-    iconAnchor: [26, 30],
+    iconSize: [80, 32],
+    iconAnchor: [40, 30],
     popupAnchor: [0, -30],
   });
 
@@ -126,7 +123,7 @@ export default function BranchMap({
     [branches, selectedBranchId]
   );
 
-  // Filter branches with coordinates
+  // Filter branches with valid coordinates
   const mappableBranches = useMemo(() => {
     return branches.filter((b) => {
       const coords = b.location?.coordinates;
@@ -155,16 +152,16 @@ export default function BranchMap({
   }, [mappableBranches]);
 
   return (
-    <div className="w-full h-full relative overflow-hidden rounded-2xl border border-neutral-200/90 dark:border-neutral-800 shadow-md bg-neutral-100 dark:bg-neutral-900 group">
+    <div className="w-full h-full relative overflow-hidden rounded-3xl border border-slate-200/90 dark:border-slate-800 shadow-md bg-slate-100 dark:bg-slate-900 group">
       <MapContainer
         center={defaultCenter}
         zoom={7}
         scrollWheelZoom={false}
         ref={mapRef}
-        className="w-full h-full min-h-[360px] z-10"
+        className="w-full h-full min-h-[420px] z-10"
       >
         <TileLayer
-          attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+          attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
           subdomains="abc"
           maxZoom={19}
@@ -193,29 +190,29 @@ export default function BranchMap({
         })}
       </MapContainer>
 
-      {/* Compact Floating Header Controls */}
-      <div className="absolute top-2.5 inset-x-2.5 z-[400] flex items-center justify-between pointer-events-none">
-        <div className="bg-white/95 dark:bg-neutral-900/95 backdrop-blur-md px-2.5 py-1 shadow-md border border-neutral-200/80 dark:border-neutral-800 text-[11px] font-bold text-neutral-800 dark:text-neutral-200 flex items-center gap-1.5 rounded-lg pointer-events-auto">
+      {/* Floating Map Controls Bar */}
+      <div className="absolute top-3.5 inset-x-3.5 z-[400] flex items-center justify-between pointer-events-none">
+        <div className="bg-white/95 dark:bg-slate-900/95 backdrop-blur-md px-3 py-1.5 shadow-md border border-slate-200/80 dark:border-slate-800 text-xs font-bold text-slate-800 dark:text-slate-200 flex items-center gap-2 rounded-xl pointer-events-auto">
           <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
-          <span>{mappableBranches.length} Campuses</span>
+          <span>{mappableBranches.length} Campuses on Map</span>
         </div>
 
         <button
           type="button"
           onClick={handleFitAll}
-          className="bg-white/95 dark:bg-neutral-900/95 backdrop-blur-md px-2.5 py-1 shadow-md border border-neutral-200/80 dark:border-neutral-800 text-[11px] font-bold text-neutral-700 dark:text-neutral-200 hover:text-blue-600 dark:hover:text-blue-400 flex items-center gap-1 rounded-lg transition-all active:scale-95 pointer-events-auto"
+          className="bg-white/95 dark:bg-slate-900/95 backdrop-blur-md px-3 py-1.5 shadow-md border border-slate-200/80 dark:border-slate-800 text-xs font-bold text-slate-700 dark:text-slate-200 hover:text-blue-600 dark:hover:text-blue-400 flex items-center gap-1.5 rounded-xl transition-all active:scale-95 pointer-events-auto"
         >
-          <IoExpandOutline size={13} />
+          <IoExpandOutline size={14} />
           <span>Fit All</span>
         </button>
       </div>
 
-      {/* Floating Active Campus Preview Card (Compact & High-Density) */}
+      {/* Floating Active Campus Preview Card */}
       {selectedBranch && (
-        <div className="absolute bottom-2.5 inset-x-2.5 z-[400] bg-white/95 dark:bg-neutral-900/95 backdrop-blur-md p-3 rounded-xl shadow-xl border border-neutral-200/80 dark:border-neutral-800 animate-in slide-in-from-bottom-2 duration-200">
-          <div className="flex items-start justify-between gap-2.5">
-            <div className="flex gap-2.5 items-center min-w-0">
-              <div className="w-12 h-12 rounded-lg overflow-hidden bg-neutral-100 dark:bg-neutral-800 shrink-0 relative border border-neutral-200 dark:border-neutral-700">
+        <div className="absolute bottom-3.5 inset-x-3.5 z-[400] bg-white/95 dark:bg-slate-900/95 backdrop-blur-md p-4 rounded-2xl shadow-2xl border border-slate-200/90 dark:border-slate-800 animate-in slide-in-from-bottom-2 duration-200">
+          <div className="flex items-start justify-between gap-3">
+            <div className="flex gap-3 items-center min-w-0">
+              <div className="w-14 h-14 rounded-xl overflow-hidden bg-slate-950 shrink-0 relative border border-slate-200 dark:border-slate-700 shadow-xs">
                 <img
                   src={getBranchThumbnail(selectedBranch)}
                   alt={selectedBranch.name}
@@ -232,25 +229,25 @@ export default function BranchMap({
 
               <div className="space-y-0.5 min-w-0">
                 <div className="flex items-center gap-1.5">
-                  <span className="px-1.5 py-0.2 text-[9px] font-black uppercase tracking-wider bg-blue-50 text-blue-700 dark:bg-blue-950/40 dark:text-blue-400 rounded">
-                    {selectedBranch.code}
+                  <span className="px-1.5 py-0.5 text-[9px] font-black uppercase tracking-wider bg-blue-50 text-blue-700 dark:bg-blue-950/40 dark:text-blue-400 rounded">
+                    {selectedBranch.code || 'Campus'}
                   </span>
-                  <h4 className="font-extrabold text-xs text-neutral-900 dark:text-white truncate m-0 leading-none">
+                  <h4 className="font-extrabold text-sm text-slate-900 dark:text-white truncate m-0 leading-tight">
                     {selectedBranch.name}
                   </h4>
                 </div>
 
-                <p className="text-[11px] text-neutral-500 dark:text-neutral-400 flex items-center gap-1 truncate">
-                  <IoLocationOutline size={12} className="text-blue-600 shrink-0" />
+                <p className="text-xs text-slate-500 dark:text-slate-400 flex items-center gap-1 truncate">
+                  <IoLocationOutline size={13} className="text-blue-600 shrink-0" />
                   <span>
-                    {[selectedBranch.address?.area, selectedBranch.address?.city]
+                    {[selectedBranch.address?.area, selectedBranch.address?.city, selectedBranch.division]
                       .filter(Boolean)
                       .join(', ')}
                   </span>
                 </p>
 
                 {getStatus && (
-                  <div className="text-[10px] font-semibold text-emerald-600 flex items-center gap-1">
+                  <div className="text-[11px] font-semibold text-emerald-600 flex items-center gap-1">
                     <span className="w-1.5 h-1.5 rounded-full bg-emerald-500" />
                     <span>{getStatus(selectedBranch).label}</span>
                   </div>
@@ -261,30 +258,31 @@ export default function BranchMap({
             <button
               type="button"
               onClick={() => onSelectBranch && onSelectBranch(null)}
-              className="p-1 text-neutral-400 hover:text-neutral-700 dark:hover:text-white rounded-lg transition-colors"
+              className="p-1.5 text-slate-400 hover:text-slate-700 dark:hover:text-white rounded-lg transition-colors"
+              title="Close preview"
             >
-              <IoCloseOutline size={16} />
+              <IoCloseOutline size={18} />
             </button>
           </div>
 
           {/* Quick Action Buttons on Map */}
-          <div className="mt-2.5 pt-2 border-t border-neutral-100 dark:border-neutral-800 flex items-center gap-1.5">
+          <div className="mt-3 pt-2.5 border-t border-slate-100 dark:border-slate-800 flex items-center gap-2">
             <button
               type="button"
-              onClick={() => onVirtualTour && onVirtualTour(selectedBranch)}
-              className="flex-1 py-1.5 px-2 bg-blue-600 hover:bg-blue-700 text-white font-bold text-[11px] uppercase tracking-wider rounded-lg transition-all shadow-sm flex items-center justify-center gap-1 active:scale-95"
+              onClick={() => onScheduleVisit && onScheduleVisit(selectedBranch)}
+              className="flex-1 py-2 px-3 bg-slate-900 hover:bg-slate-800 text-white font-bold text-xs uppercase tracking-wider rounded-xl transition-all shadow-sm flex items-center justify-center gap-1.5 active:scale-95"
             >
-              <IoVideocamOutline size={13} />
-              <span>Tour</span>
+              <IoCalendarOutline size={14} />
+              <span>Book Visit</span>
             </button>
 
             <button
               type="button"
-              onClick={() => onScheduleVisit && onScheduleVisit(selectedBranch)}
-              className="flex-1 py-1.5 px-2 bg-neutral-100 hover:bg-neutral-200 dark:bg-neutral-800 dark:hover:bg-neutral-700 text-neutral-800 dark:text-neutral-200 font-bold text-[11px] uppercase tracking-wider rounded-lg transition-colors flex items-center justify-center gap-1 active:scale-95"
+              onClick={() => onVirtualTour && onVirtualTour(selectedBranch)}
+              className="py-2 px-3 bg-blue-50 hover:bg-blue-100 text-blue-700 dark:bg-blue-950/50 dark:hover:bg-blue-900/60 dark:text-blue-300 font-bold text-xs uppercase tracking-wider rounded-xl transition-colors flex items-center justify-center gap-1.5 active:scale-95 border border-blue-200 dark:border-blue-800"
             >
-              <IoCalendarOutline size={12} />
-              <span>Visit Desk</span>
+              <IoVideocamOutline size={15} />
+              <span>Tour</span>
             </button>
 
             {selectedBranch.location?.googleMapsUrl && (
@@ -292,10 +290,10 @@ export default function BranchMap({
                 href={selectedBranch.location.googleMapsUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="p-1.5 bg-neutral-100 hover:bg-neutral-200 dark:bg-neutral-800 dark:hover:bg-neutral-700 text-neutral-700 dark:text-neutral-200 rounded-lg transition-colors"
+                className="p-2 bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-200 rounded-xl transition-colors"
                 title="Google Maps"
               >
-                <IoNavigateOutline size={14} />
+                <IoNavigateOutline size={16} />
               </a>
             )}
           </div>
