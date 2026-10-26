@@ -116,27 +116,40 @@ export default function Testimonials() {
  <p className="text-slate-700 text-sm leading-relaxed mb-6 italic line-clamp-4">
  &ldquo;{review.description || review.resultSummary}&rdquo;
  </p>
- <div className="flex items-center gap-3 mt-auto pt-4 border-t border-slate-50">
- {review.studentAvatar ? (
- <div className="w-10 h-10 overflow-hidden shrink-0 bg-slate-50">
- <Image src={review.studentAvatar} alt={review.studentName} width={40} height={40} className="w-full h-full object-cover rounded-md" />
- </div>
- ) : (
- <div
- className={`w-10 h-10 bg-gradient-to-br ${AVATAR_GRADIENTS[idx % AVATAR_GRADIENTS.length]} flex items-center justify-center text-white text-xs font-bold shrink-0`}
- >
- {getInitials(review.studentName)}
- </div>
- )}
- <div className="min-w-0">
- <h4 className="text-xs font-bold text-slate-900 truncate">
- {review.studentName}
- </h4>
- <p className="text-[10px] text-slate-500 uppercase tracking-wider truncate">
- {review.courseId?.title?.en || review.courseId?.title || "SYICT Graduate"}
- </p>
- </div>
- </div>
+            <div className="flex items-center gap-3 mt-auto pt-4 border-t border-slate-50">
+              {review.studentAvatar ? (
+                <div className="w-10 h-10 overflow-hidden shrink-0 bg-slate-50 relative flex items-center justify-center">
+                  <Image 
+                    src={review.studentAvatar} 
+                    alt={review.studentName} 
+                    width={40} 
+                    height={40} 
+                    unoptimized={true}
+                    onError={(e) => { e.currentTarget.style.display = 'none'; }}
+                    className="w-full h-full object-cover rounded-md z-10 relative" 
+                  />
+                  <div
+                    className={`w-10 h-10 bg-gradient-to-br ${AVATAR_GRADIENTS[idx % AVATAR_GRADIENTS.length]} flex items-center justify-center text-white text-xs font-bold shrink-0 absolute inset-0 z-0`}
+                  >
+                    {getInitials(review.studentName)}
+                  </div>
+                </div>
+              ) : (
+                <div
+                  className={`w-10 h-10 bg-gradient-to-br ${AVATAR_GRADIENTS[idx % AVATAR_GRADIENTS.length]} flex items-center justify-center text-white text-xs font-bold shrink-0`}
+                >
+                  {getInitials(review.studentName)}
+                </div>
+              )}
+              <div className="min-w-0">
+                <h4 className="text-xs font-bold text-slate-900 truncate">
+                  {review.studentName}
+                </h4>
+                <p className="text-[10px] text-slate-500 uppercase tracking-wider truncate">
+                  {review.courseId?.title?.en || review.courseId?.title || "SYICT Graduate"}
+                </p>
+              </div>
+            </div>
  </div>
  ))}
  </div>
