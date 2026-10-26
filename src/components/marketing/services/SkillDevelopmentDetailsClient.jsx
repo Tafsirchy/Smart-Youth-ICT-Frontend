@@ -76,8 +76,8 @@ export default function SkillDevelopmentDetailsClient({ data }) {
             </div>
 
             {/* CURRICULUM INTEGRITY SECTION */}
-            <div className="grid lg:grid-cols-2 gap-10 lg:gap-16 items-start mb-24">
-               <div className="lg:sticky lg:top-24 flex flex-col gap-6 lg:gap-8">
+            <div className="grid lg:grid-cols-2 gap-5 lg:gap-6 items-start mb-24">
+               <div className="lg:sticky lg:top-24 flex flex-col gap-6 lg:gap-4">
                   <div className="w-12 h-12 bg-blue-50 flex items-center justify-center text-2xl text-blue-600 border border-blue-100">
                      <IoBookOutline />
                   </div>
@@ -115,8 +115,8 @@ export default function SkillDevelopmentDetailsClient({ data }) {
             {/* MENTOR MESH SECTION */}
             <div className="bg-white -[2rem] lg:-[3rem] p-6 lg:p-12 border border-slate-100 shadow-xl shadow-slate-200/50 relative overflow-hidden mb-24 rounded-lg">
                <div className="absolute top-0 right-0 w-1/3 h-full bg-slate-50/50 border-l border-slate-100 skew-x-12 translate-x-12 hidden lg:block rounded-lg"></div>
-               <div className="grid lg:grid-cols-2 gap-10 lg:gap-16 relative z-10">
-                  <div className="flex flex-col gap-6 lg:gap-8">
+               <div className="grid lg:grid-cols-2 gap-5 lg:gap-6 relative z-10">
+                  <div className="flex flex-col gap-6 lg:gap-4">
                      <div className="text-blue-600 flex items-center gap-3">
                         <div className="w-8 h-[2px] bg-blue-600"></div>
                         <span className="text-[10px] font-black uppercase tracking-widest leading-[1.4]">Expert Validation Mesh</span>
@@ -144,7 +144,7 @@ export default function SkillDevelopmentDetailsClient({ data }) {
                   <div className="relative">
                      <div className="bg-slate-900 -[2rem] p-6 lg:p-8 border border-slate-800 shadow-xl aspect-[3/4] flex flex-col justify-between group overflow-hidden rounded-lg">
                         <div className="absolute inset-0 bg-gradient-to-br from-blue-500/10 to-transparent pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity"></div>
-                        <div className="flex flex-col gap-6 lg:gap-8 relative z-10">
+                        <div className="flex flex-col gap-6 lg:gap-4 relative z-10">
                            <div className="flex justify-between items-center text-white/30 font-mono text-[8px] uppercase tracking-widest leading-[1.4]">
                               <span>SYS_PEDAGOGY_400</span>
                               <span>EDU_BLUEPRINT</span>
@@ -179,7 +179,7 @@ export default function SkillDevelopmentDetailsClient({ data }) {
             </div>
 
             {/* CTA */}
-            <div className="text-center py-16 lg:py-24 border-t border-slate-200 flex flex-col items-center gap-6 lg:gap-8">
+            <div className="text-center py-16 lg:py-24 border-t border-slate-200 flex flex-col items-center gap-6 lg:gap-4">
                <IoPulseOutline className="text-5xl lg:text-6xl text-blue-600 opacity-20" />
                <h3 className="text-3xl lg:text-5xl font-black text-slate-900 leading-[1.1]">Ready to activate your <br /><span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-indigo-600 font-serif italic font-medium">Knowledge Sovereignty?</span></h3>
                <div className="flex flex-col sm:flex-row gap-4 w-full sm:w-auto">

@@ -121,7 +121,7 @@ export default function SkillDevelopmentClient({ locale, courses, pageContent })
       {/* Methodology Section */}
       <div className="bg-white py-10 border-y border-slate-100 rounded-lg">
         <div className="container-custom">
-          <div className="grid md:grid-cols-3 gap-6 md:gap-8 text-center">
+          <div className="grid md:grid-cols-3 gap-6 md:gap-4 text-center">
             {methods.map((mod, i) => (
               <motion.div
                 key={i}
