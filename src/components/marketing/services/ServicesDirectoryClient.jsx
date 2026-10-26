@@ -48,26 +48,26 @@ const serviceCategories = [
 
 export default function ServicesDirectoryClient() {
   return (
-    <section className="min-h-screen bg-slate-50 text-slate-900 selection:bg-indigo-600 selection:text-white pb-40">
+    <section className="min-h-screen bg-slate-50 text-slate-900 selection:bg-indigo-600 selection:text-white pb-16">
       {/* INDUSTRIAL OVERLAY */}
       <div className="absolute top-0 opacity-10 pointer-events-none -z-10 w-full h-full">
          <div className="absolute top-0 left-1/3 w-[1px] h-full bg-slate-300"></div>
          <div className="absolute top-0 right-1/3 w-[1px] h-full bg-slate-300"></div>
       </div>
 
-      <div className="container-custom pt-8 lg:pt-16">
+      <div className="container-custom pt-4 lg:pt-8">
         {/* HEADER */}
-        <div className="max-w-4xl mb-32 px-4 md:px-0">
+        <div className="max-w-4xl mb-12 px-4 md:px-0">
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            className="flex items-center gap-4 text-indigo-600 mb-8"
+            className="flex items-center gap-3 text-indigo-600 mb-4"
           >
             <div className="w-12 h-[1px] bg-indigo-600"></div>
             <span className="text-[10px] font-black uppercase tracking-[0.4em]">Expertise Master Catalog</span>
           </motion.div>
           
-          <h1 className="text-fluid-hero font-black tracking-tighter mb-12 leading-none">
+          <h1 className="text-fluid-hero font-black tracking-tighter mb-6 leading-none">
             Global <br /> <span className="text-slate-400 italic">Expertise.</span>
           </h1>
           
@@ -77,7 +77,7 @@ export default function ServicesDirectoryClient() {
         </div>
 
         {/* BENTO GRID OF CATEGORIES */}
-        <div className="grid lg:grid-cols-3 gap-8 px-4 md:px-0">
+        <div className="grid lg:grid-cols-3 gap-4 px-4 md:px-0">
           {serviceCategories.map((cat, i) => (
             <motion.div
               key={i}
@@ -86,12 +86,12 @@ export default function ServicesDirectoryClient() {
               transition={{ delay: i * 0.1 }}
               className="group"
             >
-              <div className="bg-white -[3rem] p-10 h-full border border-slate-100 shadow-xl shadow-slate-200/50 flex flex-col justify-between hover:shadow-2xl transition-all border-b-4 border-b-indigo-500 rounded-lg">
+              <div className="bg-white -[3rem] p-5 h-full border border-slate-100 shadow-xl shadow-slate-200/50 flex flex-col justify-between hover:shadow-2xl transition-all border-b-4 border-b-indigo-500 rounded-lg">
                 <div>
-                   <div className="text-3xl text-indigo-600 mb-8 w-14 h-14 bg-indigo-50 flex items-center justify-center border border-indigo-100 group-hover:rotate-12 transition-transform rounded-lg">
+                   <div className="text-3xl text-indigo-600 mb-4 w-12 h-12 bg-indigo-50 flex items-center justify-center border border-indigo-100 group-hover:rotate-12 transition-transform rounded-lg">
                       {cat.icon}
                    </div>
-                   <h2 className="text-3xl font-black text-slate-900 mb-4 tracking-tight uppercase leading-none">{cat.category}</h2>
+                   <h2 className="text-3xl font-black text-slate-900 mb-2 tracking-tight uppercase leading-none">{cat.category}</h2>
                    <p className="text-slate-500 text-sm font-light leading-relaxed mb-12">{cat.desc}</p>
                 </div>
 
@@ -116,17 +116,17 @@ export default function ServicesDirectoryClient() {
         </div>
 
         {/* TECH MANIFEST CTA */}
-        <div className="mt-48 text-center border-t border-slate-200 pt-20 px-4 md:px-0">
+        <div className="mt-16 text-center border-t border-slate-200 pt-20 px-4 md:px-0">
            <IoInfiniteOutline className="text-7xl text-indigo-600 mb-12 mx-auto opacity-20" />
-           <h3 className="text-4xl lg:text-6xl font-black text-slate-900 mb-12 tracking-tighter">Unified Infrastructure. <br/><span className="text-indigo-600 italic font-serif font-light">Global Scale.</span></h3>
-           <div className="flex flex-col sm:flex-row gap-6 justify-center">
+           <h3 className="text-4xl lg:text-6xl font-black text-slate-900 mb-5 tracking-tighter">Unified Infrastructure. <br/><span className="text-indigo-600 italic font-serif font-light">Global Scale.</span></h3>
+           <div className="flex flex-col sm:flex-row gap-3 justify-center">
               <Link
                 href="/freelancing"
-                className="w-full sm:w-[280px] px-8 py-6 bg-slate-900 text-white font-black hover:bg-slate-800 transition-all uppercase tracking-widest text-[10px] flex items-center justify-center text-center shadow-2xl rounded-md"
+                className="w-full sm:w-[280px] px-6 py-3 bg-slate-900 text-white font-black hover:bg-slate-800 transition-all uppercase tracking-widest text-[10px] flex items-center justify-center text-center shadow-2xl rounded-md"
               >
                 Explore Talent Hub
               </Link>
-              <button className="w-full sm:w-[280px] px-8 py-6 bg-white border border-slate-200 text-slate-900 font-black hover:bg-slate-50 transition-all uppercase tracking-widest text-[10px] flex items-center justify-center rounded-md">
+              <button className="w-full sm:w-[280px] px-6 py-3 bg-white border border-slate-200 text-slate-900 font-black hover:bg-slate-50 transition-all uppercase tracking-widest text-[10px] flex items-center justify-center rounded-md">
                 Contact Architects
               </button>
            </div>
