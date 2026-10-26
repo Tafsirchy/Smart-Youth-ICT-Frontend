@@ -120,61 +120,61 @@ export default function CoursesHeroSettings() {
   if (loading) return <div className="p-8 text-slate-500">Loading...</div>;
 
   return (
-    <div className="max-w-4xl space-y-6">
+    <div className="max-w-4xl space-y-4">
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-2xl font-black text-slate-900 tracking-tight">Courses Hero Settings</h1>
-          <p className="text-sm text-slate-500 mt-1">Manage the hero banner display and image cropping for the Courses page.</p>
+          <h1 className="text-2xl font-black text-slate-900 tracking-tight leading-[1.4]">Courses Hero Settings</h1>
+          <p className="text-sm text-slate-500 mt-0.5 leading-[1.5]">Manage the hero banner display and image cropping for the Courses page.</p>
         </div>
         <button
           onClick={handleSave}
           disabled={saving}
-          className="flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white px-5 py-2.5 font-bold text-sm transition-colors disabled:opacity-50 rounded-md shadow-sm shadow-blue-500/20"
+          className="flex items-center gap-1.5 bg-blue-600 hover:bg-blue-700 text-white px-3.5 py-2 font-bold text-sm transition-colors disabled:opacity-50 rounded-md shadow-sm shadow-blue-500/20 leading-[1.4]"
         >
-          {saving ? <div className="w-4 h-4 border-2 border-white/30 border-t-white animate-spin" /> : <IoSaveOutline size={18} />}
+          {saving ? <div className="w-4 h-4 border-2 border-white/30 border-t-white animate-spin" /> : <IoSaveOutline size={16} />}
           Save Changes
         </button>
       </div>
 
       {/* Mode Selection */}
-      <div className="bg-white border border-slate-200 p-6 sm:p-8 shadow-sm rounded-lg">
-        <h2 className="text-lg font-bold text-slate-900 mb-6">Display Mode</h2>
+      <div className="bg-white border border-slate-200 p-4 sm:p-5 shadow-sm rounded-lg">
+        <h2 className="text-base sm:text-lg font-bold text-slate-900 mb-3 leading-[1.4]">Display Mode</h2>
         
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
           <label 
-            className={`cursor-pointer border-2 p-5 flex flex-col gap-2 transition-all rounded-lg ${mode === 'text_and_search' ? 'border-blue-600 bg-blue-50/50' : 'border-slate-200 hover:border-slate-300'}`}
+            className={`cursor-pointer border-2 p-3.5 flex flex-col gap-1.5 transition-all rounded-lg ${mode === 'text_and_search' ? 'border-blue-600 bg-blue-50/50' : 'border-slate-200 hover:border-slate-300'}`}
           >
             <div className="flex items-center justify-between">
-              <span className="font-bold text-slate-900">Text & Search Bar</span>
+              <span className="font-bold text-slate-900 leading-[1.4]">Text & Search Bar</span>
               <input 
                 type="radio" 
                 name="heroMode" 
                 value="text_and_search" 
                 checked={mode === 'text_and_search'}
                 onChange={() => setMode('text_and_search')}
-                className="w-5 h-5 text-blue-600"
+                className="w-4 h-4 text-blue-600"
               />
             </div>
-            <p className="text-xs text-slate-500 leading-relaxed">
+            <p className="text-xs text-slate-500 leading-[1.5]">
               Shows the image in the background with "Explore Our Courses" heading and interactive search bar on top. (If no image is uploaded, displays the default dark indigo gradient).
             </p>
           </label>
 
           <label 
-            className={`cursor-pointer border-2 p-5 flex flex-col gap-2 transition-all rounded-lg ${mode === 'image_only' ? 'border-blue-600 bg-blue-50/50' : 'border-slate-200 hover:border-slate-300'}`}
+            className={`cursor-pointer border-2 p-3.5 flex flex-col gap-1.5 transition-all rounded-lg ${mode === 'image_only' ? 'border-blue-600 bg-blue-50/50' : 'border-slate-200 hover:border-slate-300'}`}
           >
             <div className="flex items-center justify-between">
-              <span className="font-bold text-slate-900">Image Only (Full Banner)</span>
+              <span className="font-bold text-slate-900 leading-[1.4]">Image Only (Full Banner)</span>
               <input 
                 type="radio" 
                 name="heroMode" 
                 value="image_only" 
                 checked={mode === 'image_only'}
                 onChange={() => setMode('image_only')}
-                className="w-5 h-5 text-blue-600"
+                className="w-4 h-4 text-blue-600"
               />
             </div>
-            <p className="text-xs text-slate-500 leading-relaxed">
+            <p className="text-xs text-slate-500 leading-[1.5]">
               Shows ONLY the full banner image with natural full width and height. No text, overlay, or search bar will crop or hide your banner graphic.
             </p>
           </label>
@@ -183,18 +183,18 @@ export default function CoursesHeroSettings() {
 
       {/* Image Sizing / Fit Options */}
       {mode === 'text_and_search' && imageUrl && (
-        <div className="bg-white border border-slate-200 p-6 sm:p-8 shadow-sm space-y-4 rounded-lg">
+        <div className="bg-white border border-slate-200 p-4 sm:p-5 shadow-sm space-y-3 rounded-lg">
           <div>
-            <h2 className="text-lg font-bold text-slate-900">Image Sizing & Fit (Cropping Control)</h2>
-            <p className="text-xs text-slate-500 mt-1">Control how the background image fits the screen to avoid unwanted cropping.</p>
+            <h2 className="text-base sm:text-lg font-bold text-slate-900 leading-[1.4]">Image Sizing & Fit (Cropping Control)</h2>
+            <p className="text-xs text-slate-500 mt-0.5 leading-[1.5]">Control how the background image fits the screen to avoid unwanted cropping.</p>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
             <label 
-              className={`cursor-pointer border-2 p-4 flex flex-col gap-1.5 transition-all rounded-lg ${imageFit === 'contain' ? 'border-blue-600 bg-blue-50/50' : 'border-slate-200 hover:border-slate-300'}`}
+              className={`cursor-pointer border-2 p-3 flex flex-col gap-1 transition-all rounded-lg ${imageFit === 'contain' ? 'border-blue-600 bg-blue-50/50' : 'border-slate-200 hover:border-slate-300'}`}
             >
               <div className="flex items-center justify-between">
-                <span className="font-bold text-sm text-slate-900">Uncropped / Full Image (Contain)</span>
+                <span className="font-bold text-sm text-slate-900 leading-[1.4]">Uncropped / Full Image (Contain)</span>
                 <input 
                   type="radio" 
                   name="imageFit" 
@@ -204,16 +204,16 @@ export default function CoursesHeroSettings() {
                   className="w-4 h-4 text-blue-600"
                 />
               </div>
-              <p className="text-xs text-slate-500 leading-relaxed">
+              <p className="text-xs text-slate-500 leading-[1.5]">
                 Shows 100% of the image without any cropping. If the screen is wider than the image, a soft ambient blur fills the sides.
               </p>
             </label>
 
             <label 
-              className={`cursor-pointer border-2 p-4 flex flex-col gap-1.5 transition-all rounded-lg ${imageFit === 'cover' ? 'border-blue-600 bg-blue-50/50' : 'border-slate-200 hover:border-slate-300'}`}
+              className={`cursor-pointer border-2 p-3 flex flex-col gap-1 transition-all rounded-lg ${imageFit === 'cover' ? 'border-blue-600 bg-blue-50/50' : 'border-slate-200 hover:border-slate-300'}`}
             >
               <div className="flex items-center justify-between">
-                <span className="font-bold text-sm text-slate-900">Cover (Fill Banner Width & Height)</span>
+                <span className="font-bold text-sm text-slate-900 leading-[1.4]">Cover (Fill Banner Width & Height)</span>
                 <input 
                   type="radio" 
                   name="imageFit" 
@@ -223,16 +223,16 @@ export default function CoursesHeroSettings() {
                   className="w-4 h-4 text-blue-600"
                 />
               </div>
-              <p className="text-xs text-slate-500 leading-relaxed">
+              <p className="text-xs text-slate-500 leading-[1.5]">
                 Fills the entire background. If image aspect ratio is square or tall, edges may be cropped to fill the wide banner.
               </p>
             </label>
           </div>
 
           {imageFit === 'cover' && (
-            <div className="pt-2">
-              <label className="block text-xs font-bold text-slate-700 mb-2">Image Focus / Alignment</label>
-              <div className="flex gap-3">
+            <div className="pt-1">
+              <label className="block text-xs font-bold text-slate-700 mb-1.5 leading-[1.4]">Image Focus / Alignment</label>
+              <div className="flex gap-2">
                 {[
                   { id: 'top center', label: 'Top' },
                   { id: 'center', label: 'Center' },
@@ -242,7 +242,7 @@ export default function CoursesHeroSettings() {
                     key={pos.id}
                     type="button"
                     onClick={() => setImagePosition(pos.id)}
-                    className={`px-4 py-2 text-xs font-semibold rounded-md border transition-all ${
+                    className={`px-3 py-1.5 text-xs font-semibold rounded-md border transition-all leading-[1.4] ${
                       imagePosition === pos.id
                         ? 'bg-blue-600 text-white border-blue-600 shadow-sm'
                         : 'bg-slate-50 text-slate-700 border-slate-200 hover:bg-slate-100'
@@ -258,20 +258,20 @@ export default function CoursesHeroSettings() {
       )}
 
       {/* Image Upload, Preview, and Delete Options */}
-      <div className="bg-white border border-slate-200 p-6 sm:p-8 shadow-sm space-y-6 rounded-lg">
+      <div className="bg-white border border-slate-200 p-4 sm:p-5 shadow-sm space-y-4 rounded-lg">
         <div className="flex items-center justify-between">
           <div>
-            <h2 className="text-lg font-bold text-slate-900">Banner Image</h2>
-            <p className="text-xs text-slate-500 mt-0.5">Upload a banner or paste a direct image URL.</p>
+            <h2 className="text-base sm:text-lg font-bold text-slate-900 leading-[1.4]">Banner Image</h2>
+            <p className="text-xs text-slate-500 mt-0.5 leading-[1.5]">Upload a banner or paste a direct image URL.</p>
           </div>
           {imageUrl && (
             <button
               type="button"
               onClick={handleDeleteImage}
-              className="flex items-center gap-1.5 px-3 py-1.5 text-xs font-bold text-rose-600 hover:text-white bg-rose-50 hover:bg-rose-600 border border-rose-200 hover:border-rose-600 transition-all rounded-md shadow-sm"
+              className="flex items-center gap-1.5 px-2.5 py-1 text-xs font-bold text-rose-600 hover:text-white bg-rose-50 hover:bg-rose-600 border border-rose-200 hover:border-rose-600 transition-all rounded-md shadow-sm leading-[1.4]"
               title="Delete and reset image"
             >
-              <IoTrashOutline size={16} />
+              <IoTrashOutline size={14} />
               Delete Image
             </button>
           )}
@@ -283,8 +283,23 @@ export default function CoursesHeroSettings() {
             <>
               {imageFit === 'contain' ? (
                 <>
-                  <img src={imageUrl} alt="Ambient bg" className="absolute inset-0 w-full h-full object-cover blur-md opacity-40" />
-                  <img src={imageUrl} alt="Hero Preview" className="relative z-10 max-h-full max-w-full object-contain" />
+                  <img 
+                    src={imageUrl} 
+                    alt="Ambient bg" 
+                    className="absolute inset-0 w-full h-full object-cover blur-md opacity-40" 
+                    onError={(e) => { e.currentTarget.style.display = 'none'; }}
+                  />
+                  <img 
+                    src={imageUrl} 
+                    alt="Hero Preview" 
+                    className="relative z-10 max-h-full max-w-full object-contain" 
+                    onError={(e) => { e.currentTarget.style.display = 'none'; }}
+                    onLoad={(e) => {
+                      if (e.target.src.includes('ibb.co') && e.target.naturalWidth === 180 && e.target.naturalHeight === 180) {
+                        e.target.style.display = 'none';
+                      }
+                    }}
+                  />
                 </>
               ) : (
                 <img 
@@ -292,6 +307,12 @@ export default function CoursesHeroSettings() {
                   alt="Hero Preview" 
                   className="w-full h-full object-cover" 
                   style={{ objectPosition: imagePosition }}
+                  onError={(e) => { e.currentTarget.style.display = 'none'; }}
+                  onLoad={(e) => {
+                    if (e.target.src.includes('ibb.co') && e.target.naturalWidth === 180 && e.target.naturalHeight === 180) {
+                      e.target.style.display = 'none';
+                    }
+                  }}
                 />
               )}
               
@@ -299,24 +320,24 @@ export default function CoursesHeroSettings() {
               <button
                 type="button"
                 onClick={handleDeleteImage}
-                className="absolute top-3 right-3 z-20 flex items-center gap-1 px-3 py-1.5 text-xs font-bold text-white bg-rose-600/90 hover:bg-rose-600 backdrop-blur-md transition-all rounded-md shadow-md active:scale-95"
+                className="absolute top-2 right-2 z-20 flex items-center gap-1 px-2.5 py-1 text-xs font-bold text-white bg-rose-600/90 hover:bg-rose-600 backdrop-blur-md transition-all rounded-md shadow-md active:scale-95 leading-[1.4]"
                 title="Remove Banner Image"
               >
-                <IoTrashOutline size={15} />
+                <IoTrashOutline size={14} />
                 Delete Image
               </button>
             </>
           ) : (
-            <div className="text-slate-400 flex flex-col items-center gap-2">
-              <IoImageOutline size={32} />
-              <span className="text-sm font-medium">No Image Uploaded (Default Gradient Active)</span>
+            <div className="text-slate-400 flex flex-col items-center gap-1.5">
+              <IoImageOutline size={28} />
+              <span className="text-xs sm:text-sm font-medium leading-[1.4]">No Image Uploaded (Default Gradient Active)</span>
             </div>
           )}
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
           <div>
-            <label className="block text-sm font-bold text-slate-700 mb-2">Upload from Device</label>
+            <label className="block text-xs sm:text-sm font-bold text-slate-700 mb-1.5 leading-[1.4]">Upload from Device</label>
             <div className="relative">
               <input 
                 type="file" 
@@ -325,31 +346,31 @@ export default function CoursesHeroSettings() {
                 disabled={uploading}
                 className="absolute inset-0 w-full h-full opacity-0 cursor-pointer z-10 rounded-md" 
               />
-              <div className="flex items-center justify-center gap-2 w-full px-4 py-3 bg-slate-50 border border-slate-200 border-dashed text-sm font-medium text-slate-600 group hover:bg-slate-100 transition-colors rounded-md">
-                {uploading ? "Uploading..." : <><IoImageOutline size={18} /> Click to Upload Image</>}
+              <div className="flex items-center justify-center gap-2 w-full px-3 py-2 bg-slate-50 border border-slate-200 border-dashed text-xs sm:text-sm font-medium text-slate-600 group hover:bg-slate-100 transition-colors rounded-md leading-[1.4]">
+                {uploading ? "Uploading..." : <><IoImageOutline size={16} /> Click to Upload Image</>}
               </div>
             </div>
           </div>
           
           <div>
-            <label className="block text-sm font-bold text-slate-700 mb-2">Or provide Image URL</label>
+            <label className="block text-xs sm:text-sm font-bold text-slate-700 mb-1.5 leading-[1.4]">Or provide Image URL</label>
             <div className="relative">
-              <IoLinkOutline className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" size={18} />
+              <IoLinkOutline className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" size={16} />
               <input 
                 type="text" 
                 value={imageUrl} 
                 onChange={(e) => setImageUrl(e.target.value)} 
                 placeholder="https://example.com/image.jpg"
-                className="w-full pl-10 pr-9 py-3 bg-slate-50 border border-slate-200 text-sm outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 transition-all rounded-md"
+                className="w-full pl-9 pr-8 py-2 bg-slate-50 border border-slate-200 text-xs sm:text-sm outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 transition-all rounded-md leading-[1.4]"
               />
               {imageUrl && (
                 <button
                   type="button"
                   onClick={handleDeleteImage}
-                  className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-rose-600 transition-colors"
+                  className="absolute right-2.5 top-1/2 -translate-y-1/2 text-slate-400 hover:text-rose-600 transition-colors"
                   title="Clear input"
                 >
-                  <IoCloseOutline size={18} />
+                  <IoCloseOutline size={16} />
                 </button>
               )}
             </div>
