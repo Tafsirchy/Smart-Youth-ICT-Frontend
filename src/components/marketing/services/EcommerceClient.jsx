@@ -27,14 +27,14 @@ export default function EcommerceClient({ data }) {
         <div className="absolute top-1/2 left-0 w-full h-[1px] bg-slate-200"></div>
       </div>
 
-      <div className="container-custom py-20 relative z-10">
+      <div className="container-custom py-10 relative z-10">
         {/* ECOMMERCE HERO */}
-        <div className="flex flex-col lg:flex-row items-center gap-20 mb-48">
+        <div className="flex flex-col lg:flex-row items-center gap-8 mb-48">
           <div className="flex-1 text-left">
             <motion.div
               initial={{ opacity: 0, x: -20 }}
               animate={{ opacity: 1, x: 0 }}
-              className="inline-flex items-center gap-2 px-4 sm:px-5 py-2 bg-rose-50 border border-rose-100 text-rose-700 text-xs font-black tracking-[0.4em] uppercase mb-8 sm:mb-10 rounded-md"
+              className="inline-flex items-center gap-2 px-4 sm:px-5 py-2 bg-rose-50 border border-rose-100 text-rose-700 text-xs font-black tracking-[0.4em] uppercase mb-4 sm:mb-10 rounded-md"
             >
               <IoCartOutline className="text-sm" /> {hero.badge}
             </motion.div>
@@ -58,7 +58,7 @@ export default function EcommerceClient({ data }) {
               {hero.description}
             </motion.p>
 
-            <div className="flex flex-col sm:flex-row gap-4 sm:gap-6">
+            <div className="flex flex-col sm:flex-row gap-3 sm:gap-4">
               <button className="w-full sm:w-[280px] min-h-[44px] px-6 sm:px-8 py-5 sm:py-6 bg-rose-600 text-white font-black hover:bg-rose-700 transition-all shadow-xl shadow-rose-600/20 uppercase tracking-widest text-xs flex items-center justify-center rounded-md">
                 Initialize Storefront
               </button>
@@ -81,7 +81,7 @@ export default function EcommerceClient({ data }) {
               <div className="absolute inset-x-0 top-1/2 h-[1px] bg-slate-100"></div>
               <div className="absolute inset-y-0 left-1/2 w-[1px] bg-slate-100"></div>
 
-              <div className="grid grid-cols-2 gap-8 relative z-10 aspect-square">
+              <div className="grid grid-cols-2 gap-4 relative z-10 aspect-square">
                 <motion.div animate={{ y: [0, -10, 0] }} transition={{ duration: 4, repeat: Infinity }} className="p-8 bg-rose-50 border border-rose-100 flex flex-col justify-between shadow-sm shadow-rose-100 rounded-lg">
                   <div className="w-10 h-10 bg-rose-600"></div>
                   <div className="space-y-2">
@@ -106,16 +106,16 @@ export default function EcommerceClient({ data }) {
 
         {/* SERVICE VERTICALS */}
         <div className="mb-48">
-          <div className="flex flex-col md:flex-row justify-between items-end mb-12 sm:mb-24 gap-8 border-l-4 border-rose-600 pl-6 sm:pl-8 rounded-lg">
+          <div className="flex flex-col md:flex-row justify-between items-end mb-12 sm:mb-24 gap-4 border-l-4 border-rose-600 pl-6 sm:pl-8 rounded-lg">
             <div className="max-w-xl">
-              <h2 className="text-xs font-black text-rose-600 uppercase tracking-[0.4em] mb-4 font-bold">Commerce Standard</h2>
+              <h2 className="text-xs font-black text-rose-600 uppercase tracking-[0.4em] mb-2 font-bold">Commerce Standard</h2>
               <p className="text-3xl sm:text-4xl md:text-5xl font-black text-slate-900 leading-tight">
                 Architectures built for <span className="text-slate-400 italic font-serif font-light">transactional dominance.</span>
               </p>
             </div>
           </div>
 
-          <div className="flex overflow-x-auto snap-x snap-mandatory lg:grid lg:grid-cols-3 gap-6 sm:gap-8 pb-8 lg:pb-0">
+          <div className="flex overflow-x-auto snap-x snap-mandatory lg:grid lg:grid-cols-3 gap-6 sm:gap-4 pb-8 lg:pb-0">
             {verticals?.map((item, i) => (
               <motion.div
                 key={i}
@@ -125,13 +125,13 @@ export default function EcommerceClient({ data }) {
                 transition={{ delay: i * 0.1 }}
                 className="group cursor-default min-w-[280px] snap-center shrink-0 w-[85vw] lg:w-auto"
               >
-                <div className={`bg-white rounded-lg sm:rounded-lg p-8 sm:p-12 h-full border ${item.border} shadow-sm shadow-slate-200/50 hover:shadow-xl transition-all lg:group-hover:-translate-y-2 relative overflow-hidden`}>
+                <div className={`bg-white rounded-lg sm:rounded-lg p-8 sm:p-6 h-full border ${item.border} shadow-sm shadow-slate-200/50 hover:shadow-xl transition-all lg:group-hover:-translate-y-2 relative overflow-hidden`}>
                   <div
-                    className={`w-14 h-14 rounded-lg bg-gradient-to-br ${item.color} text-white flex items-center justify-center text-3xl mb-8 sm:mb-10 shadow-lg`}
+                    className={`w-14 h-14 rounded-lg bg-gradient-to-br ${item.color} text-white flex items-center justify-center text-3xl mb-4 sm:mb-10 shadow-lg`}
                   >
                     {getIcon(item.icon)}
                   </div>
-                  <h3 className="text-xl sm:text-2xl font-black text-slate-900 mb-4 sm:mb-6 tracking-tighter uppercase leading-none">
+                  <h3 className="text-xl sm:text-2xl font-black text-slate-900 mb-4 sm:mb-3 tracking-tighter uppercase leading-none">
                     {item.title}
                   </h3>
                   <p className="text-slate-500 leading-relaxed font-light text-base sm:text-lg">
@@ -144,10 +144,10 @@ export default function EcommerceClient({ data }) {
         </div>
 
         {/* INTEGRATION HUB */}
-        <div className="mb-32 sm:mb-48 bg-white sm:-[4rem] lg:-[5rem] p-8 sm:p-12 lg:p-24 border border-slate-100 shadow-2xl shadow-slate-200/50 relative overflow-hidden rounded-lg">
+        <div className="mb-32 sm:mb-48 bg-white sm:-[4rem] lg:-[5rem] p-5 sm:p-5 lg:p-8 border border-slate-100 shadow-2xl shadow-slate-200/50 relative overflow-hidden rounded-lg">
           <div className="absolute top-0 right-0 w-1/3 h-full bg-rose-50/50 -skew-x-[20deg] origin-top translate-x-1/2 opacity-50"></div>
 
-          <div className="grid lg:grid-cols-2 gap-16 lg:gap-20 items-center relative z-10">
+          <div className="grid lg:grid-cols-2 gap-6 lg:gap-8 items-center relative z-10">
             <div>
               <h2 className="text-4xl sm:text-5xl lg:text-6xl font-black text-slate-900 leading-[0.9] mb-8 sm:mb-10">Atomic <br /><span className="text-rose-600 font-serif italic font-medium">Logistics.</span></h2>
               <p className="text-slate-500 text-lg sm:text-xl font-light leading-relaxed mb-10 sm:mb-12">We don't just bridge code; we bridge revenue. Every integration is engineered for zero-latency sync and absolute data integrity.</p>
@@ -174,7 +174,7 @@ export default function EcommerceClient({ data }) {
                   <span>CORE_STATUS::UP</span>
                 </div>
 
-                <div className="space-y-6 sm:space-y-8">
+                <div className="space-y-6 sm:space-y-4">
                   <div className="flex items-center gap-4 sm:gap-6">
                     <div className="w-10 h-10 sm:w-12 sm:h-12 bg-rose-500 flex items-center justify-center text-white text-xl sm:text-2xl"><IoGitNetworkOutline /></div>
                     <div className="flex-1 space-y-2">
@@ -197,11 +197,11 @@ export default function EcommerceClient({ data }) {
         {/* PRICING */}
         <div className="mb-48">
           <div className="text-center max-w-2xl mx-auto mb-16 sm:mb-20">
-            <h2 className="text-xs font-black text-rose-600 uppercase tracking-[0.4em] mb-4 font-bold">Commerce Tiers</h2>
+            <h2 className="text-xs font-black text-rose-600 uppercase tracking-[0.4em] mb-2 font-bold">Commerce Tiers</h2>
             <p className="text-3xl sm:text-4xl md:text-5xl font-black text-slate-900 leading-tight">Select your <span className="text-slate-400">market engine.</span></p>
           </div>
 
-          <div className="flex overflow-x-auto snap-x snap-mandatory md:grid md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 pb-8 md:pb-0">
+          <div className="flex overflow-x-auto snap-x snap-mandatory md:grid md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-4 pb-8 md:pb-0">
             {pricing?.map((tier, idx) => (
               <div key={idx} className={`bg-white rounded-lg sm:rounded-lg p-8 sm:p-12 border min-w-[280px] snap-center shrink-0 w-[85vw] md:w-auto ${tier.highlight ? "border-rose-500 shadow-xl shadow-rose-500/10 md:-translate-y-4" : "border-slate-100 shadow-lg shadow-slate-200/50"} flex flex-col h-full relative overflow-hidden group transition-all`}>
                 <h4 className="text-2xl sm:text-3xl font-black text-slate-900 mb-2 uppercase tracking-tighter">{tier.t}</h4>
@@ -225,7 +225,7 @@ export default function EcommerceClient({ data }) {
         <div className="text-center py-40 border-t border-slate-100">
           <IoBagCheckOutline className="text-7xl text-rose-600 mb-10 sm:mb-12 mx-auto opacity-10" />
           <h3 className="text-4xl sm:text-5xl lg:text-6xl font-black text-slate-900 mb-10 sm:mb-12 leading-tight">{cta.title?.split('your ')[0]}your <br /><span className="text-transparent bg-clip-text bg-gradient-to-r from-rose-600 to-indigo-600 font-serif italic font-medium">{cta.title?.split('your ')[1]}</span></h3>
-          <div className="flex flex-col sm:flex-row gap-4 sm:gap-6 justify-center">
+          <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center">
             <button className="w-full sm:w-[280px] min-h-[44px] px-6 sm:px-8 py-5 sm:py-6 bg-rose-600 text-white font-black hover:bg-rose-700 transition-all shadow-xl shadow-rose-600/40 uppercase tracking-widest text-xs flex items-center justify-center rounded-md">
               Initialize Build
             </button>

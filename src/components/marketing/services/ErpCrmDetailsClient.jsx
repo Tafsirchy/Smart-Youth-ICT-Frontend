@@ -52,7 +52,7 @@ export default function ErpCrmDetailsClient({ data }) {
             </div>
 
             {/* ROI VISUALIZER BENTO */}
-            <div className="grid md:grid-cols-2 gap-px mb-12 lg:mb-24 bg-white border border-slate-100 md:-[2rem] overflow-hidden shadow-xl shadow-slate-200/50 rounded-lg">
+            <div className="grid md:grid-cols-2 gap-px mb-6 lg:mb-10 bg-white border border-slate-100 md:-[2rem] overflow-hidden shadow-xl shadow-slate-200/50 rounded-lg">
                {roi?.map((spec, idx) => (
                   <div key={idx} className="p-6 md:p-8 border-b border-r border-slate-100 flex flex-col justify-between hover:bg-slate-50 transition-colors group">
                      <div className="flex justify-between items-start mb-8 md:mb-10">
@@ -75,7 +75,7 @@ export default function ErpCrmDetailsClient({ data }) {
             </div>
 
             {/* TECHNICAL MANIFEST SECTION */}
-            <div className="grid lg:grid-cols-2 gap-8 lg:gap-16 items-center mb-12 lg:mb-24">
+            <div className="grid lg:grid-cols-2 gap-4 lg:gap-6 items-center mb-6 lg:mb-10">
                <div className="relative group">
                   <div className="p-6 md:p-10 bg-slate-900 md:-[3rem] text-white overflow-hidden relative shadow-2xl rounded-lg">
                      <div className="absolute top-0 right-0 w-32 h-32 bg-indigo-600/20 blur-[80px]"></div>
@@ -107,7 +107,7 @@ export default function ErpCrmDetailsClient({ data }) {
             </div>
 
             {/* PREREQUISITES GRID */}
-            <div className="mb-12 lg:mb-24">
+            <div className="mb-6 lg:mb-10">
                <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-8 md:mb-12 gap-4 md:gap-6">
                   <h2 className="text-3xl md:text-4xl font-black text-slate-900 tracking-tighter leading-[1.1]">Enterprise <span className="text-slate-400">Handover Artifacts.</span></h2>
                   <div className="h-[1px] flex-1 bg-slate-100 hidden md:block"></div>
