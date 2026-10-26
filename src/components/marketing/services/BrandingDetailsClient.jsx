@@ -55,7 +55,7 @@ export default function BrandingDetailsClient({ data }) {
             </div>
 
             {/* 6-PHASE PROTOCOL GRID */}
-            <div className="mb-12 lg:mb-24">
+            <div className="mb-6 lg:mb-10">
                <div className="flex items-center gap-4 md:gap-6 mb-8 md:mb-12">
                   <h2 className="text-3xl font-black text-slate-900 tracking-tighter uppercase leading-[1.1]">Engineering Lifecycle</h2>
                   <div className="h-[1px] flex-1 bg-slate-200"></div>
@@ -76,7 +76,7 @@ export default function BrandingDetailsClient({ data }) {
             </div>
 
             {/* LOGO CONSTRUCTION SECTION */}
-            <div className="grid lg:grid-cols-2 gap-8 lg:gap-16 items-start mb-12 lg:mb-24">
+            <div className="grid lg:grid-cols-2 gap-4 lg:gap-6 items-start mb-6 lg:mb-10">
                <div className="relative lg:sticky lg:top-32 mb-12 lg:mb-0">
                   <div className="w-12 h-12 md:w-16 md:h-16 bg-indigo-50 md: flex items-center justify-center text-2xl md:text-3xl text-indigo-600 mb-6 md:mb-10 border border-indigo-100 rounded-lg">
                      <IoTriangleOutline />
@@ -113,9 +113,9 @@ export default function BrandingDetailsClient({ data }) {
             </div>
 
             {/* CHROMODYNAMIC SECTION */}
-            <div className="bg-white md:-[4rem] p-6 md:p-12 lg:p-20 border border-slate-100 shadow-2xl shadow-slate-200/50 relative overflow-hidden mb-12 lg:mb-24 rounded-lg">
+            <div className="bg-white md:-[4rem] p-6 md:p-12 lg:p-20 border border-slate-100 shadow-2xl shadow-slate-200/50 relative overflow-hidden mb-6 lg:mb-10 rounded-lg">
                <div className="absolute top-0 right-0 w-1/3 h-full bg-indigo-50/50 border-l border-slate-100 skew-x-12 translate-x-12 hidden md:block rounded-lg"></div>
-               <div className="grid lg:grid-cols-2 gap-8 lg:gap-16 relative z-10">
+               <div className="grid lg:grid-cols-2 gap-4 lg:gap-6 relative z-10">
                   <div>
                      <div className="text-indigo-600 mb-4 md:mb-6 flex items-center gap-3 md:gap-4">
                         <div className="w-12 h-[2px] bg-indigo-600"></div>
@@ -140,7 +140,7 @@ export default function BrandingDetailsClient({ data }) {
                   <div className="relative mt-8 lg:mt-0">
                      <div className="bg-slate-900 md:-[3rem] p-6 md:p-10 border border-slate-800 shadow-2xl md:aspect-[3/4] flex flex-col justify-between group overflow-hidden rounded-lg">
                         <div className="absolute inset-0 bg-gradient-to-br from-indigo-500/10 to-transparent pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity"></div>
-                        <div className="space-y-6 md:space-y-8 relative z-10 mb-6 md:mb-0">
+                        <div className="space-y-6 md:space-y-4 relative z-10 mb-6 md:mb-0">
                            <div className="flex justify-between items-center text-white/30 font-mono text-[8px] tracking-[0.4em] leading-[1.4]">
                               <span>SYS_ID_PROTO</span>
                               <span>IDENTITY_ENGINE</span>
