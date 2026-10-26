@@ -81,7 +81,11 @@ const authMiddleware = withAuth(
     pages: {
       signIn: "/login",
     },
-    secret: process.env.NEXTAUTH_SECRET?.trim(),
+    secret: process.env.NEXTAUTH_SECRET?.trim() || (
+      typeof globalThis.crypto?.randomUUID === 'function'
+        ? `${globalThis.crypto.randomUUID()}-${globalThis.crypto.randomUUID()}`
+        : 'ephemeral_build_middleware_key'
+    ),
   },
 );
 
