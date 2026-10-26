@@ -28,7 +28,7 @@ export default function PortfolioWebsitesClient({ data }) {
 
       <div className="container-custom py-10 lg:py-12 relative">
         {/* STRUCTURALLY CREATIVE HERO */}
-        <div className="flex flex-col lg:flex-row items-center gap-8 lg:gap-12 mb-20 lg:mb-24 pt-10">
+        <div className="flex flex-col lg:flex-row items-center gap-4 lg:gap-5 mb-20 lg:mb-24 pt-10">
           <div className="flex-1 text-left">
             <motion.div
               initial={{ opacity: 0, x: -20 }}
@@ -165,13 +165,13 @@ decoding="async"/>
         </div>
 
         {/* DIGITAL ALCHEMY (Visual Stepper) */}
-        <div className="relative bg-slate-900 sm:-[4rem] lg:-[5rem] p-6 sm:p-8 lg:p-16 overflow-hidden mb-16 sm:mb-24 rounded-lg">
+        <div className="relative bg-slate-900 sm:-[4rem] lg:-[5rem] p-6 sm:p-5 lg:p-8 overflow-hidden mb-16 sm:mb-24 rounded-lg">
           <div className="absolute top-0 right-0 w-full h-full opacity-10 pointer-events-none">
             <div className="absolute top-0 right-0 w-[800px] h-[800px] bg-rose-500 blur-[200px]"></div>
           </div>
 
-          <div className="relative z-10 grid lg:grid-cols-2 gap-8 lg:gap-12">
-            <div className="flex flex-col gap-6 lg:gap-8">
+          <div className="relative z-10 grid lg:grid-cols-2 gap-4 lg:gap-5">
+            <div className="flex flex-col gap-6 lg:gap-4">
               <div className="flex flex-col gap-4">
                  <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black text-white leading-[1.1]">
                    5-Phase Digital Alchemy.
@@ -283,12 +283,12 @@ decoding="async"/>
         </div>
 
         {/* CALL TO ACTION (Immersive) */}
-        <div className="text-center py-16 lg:py-24 border-t border-slate-100 mt-10 lg:mt-12 relative overflow-hidden -[3rem] lg:-[5rem] bg-white">
+        <div className="text-center py-16 lg:py-24 border-t border-slate-100 mt-5 lg:mt-12 relative overflow-hidden -[3rem] lg:-[5rem] bg-white">
           <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full bg-slate-50/50 -z-10 blur-3xl opacity-50"></div>
           <motion.div
             initial={{ opacity: 0, scale: 0.95 }}
             whileInView={{ opacity: 1, scale: 1 }}
-            className="max-w-4xl mx-auto px-6 flex flex-col items-center gap-6 lg:gap-8"
+            className="max-w-4xl mx-auto px-6 flex flex-col items-center gap-6 lg:gap-4"
           >
             <IoFingerPrintOutline className="text-6xl lg:text-7xl text-rose-500 opacity-20" />
             <h3 className="text-3xl sm:text-5xl lg:text-6xl font-black text-slate-900 leading-[1.1]">

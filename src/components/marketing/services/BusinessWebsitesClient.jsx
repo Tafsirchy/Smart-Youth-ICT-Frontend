@@ -31,7 +31,7 @@ export default function BusinessWebsitesClient({ data }) {
 
       <div className="container-custom py-10 lg:py-20 relative z-10">
         {/* BUSINESS HERO */}
-        <div className="flex flex-col lg:flex-row items-center gap-10 lg:gap-16 mb-24 lg:mb-32">
+        <div className="flex flex-col lg:flex-row items-center gap-5 lg:gap-6 mb-24 lg:mb-32">
           <div className="flex-1 text-left">
             <motion.div
               initial={{ opacity: 0, x: -20 }}
@@ -142,10 +142,10 @@ decoding="async"/>
         </div>
 
         {/* LOGISTICS & INTEGRATION HUB */}
-        <div className="mb-16 sm:mb-24 bg-slate-900 sm:-[4rem] lg:-[5rem] p-6 sm:p-8 lg:p-16 relative overflow-hidden text-white rounded-lg">
+        <div className="mb-16 sm:mb-24 bg-slate-900 sm:-[4rem] lg:-[5rem] p-6 sm:p-5 lg:p-8 relative overflow-hidden text-white rounded-lg">
           <div className="absolute top-0 right-0 w-1/2 h-full bg-blue-600/10 blur-[150px] -z-10"></div>
 
-          <div className="grid lg:grid-cols-2 gap-8 lg:gap-16 items-center relative z-10">
+          <div className="grid lg:grid-cols-2 gap-4 lg:gap-6 items-center relative z-10">
             <div>
               <h2 className="text-3xl sm:text-4xl lg:text-7xl font-black mb-4 sm:mb-6 leading-[1.1] tracking-tighter">{sections.logistics?.title || "Unified Logistics."}</h2>
               <p className="text-slate-400 text-base sm:text-lg font-light leading-[1.6] mb-6 sm:mb-10">{sections.logistics?.description || "We eliminate technical silos. Your website becomes the central node for your CRM, payments, and marketing automation."}</p>

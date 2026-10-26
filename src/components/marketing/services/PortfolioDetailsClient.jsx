@@ -62,7 +62,7 @@ export default function PortfolioDetailsClient({ data }) {
             </div>
 
             {/* CODE & CHECKLIST SECTION */}
-            <div className="grid lg:grid-cols-2 gap-6 lg:gap-10 items-start mb-12 lg:mb-24">
+            <div className="grid lg:grid-cols-2 gap-6 lg:gap-5 items-start mb-6 lg:mb-10">
                <div className="lg:sticky lg:top-24">
                   <div className="w-10 h-10 md:w-12 md:h-12 bg-slate-50 flex items-center justify-center text-xl md:text-2xl text-slate-900 mb-4 md:mb-6 border border-slate-100 shadow-sm rounded-lg">
                      <IoCodeSlashOutline />
@@ -102,7 +102,7 @@ export default function PortfolioDetailsClient({ data }) {
             </div>
 
             {/* CLIENT PREPARATION (CHECKLIST) */}
-            <div className="mb-12 lg:mb-24">
+            <div className="mb-6 lg:mb-10">
                <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-6 md:mb-10 gap-3 md:gap-6">
                   <h2 className="text-2xl md:text-3xl font-black text-slate-900 tracking-tighter leading-[1.1]">Prerequisites for <span className="text-slate-400">Production.</span></h2>
                   <div className="h-[1px] flex-1 bg-slate-100 hidden md:block"></div>
