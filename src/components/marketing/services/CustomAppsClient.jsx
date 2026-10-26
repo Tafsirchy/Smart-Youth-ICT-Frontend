@@ -31,7 +31,7 @@ export default function CustomAppsClient({ data }) {
 
       <div className="container-custom py-10 lg:py-16 relative z-10">
         {/* CUSTOM APPS HERO */}
-        <div className="flex flex-col lg:flex-row items-center gap-10 lg:gap-16 mb-16 lg:mb-24">
+        <div className="flex flex-col lg:flex-row items-center gap-5 lg:gap-6 mb-16 lg:mb-24">
           <div className="flex-1 text-left">
             <motion.div
               initial={{ opacity: 0, x: -20 }}
@@ -82,7 +82,7 @@ export default function CustomAppsClient({ data }) {
             >
               <div className="absolute inset-0 opacity-5 pointer-events-none" style={{ backgroundImage: "linear-gradient(#4f46e5 1px, transparent 1px), linear-gradient(90deg, #4f46e5 1px, transparent 1px)", backgroundSize: "40px 40px" }}></div>
 
-              <div className="grid grid-cols-2 gap-4 xl:gap-8 relative z-10 aspect-square">
+              <div className="grid grid-cols-2 gap-4 xl:gap-4 relative z-10 aspect-square">
                 <motion.div animate={{ y: [0, -10, 0] }} transition={{ duration: 4, repeat: Infinity }} className="p-6 xl:p-8 bg-violet-50 xl: border border-violet-100 flex flex-col justify-between shadow-sm rounded-lg">
                   <div className="w-8 h-8 xl:w-10 xl:h-10 bg-violet-600 xl: shadow-lg shadow-violet-200 rounded-lg"></div>
                   <div className="space-y-1.5 xl:space-y-2">
@@ -133,7 +133,7 @@ export default function CustomAppsClient({ data }) {
                 transition={{ delay: i * 0.1 }}
                 className="group cursor-default"
               >
-                <div className="bg-white md:-[2rem] p-6 md:p-10 h-full border border-slate-100 shadow-sm shadow-slate-200/50 hover:shadow-xl transition-all group-hover:-translate-y-1 relative overflow-hidden rounded-lg">
+                <div className="bg-white md:-[2rem] p-6 md:p-5 h-full border border-slate-100 shadow-sm shadow-slate-200/50 hover:shadow-xl transition-all group-hover:-translate-y-1 relative overflow-hidden rounded-lg">
                   <div
                     className={`w-12 h-12 md:w-14 md:h-14 rounded-lg md:rounded-lg bg-gradient-to-br ${item.color} text-white flex items-center justify-center text-2xl md:text-3xl mb-6 md:mb-8 shadow-md`}
                   >
@@ -155,7 +155,7 @@ export default function CustomAppsClient({ data }) {
         <div className="mb-16 lg:mb-24 bg-white lg:-[4rem] p-6 lg:p-12 border border-slate-100 shadow-xl relative overflow-hidden rounded-lg">
           <div className="hidden lg:block absolute top-0 right-0 w-1/3 h-full bg-violet-50/50 -skew-x-[20deg] origin-top translate-x-1/2 opacity-50"></div>
 
-          <div className="flex flex-col lg:grid lg:grid-cols-2 gap-8 lg:gap-12 items-center relative z-10">
+          <div className="flex flex-col lg:grid lg:grid-cols-2 gap-4 lg:gap-5 items-center relative z-10">
             <div>
               <h2 className="text-4xl lg:text-5xl font-black text-slate-900 leading-[1.1] mb-6 lg:mb-8">Atomic <br /><span className="text-violet-600 font-serif italic font-medium">Infrastructure.</span></h2>
               <p className="text-slate-500 text-base md:text-lg font-light leading-[1.6] mb-8">We don't use templates. We engineer logic. Every application is built with a bespoke tech stack optimized for performance and horizontal scale.</p>
