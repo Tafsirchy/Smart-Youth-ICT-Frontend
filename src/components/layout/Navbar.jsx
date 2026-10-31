@@ -467,7 +467,7 @@ export default function Navbar() {
  height={149}
  priority={true}
  fetchPriority="high"
- className="h-14 sm:h-16 md:h-[68px] w-auto object-contain py-1"
+ className="h-[62px] sm:h-[68px] md:h-[72px] w-auto object-contain"
  onError={(e) => { e.target.srcset = ''; e.target.src = '/images/placeholder.png'; }}
  decoding="async" />
  </motion.div>
