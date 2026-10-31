@@ -83,6 +83,7 @@ export const NAVIGATION_CONFIG = {
     { href: '/super/cms/testimonials',    Icon: HiAnnotation,   label: 'Testimonials' },
     { href: '/super/cms/partners',        Icon: HiCollection,   label: 'Our Partners' },
     { href: '/super/cms/memberships',     Icon: HiPuzzle,       label: 'Memberships' },
+    { href: '/super/cms/certifications',  Icon: HiShieldCheck,  label: 'Certifications' },
     { href: '/super/cms/blogs',           Icon: HiAnnotation,   label: 'Blog Posts' },
   ],
 
