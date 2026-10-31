@@ -14,238 +14,275 @@ import {
 
 export default function JobPlacementClient({ data, content }) {
   return (
-    <section className="min-h-screen bg-slate-950 overflow-hidden relative font-sans text-slate-100 flex flex-col">
-      <div className="absolute inset-x-0 top-0 h-[800px] bg-gradient-to-b from-blue-900/30 via-transparent to-transparent pointer-events-none"></div>
+    <section className="min-h-screen bg-white flex flex-col">
+      {/* Dot grid texture */}
+      <div className="fixed inset-0 bg-[radial-gradient(#0F172A08_1px,transparent_1px)] [background-size:22px_22px] pointer-events-none z-0" />
 
-      <div className="container-custom py-8 lg:py-16 relative z-10">
-        {/* Hero Section */}
-        <div className="max-w-4xl mx-auto text-left lg:text-center mb-10 lg:mb-20">
-          <motion.div
-            initial={{ opacity: 0, scale: 0.9 }}
-            animate={{ opacity: 1, scale: 1 }}
-            className="inline-flex items-center gap-2 px-3 py-1.5 lg:px-4 lg:py-2 bg-blue-500/10 text-blue-400 text-xs font-black tracking-widest uppercase mb-4 lg:mb-6 border border-blue-500/20 leading-[1.4] rounded-md"
-          >
-            {content?.hero?.badge || "Your Career Launchpad"}
-          </motion.div>
-          <motion.h1
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.1 }}
-            className="text-3xl sm:text-4xl lg:text-5xl font-black text-white leading-[1.1] mb-4 lg:mb-6"
-          >
-            {content?.hero?.title || "Job Placement"} <br />
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-500 via-teal-500 to-cyan-600 animate-gradient-x">
-              {content?.hero?.subtitle || "Support Cell"}
-            </span>
-          </motion.h1>
-          <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.2 }}
-            className="text-slate-400 text-lg md:text-xl lg:text-2xl leading-[1.6] font-light max-w-3xl lg:mx-auto"
-          >
-            {content?.hero?.description ||
-              "Graduation is just the beginning. Our dedicated placement cell actively maps our top talent with hiring partners."}
-          </motion.p>
+      <div className="relative z-10 flex flex-col flex-1">
 
-          <motion.div
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.3 }}
-            className="pt-6 lg:pt-10"
-          >
-            <Link
-              href="/services/job-placement/details"
-              className="inline-flex items-center min-h-[48px] gap-2 text-xs sm:text-sm font-black uppercase tracking-widest text-blue-400 hover:text-white transition-colors group leading-[1.4]"
+        {/* ── Hero ── */}
+        <div className="border-b border-slate-100">
+          <div className="container-custom pt-10 sm:pt-12 pb-7 flex flex-col items-center text-center gap-2.5 max-w-2xl mx-auto">
+
+            <motion.div
+              initial={{ opacity: 0, y: -8 }}
+              animate={{ opacity: 1, y: 0 }}
+              className="inline-flex items-center gap-1.5 px-2.5 py-1 bg-brand-pink/8 border border-brand-pink/25 text-brand-pink text-[10px] font-black uppercase tracking-widest rounded-full leading-[1.4]"
             >
-              View Placement Manifest{" "}
-              <IoArrowBackOutline className="rotate-180 group-hover:translate-x-2 transition-transform" />
-            </Link>
-          </motion.div>
+              <span className="h-1.5 w-1.5 bg-brand-pink rounded-full shrink-0" />
+              {content?.hero?.badge || "Your Career Launchpad"}
+            </motion.div>
+
+            <motion.h1
+              initial={{ opacity: 0, y: 12 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.08 }}
+              className="flex flex-col gap-1"
+            >
+              <span className="text-2xl sm:text-3xl md:text-4xl font-black text-slate-900 leading-[1.2]">
+                {content?.hero?.title || "Job Placement"}
+              </span>
+              <span className="text-lg sm:text-xl md:text-2xl lg:text-3xl font-extrabold text-brand-green leading-[1.2] whitespace-nowrap">
+                {content?.hero?.subtitle || "Support Cell"}
+              </span>
+            </motion.h1>
+
+            <motion.p
+              initial={{ opacity: 0, y: 12 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.15 }}
+              className="text-slate-400 text-sm md:text-base leading-[1.6] line-clamp-2 max-w-md"
+            >
+              {content?.hero?.description ||
+                "Graduation is just the beginning. Our dedicated placement cell actively maps our top talent with hiring partners."}
+            </motion.p>
+
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 0.22 }}
+            >
+              <Link
+                href="/services/job-placement/details"
+                className="inline-flex items-center gap-1.5 text-xs font-black uppercase tracking-widest text-brand-green hover:text-brand-pink transition-colors group leading-[1.4]"
+              >
+                View Placement Manifest{" "}
+                <IoArrowBackOutline className="rotate-180 group-hover:translate-x-1 transition-transform" />
+              </Link>
+            </motion.div>
+          </div>
         </div>
 
-        {data?.placements?.length > 0 ? (
-          /* Target Classifications */
-          <div className="mb-10 lg:mb-20">
-            <h2 className="text-2xl lg:text-3xl font-black text-white text-left lg:text-center mb-6 lg:mb-10 uppercase italic leading-[1.4]">
-              Placement Track Classifications
-            </h2>
-            <div className="flex overflow-x-auto snap-x snap-mandatory gap-4 pb-4 lg:grid lg:grid-cols-3 lg:gap-6 max-w-7xl mx-auto scrollbar-hide -mx-[var(--gutter)] px-[var(--gutter)]">
-              {data.placements.map((p, i) => (
-                <motion.div
-                  key={i}
-                  initial={{ opacity: 0, y: 30 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: i * 0.1 }}
-                  className="min-w-[85vw] sm:min-w-[300px] lg:w-auto snap-center shrink-0 bg-white/5 backdrop-blur-3xl border border-white/10 -[2rem] p-6 group hover:border-blue-500/50 transition-all overflow-hidden relative flex flex-col gap-4 rounded-lg"
-                >
-                  <div
-                    className={`absolute -right-10 -bottom-10 w-40 h-40 ${p.color} opacity-10 rounded-full blur-[60px] group-hover:opacity-30 transition-opacity`}
-                  ></div>
+        {/* ── Stats Bar ── */}
+        {(data?.stats?.partners || data?.stats?.rate) && (
+          <div className="border-b border-slate-100 bg-slate-50">
+            <div className="container-custom py-4">
+              <div className="flex items-center justify-center gap-8 sm:gap-16 flex-wrap">
+                {data?.stats?.partners && (
+                  <div className="text-center">
+                    <p className="text-2xl sm:text-3xl font-black text-brand-pink leading-[1.1]">
+                      {data.stats.partners}
+                    </p>
+                    <p className="text-[10px] font-black uppercase tracking-widest text-slate-400 leading-[1.4] mt-0.5">
+                      Hiring Partners
+                    </p>
+                  </div>
+                )}
+                {data?.stats?.rate && (
+                  <div className="text-center">
+                    <p className="text-2xl sm:text-3xl font-black text-brand-green leading-[1.1]">
+                      {data.stats.rate}
+                    </p>
+                    <p className="text-[10px] font-black uppercase tracking-widest text-slate-400 leading-[1.4] mt-0.5">
+                      Placement Rate
+                    </p>
+                  </div>
+                )}
+              </div>
+            </div>
+          </div>
+        )}
 
-                  <div
-                    className={`w-12 h-12 lg:w-14 lg:h-14 rounded-lg ${p.color} text-white flex items-center justify-center text-2xl mb-2 shadow-2xl group-hover:scale-110 transition-transform`}
+        {/* ── Placement Track Classifications ── */}
+        <div className="container-custom py-6">
+          {data?.placements?.length > 0 ? (
+            <>
+              <h2 className="text-[11px] font-black text-slate-400 uppercase tracking-widest mb-4 leading-[1.4]">
+                Placement Track Classifications
+              </h2>
+              <div className="flex overflow-x-auto snap-x snap-mandatory gap-3 pb-1 lg:grid lg:grid-cols-3 lg:gap-3 scrollbar-hide -mx-[var(--gutter)] px-[var(--gutter)]">
+                {data.placements.map((p, i) => (
+                  <motion.div
+                    key={i}
+                    initial={{ opacity: 0, y: 16 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ delay: i * 0.07 }}
+                    className="min-w-[82vw] sm:min-w-[280px] lg:w-auto snap-center shrink-0 bg-white border border-slate-200 rounded-xl p-4 hover:border-brand-pink/30 hover:shadow-md transition-all relative overflow-hidden group flex flex-col gap-3"
                   >
-                    <IoBriefcaseOutline />
+                    <div className="absolute top-0 left-0 right-0 h-[3px] bg-gradient-to-r from-brand-pink to-brand-green rounded-t-xl" />
+
+                    <div className="flex items-start gap-3 mt-1">
+                      <div className={`w-9 h-9 rounded-lg ${p.color} text-white flex items-center justify-center text-lg shrink-0 group-hover:scale-110 transition-transform`}>
+                        <IoBriefcaseOutline />
+                      </div>
+                      <div className="flex flex-col gap-0.5 min-w-0">
+                        <p className="text-[10px] font-black uppercase tracking-widest text-brand-pink leading-[1.4]">
+                          {p.type}
+                        </p>
+                        <h3 className="text-base font-black text-slate-900 leading-[1.2]">
+                          {p.title}
+                        </h3>
+                      </div>
+                    </div>
+
+                    <p className="text-slate-500 text-[13px] leading-[1.6] line-clamp-3 flex-1">
+                      {p.desc}
+                    </p>
+
+                    <div className="pt-2.5 border-t border-slate-100">
+                      <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-0.5 leading-[1.4]">
+                        Avg. Entry Package
+                      </p>
+                      <p className="text-lg font-black text-slate-900 leading-[1.2]">
+                        {p.avgSalary}
+                      </p>
+                    </div>
+                  </motion.div>
+                ))}
+              </div>
+            </>
+          ) : (
+            <div className="py-10 bg-slate-50 border border-slate-100 rounded-xl text-center">
+              <IoPulseOutline className="text-4xl text-slate-300 mx-auto mb-2 animate-pulse" />
+              <p className="text-slate-400 text-xs font-black uppercase tracking-widest leading-[1.4]">
+                Job Channels Ready
+              </p>
+            </div>
+          )}
+        </div>
+
+        {/* ── Recruitment Lifecycle ── */}
+        {data?.lifecycle?.length > 0 && (
+          <div className="border-t border-slate-100 bg-slate-50">
+            <div className="container-custom py-6 max-w-3xl mx-auto">
+              <h2 className="text-[11px] font-black text-slate-400 uppercase tracking-widest mb-4 leading-[1.4]">
+                The Recruitment <span className="text-brand-green">Lifecycle</span>
+              </h2>
+              <div className="flex flex-col gap-3 relative">
+                <div className="absolute left-[17px] top-8 bottom-8 w-px bg-slate-200 hidden md:block" />
+                {data.lifecycle.map((l, i) => (
+                  <motion.div
+                    key={i}
+                    initial={{ opacity: 0, x: -12 }}
+                    whileInView={{ opacity: 1, x: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ delay: i * 0.07 }}
+                    className="flex flex-col md:flex-row gap-3 items-start relative z-10"
+                  >
+                    <div className="w-9 h-9 bg-brand-pink flex items-center justify-center text-white font-black shrink-0 rounded-lg text-sm leading-none">
+                      {i + 1}
+                    </div>
+                    <div className="flex-1 bg-white border border-slate-200 rounded-xl p-3.5 hover:border-brand-pink/30 transition-colors">
+                      <div className="flex flex-wrap items-center justify-between gap-2 mb-0.5">
+                        <h3 className="text-sm font-black text-slate-900 leading-[1.4]">
+                          {l.title}
+                        </h3>
+                        {l.step && (
+                          <span className="text-[10px] font-black text-brand-green uppercase tracking-widest bg-brand-green/8 border border-brand-green/20 px-2 py-0.5 leading-[1.4] rounded-full">
+                            {l.step}
+                          </span>
+                        )}
+                      </div>
+                      <p className="text-slate-500 text-[13px] leading-[1.6]">
+                        {l.d}
+                      </p>
+                    </div>
+                  </motion.div>
+                ))}
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* ── Career Launch Labs ── */}
+        <div className="container-custom py-6">
+          <motion.div
+            initial={{ opacity: 0, y: 16 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="rounded-xl border border-slate-200 bg-white overflow-hidden"
+          >
+            <div className="flex flex-col lg:flex-row">
+              {/* Content */}
+              <div className="flex-1 p-5 sm:p-6 flex flex-col gap-4">
+                <div className="flex items-center gap-3">
+                  <div className="w-10 h-10 bg-brand-pink/8 border border-brand-pink/20 rounded-xl flex items-center justify-center shrink-0">
+                    <IoFlaskOutline className="text-xl text-brand-pink" />
                   </div>
                   <div>
-                    <h3 className="text-xl lg:text-2xl font-black text-white leading-[1.4] mb-1">
-                      {p.title}
-                    </h3>
-                    <p className="text-[10px] lg:text-xs font-black uppercase tracking-widest text-blue-400 leading-[1.4]">
-                      {p.type}
+                    <p className="text-[10px] font-black uppercase tracking-widest text-slate-400 leading-[1.4]">
+                      Preparation Facility
                     </p>
+                    <h2 className="text-lg sm:text-xl font-black text-slate-900 leading-[1.2]">
+                      Career Launch Labs
+                    </h2>
                   </div>
-                  <p className="text-slate-400 leading-[1.6] font-light text-sm line-clamp-3">
-                    {p.desc}
-                  </p>
+                </div>
 
-                  <div className="pt-4 border-t border-white/5 mt-auto">
-                    <p className="text-[10px] lg:text-xs font-black text-slate-500 uppercase tracking-widest mb-1 leading-[1.4]">
-                      Avg. Entry Package
-                    </p>
-                    <p className="text-xl lg:text-2xl font-black text-white leading-[1.4]">
-                      {p.avgSalary}
-                    </p>
-                  </div>
-                </motion.div>
-              ))}
-            </div>
-          </div>
-        ) : (
-          <div className="text-left lg:text-center py-8 lg:py-12 bg-white/5 -[2rem] border border-white/10 mb-10 lg:mb-20 flex flex-col items-start lg:items-center gap-4 px-6 rounded-lg">
-            <IoPulseOutline className="text-4xl lg:text-5xl text-white/20 animate-pulse" />
-            <p className="text-white/40 text-xs lg:text-sm font-black uppercase tracking-widest leading-[1.4]">
-              Job Channels Ready
-            </p>
-          </div>
-        )}
-
-        {/* The Lifecycle */}
-        {data?.lifecycle?.length > 0 && (
-          <div className="mb-10 lg:mb-20 max-w-5xl mx-auto">
-            <h2 className="text-2xl lg:text-4xl font-black text-white text-left lg:text-center mb-8 lg:mb-12 leading-[1.4]">
-              The Recruitment <span className="text-blue-500">Lifecycle.</span>
-            </h2>
-            <div className="space-y-6 lg:space-y-5 relative">
-              <div className="absolute left-5 top-8 bottom-8 w-px bg-white/10 hidden md:block"></div>
-              {data.lifecycle.map((l, i) => (
-                <motion.div
-                  key={i}
-                  initial={{ opacity: 0, x: -20 }}
-                  whileInView={{ opacity: 1, x: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: i * 0.1 }}
-                  className="flex flex-col md:flex-row gap-4 lg:gap-6 items-start relative z-10"
-                >
-                  <div className="w-10 h-10 bg-blue-600 flex items-center justify-center text-white font-black shrink-0 shadow-lg shadow-blue-600/30 rounded-lg">
-                    {i + 1}
-                  </div>
-                  <div className="flex-1 flex flex-col gap-2">
-                    <div className="flex flex-col md:flex-row md:items-center gap-2 justify-between">
-                      <h3 className="text-lg lg:text-xl font-black text-white leading-[1.4]">
-                        {l.title}
-                      </h3>
-                      <span className="text-[10px] font-black text-blue-500 uppercase tracking-widest bg-blue-500/10 px-2 py-1 self-start md:self-auto leading-[1.4] rounded-md">
-                        {l.step}
-                      </span>
-                    </div>
-                    <p className="text-slate-400 text-sm lg:text-base font-light leading-[1.6] max-w-3xl">
-                      {l.d}
-                    </p>
-                  </div>
-                </motion.div>
-              ))}
-            </div>
-          </div>
-        )}
-
-        {/* Interview Labs & Facility Section */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          className="bg-white -[2rem] p-6 lg:p-16 flex flex-col lg:flex-row items-center gap-4 lg:gap-5 shadow-xl relative overflow-hidden text-slate-900 rounded-lg"
-        >
-          <div className="hidden md:block absolute top-0 right-0 w-[300px] h-[300px] bg-blue-100 blur-[80px] pointer-events-none -translate-y-1/2 translate-x-1/2 opacity-60 hidden"></div>
-
-          <div className="flex-1 flex flex-col gap-6 relative z-10">
-            <div className="w-14 h-14 bg-blue-50 text-blue-600 flex items-center justify-center text-3xl shadow-sm rounded-lg">
-              <IoFlaskOutline />
-            </div>
-            <h2 className="text-3xl lg:text-5xl font-black text-slate-900 leading-[1.1] uppercase italic">
-              Career Launch <br />
-              Labs.
-            </h2>
-            <p className="text-slate-600 text-base md:text-lg font-light leading-[1.6]">
-              We don't just refer—we prepare. Our physically simulated interview
-              labs provide you with the exact pressure-test you need before
-              facing real hiring boards.
-            </p>
-
-            <div className="grid grid-cols-2 gap-4 lg:gap-6">
-              <div className="flex flex-col gap-2">
-                <h4 className="font-bold text-slate-900 flex items-center gap-2 leading-[1.4] text-sm lg:text-base">
-                  <IoChatbubblesOutline className="text-blue-500 shrink-0" /> Mock HR Rounds
-                </h4>
-                <p className="text-[10px] sm:text-xs text-slate-500 font-black leading-[1.4] uppercase tracking-widest">
-                  Live practice with senior tech recruiters.
+                <p className="text-slate-500 text-sm leading-[1.6]">
+                  We don't just refer — we prepare. Our physically simulated interview labs provide you with the exact pressure-test you need before facing real hiring boards.
                 </p>
+
+                <div className="grid grid-cols-2 gap-3 pt-1 border-t border-slate-100">
+                  <div className="flex flex-col gap-1">
+                    <h4 className="font-bold text-slate-900 flex items-center gap-1.5 leading-[1.4] text-sm">
+                      <IoChatbubblesOutline className="text-brand-green shrink-0" />
+                      Mock HR Rounds
+                    </h4>
+                    <p className="text-[11px] text-slate-400 leading-[1.5]">
+                      Live practice with senior tech recruiters.
+                    </p>
+                  </div>
+                  <div className="flex flex-col gap-1">
+                    <h4 className="font-bold text-slate-900 flex items-center gap-1.5 leading-[1.4] text-sm">
+                      <IoSearchOutline className="text-brand-green shrink-0" />
+                      Resume Audit
+                    </h4>
+                    <p className="text-[11px] text-slate-400 leading-[1.5]">
+                      Personalized refinement to bypass global ATS filters.
+                    </p>
+                  </div>
+                </div>
+
+                <button className="hidden lg:inline-flex self-start min-h-[36px] px-5 py-1.5 bg-slate-900 text-white font-black hover:bg-slate-800 transition-colors uppercase tracking-widest text-[11px] active:scale-95 leading-[1.4] items-center justify-center rounded-lg">
+                  Partner With Our Placement Cell
+                </button>
               </div>
-              <div className="flex flex-col gap-2">
-                <h4 className="font-bold text-slate-900 flex items-center gap-2 leading-[1.4] text-sm lg:text-base">
-                  <IoSearchOutline className="text-blue-500 shrink-0" /> Resume Audit
-                </h4>
-                <p className="text-[10px] sm:text-xs text-slate-500 font-black leading-[1.4] uppercase tracking-widest">
-                  Personalized refinement to bypass global ATS filters.
-                </p>
+
+              {/* Image — desktop only */}
+              <div className="hidden lg:block relative w-[320px] shrink-0">
+                <div className="absolute top-0 left-0 w-px h-full bg-slate-100" />
+                <Image
+                  src="https://images.unsplash.com/photo-1542744173-8e7e53415bb0?w=640&h=480&fit=crop"
+                  alt="Interview lab collaboration"
+                  fill
+                  sizes="320px"
+                  loading="lazy"
+                  decoding="async"
+                  onError={(e) => { e.target.srcset = ""; e.target.src = "/images/placeholder.png"; }}
+                  className="object-cover grayscale opacity-60"
+                />
               </div>
             </div>
-          </div>
-
-          <div className="flex-1 w-full lg:w-auto relative hidden lg:block overflow-hidden -[2rem] aspect-square">
-            <Image
-              src="https://images.unsplash.com/photo-1542744173-8e7e53415bb0?w=800&h=800&fit=crop"
-              alt="Interview lab collaboration"
-              fill
-              sizes="(max-width: 1024px) 100vw, 50vw"
-              loading="lazy"
-              decoding="async"
-              onError={(e) => { e.target.srcset = ''; e.target.src = '/images/placeholder.png'; }}
-              className="object-cover grayscale opacity-80 bg-[#f0f0f0]"
-            />
-          </div>
-        </motion.div>
-
-        {/* Global Stats Footer */}
-        <div className="mt-5 lg:mt-20 border-t border-white/5 pt-8 lg:pt-12 flex flex-col lg:flex-row items-start lg:items-center justify-between gap-4 text-left">
-          <div className="flex flex-col sm:flex-row gap-6 lg:gap-6 w-full lg:w-auto">
-            <div className="flex flex-col gap-1">
-              <p className="text-blue-500 text-4xl lg:text-5xl font-black leading-[1.1]">
-                {data?.stats?.partners || "0+"}
-              </p>
-              <p className="font-black uppercase tracking-widest text-[10px] sm:text-xs text-slate-500 leading-[1.4]">
-                Global Hiring Partners
-              </p>
-            </div>
-            <div className="flex flex-col gap-1">
-              <p className="text-emerald-500 text-4xl lg:text-5xl font-black leading-[1.1]">
-                {data?.stats?.rate || "0%"}
-              </p>
-              <p className="font-black uppercase tracking-widest text-[10px] sm:text-xs text-slate-500 leading-[1.4]">
-                Placement Success Rate
-              </p>
-            </div>
-          </div>
-          <button className="hidden lg:inline-flex items-center justify-center min-h-[48px] px-8 py-4 bg-white text-slate-950 font-black hover:bg-blue-600 hover:text-white transition-all shadow-lg uppercase tracking-widest text-xs sm:text-sm leading-[1.4] rounded-md">
-            Partner With Our Placement Cell
-          </button>
+          </motion.div>
         </div>
+
       </div>
+
       {/* Mobile Sticky CTA */}
-      <div className="sticky bottom-0 left-0 right-0 p-[var(--gutter,16px)] bg-slate-950/90 backdrop-blur-md border-t border-white/10 z-50 lg:hidden flex justify-center pb-[max(1rem,env(safe-area-inset-bottom))] mt-auto">
-        <button className="w-full min-h-[48px] py-3 px-4 bg-blue-600 text-white font-bold shadow-lg active:scale-95 transition-transform text-sm uppercase tracking-widest leading-[1.4] rounded-md">
+      <div className="sticky bottom-0 left-0 right-0 px-4 pt-2 pb-[max(10px,env(safe-area-inset-bottom))] bg-white/92 backdrop-blur-md border-t border-slate-200 z-50 lg:hidden">
+        <button className="w-full min-h-[40px] py-2 bg-brand-pink text-white font-bold active:scale-95 transition-transform text-xs uppercase tracking-widest leading-[1.4] rounded-lg shadow-sm">
           Partner With Us
         </button>
       </div>
