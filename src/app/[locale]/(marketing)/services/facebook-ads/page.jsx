@@ -1,26 +1,38 @@
 import { fetchServer } from "@/lib/api-server";
 import FacebookAdsClient from "@/components/marketing/services/FacebookAdsClient";
 
+export async function generateMetadata() {
+  return {
+    title: "Facebook & Meta Ads Management — Smart Youth ICT",
+    description:
+      "Server-side Meta Conversions API (CAPI), multi-stage behavioral funnels, high-volume creative sprint testing, and algorithmic scaling for predictable ROAS.",
+    keywords: [
+      "Facebook ads",
+      "Meta ads",
+      "paid social",
+      "CAPI tracking",
+      "ROAS optimization",
+      "performance marketing",
+      "SYICT",
+    ],
+    openGraph: {
+      title: "Facebook & Meta Ads Management — Smart Youth ICT",
+      description:
+        "Data-driven paid social acquisition infrastructure built on first-party attribution and continuous creative sprint testing.",
+      type: "website",
+    },
+  };
+}
+
 export default async function FacebookAdsPage() {
   let content = null;
   try {
     const res = await fetchServer("/cms/services/web-software/facebook-ads", {
       revalidate: 60,
     });
-    content = res.data;
+    if (res?.data) content = res.data;
   } catch (err) {
     console.error("Failed to fetch Facebook Ads content on server", err);
-  }
-
-  if (!content) {
-    return (
-      <div className="min-h-screen flex items-center justify-center">
-        <div className="text-center space-y-4">
-          <h1 className="text-2xl font-bold text-slate-900">System Error</h1>
-          <p className="text-slate-500">Performance engines could not be synchronized.</p>
-        </div>
-      </div>
-    );
   }
 
   return <FacebookAdsClient content={content} />;
