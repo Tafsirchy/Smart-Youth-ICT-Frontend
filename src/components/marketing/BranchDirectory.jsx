@@ -135,8 +135,9 @@ export default function BranchDirectory({ locale = 'en', initialDivision = 'All'
       const res = await axios.get(`${getApiBaseUrl()}/branches/public/all`);
       return res.data?.data || [];
     },
-    staleTime: 5 * 60 * 1000,
-    gcTime: 30 * 60 * 1000,
+    staleTime: 0,           // ✅ always refetch on mount — ensures dashboard edits show immediately
+    gcTime: 5 * 60 * 1000, // keep in memory 5 min for fast back-navigation
+    refetchOnWindowFocus: true, // ✅ refetch when user switches back to this tab
   });
 
   const error = isError ? 'Unable to load campuses at this moment. Please refresh.' : null;
