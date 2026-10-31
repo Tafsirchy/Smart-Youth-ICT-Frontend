@@ -1,282 +1,462 @@
 "use client";
 
-import {
-  IoCubeOutline,
-  IoShieldCheckmarkOutline,
-  IoSyncOutline,
-  IoCheckmarkCircleOutline,
-  IoCodeSlashOutline,
-  IoRocketOutline
-} from "react-icons/io5";
 import { motion } from "framer-motion";
 import Link from "next/link";
+import {
+  IoCubeOutline,
+  IoCheckmarkCircleOutline,
+  IoArrowBackOutline,
+  IoShieldCheckmarkOutline,
+  IoSyncOutline,
+  IoCodeSlashOutline,
+  IoRocketOutline,
+  IoLayersOutline,
+} from "react-icons/io5";
 import { getIcon } from "@/lib/icons";
 
-export default function CustomAppsClient({ data }) {
-  if (!data) return null;
+const DEFAULT_CUSTOM_APPS_DATA = {
+  hero: {
+    badge: "Mission-Critical Full-Stack Engineering",
+    title: "Custom Web Applications",
+    subtitle: "Applications",
+    description:
+      "Purpose-built web software tailored to your exact business logic. Scalable microservices, real-time sync, resilient data layers, and clean, responsive UI.",
+  },
+  sections: {
+    verticals: [
+      {
+        title: "SaaS Platforms & MVPs",
+        desc: "High-velocity product development from concept to market validation. Multi-tenant database architecture, Stripe billing subscriptions, and user onboarding funnels.",
+        icon: "Rocket",
+      },
+      {
+        title: "Internal Operations Portals",
+        desc: "Custom workflow automation systems that replace messy spreadsheets. Role-based dashboards, approval flows, real-time alerts, and audit trails.",
+        icon: "Cube",
+      },
+      {
+        title: "Customer Self-Service Portals",
+        desc: "High-security user portals where your clients can view real-time data, submit requests, download invoices, and manage their service subscriptions.",
+        icon: "Layers",
+      },
+    ],
+    integrations: [
+      {
+        t: "Real-Time WebSockets",
+        d: "Bi-directional instant data streaming for chats, notifications, and live dashboards.",
+        icon: "Sync",
+      },
+      {
+        t: "Role-Based Access Control",
+        d: "Granular authorization matrix with JWT authentication, MFA, and permission scopes.",
+        icon: "Shield",
+      },
+      {
+        t: "Third-Party API & Webhooks",
+        d: "Seamless integration with Stripe, SendGrid, Twilio, AWS, and external REST/GraphQL APIs.",
+        icon: "CodeSlash",
+      },
+      {
+        t: "Automated CI/CD Pipelines",
+        d: "Automated testing, containerized Docker builds, and zero-downtime deployment pipelines.",
+        icon: "GitNetwork",
+      },
+    ],
+    pricingHeader: {
+      badge: "Development Sprints",
+      title: "Sprint-Based Engineering for",
+      focus: "Your Product Vision",
+    },
+    pricing: [
+      {
+        t: "MVP Sprint",
+        p: "$2,999",
+        list: [
+          "Core Feature Architecture & Wireframing",
+          "Next.js + Node.js / Python Backend",
+          "User Auth, RBAC & Dashboard Core",
+          "Stripe / Payment Gateway Integration",
+          "Automated Testing & Vercel/AWS Launch",
+        ],
+        highlight: false,
+      },
+      {
+        t: "Scale Stage",
+        p: "$5,999",
+        list: [
+          "Full-Featured Multi-Tenant SaaS Portal",
+          "Real-Time WebSocket Notification Core",
+          "Advanced Analytics & Admin Reporting Hub",
+          "Automated Background Queue Workers",
+          "Performance Optimization & Security Audit",
+        ],
+        highlight: true,
+      },
+      {
+        t: "Enterprise Core",
+        p: "Custom",
+        list: [
+          "Microservices & Distributed Systems",
+          "Dedicated Database Clusters with Read Replicas",
+          "Custom Hardware / On-Premise Sync",
+          "24/7 Priority SLA & Dedicated Tech Lead",
+          "Comprehensive Architecture Documentation",
+        ],
+        highlight: false,
+      },
+    ],
+  },
+  cta: {
+    title: "Ready to Build Your Custom Software Solution?",
+    subtitle:
+      "Collaborate directly with our senior full-stack architects to scope your roadmap, technical stack, and milestone deliverables.",
+  },
+};
 
-  const { hero = {}, sections = {}, cta = {} } = data;
-  const verticals = sections.verticals || [];
-  const integrations = sections.integrations || [];
-  const pricing = sections.pricing || [];
+export default function CustomAppsClient({ data }) {
+  const content = {
+    hero: {
+      ...DEFAULT_CUSTOM_APPS_DATA.hero,
+      ...(data?.hero || {}),
+    },
+    sections: {
+      verticals:
+        data?.sections?.verticals?.length > 0
+          ? data.sections.verticals
+          : DEFAULT_CUSTOM_APPS_DATA.sections.verticals,
+      integrations:
+        data?.sections?.integrations?.length > 0
+          ? data.sections.integrations
+          : DEFAULT_CUSTOM_APPS_DATA.sections.integrations,
+      pricingHeader: {
+        ...DEFAULT_CUSTOM_APPS_DATA.sections.pricingHeader,
+        ...(data?.sections?.pricingHeader || {}),
+      },
+      pricing:
+        data?.sections?.pricing?.length > 0
+          ? data.sections.pricing
+          : DEFAULT_CUSTOM_APPS_DATA.sections.pricing,
+    },
+    cta: {
+      ...DEFAULT_CUSTOM_APPS_DATA.cta,
+      ...(data?.cta || {}),
+    },
+  };
+
+  const { hero, sections, cta } = content;
 
   return (
-    <section className="min-h-screen bg-slate-50 text-slate-900 selection:bg-violet-600 selection:text-white overflow-hidden relative font-sans flex flex-col pb-12 md:pb-0">
-      {/* INDUSTRIAL OVERLAY */}
-      <div className="absolute top-0 opacity-10 pointer-events-none -z-10 w-full h-full">
-        <div className="absolute top-0 left-1/4 w-[1px] h-full bg-slate-200"></div>
-        <div className="absolute top-0 right-1/4 w-[1px] h-full bg-slate-200"></div>
-        <div className="absolute top-1/2 left-0 w-full h-[1px] bg-slate-200"></div>
-      </div>
+    <section className="min-h-screen bg-white flex flex-col relative selection:bg-brand-pink selection:text-white">
+      {/* Background Dot Texture */}
+      <div className="fixed inset-0 bg-[radial-gradient(#0F172A08_1px,transparent_1px)] [background-size:22px_22px] pointer-events-none z-0" />
 
-      <div className="container-custom py-10 lg:py-16 relative z-10">
-        {/* CUSTOM APPS HERO */}
-        <div className="flex flex-col lg:flex-row items-center gap-5 lg:gap-6 mb-16 lg:mb-24">
-          <div className="flex-1 text-left">
+      <div className="relative z-10 flex flex-col flex-1">
+        {/* ── Hero ── */}
+        <div className="border-b border-slate-100 bg-white/70 backdrop-blur-sm">
+          <div className="container-custom pt-10 sm:pt-14 pb-8 flex flex-col items-center text-center gap-3 max-w-3xl mx-auto">
             <motion.div
-              initial={{ opacity: 0, x: -20 }}
-              animate={{ opacity: 1, x: 0 }}
-              className="inline-flex items-center gap-2 px-3 py-1.5 bg-violet-50 border border-violet-100 text-violet-700 text-[10px] font-black tracking-widest uppercase mb-6 leading-[1.4] rounded-md"
+              initial={{ opacity: 0, y: -8 }}
+              animate={{ opacity: 1, y: 0 }}
+              className="inline-flex items-center gap-1.5 px-3 py-1 bg-brand-pink/8 border border-brand-pink/25 text-brand-pink text-[10px] font-black uppercase tracking-widest rounded-full leading-[1.4]"
             >
-              <IoRocketOutline className="text-sm" /> {hero.badge}
+              <span className="h-1.5 w-1.5 bg-brand-pink rounded-full shrink-0 animate-pulse" />
+              {hero.badge}
             </motion.div>
 
             <motion.h1
-              initial={{ opacity: 0, y: 30 }}
+              initial={{ opacity: 0, y: 12 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, ease: "circOut" }}
-              className="text-4xl sm:text-5xl md:text-8xl font-black text-slate-900 leading-[1.1] md:leading-[0.9] mb-4 lg:mb-6 tracking-tighter"
+              transition={{ delay: 0.08 }}
+              className="text-2xl sm:text-3xl md:text-4xl font-black text-slate-900 leading-[1.2]"
             >
-              {hero.title?.split(" ")[0]} <br />
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-violet-600 to-indigo-600 animate-gradient-x">{hero.subtitle}</span>
+              {(() => {
+                const fullTitle = (hero.title || "").trim();
+                const sub = (hero.subtitle || "").trim();
+                let prefix = fullTitle;
+                let highlight = sub;
+
+                if (sub && fullTitle.toLowerCase().endsWith(sub.toLowerCase())) {
+                  prefix = fullTitle.slice(0, fullTitle.length - sub.length).trim();
+                  highlight = sub;
+                } else if (!sub || fullTitle.toLowerCase() === sub.toLowerCase()) {
+                  const words = fullTitle.split(" ");
+                  if (words.length > 1) {
+                    highlight = words.pop();
+                    prefix = words.join(" ");
+                  } else {
+                    prefix = fullTitle;
+                    highlight = "";
+                  }
+                }
+
+                return (
+                  <span className="whitespace-nowrap">
+                    {prefix}
+                    {prefix && highlight ? " " : ""}
+                    {highlight && <span className="text-brand-green">{highlight}</span>}
+                  </span>
+                );
+              })()}
             </motion.h1>
 
             <motion.p
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ delay: 0.4 }}
-              className="text-slate-600 text-lg md:text-xl font-light leading-[1.6] max-w-2xl mb-8"
+              initial={{ opacity: 0, y: 12 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.15 }}
+              className="text-slate-500 text-sm md:text-base leading-[1.6] max-w-xl font-normal"
             >
               {hero.description}
             </motion.p>
 
-            <div className="flex flex-col sm:flex-row gap-4">
-              <button className="w-full sm:w-[240px] min-h-[48px] px-4 py-3 md:py-4 bg-violet-600 text-white font-bold hover:bg-violet-700 transition-all shadow-xl shadow-violet-600/20 uppercase tracking-widest text-[10px] flex items-center justify-center leading-[1.4] rounded-md">
-                Initialize Product Brief
-              </button>
+            <motion.div
+              initial={{ opacity: 0, y: 12 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.22 }}
+              className="flex flex-wrap items-center justify-center gap-3 pt-2"
+            >
               <Link
                 href="/services/custom-apps/details"
-                className="w-full sm:w-[240px] min-h-[48px] px-4 py-3 md:py-4 bg-white border border-slate-200 text-slate-900 font-bold hover:bg-slate-50 transition-all uppercase tracking-widest text-[10px] flex items-center justify-center text-center leading-[1.4] rounded-md"
+                className="inline-flex items-center gap-1.5 text-xs font-black uppercase tracking-widest text-brand-green hover:text-brand-pink transition-colors group leading-[1.4] py-2 px-3"
               >
-                Technical Specifications
+                View Technical Specifications{" "}
+                <IoArrowBackOutline className="rotate-180 group-hover:translate-x-1 transition-transform" />
               </Link>
-            </div>
-          </div>
-
-          <div className="flex-1 relative hidden lg:block">
-            <motion.div
-              initial={{ opacity: 0, scale: 0.9, rotate: -5 }}
-              animate={{ opacity: 1, scale: 1, rotate: 0 }}
-              transition={{ duration: 1 }}
-              className="relative p-8 xl:p-12 bg-white xl:-[4rem] border border-slate-100 shadow-2xl overflow-hidden group rounded-lg"
-            >
-              <div className="absolute inset-0 opacity-5 pointer-events-none" style={{ backgroundImage: "linear-gradient(#4f46e5 1px, transparent 1px), linear-gradient(90deg, #4f46e5 1px, transparent 1px)", backgroundSize: "40px 40px" }}></div>
-
-              <div className="grid grid-cols-2 gap-4 xl:gap-4 relative z-10 aspect-square">
-                <motion.div animate={{ y: [0, -10, 0] }} transition={{ duration: 4, repeat: Infinity }} className="p-6 xl:p-8 bg-violet-50 xl: border border-violet-100 flex flex-col justify-between shadow-sm rounded-lg">
-                  <div className="w-8 h-8 xl:w-10 xl:h-10 bg-violet-600 xl: shadow-lg shadow-violet-200 rounded-lg"></div>
-                  <div className="space-y-1.5 xl:space-y-2">
-                    <div className="h-1.5 w-full bg-violet-200"></div>
-                    <div className="h-1.5 w-3/4 bg-violet-200"></div>
-                  </div>
-                </motion.div>
-                <motion.div animate={{ y: [10, 0, 10] }} transition={{ duration: 4, repeat: Infinity }} className="p-6 xl:p-8 bg-slate-900 xl: flex flex-col justify-end shadow-xl rounded-lg">
-                  <div className="h-8 xl:h-10 bg-white/10 flex items-center justify-center text-[10px] xl:text-xs font-black text-violet-400">ENGINE_SYNC</div>
-                </motion.div>
-                <motion.div className="col-span-2 p-6 xl:p-10 bg-white xl:-[2.5rem] border border-slate-100 shadow-xl flex items-center justify-between rounded-lg">
-                  <div className="flex gap-2 xl:gap-3">
-                    <div className="w-5 h-5 xl:w-6 xl:h-6 bg-violet-500"></div>
-                    <div className="w-5 h-5 xl:w-6 xl:h-6 bg-indigo-500"></div>
-                    <div className="w-5 h-5 xl:w-6 xl:h-6 bg-slate-200"></div>
-                  </div>
-                  <div className="w-24 xl:w-32 h-5 xl:h-6 bg-slate-50 border border-slate-100 flex items-center justify-center rounded-lg">
-                    <div className="w-16 xl:w-24 h-1.5 bg-slate-200"></div>
-                  </div>
-                </motion.div>
-              </div>
-
-              <div className="absolute top-4 left-1/2 -translate-x-1/2 font-mono text-[10px] xl:text-xs text-slate-400 uppercase tracking-widest bg-white px-4 leading-[1.4]">
-                LOGIC_SPEC_v4.2.0
-              </div>
             </motion.div>
           </div>
         </div>
 
-        {/* SERVICE VERTICALS */}
-        <div className="mb-16 lg:mb-24">
-          <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-10 gap-4 lg:gap-6 border-l-4 border-violet-600 pl-6 lg:pl-8 rounded-lg">
-            <div className="max-w-xl">
-              <h2 className="text-[10px] md:text-xs font-black text-violet-600 uppercase tracking-widest mb-3 leading-[1.4]">Custom Engineering</h2>
-              <p className="text-3xl md:text-5xl font-black text-slate-900 leading-[1.1]">
-                Architectures built for <span className="text-slate-400 italic font-serif font-light">sovereignty.</span>
-              </p>
+        {/* ── Key Highlights Strip ── */}
+        <div className="border-b border-slate-100 bg-slate-50/80">
+          <div className="container-custom py-3.5">
+            <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 text-center divide-x divide-slate-200/60">
+              <div className="px-2">
+                <p className="text-xl sm:text-2xl font-black text-slate-900 leading-[1.1]">
+                  TypeScript
+                </p>
+                <p className="text-[10px] font-black uppercase tracking-widest text-slate-400 mt-0.5 leading-[1.4]">
+                  End-to-End Type Safety
+                </p>
+              </div>
+              <div className="px-2">
+                <p className="text-xl sm:text-2xl font-black text-brand-pink leading-[1.1]">
+                  Modular
+                </p>
+                <p className="text-[10px] font-black uppercase tracking-widest text-slate-400 mt-0.5 leading-[1.4]">
+                  Microservices Architecture
+                </p>
+              </div>
+              <div className="px-2">
+                <p className="text-xl sm:text-2xl font-black text-brand-green leading-[1.1]">
+                  100%
+                </p>
+                <p className="text-[10px] font-black uppercase tracking-widest text-slate-400 mt-0.5 leading-[1.4]">
+                  IP &amp; Code Ownership
+                </p>
+              </div>
+              <div className="px-2">
+                <p className="text-xl sm:text-2xl font-black text-slate-900 leading-[1.1]">
+                  Dockerized
+                </p>
+                <p className="text-[10px] font-black uppercase tracking-widest text-slate-400 mt-0.5 leading-[1.4]">
+                  Cloud-Agnostic Hosting
+                </p>
+              </div>
             </div>
           </div>
+        </div>
 
-          <div className="grid lg:grid-cols-3 gap-px md:gap-4 lg:gap-6">
-            {verticals?.map((item, i) => (
+        {/* ── App Archetypes / Solutions ── */}
+        <div className="container-custom py-10">
+          <div className="text-center max-w-xl mx-auto mb-8">
+            <h2 className="text-[11px] font-black text-slate-400 uppercase tracking-widest mb-1.5 leading-[1.4]">
+              Software Categories
+            </h2>
+            <p className="text-xl sm:text-2xl font-black text-slate-900 leading-[1.2]">
+              Engineered for Enterprise Workflows &amp; SaaS Products
+            </p>
+          </div>
+
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
+            {sections.verticals.map((item, idx) => (
               <motion.div
-                key={i}
-                initial={{ opacity: 0, y: 30 }}
+                key={idx}
+                initial={{ opacity: 0, y: 16 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                transition={{ delay: i * 0.1 }}
-                className="group cursor-default"
+                transition={{ delay: idx * 0.08 }}
+                className="bg-white border border-slate-200/80 hover:border-brand-pink/40 hover:shadow-lg transition-all rounded-xl p-6 relative flex flex-col group overflow-hidden"
               >
-                <div className="bg-white md:-[2rem] p-6 md:p-5 h-full border border-slate-100 shadow-sm shadow-slate-200/50 hover:shadow-xl transition-all group-hover:-translate-y-1 relative overflow-hidden rounded-lg">
-                  <div
-                    className={`w-12 h-12 md:w-14 md:h-14 rounded-lg md:rounded-lg bg-gradient-to-br ${item.color} text-white flex items-center justify-center text-2xl md:text-3xl mb-6 md:mb-8 shadow-md`}
-                  >
-                    {getIcon(item.icon)}
-                  </div>
-                  <h3 className="text-xl md:text-2xl font-black text-slate-900 mb-3 tracking-tighter uppercase leading-[1.1]">
-                    {item.title}
-                  </h3>
-                  <p className="text-slate-500 leading-[1.6] font-light text-sm md:text-base">
-                    {item.desc}
-                  </p>
+                <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-brand-pink to-brand-green opacity-0 group-hover:opacity-100 transition-opacity" />
+
+                <div className="w-11 h-11 rounded-lg bg-slate-50 border border-slate-100 text-slate-800 flex items-center justify-center text-xl mb-4 group-hover:bg-brand-pink/10 group-hover:text-brand-pink transition-colors shrink-0">
+                  {getIcon(item.icon) || <IoCubeOutline />}
                 </div>
+
+                <h3 className="text-lg font-black text-slate-900 mb-2 leading-[1.3]">
+                  {item.title}
+                </h3>
+                <p className="text-slate-500 text-sm leading-[1.6] flex-1">
+                  {item.desc}
+                </p>
               </motion.div>
             ))}
           </div>
         </div>
 
-        {/* TECH STACK HUB */}
-        <div className="mb-16 lg:mb-24 bg-white lg:-[4rem] p-6 lg:p-12 border border-slate-100 shadow-xl relative overflow-hidden rounded-lg">
-          <div className="hidden lg:block absolute top-0 right-0 w-1/3 h-full bg-violet-50/50 -skew-x-[20deg] origin-top translate-x-1/2 opacity-50"></div>
-
-          <div className="flex flex-col lg:grid lg:grid-cols-2 gap-4 lg:gap-5 items-center relative z-10">
-            <div>
-              <h2 className="text-4xl lg:text-5xl font-black text-slate-900 leading-[1.1] mb-6 lg:mb-8">Atomic <br /><span className="text-violet-600 font-serif italic font-medium">Infrastructure.</span></h2>
-              <p className="text-slate-500 text-base md:text-lg font-light leading-[1.6] mb-8">We don't use templates. We engineer logic. Every application is built with a bespoke tech stack optimized for performance and horizontal scale.</p>
-
-              <div className="pt-6 lg:pt-8 border-t border-slate-200">
-                {/* Mobile Accordion */}
-                <details className="lg:hidden group">
-                  <summary className="cursor-pointer min-h-[48px] list-none font-bold text-sm text-violet-600 flex justify-between items-center bg-violet-50 p-4 border border-violet-100 leading-[1.4] rounded-md">
-                    View Full Tech Stack
-                    <span className="transition group-open:rotate-180 text-xs">▼</span>
-                  </summary>
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-4">
-                    {integrations?.map((int, i) => (
-                      <div key={i} className="space-y-3">
-                        <h4 className="text-[10px] font-black text-slate-900 uppercase tracking-widest leading-[1.4]">{int.group}</h4>
-                        <div className="flex overflow-x-auto snap-x scrollbar-hide gap-2 pb-2 -mb-2">
-                          {int.tags?.map(tag => (
-                            <span key={tag} className="shrink-0 snap-start px-2 py-1 bg-slate-50 border border-slate-100 text-[10px] font-bold text-slate-500 leading-[1.4] rounded-md">{tag}</span>
-                          ))}
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-                </details>
-
-                {/* Desktop Grid */}
-                <div className="hidden lg:grid grid-cols-2 gap-6">
-                  {integrations?.map((int, i) => (
-                    <div key={i} className="space-y-3">
-                      <h4 className="text-[10px] font-black text-slate-900 uppercase tracking-widest leading-[1.4]">{int.group}</h4>
-                      <div className="flex flex-wrap gap-2">
-                        {int.tags?.map(tag => (
-                          <span key={tag} className="px-2 py-1 bg-slate-50 border border-slate-100 text-[10px] font-bold text-slate-500 leading-[1.4] rounded-md">{tag}</span>
-                        ))}
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              </div>
+        {/* ── Engineering Stack & Architecture ── */}
+        <div className="border-t border-b border-slate-100 bg-slate-50/60 py-10">
+          <div className="container-custom">
+            <div className="text-center max-w-xl mx-auto mb-8">
+              <h2 className="text-[11px] font-black text-slate-400 uppercase tracking-widest mb-1.5 leading-[1.4]">
+                Technical Foundations
+              </h2>
+              <p className="text-xl sm:text-2xl font-black text-slate-900 leading-[1.2]">
+                Architectural Standards Built for Long-Term Scale
+              </p>
             </div>
 
-            <div className="relative group w-full lg:w-auto lg:scale-105">
-              <div className="p-6 lg:p-10 bg-slate-900 lg:-[3rem] text-white shadow-xl relative overflow-hidden rounded-lg">
-                <div className="absolute inset-0 bg-gradient-to-br from-violet-500/10 to-transparent pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity"></div>
-                <div className="flex justify-between items-center mb-8 lg:mb-10 border-b border-white/5 pb-4 lg:pb-6 font-mono text-[10px] tracking-widest text-white/40 leading-[1.4]">
-                  <span>SYS_LOGIC_PROX</span>
-                  <span>CORE_STATUS::READY</span>
-                </div>
-
-                <div className="space-y-6">
-                  <div className="flex items-center gap-4">
-                    <div className="w-10 h-10 md:w-12 md:h-12 bg-violet-500 flex items-center justify-center text-white text-xl"><IoCodeSlashOutline /></div>
-                    <div className="flex-1 space-y-1.5">
-                      <div className="h-1.5 bg-white/10 w-full"></div>
-                      <div className="h-1.5 bg-white/5 w-1/3"></div>
-                    </div>
+            <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
+              {sections.integrations.map((item, idx) => (
+                <div
+                  key={idx}
+                  className="bg-white border border-slate-200/80 rounded-xl p-5 flex flex-col shadow-sm"
+                >
+                  <div className="w-9 h-9 rounded-lg bg-brand-green/10 text-brand-green flex items-center justify-center text-lg mb-3 shrink-0">
+                    {getIcon(item.icon) || <IoShieldCheckmarkOutline />}
                   </div>
-                  <div className="p-6 bg-white/5 border border-white/5 relative overflow-hidden flex flex-col items-center justify-center rounded-lg">
-                    <IoSyncOutline className="text-3xl text-violet-500 animate-spin-slow opacity-50" />
-                    <p className="text-[10px] font-mono text-emerald-400 mt-3 tracking-tighter leading-[1.4]">DATASTREAM::VERIFIED</p>
-                  </div>
+                  <h4 className="text-sm font-bold text-slate-900 mb-1 leading-[1.3]">
+                    {item.t}
+                  </h4>
+                  <p className="text-xs text-slate-500 leading-[1.5]">
+                    {item.d}
+                  </p>
                 </div>
-              </div>
+              ))}
             </div>
           </div>
         </div>
 
-        {/* PRICING */}
-        <div className="mb-16 lg:mb-24">
-          <div className="text-left md:text-center max-w-2xl mx-auto mb-10">
-            <h2 className="text-[10px] md:text-xs font-black text-violet-600 uppercase tracking-widest mb-3 leading-[1.4]">Scaling Tiers</h2>
-            <p className="text-3xl md:text-5xl font-black text-slate-900 leading-[1.1]">Structured for <span className="text-slate-400">every evolution.</span></p>
+        {/* ── Pricing Packages ── */}
+        <div className="container-custom py-10">
+          <div className="text-center max-w-xl mx-auto mb-8">
+            <h2 className="text-[11px] font-black text-slate-400 uppercase tracking-widest mb-1.5 leading-[1.4]">
+              {sections.pricingHeader.badge}
+            </h2>
+            <p className="text-xl sm:text-2xl font-black text-slate-900 leading-[1.2]">
+              {sections.pricingHeader.title}{" "}
+              <span className="text-brand-green">
+                {sections.pricingHeader.focus}
+              </span>
+            </p>
           </div>
 
-          <div className="flex overflow-x-auto snap-x snap-mandatory md:grid md:grid-cols-2 lg:grid-cols-3 gap-4 lg:gap-6 pb-6 scrollbar-hide">
-            {pricing?.map((tier, idx) => (
-              <div key={idx} className={`snap-center shrink-0 w-[85vw] md:w-auto bg-white rounded-lg md:rounded-lg p-6 md:p-8 border ${tier.highlight ? "border-violet-600 shadow-xl shadow-violet-600/10 md:-translate-y-2" : "border-slate-100 shadow-md"} flex flex-col h-full relative overflow-hidden group transition-all`}>
-                <h4 className="text-2xl font-black text-slate-900 mb-1 uppercase tracking-tighter leading-[1.1]">{tier.t}</h4>
-                <p className="text-3xl md:text-4xl font-black text-slate-900 mb-6 md:mb-8 leading-[1.1]">{tier.p}</p>
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 max-w-5xl mx-auto">
+            {sections.pricing.map((tier, idx) => (
+              <div
+                key={idx}
+                className={`bg-white rounded-xl p-6 sm:p-7 border flex flex-col relative transition-all ${
+                  tier.highlight
+                    ? "border-brand-pink ring-2 ring-brand-pink/15 shadow-xl shadow-brand-pink/5"
+                    : "border-slate-200/80 hover:border-slate-300 shadow-sm"
+                }`}
+              >
+                {tier.highlight && (
+                  <div className="absolute -top-3 right-6 bg-brand-pink text-white text-[10px] font-black uppercase tracking-widest px-3 py-0.5 rounded-full shadow-sm">
+                    Recommended
+                  </div>
+                )}
 
-                <div className="space-y-3 mb-8 flex-1">
-                  {tier.list?.map(item => (
-                    <div key={item} className="flex gap-2 items-center text-slate-500 text-xs md:text-sm font-light leading-[1.6]">
-                      <IoCheckmarkCircleOutline className={`text-violet-600 text-base shrink-0`} /> {item}
+                <h3 className="text-lg font-black text-slate-900 leading-[1.2]">
+                  {tier.t}
+                </h3>
+                <div className="my-4">
+                  <span className="text-3xl font-black text-slate-900 leading-[1]">
+                    {tier.p}
+                  </span>
+                  {tier.p !== "Custom" && (
+                    <span className="text-xs font-semibold text-slate-400 ml-1">
+                      / sprint
+                    </span>
+                  )}
+                </div>
+
+                <div className="border-t border-slate-100 pt-4 flex flex-col gap-2.5 flex-1 mb-6">
+                  {tier.list?.map((feature, fIdx) => (
+                    <div
+                      key={fIdx}
+                      className="flex items-start gap-2 text-xs sm:text-sm text-slate-600 leading-[1.5]"
+                    >
+                      <IoCheckmarkCircleOutline className="text-brand-green text-base shrink-0 mt-0.5" />
+                      <span>{feature}</span>
                     </div>
                   ))}
                 </div>
 
-                <button className={`w-full min-h-[48px] py-3 rounded-lg font-black uppercase tracking-widest text-[10px] transition-all shadow-md leading-[1.4] ${tier.highlight ? "bg-violet-600 text-white shadow-violet-600/30" : "bg-slate-900 text-white hover:bg-violet-600 font-black"}`}>Initialize Build</button>
+                <Link
+                  href="/contact"
+                  className={`w-full min-h-[44px] py-3 rounded-lg font-black uppercase tracking-widest text-xs transition-all flex items-center justify-center leading-[1.4] text-center ${
+                    tier.highlight
+                      ? "bg-brand-pink text-white hover:bg-brand-pinkLight shadow-md shadow-brand-pink/20"
+                      : "bg-slate-900 text-white hover:bg-slate-800"
+                  }`}
+                >
+                  Select {tier.t}
+                </Link>
               </div>
             ))}
           </div>
         </div>
 
-        {/* CTA */}
-        <div className="text-center py-12 lg:py-20 border-t border-slate-100">
-          <IoCubeOutline className="text-5xl lg:text-6xl text-violet-600 mb-6 md:mb-8 mx-auto opacity-10" />
-          <h3 className="text-3xl sm:text-4xl lg:text-5xl font-black text-slate-900 mb-6 md:mb-8 leading-[1.1]">{cta.title?.split('your ')[0]}your <br /><span className="text-transparent bg-clip-text bg-gradient-to-r from-violet-600 to-indigo-600 font-serif italic font-medium">{cta.title?.split('your ')[1]}</span></h3>
-          <div className="flex flex-col sm:flex-row gap-3 md:gap-4 justify-center">
-            <button className="w-full sm:w-[240px] min-h-[48px] px-4 py-3 md:py-4 bg-violet-600 text-white font-bold hover:bg-violet-700 transition-all shadow-xl shadow-violet-600/40 uppercase tracking-widest text-[10px] flex items-center justify-center leading-[1.4] rounded-md">
-              Initialize Build
-            </button>
-              <Link
-              href="/services/custom-apps/details"
-              className="w-full sm:w-[240px] min-h-[48px] px-4 py-3 md:py-4 bg-slate-900 text-white font-bold hover:bg-slate-800 transition-all uppercase tracking-widest text-[10px] flex items-center justify-center text-center leading-[1.4] rounded-md"
-            >
-              Technical Specifications
-            </Link>
+        {/* ── Conversion CTA ── */}
+        <div className="container-custom pb-12 pt-4">
+          <div className="bg-slate-900 text-white rounded-2xl p-8 sm:p-12 text-center relative overflow-hidden">
+            <div className="relative z-10 max-w-2xl mx-auto flex flex-col items-center gap-3">
+              <span className="inline-flex items-center gap-1.5 px-3 py-1 bg-white/10 text-white text-[10px] font-black uppercase tracking-widest rounded-full leading-[1.4]">
+                <IoRocketOutline className="text-brand-pink text-sm" />
+                Launch Production-Ready Code
+              </span>
+              <h3 className="text-2xl sm:text-3xl font-black leading-[1.2]">
+                {cta.title}
+              </h3>
+              <p className="text-slate-300 text-sm sm:text-base leading-[1.6] max-w-lg">
+                {cta.subtitle}
+              </p>
+
+              <div className="flex flex-col sm:flex-row gap-3 pt-3 w-full sm:w-auto">
+                <Link
+                  href="/contact"
+                  className="w-full sm:w-[220px] min-h-[44px] px-6 py-3 bg-brand-pink text-white font-black hover:bg-brand-pinkLight transition-all uppercase tracking-widest text-xs flex items-center justify-center rounded-lg shadow-md shadow-brand-pink/30 leading-[1.4]"
+                >
+                  Consult Solutions Architect
+                </Link>
+                <Link
+                  href="/services/custom-apps/details"
+                  className="w-full sm:w-[220px] min-h-[44px] px-6 py-3 bg-white/10 hover:bg-white/20 text-white border border-white/20 font-black transition-all uppercase tracking-widest text-xs flex items-center justify-center rounded-lg text-center leading-[1.4]"
+                >
+                  Technical Details
+                </Link>
+              </div>
+            </div>
           </div>
         </div>
       </div>
 
-      {/* MOBILE STICKY CTA */}
-      <div className="sticky bottom-0 left-0 w-full p-[var(--gutter,16px)] bg-white/90 backdrop-blur-md border-t border-slate-100 z-50 md:hidden flex items-center justify-between shadow-[0_-10px_40px_rgba(0,0,0,0.05)] pb-[max(1rem,env(safe-area-inset-bottom))] mt-auto">
-         <div className="flex flex-col gap-0.5">
-            <p className="text-[10px] font-black text-slate-500 uppercase tracking-widest leading-[1.4]">Ready?</p>
-            <p className="text-slate-900 font-bold text-sm leading-[1.4]">Start Building</p>
-         </div>
-         <button className="px-5 py-3 min-h-[48px] bg-violet-600 text-white font-black text-[10px] uppercase tracking-widest shadow-md shadow-violet-600/30 leading-[1.4] flex items-center justify-center rounded-md">
-            Initialize Brief
-         </button>
+      {/* ── Mobile Sticky CTA ── */}
+      <div className="sticky bottom-0 left-0 w-full p-3.5 bg-white/95 backdrop-blur-md border-t border-slate-200 z-50 md:hidden flex items-center justify-between shadow-[0_-8px_30px_rgba(0,0,0,0.06)] pb-[max(0.875rem,env(safe-area-inset-bottom))] mt-auto">
+        <div className="flex flex-col gap-0.5">
+          <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest leading-[1.3]">
+            Custom Web Apps
+          </p>
+          <p className="text-slate-900 font-extrabold text-sm leading-[1.3]">
+            Start Project Brief
+          </p>
+        </div>
+        <Link
+          href="/contact"
+          className="px-5 py-2.5 min-h-[44px] bg-brand-pink text-white font-black text-xs uppercase tracking-widest shadow-md shadow-brand-pink/20 leading-[1.4] flex items-center justify-center rounded-lg"
+        >
+          Book Now
+        </Link>
       </div>
     </section>
   );

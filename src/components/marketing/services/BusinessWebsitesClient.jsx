@@ -1,248 +1,461 @@
 "use client";
 
+import { motion } from "framer-motion";
+import Link from "next/link";
 import {
   IoRocketOutline,
   IoCheckmarkCircleOutline,
+  IoArrowBackOutline,
+  IoShieldCheckmarkOutline,
   IoGlobeOutline,
   IoAnalyticsOutline,
-  IoShieldOutline,
-  IoBriefcaseOutline
+  IoLayersOutline,
 } from "react-icons/io5";
-import { motion } from "framer-motion";
-import Link from "next/link";
 import { getIcon } from "@/lib/icons";
 
-export default function BusinessWebsitesClient({ data }) {
-  if (!data) return null;
+const DEFAULT_BUSINESS_DATA = {
+  hero: {
+    badge: "Enterprise Web Architecture",
+    title: "Business Websites",
+    subtitle: "Websites",
+    description:
+      "We design and engineer enterprise-grade web infrastructure built to scale. Sub-second load speeds, clean corporate aesthetics, high-converting lead funnels, and enterprise security.",
+  },
+  sections: {
+    verticals: [
+      {
+        title: "Corporate Authority Web",
+        desc: "Designed for conglomerates and established corporations requiring pristine credibility, investor relations clarity, and multi-tier leadership presentation.",
+        icon: "Business",
+      },
+      {
+        title: "High-Growth SME Engine",
+        desc: "Agile, lead-generation-focused web platforms with dynamic landing pages, direct WhatsApp / CRM integrations, and instant inquiry capture.",
+        icon: "Rocket",
+      },
+      {
+        title: "B2B & Industrial Solutions",
+        desc: "Comprehensive product catalogues, multi-spec request-for-quote (RFQ) flows, technical document downloads, and distributor locator tools.",
+        icon: "Layers",
+      },
+    ],
+    integrations: [
+      {
+        t: "CRM & Lead Automation",
+        d: "Instant synchronization with HubSpot, Salesforce, Zoho, and Google Sheets.",
+        icon: "GitNetwork",
+      },
+      {
+        t: "Server-Side Technical SEO",
+        d: "Next.js SSR for immediate search engine indexing and zero content flicker.",
+        icon: "Globe",
+      },
+      {
+        t: "Conversion Analytics",
+        d: "Google Tag Manager, heatmapping, and granular event tracking configured out-of-the-box.",
+        icon: "Analytics",
+      },
+      {
+        t: "Hardened Security Shield",
+        d: "Enterprise DDoS mitigation, automated TLS 1.3 encryption, and security audit readiness.",
+        icon: "Shield",
+      },
+    ],
+    pricingHeader: {
+      badge: "Commercial Packages",
+      title: "Bespoke Investments for",
+      focus: "Measurable Growth",
+    },
+    pricing: [
+      {
+        t: "Standard Business",
+        p: "$1,499",
+        list: [
+          "SME Focused Strategy & Wireframes",
+          "Sub-Second Edge Network Delivery",
+          "Mobile-First Responsive System",
+          "Core Technical SEO Configuration",
+          "Contact & WhatsApp Lead Capture",
+        ],
+        highlight: false,
+      },
+      {
+        t: "Growth Pro",
+        p: "$3,499",
+        list: [
+          "Bespoke Multi-Page Corporate Portal",
+          "Automated CRM & Webhook Flow",
+          "Multi-Language & Regional Routing",
+          "A/B Conversion Testing Modules",
+          "Dedicated Solutions Architect Access",
+        ],
+        highlight: true,
+      },
+      {
+        t: "Enterprise Suite",
+        p: "Custom",
+        list: [
+          "Complex Multi-Entity Architecture",
+          "Custom API & ERP Backend Sync",
+          "Enterprise SSO & Role-Based Portals",
+          "Full SLA Guarantee & 24/7 Monitoring",
+          "Legacy Platform Migration & Training",
+        ],
+        highlight: false,
+      },
+    ],
+  },
+  cta: {
+    title: "Ready to Accelerate Your Corporate Presence?",
+    subtitle:
+      "Schedule a discovery session with our senior engineers and digital architects to define your project requirements.",
+  },
+};
 
-  const { hero = {}, sections = {}, cta = {} } = data;
-  const verticals = sections.verticals || [];
-  const integrations = sections.integrations || [];
-  const pricing = sections.pricing || [];
+export default function BusinessWebsitesClient({ data }) {
+  const content = {
+    hero: {
+      ...DEFAULT_BUSINESS_DATA.hero,
+      ...(data?.hero || {}),
+    },
+    sections: {
+      verticals:
+        data?.sections?.verticals?.length > 0
+          ? data.sections.verticals
+          : DEFAULT_BUSINESS_DATA.sections.verticals,
+      integrations:
+        data?.sections?.integrations?.length > 0
+          ? data.sections.integrations
+          : DEFAULT_BUSINESS_DATA.sections.integrations,
+      pricingHeader: {
+        ...DEFAULT_BUSINESS_DATA.sections.pricingHeader,
+        ...(data?.sections?.pricingHeader || {}),
+      },
+      pricing:
+        data?.sections?.pricing?.length > 0
+          ? data.sections.pricing
+          : DEFAULT_BUSINESS_DATA.sections.pricing,
+    },
+    cta: {
+      ...DEFAULT_BUSINESS_DATA.cta,
+      ...(data?.cta || {}),
+    },
+  };
+
+  const { hero, sections, cta } = content;
 
   return (
-    <section className="min-h-screen bg-white selection:bg-blue-600 selection:text-white overflow-hidden relative flex flex-col">
-      {/* INDUSTRIAL OVERLAY */}
-      <div className="absolute top-0 opacity-10 pointer-events-none -z-10 w-full h-full">
-        <div className="absolute top-0 left-1/4 w-[1px] h-full bg-slate-200"></div>
-        <div className="absolute top-0 right-1/4 w-[1px] h-full bg-slate-200"></div>
-        <div className="absolute top-1/2 left-0 w-full h-[1px] bg-slate-200"></div>
-      </div>
+    <section className="min-h-screen bg-white flex flex-col relative selection:bg-brand-pink selection:text-white">
+      {/* Background Dot Texture */}
+      <div className="fixed inset-0 bg-[radial-gradient(#0F172A08_1px,transparent_1px)] [background-size:22px_22px] pointer-events-none z-0" />
 
-      <div className="container-custom py-10 lg:py-20 relative z-10">
-        {/* BUSINESS HERO */}
-        <div className="flex flex-col lg:flex-row items-center gap-5 lg:gap-6 mb-24 lg:mb-32">
-          <div className="flex-1 text-left">
+      <div className="relative z-10 flex flex-col flex-1">
+        {/* ── Hero ── */}
+        <div className="border-b border-slate-100 bg-white/70 backdrop-blur-sm">
+          <div className="container-custom pt-10 sm:pt-14 pb-8 flex flex-col items-center text-center gap-3 max-w-3xl mx-auto">
             <motion.div
-              initial={{ opacity: 0, x: -20 }}
-              animate={{ opacity: 1, x: 0 }}
-              className="inline-flex items-center gap-2 px-4 py-2 bg-blue-50 border border-blue-100 text-blue-700 text-[10px] sm:text-xs font-black tracking-widest uppercase mb-4 sm:mb-6 leading-[1.4] rounded-md"
+              initial={{ opacity: 0, y: -8 }}
+              animate={{ opacity: 1, y: 0 }}
+              className="inline-flex items-center gap-1.5 px-3 py-1 bg-brand-pink/8 border border-brand-pink/25 text-brand-pink text-[10px] font-black uppercase tracking-widest rounded-full leading-[1.4]"
             >
-              <IoRocketOutline className="text-sm" /> {hero.badge}
+              <span className="h-1.5 w-1.5 bg-brand-pink rounded-full shrink-0 animate-pulse" />
+              {hero.badge}
             </motion.div>
 
             <motion.h1
-              initial={{ opacity: 0, y: 30 }}
+              initial={{ opacity: 0, y: 12 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, ease: "circOut" }}
-              className="text-4xl sm:text-6xl md:text-8xl font-black text-slate-900 leading-[1.1] lg:leading-[0.9] mb-4 sm:mb-6 tracking-tighter"
+              transition={{ delay: 0.08 }}
+              className="text-2xl sm:text-3xl md:text-4xl font-black text-slate-900 leading-[1.2]"
             >
-              {hero.title} <br />
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-cyan-500 animate-gradient-x">{hero.subtitle}</span>
+              {(() => {
+                const fullTitle = (hero.title || "").trim();
+                const sub = (hero.subtitle || "").trim();
+                let prefix = fullTitle;
+                let highlight = sub;
+
+                if (sub && fullTitle.toLowerCase().endsWith(sub.toLowerCase())) {
+                  prefix = fullTitle.slice(0, fullTitle.length - sub.length).trim();
+                  highlight = sub;
+                } else if (!sub || fullTitle.toLowerCase() === sub.toLowerCase()) {
+                  const words = fullTitle.split(" ");
+                  if (words.length > 1) {
+                    highlight = words.pop();
+                    prefix = words.join(" ");
+                  } else {
+                    prefix = fullTitle;
+                    highlight = "";
+                  }
+                }
+
+                return (
+                  <span className="whitespace-nowrap">
+                    {prefix}
+                    {prefix && highlight ? " " : ""}
+                    {highlight && <span className="text-brand-green">{highlight}</span>}
+                  </span>
+                );
+              })()}
             </motion.h1>
 
             <motion.p
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ delay: 0.4 }}
-              className="text-slate-500 text-lg sm:text-xl font-light leading-[1.6] max-w-2xl mb-6 md:mb-8"
+              initial={{ opacity: 0, y: 12 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.15 }}
+              className="text-slate-500 text-sm md:text-base leading-[1.6] max-w-xl font-normal"
             >
               {hero.description}
             </motion.p>
 
-            <div className="flex flex-col sm:flex-row gap-3 sm:gap-4">
-              <button className="w-full sm:w-[280px] min-h-[48px] px-5 py-3 sm:py-4 bg-blue-600 text-white font-black hover:bg-blue-700 transition-all shadow-xl shadow-blue-600/20 uppercase text-[10px] sm:text-xs flex items-center justify-center leading-[1.4] rounded-md">
-                Initialize Consultation
-              </button>
+            <motion.div
+              initial={{ opacity: 0, y: 12 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.22 }}
+              className="flex flex-wrap items-center justify-center gap-3 pt-2"
+            >
               <Link
                 href="/services/business-websites/details"
-                className="w-full sm:w-[280px] min-h-[48px] px-5 py-3 sm:py-4 bg-white border border-slate-200 text-slate-900 font-black hover:bg-slate-50 transition-all uppercase text-[10px] sm:text-xs flex items-center justify-center text-center leading-[1.4] rounded-md"
+                className="inline-flex items-center gap-1.5 text-xs font-black uppercase tracking-widest text-brand-green hover:text-brand-pink transition-colors group leading-[1.4] py-2 px-3"
               >
-                Technical Specifications
+                View Technical Specifications{" "}
+                <IoArrowBackOutline className="rotate-180 group-hover:translate-x-1 transition-transform" />
               </Link>
-            </div>
-          </div>
-
-          <div className="flex-1 relative hidden lg:block">
-            <motion.div
-              initial={{ opacity: 0, scale: 0.9, rotate: 5 }}
-              animate={{ opacity: 1, scale: 1, rotate: 0 }}
-              transition={{ duration: 1 }}
-              className="relative p-6 lg:p-8 bg-white lg:-[4rem] border border-slate-100 shadow-2xl overflow-hidden rounded-lg"
-            >
-              <div className="absolute inset-0 opacity-[0.03] pointer-events-none" style={{ backgroundImage: "linear-gradient(#000 1px, transparent 1px), linear-gradient(90deg, #000 1px, transparent 1px)", backgroundSize: "50px 50px" }}></div>
-              <img
-                src={hero.mainImage}
-                width={800}
-                height={800}
-                fetchPriority="high"
-                onError={(e) => { e.target.onerror = null; e.target.src = '/images/placeholder.png'; }}
-                className="w-full aspect-square object-cover lg:-[3rem] grayscale hover:grayscale-0 transition-all duration-1000 shadow-inner bg-[#f0f0f0]"
-                alt="Business Growth"
-              
-decoding="async"/>
-              <div className="absolute top-4 left-1/2 -translate-x-1/2 font-mono text-[8px] text-slate-400 uppercase tracking-widest bg-white px-3 leading-[1.4]">
-                OPERATIONAL_GRID_v4.0
-              </div>
             </motion.div>
           </div>
         </div>
 
-        {/* SERVICE VERTICALS */}
-        <div className="mb-24 lg:mb-32">
-          <div className="flex flex-col md:flex-row justify-between items-end mb-8 sm:mb-12 gap-4 md:gap-6 border-l-4 border-blue-600 pl-4 sm:pl-6">
-            <div className="max-w-xl">
-              <h2 className="text-[10px] sm:text-xs font-black text-blue-600 uppercase tracking-widest mb-2 leading-[1.4]">{sections.verticalsHeader?.badge || "Industrial Standard"}</h2>
-              <p className="text-3xl sm:text-4xl md:text-5xl font-black text-slate-900 leading-[1.1]">
-                {sections.verticalsHeader?.title || "Architectures built for"} <span className="text-slate-400 italic font-serif font-light">{sections.verticalsHeader?.focus || "conversion & scale."}</span>
-              </p>
+        {/* ── Key Highlights Strip ── */}
+        <div className="border-b border-slate-100 bg-slate-50/80">
+          <div className="container-custom py-3.5">
+            <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 text-center divide-x divide-slate-200/60">
+              <div className="px-2">
+                <p className="text-xl sm:text-2xl font-black text-slate-900 leading-[1.1]">
+                  99.9%
+                </p>
+                <p className="text-[10px] font-black uppercase tracking-widest text-slate-400 mt-0.5 leading-[1.4]">
+                  Guaranteed Uptime
+                </p>
+              </div>
+              <div className="px-2">
+                <p className="text-xl sm:text-2xl font-black text-brand-pink leading-[1.1]">
+                  &lt; 0.8s
+                </p>
+                <p className="text-[10px] font-black uppercase tracking-widest text-slate-400 mt-0.5 leading-[1.4]">
+                  SSR Edge Response
+                </p>
+              </div>
+              <div className="px-2">
+                <p className="text-xl sm:text-2xl font-black text-brand-green leading-[1.1]">
+                  4x Lift
+                </p>
+                <p className="text-[10px] font-black uppercase tracking-widest text-slate-400 mt-0.5 leading-[1.4]">
+                  Lead Conversion Rate
+                </p>
+              </div>
+              <div className="px-2">
+                <p className="text-xl sm:text-2xl font-black text-slate-900 leading-[1.1]">
+                  24/7 SLA
+                </p>
+                <p className="text-[10px] font-black uppercase tracking-widest text-slate-400 mt-0.5 leading-[1.4]">
+                  Engineering Support
+                </p>
+              </div>
             </div>
           </div>
+        </div>
 
-          <div className="flex overflow-x-auto snap-x snap-mandatory lg:grid lg:grid-cols-3 gap-4 sm:gap-6 pb-8 lg:pb-0">
-            {verticals?.map((item, i) => (
+        {/* ── Verticals / Solutions ── */}
+        <div className="container-custom py-10">
+          <div className="text-center max-w-xl mx-auto mb-8">
+            <h2 className="text-[11px] font-black text-slate-400 uppercase tracking-widest mb-1.5 leading-[1.4]">
+              Solutions By Industry
+            </h2>
+            <p className="text-xl sm:text-2xl font-black text-slate-900 leading-[1.2]">
+              Specialized Infrastructure Built for Impact
+            </p>
+          </div>
+
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
+            {sections.verticals.map((item, idx) => (
               <motion.div
-                key={i}
-                initial={{ opacity: 0, y: 30 }}
+                key={idx}
+                initial={{ opacity: 0, y: 16 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                transition={{ delay: i * 0.1 }}
-                className="group cursor-default min-w-[280px] snap-center shrink-0 w-[85vw] lg:w-auto"
+                transition={{ delay: idx * 0.08 }}
+                className="bg-white border border-slate-200/80 hover:border-brand-pink/40 hover:shadow-lg transition-all rounded-xl p-6 relative flex flex-col group overflow-hidden"
               >
-                <div className={`bg-white rounded-lg lg:rounded-lg p-6 sm:p-8 h-full border ${item.border} shadow-sm shadow-slate-200/50 hover:shadow-xl transition-all lg:group-hover:-translate-y-2 relative overflow-hidden flex flex-col`}>
-                  <div
-                    className={`w-12 h-12 lg:w-14 lg:h-14 rounded-lg bg-gradient-to-br ${item.color} text-white flex items-center justify-center text-2xl lg:text-3xl mb-4 sm:mb-6 shadow-lg shrink-0`}
-                  >
-                    {getIcon(item.icon)}
-                  </div>
-                  <h3 className="text-xl sm:text-2xl font-black text-slate-900 mb-3 sm:mb-4 tracking-tighter uppercase leading-[1.1]">
-                    {item.title}
-                  </h3>
-                  <p className="text-slate-500 leading-[1.6] font-light text-sm sm:text-base flex-1">
-                    {item.desc}
-                  </p>
+                <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-brand-pink to-brand-green opacity-0 group-hover:opacity-100 transition-opacity" />
 
-                  <div className="mt-6 pt-6 border-t border-slate-50 flex items-center gap-2 text-[10px] sm:text-xs font-black text-slate-300 uppercase tracking-widest lg:group-hover:text-blue-600 transition-colors leading-[1.4]">
-                    Execution Verified <IoCheckmarkCircleOutline className="text-base sm:text-lg shrink-0" />
-                  </div>
+                <div className="w-11 h-11 rounded-lg bg-slate-50 border border-slate-100 text-slate-800 flex items-center justify-center text-xl mb-4 group-hover:bg-brand-pink/10 group-hover:text-brand-pink transition-colors shrink-0">
+                  {getIcon(item.icon) || <IoRocketOutline />}
                 </div>
+
+                <h3 className="text-lg font-black text-slate-900 mb-2 leading-[1.3]">
+                  {item.title}
+                </h3>
+                <p className="text-slate-500 text-sm leading-[1.6] flex-1">
+                  {item.desc}
+                </p>
               </motion.div>
             ))}
           </div>
         </div>
 
-        {/* LOGISTICS & INTEGRATION HUB */}
-        <div className="mb-16 sm:mb-24 bg-slate-900 sm:-[4rem] lg:-[5rem] p-6 sm:p-5 lg:p-8 relative overflow-hidden text-white rounded-lg">
-          <div className="absolute top-0 right-0 w-1/2 h-full bg-blue-600/10 blur-[150px] -z-10"></div>
-
-          <div className="grid lg:grid-cols-2 gap-4 lg:gap-6 items-center relative z-10">
-            <div>
-              <h2 className="text-3xl sm:text-4xl lg:text-7xl font-black mb-4 sm:mb-6 leading-[1.1] tracking-tighter">{sections.logistics?.title || "Unified Logistics."}</h2>
-              <p className="text-slate-400 text-base sm:text-lg font-light leading-[1.6] mb-6 sm:mb-10">{sections.logistics?.description || "We eliminate technical silos. Your website becomes the central node for your CRM, payments, and marketing automation."}</p>
-
-              <div className="grid grid-cols-2 gap-px bg-white/5 border border-white/5 overflow-hidden rounded-lg">
-                {integrations?.map((int, i) => (
-                  <div key={i} className="p-4 sm:p-6 hover:bg-white/5 transition-colors group rounded-md">
-                    <div className="text-blue-500 text-2xl mb-3 sm:mb-4 lg:group-hover:scale-110 transition-transform">{getIcon(int.icon)}</div>
-                    <h4 className="text-[10px] sm:text-xs font-black uppercase tracking-widest mb-1 leading-[1.4]">{int.t}</h4>
-                    <p className="text-[10px] text-slate-500 font-bold leading-[1.4]">{int.d}</p>
-                  </div>
-                ))}
-              </div>
+        {/* ── Enterprise Integrations ── */}
+        <div className="border-t border-b border-slate-100 bg-slate-50/60 py-10">
+          <div className="container-custom">
+            <div className="text-center max-w-xl mx-auto mb-8">
+              <h2 className="text-[11px] font-black text-slate-400 uppercase tracking-widest mb-1.5 leading-[1.4]">
+                Enterprise Stack
+              </h2>
+              <p className="text-xl sm:text-2xl font-black text-slate-900 leading-[1.2]">
+                Seamless Integrations &amp; Security Standards
+              </p>
             </div>
 
-            <div className="relative group lg:scale-105">
-              <div className="p-6 sm:p-8 bg-white/5 sm:-[3rem] border border-white/10 backdrop-blur-sm relative z-20 overflow-hidden rounded-lg">
-                <div className="flex justify-between items-center mb-6 sm:mb-8 border-b border-white/5 pb-4 sm:pb-6">
-                  <p className="text-[10px] font-black uppercase tracking-widest text-blue-500 leading-[1.4]">{sections.logistics?.badge || "Infrastructure_Health"}</p>
-                  <IoGlobeOutline className="text-emerald-500 animate-[spin_10s_linear_infinite]" />
-                </div>
-
-                <div className="space-y-4">
-                  <div className="flex items-center gap-4">
-                    <div className="w-16 h-1 bg-white/10 overflow-hidden flex-1"><motion.div initial={{ width: 0 }} whileInView={{ width: "94%" }} className="h-full bg-blue-500" /></div>
-                    <span className="text-[10px] sm:text-xs font-mono text-blue-400 leading-[1.4]">94.8%</span>
+            <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
+              {sections.integrations.map((item, idx) => (
+                <div
+                  key={idx}
+                  className="bg-white border border-slate-200/80 rounded-xl p-5 flex flex-col shadow-sm"
+                >
+                  <div className="w-9 h-9 rounded-lg bg-brand-green/10 text-brand-green flex items-center justify-center text-lg mb-3 shrink-0">
+                    {getIcon(item.icon) || <IoShieldCheckmarkOutline />}
                   </div>
-                  <div className="flex items-center gap-4">
-                    <div className="w-16 h-1 bg-white/10 overflow-hidden flex-1"><motion.div initial={{ width: 0 }} whileInView={{ width: "100%" }} className="h-full bg-emerald-500" /></div>
-                    <span className="text-[10px] sm:text-xs font-mono text-emerald-400 leading-[1.4]">100%_UP</span>
-                  </div>
+                  <h4 className="text-sm font-bold text-slate-900 mb-1 leading-[1.3]">
+                    {item.t}
+                  </h4>
+                  <p className="text-xs text-slate-500 leading-[1.5]">
+                    {item.d}
+                  </p>
                 </div>
-
-                <div className="mt-8 pt-6 border-t border-white/5 flex gap-3">
-                  <div className="w-8 h-8 bg-slate-800 flex items-center justify-center text-blue-400"><IoAnalyticsOutline /></div>
-                  <div className="w-8 h-8 bg-slate-800 flex items-center justify-center text-emerald-400"><IoShieldOutline /></div>
-                </div>
-              </div>
-              <div className="absolute -inset-10 bg-blue-600/20 blur-[100px] -z-10 group-hover:bg-blue-600/30 transition-all"></div>
+              ))}
             </div>
           </div>
         </div>
 
-        {/* PRICING SELECTOR */}
-        <div className="mb-24 lg:mb-32">
-          <div className="text-center max-w-2xl mx-auto mb-8 sm:mb-12">
-            <h2 className="text-[10px] sm:text-xs font-black text-blue-600 uppercase tracking-widest mb-2 leading-[1.4]">{sections.pricingHeader?.badge || "Scaling Tiers"}</h2>
-            <p className="text-2xl sm:text-4xl md:text-5xl font-black text-slate-900 leading-[1.1]">{sections.pricingHeader?.title || "Bespoke investment"} <span className="text-slate-400">{sections.pricingHeader?.focus || "for results."}</span></p>
+        {/* ── Pricing Packages ── */}
+        <div className="container-custom py-10">
+          <div className="text-center max-w-xl mx-auto mb-8">
+            <h2 className="text-[11px] font-black text-slate-400 uppercase tracking-widest mb-1.5 leading-[1.4]">
+              {sections.pricingHeader.badge}
+            </h2>
+            <p className="text-xl sm:text-2xl font-black text-slate-900 leading-[1.2]">
+              {sections.pricingHeader.title}{" "}
+              <span className="text-brand-green">
+                {sections.pricingHeader.focus}
+              </span>
+            </p>
           </div>
 
-          <div className="flex overflow-x-auto snap-x snap-mandatory md:grid md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 pb-8 md:pb-0">
-            {pricing?.map((tier, idx) => (
-              <div key={idx} className={`bg-white rounded-lg sm:rounded-lg p-6 sm:p-8 border min-w-[280px] snap-center shrink-0 w-[85vw] md:w-auto ${tier.highlight ? "border-blue-600 shadow-xl shadow-blue-600/10 md:-translate-y-4" : "border-slate-100 shadow-lg shadow-slate-200/50"} flex flex-col h-full relative overflow-hidden group transition-all`}>
-                <h4 className="text-xl sm:text-2xl font-black text-slate-900 mb-1 uppercase tracking-tighter leading-[1.1]">{tier.t}</h4>
-                <p className="text-3xl sm:text-4xl lg:text-5xl font-black text-slate-900 mb-6 sm:mb-8 leading-[1.1]">{tier.p}</p>
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 max-w-5xl mx-auto">
+            {sections.pricing.map((tier, idx) => (
+              <div
+                key={idx}
+                className={`bg-white rounded-xl p-6 sm:p-7 border flex flex-col relative transition-all ${
+                  tier.highlight
+                    ? "border-brand-pink ring-2 ring-brand-pink/15 shadow-xl shadow-brand-pink/5"
+                    : "border-slate-200/80 hover:border-slate-300 shadow-sm"
+                }`}
+              >
+                {tier.highlight && (
+                  <div className="absolute -top-3 right-6 bg-brand-pink text-white text-[10px] font-black uppercase tracking-widest px-3 py-0.5 rounded-full shadow-sm">
+                    Recommended
+                  </div>
+                )}
 
-                <div className="space-y-3 sm:space-y-4 mb-8 sm:mb-10 flex-1">
-                  {tier.list?.map(item => (
-                    <div key={item} className="flex gap-2 sm:gap-3 items-center text-slate-500 text-sm font-light leading-[1.6]">
-                      <IoCheckmarkCircleOutline className={`text-${tier.color}-600 text-base sm:text-lg shrink-0`} /> {item}
+                <h3 className="text-lg font-black text-slate-900 leading-[1.2]">
+                  {tier.t}
+                </h3>
+                <div className="my-4">
+                  <span className="text-3xl font-black text-slate-900 leading-[1]">
+                    {tier.p}
+                  </span>
+                  {tier.p !== "Custom" && (
+                    <span className="text-xs font-semibold text-slate-400 ml-1">
+                      / starting
+                    </span>
+                  )}
+                </div>
+
+                <div className="border-t border-slate-100 pt-4 flex flex-col gap-2.5 flex-1 mb-6">
+                  {tier.list?.map((feature, fIdx) => (
+                    <div
+                      key={fIdx}
+                      className="flex items-start gap-2 text-xs sm:text-sm text-slate-600 leading-[1.5]"
+                    >
+                      <IoCheckmarkCircleOutline className="text-brand-green text-base shrink-0 mt-0.5" />
+                      <span>{feature}</span>
                     </div>
                   ))}
                 </div>
 
-                <button className={`w-full min-h-[48px] py-4 rounded-lg font-black uppercase text-[10px] sm:text-xs transition-all shadow-md sm:shadow-xl shadow-slate-200/50 leading-[1.4] flex items-center justify-center ${tier.highlight ? "bg-blue-600 text-white shadow-blue-600/30" : "bg-slate-900 text-white hover:bg-blue-600"}`}>Select Deployment</button>
+                <Link
+                  href="/contact"
+                  className={`w-full min-h-[44px] py-3 rounded-lg font-black uppercase tracking-widest text-xs transition-all flex items-center justify-center leading-[1.4] text-center ${
+                    tier.highlight
+                      ? "bg-brand-pink text-white hover:bg-brand-pinkLight shadow-md shadow-brand-pink/20"
+                      : "bg-slate-900 text-white hover:bg-slate-800"
+                  }`}
+                >
+                  Select {tier.t}
+                </Link>
               </div>
             ))}
           </div>
         </div>
 
-        {/* CTA */}
-        <div className="text-center py-16 lg:py-24 border-t border-slate-100">
-          <IoBriefcaseOutline className="text-5xl sm:text-6xl lg:text-7xl text-blue-600 mb-6 sm:mb-8 mx-auto opacity-10" />
-          <h3 className="text-3xl sm:text-4xl lg:text-5xl font-black text-slate-900 mb-6 sm:mb-8 leading-[1.1]">{cta.title?.split('your ')[0]}your <br /><span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-indigo-600 font-serif italic font-medium">{cta.title?.split('your ')[1]}</span></h3>
-          <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center">
-            <button className="w-full sm:w-[280px] min-h-[48px] px-5 sm:px-6 py-4 bg-blue-600 text-white font-black hover:bg-blue-700 transition-all shadow-xl shadow-blue-600/40 uppercase tracking-widest text-[10px] sm:text-xs flex items-center justify-center leading-[1.4] rounded-md">
-              Initialize Build
-            </button>
-              <Link
-              href="/services/business-websites/details"
-              className="w-full sm:w-[280px] min-h-[48px] px-5 sm:px-6 py-4 bg-slate-900 text-white font-black hover:bg-slate-800 transition-all uppercase tracking-widest text-[10px] sm:text-xs flex items-center justify-center text-center leading-[1.4] rounded-md"
-            >
-              Technical Specifications
-            </Link>
+        {/* ── Conversion CTA ── */}
+        <div className="container-custom pb-12 pt-4">
+          <div className="bg-slate-900 text-white rounded-2xl p-8 sm:p-12 text-center relative overflow-hidden">
+            <div className="relative z-10 max-w-2xl mx-auto flex flex-col items-center gap-3">
+              <span className="inline-flex items-center gap-1.5 px-3 py-1 bg-white/10 text-white text-[10px] font-black uppercase tracking-widest rounded-full leading-[1.4]">
+                <IoRocketOutline className="text-brand-pink text-sm" />
+                Enterprise Scalability
+              </span>
+              <h3 className="text-2xl sm:text-3xl font-black leading-[1.2]">
+                {cta.title}
+              </h3>
+              <p className="text-slate-300 text-sm sm:text-base leading-[1.6] max-w-lg">
+                {cta.subtitle}
+              </p>
+
+              <div className="flex flex-col sm:flex-row gap-3 pt-3 w-full sm:w-auto">
+                <Link
+                  href="/contact"
+                  className="w-full sm:w-[220px] min-h-[44px] px-6 py-3 bg-brand-pink text-white font-black hover:bg-brand-pinkLight transition-all uppercase tracking-widest text-xs flex items-center justify-center rounded-lg shadow-md shadow-brand-pink/30 leading-[1.4]"
+                >
+                  Consult Senior Architect
+                </Link>
+                <Link
+                  href="/services/business-websites/details"
+                  className="w-full sm:w-[220px] min-h-[44px] px-6 py-3 bg-white/10 hover:bg-white/20 text-white border border-white/20 font-black transition-all uppercase tracking-widest text-xs flex items-center justify-center rounded-lg text-center leading-[1.4]"
+                >
+                  Technical Details
+                </Link>
+              </div>
+            </div>
           </div>
         </div>
       </div>
 
-      {/* Mobile Sticky CTA */}
-      <div className="sticky bottom-0 left-0 w-full p-[var(--gutter,16px)] bg-white/90 backdrop-blur-md border-t border-slate-200 z-50 md:hidden flex items-center justify-between shadow-[0_-10px_40px_rgba(0,0,0,0.05)] pb-[max(1rem,env(safe-area-inset-bottom))] mt-auto">
+      {/* ── Mobile Sticky CTA ── */}
+      <div className="sticky bottom-0 left-0 w-full p-3.5 bg-white/95 backdrop-blur-md border-t border-slate-200 z-50 md:hidden flex items-center justify-between shadow-[0_-8px_30px_rgba(0,0,0,0.06)] pb-[max(0.875rem,env(safe-area-inset-bottom))] mt-auto">
         <div className="flex flex-col gap-0.5">
-          <p className="text-[10px] font-black text-slate-500 uppercase tracking-widest leading-[1.4]">Start Project</p>
-          <p className="text-slate-900 font-bold text-sm leading-[1.4]">Consult Expert</p>
+          <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest leading-[1.3]">
+            Business Engineering
+          </p>
+          <p className="text-slate-900 font-extrabold text-sm leading-[1.3]">
+            Launch Business Site
+          </p>
         </div>
-        <button className="px-5 py-3 min-h-[48px] bg-blue-600 text-white font-black text-[10px] uppercase tracking-widest shadow-lg shadow-blue-600/30 leading-[1.4] flex items-center justify-center rounded-md">
+        <Link
+          href="/contact"
+          className="px-5 py-2.5 min-h-[44px] bg-brand-pink text-white font-black text-xs uppercase tracking-widest shadow-md shadow-brand-pink/20 leading-[1.4] flex items-center justify-center rounded-lg"
+        >
           Book Now
-        </button>
+        </Link>
       </div>
     </section>
   );

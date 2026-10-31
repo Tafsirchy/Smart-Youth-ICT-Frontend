@@ -1,253 +1,462 @@
 "use client";
 
+import { motion } from "framer-motion";
+import Link from "next/link";
 import {
   IoCartOutline,
   IoCheckmarkCircleOutline,
+  IoArrowBackOutline,
+  IoShieldCheckmarkOutline,
+  IoCardOutline,
   IoGitNetworkOutline,
   IoBagCheckOutline,
+  IoRocketOutline,
 } from "react-icons/io5";
-import { motion } from "framer-motion";
-import Link from "next/link";
 import { getIcon } from "@/lib/icons";
 
-export default function EcommerceClient({ data }) {
-  if (!data) return null;
+const DEFAULT_ECOMMERCE_DATA = {
+  hero: {
+    badge: "High-Conversion Commerce Architecture",
+    title: "E-commerce Development",
+    subtitle: "Development",
+    description:
+      "We architect high-conversion transaction engines designed for massive product catalogs, sub-second checkouts, real-time inventory synchronization, and multi-gateway payment processing.",
+  },
+  sections: {
+    verticals: [
+      {
+        title: "Direct-to-Consumer (D2C)",
+        desc: "Bespoke digital storefronts engineered for single-brand dominance. Ultra-fast product grids, frictionless 1-click checkouts, and mobile cart optimization.",
+        icon: "Cart",
+      },
+      {
+        title: "Multi-Vendor Marketplace",
+        desc: "Robust multi-merchant platforms with vendor commission splitting, automated payout schedules, dedicated seller dashboards, and unified logistics.",
+        icon: "People",
+      },
+      {
+        title: "B2B Wholesale Portals",
+        desc: "Enterprise bulk trade portals featuring tiered dynamic pricing, customer-specific price books, automated invoice generation, and credit terms.",
+        icon: "BagCheck",
+      },
+    ],
+    integrations: [
+      {
+        t: "Payment Logistics",
+        d: "Native integration for bKash, Nagad, SSLCommerz, Stripe, and Apple Pay.",
+        icon: "Card",
+      },
+      {
+        t: "Inventory Protocol",
+        d: "Real-time bi-directional sync with warehouse management and ERP backends.",
+        icon: "GitNetwork",
+      },
+      {
+        t: "Automated Logistics",
+        d: "Automated dispatch and tracking hooks with Pathao, Steadfast, and DHL.",
+        icon: "Globe",
+      },
+      {
+        t: "AI Fraud Prevention",
+        d: "Rule-based and behavioral scoring to prevent chargebacks and fraudulent orders.",
+        icon: "Shield",
+      },
+    ],
+    pricingHeader: {
+      badge: "Commercial Commerce Tiers",
+      title: "Storefront Engineering for",
+      focus: "High-Volume Sellers",
+    },
+    pricing: [
+      {
+        t: "D2C Foundations",
+        p: "$1,999",
+        list: [
+          "Single Brand Headless Architecture",
+          "Native Mobile Performance Optimization",
+          "Domestic & Global Payment Gateways",
+          "Core E-Commerce SEO Schema",
+          "Standard Automated Inventory Sync",
+        ],
+        highlight: false,
+      },
+      {
+        t: "Aggressive Growth",
+        p: "$4,499",
+        list: [
+          "Next.js Headless Commerce Core",
+          "Automated Abandoned Cart Recovery",
+          "Omni-Channel Messenger & SMS Alert Sync",
+          "High-Level Revenue & Margin Dashboard",
+          "Priority Logistics API Integrations",
+        ],
+        highlight: true,
+      },
+      {
+        t: "Marketplace Suite",
+        p: "Custom",
+        list: [
+          "Multi-Vendor Seller Portals & Payouts",
+          "Complex Commission & Tax Rule Engine",
+          "High-Volume Warehouse API Webhooks",
+          "Dedicated Infrastructure Security Layer",
+          "Legacy WooCommerce/Shopify Migration",
+        ],
+        highlight: false,
+      },
+    ],
+  },
+  cta: {
+    title: "Ready to Launch Your High-Conversion Store?",
+    subtitle:
+      "Connect with our senior e-commerce architects to plan your catalog structure, payment gateways, and launch roadmap.",
+  },
+};
 
-  const { hero = {}, sections = {}, cta = {} } = data;
-  const verticals = sections.verticals || [];
-  const integrations = sections.integrations || [];
-  const pricing = sections.pricing || [];
+export default function EcommerceClient({ data }) {
+  const content = {
+    hero: {
+      ...DEFAULT_ECOMMERCE_DATA.hero,
+      ...(data?.hero || {}),
+    },
+    sections: {
+      verticals:
+        data?.sections?.verticals?.length > 0
+          ? data.sections.verticals
+          : DEFAULT_ECOMMERCE_DATA.sections.verticals,
+      integrations:
+        data?.sections?.integrations?.length > 0
+          ? data.sections.integrations
+          : DEFAULT_ECOMMERCE_DATA.sections.integrations,
+      pricingHeader: {
+        ...DEFAULT_ECOMMERCE_DATA.sections.pricingHeader,
+        ...(data?.sections?.pricingHeader || {}),
+      },
+      pricing:
+        data?.sections?.pricing?.length > 0
+          ? data.sections.pricing
+          : DEFAULT_ECOMMERCE_DATA.sections.pricing,
+    },
+    cta: {
+      ...DEFAULT_ECOMMERCE_DATA.cta,
+      ...(data?.cta || {}),
+    },
+  };
+
+  const { hero, sections, cta } = content;
 
   return (
-    <section className="min-h-screen bg-slate-50 text-slate-900 selection:bg-rose-600 selection:text-white overflow-hidden relative flex flex-col">
-      {/* INDUSTRIAL OVERLAY */}
-      <div className="absolute top-0 opacity-10 pointer-events-none -z-10 w-full h-full">
-        <div className="absolute top-0 left-1/4 w-[1px] h-full bg-slate-200"></div>
-        <div className="absolute top-0 right-1/4 w-[1px] h-full bg-slate-200"></div>
-        <div className="absolute top-1/2 left-0 w-full h-[1px] bg-slate-200"></div>
-      </div>
+    <section className="min-h-screen bg-white flex flex-col relative selection:bg-brand-pink selection:text-white">
+      {/* Background Dot Texture */}
+      <div className="fixed inset-0 bg-[radial-gradient(#0F172A08_1px,transparent_1px)] [background-size:22px_22px] pointer-events-none z-0" />
 
-      <div className="container-custom py-10 relative z-10">
-        {/* ECOMMERCE HERO */}
-        <div className="flex flex-col lg:flex-row items-center gap-8 mb-48">
-          <div className="flex-1 text-left">
+      <div className="relative z-10 flex flex-col flex-1">
+        {/* ── Hero ── */}
+        <div className="border-b border-slate-100 bg-white/70 backdrop-blur-sm">
+          <div className="container-custom pt-10 sm:pt-14 pb-8 flex flex-col items-center text-center gap-3 max-w-3xl mx-auto">
             <motion.div
-              initial={{ opacity: 0, x: -20 }}
-              animate={{ opacity: 1, x: 0 }}
-              className="inline-flex items-center gap-2 px-4 sm:px-5 py-2 bg-rose-50 border border-rose-100 text-rose-700 text-xs font-black tracking-[0.4em] uppercase mb-4 sm:mb-10 rounded-md"
+              initial={{ opacity: 0, y: -8 }}
+              animate={{ opacity: 1, y: 0 }}
+              className="inline-flex items-center gap-1.5 px-3 py-1 bg-brand-pink/8 border border-brand-pink/25 text-brand-pink text-[10px] font-black uppercase tracking-widest rounded-full leading-[1.4]"
             >
-              <IoCartOutline className="text-sm" /> {hero.badge}
+              <span className="h-1.5 w-1.5 bg-brand-pink rounded-full shrink-0 animate-pulse" />
+              {hero.badge}
             </motion.div>
 
             <motion.h1
-              initial={{ opacity: 0, y: 30 }}
+              initial={{ opacity: 0, y: 12 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, ease: "circOut" }}
-              className="text-4xl sm:text-6xl md:text-8xl font-black text-slate-900 leading-[0.9] mb-6 sm:mb-8 tracking-tighter"
+              transition={{ delay: 0.08 }}
+              className="text-2xl sm:text-3xl md:text-4xl font-black text-slate-900 leading-[1.2]"
             >
-              {hero.title?.split(" ")[0]} <br />
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-pink-500 via-rose-500 to-indigo-500 animate-gradient-x">{hero.subtitle}</span>
+              {(() => {
+                const fullTitle = (hero.title || "").trim();
+                const sub = (hero.subtitle || "").trim();
+                let prefix = fullTitle;
+                let highlight = sub;
+
+                if (sub && fullTitle.toLowerCase().endsWith(sub.toLowerCase())) {
+                  prefix = fullTitle.slice(0, fullTitle.length - sub.length).trim();
+                  highlight = sub;
+                } else if (!sub || fullTitle.toLowerCase() === sub.toLowerCase()) {
+                  const words = fullTitle.split(" ");
+                  if (words.length > 1) {
+                    highlight = words.pop();
+                    prefix = words.join(" ");
+                  } else {
+                    prefix = fullTitle;
+                    highlight = "";
+                  }
+                }
+
+                return (
+                  <span className="whitespace-nowrap">
+                    {prefix}
+                    {prefix && highlight ? " " : ""}
+                    {highlight && <span className="text-brand-green">{highlight}</span>}
+                  </span>
+                );
+              })()}
             </motion.h1>
 
             <motion.p
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ delay: 0.4 }}
-              className="text-slate-600 text-lg sm:text-xl font-light leading-relaxed max-w-2xl mb-8 sm:mb-12"
+              initial={{ opacity: 0, y: 12 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.15 }}
+              className="text-slate-500 text-sm md:text-base leading-[1.6] max-w-xl font-normal"
             >
               {hero.description}
             </motion.p>
 
-            <div className="flex flex-col sm:flex-row gap-3 sm:gap-4">
-              <button className="w-full sm:w-[280px] min-h-[44px] px-6 sm:px-8 py-5 sm:py-6 bg-rose-600 text-white font-black hover:bg-rose-700 transition-all shadow-xl shadow-rose-600/20 uppercase tracking-widest text-xs flex items-center justify-center rounded-md">
-                Initialize Storefront
-              </button>
+            <motion.div
+              initial={{ opacity: 0, y: 12 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.22 }}
+              className="flex flex-wrap items-center justify-center gap-3 pt-2"
+            >
               <Link
                 href="/services/ecommerce/details"
-                className="w-full sm:w-[280px] min-h-[44px] px-6 sm:px-8 py-5 sm:py-6 bg-white border border-slate-200 text-slate-900 font-black hover:bg-slate-50 transition-all uppercase tracking-widest text-xs flex items-center justify-center text-center rounded-md"
+                className="inline-flex items-center gap-1.5 text-xs font-black uppercase tracking-widest text-brand-green hover:text-brand-pink transition-colors group leading-[1.4] py-2 px-3"
               >
-                Technical Specifications
+                View Technical Specifications{" "}
+                <IoArrowBackOutline className="rotate-180 group-hover:translate-x-1 transition-transform" />
               </Link>
-            </div>
-          </div>
-
-          <div className="flex-1 relative hidden lg:block">
-            <motion.div
-              initial={{ opacity: 0, scale: 0.9, rotate: -5 }}
-              animate={{ opacity: 1, scale: 1, rotate: 0 }}
-              transition={{ duration: 1 }}
-              className="relative p-12 bg-white -[4rem] border border-slate-100 shadow-2xl overflow-hidden rounded-md"
-            >
-              <div className="absolute inset-x-0 top-1/2 h-[1px] bg-slate-100"></div>
-              <div className="absolute inset-y-0 left-1/2 w-[1px] bg-slate-100"></div>
-
-              <div className="grid grid-cols-2 gap-4 relative z-10 aspect-square">
-                <motion.div animate={{ y: [0, -10, 0] }} transition={{ duration: 4, repeat: Infinity }} className="p-8 bg-rose-50 border border-rose-100 flex flex-col justify-between shadow-sm shadow-rose-100 rounded-lg">
-                  <div className="w-10 h-10 bg-rose-600"></div>
-                  <div className="space-y-2">
-                    <div className="h-1.5 w-full bg-rose-200"></div>
-                    <div className="h-1.5 w-3/4 bg-rose-200"></div>
-                  </div>
-                </motion.div>
-                <motion.div animate={{ y: [10, 0, 10] }} transition={{ duration: 4, repeat: Infinity }} className="p-8 bg-slate-900 flex flex-col justify-end rounded-lg">
-                  <div className="h-10 bg-white/10 flex items-center justify-center text-xs font-black text-rose-400">SECURE_SYNC</div>
-                </motion.div>
-                <motion.div className="col-span-2 p-8 bg-white border border-slate-100 shadow-xl flex items-center justify-between rounded-lg">
-                  <div className="flex gap-2">
-                    <div className="w-8 h-8 bg-rose-100"></div>
-                    <div className="w-8 h-8 bg-slate-100"></div>
-                  </div>
-                  <div className="w-32 h-6 bg-slate-50"></div>
-                </motion.div>
-              </div>
             </motion.div>
           </div>
         </div>
 
-        {/* SERVICE VERTICALS */}
-        <div className="mb-48">
-          <div className="flex flex-col md:flex-row justify-between items-end mb-12 sm:mb-24 gap-4 border-l-4 border-rose-600 pl-6 sm:pl-8 rounded-lg">
-            <div className="max-w-xl">
-              <h2 className="text-xs font-black text-rose-600 uppercase tracking-[0.4em] mb-2 font-bold">Commerce Standard</h2>
-              <p className="text-3xl sm:text-4xl md:text-5xl font-black text-slate-900 leading-tight">
-                Architectures built for <span className="text-slate-400 italic font-serif font-light">transactional dominance.</span>
-              </p>
+        {/* ── Key Highlights Strip ── */}
+        <div className="border-b border-slate-100 bg-slate-50/80">
+          <div className="container-custom py-3.5">
+            <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 text-center divide-x divide-slate-200/60">
+              <div className="px-2">
+                <p className="text-xl sm:text-2xl font-black text-slate-900 leading-[1.1]">
+                  1-Click
+                </p>
+                <p className="text-[10px] font-black uppercase tracking-widest text-slate-400 mt-0.5 leading-[1.4]">
+                  Frictionless Checkout
+                </p>
+              </div>
+              <div className="px-2">
+                <p className="text-xl sm:text-2xl font-black text-brand-pink leading-[1.1]">
+                  0.3s
+                </p>
+                <p className="text-[10px] font-black uppercase tracking-widest text-slate-400 mt-0.5 leading-[1.4]">
+                  Cart Add Latency
+                </p>
+              </div>
+              <div className="px-2">
+                <p className="text-xl sm:text-2xl font-black text-brand-green leading-[1.1]">
+                  100%
+                </p>
+                <p className="text-[10px] font-black uppercase tracking-widest text-slate-400 mt-0.5 leading-[1.4]">
+                  PCI-DSS Compliant
+                </p>
+              </div>
+              <div className="px-2">
+                <p className="text-xl sm:text-2xl font-black text-slate-900 leading-[1.1]">
+                  Real-Time
+                </p>
+                <p className="text-[10px] font-black uppercase tracking-widest text-slate-400 mt-0.5 leading-[1.4]">
+                  Inventory Sync
+                </p>
+              </div>
             </div>
           </div>
+        </div>
 
-          <div className="flex overflow-x-auto snap-x snap-mandatory lg:grid lg:grid-cols-3 gap-6 sm:gap-4 pb-8 lg:pb-0">
-            {verticals?.map((item, i) => (
+        {/* ── Commerce Verticals ── */}
+        <div className="container-custom py-10">
+          <div className="text-center max-w-xl mx-auto mb-8">
+            <h2 className="text-[11px] font-black text-slate-400 uppercase tracking-widest mb-1.5 leading-[1.4]">
+              Commerce Models
+            </h2>
+            <p className="text-xl sm:text-2xl font-black text-slate-900 leading-[1.2]">
+              Architected for Every Retail Strategy
+            </p>
+          </div>
+
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
+            {sections.verticals.map((item, idx) => (
               <motion.div
-                key={i}
-                initial={{ opacity: 0, y: 30 }}
+                key={idx}
+                initial={{ opacity: 0, y: 16 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                transition={{ delay: i * 0.1 }}
-                className="group cursor-default min-w-[280px] snap-center shrink-0 w-[85vw] lg:w-auto"
+                transition={{ delay: idx * 0.08 }}
+                className="bg-white border border-slate-200/80 hover:border-brand-pink/40 hover:shadow-lg transition-all rounded-xl p-6 relative flex flex-col group overflow-hidden"
               >
-                <div className={`bg-white rounded-lg sm:rounded-lg p-8 sm:p-6 h-full border ${item.border} shadow-sm shadow-slate-200/50 hover:shadow-xl transition-all lg:group-hover:-translate-y-2 relative overflow-hidden`}>
-                  <div
-                    className={`w-14 h-14 rounded-lg bg-gradient-to-br ${item.color} text-white flex items-center justify-center text-3xl mb-4 sm:mb-10 shadow-lg`}
-                  >
-                    {getIcon(item.icon)}
-                  </div>
-                  <h3 className="text-xl sm:text-2xl font-black text-slate-900 mb-4 sm:mb-3 tracking-tighter uppercase leading-none">
-                    {item.title}
-                  </h3>
-                  <p className="text-slate-500 leading-relaxed font-light text-base sm:text-lg">
-                    {item.desc}
-                  </p>
+                <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-brand-pink to-brand-green opacity-0 group-hover:opacity-100 transition-opacity" />
+
+                <div className="w-11 h-11 rounded-lg bg-slate-50 border border-slate-100 text-slate-800 flex items-center justify-center text-xl mb-4 group-hover:bg-brand-pink/10 group-hover:text-brand-pink transition-colors shrink-0">
+                  {getIcon(item.icon) || <IoCartOutline />}
                 </div>
+
+                <h3 className="text-lg font-black text-slate-900 mb-2 leading-[1.3]">
+                  {item.title}
+                </h3>
+                <p className="text-slate-500 text-sm leading-[1.6] flex-1">
+                  {item.desc}
+                </p>
               </motion.div>
             ))}
           </div>
         </div>
 
-        {/* INTEGRATION HUB */}
-        <div className="mb-32 sm:mb-48 bg-white sm:-[4rem] lg:-[5rem] p-5 sm:p-5 lg:p-8 border border-slate-100 shadow-2xl shadow-slate-200/50 relative overflow-hidden rounded-lg">
-          <div className="absolute top-0 right-0 w-1/3 h-full bg-rose-50/50 -skew-x-[20deg] origin-top translate-x-1/2 opacity-50"></div>
-
-          <div className="grid lg:grid-cols-2 gap-6 lg:gap-8 items-center relative z-10">
-            <div>
-              <h2 className="text-4xl sm:text-5xl lg:text-6xl font-black text-slate-900 leading-[0.9] mb-8 sm:mb-10">Atomic <br /><span className="text-rose-600 font-serif italic font-medium">Logistics.</span></h2>
-              <p className="text-slate-500 text-lg sm:text-xl font-light leading-relaxed mb-10 sm:mb-12">We don't just bridge code; we bridge revenue. Every integration is engineered for zero-latency sync and absolute data integrity.</p>
-
-              <div className="grid grid-cols-2 gap-4 sm:gap-6 pt-8 sm:pt-10 border-t border-slate-200">
-                {integrations?.map((int, i) => (
-                  <div key={i} className="flex flex-col sm:flex-row items-start sm:items-center gap-3 sm:gap-4 group">
-                    <div className="w-10 h-10 sm:w-12 sm:h-12 shrink-0 bg-slate-50 flex items-center justify-center text-rose-500 border border-slate-100 lg:group-hover:bg-rose-500 lg:group-hover:text-white transition-all transform lg:group-hover:rotate-6 rounded-lg">
-                      {getIcon(int.icon)}
-                    </div>
-                    <div>
-                      <h4 className="text-xs font-black text-slate-900 uppercase tracking-widest">{int.t}</h4>
-                      <p className="text-xs text-slate-400 font-bold">{int.d}</p>
-                    </div>
-                  </div>
-                ))}
-              </div>
+        {/* ── Payment & Logistics Integrations ── */}
+        <div className="border-t border-b border-slate-100 bg-slate-50/60 py-10">
+          <div className="container-custom">
+            <div className="text-center max-w-xl mx-auto mb-8">
+              <h2 className="text-[11px] font-black text-slate-400 uppercase tracking-widest mb-1.5 leading-[1.4]">
+                Commerce Ecosystem
+              </h2>
+              <p className="text-xl sm:text-2xl font-black text-slate-900 leading-[1.2]">
+                Payments, Courier APIs &amp; Logistics Pipelines
+              </p>
             </div>
 
-            <div className="relative group lg:scale-110">
-              <div className="p-8 sm:p-12 bg-slate-900 sm:-[4rem] text-white shadow-2xl relative overflow-hidden rounded-lg">
-                <div className="flex justify-between items-center mb-10 sm:mb-16 border-b border-white/5 pb-6 sm:pb-8 font-mono text-[10px] tracking-[0.4em] text-white/40">
-                  <span>HUB_ID_PROX_88</span>
-                  <span>CORE_STATUS::UP</span>
-                </div>
-
-                <div className="space-y-6 sm:space-y-4">
-                  <div className="flex items-center gap-4 sm:gap-6">
-                    <div className="w-10 h-10 sm:w-12 sm:h-12 bg-rose-500 flex items-center justify-center text-white text-xl sm:text-2xl"><IoGitNetworkOutline /></div>
-                    <div className="flex-1 space-y-2">
-                      <div className="h-1.5 bg-white/10 w-full"></div>
-                      <div className="h-1.5 bg-white/5 w-1/2"></div>
-                    </div>
+            <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
+              {sections.integrations.map((item, idx) => (
+                <div
+                  key={idx}
+                  className="bg-white border border-slate-200/80 rounded-xl p-5 flex flex-col shadow-sm"
+                >
+                  <div className="w-9 h-9 rounded-lg bg-brand-green/10 text-brand-green flex items-center justify-center text-lg mb-3 shrink-0">
+                    {getIcon(item.icon) || <IoShieldCheckmarkOutline />}
                   </div>
-                  <div className="p-6 sm:p-8 bg-white/5 border border-white/5 rounded-lg">
-                    <p className="text-emerald-400 font-mono text-[10px] sm:text-xs mb-4 tracking-tighter">DATALOAD::VERIFIED</p>
-                    <div className="flex gap-2 sm:gap-4">
-                      {[1, 2, 3, 4].map(i => <div key={i} className="h-6 sm:h-8 flex-1 bg-white/5 border border-white/5 rounded-lg"></div>)}
-                    </div>
-                  </div>
+                  <h4 className="text-sm font-bold text-slate-900 mb-1 leading-[1.3]">
+                    {item.t}
+                  </h4>
+                  <p className="text-xs text-slate-500 leading-[1.5]">
+                    {item.d}
+                  </p>
                 </div>
-              </div>
+              ))}
             </div>
           </div>
         </div>
 
-        {/* PRICING */}
-        <div className="mb-48">
-          <div className="text-center max-w-2xl mx-auto mb-16 sm:mb-20">
-            <h2 className="text-xs font-black text-rose-600 uppercase tracking-[0.4em] mb-2 font-bold">Commerce Tiers</h2>
-            <p className="text-3xl sm:text-4xl md:text-5xl font-black text-slate-900 leading-tight">Select your <span className="text-slate-400">market engine.</span></p>
+        {/* ── Pricing Packages ── */}
+        <div className="container-custom py-10">
+          <div className="text-center max-w-xl mx-auto mb-8">
+            <h2 className="text-[11px] font-black text-slate-400 uppercase tracking-widest mb-1.5 leading-[1.4]">
+              {sections.pricingHeader.badge}
+            </h2>
+            <p className="text-xl sm:text-2xl font-black text-slate-900 leading-[1.2]">
+              {sections.pricingHeader.title}{" "}
+              <span className="text-brand-green">
+                {sections.pricingHeader.focus}
+              </span>
+            </p>
           </div>
 
-          <div className="flex overflow-x-auto snap-x snap-mandatory md:grid md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-4 pb-8 md:pb-0">
-            {pricing?.map((tier, idx) => (
-              <div key={idx} className={`bg-white rounded-lg sm:rounded-lg p-8 sm:p-12 border min-w-[280px] snap-center shrink-0 w-[85vw] md:w-auto ${tier.highlight ? "border-rose-500 shadow-xl shadow-rose-500/10 md:-translate-y-4" : "border-slate-100 shadow-lg shadow-slate-200/50"} flex flex-col h-full relative overflow-hidden group transition-all`}>
-                <h4 className="text-2xl sm:text-3xl font-black text-slate-900 mb-2 uppercase tracking-tighter">{tier.t}</h4>
-                <p className="text-4xl sm:text-5xl font-black text-slate-900 mb-8 sm:mb-12">{tier.p}</p>
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 max-w-5xl mx-auto">
+            {sections.pricing.map((tier, idx) => (
+              <div
+                key={idx}
+                className={`bg-white rounded-xl p-6 sm:p-7 border flex flex-col relative transition-all ${
+                  tier.highlight
+                    ? "border-brand-pink ring-2 ring-brand-pink/15 shadow-xl shadow-brand-pink/5"
+                    : "border-slate-200/80 hover:border-slate-300 shadow-sm"
+                }`}
+              >
+                {tier.highlight && (
+                  <div className="absolute -top-3 right-6 bg-brand-pink text-white text-[10px] font-black uppercase tracking-widest px-3 py-0.5 rounded-full shadow-sm">
+                    Recommended
+                  </div>
+                )}
 
-                <div className="space-y-4 sm:space-y-5 mb-10 sm:mb-12 flex-1">
-                  {tier.list?.map(item => (
-                    <div key={item} className="flex gap-3 items-center text-slate-500 text-sm font-light">
-                      <IoCheckmarkCircleOutline className={`text-rose-600 text-lg shrink-0`} /> {item}
+                <h3 className="text-lg font-black text-slate-900 leading-[1.2]">
+                  {tier.t}
+                </h3>
+                <div className="my-4">
+                  <span className="text-3xl font-black text-slate-900 leading-[1]">
+                    {tier.p}
+                  </span>
+                  {tier.p !== "Custom" && (
+                    <span className="text-xs font-semibold text-slate-400 ml-1">
+                      / starting
+                    </span>
+                  )}
+                </div>
+
+                <div className="border-t border-slate-100 pt-4 flex flex-col gap-2.5 flex-1 mb-6">
+                  {tier.list?.map((feature, fIdx) => (
+                    <div
+                      key={fIdx}
+                      className="flex items-start gap-2 text-xs sm:text-sm text-slate-600 leading-[1.5]"
+                    >
+                      <IoCheckmarkCircleOutline className="text-brand-green text-base shrink-0 mt-0.5" />
+                      <span>{feature}</span>
                     </div>
                   ))}
                 </div>
 
-                <button className={`w-full min-h-[44px] py-5 sm:py-6 rounded-lg font-black uppercase tracking-widest text-xs transition-all shadow-md sm:shadow-xl shadow-slate-200/50 ${tier.highlight ? "bg-rose-600 text-white shadow-rose-600/30" : "bg-slate-900 text-white hover:bg-rose-600 font-black"}`}>Initialize Build</button>
+                <Link
+                  href="/contact"
+                  className={`w-full min-h-[44px] py-3 rounded-lg font-black uppercase tracking-widest text-xs transition-all flex items-center justify-center leading-[1.4] text-center ${
+                    tier.highlight
+                      ? "bg-brand-pink text-white hover:bg-brand-pinkLight shadow-md shadow-brand-pink/20"
+                      : "bg-slate-900 text-white hover:bg-slate-800"
+                  }`}
+                >
+                  Select {tier.t}
+                </Link>
               </div>
             ))}
           </div>
         </div>
 
-        {/* CTA */}
-        <div className="text-center py-40 border-t border-slate-100">
-          <IoBagCheckOutline className="text-7xl text-rose-600 mb-10 sm:mb-12 mx-auto opacity-10" />
-          <h3 className="text-4xl sm:text-5xl lg:text-6xl font-black text-slate-900 mb-10 sm:mb-12 leading-tight">{cta.title?.split('your ')[0]}your <br /><span className="text-transparent bg-clip-text bg-gradient-to-r from-rose-600 to-indigo-600 font-serif italic font-medium">{cta.title?.split('your ')[1]}</span></h3>
-          <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center">
-            <button className="w-full sm:w-[280px] min-h-[44px] px-6 sm:px-8 py-5 sm:py-6 bg-rose-600 text-white font-black hover:bg-rose-700 transition-all shadow-xl shadow-rose-600/40 uppercase tracking-widest text-xs flex items-center justify-center rounded-md">
-              Initialize Build
-            </button>
-              <Link
-              href="/services/ecommerce/details"
-              className="w-full sm:w-[280px] min-h-[44px] px-6 sm:px-8 py-5 sm:py-6 bg-slate-900 text-white font-black hover:bg-slate-800 transition-all uppercase tracking-widest text-xs flex items-center justify-center text-center rounded-md"
-            >
-              Technical Specifications
-            </Link>
+        {/* ── Conversion CTA ── */}
+        <div className="container-custom pb-12 pt-4">
+          <div className="bg-slate-900 text-white rounded-2xl p-8 sm:p-12 text-center relative overflow-hidden">
+            <div className="relative z-10 max-w-2xl mx-auto flex flex-col items-center gap-3">
+              <span className="inline-flex items-center gap-1.5 px-3 py-1 bg-white/10 text-white text-[10px] font-black uppercase tracking-widest rounded-full leading-[1.4]">
+                <IoRocketOutline className="text-brand-pink text-sm" />
+                Scale Your Revenue
+              </span>
+              <h3 className="text-2xl sm:text-3xl font-black leading-[1.2]">
+                {cta.title}
+              </h3>
+              <p className="text-slate-300 text-sm sm:text-base leading-[1.6] max-w-lg">
+                {cta.subtitle}
+              </p>
+
+              <div className="flex flex-col sm:flex-row gap-3 pt-3 w-full sm:w-auto">
+                <Link
+                  href="/contact"
+                  className="w-full sm:w-[220px] min-h-[44px] px-6 py-3 bg-brand-pink text-white font-black hover:bg-brand-pinkLight transition-all uppercase tracking-widest text-xs flex items-center justify-center rounded-lg shadow-md shadow-brand-pink/30 leading-[1.4]"
+                >
+                  Consult E-Commerce Expert
+                </Link>
+                <Link
+                  href="/services/ecommerce/details"
+                  className="w-full sm:w-[220px] min-h-[44px] px-6 py-3 bg-white/10 hover:bg-white/20 text-white border border-white/20 font-black transition-all uppercase tracking-widest text-xs flex items-center justify-center rounded-lg text-center leading-[1.4]"
+                >
+                  Technical Details
+                </Link>
+              </div>
+            </div>
           </div>
         </div>
       </div>
 
-      {/* Mobile Sticky CTA */}
-      <div className="sticky bottom-0 left-0 w-full p-4 bg-white/90 backdrop-blur-md border-t border-slate-200 z-50 md:hidden flex items-center justify-between shadow-[0_-10px_40px_rgba(0,0,0,0.05)] pb-[max(1rem,env(safe-area-inset-bottom))] mt-auto">
-        <div>
-          <p className="text-xs font-black text-slate-500 uppercase tracking-widest">Start Store</p>
-          <p className="text-slate-900 font-bold text-sm">Consult Expert</p>
+      {/* ── Mobile Sticky CTA ── */}
+      <div className="sticky bottom-0 left-0 w-full p-3.5 bg-white/95 backdrop-blur-md border-t border-slate-200 z-50 md:hidden flex items-center justify-between shadow-[0_-8px_30px_rgba(0,0,0,0.06)] pb-[max(0.875rem,env(safe-area-inset-bottom))] mt-auto">
+        <div className="flex flex-col gap-0.5">
+          <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest leading-[1.3]">
+            Storefront Engineering
+          </p>
+          <p className="text-slate-900 font-extrabold text-sm leading-[1.3]">
+            Start E-Commerce Project
+          </p>
         </div>
-        <button className="px-5 py-3 min-h-[44px] bg-rose-600 text-white font-black text-xs uppercase tracking-widest shadow-lg shadow-rose-600/30 rounded-md">
-          Build Now
-        </button>
+        <Link
+          href="/contact"
+          className="px-5 py-2.5 min-h-[44px] bg-brand-pink text-white font-black text-xs uppercase tracking-widest shadow-md shadow-brand-pink/20 leading-[1.4] flex items-center justify-center rounded-lg"
+        >
+          Book Now
+        </Link>
       </div>
     </section>
   );
