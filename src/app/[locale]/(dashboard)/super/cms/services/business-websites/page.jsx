@@ -134,7 +134,7 @@ export default function BusinessCMS() {
  <IoBusinessOutline className="text-lg" />
  <span className="text-[9px] font-black uppercase tracking-[0.4em]">Service_Tier_Web_Core</span>
  </div>
- <h1 className="text-2xl sm:text-3xl font-black text-slate-900 tracking-tight leading-[1.2]">Business Websites</h1>
+ <h1 className="text-2xl sm:text-3xl font-black text-slate-900 tracking-tight leading-[1.2]">Business</h1>
  <p className="text-slate-400 font-bold uppercase tracking-wider text-[9px] mt-0.5 leading-[1.4]">Centralized Administrative Node</p>
  </div>
  <button 

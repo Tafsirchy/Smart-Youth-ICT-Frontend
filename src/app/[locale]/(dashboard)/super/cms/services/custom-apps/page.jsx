@@ -128,7 +128,7 @@ export default function CustomAppsCMS() {
  <IoAppsOutline className="text-lg" />
  <span className="text-[9px] font-black uppercase tracking-[0.4em]">Service_Tier_Bespoke_Apps</span>
  </div>
- <h1 className="text-2xl sm:text-3xl font-black text-slate-900 tracking-tight leading-[1.2]">Custom Web Applications</h1>
+ <h1 className="text-2xl sm:text-3xl font-black text-slate-900 tracking-tight leading-[1.2]">Custom Web</h1>
  <p className="text-slate-400 font-bold uppercase tracking-wider text-[9px] mt-0.5 leading-[1.4]">Centralized Software Lab</p>
  </div>
  <button 
