@@ -136,39 +136,40 @@ export default function SeminarPage() {
   return (
     <div className="min-h-screen flex flex-col bg-slate-50 font-sans">
       {/* ── Hero ── */}
-      <section className="relative pt-20 pb-10 px-4 text-center bg-white border-b border-slate-100">
-        <div className="relative z-10 max-w-3xl mx-auto">
-          <div className="flex items-center justify-center gap-3 mb-4">
-            <div className="w-6 h-[1px] bg-slate-300"></div>
-            <span className="text-xs font-bold uppercase tracking-[0.2em] text-cyan-600 bg-cyan-50 px-3 py-1 rounded-full border border-cyan-100">
+      <section className="relative pt-10 md:pt-12 pb-6 px-4 text-center bg-white border-b border-slate-100">
+        <div className="relative z-10 max-w-4xl mx-auto">
+          <div className="flex items-center justify-center gap-2 mb-2.5">
+            <div className="w-5 h-[1px] bg-slate-300"></div>
+            <span className="text-xs font-bold uppercase tracking-[0.2em] text-cyan-600 bg-cyan-50 px-2.5 py-0.5 rounded-full border border-cyan-100 leading-[1.4]">
               Free Career Events
             </span>
-            <div className="w-6 h-[1px] bg-slate-300"></div>
+            <div className="w-5 h-[1px] bg-slate-300"></div>
           </div>
 
-          <h1 className="text-4xl sm:text-5xl md:text-6xl font-light text-slate-900 leading-[1.08] tracking-tight mb-4">
+          <h1 className="text-4xl sm:text-5xl md:text-6xl font-light text-slate-900 leading-[1.08] mb-2.5">
             Join Our Free <br />
             <span className="font-extrabold bg-gradient-to-r from-slate-900 via-cyan-800 to-blue-700 bg-clip-text text-transparent">
               Branch Career Seminars.
             </span>
           </h1>
 
-          <p className="text-slate-500 text-lg md:text-xl leading-relaxed max-w-2xl mx-auto font-light mb-6">
-            Arranged directly across all our regional campus branches and online — discover how to launch your IT career in just 2 hours.
+          <p className="text-slate-500 text-base sm:text-lg md:text-xl leading-[1.6] max-w-4xl mx-auto font-light mb-4">
+            <span className="block">Arranged directly across all our regional campus branches and online —</span>
+            <span className="block">discover how to launch your IT career in just 2 hours.</span>
           </p>
 
           {/* Quick meta stats */}
-          <div className="flex flex-wrap justify-center gap-4 text-xs sm:text-sm text-slate-600 font-semibold">
-            <span className="flex items-center gap-1.5">
+          <div className="flex flex-nowrap items-center justify-center gap-3 sm:gap-4 md:gap-5 text-xs sm:text-sm text-slate-600 font-semibold leading-[1.4] whitespace-nowrap overflow-x-auto max-w-full">
+            <span className="flex items-center gap-1.5 shrink-0">
               <IoCalendarOutline className="text-cyan-600" size={16} /> Regular Campus Schedules
             </span>
-            <span className="flex items-center gap-1.5">
+            <span className="flex items-center gap-1.5 shrink-0">
               <IoTimeOutline className="text-cyan-600" size={16} /> 2-Hour Intensive Workshop
             </span>
-            <span className="flex items-center gap-1.5">
+            <span className="flex items-center gap-1.5 shrink-0">
               <IoLocationOutline className="text-rose-500" size={16} /> In-Person &amp; Online Hybrid
             </span>
-            <span className="flex items-center gap-1.5">
+            <span className="flex items-center gap-1.5 shrink-0">
               <IoPeopleOutline className="text-indigo-600" size={16} /> Limited Reserved Seats
             </span>
           </div>
@@ -176,15 +177,15 @@ export default function SeminarPage() {
       </section>
 
       {/* ── Content ── */}
-      <div className="container-lg mx-auto px-4 py-10 md:py-14">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-start max-w-6xl mx-auto">
+      <div className="container-lg mx-auto px-4 py-6 md:py-8">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-5 lg:gap-6 items-start max-w-6xl mx-auto">
           {/* Left — Benefits */}
           <div>
-            <h2 className="text-2xl md:text-3xl font-bold text-slate-900 mb-4 tracking-tight">
+            <h2 className="text-2xl md:text-3xl font-bold text-slate-900 mb-3 leading-[1.2]">
               What You&apos;ll Get from this Session 🎁
             </h2>
 
-            <div className="space-y-2 mb-6">
+            <div className="space-y-2 mb-4">
               {BENEFITS.map((b, i) => (
                 <motion.div
                   key={i}
@@ -192,7 +193,7 @@ export default function SeminarPage() {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ delay: i * 0.1 }}
-                  className="flex items-center gap-3 bg-white border border-slate-100 p-4 hover:border-slate-300 hover:shadow-md transition-all duration-300 rounded-2xl"
+                  className="flex items-center gap-3 bg-white border border-slate-100 py-2.5 px-3.5 hover:border-slate-300 hover:shadow-md transition-all duration-300 rounded-2xl"
                 >
                   <span className="text-2xl shrink-0">{b.icon}</span>
                   <span className="font-semibold text-slate-700 text-sm md:text-base leading-[1.4]">{b.text}</span>
@@ -201,11 +202,11 @@ export default function SeminarPage() {
             </div>
 
             {/* Social proof */}
-            <div className="bg-slate-900 p-6 text-white rounded-3xl shadow-xl space-y-2">
-              <p className="font-bold text-2xl tracking-tight text-white flex items-center gap-2">
+            <div className="bg-slate-900 p-4 sm:p-5 text-white rounded-3xl shadow-xl space-y-1.5">
+              <p className="font-bold text-2xl text-white flex items-center gap-2 leading-[1.3]">
                 <span>🚀 Join 5,000+ Students</span>
               </p>
-              <p className="text-slate-400 font-normal leading-relaxed text-sm">
+              <p className="text-slate-400 font-normal leading-[1.6] text-sm">
                 Students across Bogura, Chattogram, Khulna, Mirpur, Cumilla, and beyond kickstart their tech journey through our branch seminars.
               </p>
             </div>
@@ -217,7 +218,7 @@ export default function SeminarPage() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
-            className="bg-white border border-slate-200 p-6 md:p-8 rounded-3xl shadow-xl shadow-slate-200/50"
+            className="bg-white border border-slate-200 p-4 sm:p-5 md:p-6 rounded-3xl shadow-xl shadow-slate-200/50"
           >
             <AnimatePresence mode="wait">
               {done ? (
@@ -225,13 +226,13 @@ export default function SeminarPage() {
                   key="success"
                   initial={{ opacity: 0, scale: 0.95 }}
                   animate={{ opacity: 1, scale: 1 }}
-                  className="text-center py-6 space-y-3"
+                  className="text-center py-4 space-y-2"
                 >
-                  <div className="w-16 h-16 mx-auto bg-emerald-50 border border-emerald-100 flex items-center justify-center rounded-full text-emerald-600">
-                    <IoCheckmarkCircle size={44} />
+                  <div className="w-14 h-14 mx-auto bg-emerald-50 border border-emerald-100 flex items-center justify-center rounded-full text-emerald-600">
+                    <IoCheckmarkCircle size={40} />
                   </div>
-                  <h3 className="text-3xl font-extrabold text-slate-900 tracking-tight">You&apos;re Registered! 🎉</h3>
-                  <p className="text-slate-600 max-w-sm mx-auto leading-relaxed text-sm">
+                  <h3 className="text-3xl font-extrabold text-slate-900 leading-[1.2]">You&apos;re Registered! 🎉</h3>
+                  <p className="text-slate-600 max-w-sm mx-auto leading-[1.6] text-sm">
                     Thank you! Your seat has been reserved. Our branch campus coordinator will contact you with details and timing.
                   </p>
                   <button
@@ -248,22 +249,22 @@ export default function SeminarPage() {
                         source: '',
                       });
                     }}
-                    className="inline-flex items-center gap-2 text-xs font-bold text-cyan-700 hover:underline pt-2"
+                    className="inline-flex items-center gap-2 text-xs font-bold text-cyan-700 hover:underline pt-1.5 leading-[1.4]"
                   >
                     Register another attendee →
                   </button>
                 </motion.div>
               ) : (
                 <motion.div key="form" initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
-                  <div className="mb-5">
-                    <h3 className="text-2xl font-extrabold text-slate-900 tracking-tight">Reserve Your Free Seat 👇</h3>
-                    <p className="text-slate-500 text-sm mt-1 leading-[1.4]">Takes less than 60 seconds. 100% free entry.</p>
+                  <div className="mb-3">
+                    <h3 className="text-2xl font-extrabold text-slate-900 leading-[1.2]">Reserve Your Free Seat 👇</h3>
+                    <p className="text-slate-500 text-sm mt-0.5 leading-[1.4]">Takes less than 60 seconds. 100% free entry.</p>
                   </div>
 
-                  <form onSubmit={handleSubmit} className="space-y-3">
+                  <form onSubmit={handleSubmit} className="space-y-2.5">
                     {/* Branch Selection */}
                     <div>
-                      <label className="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-1">
+                      <label className="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-1 leading-[1.4]">
                         Preferred Campus / Branch *
                       </label>
                       <div className="relative">
@@ -271,7 +272,7 @@ export default function SeminarPage() {
                           name="branchId"
                           value={selectedBranch}
                           onChange={handleBranchChange}
-                          className="w-full p-3 bg-slate-50 border border-slate-200 rounded-xl text-sm font-medium focus:outline-none focus:border-cyan-600 focus:bg-white transition"
+                          className="w-full py-2.5 px-3 bg-slate-50 border border-slate-200 rounded-xl text-sm font-medium focus:outline-none focus:border-cyan-600 focus:bg-white transition leading-[1.4]"
                         >
                           <option value="all">🌐 All Campuses / Online Sessions</option>
                           {branches.map((b) => (
@@ -285,7 +286,7 @@ export default function SeminarPage() {
 
                     {/* Choose Seminar */}
                     <div>
-                      <label className="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-1">
+                      <label className="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-1 leading-[1.4]">
                         Select Seminar Event *
                       </label>
                       <select
@@ -293,7 +294,7 @@ export default function SeminarPage() {
                         required
                         value={form.seminarId || form.seminar}
                         onChange={handleSeminarSelect}
-                        className="w-full p-3 bg-slate-50 border border-slate-200 rounded-xl text-sm font-semibold focus:outline-none focus:border-cyan-600 focus:bg-white transition"
+                        className="w-full py-2.5 px-3 bg-slate-50 border border-slate-200 rounded-xl text-sm font-semibold focus:outline-none focus:border-cyan-600 focus:bg-white transition leading-[1.4]"
                       >
                         <option value="">— Select an upcoming seminar —</option>
                         {availableSeminars.map((s) => (
@@ -307,7 +308,7 @@ export default function SeminarPage() {
 
                     {/* Full Name */}
                     <div>
-                      <label className="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-1">
+                      <label className="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-1 leading-[1.4]">
                         Full Name *
                       </label>
                       <input
@@ -315,7 +316,7 @@ export default function SeminarPage() {
                         required
                         type="text"
                         placeholder="e.g. Shakil Ahmed"
-                        className="w-full p-3 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:border-cyan-600 focus:bg-white transition"
+                        className="w-full py-2.5 px-3 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:border-cyan-600 focus:bg-white transition leading-[1.4]"
                         value={form.name}
                         onChange={handleChange}
                       />
@@ -323,7 +324,7 @@ export default function SeminarPage() {
 
                     {/* Phone */}
                     <div>
-                      <label className="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-1">
+                      <label className="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-1 leading-[1.4]">
                         Mobile Phone Number *
                       </label>
                       <input
@@ -331,7 +332,7 @@ export default function SeminarPage() {
                         required
                         type="tel"
                         placeholder="01XXXXXXXXX"
-                        className="w-full p-3 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:border-cyan-600 focus:bg-white transition"
+                        className="w-full py-2.5 px-3 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:border-cyan-600 focus:bg-white transition leading-[1.4]"
                         value={form.phone}
                         onChange={handleChange}
                       />
@@ -339,14 +340,14 @@ export default function SeminarPage() {
 
                     {/* Email */}
                     <div>
-                      <label className="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-1">
+                      <label className="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-1 leading-[1.4]">
                         Email Address (optional)
                       </label>
                       <input
                         name="email"
                         type="email"
                         placeholder="you@email.com"
-                        className="w-full p-3 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:border-cyan-600 focus:bg-white transition"
+                        className="w-full py-2.5 px-3 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:border-cyan-600 focus:bg-white transition leading-[1.4]"
                         value={form.email}
                         onChange={handleChange}
                       />
@@ -354,12 +355,12 @@ export default function SeminarPage() {
 
                     {/* Source */}
                     <div>
-                      <label className="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-1">
+                      <label className="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-1 leading-[1.4]">
                         How did you hear about us?
                       </label>
                       <select
                         name="source"
-                        className="w-full p-3 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:border-cyan-600 focus:bg-white transition"
+                        className="w-full py-2.5 px-3 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:border-cyan-600 focus:bg-white transition leading-[1.4]"
                         value={form.source}
                         onChange={handleChange}
                       >
@@ -376,7 +377,7 @@ export default function SeminarPage() {
                     <button
                       type="submit"
                       disabled={loading}
-                      className="w-full py-3 mt-2 bg-gradient-to-r from-slate-900 to-cyan-900 hover:from-black hover:to-cyan-800 text-white font-bold text-sm uppercase tracking-widest flex items-center justify-center gap-3 rounded-xl transition shadow-lg shadow-slate-900/20 active:scale-95 disabled:opacity-50"
+                      className="w-full py-2.5 mt-1.5 bg-gradient-to-r from-slate-900 to-cyan-900 hover:from-black hover:to-cyan-800 text-white font-bold text-sm uppercase tracking-widest flex items-center justify-center gap-3 rounded-xl transition shadow-lg shadow-slate-900/20 active:scale-95 disabled:opacity-50"
                     >
                       {loading ? (
                         <>
