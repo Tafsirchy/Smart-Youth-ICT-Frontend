@@ -1,273 +1,496 @@
 "use client";
 
+import { useState } from "react";
 import {
+  IoSparklesOutline,
   IoSearchOutline,
   IoTrendingUpOutline,
-  IoAnalyticsOutline,
+  IoCodeSlashOutline,
+  IoSpeedometerOutline,
+  IoShieldCheckmarkOutline,
+  IoDocumentTextOutline,
+  IoLayersOutline,
+  IoBarChartOutline,
+  IoGlobeOutline,
   IoCheckmarkCircleOutline,
-  IoGitNetworkOutline,
-  IoPulseOutline,
-  IoBugOutline
+  IoChevronDownOutline,
+  IoLogoWhatsapp,
+  IoCloseOutline,
+  IoArrowForwardOutline,
 } from "react-icons/io5";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
 import { getIcon } from "@/lib/icons";
 
+/* ─── Deliverables Icon Map ──────────────────────────────────────────────── */
+const DELIVERABLE_ICONS = [
+  IoDocumentTextOutline,
+  IoLayersOutline,
+  IoCodeSlashOutline,
+  IoSpeedometerOutline,
+  IoShieldCheckmarkOutline,
+  IoBarChartOutline,
+];
+
 export default function SeoClient({ content }) {
+  const cmsLanding = content?.landing || {};
+  const hero = cmsLanding?.hero || {};
+  const sections = cmsLanding?.sections || {};
+  const cta = cmsLanding?.cta || {};
+
+  const metricsData = sections.metrics || [];
+  const pillarsData = sections.pillars || [];
+  const deliverablesData = sections.deliverables || [];
+  const pricingData = sections.pricing || [];
+  const faqsData = sections.faqs || [];
+
+  const [openFaq, setOpenFaq] = useState(null);
+  const [showModal, setShowModal] = useState(false);
+
   if (!content) return null;
 
-  const { hero, sections, cta } = content.landing;
-  const pillars = sections.pillars || [];
-  const metrics = sections.metrics || [];
-
   return (
-    <section className="min-h-screen bg-slate-50 text-slate-900 selection:bg-indigo-600 selection:text-white overflow-hidden relative">
-      <div className="absolute top-0 opacity-20 pointer-events-none -z-10 w-full h-full">
-        <div className="absolute top-0 left-1/4 w-[1px] h-full bg-slate-200"></div>
-        <div className="absolute top-0 right-1/4 w-[1px] h-full bg-slate-200"></div>
-        <div className="absolute top-1/2 left-0 w-full h-[1px] bg-slate-200"></div>
-        <div className="absolute top-[20%] right-[-100px] w-[600px] h-[600px] bg-indigo-50 blur-[160px]"></div>
-      </div>
+    <section className="min-h-screen bg-white flex flex-col relative selection:bg-brand-pink selection:text-white">
+      {/* Background Dot Texture */}
+      <div className="fixed inset-0 bg-[radial-gradient(#0F172A08_1px,transparent_1px)] [background-size:22px_22px] pointer-events-none z-0" />
 
-      <div className="container-custom py-10 relative">
-        {/* SEO HERO */}
-        <div className="flex flex-col lg:flex-row items-center gap-4 lg:gap-5 mb-12 lg:mb-20">
-          <div className="flex-1 text-left">
+      <div className="relative z-10 flex flex-col flex-1">
+        {/* ── Minimized Hero ── */}
+        <div className="border-b border-slate-100 bg-white/70 backdrop-blur-sm">
+          <div className="container-custom pt-10 sm:pt-14 pb-8 flex flex-col items-center text-center gap-3 max-w-3xl mx-auto">
             <motion.div
-              initial={{ opacity: 0, x: -20 }}
-              animate={{ opacity: 1, x: 0 }}
-              className="inline-flex items-center gap-2 px-5 py-2 bg-indigo-50 border border-indigo-100 text-indigo-700 text-[10px] sm:text-xs font-black tracking-[0.2em] sm:tracking-[0.4em] uppercase mb-5 rounded-md"
+              initial={{ opacity: 0, y: -8 }}
+              animate={{ opacity: 1, y: 0 }}
+              className="inline-flex items-center gap-1.5 px-3 py-1 bg-[#FF2C6D]/8 border border-[#FF2C6D]/25 text-[#FF2C6D] text-[10px] font-black uppercase tracking-widest rounded-full leading-[1.4]"
             >
-              <IoAnalyticsOutline className="text-sm" /> {hero.badge}
+              <span className="h-1.5 w-1.5 bg-[#FF2C6D] rounded-full shrink-0 animate-pulse" />
+              {hero.badge || "Search Engine Optimization & Authority"}
             </motion.div>
 
             <motion.h1
-              initial={{ opacity: 0, y: 30 }}
+              initial={{ opacity: 0, y: 12 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, ease: "circOut" }}
-              className="text-4xl sm:text-5xl lg:text-6xl font-black text-slate-900 leading-[1.1] sm:leading-[0.9] mb-4 tracking-tighter"
+              transition={{ delay: 0.08 }}
+              className="text-2xl sm:text-3xl md:text-4xl font-black text-slate-900 leading-[1.2]"
             >
-              {hero.title?.split(' ')[0]} <br />
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-pink-500 via-rose-500 to-indigo-500 animate-gradient-x">
-                {hero.title?.split(' ').slice(1).join(' ') || "Optimization"}
-              </span>
+              SEO Optimization & <span className="text-[#FF2C6D]">Search Dominance</span>
             </motion.h1>
 
             <motion.p
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ delay: 0.4 }}
-              className="text-slate-600 text-lg sm:text-xl font-light leading-relaxed max-w-2xl mb-6"
+              initial={{ opacity: 0, y: 12 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.15 }}
+              className="text-slate-500 text-sm md:text-base leading-relaxed max-w-4xl font-normal"
             >
-              {hero.description}
+              <span className="md:block md:whitespace-nowrap">We don&apos;t chase algorithms; we engineer structural authority. Our enterprise SEO</span>
+              <span className="md:block md:whitespace-nowrap">framework combines deep technical architecture, Core Web Vitals optimization,</span>
+              <span className="md:block md:whitespace-nowrap">semantic topical clusters, and high-impact digital PR to secure permanent top rankings.</span>
             </motion.p>
 
-            <div className="flex flex-col sm:flex-row gap-3 sm:gap-4">
-              <button className="w-full sm:w-[280px] px-6 py-3 sm:py-4 bg-indigo-600 text-white font-black hover:bg-indigo-700 transition-all shadow-xl sm:shadow-2xl shadow-indigo-600/20 uppercase tracking-wider sm:tracking-widest text-xs sm:text-sm flex items-center justify-center min-h-[44px] rounded-md">
-                Initialize Technical Audit
+            <motion.div
+              initial={{ opacity: 0, y: 12 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.22 }}
+              className="flex flex-wrap items-center justify-center gap-3 pt-2"
+            >
+              <button
+                onClick={() => setShowModal(true)}
+                className="px-6 py-2.5 bg-[#FF2C6D] text-white font-bold hover:bg-[#e0285f] transition-colors shadow-sm uppercase tracking-wider text-xs rounded-lg min-h-[42px]"
+              >
+                Initialize SEO Audit
               </button>
               <Link
-                href="/services/seo/details"
-                className="w-full sm:w-[280px] px-6 py-3 sm:py-4 bg-white border border-slate-200 text-slate-900 font-black hover:bg-slate-50 transition-all uppercase tracking-wider sm:tracking-widest text-xs sm:text-sm flex items-center justify-center text-center min-h-[44px] rounded-md"
+                href="/en/services/seo/details"
+                className="inline-flex items-center gap-1 text-xs font-bold uppercase tracking-wider text-[#10B981] hover:text-[#FF2C6D] transition-colors py-2 px-3"
               >
-                Technical Specifications
+                Technical Details <IoArrowForwardOutline />
               </Link>
-            </div>
-          </div>
-
-          <div className="flex-1 relative hidden lg:block">
-            <motion.div
-              initial={{ opacity: 0, scale: 0.9 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 1 }}
-              className="relative p-12 bg-white -[4rem] border border-slate-100 shadow-2xl overflow-hidden group rounded-md"
-            >
-              <div className="absolute inset-0 opacity-5 pointer-events-none" style={{ backgroundImage: "radial-gradient(#4338ca 1px, transparent 1px)", backgroundSize: "30px 30px" }}></div>
-
-              <div className="relative aspect-square flex items-center justify-center">
-                <motion.div
-                  animate={{ scale: [1, 1.05, 1], rotate: [0, 5, 0] }}
-                  transition={{ duration: 10, repeat: Infinity }}
-                  className="w-64 h-64 bg-slate-50 border border-slate-100 flex items-center justify-center relative p-8 shadow-inner rounded-lg"
-                >
-                  <div className="absolute inset-0 bg-indigo-50/30 animate-pulse"></div>
-                  <IoGitNetworkOutline className="text-8xl text-indigo-600/10 absolute opacity-50" />
-                  <div className="relative z-10 text-center">
-                    <motion.div animate={{ y: [0, -5, 0] }} transition={{ duration: 4, repeat: Infinity }}>
-                      <IoSearchOutline className="text-5xl text-indigo-600 mb-4 mx-auto" />
-                    </motion.div>
-                    <p className="text-[10px] sm:text-xs font-black text-slate-400 tracking-widest uppercase mb-1">Crawl Status</p>
-                    <p className="text-xs sm:text-sm font-mono text-emerald-500 font-bold">200_OK_VERIFIED</p>
-                  </div>
-                </motion.div>
-
-                {[
-                  { icon: <IoPulseOutline />, pos: "top-10 left-10", label: "NODE_PING" },
-                  { icon: <IoBugOutline />, pos: "bottom-10 right-10", label: "SCRAPE_V4" },
-                  { icon: <IoAnalyticsOutline />, pos: "top-10 right-10", label: "AUTH_MAP" },
-                  { icon: <IoGitNetworkOutline />, pos: "bottom-10 left-10", label: "LINK_SYNC" }
-                ].map((sat, i) => (
-                  <motion.div
-                    key={i}
-                    animate={{ y: [0, -15, 0] }}
-                    transition={{ duration: 3 + i, repeat: Infinity }}
-                    className={`absolute ${sat.pos} p-6 bg-white rounded-lg border border-slate-100 shadow-xl flex flex-col items-center gap-2 group hover:scale-110 transition-transform`}
-                  >
-                    <div className="text-indigo-600 text-xl">{sat.icon}</div>
-                    <span className="text-[7px] sm:text-[9px] font-black text-slate-300 uppercase tracking-[0.2em] sm:tracking-[0.4em] opacity-0 group-hover:opacity-100 transition-opacity">{sat.label}</span>
-                  </motion.div>
-                ))}
-              </div>
-
-              <div className="absolute bottom-8 left-1/2 -translate-x-1/2 font-mono text-[8px] sm:text-[10px] text-slate-300 uppercase tracking-[0.2em] sm:tracking-[0.5em] bg-white px-4">
-                SEMANTIC_AUTHORITY_SYNC_V4
-              </div>
             </motion.div>
           </div>
         </div>
 
-        {/* PILLARS SECTION */}
-        <div className="mb-10 lg:mb-20">
-          <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-6 lg:mb-10 gap-4 lg:gap-4 border-l-4 border-indigo-600 pl-6 lg:pl-8 rounded-lg">
-            <div className="max-w-xl">
-              <h2 className="text-[10px] sm:text-xs font-black text-indigo-600 uppercase tracking-[0.2em] sm:tracking-[0.4em] mb-2 font-bold">Search Mechanics</h2>
-              <p className="text-3xl sm:text-4xl md:text-5xl font-black text-slate-900 leading-tight">
-                The architecture of <span className="text-slate-400 italic font-serif font-light">global visibility.</span>
+        {/* ── Key Highlights Strip ── */}
+        {metricsData.length > 0 && (
+          <div className="border-b border-slate-100 bg-slate-50/80">
+            <div className="container-custom py-3.5">
+              <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 text-center divide-x divide-slate-200/60">
+                {metricsData.map((item, idx) => (
+                  <div key={idx} className="px-2">
+                    <p className="text-xl sm:text-2xl font-black text-slate-900 leading-[1.1]">
+                      {item.value || item.t}
+                    </p>
+                    <p className="text-[10px] sm:text-xs font-bold uppercase tracking-widest text-slate-400 mt-1">
+                      {item.label || item.d}
+                    </p>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* ── Capability Pillars (Search DNA) ── */}
+        {pillarsData.length > 0 && (
+          <div className="container-custom py-10 sm:py-14">
+            <div className="text-center max-w-xl mx-auto mb-8">
+              <h2 className="text-[11px] font-black text-slate-400 uppercase tracking-widest mb-1.5 leading-[1.4]">
+                Search Authority DNA
+              </h2>
+              <p className="text-xl sm:text-2xl font-black text-slate-900 leading-[1.2]">
+                Pillars of Organic Dominance
               </p>
             </div>
-          </div>
 
-          <div className="flex overflow-x-auto snap-x snap-mandatory lg:grid lg:grid-cols-3 gap-6 lg:gap-4 pb-4 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
-            {pillars?.map((item, i) => (
-              <motion.div
-                key={i}
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: i * 0.1 }}
-                className="group cursor-default w-[85vw] sm:w-[320px] lg:w-auto shrink-0 snap-center"
-              >
-                <div className="bg-white -[3rem] p-6 h-full border border-slate-100 shadow-sm shadow-slate-200/50 hover:shadow-2xl transition-all group-hover:-translate-y-2 relative overflow-hidden rounded-lg">
-                  <div className="absolute top-0 right-0 w-24 h-24 bg-slate-50 -[4rem] opacity-0 group-hover:opacity-100 transition-opacity" />
-                  <div
-                    className={`w-14 h-14 rounded-lg bg-gradient-to-br ${item.color} text-white flex items-center justify-center text-3xl mb-4 shadow-lg relative z-10`}
-                  >
-                    {getIcon(item.icon)}
+            <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
+              {pillarsData.map((pillar, i) => (
+                <div
+                  key={i}
+                  className="bg-white border border-slate-200/80 hover:border-[#FF2C6D]/40 hover:shadow-lg transition-all rounded-xl p-6 relative flex flex-col group overflow-hidden"
+                >
+                  <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-[#FF2C6D] to-[#10B981] opacity-0 group-hover:opacity-100 transition-opacity" />
+
+                  <div className="w-11 h-11 rounded-lg bg-slate-50 border border-slate-100 text-slate-800 flex items-center justify-center text-xl mb-4 group-hover:bg-[#FF2C6D]/10 group-hover:text-[#FF2C6D] transition-colors shrink-0">
+                    {getIcon(pillar.icon) || <IoSearchOutline />}
                   </div>
-                  <h3 className="text-2xl font-black text-slate-900 mb-3 tracking-tighter uppercase leading-none relative z-10">
-                    {item.title}
+
+                  <h3 className="text-base font-bold text-slate-900 mb-2 leading-snug">
+                    {pillar.title}
                   </h3>
-                  <p className="text-slate-500 leading-relaxed font-light text-lg relative z-10">
-                    {item.desc}
+                  <p className="text-slate-500 text-sm leading-[1.6] flex-1 mb-4">
+                    {pillar.desc}
                   </p>
-                </div>
-              </motion.div>
-            ))}
-          </div>
-        </div>
 
-        {/* TECHNICAL AUDIT SECTION */}
-        <div className="mb-10 lg:mb-20">
-          <div className="grid lg:grid-cols-2 gap-5 lg:gap-8 items-center bg-white lg:-[4rem] p-5 sm:p-5 lg:p-8 border border-slate-100 shadow-xl lg:shadow-2xl shadow-slate-200/50 relative overflow-hidden rounded-lg">
-            <div className="absolute top-0 right-0 w-1/3 h-full bg-indigo-50/20 -skew-x-[20deg] origin-top translate-x-1/2"></div>
-
-            <div className="relative z-10 space-y-4 sm:space-y-6">
-              <div className="w-16 h-16 bg-indigo-50 flex items-center justify-center text-3xl text-indigo-600 border border-indigo-100 rounded-lg">
-                <IoBugOutline />
-              </div>
-              <h2 className="text-4xl sm:text-5xl lg:text-6xl font-black text-slate-900 leading-[1.1] sm:leading-[0.9] tracking-tighter sm:tracking-normal">Technical <br className="hidden sm:block" /><span className="text-indigo-600 block sm:inline mt-2 sm:mt-0">Integrity.</span></h2>
-              <p className="text-slate-500 text-lg sm:text-xl font-light leading-relaxed">We perform deep-tissue technical audits covering Core Web Vitals, Structured Data (JSON-LD), and JavaScript rendering to eliminate every barrier to indexing.</p>
-
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-px bg-slate-50 border border-slate-100 overflow-hidden mt-4 sm:mt-5 shadow-sm rounded-lg">
-                {metrics?.map((item, idx) => (
-                  <div key={idx} className="p-3 sm:p-5 hover:bg-white transition-colors group rounded-md">
-                    <div className="text-indigo-600 mb-4 opacity-40 group-hover:opacity-100 transition-opacity">
-                      {getIcon(item.icon)}
-                    </div>
-                    <h4 className="text-[10px] sm:text-xs font-black text-indigo-600 uppercase tracking-widest mb-2">{item.t}</h4>
-                    <p className="text-[10px] sm:text-xs text-slate-400 font-bold leading-tight line-clamp-2">{item.d}</p>
-                  </div>
-                ))}
-              </div>
-            </div>
-
-            <motion.div
-              animate={{ y: [0, 10, 0] }}
-              transition={{ duration: 5, repeat: Infinity }}
-              className="relative lg:scale-110"
-            >
-              <div className="bg-slate-900 lg:-[3rem] p-5 lg:p-8 border border-slate-800 shadow-2xl space-y-4 lg:space-y-5 group overflow-hidden rounded-lg">
-                <div className="absolute top-0 right-0 p-4 font-mono text-[7px] sm:text-[9px] text-indigo-400 bg-white/5 opacity-50 tracking-[0.2em] sm:tracking-[0.4em]">SYNCING_ENGINE::V4.2</div>
-                <div className="flex justify-between items-center text-white/40 font-mono text-[8px] sm:text-[9px] tracking-[0.2em] sm:tracking-[0.4em] uppercase">
-                  <span>Authority Report</span>
-                  <span>PAGE_RANK_v2.0</span>
-                </div>
-
-                <div className="space-y-6">
-                  <div className="flex items-center gap-4">
-                    <div className="w-12 h-12 bg-indigo-500 shadow-[0_0_20px_rgba(67,56,202,0.4)] flex items-center justify-center rounded-lg"><IoTrendingUpOutline className="text-white text-2xl" /></div>
-                    <div className="flex-1 space-y-2">
-                      <div className="h-1.5 bg-white/10 w-full"></div>
-                      <div className="h-1.5 bg-white/5 w-1/3"></div>
-                    </div>
-                  </div>
-                  <div className="h-32 w-full bg-white/5 border border-white/5 relative overflow-hidden flex items-center justify-center group-hover:bg-white/10 transition-colors">
-                    <p className="text-[4rem] font-black text-white/5 opacity-40 select-none">SEO</p>
-                    <div className="absolute inset-0 flex items-center justify-center space-x-1">
-                      {[0.4, 0.7, 0.9, 0.6, 0.8, 1, 0.5, 0.8, 0.3].map((h, i) => (
-                        <motion.div key={i} initial={{ height: 0 }} animate={{ height: `${h * 40}px` }} transition={{ duration: 1, delay: i * 0.1, repeat: Infinity, repeatType: "reverse" }} className="w-1 bg-indigo-400 shadow-[0_0_10px_rgba(129,140,248,0.5)]" />
+                  {pillar.highlights?.length > 0 && (
+                    <ul className="space-y-1.5 pt-3 border-t border-slate-100">
+                      {pillar.highlights.map((h, hi) => (
+                        <li key={hi} className="flex items-start gap-1.5 text-xs text-slate-600 font-medium">
+                          <IoCheckmarkCircleOutline className="text-[#10B981] shrink-0 mt-0.5 text-sm" />
+                          <span>{h}</span>
+                        </li>
                       ))}
-                    </div>
-                  </div>
+                    </ul>
+                  )}
                 </div>
-
-                <div className="pt-8 border-t border-white/5">
-                  <p className="text-[10px] sm:text-xs font-mono text-emerald-400 font-bold tracking-tighter">SUCCESS_INDEX::94/100</p>
-                  <p className="text-[10px] sm:text-xs font-mono text-slate-500 uppercase tracking-widest mt-2 flex items-center gap-2">
-                    <span className="w-1.5 h-1.5 bg-emerald-500 animate-pulse" /> Mobile Latency: 1.2s
-                  </p>
-                </div>
-              </div>
-            </motion.div>
-          </div>
-        </div>
-
-        {/* CTA */}
-        <div className="text-center py-10 lg:py-16 border-t border-slate-200 pb-12 lg:pb-16">
-          <IoAnalyticsOutline className="text-6xl lg:text-7xl text-indigo-600 mb-4 lg:mb-6 mx-auto opacity-20" />
-          <h3 className="text-4xl sm:text-5xl lg:text-6xl font-black text-slate-900 mb-5 lg:mb-6 leading-tight tracking-tighter sm:tracking-normal">
-            {cta.title?.includes('.') ? (
-              <>
-                {cta.title.split('.')[0]}. <br className="hidden sm:block" />
-                <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-600 to-slate-700 font-serif italic font-medium block sm:inline mt-2 sm:mt-0">
-                  {cta.title.split('.').slice(1).join('.').trim()}
-                </span>
-              </>
-            ) : (
-              <>
-                Stop playing catch up. <br className="hidden sm:block" />
-                <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-600 to-slate-700 font-serif italic font-medium block sm:inline mt-2 sm:mt-0">
-                  {cta.title}
-                </span>
-              </>
-            )}
-          </h3>
-          <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center">
-            {/* Sticky Mobile CTA */}
-            <div className="fixed bottom-0 left-0 w-full px-4 pt-4 pb-[max(1rem,env(safe-area-inset-bottom))] bg-white/90 backdrop-blur-md border-t border-slate-200 z-50 lg:relative lg:border-none lg:bg-transparent lg:p-0 lg:w-auto">
-              <button className="w-full lg:w-[280px] px-6 py-3 sm:py-4 bg-indigo-600 text-white font-black hover:bg-indigo-700 transition-all shadow-xl sm:shadow-2xl shadow-indigo-600/40 uppercase tracking-wider sm:tracking-widest text-xs sm:text-sm flex items-center justify-center min-h-[44px] rounded-md">
-                Initialize Technical Audit
-              </button>
+              ))}
             </div>
-            <Link
-              href="/services/seo/details"
-              className="hidden lg:flex w-full sm:w-[280px] px-6 py-3 sm:py-4 bg-slate-900 text-white font-black hover:bg-slate-800 transition-all uppercase tracking-wider sm:tracking-widest text-xs sm:text-sm items-center justify-center text-center min-h-[44px] rounded-md"
-            >
-              Technical Hub
-            </Link>
+          </div>
+        )}
+
+        {/* ── Deliverables ── */}
+        {deliverablesData.length > 0 && (
+          <div className="border-t border-b border-slate-100 bg-slate-50/60 py-10">
+            <div className="container-custom">
+              <div className="text-center max-w-xl mx-auto mb-8">
+                <h2 className="text-[11px] font-black text-slate-400 uppercase tracking-widest mb-1.5 leading-[1.4]">
+                  Optimization Suite
+                </h2>
+                <p className="text-xl sm:text-2xl font-black text-slate-900 leading-[1.2]">
+                  Production Deliverables
+                </p>
+              </div>
+
+              <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
+                {deliverablesData.map((d, di) => {
+                  const Icon = DELIVERABLE_ICONS[di % DELIVERABLE_ICONS.length];
+                  return (
+                    <div
+                      key={di}
+                      className="bg-white border border-slate-200/80 rounded-xl p-5 hover:border-slate-300 transition-colors flex flex-col justify-between"
+                    >
+                      <div>
+                        <div className="w-9 h-9 rounded-lg bg-slate-900 text-white flex items-center justify-center text-lg mb-3 shrink-0">
+                          <Icon />
+                        </div>
+                        <h3 className="text-sm font-bold text-slate-900 mb-1.5 leading-snug">
+                          {d.title}
+                        </h3>
+                        <p className="text-xs text-slate-500 leading-relaxed mb-4">
+                          {d.desc}
+                        </p>
+                      </div>
+
+                      {d.formats?.length > 0 && (
+                        <div className="flex flex-wrap gap-1.5 pt-3 border-t border-slate-100">
+                          {d.formats.map((f, fi) => (
+                            <span
+                              key={fi}
+                              className="text-[10px] font-mono bg-slate-100 text-slate-600 px-2 py-0.5 rounded font-medium"
+                            >
+                              {f}
+                            </span>
+                          ))}
+                        </div>
+                      )}
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* ── Pricing Tiers ── */}
+        {pricingData.length > 0 && (
+          <div className="container-custom py-12 sm:py-16">
+            <div className="text-center max-w-xl mx-auto mb-10">
+              <h2 className="text-[11px] font-black text-slate-400 uppercase tracking-widest mb-1.5 leading-[1.4]">
+                Investment Tiers
+              </h2>
+              <p className="text-xl sm:text-2xl font-black text-slate-900 leading-[1.2]">
+                Transparent Pricing, Built for Organic Dominance
+              </p>
+            </div>
+
+            <div className="grid lg:grid-cols-3 gap-6 max-w-5xl mx-auto">
+              {pricingData.map((tier, ti) => (
+                <div
+                  key={ti}
+                  className={`rounded-2xl p-6 sm:p-7 border flex flex-col justify-between relative transition-all ${
+                    tier.popular
+                      ? "bg-slate-900 border-[#FF2C6D] text-white shadow-xl shadow-pink-500/10 ring-1 ring-[#FF2C6D]"
+                      : "bg-white border-slate-200 text-slate-900 shadow-sm"
+                  }`}
+                >
+                  {tier.popular && (
+                    <div className="absolute -top-3 left-1/2 -translate-x-1/2">
+                      <span className="bg-[#FF2C6D] text-white text-[10px] font-black uppercase tracking-widest px-3 py-1 rounded-full shadow-md">
+                        Recommended
+                      </span>
+                    </div>
+                  )}
+
+                  <div>
+                    <div className="mb-4">
+                      <h3 className={`text-base font-black ${tier.popular ? "text-white" : "text-slate-900"}`}>
+                        {tier.tier}
+                      </h3>
+                      <p className={`text-xs mt-1 ${tier.popular ? "text-slate-400" : "text-slate-500"}`}>
+                        {tier.target}
+                      </p>
+                    </div>
+
+                    <div className="mb-5 pb-5 border-b border-slate-200/20">
+                      <div className="flex items-baseline gap-1.5">
+                        <span className="text-3xl font-black leading-none">{tier.price}</span>
+                        <span className={`text-xs ${tier.popular ? "text-slate-400" : "text-slate-500"}`}>
+                          / {tier.priceLocal}
+                        </span>
+                      </div>
+                      <p className={`text-[11px] font-bold uppercase tracking-wider mt-1.5 ${tier.popular ? "text-[#FF2C6D]" : "text-slate-400"}`}>
+                        {tier.duration}
+                      </p>
+                    </div>
+
+                    <ul className="space-y-2.5 mb-6">
+                      {(tier.features || []).map((f, fi) => (
+                        <li key={fi} className="flex items-start gap-2 text-xs leading-relaxed">
+                          <IoCheckmarkCircleOutline className="text-[#10B981] shrink-0 mt-0.5 text-sm" />
+                          <span className={tier.popular ? "text-slate-300" : "text-slate-600"}>
+                            {f}
+                          </span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+
+                  <button
+                    onClick={() => setShowModal(true)}
+                    className={`w-full py-2.5 text-xs font-bold uppercase tracking-wider rounded-lg transition-colors min-h-[42px] ${
+                      tier.popular
+                        ? "bg-[#FF2C6D] text-white hover:bg-[#e0285f] shadow-md shadow-pink-500/20"
+                        : "bg-slate-900 text-white hover:bg-slate-800"
+                    }`}
+                  >
+                    Select Tier
+                  </button>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
+
+        {/* ── FAQs Accordion ── */}
+        {faqsData.length > 0 && (
+          <div className="border-t border-slate-100 bg-slate-50/50 py-12">
+            <div className="container-custom max-w-3xl">
+              <div className="text-center mb-8">
+                <h2 className="text-[11px] font-black text-slate-400 uppercase tracking-widest mb-1.5 leading-[1.4]">
+                  Clarity
+                </h2>
+                <p className="text-xl sm:text-2xl font-black text-slate-900 leading-[1.2]">
+                  Frequently Asked Questions
+                </p>
+              </div>
+
+              <div className="space-y-3">
+                {faqsData.map((faq, fi) => {
+                  const isOpen = openFaq === fi;
+                  return (
+                    <div
+                      key={fi}
+                      className="bg-white border border-slate-200/80 rounded-xl overflow-hidden transition-colors"
+                    >
+                      <button
+                        onClick={() => setOpenFaq(isOpen ? null : fi)}
+                        className="w-full p-4 sm:p-5 flex items-center justify-between gap-4 text-left font-bold text-slate-900 hover:text-[#FF2C6D] transition-colors text-sm"
+                      >
+                        <span>{faq.q}</span>
+                        <IoChevronDownOutline
+                          className={`text-base text-slate-400 shrink-0 transition-transform duration-200 ${
+                            isOpen ? "rotate-180 text-[#FF2C6D]" : ""
+                          }`}
+                        />
+                      </button>
+
+                      <AnimatePresence>
+                        {isOpen && (
+                          <motion.div
+                            initial={{ height: 0, opacity: 0 }}
+                            animate={{ height: "auto", opacity: 1 }}
+                            exit={{ height: 0, opacity: 0 }}
+                            transition={{ duration: 0.2 }}
+                            className="overflow-hidden"
+                          >
+                            <div className="px-4 sm:px-5 pb-5 pt-1 text-slate-500 text-xs sm:text-sm leading-relaxed border-t border-slate-50">
+                              {faq.a}
+                            </div>
+                          </motion.div>
+                        )}
+                      </AnimatePresence>
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* ── Compact CTA Banner ── */}
+        <div className="container-custom py-10">
+          <div className="bg-slate-900 rounded-2xl p-6 sm:p-8 text-center text-white relative overflow-hidden max-w-4xl mx-auto shadow-xl">
+            <div className="relative z-10 max-w-xl mx-auto flex flex-col items-center gap-3">
+              <p className="text-[10px] font-black tracking-widest text-[#FF2C6D] uppercase">
+                {cta.badge || "Sustainable Organic Growth"}
+              </p>
+              <h2 className="text-xl sm:text-2xl font-black leading-tight text-white">
+                {cta.title || "Stop Playing Catch Up. Command the First Page."}
+              </h2>
+              <p className="text-xs sm:text-sm text-slate-400 leading-relaxed max-w-md">
+                {cta.desc || "Schedule an enterprise technical audit. We will inspect your crawl architecture, Core Web Vitals, and topical coverage gaps."}
+              </p>
+              <div className="flex flex-wrap items-center justify-center gap-3 pt-2">
+                <button
+                  onClick={() => setShowModal(true)}
+                  className="px-6 py-2.5 bg-[#FF2C6D] hover:bg-[#e0285f] text-white font-bold text-xs uppercase tracking-wider rounded-lg transition-colors min-h-[42px] shadow-sm"
+                >
+                  Schedule Free Audit
+                </button>
+                <a
+                  href="https://wa.me/8801700000000"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-1.5 px-4 py-2.5 bg-white/10 hover:bg-white/15 text-white font-bold text-xs uppercase tracking-wider rounded-lg transition-colors min-h-[42px]"
+                >
+                  <IoLogoWhatsapp className="text-emerald-400 text-sm" />
+                  Chat on WhatsApp
+                </a>
+              </div>
+            </div>
           </div>
         </div>
       </div>
+
+      {/* ── Consultation Modal ── */}
+      <AnimatePresence>
+        {showModal && (
+          <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              onClick={() => setShowModal(false)}
+              className="absolute inset-0 bg-slate-900/60 backdrop-blur-sm"
+            />
+            <motion.div
+              initial={{ opacity: 0, scale: 0.95 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0, scale: 0.95 }}
+              className="relative z-10 bg-white rounded-2xl shadow-2xl p-6 sm:p-8 max-w-md w-full border border-slate-100"
+            >
+              <button
+                onClick={() => setShowModal(false)}
+                className="absolute top-4 right-4 text-slate-400 hover:text-slate-600 p-1"
+                aria-label="Close"
+              >
+                <IoCloseOutline className="text-2xl" />
+              </button>
+
+              <div className="mb-5">
+                <div className="inline-flex items-center gap-1.5 px-2.5 py-1 bg-pink-50 text-[#FF2C6D] rounded text-[10px] font-black uppercase tracking-wider mb-2">
+                  <IoSparklesOutline /> SEO Consultation
+                </div>
+                <h3 className="text-lg font-black text-slate-900">
+                  Initialize Technical SEO Audit
+                </h3>
+                <p className="text-xs text-slate-500 mt-1">
+                  Connect with our search architecture team. We analyze your website and reply within 2 hours.
+                </p>
+              </div>
+
+              <form
+                onSubmit={(e) => {
+                  e.preventDefault();
+                  alert("Thank you! Our search architecture team will review your website and contact you shortly.");
+                  setShowModal(false);
+                }}
+                className="space-y-3 text-xs"
+              >
+                <div>
+                  <label className="block font-bold text-slate-700 mb-1">Your Name</label>
+                  <input
+                    type="text"
+                    required
+                    placeholder="Enter your name"
+                    className="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus:border-[#FF2C6D] text-slate-900"
+                  />
+                </div>
+                <div>
+                  <label className="block font-bold text-slate-700 mb-1">Website URL</label>
+                  <input
+                    type="url"
+                    required
+                    placeholder="https://example.com"
+                    className="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus:border-[#FF2C6D] text-slate-900"
+                  />
+                </div>
+                <div>
+                  <label className="block font-bold text-slate-700 mb-1">Business Email</label>
+                  <input
+                    type="email"
+                    required
+                    placeholder="name@company.com"
+                    className="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus:border-[#FF2C6D] text-slate-900"
+                  />
+                </div>
+                <div>
+                  <label className="block font-bold text-slate-700 mb-1">Primary Objective</label>
+                  <textarea
+                    rows={3}
+                    placeholder="Describe your current organic rankings or traffic goals..."
+                    className="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus:border-[#FF2C6D] text-slate-900 resize-none"
+                  />
+                </div>
+                <button
+                  type="submit"
+                  className="w-full py-2.5 bg-[#FF2C6D] hover:bg-[#e0285f] text-white font-bold uppercase tracking-wider text-xs rounded-lg transition-colors mt-2"
+                >
+                  Submit Audit Request
+                </button>
+              </form>
+            </motion.div>
+          </div>
+        )}
+      </AnimatePresence>
     </section>
   );
 }

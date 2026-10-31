@@ -1,255 +1,450 @@
 "use client";
 
+import { useState } from "react";
 import {
-  IoSearchOutline,
   IoLayersOutline,
-  IoFlashOutline,
-  IoCheckmarkCircleOutline,
-  IoPulseOutline,
-  IoSparklesOutline,
-  IoColorPaletteOutline,
-  IoCodeSlashOutline,
+  IoSearchOutline,
   IoBrowsersOutline,
-  IoFingerPrintOutline,
-  IoFileTrayFullOutline
+  IoCodeSlashOutline,
+  IoShieldCheckmarkOutline,
+  IoColorPaletteOutline,
+  IoCheckmarkCircleOutline,
+  IoChevronDownOutline,
+  IoLogoWhatsapp,
+  IoCloseOutline,
+  IoArrowForwardOutline,
 } from "react-icons/io5";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
 import { getIcon } from "@/lib/icons";
 
+/* ─── Deliverables Icon Map ──────────────────────────────────────────────── */
+const DELIVERABLE_ICONS = [
+  IoLayersOutline,
+  IoBrowsersOutline,
+  IoSearchOutline,
+  IoCodeSlashOutline,
+  IoShieldCheckmarkOutline,
+  IoColorPaletteOutline,
+];
+
 export default function UiUxClient({ content }) {
+  const cmsLanding = content?.landing || {};
+  const hero = cmsLanding?.hero || {};
+  const sections = cmsLanding?.sections || {};
+  const cta = cmsLanding?.cta || {};
+
+  const metricsData = sections.metrics || [];
+  const pillarsData = sections.pillars || [];
+  const deliverablesData = sections.deliverables || [];
+  const pricingData = sections.pricing || [];
+  const faqsData = sections.faqs || [];
+
+  const [openFaq, setOpenFaq] = useState(null);
+  const [showModal, setShowModal] = useState(false);
+
   if (!content) return null;
 
-  const { hero, sections, cta } = content.landing;
-  const pillars = sections.pillars || [];
-  const metrics = sections.metrics || [];
-
   return (
-    <section className="min-h-screen bg-slate-50 text-slate-900 selection:bg-cyan-600 selection:text-white overflow-hidden relative font-sans">
-      <div className="absolute top-0 opacity-20 pointer-events-none -z-10 w-full h-full">
-        <div className="absolute top-0 left-1/4 w-[1px] h-full bg-slate-200"></div>
-        <div className="absolute top-0 right-1/4 w-[1px] h-full bg-slate-200"></div>
-        <div className="absolute top-1/2 left-0 w-full h-[1px] bg-slate-200"></div>
-        <div className="absolute top-[15%] left-[-100px] w-[500px] h-[500px] bg-cyan-50 blur-[140px]"></div>
-      </div>
+    <section className="min-h-screen bg-white flex flex-col relative selection:bg-brand-pink selection:text-white">
+      {/* Background Dot Texture */}
+      <div className="fixed inset-0 bg-[radial-gradient(#0F172A08_1px,transparent_1px)] [background-size:22px_22px] pointer-events-none z-0" />
 
-      <div className="container-custom py-10 relative z-10">
-        {/* DESIGN HERO */}
-        <div className="flex flex-col lg:flex-row items-center gap-4 lg:gap-5 mb-12 lg:mb-20">
-          <div className="flex-1 text-left">
+      <div className="relative z-10 flex flex-col flex-1">
+        {/* ── Minimized Hero ── */}
+        <div className="border-b border-slate-100 bg-white/70 backdrop-blur-sm">
+          <div className="container-custom pt-10 sm:pt-14 pb-8 flex flex-col items-center text-center gap-3 max-w-3xl mx-auto">
             <motion.div
-              initial={{ opacity: 0, x: -20 }}
-              animate={{ opacity: 1, x: 0 }}
-              className="inline-flex items-center gap-2 px-5 py-2 bg-cyan-50 border border-cyan-100 text-cyan-700 text-[10px] sm:text-xs font-black tracking-[0.2em] sm:tracking-[0.4em] uppercase mb-5 rounded-md"
+              initial={{ opacity: 0, y: -8 }}
+              animate={{ opacity: 1, y: 0 }}
+              className="inline-flex items-center gap-1.5 px-3 py-1 bg-[#FF2C6D]/8 border border-[#FF2C6D]/25 text-[#FF2C6D] text-[10px] font-black uppercase tracking-widest rounded-full leading-[1.4]"
             >
-              <IoSparklesOutline className="text-sm" /> {hero.badge}
+              <span className="h-1.5 w-1.5 bg-[#FF2C6D] rounded-full shrink-0 animate-pulse" />
+              {hero.badge || "Product Experience & System Architecture"}
             </motion.div>
 
             <motion.h1
-              initial={{ opacity: 0, y: 30 }}
+              initial={{ opacity: 0, y: 12 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, ease: "circOut" }}
-              className="text-4xl sm:text-5xl lg:text-6xl font-black text-slate-900 leading-[1.1] sm:leading-[0.9] mb-4 tracking-tighter"
+              transition={{ delay: 0.08 }}
+              className="text-2xl sm:text-3xl md:text-4xl font-black text-slate-900 leading-[1.2]"
             >
-              {hero.title?.split('UX')[0]}UX <br />
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-pink-500 via-rose-500 to-indigo-500 animate-gradient-x">
-                {hero.title?.split('UX')[1] || "Experience"}
-              </span>
+              UI/UX Design & <span className="text-[#FF2C6D]">Product Systems</span>
             </motion.h1>
 
             <motion.p
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ delay: 0.4 }}
-              className="text-slate-600 text-xl font-light leading-relaxed max-w-2xl mb-12"
+              initial={{ opacity: 0, y: 12 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.15 }}
+              className="text-slate-500 text-sm md:text-base leading-relaxed max-w-4xl font-normal"
             >
-              {hero.description}
+              <span className="md:block md:whitespace-nowrap">We architect human experiences that convert. Combining cognitive psychology,</span>
+              <span className="md:block md:whitespace-nowrap">atomic design token systems, and relentless user testing, we design web applications,</span>
+              <span className="md:block md:whitespace-nowrap">mobile interfaces, and digital products that feel intuitive from the very first click.</span>
             </motion.p>
 
-            <div className="flex flex-col sm:flex-row gap-3 sm:gap-4">
-              <button className="w-full sm:w-[280px] px-8 py-4 sm:py-6 bg-cyan-600 text-white font-black hover:bg-cyan-700 transition-all shadow-xl sm:shadow-2xl shadow-cyan-600/20 uppercase tracking-wider sm:tracking-widest text-xs sm:text-sm flex items-center justify-center min-h-[44px] rounded-md">
-                Initialize Product Audit
-              </button>
-              <Link href="/services/ui-ux/details" className="w-full sm:w-[280px] px-6 py-3 sm:py-4 bg-white border border-slate-200 text-slate-900 font-black hover:bg-slate-50 transition-all uppercase tracking-wider sm:tracking-widest text-xs sm:text-sm flex items-center justify-center text-center min-h-[44px] rounded-md">
-                Design Manifest
-              </Link>
-            </div>
-          </div>
-
-          <div className="flex-1 relative hidden lg:block">
             <motion.div
-              initial={{ opacity: 0, scale: 0.9 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 1 }}
-              className="relative p-12 bg-white -[4rem] border border-slate-100 shadow-2xl overflow-hidden group rounded-md"
+              initial={{ opacity: 0, y: 12 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.22 }}
+              className="flex flex-wrap items-center justify-center gap-3 pt-2"
             >
-              <div className="absolute inset-0 opacity-5 pointer-events-none" style={{ backgroundImage: "radial-gradient(#0891b2 1px, transparent 1px)", backgroundSize: "30px 30px" }}></div>
-
-              <div className="relative aspect-square flex flex-col items-center justify-center">
-                <motion.div
-                  animate={{ scale: [1, 1.05, 1] }}
-                  transition={{ duration: 4, repeat: Infinity }}
-                  className="w-48 h-48 bg-cyan-600 -[3rem] shadow-2xl flex items-center justify-center relative overflow-hidden"
-                >
-                  <motion.div
-                    animate={{ rotate: 360 }}
-                    transition={{ duration: 10, repeat: Infinity, ease: "linear" }}
-                    className="absolute inset-2 border-2 border-white/20 -[2.5rem] border-dashed"
-                  />
-                  <IoLayersOutline className="text-6xl text-white" />
-                </motion.div>
-
-                <div className="absolute inset-0 flex items-center justify-center">
-                  {[
-                    { icon: <IoColorPaletteOutline />, pos: "top-10 left-10", d: 0.1 },
-                    { icon: <IoCodeSlashOutline />, pos: "bottom-10 right-10", d: 0.3 },
-                    { icon: <IoBrowsersOutline />, pos: "top-10 right-10", d: 0.5 },
-                    { icon: <IoFingerPrintOutline />, pos: "bottom-10 left-10", d: 0.7 }
-                  ].map((sat, i) => (
-                    <motion.div
-                      key={i}
-                      initial={{ opacity: 0, scale: 0 }}
-                      animate={{ opacity: 1, scale: 1 }}
-                      transition={{ delay: sat.d, duration: 0.5 }}
-                      className={`absolute ${sat.pos} w-20 h-20 bg-white border border-slate-100 shadow-xl rounded-lg flex items-center justify-center text-cyan-500 text-3xl group-hover:scale-110 transition-transform`}
-                    >
-                      {sat.icon}
-                    </motion.div>
-                  ))}
-                </div>
-              </div>
-
-              <div className="absolute bottom-8 left-1/2 -translate-x-1/2 font-mono text-[8px] text-slate-300 uppercase tracking-[0.5em] bg-white px-4">
-                PRODUCT_INTERFACE_LAB_V4
-              </div>
+              <button
+                onClick={() => setShowModal(true)}
+                className="px-6 py-2.5 bg-[#FF2C6D] text-white font-bold hover:bg-[#e0285f] transition-colors shadow-sm uppercase tracking-wider text-xs rounded-lg min-h-[42px]"
+              >
+                Initialize Design Audit
+              </button>
+              <Link
+                href="/en/services/ui-ux/details"
+                className="inline-flex items-center gap-1 text-xs font-bold uppercase tracking-wider text-[#10B981] hover:text-[#FF2C6D] transition-colors py-2 px-3"
+              >
+                Technical Details <IoArrowForwardOutline />
+              </Link>
             </motion.div>
           </div>
         </div>
 
-        {/* PILLARS SECTION */}
-        <div className="mb-10 lg:mb-20">
-          <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-6 lg:mb-10 gap-4 lg:gap-4 border-l-4 border-cyan-600 pl-6 lg:pl-8 rounded-lg">
-            <div className="max-w-xl">
-              <h2 className="text-[10px] sm:text-xs font-black text-cyan-600 uppercase tracking-[0.2em] sm:tracking-[0.4em] mb-2 font-bold">Experience Philosophy</h2>
-              <p className="text-3xl sm:text-4xl md:text-5xl font-black text-slate-900 leading-tight">
-                Architecting <span className="text-slate-400 italic font-serif font-light">user behavior.</span>
-              </p>
-            </div>
-          </div>
-
-          <div className="flex overflow-x-auto snap-x snap-mandatory lg:grid lg:grid-cols-3 gap-6 lg:gap-4 pb-4 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
-            {pillars?.map((item, i) => (
-              <motion.div
-                key={i}
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: i * 0.1 }}
-                className="group cursor-default w-[85vw] sm:w-[320px] lg:w-auto shrink-0 snap-center"
-              >
-                <div className="bg-white -[3rem] p-6 h-full border border-slate-100 shadow-sm shadow-slate-200/50 hover:shadow-2xl transition-all group-hover:-translate-y-2 relative overflow-hidden text-left rounded-lg">
-                  <div
-                    className={`w-14 h-14 rounded-lg bg-gradient-to-br ${item.color} text-white flex items-center justify-center text-3xl mb-10 shadow-lg`}
-                  >
-                    {getIcon(item.icon)}
-                  </div>
-                  <h3 className="text-2xl font-black text-slate-900 mb-3 tracking-tighter uppercase leading-none">
-                    {item.title}
-                  </h3>
-                  <p className="text-slate-500 leading-relaxed font-light text-lg">
-                    {item.desc}
-                  </p>
-                </div>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-
-        {/* ATOMIC METRICS SECTION */}
-        <div className="mb-10 lg:mb-20">
-          <div className="grid lg:grid-cols-2 gap-5 lg:gap-8 items-center bg-white lg:-[4rem] p-5 sm:p-5 lg:p-8 border border-slate-100 shadow-xl lg:shadow-2xl shadow-slate-200/50 relative overflow-hidden rounded-lg">
-            <div className="absolute top-0 right-0 w-1/3 h-full bg-cyan-50/20 -skew-x-[20deg] origin-top translate-x-1/2"></div>
-
-            <div className="relative z-10 space-y-4 sm:space-y-6">
-              <div className="w-16 h-16 bg-cyan-50 flex items-center justify-center text-3xl text-cyan-600 border border-cyan-100 rounded-lg">
-                <IoLayersOutline />
-              </div>
-              <h2 className="text-4xl sm:text-5xl lg:text-6xl font-black text-slate-900 leading-[1.1] sm:leading-[0.9] tracking-tighter sm:tracking-normal">Atomic <br className="hidden sm:block" /><span className="text-cyan-600 block sm:inline mt-2 sm:mt-0">Scaling.</span></h2>
-              <p className="text-slate-500 text-lg sm:text-xl font-light leading-relaxed">We build highly scalable Design Systems that standardize component logic and ensure absolute visual consistency across platforms.</p>
-
-              <div className="grid grid-cols-2 gap-px bg-slate-50 border border-slate-100 lg: overflow-hidden mt-8 lg:mt-5 rounded-lg">
-                {metrics?.map((item, idx) => (
-                  <div key={idx} className="p-6 lg:p-10 hover:bg-white transition-colors group rounded-md">
-                    <div className="text-cyan-600 mb-3 text-xl">{getIcon(item.icon)}</div>
-                    <h4 className="text-[10px] sm:text-xs font-black text-cyan-600 uppercase tracking-wider lg:tracking-widest mb-2">{item.t}</h4>
-                    <p className="text-xs sm:text-sm text-slate-400 font-bold italic">{item.d}</p>
+        {/* ── Key Highlights Strip ── */}
+        {metricsData.length > 0 && (
+          <div className="border-b border-slate-100 bg-slate-50/80">
+            <div className="container-custom py-3.5">
+              <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 text-center divide-x divide-slate-200/60">
+                {metricsData.map((item, idx) => (
+                  <div key={idx} className="px-2">
+                    <p className="text-xl sm:text-2xl font-black text-slate-900 leading-[1.1]">
+                      {item.value || item.t}
+                    </p>
+                    <p className="text-[10px] sm:text-xs font-bold uppercase tracking-widest text-slate-400 mt-1">
+                      {item.label || item.d}
+                    </p>
                   </div>
                 ))}
               </div>
             </div>
-
-            <motion.div
-              animate={{ rotate: [0, -1, 0] }}
-              transition={{ duration: 8, repeat: Infinity }}
-              className="relative lg:scale-110"
-            >
-              <div className="bg-slate-900 lg:-[3rem] p-5 lg:p-8 border border-slate-800 shadow-2xl space-y-4 lg:space-y-5 group rounded-lg">
-                <div className="flex justify-between items-center text-white/40 font-mono text-[8px] sm:text-[9px] tracking-[0.2em] sm:tracking-[0.4em] uppercase">
-                  <span>Interaction Spec</span>
-                  <span>UI_COMPONENT_v4.2</span>
-                </div>
-
-                <div className="space-y-6">
-                  <div className="flex items-center gap-4">
-                    <div className="w-12 h-12 bg-cyan-500 shadow-[0_0_20px_rgba(6,182,212,0.4)] flex items-center justify-center text-white font-black text-xs rounded-lg">A</div>
-                    <div className="flex-1 space-y-2">
-                      <div className="h-1.5 bg-white/10 w-full relative">
-                        <motion.div initial={{ width: 0 }} whileInView={{ width: "94%" }} transition={{ duration: 2 }} className="absolute inset-0 bg-cyan-500" />
-                      </div>
-                      <div className="h-1.5 bg-white/5 w-1/4"></div>
-                    </div>
-                  </div>
-                </div>
-
-                <div className="pt-8 border-t border-white/5 flex justify-between items-center">
-                  <p className="text-[10px] font-mono text-cyan-400 font-bold tracking-tighter uppercase">Consistency::98% / Benchmark</p>
-                  <IoPulseOutline className="text-cyan-500 animate-pulse text-2xl" />
-                </div>
-              </div>
-            </motion.div>
           </div>
-        </div>
+        )}
 
-        {/* FINAL CTA RIBBON */}
-        <div className="text-center py-10 lg:py-16 border-t border-slate-200 pb-12 lg:pb-16">
-          <IoColorPaletteOutline className="text-6xl lg:text-7xl text-cyan-600 mb-4 lg:mb-6 mx-auto opacity-20" />
-          <h3 className="text-4xl sm:text-5xl lg:text-[5.5rem] font-black text-slate-900 mb-10 lg:mb-14 leading-[1.1] tracking-tighter">
-            {cta.title?.includes('. ') ? (
-              <>
-                {cta.title.split('. ')[0]}. <br className="hidden sm:block" />
-                <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-600 to-indigo-600 font-serif italic font-medium block sm:inline mt-2 sm:mt-0">
-                  {cta.title.split('. ')[1]}
-                </span>
-              </>
-            ) : (
-              <>
-                Ready to activate your <br className="hidden sm:block" />
-                <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-600 to-indigo-600 font-serif italic font-medium block sm:inline mt-2 sm:mt-0">
-                  {cta.title}
-                </span>
-              </>
-            )}
-          </h3>
-          <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center items-center">
-            {/* Sticky Mobile CTA */}
-            <div className="fixed bottom-0 left-0 w-full px-4 pt-4 pb-[max(1rem,env(safe-area-inset-bottom))] bg-white/90 backdrop-blur-md border-t border-slate-200 z-50 lg:relative lg:border-none lg:bg-transparent lg:p-0 lg:w-auto">
-              <button className="w-full lg:w-[320px] px-8 py-4 sm:py-7 bg-cyan-600 text-white font-black lg: hover:bg-cyan-700 transition-all shadow-xl sm:shadow-[0_20px_40px_-15px_rgba(6,182,212,0.3)] uppercase tracking-wider sm:tracking-[0.2em] text-xs sm:text-sm flex items-center justify-center min-h-[44px] gap-2 lg:gap-3 active:scale-95 rounded-md">
-                <IoFlashOutline className="text-lg lg:text-xl" /> Initialize Product Audit
+        {/* ── Capability Pillars (Experience DNA) ── */}
+        {pillarsData.length > 0 && (
+          <div className="container-custom py-10 sm:py-14">
+            <div className="text-center max-w-xl mx-auto mb-8">
+              <h2 className="text-[11px] font-black text-slate-400 uppercase tracking-widest mb-1.5 leading-[1.4]">
+                Experience DNA
+              </h2>
+              <p className="text-xl sm:text-2xl font-black text-slate-900 leading-[1.2]">
+                Pillars of Digital Ergonomics
+              </p>
+            </div>
+
+            <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
+              {pillarsData.map((pillar, i) => (
+                <div
+                  key={i}
+                  className="bg-white border border-slate-200/80 hover:border-[#FF2C6D]/40 hover:shadow-lg transition-all rounded-xl p-6 relative flex flex-col group overflow-hidden"
+                >
+                  <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-[#FF2C6D] to-[#10B981] opacity-0 group-hover:opacity-100 transition-opacity" />
+
+                  <div className="w-11 h-11 rounded-lg bg-slate-50 border border-slate-100 text-slate-800 flex items-center justify-center text-xl mb-4 group-hover:bg-[#FF2C6D]/10 group-hover:text-[#FF2C6D] transition-colors shrink-0">
+                    {getIcon(pillar.icon) || <IoLayersOutline />}
+                  </div>
+
+                  <h3 className="text-base font-bold text-slate-900 mb-2 leading-snug">
+                    {pillar.title}
+                  </h3>
+                  <p className="text-slate-500 text-sm leading-[1.6] flex-1 mb-4">
+                    {pillar.desc}
+                  </p>
+
+                  {pillar.highlights?.length > 0 && (
+                    <ul className="space-y-1.5 pt-3 border-t border-slate-100">
+                      {pillar.highlights.map((h, hi) => (
+                        <li key={hi} className="flex items-start gap-1.5 text-xs text-slate-600 font-medium">
+                          <IoCheckmarkCircleOutline className="text-[#10B981] shrink-0 mt-0.5 text-sm" />
+                          <span>{h}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  )}
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
+
+        {/* ── Deliverables ── */}
+        {deliverablesData.length > 0 && (
+          <div className="border-t border-b border-slate-100 bg-slate-50/60 py-10">
+            <div className="container-custom">
+              <div className="text-center max-w-xl mx-auto mb-8">
+                <h2 className="text-[11px] font-black text-slate-400 uppercase tracking-widest mb-1.5 leading-[1.4]">
+                  Production Deliverables
+                </h2>
+                <p className="text-xl sm:text-2xl font-black text-slate-900 leading-[1.2]">
+                  Code-Ready Product Artifacts
+                </p>
+              </div>
+
+              <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
+                {deliverablesData.map((d, di) => {
+                  const Icon = DELIVERABLE_ICONS[di % DELIVERABLE_ICONS.length];
+                  return (
+                    <div
+                      key={di}
+                      className="bg-white border border-slate-200/80 rounded-xl p-5 flex flex-col shadow-sm"
+                    >
+                      <div className="w-10 h-10 rounded-lg bg-[#FF2C6D]/10 text-[#FF2C6D] flex items-center justify-center text-lg mb-3 shrink-0">
+                        <Icon />
+                      </div>
+                      <h4 className="text-base font-bold text-slate-900 mb-1 leading-snug">
+                        {d.title}
+                      </h4>
+                      <p className="text-sm text-slate-500 leading-relaxed mb-3 flex-1">
+                        {d.desc}
+                      </p>
+                      {d.formats?.length > 0 && (
+                        <div className="flex flex-wrap gap-1.5 pt-2 border-t border-slate-100">
+                          {d.formats.map((f, fi) => (
+                            <span key={fi} className="text-[11px] bg-slate-100 text-slate-600 px-2.5 py-0.5 rounded font-mono font-medium">
+                              {f}
+                            </span>
+                          ))}
+                        </div>
+                      )}
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* ── Pricing ── */}
+        {pricingData.length > 0 && (
+          <div className="container-custom py-10 sm:py-14">
+            <div className="text-center max-w-xl mx-auto mb-8">
+              <h2 className="text-[11px] font-black text-slate-400 uppercase tracking-widest mb-1.5 leading-[1.4]">
+                Investment Tiers
+              </h2>
+              <p className="text-xl sm:text-2xl font-black text-slate-900 leading-[1.2]">
+                Transparent Pricing, <span className="text-[#FF2C6D]">Absolute Clarity</span>
+              </p>
+            </div>
+
+            <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 max-w-5xl mx-auto">
+              {pricingData.map((tier, idx) => (
+                <div
+                  key={idx}
+                  className={`bg-white rounded-xl p-6 sm:p-7 border flex flex-col relative transition-all ${
+                    tier.popular
+                      ? "border-[#FF2C6D] ring-2 ring-[#FF2C6D]/15 shadow-xl shadow-pink-500/5"
+                      : "border-slate-200/80 hover:border-slate-300 shadow-sm"
+                  }`}
+                >
+                  {tier.popular && (
+                    <div className="absolute -top-3 right-6 bg-[#FF2C6D] text-white text-[10px] font-black uppercase tracking-widest px-3 py-0.5 rounded-full shadow-sm">
+                      Recommended
+                    </div>
+                  )}
+
+                  <h3 className="text-lg font-black text-slate-900 leading-[1.2]">
+                    {tier.tier}
+                  </h3>
+                  <p className="text-xs text-slate-500 mt-1 mb-3">
+                    {tier.target}
+                  </p>
+
+                  <div className="my-2">
+                    <span className="text-3xl font-black text-slate-900 leading-[1]">
+                      {tier.price}
+                    </span>
+                    <span className="text-xs font-semibold text-slate-400 ml-1">
+                      / {tier.priceLocal}
+                    </span>
+                  </div>
+
+                  <div className="border-t border-slate-100 pt-4 flex flex-col gap-2.5 flex-1 mb-6">
+                    {tier.features?.map((feature, fIdx) => (
+                      <div
+                        key={fIdx}
+                        className="flex items-start gap-2 text-xs sm:text-sm text-slate-600 leading-[1.5]"
+                      >
+                        <IoCheckmarkCircleOutline className="text-[#10B981] text-base shrink-0 mt-0.5" />
+                        <span>{feature}</span>
+                      </div>
+                    ))}
+                  </div>
+
+                  <button
+                    onClick={() => setShowModal(true)}
+                    className={`w-full min-h-[44px] py-3 rounded-lg font-black uppercase tracking-widest text-xs transition-all flex items-center justify-center leading-[1.4] text-center ${
+                      tier.popular
+                        ? "bg-[#FF2C6D] text-white hover:bg-brand-pinkLight shadow-md shadow-pink-500/20"
+                        : "bg-slate-900 text-white hover:bg-slate-800"
+                    }`}
+                  >
+                    Get Started
+                  </button>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
+
+        {/* ── FAQs ── */}
+        {faqsData.length > 0 && (
+          <div className="border-t border-slate-100 bg-slate-50/60 py-10">
+            <div className="container-custom max-w-3xl">
+              <div className="text-center mb-8">
+                <h2 className="text-[11px] font-black text-slate-400 uppercase tracking-widest mb-1.5 leading-[1.4]">
+                  FAQ
+                </h2>
+                <p className="text-xl sm:text-2xl font-black text-slate-900 leading-[1.2]">
+                  Frequently Asked Questions
+                </p>
+              </div>
+
+              <div className="space-y-3">
+                {faqsData.map((faq, fi) => (
+                  <div key={fi} className="bg-white border border-slate-200/80 rounded-xl overflow-hidden shadow-sm">
+                    <button
+                      onClick={() => setOpenFaq(openFaq === fi ? null : fi)}
+                      className="w-full flex items-center justify-between p-5 text-left gap-4 hover:bg-slate-50 transition-colors"
+                    >
+                      <span className="font-bold text-sm sm:text-base text-slate-900">
+                        {faq.q}
+                      </span>
+                      <motion.span
+                        animate={{ rotate: openFaq === fi ? 180 : 0 }}
+                        transition={{ duration: 0.2 }}
+                        className="shrink-0 text-slate-400"
+                      >
+                        <IoChevronDownOutline />
+                      </motion.span>
+                    </button>
+                    <AnimatePresence>
+                      {openFaq === fi && (
+                        <motion.div
+                          initial={{ height: 0, opacity: 0 }}
+                          animate={{ height: "auto", opacity: 1 }}
+                          exit={{ height: 0, opacity: 0 }}
+                          transition={{ duration: 0.2 }}
+                          className="overflow-hidden"
+                        >
+                          <p className="px-5 pb-5 text-sm text-slate-600 leading-relaxed border-t border-slate-100 pt-3">
+                            {faq.a}
+                          </p>
+                        </motion.div>
+                      )}
+                    </AnimatePresence>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* ── Compact CTA ── */}
+        <div className="container-custom py-10 sm:py-14">
+          <div className="bg-slate-900 rounded-2xl p-8 sm:p-10 text-center text-white relative overflow-hidden max-w-4xl mx-auto shadow-xl">
+            <h3 className="text-2xl sm:text-3xl font-black mb-3 text-white">
+              {cta.title || "Eliminate Friction. Architect an Unforgettable Product Experience."}
+            </h3>
+            <p className="text-slate-400 text-sm sm:text-base max-w-xl mx-auto mb-6">
+              {cta.subtitle || "Schedule a free product design discovery session with our senior UI/UX architects."}
+            </p>
+            <div className="flex flex-wrap items-center justify-center gap-3">
+              <button
+                onClick={() => setShowModal(true)}
+                className="px-6 py-3 bg-[#FF2C6D] text-white font-bold hover:bg-[#e0285f] transition-colors rounded-lg text-xs uppercase tracking-wider"
+              >
+                Schedule Discovery Session
               </button>
+              <a
+                href={`https://wa.me/${process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || "8801722550012"}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-1.5 px-6 py-3 bg-[#10B981] text-white font-bold hover:bg-[#0ea371] transition-colors rounded-lg text-xs uppercase tracking-wider"
+              >
+                <IoLogoWhatsapp className="text-base" /> WhatsApp
+              </a>
             </div>
           </div>
         </div>
       </div>
+
+      {/* ── Consultation Modal ── */}
+      <AnimatePresence>
+        {showModal && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/70 backdrop-blur-sm"
+            onClick={(e) => e.target === e.currentTarget && setShowModal(false)}
+          >
+            <motion.div
+              initial={{ y: 40, opacity: 0 }}
+              animate={{ y: 0, opacity: 1 }}
+              exit={{ y: 40, opacity: 0 }}
+              className="bg-white rounded-2xl p-6 sm:p-8 w-full max-w-md shadow-2xl"
+            >
+              <div className="flex items-center justify-between mb-5">
+                <div>
+                  <h3 className="text-lg font-black text-slate-900">
+                    Product Design Session
+                  </h3>
+                  <p className="text-xs text-slate-500">
+                    Free consultation · 30 min · No commitment
+                  </p>
+                </div>
+                <button
+                  onClick={() => setShowModal(false)}
+                  className="w-8 h-8 bg-slate-100 hover:bg-slate-200 rounded-lg flex items-center justify-center text-slate-500"
+                >
+                  <IoCloseOutline className="text-lg" />
+                </button>
+              </div>
+
+              <div className="space-y-3.5">
+                <div>
+                  <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1">
+                    Full Name
+                  </label>
+                  <input
+                    type="text"
+                    placeholder="Your name"
+                    className="w-full px-3.5 py-2.5 border border-slate-200 rounded-lg text-sm text-slate-900 focus:outline-none focus:ring-2 focus:ring-[#FF2C6D]/30 focus:border-[#FF2C6D] bg-slate-50"
+                  />
+                </div>
+                <div>
+                  <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1">
+                    Email Address
+                  </label>
+                  <input
+                    type="email"
+                    placeholder="you@company.com"
+                    className="w-full px-3.5 py-2.5 border border-slate-200 rounded-lg text-sm text-slate-900 focus:outline-none focus:ring-2 focus:ring-[#FF2C6D]/30 focus:border-[#FF2C6D] bg-slate-50"
+                  />
+                </div>
+                <div className="flex gap-2.5 pt-2">
+                  <button className="flex-1 py-3 bg-[#FF2C6D] text-white font-bold text-xs uppercase tracking-wider rounded-lg hover:bg-[#e0285f] transition-colors">
+                    Book Free Session
+                  </button>
+                  <a
+                    href={`https://wa.me/${process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || "8801722550012"}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-1.5 px-4 py-3 bg-[#10B981] text-white font-bold text-xs uppercase tracking-wider rounded-lg hover:bg-[#0ea371] transition-colors"
+                  >
+                    <IoLogoWhatsapp className="text-base" /> WhatsApp
+                  </a>
+                </div>
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </section>
   );
 }

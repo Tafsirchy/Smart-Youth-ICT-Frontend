@@ -1,246 +1,494 @@
 "use client";
 
+import { useState } from "react";
 import {
-  IoFlashOutline,
-  IoPeopleOutline,
-  IoBarChartOutline,
-  IoAnalyticsOutline,
-  IoCheckmarkCircleOutline,
+  IoSparklesOutline,
   IoPulseOutline,
+  IoFilterOutline,
+  IoFlashOutline,
+  IoDocumentTextOutline,
+  IoBarChartOutline,
+  IoTrendingUpOutline,
+  IoCheckmarkCircleOutline,
+  IoChevronDownOutline,
+  IoLogoWhatsapp,
+  IoCloseOutline,
+  IoArrowForwardOutline,
   IoRocketOutline,
-  IoFilterOutline
 } from "react-icons/io5";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
 import { getIcon } from "@/lib/icons";
 
+/* ─── Deliverables Icon Map ──────────────────────────────────────────────── */
+const DELIVERABLE_ICONS = [
+  IoPulseOutline,
+  IoFilterOutline,
+  IoFlashOutline,
+  IoDocumentTextOutline,
+  IoBarChartOutline,
+  IoTrendingUpOutline,
+];
+
 export default function FacebookAdsClient({ content }) {
+  const cmsLanding = content?.landing || {};
+  const hero = cmsLanding?.hero || {};
+  const sections = cmsLanding?.sections || {};
+  const cta = cmsLanding?.cta || {};
+
+  const metricsData = sections.metrics || [];
+  const pillarsData = sections.pillars || [];
+  const deliverablesData = sections.deliverables || [];
+  const pricingData = sections.pricing || [];
+  const faqsData = sections.faqs || [];
+
+  const [openFaq, setOpenFaq] = useState(null);
+  const [showModal, setShowModal] = useState(false);
+
   if (!content) return null;
 
-  const { hero, sections, cta } = content.landing;
-  const pillars = sections.pillars || [];
-  const metrics = sections.metrics || [];
-
   return (
-    <section className="min-h-screen bg-slate-50 text-slate-900 selection:bg-emerald-600 selection:text-white overflow-hidden relative">
-      <div className="absolute top-0 opacity-20 pointer-events-none -z-10 w-full h-full">
-        <div className="absolute top-0 left-1/4 w-[1px] h-full bg-slate-200"></div>
-        <div className="absolute top-0 right-1/4 w-[1px] h-full bg-slate-200"></div>
-        <div className="absolute top-1/2 left-0 w-full h-[1px] bg-slate-200"></div>
-        <div className="absolute top-[30%] left-[-100px] w-[500px] h-[500px] bg-emerald-50 blur-[140px]"></div>
-      </div>
+    <section className="min-h-screen bg-white flex flex-col relative selection:bg-brand-pink selection:text-white">
+      {/* Background Dot Texture */}
+      <div className="fixed inset-0 bg-[radial-gradient(#0F172A08_1px,transparent_1px)] [background-size:22px_22px] pointer-events-none z-0" />
 
-      <div className="container-custom py-10 relative">
-        {/* FB ADS HERO */}
-        <div className="flex flex-col lg:flex-row items-center gap-4 lg:gap-5 mb-12 lg:mb-20">
-          <div className="flex-1 text-left">
+      <div className="relative z-10 flex flex-col flex-1">
+        {/* ── Minimized Hero ── */}
+        <div className="border-b border-slate-100 bg-white/70 backdrop-blur-sm">
+          <div className="container-custom pt-10 sm:pt-14 pb-8 flex flex-col items-center text-center gap-3 max-w-3xl mx-auto">
             <motion.div
-              initial={{ opacity: 0, x: -20 }}
-              animate={{ opacity: 1, x: 0 }}
-              className="inline-flex items-center gap-2 px-5 py-2 bg-emerald-50 border border-emerald-100 text-emerald-700 text-[10px] sm:text-xs font-black tracking-[0.2em] sm:tracking-[0.4em] uppercase mb-5 rounded-md"
+              initial={{ opacity: 0, y: -8 }}
+              animate={{ opacity: 1, y: 0 }}
+              className="inline-flex items-center gap-1.5 px-3 py-1 bg-[#FF2C6D]/8 border border-[#FF2C6D]/25 text-[#FF2C6D] text-[10px] font-black uppercase tracking-widest rounded-full leading-[1.4]"
             >
-              <IoRocketOutline className="text-sm" /> {hero.badge}
+              <span className="h-1.5 w-1.5 bg-[#FF2C6D] rounded-full shrink-0 animate-pulse" />
+              {hero.badge || "Performance Advertising & Paid Social"}
             </motion.div>
 
             <motion.h1
-              initial={{ opacity: 0, y: 30 }}
+              initial={{ opacity: 0, y: 12 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, ease: "circOut" }}
-              className="text-4xl sm:text-5xl lg:text-6xl font-black text-slate-900 leading-[1.1] sm:leading-[0.9] mb-4 tracking-tighter"
+              transition={{ delay: 0.08 }}
+              className="text-2xl sm:text-3xl md:text-4xl font-black text-slate-900 leading-[1.2]"
             >
-              {hero.title?.split(' Management')[0]} <br />
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-pink-500 via-rose-500 to-indigo-500 animate-gradient-x">
-                {hero.title?.includes('Management') ? 'Ads Management' : hero.title}
-              </span>
+              Facebook & <span className="text-[#FF2C6D]">Meta Ads Management</span>
             </motion.h1>
 
             <motion.p
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ delay: 0.4 }}
-              className="text-slate-600 text-lg sm:text-xl font-light leading-relaxed max-w-2xl mb-6"
+              initial={{ opacity: 0, y: 12 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.15 }}
+              className="text-slate-500 text-sm md:text-base leading-relaxed max-w-4xl font-normal"
             >
-              {hero.description}
+              <span className="md:block md:whitespace-nowrap">We treat paid advertising as engineering, not guesswork. Our Meta ads framework</span>
+              <span className="md:block md:whitespace-nowrap">leverages server-side Conversions API (CAPI), multi-stage behavioral funnels, aggressive</span>
+              <span className="md:block md:whitespace-nowrap">creative sprint testing, and algorithmic budget scaling to drive profitable, predictable ROAS.</span>
             </motion.p>
 
-            <div className="flex flex-col sm:flex-row gap-3 sm:gap-4">
-              <button className="w-full sm:w-[280px] px-8 py-4 sm:py-6 bg-emerald-600 text-white font-black hover:bg-emerald-700 transition-all shadow-xl sm:shadow-2xl shadow-emerald-600/20 uppercase tracking-wider sm:tracking-widest text-xs sm:text-sm flex items-center justify-center min-h-[44px] rounded-md">
-                Initialize Performance Audit
+            <motion.div
+              initial={{ opacity: 0, y: 12 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.22 }}
+              className="flex flex-wrap items-center justify-center gap-3 pt-2"
+            >
+              <button
+                onClick={() => setShowModal(true)}
+                className="px-6 py-2.5 bg-[#FF2C6D] text-white font-bold hover:bg-[#e0285f] transition-colors shadow-sm uppercase tracking-wider text-xs rounded-lg min-h-[42px]"
+              >
+                Initialize Ads Audit
               </button>
               <Link
-                href="/services/facebook-ads/details"
-                className="w-full sm:w-[280px] px-6 py-3 sm:py-4 bg-white border border-slate-200 text-slate-900 font-black hover:bg-slate-50 transition-all uppercase tracking-wider sm:tracking-widest text-xs sm:text-sm flex items-center justify-center text-center min-h-[44px] rounded-md"
+                href="/en/services/facebook-ads/details"
+                className="inline-flex items-center gap-1 text-xs font-bold uppercase tracking-wider text-[#10B981] hover:text-[#FF2C6D] transition-colors py-2 px-3"
               >
-                Technical Specifications
+                Technical Details <IoArrowForwardOutline />
               </Link>
-            </div>
-          </div>
-
-          <div className="flex-1 relative hidden lg:block">
-            <motion.div
-              initial={{ opacity: 0, scale: 0.9 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 1 }}
-              className="relative p-12 bg-white -[4rem] border border-slate-100 shadow-2xl overflow-hidden group rounded-md"
-            >
-              <div className="absolute inset-0 opacity-5 pointer-events-none" style={{ backgroundImage: "linear-gradient(#10b981 1px, transparent 1px), linear-gradient(90deg, #10b981 1px, transparent 1px)", backgroundSize: "40px 40px" }}></div>
-
-              <div className="relative aspect-square flex flex-col items-center justify-center space-y-4">
-                {[
-                  { w: "w-64", h: "h-24", label: "AWARENESS (Top)", color: "bg-emerald-50 text-emerald-400" },
-                  { w: "w-48", h: "h-20", label: "INTENT (Mid)", color: "bg-emerald-100/50 text-emerald-500" },
-                  { w: "w-32", h: "h-16", label: "CONVERSION (Btm)", color: "bg-emerald-600 text-white" }
-                ].map((level, i) => (
-                  <motion.div
-                    key={i}
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: i * 0.2 }}
-                    whileHover={{ scale: 1.05 }}
-                    className={`${level.w} ${level.h} ${level.color} border border-emerald-200 rounded-lg shadow-xl flex items-center justify-center relative overflow-hidden group/item cursor-default`}
-                  >
-                    <span className="text-[10px] font-black tracking-widest uppercase relative z-10">{level.label}</span>
-                    <motion.div
-                      animate={{ x: ["-100%", "100%"] }}
-                      transition={{ duration: 3, repeat: Infinity, ease: "linear" }}
-                      className="absolute top-0 left-0 w-full h-full bg-white/20 -skew-x-12 pointer-events-none"
-                    />
-                  </motion.div>
-                ))}
-
-                <div className="absolute top-0 right-10 p-6 bg-slate-900 shadow-2xl border border-slate-800 flex flex-col items-center rounded-lg">
-                  <p className="text-[8px] font-black text-white/40 uppercase tracking-widest mb-1">ROAS Forecast</p>
-                  <p className="text-xl font-black text-emerald-400">4.2x</p>
-                  <IoPulseOutline className="text-emerald-500 text-lg mt-2 animate-pulse" />
-                </div>
-              </div>
-
-              <div className="absolute bottom-8 left-1/2 -translate-x-1/2 font-mono text-[8px] text-slate-300 uppercase tracking-[0.5em] bg-white px-4">
-                FUNNEL_ARCHITECTURE_STRICT
-              </div>
             </motion.div>
           </div>
         </div>
 
-        {/* PILLARS SECTION */}
-        <div className="mb-10 lg:mb-20">
-          <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-6 lg:mb-10 gap-4 lg:gap-4 border-l-4 border-emerald-600 pl-6 lg:pl-8 rounded-lg">
-            <div className="max-w-xl">
-              <h2 className="text-[10px] sm:text-xs font-black text-emerald-600 uppercase tracking-[0.2em] sm:tracking-[0.4em] mb-2 font-bold">Growth Mechanics</h2>
-              <p className="text-3xl sm:text-4xl md:text-5xl font-black text-slate-900 leading-tight">
-                The architecture of <span className="text-slate-400 italic font-serif font-light">scalable revenue.</span>
+        {/* ── Key Highlights Strip ── */}
+        {metricsData.length > 0 && (
+          <div className="border-b border-slate-100 bg-slate-50/80">
+            <div className="container-custom py-3.5">
+              <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 text-center divide-x divide-slate-200/60">
+                {metricsData.map((item, idx) => (
+                  <div key={idx} className="px-2">
+                    <p className="text-xl sm:text-2xl font-black text-slate-900 leading-[1.1]">
+                      {item.value || item.t}
+                    </p>
+                    <p className="text-[10px] sm:text-xs font-bold uppercase tracking-widest text-slate-400 mt-1">
+                      {item.label || item.d}
+                    </p>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* ── Capability Pillars (Growth DNA) ── */}
+        {pillarsData.length > 0 && (
+          <div className="container-custom py-10 sm:py-14">
+            <div className="text-center max-w-xl mx-auto mb-8">
+              <h2 className="text-[11px] font-black text-slate-400 uppercase tracking-widest mb-1.5 leading-[1.4]">
+                Growth DNA
+              </h2>
+              <p className="text-xl sm:text-2xl font-black text-slate-900 leading-[1.2]">
+                Pillars of Paid Acquisition
               </p>
             </div>
-          </div>
 
-          <div className="flex overflow-x-auto snap-x snap-mandatory lg:grid lg:grid-cols-3 gap-6 lg:gap-4 pb-4 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
-            {pillars?.map((item, i) => (
-              <motion.div
-                key={i}
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: i * 0.1 }}
-                className="group cursor-default w-[85vw] sm:w-[320px] lg:w-auto shrink-0 snap-center"
-              >
-                <div className="bg-white -[3rem] p-6 h-full border border-slate-100 shadow-sm shadow-slate-200/50 hover:shadow-2xl transition-all group-hover:-translate-y-2 relative overflow-hidden rounded-lg">
-                  <div
-                    className={`w-14 h-14 rounded-lg bg-gradient-to-br ${item.color} text-white flex items-center justify-center text-3xl mb-10 shadow-lg`}
-                  >
-                    {getIcon(item.icon)}
+            <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
+              {pillarsData.map((pillar, i) => (
+                <div
+                  key={i}
+                  className="bg-white border border-slate-200/80 hover:border-[#FF2C6D]/40 hover:shadow-lg transition-all rounded-xl p-6 relative flex flex-col group overflow-hidden"
+                >
+                  <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-[#FF2C6D] to-[#10B981] opacity-0 group-hover:opacity-100 transition-opacity" />
+
+                  <div className="w-11 h-11 rounded-lg bg-slate-50 border border-slate-100 text-slate-800 flex items-center justify-center text-xl mb-4 group-hover:bg-[#FF2C6D]/10 group-hover:text-[#FF2C6D] transition-colors shrink-0">
+                    {getIcon(pillar.icon) || <IoRocketOutline />}
                   </div>
-                  <h3 className="text-2xl font-black text-slate-900 mb-3 tracking-tighter uppercase leading-none">
-                    {item.title}
+
+                  <h3 className="text-base font-bold text-slate-900 mb-2 leading-snug">
+                    {pillar.title}
                   </h3>
-                  <p className="text-slate-500 leading-relaxed font-light text-lg">
-                    {item.desc}
+                  <p className="text-slate-500 text-sm leading-[1.6] flex-1 mb-4">
+                    {pillar.desc}
                   </p>
+
+                  {pillar.highlights?.length > 0 && (
+                    <ul className="space-y-1.5 pt-3 border-t border-slate-100">
+                      {pillar.highlights.map((h, hi) => (
+                        <li key={hi} className="flex items-start gap-1.5 text-xs text-slate-600 font-medium">
+                          <IoCheckmarkCircleOutline className="text-[#10B981] shrink-0 mt-0.5 text-sm" />
+                          <span>{h}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  )}
                 </div>
-              </motion.div>
-            ))}
+              ))}
+            </div>
           </div>
-        </div>
+        )}
 
-        {/* PERFORMANCE SECTION */}
-        <div className="mb-10 lg:mb-20">
-          <div className="grid lg:grid-cols-2 gap-5 lg:gap-8 items-center bg-white lg:-[4rem] p-5 sm:p-5 lg:p-8 border border-slate-100 shadow-xl lg:shadow-2xl shadow-slate-200/50 relative overflow-hidden rounded-lg">
-            <div className="absolute top-0 right-0 w-1/3 h-full bg-emerald-50/20 -skew-x-[20deg] origin-top translate-x-1/2"></div>
-
-            <div className="relative z-10 space-y-4 sm:space-y-6">
-              <div className="w-16 h-16 bg-emerald-50 flex items-center justify-center text-3xl text-emerald-600 border border-emerald-100 rounded-lg">
-                <IoBarChartOutline />
+        {/* ── Deliverables ── */}
+        {deliverablesData.length > 0 && (
+          <div className="border-t border-b border-slate-100 bg-slate-50/60 py-10">
+            <div className="container-custom">
+              <div className="text-center max-w-xl mx-auto mb-8">
+                <h2 className="text-[11px] font-black text-slate-400 uppercase tracking-widest mb-1.5 leading-[1.4]">
+                  Campaign Suite
+                </h2>
+                <p className="text-xl sm:text-2xl font-black text-slate-900 leading-[1.2]">
+                  Production Deliverables
+                </p>
               </div>
-              <h2 className="text-4xl sm:text-5xl lg:text-6xl font-black text-slate-900 leading-[1.1] sm:leading-[0.9] tracking-tighter sm:tracking-normal">Technical <br className="hidden sm:block" /><span className="text-emerald-600 block sm:inline mt-2 sm:mt-0">Precision.</span></h2>
-              <p className="text-slate-500 text-lg sm:text-xl font-light leading-relaxed">We move beyond 'vanity metrics'. We focus on attributable revenue, checkout-intent modeling, and LTV optimization to ensure sustainable growth.</p>
 
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6 pt-8 sm:pt-10 border-t border-slate-100">
-                {metrics?.map((item, idx) => (
-                  <div key={idx} className="flex items-center gap-3 text-sm font-bold text-slate-700">
-                    <IoCheckmarkCircleOutline className="text-emerald-600 text-lg shrink-0" /> {item.t}
-                  </div>
-                ))}
+              <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
+                {deliverablesData.map((d, di) => {
+                  const Icon = DELIVERABLE_ICONS[di % DELIVERABLE_ICONS.length];
+                  return (
+                    <div
+                      key={di}
+                      className="bg-white border border-slate-200/80 rounded-xl p-5 hover:border-slate-300 transition-colors flex flex-col justify-between"
+                    >
+                      <div>
+                        <div className="w-9 h-9 rounded-lg bg-slate-900 text-white flex items-center justify-center text-lg mb-3 shrink-0">
+                          <Icon />
+                        </div>
+                        <h3 className="text-sm font-bold text-slate-900 mb-1.5 leading-snug">
+                          {d.title}
+                        </h3>
+                        <p className="text-xs text-slate-500 leading-relaxed mb-4">
+                          {d.desc}
+                        </p>
+                      </div>
+
+                      {d.formats?.length > 0 && (
+                        <div className="flex flex-wrap gap-1.5 pt-3 border-t border-slate-100">
+                          {d.formats.map((f, fi) => (
+                            <span
+                              key={fi}
+                              className="text-[10px] font-mono bg-slate-100 text-slate-600 px-2 py-0.5 rounded font-medium"
+                            >
+                              {f}
+                            </span>
+                          ))}
+                        </div>
+                      )}
+                    </div>
+                  );
+                })}
               </div>
             </div>
-
-            <motion.div
-              animate={{ y: [0, -10, 0] }}
-              transition={{ duration: 5, repeat: Infinity }}
-              className="relative lg:scale-110"
-            >
-              <div className="bg-slate-900 lg:-[3rem] p-5 lg:p-8 border border-slate-800 shadow-2xl space-y-4 lg:space-y-5 group rounded-lg">
-                <div className="flex justify-between items-center text-white/40 font-mono text-[8px] sm:text-[9px] tracking-[0.2em] sm:tracking-[0.4em] uppercase">
-                  <span>Performance Logic</span>
-                  <span>ROI_CALCULATOR_v6.4</span>
-                </div>
-
-                <div className="space-y-6">
-                  <div className="flex items-center gap-4">
-                    <div className="w-12 h-12 bg-emerald-500 shadow-[0_0_20px_rgba(16,185,129,0.4)] flex items-center justify-center text-white rounded-lg"><IoFlashOutline className="text-2xl" /></div>
-                    <div className="flex-1 space-y-2">
-                      <div className="h-1.5 bg-white/10 w-full"></div>
-                      <div className="h-1.5 bg-white/5 w-1/2"></div>
-                    </div>
-                  </div>
-                  <div className="h-32 w-full bg-white/5 border border-white/5 relative overflow-hidden flex flex-col items-center justify-center p-6">
-                    <div className="flex justify-between w-full mb-4">
-                      <p className="text-[10px] font-mono text-emerald-400">NET_CONV::485</p>
-                      <p className="text-[10px] font-mono text-white">CP_AQ::$12.4</p>
-                    </div>
-                    <div className="w-full h-2 bg-white/10 overflow-hidden">
-                      <motion.div initial={{ width: 0 }} animate={{ width: "85%" }} transition={{ duration: 2 }} className="h-full bg-emerald-500" />
-                    </div>
-                  </div>
-                </div>
-
-                <div className="pt-8 border-t border-white/5 flex justify-between items-center">
-                  <p className="text-[10px] font-mono text-emerald-400 font-bold tracking-tighter">ATTRIBUTION::VERIFIED</p>
-                  <IoCheckmarkCircleOutline className="text-emerald-500" />
-                </div>
-              </div>
-            </motion.div>
           </div>
-        </div>
+        )}
 
-        {/* CTA */}
-        <div className="text-center py-10 lg:py-16 border-t border-slate-200 pb-12 lg:pb-16">
-          <IoAnalyticsOutline className="text-6xl lg:text-7xl text-emerald-600 mb-4 lg:mb-6 mx-auto opacity-20" />
-          <h3 className="text-4xl sm:text-5xl lg:text-6xl font-black text-slate-900 mb-5 lg:mb-6 leading-tight tracking-tighter sm:tracking-normal">{cta.title?.split('. ')[0]}. <br className="hidden sm:block" /><span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-600 to-blue-700 font-serif italic font-medium block sm:inline mt-2 sm:mt-0">{cta.title?.split('. ')[1] || "Command the Feed."}</span></h3>
-          <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center">
-            {/* Sticky Mobile CTA */}
-            <div className="fixed bottom-0 left-0 w-full px-4 pt-4 pb-[max(1rem,env(safe-area-inset-bottom))] bg-white/90 backdrop-blur-md border-t border-slate-200 z-50 lg:relative lg:border-none lg:bg-transparent lg:p-0 lg:w-auto">
-              <button className="w-full lg:w-[280px] px-8 py-4 sm:py-6 bg-emerald-600 text-white font-black hover:bg-emerald-700 transition-all shadow-xl sm:shadow-2xl shadow-emerald-600/40 uppercase tracking-wider sm:tracking-widest text-xs sm:text-sm flex items-center justify-center min-h-[44px] rounded-md">
-                Initialize Performance Audit
-              </button>
+        {/* ── Pricing Tiers ── */}
+        {pricingData.length > 0 && (
+          <div className="container-custom py-12 sm:py-16">
+            <div className="text-center max-w-xl mx-auto mb-10">
+              <h2 className="text-[11px] font-black text-slate-400 uppercase tracking-widest mb-1.5 leading-[1.4]">
+                Investment Tiers
+              </h2>
+              <p className="text-xl sm:text-2xl font-black text-slate-900 leading-[1.2]">
+                Transparent Pricing, Built for Predictable ROAS
+              </p>
             </div>
-            <Link
-              href="/services/facebook-ads/details"
-              className="hidden lg:flex w-full sm:w-[280px] px-6 py-3 sm:py-4 bg-slate-900 text-white font-black hover:bg-slate-800 transition-all uppercase tracking-wider sm:tracking-widest text-xs sm:text-sm items-center justify-center text-center min-h-[44px] rounded-md"
-            >
-              Technical Details
-            </Link>
+
+            <div className="grid lg:grid-cols-3 gap-6 max-w-5xl mx-auto">
+              {pricingData.map((tier, ti) => (
+                <div
+                  key={ti}
+                  className={`rounded-2xl p-6 sm:p-7 border flex flex-col justify-between relative transition-all ${
+                    tier.popular
+                      ? "bg-slate-900 border-[#FF2C6D] text-white shadow-xl shadow-pink-500/10 ring-1 ring-[#FF2C6D]"
+                      : "bg-white border-slate-200 text-slate-900 shadow-sm"
+                  }`}
+                >
+                  {tier.popular && (
+                    <div className="absolute -top-3 left-1/2 -translate-x-1/2">
+                      <span className="bg-[#FF2C6D] text-white text-[10px] font-black uppercase tracking-widest px-3 py-1 rounded-full shadow-md">
+                        Recommended
+                      </span>
+                    </div>
+                  )}
+
+                  <div>
+                    <div className="mb-4">
+                      <h3 className={`text-base font-black ${tier.popular ? "text-white" : "text-slate-900"}`}>
+                        {tier.tier}
+                      </h3>
+                      <p className={`text-xs mt-1 ${tier.popular ? "text-slate-400" : "text-slate-500"}`}>
+                        {tier.target}
+                      </p>
+                    </div>
+
+                    <div className="mb-5 pb-5 border-b border-slate-200/20">
+                      <div className="flex items-baseline gap-1.5">
+                        <span className="text-3xl font-black leading-none">{tier.price}</span>
+                        <span className={`text-xs ${tier.popular ? "text-slate-400" : "text-slate-500"}`}>
+                          / {tier.priceLocal}
+                        </span>
+                      </div>
+                      <p className={`text-[11px] font-bold uppercase tracking-wider mt-1.5 ${tier.popular ? "text-[#FF2C6D]" : "text-slate-400"}`}>
+                        {tier.duration}
+                      </p>
+                    </div>
+
+                    <ul className="space-y-2.5 mb-6">
+                      {(tier.features || []).map((f, fi) => (
+                        <li key={fi} className="flex items-start gap-2 text-xs leading-relaxed">
+                          <IoCheckmarkCircleOutline className="text-[#10B981] shrink-0 mt-0.5 text-sm" />
+                          <span className={tier.popular ? "text-slate-300" : "text-slate-600"}>
+                            {f}
+                          </span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+
+                  <button
+                    onClick={() => setShowModal(true)}
+                    className={`w-full py-2.5 text-xs font-bold uppercase tracking-wider rounded-lg transition-colors min-h-[42px] ${
+                      tier.popular
+                        ? "bg-[#FF2C6D] text-white hover:bg-[#e0285f] shadow-md shadow-pink-500/20"
+                        : "bg-slate-900 text-white hover:bg-slate-800"
+                    }`}
+                  >
+                    Select Tier
+                  </button>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
+
+        {/* ── FAQs Accordion ── */}
+        {faqsData.length > 0 && (
+          <div className="border-t border-slate-100 bg-slate-50/50 py-12">
+            <div className="container-custom max-w-3xl">
+              <div className="text-center mb-8">
+                <h2 className="text-[11px] font-black text-slate-400 uppercase tracking-widest mb-1.5 leading-[1.4]">
+                  Clarity
+                </h2>
+                <p className="text-xl sm:text-2xl font-black text-slate-900 leading-[1.2]">
+                  Frequently Asked Questions
+                </p>
+              </div>
+
+              <div className="space-y-3">
+                {faqsData.map((faq, fi) => {
+                  const isOpen = openFaq === fi;
+                  return (
+                    <div
+                      key={fi}
+                      className="bg-white border border-slate-200/80 rounded-xl overflow-hidden transition-colors"
+                    >
+                      <button
+                        onClick={() => setOpenFaq(isOpen ? null : fi)}
+                        className="w-full p-4 sm:p-5 flex items-center justify-between gap-4 text-left font-bold text-slate-900 hover:text-[#FF2C6D] transition-colors text-sm"
+                      >
+                        <span>{faq.q}</span>
+                        <IoChevronDownOutline
+                          className={`text-base text-slate-400 shrink-0 transition-transform duration-200 ${
+                            isOpen ? "rotate-180 text-[#FF2C6D]" : ""
+                          }`}
+                        />
+                      </button>
+
+                      <AnimatePresence>
+                        {isOpen && (
+                          <motion.div
+                            initial={{ height: 0, opacity: 0 }}
+                            animate={{ height: "auto", opacity: 1 }}
+                            exit={{ height: 0, opacity: 0 }}
+                            transition={{ duration: 0.2 }}
+                            className="overflow-hidden"
+                          >
+                            <div className="px-4 sm:px-5 pb-5 pt-1 text-slate-500 text-xs sm:text-sm leading-relaxed border-t border-slate-50">
+                              {faq.a}
+                            </div>
+                          </motion.div>
+                        )}
+                      </AnimatePresence>
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* ── Compact CTA Banner ── */}
+        <div className="container-custom py-10">
+          <div className="bg-slate-900 rounded-2xl p-6 sm:p-8 text-center text-white relative overflow-hidden max-w-4xl mx-auto shadow-xl">
+            <div className="relative z-10 max-w-xl mx-auto flex flex-col items-center gap-3">
+              <p className="text-[10px] font-black tracking-widest text-[#FF2C6D] uppercase">
+                {cta.badge || "Scalable Paid Acquisition"}
+              </p>
+              <h2 className="text-xl sm:text-2xl font-black leading-tight text-white">
+                {cta.title || "Stop Burning Ad Spend. Scale With Predictable ROAS."}
+              </h2>
+              <p className="text-xs sm:text-sm text-slate-400 leading-relaxed max-w-md">
+                {cta.desc || "Book a strategic campaign audit. We will evaluate your current ad account, attribution fidelity, and creative performance."}
+              </p>
+              <div className="flex flex-wrap items-center justify-center gap-3 pt-2">
+                <button
+                  onClick={() => setShowModal(true)}
+                  className="px-6 py-2.5 bg-[#FF2C6D] hover:bg-[#e0285f] text-white font-bold text-xs uppercase tracking-wider rounded-lg transition-colors min-h-[42px] shadow-sm"
+                >
+                  Schedule Free Audit
+                </button>
+                <a
+                  href="https://wa.me/8801700000000"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-1.5 px-4 py-2.5 bg-white/10 hover:bg-white/15 text-white font-bold text-xs uppercase tracking-wider rounded-lg transition-colors min-h-[42px]"
+                >
+                  <IoLogoWhatsapp className="text-emerald-400 text-sm" />
+                  Chat on WhatsApp
+                </a>
+              </div>
+            </div>
           </div>
         </div>
       </div>
+
+      {/* ── Consultation Modal ── */}
+      <AnimatePresence>
+        {showModal && (
+          <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              onClick={() => setShowModal(false)}
+              className="absolute inset-0 bg-slate-900/60 backdrop-blur-sm"
+            />
+            <motion.div
+              initial={{ opacity: 0, scale: 0.95 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0, scale: 0.95 }}
+              className="relative z-10 bg-white rounded-2xl shadow-2xl p-6 sm:p-8 max-w-md w-full border border-slate-100"
+            >
+              <button
+                onClick={() => setShowModal(false)}
+                className="absolute top-4 right-4 text-slate-400 hover:text-slate-600 p-1"
+                aria-label="Close"
+              >
+                <IoCloseOutline className="text-2xl" />
+              </button>
+
+              <div className="mb-5">
+                <div className="inline-flex items-center gap-1.5 px-2.5 py-1 bg-pink-50 text-[#FF2C6D] rounded text-[10px] font-black uppercase tracking-wider mb-2">
+                  <IoSparklesOutline /> Campaign Audit
+                </div>
+                <h3 className="text-lg font-black text-slate-900">
+                  Initialize Meta Ads Consultation
+                </h3>
+                <p className="text-xs text-slate-500 mt-1">
+                  Connect with our growth engineering team. We typically respond within 2 hours.
+                </p>
+              </div>
+
+              <form
+                onSubmit={(e) => {
+                  e.preventDefault();
+                  alert("Thank you! Our growth team will contact you shortly.");
+                  setShowModal(false);
+                }}
+                className="space-y-3 text-xs"
+              >
+                <div>
+                  <label className="block font-bold text-slate-700 mb-1">Your Name</label>
+                  <input
+                    type="text"
+                    required
+                    placeholder="Enter your name"
+                    className="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus:border-[#FF2C6D] text-slate-900"
+                  />
+                </div>
+                <div>
+                  <label className="block font-bold text-slate-700 mb-1">Business Email</label>
+                  <input
+                    type="email"
+                    required
+                    placeholder="name@company.com"
+                    className="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus:border-[#FF2C6D] text-slate-900"
+                  />
+                </div>
+                <div>
+                  <label className="block font-bold text-slate-700 mb-1">Monthly Ad Spend</label>
+                  <select className="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus:border-[#FF2C6D] text-slate-900">
+                    <option>&lt; $1,000 / month</option>
+                    <option>$1,000 - $5,000 / month</option>
+                    <option>$5,000 - $20,000 / month</option>
+                    <option>$20,000+ / month</option>
+                  </select>
+                </div>
+                <div>
+                  <label className="block font-bold text-slate-700 mb-1">Target Goals</label>
+                  <textarea
+                    rows={3}
+                    placeholder="Describe your current ROAS goals or challenges..."
+                    className="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus:border-[#FF2C6D] text-slate-900 resize-none"
+                  />
+                </div>
+                <button
+                  type="submit"
+                  className="w-full py-2.5 bg-[#FF2C6D] hover:bg-[#e0285f] text-white font-bold uppercase tracking-wider text-xs rounded-lg transition-colors mt-2"
+                >
+                  Submit Audit Request
+                </button>
+              </form>
+            </motion.div>
+          </div>
+        )}
+      </AnimatePresence>
     </section>
   );
 }

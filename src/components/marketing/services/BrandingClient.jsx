@@ -1,220 +1,451 @@
 "use client";
 
+import { useState } from "react";
 import {
-  IoColorPaletteOutline,
-  IoTextOutline,
-  IoDiamondOutline,
   IoFingerPrintOutline,
-  IoTriangleOutline,
-  IoInfiniteOutline,
-  IoGitNetworkOutline,
-  IoSparklesOutline
+  IoDiamondOutline,
+  IoEyeOutline,
+  IoDocumentTextOutline,
+  IoPrintOutline,
+  IoRocketOutline,
+  IoCodeSlashOutline,
+  IoCheckmarkCircleOutline,
+  IoChevronDownOutline,
+  IoLogoWhatsapp,
+  IoCloseOutline,
+  IoArrowForwardOutline,
 } from "react-icons/io5";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
 import { getIcon } from "@/lib/icons";
 
+/* ─── Deliverables Icon Map ──────────────────────────────────────────────── */
+const DELIVERABLE_ICONS = [
+  IoDiamondOutline,
+  IoEyeOutline,
+  IoDocumentTextOutline,
+  IoPrintOutline,
+  IoRocketOutline,
+  IoCodeSlashOutline,
+];
+
 export default function BrandingClient({ content }) {
+  const cmsLanding = content?.landing || {};
+  const hero = cmsLanding?.hero || {};
+  const sections = cmsLanding?.sections || {};
+  const cta = cmsLanding?.cta || {};
+
+  const metricsData = sections.metrics || [];
+  const pillarsData = sections.pillars || [];
+  const deliverablesData = sections.deliverables || [];
+  const pricingData = sections.pricing || [];
+  const faqsData = sections.faqs || [];
+
+  const [openFaq, setOpenFaq] = useState(null);
+  const [showModal, setShowModal] = useState(false);
+
   if (!content) return null;
 
-  const { hero, sections, cta } = content.landing;
-  const pillars = sections.pillars || [];
-  const metrics = sections.metrics || [];
-
   return (
-    <section className="min-h-screen bg-slate-50 text-slate-900 selection:bg-indigo-600 selection:text-white overflow-hidden relative">
-      <div className="absolute top-0 opacity-20 pointer-events-none -z-10 w-full h-full">
-        <div className="absolute top-0 left-1/4 w-[1px] h-full bg-slate-200"></div>
-        <div className="absolute top-0 right-1/4 w-[1px] h-full bg-slate-200"></div>
-        <div className="absolute top-1/2 left-0 w-full h-[1px] bg-slate-200"></div>
-      </div>
+    <section className="min-h-screen bg-white flex flex-col relative selection:bg-brand-pink selection:text-white">
+      {/* Background Dot Texture */}
+      <div className="fixed inset-0 bg-[radial-gradient(#0F172A08_1px,transparent_1px)] [background-size:22px_22px] pointer-events-none z-0" />
 
-      <div className="container-custom py-10 relative">
-        {/* BRANDING HERO */}
-        <div className="flex flex-col lg:flex-row items-center gap-4 lg:gap-5 mb-12 lg:mb-20">
-          <div className="flex-1 text-left">
+      <div className="relative z-10 flex flex-col flex-1">
+        {/* ── Minimized Hero ── */}
+        <div className="border-b border-slate-100 bg-white/70 backdrop-blur-sm">
+          <div className="container-custom pt-10 sm:pt-14 pb-8 flex flex-col items-center text-center gap-3 max-w-3xl mx-auto">
             <motion.div
-              initial={{ opacity: 0, x: -20 }}
-              animate={{ opacity: 1, x: 0 }}
-              className="inline-flex items-center gap-2 px-5 py-2 bg-indigo-50 border border-indigo-100 text-indigo-600 text-xs sm:text-sm font-black tracking-[0.2em] sm:tracking-[0.4em] uppercase mb-5 rounded-md"
+              initial={{ opacity: 0, y: -8 }}
+              animate={{ opacity: 1, y: 0 }}
+              className="inline-flex items-center gap-1.5 px-3 py-1 bg-[#FF2C6D]/8 border border-[#FF2C6D]/25 text-[#FF2C6D] text-[10px] font-black uppercase tracking-widest rounded-full leading-[1.4]"
             >
-              <IoFingerPrintOutline className="text-sm" /> {hero.badge}
+              <span className="h-1.5 w-1.5 bg-[#FF2C6D] rounded-full shrink-0 animate-pulse" />
+              {hero.badge || "Strategic Visual Identity & Logo Architecture"}
             </motion.div>
 
             <motion.h1
-              initial={{ opacity: 0, y: 30 }}
+              initial={{ opacity: 0, y: 12 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, ease: "circOut" }}
-              className="text-4xl sm:text-5xl lg:text-6xl font-black text-slate-900 leading-[1.1] mb-4 tracking-tighter"
+              transition={{ delay: 0.08 }}
+              className="text-2xl sm:text-3xl md:text-4xl font-black text-slate-900 leading-[1.2]"
             >
-              {hero.title?.split('&')[0]} & <br />
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-pink-500 via-rose-500 to-indigo-500 animate-gradient-x">
-                {hero.title?.split('&')[1] || "Identity"}
-              </span>
+              Logo & <span className="text-[#FF2C6D]">Brand Identity</span>
             </motion.h1>
 
             <motion.p
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ delay: 0.4 }}
-              className="text-slate-600 text-xl font-light leading-relaxed max-w-2xl mb-12"
+              initial={{ opacity: 0, y: 12 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.15 }}
+              className="text-slate-500 text-sm md:text-base leading-relaxed max-w-4xl font-normal"
             >
-              {hero.description}
+              <span className="md:block md:whitespace-nowrap">We don&apos;t merely draw logos. We construct mathematically grounded,</span>
+              <span className="md:block md:whitespace-nowrap">high-fidelity brand ecosystems that command market authority, foster instant</span>
+              <span className="md:block md:whitespace-nowrap">credibility, and scale flawlessly across digital and physical touchpoints.</span>
             </motion.p>
 
-            <div className="flex flex-col sm:flex-row gap-3 sm:gap-4">
-              <button className="w-full sm:w-[280px] px-6 py-3 sm:py-4 bg-indigo-600 text-white font-black hover:bg-indigo-700 transition-all shadow-xl sm:shadow-2xl shadow-indigo-600/20 uppercase tracking-wider sm:tracking-widest text-xs sm:text-sm flex items-center justify-center min-h-[44px] rounded-md">
+            <motion.div
+              initial={{ opacity: 0, y: 12 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.22 }}
+              className="flex flex-wrap items-center justify-center gap-3 pt-2"
+            >
+              <button
+                onClick={() => setShowModal(true)}
+                className="px-6 py-2.5 bg-[#FF2C6D] text-white font-bold hover:bg-[#e0285f] transition-colors shadow-sm uppercase tracking-wider text-xs rounded-lg min-h-[42px]"
+              >
                 Initialize Brand Audit
               </button>
-              <button className="w-full sm:w-[280px] px-6 py-3 sm:py-4 bg-white border border-slate-200 text-slate-900 font-black hover:bg-slate-50 transition-all uppercase tracking-wider sm:tracking-widest text-xs sm:text-sm flex items-center justify-center text-center min-h-[44px] rounded-md">
-                Portfolio Showcase
-              </button>
-            </div>
-          </div>
-
-          <div className="flex-1 relative hidden lg:block">
-            <motion.div
-              initial={{ opacity: 0, scale: 0.9 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 1 }}
-              className="relative p-12 bg-white -[4rem] border border-slate-100 shadow-2xl overflow-hidden group rounded-md"
-            >
-              <div className="absolute inset-0 opacity-10 pointer-events-none" style={{ backgroundImage: "linear-gradient(#6366f1 1px, transparent 1px), linear-gradient(90deg, #6366f1 1px, transparent 1px)", backgroundSize: "40px 40px" }}></div>
-              <div className="absolute inset-0 bg-gradient-to-br from-indigo-50/50 via-transparent to-transparent"></div>
-
-              <div className="relative aspect-square flex items-center justify-center">
-                <motion.div
-                  animate={{ rotate: 360 }}
-                  transition={{ duration: 30, repeat: Infinity, ease: "linear" }}
-                  className="absolute inset-0 border border-indigo-100"
-                ></motion.div>
-                <motion.div
-                  animate={{ rotate: -360 }}
-                  transition={{ duration: 40, repeat: Infinity, ease: "linear" }}
-                  className="absolute inset-20 border border-indigo-200 border-dashed"
-                ></motion.div>
-
-                <div className="relative z-10 w-48 h-48 bg-slate-900 -[3rem] shadow-2xl flex items-center justify-center group-hover:scale-110 transition-transform rounded-lg">
-                  <IoDiamondOutline className="text-6xl text-white animate-pulse" />
-                  <div className="absolute top-0 left-0 w-8 h-8 border-t-2 border-l-2 border-indigo-500 -translate-x-4 -translate-y-4"></div>
-                  <div className="absolute bottom-0 right-0 w-8 h-8 border-b-2 border-r-2 border-indigo-500 translate-x-4 translate-y-4"></div>
-                </div>
-
-                <div className="absolute bottom-4 left-4 font-mono text-[8px] text-slate-400 opacity-50 uppercase tracking-[0.4em]">
-                  Scale::1.618 (Golden Ratio)
-                </div>
-              </div>
+              <Link
+                href="/en/services/branding/details"
+                className="inline-flex items-center gap-1 text-xs font-bold uppercase tracking-wider text-[#10B981] hover:text-[#FF2C6D] transition-colors py-2 px-3"
+              >
+                Technical Details <IoArrowForwardOutline />
+              </Link>
             </motion.div>
           </div>
         </div>
 
-        {/* PILLARS SECTION */}
-        <div className="mb-10 lg:mb-20">
-          <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-6 lg:mb-10 gap-4 lg:gap-4 border-l-4 border-indigo-600 pl-6 lg:pl-8 rounded-lg">
-            <div className="max-w-xl">
-              <h2 className="text-xs sm:text-sm font-black text-indigo-600 uppercase tracking-[0.2em] sm:tracking-[0.4em] mb-2 font-bold">Design DNA</h2>
-              <p className="text-3xl sm:text-4xl md:text-5xl font-black text-slate-900 leading-tight">
-                The pillars of <span className="text-slate-400 italic font-serif font-light">visual authority.</span>
-              </p>
-            </div>
-          </div>
-
-          <div className="flex overflow-x-auto snap-x snap-mandatory lg:grid lg:grid-cols-3 gap-6 lg:gap-4 pb-4 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
-            {pillars?.map((item, i) => (
-              <motion.div
-                key={i}
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: i * 0.1 }}
-                className="group cursor-default w-[85vw] sm:w-[320px] lg:w-auto shrink-0 snap-center"
-              >
-                <div className="bg-white -[3rem] p-6 h-full border border-slate-100 shadow-sm shadow-slate-200/50 hover:shadow-2xl transition-all group-hover:-translate-y-2 relative overflow-hidden rounded-lg">
-                  <div
-                    className={`w-14 h-14 rounded-lg bg-gradient-to-br ${item.color} text-white flex items-center justify-center text-3xl mb-10 shadow-lg`}
-                  >
-                    {getIcon(item.icon)}
-                  </div>
-                  <h3 className="text-2xl font-black text-slate-900 mb-3 tracking-tighter uppercase leading-none">
-                    {item.title}
-                  </h3>
-                  <p className="text-slate-500 leading-relaxed font-light text-lg">
-                    {item.desc}
-                  </p>
-                </div>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-
-        {/* BRAND BOOK VISUAL */}
-        <div className="mb-10 lg:mb-20">
-          <div className="grid lg:grid-cols-2 gap-5 lg:gap-8 items-center bg-white lg:-[4rem] p-5 sm:p-5 lg:p-8 border border-slate-100 shadow-xl lg:shadow-2xl shadow-slate-200/50 relative overflow-hidden rounded-lg">
-            <div className="absolute top-0 right-0 w-1/3 h-full bg-indigo-50/30 -skew-x-[20deg] origin-top translate-x-1/2"></div>
-
-            <div className="relative z-10 space-y-4 sm:space-y-6">
-              <div className="w-16 h-16 bg-indigo-50 flex items-center justify-center text-3xl text-indigo-600 border border-indigo-100 rounded-lg">
-                <IoSparklesOutline />
-              </div>
-              <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-black text-slate-900 leading-[1.1] sm:leading-[0.9] tracking-tighter">The Corporate <br className="hidden sm:block" /><span className="text-indigo-600 block sm:inline mt-2 sm:mt-0">Voice API.</span></h2>
-              <p className="text-slate-500 text-lg sm:text-xl font-light leading-relaxed">Consistency is absolute. We deliver a comprehensive brand manual documenting every pixel of your identity for flawless global scaling.</p>
-
-              <div className="grid grid-cols-2 gap-px bg-slate-50 border border-slate-100 lg: overflow-hidden mt-8 lg:mt-5 rounded-lg">
-                {metrics?.map((item, idx) => (
-                  <div key={idx} className="p-6 lg:p-10 hover:bg-white transition-colors group rounded-md">
-                    <h4 className="text-[10px] sm:text-xs font-black text-indigo-600 uppercase tracking-wider lg:tracking-widest mb-2">{item.t}</h4>
-                    <p className="text-xs sm:text-sm text-slate-400 font-bold">{item.d}</p>
+        {/* ── Key Highlights Strip ── */}
+        {metricsData.length > 0 && (
+          <div className="border-b border-slate-100 bg-slate-50/80">
+            <div className="container-custom py-3.5">
+              <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 text-center divide-x divide-slate-200/60">
+                {metricsData.map((item, idx) => (
+                  <div key={idx} className="px-2">
+                    <p className="text-xl sm:text-2xl font-black text-slate-900 leading-[1.1]">
+                      {item.value}
+                    </p>
+                    <p className="text-[10px] sm:text-xs font-bold uppercase tracking-widest text-slate-400 mt-1">
+                      {item.label}
+                    </p>
                   </div>
                 ))}
               </div>
             </div>
-
-            <motion.div
-              initial={{ opacity: 0, scale: 0.9, rotateX: 5 }}
-              whileInView={{ opacity: 1, scale: 1, rotateX: 0 }}
-              className="relative bg-slate-50 aspect-auto lg:aspect-[4/5] h-full shadow-2xl p-8 sm:p-12 lg:p-16 flex flex-col justify-between overflow-hidden border border-slate-200 rounded-lg"
-            >
-              <div className="absolute top-0 right-0 w-24 h-24 sm:w-32 sm:h-32 bg-white -[60px] sm:-[100px] border-b border-l border-slate-100"></div>
-              <div className="relative z-10">
-                <div className="w-12 h-12 sm:w-16 sm:h-16 bg-slate-900 mb-8 lg:mb-12 shadow-xl flex items-center justify-center rounded-lg"><IoInfiniteOutline className="text-white text-2xl sm:text-3xl" /></div>
-                <h4 className="text-4xl sm:text-5xl font-serif italic text-slate-900 mb-4 sm:mb-6 font-bold pb-4 sm:pb-6 lg:pb-8 border-b border-slate-200 leading-none">Guideline.</h4>
-                <p className="text-[10px] sm:text-xs font-black text-slate-400 uppercase tracking-widest sm:tracking-[0.3em] mb-8 lg:mb-12">Build 14.2 / Confidential</p>
-
-                <div className="space-y-4 sm:space-y-6">
-                  <div className="h-4 bg-slate-200 w-full"></div>
-                  <div className="h-4 bg-slate-200 w-4/5"></div>
-                  <div className="flex gap-4 pt-6 lg:pt-10">
-                    <div className="w-10 h-10 sm:w-12 sm:h-12 bg-indigo-600 shadow-lg rounded-lg"></div>
-                    <div className="w-10 h-10 sm:w-12 sm:h-12 bg-purple-600 shadow-lg rounded-lg"></div>
-                    <div className="w-10 h-10 sm:w-12 sm:h-12 bg-slate-900 shadow-lg rounded-lg"></div>
-                  </div>
-                </div>
-              </div>
-              <div className="relative z-10 text-slate-300 text-[8px] sm:text-[9px] font-black uppercase tracking-[0.2em] sm:tracking-[0.4em] text-center border-t border-slate-100 pt-6 sm:pt-8 mt-5">SYICT Design Studio Protocol © 2026</div>
-            </motion.div>
           </div>
-        </div>
+        )}
 
-        {/* CTA */}
-        <div className="text-center py-10 lg:py-16 border-t border-slate-200 pb-12 lg:pb-16">
-          <IoGitNetworkOutline className="text-6xl lg:text-7xl text-indigo-600 mb-4 lg:mb-6 mx-auto opacity-20" />
-          <h3 className="text-4xl sm:text-5xl lg:text-6xl font-black text-slate-900 mb-8 lg:mb-12 leading-tight">{cta.title?.split('. ')[0]}. <br /><span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-600 to-purple-500 font-serif italic font-medium">{cta.title?.split('. ')[1] || "Initialize Architecture."}</span></h3>
-          <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center">
-            {/* Sticky Mobile CTA */}
-            <div className="fixed bottom-0 left-0 w-full px-4 pt-4 pb-[max(1rem,env(safe-area-inset-bottom))] bg-white/90 backdrop-blur-md border-t border-slate-200 z-50 lg:relative lg:border-none lg:bg-transparent lg:p-0 lg:w-auto">
-              <button className="w-full lg:w-[280px] px-6 py-3 sm:py-4 bg-indigo-600 text-white font-black hover:bg-indigo-700 transition-all shadow-xl sm:shadow-2xl shadow-indigo-600/40 uppercase tracking-wider sm:tracking-widest text-xs sm:text-sm flex items-center justify-center min-h-[44px] rounded-md">
-                Initialize Consultation
-              </button>
+        {/* ── Capability Pillars (Design DNA) ── */}
+        {pillarsData.length > 0 && (
+          <div className="container-custom py-10 sm:py-14">
+            <div className="text-center max-w-xl mx-auto mb-8">
+              <h2 className="text-[11px] font-black text-slate-400 uppercase tracking-widest mb-1.5 leading-[1.4]">
+                Design DNA
+              </h2>
+              <p className="text-xl sm:text-2xl font-black text-slate-900 leading-[1.2]">
+                Pillars of Visual Authority
+              </p>
             </div>
-            <Link
-              href="/services/branding/details"
-              className="w-full sm:w-[280px] px-6 py-3 sm:py-4 bg-slate-900 text-white font-black hover:bg-slate-800 transition-all uppercase tracking-wider sm:tracking-widest text-xs sm:text-sm flex items-center justify-center text-center min-h-[44px] rounded-md"
-            >
-              Technical Details
-            </Link>
+
+            <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
+              {pillarsData.map((pillar, i) => (
+                <div
+                  key={i}
+                  className="bg-white border border-slate-200/80 hover:border-[#FF2C6D]/40 hover:shadow-lg transition-all rounded-xl p-6 relative flex flex-col group overflow-hidden"
+                >
+                  <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-[#FF2C6D] to-[#10B981] opacity-0 group-hover:opacity-100 transition-opacity" />
+
+                  <div className="w-11 h-11 rounded-lg bg-slate-50 border border-slate-100 text-slate-800 flex items-center justify-center text-xl mb-4 group-hover:bg-[#FF2C6D]/10 group-hover:text-[#FF2C6D] transition-colors shrink-0">
+                    {getIcon(pillar.icon) || <IoDiamondOutline />}
+                  </div>
+
+                  <h3 className="text-base font-bold text-slate-900 mb-2 leading-snug">
+                    {pillar.title}
+                  </h3>
+                  <p className="text-slate-500 text-sm leading-[1.6] flex-1 mb-4">
+                    {pillar.desc}
+                  </p>
+
+                  {pillar.highlights?.length > 0 && (
+                    <ul className="space-y-1.5 pt-3 border-t border-slate-100">
+                      {pillar.highlights.map((h, hi) => (
+                        <li key={hi} className="flex items-start gap-1.5 text-xs text-slate-600 font-medium">
+                          <IoCheckmarkCircleOutline className="text-[#10B981] shrink-0 mt-0.5 text-sm" />
+                          <span>{h}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  )}
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
+
+        {/* ── Deliverables ── */}
+        {deliverablesData.length > 0 && (
+          <div className="border-t border-b border-slate-100 bg-slate-50/60 py-10">
+            <div className="container-custom">
+              <div className="text-center max-w-xl mx-auto mb-8">
+                <h2 className="text-[11px] font-black text-slate-400 uppercase tracking-widest mb-1.5 leading-[1.4]">
+                  Asset Suite
+                </h2>
+                <p className="text-xl sm:text-2xl font-black text-slate-900 leading-[1.2]">
+                  Production-Ready Deliverables
+                </p>
+              </div>
+
+              <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
+                {deliverablesData.map((d, di) => {
+                  const Icon = DELIVERABLE_ICONS[di % DELIVERABLE_ICONS.length];
+                  return (
+                    <div
+                      key={di}
+                      className="bg-white border border-slate-200/80 rounded-xl p-5 flex flex-col shadow-sm"
+                    >
+                      <div className="w-10 h-10 rounded-lg bg-[#FF2C6D]/10 text-[#FF2C6D] flex items-center justify-center text-lg mb-3 shrink-0">
+                        <Icon />
+                      </div>
+                      <h4 className="text-base font-bold text-slate-900 mb-1 leading-snug">
+                        {d.title}
+                      </h4>
+                      <p className="text-sm text-slate-500 leading-relaxed mb-3 flex-1">
+                        {d.desc}
+                      </p>
+                      {d.formats?.length > 0 && (
+                        <div className="flex flex-wrap gap-1.5 pt-2 border-t border-slate-100">
+                          {d.formats.map((f, fi) => (
+                            <span key={fi} className="text-[11px] bg-slate-100 text-slate-600 px-2.5 py-0.5 rounded font-mono font-medium">
+                              {f}
+                            </span>
+                          ))}
+                        </div>
+                      )}
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* ── Pricing ── */}
+        {pricingData.length > 0 && (
+          <div className="container-custom py-10 sm:py-14">
+            <div className="text-center max-w-xl mx-auto mb-8">
+              <h2 className="text-[11px] font-black text-slate-400 uppercase tracking-widest mb-1.5 leading-[1.4]">
+                Investment Tiers
+              </h2>
+              <p className="text-xl sm:text-2xl font-black text-slate-900 leading-[1.2]">
+                Transparent Pricing, <span className="text-[#FF2C6D]">Absolute Clarity</span>
+              </p>
+            </div>
+
+            <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 max-w-5xl mx-auto">
+              {pricingData.map((tier, idx) => (
+                <div
+                  key={idx}
+                  className={`bg-white rounded-xl p-6 sm:p-7 border flex flex-col relative transition-all ${
+                    tier.popular
+                      ? "border-[#FF2C6D] ring-2 ring-[#FF2C6D]/15 shadow-xl shadow-pink-500/5"
+                      : "border-slate-200/80 hover:border-slate-300 shadow-sm"
+                  }`}
+                >
+                  {tier.popular && (
+                    <div className="absolute -top-3 right-6 bg-[#FF2C6D] text-white text-[10px] font-black uppercase tracking-widest px-3 py-0.5 rounded-full shadow-sm">
+                      Recommended
+                    </div>
+                  )}
+
+                  <h3 className="text-lg font-black text-slate-900 leading-[1.2]">
+                    {tier.tier}
+                  </h3>
+                  <p className="text-xs text-slate-500 mt-1 mb-3">
+                    {tier.target}
+                  </p>
+
+                  <div className="my-2">
+                    <span className="text-3xl font-black text-slate-900 leading-[1]">
+                      {tier.price}
+                    </span>
+                    <span className="text-xs font-semibold text-slate-400 ml-1">
+                      / {tier.priceLocal}
+                    </span>
+                  </div>
+
+                  <div className="border-t border-slate-100 pt-4 flex flex-col gap-2.5 flex-1 mb-6">
+                    {tier.features?.map((feature, fIdx) => (
+                      <div
+                        key={fIdx}
+                        className="flex items-start gap-2 text-xs sm:text-sm text-slate-600 leading-[1.5]"
+                      >
+                        <IoCheckmarkCircleOutline className="text-[#10B981] text-base shrink-0 mt-0.5" />
+                        <span>{feature}</span>
+                      </div>
+                    ))}
+                  </div>
+
+                  <button
+                    onClick={() => setShowModal(true)}
+                    className={`w-full min-h-[44px] py-3 rounded-lg font-black uppercase tracking-widest text-xs transition-all flex items-center justify-center leading-[1.4] text-center ${
+                      tier.popular
+                        ? "bg-[#FF2C6D] text-white hover:bg-[#e0285f] shadow-md shadow-pink-500/20"
+                        : "bg-slate-900 text-white hover:bg-slate-800"
+                    }`}
+                  >
+                    Get Started
+                  </button>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
+
+        {/* ── FAQs ── */}
+        {faqsData.length > 0 && (
+          <div className="border-t border-slate-100 bg-slate-50/60 py-10">
+            <div className="container-custom max-w-3xl">
+              <div className="text-center mb-8">
+                <h2 className="text-[11px] font-black text-slate-400 uppercase tracking-widest mb-1.5 leading-[1.4]">
+                  FAQ
+                </h2>
+                <p className="text-xl sm:text-2xl font-black text-slate-900 leading-[1.2]">
+                  Frequently Asked Questions
+                </p>
+              </div>
+
+              <div className="space-y-3">
+                {faqsData.map((faq, fi) => (
+                  <div key={fi} className="bg-white border border-slate-200/80 rounded-xl overflow-hidden shadow-sm">
+                    <button
+                      onClick={() => setOpenFaq(openFaq === fi ? null : fi)}
+                      className="w-full flex items-center justify-between p-5 text-left gap-4 hover:bg-slate-50 transition-colors"
+                    >
+                      <span className="font-bold text-sm sm:text-base text-slate-900">
+                        {faq.q}
+                      </span>
+                      <motion.span
+                        animate={{ rotate: openFaq === fi ? 180 : 0 }}
+                        transition={{ duration: 0.2 }}
+                        className="shrink-0 text-slate-400"
+                      >
+                        <IoChevronDownOutline />
+                      </motion.span>
+                    </button>
+                    <AnimatePresence>
+                      {openFaq === fi && (
+                        <motion.div
+                          initial={{ height: 0, opacity: 0 }}
+                          animate={{ height: "auto", opacity: 1 }}
+                          exit={{ height: 0, opacity: 0 }}
+                          transition={{ duration: 0.2 }}
+                          className="overflow-hidden"
+                        >
+                          <p className="px-5 pb-5 text-sm text-slate-600 leading-relaxed border-t border-slate-100 pt-3">
+                            {faq.a}
+                          </p>
+                        </motion.div>
+                      )}
+                    </AnimatePresence>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* ── Compact CTA ── */}
+        <div className="container-custom py-10 sm:py-14">
+          <div className="bg-slate-900 rounded-2xl p-8 sm:p-10 text-center text-white relative overflow-hidden max-w-4xl mx-auto shadow-xl">
+            <h3 className="text-2xl sm:text-3xl font-black mb-3 text-white">
+              {cta.title || "Build a Brand That Commands Absolute Trust."}
+            </h3>
+            <p className="text-slate-400 text-sm sm:text-base max-w-xl mx-auto mb-6">
+              {cta.subtitle || "Schedule a free discovery session with our senior brand architects or chat on WhatsApp."}
+            </p>
+            <div className="flex flex-wrap items-center justify-center gap-3">
+              <button
+                onClick={() => setShowModal(true)}
+                className="px-6 py-3 bg-[#FF2C6D] text-white font-bold hover:bg-[#e0285f] transition-colors rounded-lg text-xs uppercase tracking-wider"
+              >
+                Schedule Discovery Session
+              </button>
+              <a
+                href={`https://wa.me/${process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || "8801722550012"}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-1.5 px-6 py-3 bg-[#10B981] text-white font-bold hover:bg-[#0ea371] transition-colors rounded-lg text-xs uppercase tracking-wider"
+              >
+                <IoLogoWhatsapp className="text-base" /> WhatsApp
+              </a>
+            </div>
           </div>
         </div>
       </div>
+
+      {/* ── Consultation Modal ── */}
+      <AnimatePresence>
+        {showModal && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/70 backdrop-blur-sm"
+            onClick={(e) => e.target === e.currentTarget && setShowModal(false)}
+          >
+            <motion.div
+              initial={{ y: 40, opacity: 0 }}
+              animate={{ y: 0, opacity: 1 }}
+              exit={{ y: 40, opacity: 0 }}
+              className="bg-white rounded-2xl p-6 sm:p-8 w-full max-w-md shadow-2xl"
+            >
+              <div className="flex items-center justify-between mb-5">
+                <div>
+                  <h3 className="text-lg font-black text-slate-900">
+                    Discovery Session
+                  </h3>
+                  <p className="text-xs text-slate-500">
+                    Free consultation · 30 min · No commitment
+                  </p>
+                </div>
+                <button
+                  onClick={() => setShowModal(false)}
+                  className="w-8 h-8 bg-slate-100 hover:bg-slate-200 rounded-lg flex items-center justify-center text-slate-500"
+                >
+                  <IoCloseOutline className="text-lg" />
+                </button>
+              </div>
+
+              <div className="space-y-3.5">
+                <div>
+                  <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1">
+                    Full Name
+                  </label>
+                  <input
+                    type="text"
+                    placeholder="Your name"
+                    className="w-full px-3.5 py-2.5 border border-slate-200 rounded-lg text-sm text-slate-900 focus:outline-none focus:ring-2 focus:ring-[#FF2C6D]/30 focus:border-[#FF2C6D] bg-slate-50"
+                  />
+                </div>
+                <div>
+                  <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1">
+                    Email Address
+                  </label>
+                  <input
+                    type="email"
+                    placeholder="you@company.com"
+                    className="w-full px-3.5 py-2.5 border border-slate-200 rounded-lg text-sm text-slate-900 focus:outline-none focus:ring-2 focus:ring-[#FF2C6D]/30 focus:border-[#FF2C6D] bg-slate-50"
+                  />
+                </div>
+                <div className="flex gap-2.5 pt-2">
+                  <button className="flex-1 py-3 bg-[#FF2C6D] text-white font-bold text-xs uppercase tracking-wider rounded-lg hover:bg-[#e0285f] transition-colors">
+                    Book Free Session
+                  </button>
+                  <a
+                    href={`https://wa.me/${process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || "8801722550012"}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-1.5 px-4 py-3 bg-[#10B981] text-white font-bold text-xs uppercase tracking-wider rounded-lg hover:bg-[#0ea371] transition-colors"
+                  >
+                    <IoLogoWhatsapp className="text-base" /> WhatsApp
+                  </a>
+                </div>
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </section>
   );
 }
