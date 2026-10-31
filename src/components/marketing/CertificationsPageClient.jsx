@@ -1,7 +1,6 @@
 "use client";
 
 import { useState, useMemo, useEffect, useCallback } from "react";
-import Image from "next/image";
 import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
 import {
@@ -12,11 +11,12 @@ import {
   IoChevronBackOutline,
   IoChevronForwardOutline,
   IoOpenOutline,
-  IoDocumentTextOutline,
   IoRibbonOutline,
-  IoTimeOutline,
-  IoKeyOutline,
+  IoSchoolOutline,
+  IoSearchOutline,
+  IoArrowForward,
 } from "react-icons/io5";
+import OfficialCertificatePreview from "./OfficialCertificatePreview";
 
 export default function CertificationsPageClient({
   initialCertifications = [],
@@ -25,6 +25,8 @@ export default function CertificationsPageClient({
   const [certifications, setCertifications] = useState(initialCertifications);
   const [activeIndex, setActiveIndex] = useState(0);
   const [lightboxCert, setLightboxCert] = useState(null);
+  const [searchQuery, setSearchQuery] = useState("");
+  const [selectedCategory, setSelectedCategory] = useState("all");
 
   // Sync if initialCertifications changes
   useEffect(() => {
@@ -33,11 +35,39 @@ export default function CertificationsPageClient({
     }
   }, [initialCertifications]);
 
-  // Current active certification for the showcase
+  // Current active certification for the hero showcase
   const activeCert = useMemo(() => {
     if (!certifications || certifications.length === 0) return null;
     return certifications[activeIndex] || certifications[0];
   }, [certifications, activeIndex]);
+
+  // Filtered certificates for the course tracks section
+  const filteredCertifications = useMemo(() => {
+    return certifications.filter((item) => {
+      const matchSearch =
+        !searchQuery.trim() ||
+        item.title?.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        item.courseName?.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        item.category?.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        item.skills?.some((s) =>
+          s.toLowerCase().includes(searchQuery.toLowerCase())
+        );
+
+      const matchCategory =
+        selectedCategory === "all" || item.category === selectedCategory;
+
+      return matchSearch && matchCategory;
+    });
+  }, [certifications, searchQuery, selectedCategory]);
+
+  // Unique categories for pills
+  const categories = useMemo(() => {
+    const set = new Set();
+    certifications.forEach((c) => {
+      if (c.category) set.add(c.category);
+    });
+    return Array.from(set);
+  }, [certifications]);
 
   // Handlers for switching showcased certificate
   const handlePrev = useCallback(() => {
@@ -76,127 +106,112 @@ export default function CertificationsPageClient({
 
   return (
     <div className="min-h-screen bg-white text-slate-900 font-sans selection:bg-pink-500 selection:text-white">
-      {/* ── Top Texture Background ── */}
-      <section className="pt-24 sm:pt-28 md:pt-32 pb-16 md:pb-24 overflow-hidden relative border-b border-slate-100">
-        <div className="absolute inset-0 bg-[radial-gradient(#e2e8f0_1px,transparent_1px)] [background-size:24px_24px] opacity-60 pointer-events-none" />
-        <div className="absolute top-1/4 right-0 w-[500px] h-[500px] bg-pink-500/5 rounded-full blur-3xl pointer-events-none" />
-        <div className="absolute bottom-0 left-10 w-[400px] h-[400px] bg-emerald-500/5 rounded-full blur-3xl pointer-events-none" />
+      {/* ── Hero Section: Certified Courses Showcase ── */}
+      <section className="pt-24 sm:pt-28 md:pt-32 pb-16 md:pb-20 overflow-hidden relative border-b border-slate-200/80 bg-white">
+        <div className="absolute inset-0 bg-[radial-gradient(#e2e8f0_1px,transparent_1px)] [background-size:24px_24px] opacity-70 pointer-events-none" />
 
         <div className="container-custom relative z-10">
-          <div className="grid lg:grid-cols-12 gap-12 lg:gap-14 items-center max-w-7xl mx-auto">
-            {/* ── Left Column: Value Proposition & Interactive Certificate List ── */}
+          <div className="grid lg:grid-cols-12 gap-10 lg:gap-14 items-center max-w-7xl mx-auto">
+            {/* Left Column: Heading, Value Proposition & Track Selector */}
             <div className="lg:col-span-6 space-y-6">
               {/* Eyebrow */}
               <motion.div
-                initial={{ opacity: 0, x: -20 }}
+                initial={{ opacity: 0, x: -15 }}
                 animate={{ opacity: 1, x: 0 }}
-                className="flex items-center gap-3"
+                className="flex items-center gap-2.5"
               >
-                <span className="w-8 h-[2px] bg-pink-600 rounded-full" />
+                <span className="w-6 h-[2px] bg-pink-600 rounded-full" />
                 <p className="text-xs font-black uppercase tracking-[0.2em] text-pink-600">
-                  {hero?.eyebrow || "Approvals & Trust"}
+                  {hero?.eyebrow || "Verified Skill Credentials"}
                 </p>
               </motion.div>
 
-              {/* Headline */}
+              {/* Main Headline */}
               <motion.h1
                 initial={{ opacity: 0, y: 15 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.08 }}
-                className="text-3xl sm:text-4xl md:text-5xl font-black text-slate-900 tracking-tight leading-[1.12]"
+                className="text-3xl sm:text-4xl md:text-5xl font-black text-slate-900 tracking-tight leading-[1.14]"
               >
-                {hero?.title ? (
-                  hero.title
-                ) : (
-                  <>
-                    Institutional{" "}
-                    <span className="text-transparent bg-clip-text bg-gradient-to-r from-pink-600 to-rose-600">
-                      Certifications.
-                    </span>
-                  </>
-                )}
+                Earn Globally Recognized{" "}
+                <span className="text-transparent bg-clip-text bg-gradient-to-r from-pink-600 to-rose-600">
+                  Course Certificates.
+                </span>
               </motion.h1>
 
-              {/* Subtitle Description */}
+              {/* Subtitle */}
               <motion.p
                 initial={{ opacity: 0, y: 15 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.16 }}
-                className="text-slate-600 text-base sm:text-lg leading-relaxed font-normal"
+                className="text-slate-600 text-sm sm:text-base md:text-lg leading-relaxed font-normal"
               >
                 {hero?.description ||
-                  "When you earn a certificate from Smart Youth ICT, you carry a credential backed by the Government and international ISO standards. Every credential is permanently verifiable with audited quality assurance."}
+                  "Upon completing any professional program at Smart Youth ICT, graduates receive an official, QR-verifiable skill certificate backed by ISO 9001:2015 quality frameworks and government standards. Select a course below to preview its official certification."}
               </motion.p>
 
-              {/* Interactive Accreditation List */}
-              <div className="pt-2 space-y-3">
-                <p className="text-[11px] font-black uppercase tracking-wider text-slate-400">
-                  Select a credential to preview document:
-                </p>
+              {/* Certified Course Selector List */}
+              <div className="pt-2 space-y-2.5">
+                <div className="flex items-center justify-between">
+                  <span className="text-[11px] font-black uppercase tracking-wider text-slate-400">
+                    Select a Certified Track:
+                  </span>
+                  <span className="text-[11px] font-bold text-slate-500">
+                    {certifications.length} Certified Courses Available
+                  </span>
+                </div>
 
-                <div className="space-y-2.5">
+                <div className="space-y-2 max-h-[380px] overflow-y-auto pr-1 custom-scrollbar">
                   {certifications.map((item, i) => {
                     const isSelected = activeCert && activeCert._id === item._id;
                     return (
                       <motion.div
                         key={item._id || i}
-                        initial={{ opacity: 0, y: 15 }}
+                        initial={{ opacity: 0, y: 10 }}
                         animate={{ opacity: 1, y: 0 }}
-                        transition={{ delay: 0.05 * i + 0.2 }}
+                        transition={{ delay: 0.04 * i + 0.1 }}
                         onClick={() => setActiveIndex(i)}
-                        className={`p-3.5 sm:p-4 rounded-xl border transition-all cursor-pointer flex items-start gap-3.5 ${
+                        className={`p-3 sm:p-3.5 rounded-xl border transition-all cursor-pointer flex items-center justify-between gap-3 ${
                           isSelected
-                            ? "bg-slate-900 text-white border-slate-900 shadow-xl shadow-slate-900/10 scale-[1.01]"
-                            : "bg-white hover:bg-slate-50 border-slate-200/80 text-slate-800 hover:border-slate-300"
+                            ? "bg-pink-50/60 border-pink-500/70 shadow-sm ring-1 ring-pink-500/30"
+                            : "bg-white hover:bg-slate-50 border-slate-200/90 text-slate-800 hover:border-slate-300"
                         }`}
                       >
-                        <div
-                          className={`w-10 h-10 rounded-lg flex items-center justify-center shrink-0 transition-colors ${
-                            isSelected
-                              ? "bg-pink-600 text-white shadow-md shadow-pink-600/30"
-                              : "bg-slate-100 text-slate-700"
-                          }`}
-                        >
-                          <IoShieldCheckmarkOutline size={20} />
-                        </div>
-
-                        <div className="flex-1 min-w-0">
-                          <div className="flex items-center justify-between gap-2">
-                            <span
-                              className={`text-[10px] font-black uppercase tracking-wider ${
-                                isSelected ? "text-pink-400" : "text-pink-600"
-                              }`}
-                            >
-                              {item.category || "Official Accreditation"}
-                            </span>
-                            {item.credentialId && (
-                              <span
-                                className={`text-[10px] font-mono px-1.5 py-0.5 rounded ${
-                                  isSelected
-                                    ? "bg-white/10 text-slate-300"
-                                    : "bg-slate-100 text-slate-500"
-                                }`}
-                              >
-                                {item.credentialId}
-                              </span>
-                            )}
+                        <div className="flex items-center gap-3 min-w-0">
+                          <div
+                            className={`w-9 h-9 rounded-lg flex items-center justify-center shrink-0 transition-colors ${
+                              isSelected
+                                ? "bg-pink-600 text-white shadow-xs"
+                                : "bg-slate-100 text-slate-600"
+                            }`}
+                          >
+                            <IoSchoolOutline size={18} />
                           </div>
 
-                          <h3
-                            className={`text-sm sm:text-base font-bold mt-0.5 leading-snug truncate ${
-                              isSelected ? "text-white" : "text-slate-900"
-                            }`}
-                          >
-                            {item.title}
-                          </h3>
+                          <div className="min-w-0">
+                            <h4
+                              className={`text-xs sm:text-sm font-bold truncate ${
+                                isSelected ? "text-pink-700" : "text-slate-900"
+                              }`}
+                            >
+                              {item.title}
+                            </h4>
+                            <p className="text-[11px] text-slate-500 truncate mt-0.5">
+                              {item.courseName || item.category} • {item.duration || "Professional Certification"}
+                            </p>
+                          </div>
+                        </div>
 
-                          <p
-                            className={`text-xs mt-1 line-clamp-2 leading-relaxed ${
-                              isSelected ? "text-slate-300" : "text-slate-500"
+                        <div className="text-right shrink-0">
+                          <span
+                            className={`text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded ${
+                              isSelected
+                                ? "bg-pink-600 text-white"
+                                : "bg-slate-100 text-slate-600"
                             }`}
                           >
-                            {item.description}
-                          </p>
+                            {isSelected ? "Previewing" : "Preview"}
+                          </span>
                         </div>
                       </motion.div>
                     );
@@ -205,163 +220,112 @@ export default function CertificationsPageClient({
               </div>
             </div>
 
-            {/* ── Right Column: REAL Uploaded Certificate Document Showcase (NO FAKE SVGs!) ── */}
+            {/* Right Column: Official Certificate Document Showcase (Image or Official Mock Preview) */}
             <div className="lg:col-span-6">
               {activeCert ? (
-                <div className="relative">
-                  {/* Outer Frame with realistic physical certificate feel */}
-                  <motion.div
-                    key={activeCert._id || activeIndex}
-                    initial={{ opacity: 0, scale: 0.96 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    transition={{ duration: 0.4, ease: "easeOut" }}
-                    className="relative bg-white rounded-2xl shadow-2xl shadow-slate-900/10 border border-slate-200/90 overflow-hidden group"
-                  >
-                    {/* Top Certificate Header Bar */}
-                    <div className="px-4 py-3 bg-slate-900 text-white flex items-center justify-between gap-2">
-                      <div className="flex items-center gap-2 min-w-0">
-                        <span className="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-pulse shrink-0" />
-                        <span className="text-xs font-black uppercase tracking-wider truncate">
-                          {activeCert.category || "Official Credential Document"}
-                        </span>
-                      </div>
+                <div className="space-y-3">
+                  {/* Top Bar for Showcase Card */}
+                  <div className="flex items-center justify-between text-xs">
+                    <span className="font-bold text-slate-700 flex items-center gap-1.5">
+                      <IoRibbonOutline className="text-pink-600" size={16} />
+                      <span>Official Certificate Preview</span>
+                    </span>
 
-                      <div className="flex items-center gap-1.5 shrink-0">
-                        <button
-                          type="button"
-                          onClick={() => setLightboxCert(activeCert)}
-                          className="px-2.5 py-1 bg-white/10 hover:bg-pink-600 text-white text-[11px] font-bold uppercase tracking-wider rounded flex items-center gap-1 transition-all"
-                          title="Open Fullscreen Document"
-                        >
-                          <IoEyeOutline size={14} />
-                          <span>Inspect</span>
-                        </button>
-                      </div>
-                    </div>
-
-                    {/* Actual Uploaded Certificate Image Container */}
-                    <div
+                    <button
+                      type="button"
                       onClick={() => setLightboxCert(activeCert)}
-                      className="relative aspect-[16/11] sm:aspect-[16/11] w-full bg-slate-950 cursor-zoom-in overflow-hidden"
+                      className="inline-flex items-center gap-1 text-pink-600 hover:text-pink-700 font-bold hover:underline"
                     >
-                      <Image
-                        src={activeCert.image}
-                        alt={activeCert.title}
-                        fill
-                        priority
-                        unoptimized={true}
-                        className="object-contain p-2 group-hover:scale-[1.02] transition-transform duration-500"
-                        onError={(e) => {
-                          e.currentTarget.srcset = "";
-                          e.currentTarget.src = "/images/certificate-placeholder.png";
-                        }}
-                      />
+                      <IoEyeOutline size={14} />
+                      <span>Inspect Fullscreen</span>
+                    </button>
+                  </div>
 
-                      {/* Hover Overlay Hint */}
-                      <div className="absolute inset-0 bg-slate-950/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center pointer-events-none">
-                        <div className="px-3.5 py-2 bg-white/95 text-slate-900 text-xs font-bold uppercase tracking-wider rounded-lg shadow-xl flex items-center gap-2">
-                          <IoEyeOutline size={16} />
-                          <span>Click to View Full Resolution</span>
-                        </div>
-                      </div>
-                    </div>
+                  {/* The Certificate Display: Shows Admin Uploaded Image or Official Dynamic Mock */}
+                  <div className="rounded-xl overflow-hidden shadow-lg border border-slate-200/90 transition-transform duration-300 hover:scale-[1.01]">
+                    <OfficialCertificatePreview
+                      cert={activeCert}
+                      onClick={() => setLightboxCert(activeCert)}
+                    />
+                  </div>
 
-                    {/* Certificate Footer / Metadata Bar */}
-                    <div className="p-4 sm:p-5 bg-slate-50 border-t border-slate-200/80 space-y-2">
-                      <div className="flex items-start justify-between gap-3">
-                        <div>
-                          <h4 className="text-base sm:text-lg font-black text-slate-900 leading-snug">
-                            {activeCert.title}
-                          </h4>
-                          <p className="text-xs font-bold text-pink-600 mt-0.5">
-                            {activeCert.issuer}
-                          </p>
-                        </div>
-
-                        {activeCert.credentialId && (
-                          <div className="text-right shrink-0">
-                            <span className="text-[10px] font-black uppercase tracking-wider text-slate-400 block">
-                              Reg / Ref No.
-                            </span>
-                            <span className="text-xs font-mono font-bold text-slate-800">
-                              {activeCert.credentialId}
-                            </span>
-                          </div>
-                        )}
-                      </div>
-
-                      {/* Date & Verification Link */}
-                      <div className="pt-2 border-t border-slate-200/60 flex items-center justify-between text-xs text-slate-500">
-                        <span>
-                          Validity:{" "}
+                  {/* Certificate Context Information */}
+                  <div className="bg-slate-50/80 border border-slate-200/80 rounded-xl p-4 space-y-2.5 text-xs">
+                    <div className="flex items-start justify-between gap-3">
+                      <div>
+                        <h4 className="font-bold text-slate-900 text-sm">
+                          {activeCert.title}
+                        </h4>
+                        <p className="text-slate-500 font-medium mt-0.5">
+                          Course Track:{" "}
                           <strong className="text-slate-700">
-                            {activeCert.expiryDate || "Active Standard"}
+                            {activeCert.courseName || activeCert.title}
                           </strong>
-                        </span>
-
-                        {activeCert.verificationUrl && (
-                          <a
-                            href={activeCert.verificationUrl}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="inline-flex items-center gap-1 text-blue-600 hover:text-blue-700 font-bold hover:underline"
-                          >
-                            <span>Verify Authority Registry</span>
-                            <IoOpenOutline size={13} />
-                          </a>
-                        )}
+                        </p>
                       </div>
+
+                      <span className="px-2 py-0.5 bg-emerald-50 border border-emerald-200 text-emerald-700 font-bold text-[10px] uppercase tracking-wider rounded shrink-0 flex items-center gap-1">
+                        <IoCheckmarkCircle size={12} />
+                        <span>Verifiable</span>
+                      </span>
                     </div>
 
-                    {/* Carousel Nav Controls */}
+                    {activeCert.description && (
+                      <p className="text-slate-600 leading-relaxed text-[11px] sm:text-xs">
+                        {activeCert.description}
+                      </p>
+                    )}
+
+                    {/* Validated Skills */}
+                    {activeCert.skills && activeCert.skills.length > 0 && (
+                      <div className="pt-2 border-t border-slate-200/70">
+                        <span className="text-[10px] font-black uppercase tracking-wider text-slate-400 block mb-1">
+                          Validated Core Competencies:
+                        </span>
+                        <div className="flex flex-wrap gap-1.5">
+                          {activeCert.skills.map((skill, sIdx) => (
+                            <span
+                              key={sIdx}
+                              className="px-2 py-0.5 bg-white border border-slate-200 text-slate-700 font-semibold text-[10px] rounded"
+                            >
+                              ✓ {skill}
+                            </span>
+                          ))}
+                        </div>
+                      </div>
+                    )}
+
+                    {/* Pagination / Carousel controls */}
                     {certifications.length > 1 && (
-                      <div className="px-4 py-2 bg-white border-t border-slate-100 flex items-center justify-between">
+                      <div className="pt-2 border-t border-slate-200/70 flex items-center justify-between">
                         <button
                           type="button"
-                          onClick={(e) => {
-                            e.stopPropagation();
-                            handlePrev();
-                          }}
-                          className="px-2.5 py-1 text-xs font-bold text-slate-600 hover:text-slate-900 flex items-center gap-1 rounded hover:bg-slate-100 transition-colors"
+                          onClick={handlePrev}
+                          className="px-2.5 py-1 text-slate-600 hover:text-slate-900 font-bold flex items-center gap-1 rounded hover:bg-slate-200/60 transition-colors"
                         >
-                          <IoChevronBackOutline size={14} />
+                          <IoChevronBackOutline size={13} />
                           <span>Previous</span>
                         </button>
 
-                        <div className="flex items-center gap-1.5">
-                          {certifications.map((_, dotIdx) => (
-                            <button
-                              key={dotIdx}
-                              type="button"
-                              onClick={() => setActiveIndex(dotIdx)}
-                              className={`h-2 rounded-full transition-all ${
-                                dotIdx === activeIndex
-                                  ? "w-6 bg-pink-600"
-                                  : "w-2 bg-slate-300 hover:bg-slate-400"
-                              }`}
-                              title={`View certificate ${dotIdx + 1}`}
-                            />
-                          ))}
-                        </div>
+                        <span className="text-[11px] font-bold text-slate-400">
+                          {activeIndex + 1} of {certifications.length}
+                        </span>
 
                         <button
                           type="button"
-                          onClick={(e) => {
-                            e.stopPropagation();
-                            handleNext();
-                          }}
-                          className="px-2.5 py-1 text-xs font-bold text-slate-600 hover:text-slate-900 flex items-center gap-1 rounded hover:bg-slate-100 transition-colors"
+                          onClick={handleNext}
+                          className="px-2.5 py-1 text-slate-600 hover:text-slate-900 font-bold flex items-center gap-1 rounded hover:bg-slate-200/60 transition-colors"
                         >
                           <span>Next</span>
-                          <IoChevronForwardOutline size={14} />
+                          <IoChevronForwardOutline size={13} />
                         </button>
                       </div>
                     )}
-                  </motion.div>
+                  </div>
                 </div>
               ) : (
-                <div className="aspect-[4/3] bg-slate-100 rounded-2xl flex items-center justify-center text-slate-400 text-sm">
-                  Loading certificate documentation...
+                <div className="aspect-[16/11] bg-slate-100 rounded-xl flex items-center justify-center text-slate-400 text-xs">
+                  Loading certificate showcase...
                 </div>
               )}
             </div>
@@ -369,91 +333,103 @@ export default function CertificationsPageClient({
         </div>
       </section>
 
-      {/* ── Section 2: Complete Accreditation & Document Verification Grid ── */}
-      <section className="py-20 bg-slate-50 relative">
-        <div className="container-custom max-w-7xl mx-auto space-y-12">
-          {/* Section Header */}
-          <div className="max-w-3xl">
-            <div className="inline-flex items-center gap-2 px-3 py-1 bg-pink-100 text-pink-700 text-[11px] font-black uppercase tracking-wider rounded-md mb-3">
-              <IoRibbonOutline size={15} />
-              <span>Full Verification Registry</span>
+      {/* ── Section 2: Complete Catalog of Certified Courses & Credentials ── */}
+      <section className="py-16 md:py-24 bg-slate-50/70 border-b border-slate-200/80">
+        <div className="container-custom max-w-7xl mx-auto space-y-8">
+          {/* Section Heading & Category Filter Bar */}
+          <div className="flex flex-col md:flex-row md:items-end justify-between gap-4">
+            <div>
+              <div className="inline-flex items-center gap-1.5 px-3 py-1 bg-pink-50 border border-pink-200 text-pink-700 text-[11px] font-black uppercase tracking-wider rounded-md mb-2">
+                <IoRibbonOutline size={14} />
+                <span>Certification Catalog</span>
+              </div>
+              <h2 className="text-2xl sm:text-3xl md:text-4xl font-black text-slate-900 tracking-tight leading-tight">
+                All Certified Courses &amp; Diplomas
+              </h2>
+              <p className="text-slate-600 text-xs sm:text-sm mt-1 max-w-2xl leading-relaxed">
+                Discover all courses at Smart Youth ICT that provide official, verifiable completion credentials upon student graduation.
+              </p>
             </div>
-            <h2 className="text-2xl sm:text-3xl md:text-4xl font-black text-slate-900 tracking-tight leading-tight">
-              Official Quality Standards &amp; Accreditation Details
-            </h2>
-            <p className="text-slate-600 text-sm sm:text-base mt-2 leading-relaxed">
-              Every course syllabus, lab facility, and certification issued by Smart Youth ICT adheres to strict national frameworks and audited international protocols.
-            </p>
+
+            {/* Search Input */}
+            <div className="relative w-full md:w-72">
+              <IoSearchOutline className="w-4 h-4 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2" />
+              <input
+                type="text"
+                placeholder="Search course or skill..."
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                className="w-full pl-9 pr-3 py-2 bg-white border border-slate-200 text-xs font-medium text-slate-800 rounded-lg outline-none focus:ring-2 focus:ring-pink-500/20"
+              />
+            </div>
           </div>
 
-          {/* Cards Grid */}
+          {/* Category Filter Pills */}
+          {categories.length > 0 && (
+            <div className="flex items-center gap-1.5 overflow-x-auto pb-1 no-scrollbar">
+              <button
+                type="button"
+                onClick={() => setSelectedCategory("all")}
+                className={`px-3 py-1.5 text-xs font-bold rounded-lg transition-colors whitespace-nowrap ${
+                  selectedCategory === "all"
+                    ? "bg-slate-900 text-white shadow-xs"
+                    : "bg-white text-slate-600 hover:bg-slate-100 border border-slate-200"
+                }`}
+              >
+                All Categories ({certifications.length})
+              </button>
+              {categories.map((cat) => (
+                <button
+                  key={cat}
+                  type="button"
+                  onClick={() => setSelectedCategory(cat)}
+                  className={`px-3 py-1.5 text-xs font-bold rounded-lg transition-colors whitespace-nowrap ${
+                    selectedCategory === cat
+                      ? "bg-slate-900 text-white shadow-xs"
+                      : "bg-white text-slate-600 hover:bg-slate-100 border border-slate-200"
+                  }`}
+                >
+                  {cat}
+                </button>
+              ))}
+            </div>
+          )}
+
+          {/* Certified Courses Cards Grid */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {certifications.map((item, idx) => (
+            {filteredCertifications.map((item, idx) => (
               <div
                 key={item._id || idx}
-                className="bg-white rounded-2xl border border-slate-200/90 shadow-xs hover:shadow-xl transition-all duration-300 overflow-hidden flex flex-col justify-between group"
+                className="bg-white rounded-2xl border border-slate-200 shadow-sm hover:shadow-lg transition-all duration-300 overflow-hidden flex flex-col justify-between group"
               >
                 <div>
-                  {/* Certificate Image Frame */}
-                  <div
-                    onClick={() => setLightboxCert(item)}
-                    className="relative aspect-[16/10] w-full bg-slate-950 overflow-hidden cursor-zoom-in group/cardimg border-b border-slate-100"
-                  >
-                    <Image
-                      src={item.image}
-                      alt={item.title}
-                      fill
-                      unoptimized={true}
-                      className="object-cover group-hover/cardimg:scale-105 transition-transform duration-500"
-                      onError={(e) => {
-                        e.currentTarget.srcset = "";
-                        e.currentTarget.src = "/images/certificate-placeholder.png";
-                      }}
+                  {/* Certificate Preview Frame: Custom Uploaded Image OR Official Dynamic Mock */}
+                  <div className="p-3 bg-slate-50/50 border-b border-slate-100">
+                    <OfficialCertificatePreview
+                      cert={item}
+                      showFullDetails={false}
+                      onClick={() => setLightboxCert(item)}
+                      className="group-hover:border-pink-500/50 transition-colors"
                     />
-
-                    {/* Gradient Overlay */}
-                    <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-transparent to-slate-950/20" />
-
-                    {/* Top Badge */}
-                    <div className="absolute top-3 inset-x-3 flex items-center justify-between gap-2 z-10">
-                      <span className="px-2.5 py-1 bg-slate-900/90 backdrop-blur-md text-white text-[10px] font-black uppercase tracking-wider rounded-md border border-white/10">
-                        {item.category || "Accreditation"}
-                      </span>
-
-                      <span className="px-2 py-0.5 bg-emerald-500/90 text-white text-[10px] font-bold rounded flex items-center gap-1 shadow-sm">
-                        <IoCheckmarkCircle size={12} />
-                        <span>Verified</span>
-                      </span>
-                    </div>
-
-                    {/* Bottom Image Strip */}
-                    <div className="absolute bottom-2.5 inset-x-3 flex items-end justify-between z-10 text-white">
-                      <span className="text-[11px] font-mono font-bold bg-black/60 px-2 py-0.5 rounded backdrop-blur-sm truncate max-w-[200px]">
-                        {item.credentialId || "Certified Facility"}
-                      </span>
-
-                      <button
-                        type="button"
-                        onClick={(e) => {
-                          e.stopPropagation();
-                          setLightboxCert(item);
-                        }}
-                        className="p-1.5 bg-white/20 hover:bg-pink-600 text-white rounded-md backdrop-blur-md transition-colors"
-                        title="View Full Document"
-                      >
-                        <IoEyeOutline size={15} />
-                      </button>
-                    </div>
                   </div>
 
-                  {/* Card Content */}
+                  {/* Card Content Details */}
                   <div className="p-5 space-y-3">
+                    <div className="flex items-center justify-between gap-2">
+                      <span className="px-2 py-0.5 bg-pink-50 text-pink-700 text-[10px] font-black uppercase tracking-wider rounded border border-pink-100">
+                        {item.category || "Certified Track"}
+                      </span>
+                      <span className="text-[10px] font-mono text-slate-400">
+                        {item.credentialId || "ISO 9001:2015"}
+                      </span>
+                    </div>
+
                     <div>
-                      <h3 className="text-base sm:text-lg font-black text-slate-900 leading-snug group-hover:text-pink-600 transition-colors">
+                      <h3 className="text-base font-bold text-slate-900 leading-snug group-hover:text-pink-600 transition-colors">
                         {item.title}
                       </h3>
-                      <p className="text-xs font-bold text-slate-500 mt-1">
-                        {item.issuer}
+                      <p className="text-xs text-slate-500 font-medium mt-0.5">
+                        Track: <strong className="text-slate-700">{item.courseName || item.title}</strong>
                       </p>
                     </div>
 
@@ -461,66 +437,88 @@ export default function CertificationsPageClient({
                       {item.description}
                     </p>
 
-                    {/* Bullet Highlights */}
-                    {item.highlights && item.highlights.length > 0 && (
-                      <div className="pt-2 space-y-1">
-                        {item.highlights.map((hl, hIdx) => (
-                          <div
-                            key={hIdx}
-                            className="flex items-center gap-1.5 text-xs text-slate-700 font-medium"
-                          >
-                            <IoCheckmarkCircle className="text-emerald-500 shrink-0" size={14} />
-                            <span className="truncate">{hl}</span>
-                          </div>
-                        ))}
+                    {/* Validated Skills List */}
+                    {item.skills && item.skills.length > 0 && (
+                      <div className="pt-2 border-t border-slate-100 space-y-1">
+                        <span className="text-[10px] font-black uppercase tracking-wider text-slate-400 block">
+                          Skills Validated:
+                        </span>
+                        <div className="flex flex-wrap gap-1">
+                          {item.skills.slice(0, 3).map((s, sIdx) => (
+                            <span
+                              key={sIdx}
+                              className="px-2 py-0.5 bg-slate-50 text-slate-700 font-semibold text-[10px] rounded border border-slate-200/60"
+                            >
+                              ✓ {s}
+                            </span>
+                          ))}
+                        </div>
                       </div>
                     )}
                   </div>
                 </div>
 
-                {/* Card Actions Footer */}
+                {/* Card Action Footer */}
                 <div className="p-4 bg-slate-50/80 border-t border-slate-100 flex items-center justify-between gap-2">
                   <button
                     type="button"
                     onClick={() => setLightboxCert(item)}
-                    className="px-3 py-1.5 bg-slate-900 hover:bg-pink-600 text-white text-xs font-bold uppercase tracking-wider rounded-lg transition-colors flex items-center gap-1.5 shadow-xs"
+                    className="px-3 py-1.5 bg-white hover:bg-slate-100 text-slate-700 font-bold text-xs uppercase tracking-wider rounded-lg border border-slate-200 transition-colors inline-flex items-center gap-1.5"
                   >
-                    <IoDocumentTextOutline size={14} />
-                    <span>View Scan</span>
+                    <IoEyeOutline size={14} />
+                    <span>Inspect</span>
                   </button>
 
-                  {item.verificationUrl ? (
-                    <a
-                      href={item.verificationUrl}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="px-3 py-1.5 bg-white hover:bg-slate-100 text-slate-700 font-bold text-xs rounded-lg border border-slate-200 transition-colors inline-flex items-center gap-1"
-                    >
-                      <span>Registry</span>
-                      <IoOpenOutline size={13} />
-                    </a>
-                  ) : (
-                    <span className="text-[11px] font-mono text-slate-400">
-                      ID: {item.credentialId?.slice(0, 14) || "Audited"}
-                    </span>
-                  )}
+                  <Link
+                    href="/courses"
+                    className="px-3.5 py-1.5 bg-pink-600 hover:bg-pink-700 text-white font-bold text-xs uppercase tracking-wider rounded-lg shadow-xs transition-colors inline-flex items-center gap-1 active:scale-95"
+                  >
+                    <span>Enroll Track</span>
+                    <IoArrowForward size={13} />
+                  </Link>
                 </div>
               </div>
             ))}
           </div>
 
-          {/* Trust Banner Callout */}
-          <div className="bg-slate-900 text-white p-6 sm:p-8 rounded-2xl flex flex-col md:flex-row items-center justify-between gap-6 shadow-xl">
+          {filteredCertifications.length === 0 && (
+            <div className="text-center py-12 bg-white rounded-2xl border border-slate-200 p-6">
+              <IoSchoolOutline className="w-12 h-12 text-slate-300 mx-auto mb-2" />
+              <h3 className="text-base font-bold text-slate-900">
+                No certified courses match your criteria
+              </h3>
+              <p className="text-xs text-slate-500 mt-1 mb-4">
+                Try searching for different keywords or clearing your category filter.
+              </p>
+              <button
+                type="button"
+                onClick={() => {
+                  setSearchQuery("");
+                  setSelectedCategory("all");
+                }}
+                className="px-4 py-1.5 bg-slate-900 text-white text-xs font-bold rounded-lg"
+              >
+                Reset Filters
+              </button>
+            </div>
+          )}
+        </div>
+      </section>
+
+      {/* ── Section 3: Credential Verification & Quality Assurance Strip ── */}
+      <section className="py-14 bg-white">
+        <div className="container-custom max-w-7xl mx-auto">
+          <div className="bg-slate-50 border border-slate-200 rounded-2xl p-6 sm:p-8 flex flex-col md:flex-row items-center justify-between gap-6 shadow-xs">
             <div className="flex items-center gap-4">
-              <div className="w-12 h-12 rounded-xl bg-pink-500/20 text-pink-400 flex items-center justify-center shrink-0">
+              <div className="w-12 h-12 rounded-xl bg-pink-100 text-pink-600 flex items-center justify-center shrink-0">
                 <IoShieldCheckmarkOutline size={28} />
               </div>
               <div>
-                <h3 className="text-lg sm:text-xl font-black">
-                  Graduate Certificate Verification System
+                <h3 className="text-base sm:text-lg font-black text-slate-900">
+                  Global QR Credential Verification System
                 </h3>
-                <p className="text-xs sm:text-sm text-slate-400 mt-1 max-w-xl">
-                  Every Smart Youth ICT student certificate contains an encrypted credential ID verifiable worldwide by employers, universities, and visa authorities.
+                <p className="text-xs sm:text-sm text-slate-600 mt-1 max-w-xl">
+                  Every graduate certificate from Smart Youth ICT includes a unique, encrypted credential ID verifiable worldwide by employers, embassies, and academic bodies.
                 </p>
               </div>
             </div>
@@ -528,94 +526,87 @@ export default function CertificationsPageClient({
             <div className="flex items-center gap-3 shrink-0">
               <Link
                 href="/courses"
-                className="px-5 py-2.5 bg-pink-600 hover:bg-pink-700 text-white text-xs font-bold uppercase tracking-wider rounded-xl transition-all shadow-md active:scale-95"
+                className="px-5 py-2.5 bg-pink-600 hover:bg-pink-700 text-white text-xs font-bold uppercase tracking-wider rounded-xl transition-all shadow-xs active:scale-95"
               >
-                Explore Courses
+                Browse All Courses
               </Link>
             </div>
           </div>
         </div>
       </section>
 
-      {/* ── High-Resolution Lightbox Modal ── */}
+      {/* ── Lightbox Modal for Certificate Inspection (Clean Light Theme) ── */}
       <AnimatePresence>
         {lightboxCert && (
           <div
             onClick={() => setLightboxCert(null)}
-            className="fixed inset-0 bg-black/90 backdrop-blur-md z-[1300] flex flex-col justify-between p-4 sm:p-6"
+            className="fixed inset-0 bg-slate-900/60 backdrop-blur-xs z-[1300] flex flex-col justify-between p-4 sm:p-6"
           >
             {/* Lightbox Header Bar */}
             <div
               onClick={(e) => e.stopPropagation()}
-              className="flex items-center justify-between text-white pb-3 border-b border-white/10"
+              className="bg-white rounded-t-xl px-4 py-3 flex items-center justify-between border-b border-slate-200 shadow-sm"
             >
-              <div className="flex items-center gap-3 min-w-0">
-                <span className="px-2.5 py-1 bg-pink-600 text-white text-xs font-black uppercase tracking-wider rounded">
-                  {lightboxCert.category || "Official Certificate"}
+              <div className="flex items-center gap-2.5 min-w-0">
+                <span className="px-2.5 py-0.5 bg-pink-600 text-white text-[10px] font-black uppercase tracking-wider rounded">
+                  {lightboxCert.category || "Official Credential"}
                 </span>
                 <div className="min-w-0">
-                  <h3 className="text-sm sm:text-base font-bold truncate">
+                  <h3 className="text-sm sm:text-base font-bold text-slate-900 truncate">
                     {lightboxCert.title}
                   </h3>
-                  <p className="text-xs text-slate-400 truncate">
-                    {lightboxCert.issuer} {lightboxCert.credentialId ? `• ${lightboxCert.credentialId}` : ""}
+                  <p className="text-xs text-slate-500 truncate">
+                    Track: {lightboxCert.courseName || lightboxCert.title} • Credential ID: {lightboxCert.credentialId}
                   </p>
                 </div>
               </div>
 
-              <div className="flex items-center gap-2">
-                {lightboxCert.verificationUrl && (
-                  <a
-                    href={lightboxCert.verificationUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="px-3 py-1.5 bg-white/10 hover:bg-white text-white hover:text-slate-900 text-xs font-bold rounded-lg transition-colors inline-flex items-center gap-1.5"
-                  >
-                    <span>Verify</span>
-                    <IoOpenOutline size={14} />
-                  </a>
-                )}
-
-                <button
-                  type="button"
-                  onClick={() => setLightboxCert(null)}
-                  className="p-2 bg-white/10 hover:bg-white text-white hover:text-slate-900 rounded-lg transition-colors"
-                >
-                  <IoCloseOutline size={20} />
-                </button>
-              </div>
+              <button
+                type="button"
+                onClick={() => setLightboxCert(null)}
+                className="p-1.5 text-slate-500 hover:text-slate-900 hover:bg-slate-100 rounded-lg transition-colors"
+              >
+                <IoCloseOutline size={22} />
+              </button>
             </div>
 
-            {/* Lightbox Image Body */}
+            {/* Lightbox Certificate Document Body */}
             <div
               onClick={(e) => e.stopPropagation()}
-              className="relative flex-1 w-full my-4 flex items-center justify-center overflow-hidden"
+              className="relative flex-1 w-full max-w-4xl mx-auto my-3 flex items-center justify-center p-2 sm:p-4 bg-white shadow-2xl rounded-b-xl overflow-hidden"
             >
-              <Image
-                src={lightboxCert.image}
-                alt={lightboxCert.title}
-                fill
-                unoptimized={true}
-                className="object-contain"
-              />
+              <div className="w-full h-full max-h-[82vh] flex items-center justify-center">
+                <OfficialCertificatePreview
+                  cert={lightboxCert}
+                  className="max-h-[78vh] w-auto aspect-[16/11]"
+                />
+              </div>
             </div>
 
             {/* Lightbox Footer Bar */}
             <div
               onClick={(e) => e.stopPropagation()}
-              className="flex items-center justify-between text-white text-xs pt-3 border-t border-white/10"
+              className="bg-white rounded-xl px-4 py-2.5 flex items-center justify-between text-xs text-slate-600 border border-slate-200 shadow-sm"
             >
-              <span className="text-slate-400">
-                Use Arrow Keys or buttons to browse certificates • Press ESC to close
+              <span className="text-slate-500 font-medium">
+                Use Arrow Keys to navigate between certificates • ESC to close
               </span>
 
-              <button
-                type="button"
-                onClick={() => setLightboxCert(null)}
-                className="px-4 py-1.5 bg-white/10 hover:bg-white hover:text-slate-900 font-bold uppercase tracking-wider rounded-lg transition-colors text-xs"
-              >
-                Close
-              </button>
+              <div className="flex items-center gap-2">
+                <Link
+                  href="/courses"
+                  className="px-3 py-1.5 bg-pink-600 hover:bg-pink-700 text-white font-bold text-xs uppercase tracking-wider rounded-lg transition-colors"
+                >
+                  Enroll in this Course
+                </Link>
+                <button
+                  type="button"
+                  onClick={() => setLightboxCert(null)}
+                  className="px-3 py-1.5 bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold uppercase tracking-wider rounded-lg transition-colors text-xs"
+                >
+                  Close
+                </button>
+              </div>
             </div>
           </div>
         )}
