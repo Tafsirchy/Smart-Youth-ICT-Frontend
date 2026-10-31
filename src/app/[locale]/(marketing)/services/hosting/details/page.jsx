@@ -5,7 +5,7 @@ import HostingDetailsClient from "@/components/marketing/services/HostingDetails
 export default async function HostingDetailsPage() {
   let content = null;
   try {
-    const res = await fetchServer("/cms/services/web-software/hosting", {
+    const res = await fetchServer("/cms/services/ai-managed/hosting", {
       revalidate: 60,
     });
     if (res.data) content = res.data;

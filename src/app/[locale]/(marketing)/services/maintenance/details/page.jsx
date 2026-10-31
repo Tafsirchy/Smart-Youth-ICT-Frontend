@@ -5,7 +5,7 @@ import MaintenanceDetailsClient from "@/components/marketing/services/Maintenanc
 export default async function MaintenanceDetailsPage() {
   let content = null;
   try {
-    const res = await fetchServer("/cms/services/web-software/maintenance", {
+    const res = await fetchServer("/cms/services/ai-managed/maintenance", {
       revalidate: 60,
     });
     if (res.data) content = res.data;

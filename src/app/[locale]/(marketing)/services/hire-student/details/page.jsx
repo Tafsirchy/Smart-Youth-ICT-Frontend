@@ -5,7 +5,7 @@ import HireStudentDetailsClient from "@/components/marketing/services/HireStuden
 export default async function HireStudentDetailsPage() {
   let content = null;
   try {
-    const res = await fetchServer("/cms/services/web-software/hire-student", {
+    const res = await fetchServer("/cms/services/ai-managed/hire-student", {
       revalidate: 60,
     });
     if (res.data) content = res.data;
