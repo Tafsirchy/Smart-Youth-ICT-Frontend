@@ -1,251 +1,307 @@
 "use client";
 
+import { useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import Link from "next/link";
 import {
   IoFlashOutline,
-  IoSyncOutline,
-  IoCalculatorOutline,
-  IoShareSocialOutline,
-  IoLayersOutline,
-  IoCloudDoneOutline,
+  IoCheckmarkCircleOutline,
+  IoArrowForwardOutline,
+  IoCloseOutline,
+  IoLogoWhatsapp,
+  IoSparklesOutline,
   IoGitNetworkOutline,
-  IoPulseOutline,
-  IoSettingsOutline,
-  IoSparklesOutline
+  IoLayersOutline,
 } from "react-icons/io5";
-import { motion } from "framer-motion";
-import Link from "next/link";
 import { getIcon } from "@/lib/icons";
 
-export default function AutomationClient({ data }) {
-  if (!data) return null;
+export default function AutomationClient({ data, content }) {
+  const [showModal, setShowModal] = useState(false);
+
+  const rawData = data || content?.landing || {};
+  if (!rawData || Object.keys(rawData).length === 0) return null;
+
+  const hero = rawData.hero || {};
+  const sections = rawData.sections || {};
+  const cta = rawData.cta || {};
+  const pillarsData = sections.pillars || [];
+  const metricsData = sections.metrics || sections.integrations || [];
+  const integrationsData = sections.integrations || [];
 
   return (
-    <section className="min-h-screen bg-slate-50 text-slate-900 selection:bg-amber-600 selection:text-white overflow-hidden relative font-sans">
-      {/* INDUSTRIAL BACKGROUND DECOR */}
-      <div className="absolute top-0 opacity-20 pointer-events-none -z-10 w-full h-full">
-        <div className="absolute top-0 left-1/4 w-[1px] h-full bg-slate-200"></div>
-        <div className="absolute top-0 right-1/4 w-[1px] h-full bg-slate-200"></div>
-        <div className="absolute top-1/2 left-0 w-full h-[1px] bg-slate-200"></div>
-        <div className="absolute top-[10%] left-[-100px] w-[500px] h-[500px] bg-amber-50 blur-[140px]"></div>
-      </div>
+    <section className="min-h-screen bg-white flex flex-col relative selection:bg-brand-pink selection:text-white font-sans">
+      {/* Background Dot Texture */}
+      <div className="fixed inset-0 bg-[radial-gradient(#0F172A08_1px,transparent_1px)] [background-size:22px_22px] pointer-events-none z-0" />
 
-      <div className="container-custom py-10 relative z-10">
-        {/* AUTOMATION HERO */}
-        <div className="flex flex-col lg:flex-row items-center gap-4 lg:gap-5 mb-12 lg:mb-20 pt-8 lg:pt-0">
-          <div className="flex-1 text-left w-full">
+      <div className="relative z-10 flex flex-col flex-1">
+        {/* ── Minimized Hero ── */}
+        <div className="border-b border-slate-100 bg-white/70 backdrop-blur-sm">
+          <div className="container-custom pt-10 sm:pt-14 pb-8 flex flex-col items-center text-center gap-3 max-w-3xl mx-auto">
             <motion.div
-              initial={{ opacity: 0, x: -20 }}
-              animate={{ opacity: 1, x: 0 }}
-              className="inline-flex items-center gap-2 px-4 sm:px-5 py-2 bg-amber-50 border border-amber-100 text-amber-700 text-[10px] sm:text-xs font-black tracking-wider sm:tracking-[0.4em] uppercase mb-4 sm:mb-5 rounded-md"
+              initial={{ opacity: 0, y: -8 }}
+              animate={{ opacity: 1, y: 0 }}
+              className="inline-flex items-center gap-1.5 px-3 py-1 bg-[#FF2C6D]/8 border border-[#FF2C6D]/25 text-[#FF2C6D] text-[10px] font-black uppercase tracking-widest rounded-full leading-[1.4]"
             >
-              <IoSparklesOutline className="text-sm" /> {data.hero.badge}
+              <span className="h-1.5 w-1.5 bg-[#FF2C6D] rounded-full shrink-0 animate-pulse" />
+              {hero.badge || "Workflow & API Integration Engine"}
             </motion.div>
 
             <motion.h1
-              initial={{ opacity: 0, y: 30 }}
+              initial={{ opacity: 0, y: 12 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, ease: "circOut" }}
-              className="text-4xl sm:text-5xl lg:text-6xl font-black text-slate-900 leading-[1.1] mb-4 sm:mb-6 tracking-tighter"
+              transition={{ delay: 0.08 }}
+              className="text-2xl sm:text-3xl md:text-4xl font-black text-slate-900 leading-[1.2]"
             >
-              {data.hero.title?.split(' ')[0]} <br className="hidden sm:block" />
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-600 via-violet-500 to-emerald-500 animate-gradient-x block sm:inline mt-2 sm:mt-0">{data.hero.title?.split(' ').slice(1).join(' ')}</span>
+              Business Automation & <span className="text-[#FF2C6D]">Workflow Intelligence</span>
             </motion.h1>
 
             <motion.p
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ delay: 0.4 }}
-              className="text-slate-600 text-lg sm:text-xl font-light leading-relaxed max-w-2xl mb-6 sm:mb-8"
+              initial={{ opacity: 0, y: 12 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.15 }}
+              className="text-slate-500 text-sm md:text-base leading-relaxed max-w-3xl font-normal"
             >
-              {data.hero.description}
+              {hero.description}
             </motion.p>
 
-            <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 mb-8 lg:mb-0">
-              <button className="w-full sm:w-[280px] px-8 py-4 sm:py-6 bg-amber-600 text-white font-black hover:bg-amber-700 transition-all shadow-xl sm:shadow-2xl shadow-amber-600/20 uppercase tracking-wider sm:tracking-widest text-xs sm:text-sm flex items-center justify-center min-h-[44px] rounded-md">
-                Initialize Audit
+            <motion.div
+              initial={{ opacity: 0, y: 12 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.22 }}
+              className="flex flex-wrap items-center justify-center gap-3 pt-2"
+            >
+              <button
+                onClick={() => setShowModal(true)}
+                className="px-6 py-2.5 bg-[#FF2C6D] text-white font-bold hover:bg-[#e0285f] transition-colors shadow-sm uppercase tracking-wider text-xs rounded-lg min-h-[42px]"
+              >
+                {cta.title || "Initialize Automation Audit"}
               </button>
               <Link
-                href="/services/automation/details"
-                className="w-full sm:w-[280px] px-6 py-3 sm:py-4 bg-white border border-slate-200 text-slate-900 font-black hover:bg-slate-50 transition-all uppercase tracking-wider sm:tracking-widest text-xs sm:text-sm flex items-center justify-center text-center min-h-[44px] rounded-md"
+                href="/en/services/automation/details"
+                className="inline-flex items-center gap-1 text-xs font-bold uppercase tracking-wider text-[#10B981] hover:text-[#FF2C6D] transition-colors py-2 px-3"
               >
-                Technical Specifications
+                Technical Details <IoArrowForwardOutline />
               </Link>
-            </div>
-          </div>
-
-          <div className="flex-1 relative hidden lg:block">
-            <motion.div
-              initial={{ opacity: 0, scale: 0.9, rotate: 5 }}
-              animate={{ opacity: 1, scale: 1, rotate: 0 }}
-              transition={{ duration: 1 }}
-              className="relative p-12 bg-white -[4rem] border border-slate-100 shadow-2xl overflow-hidden rounded-md"
-            >
-              {/* Logic Schematic Visual */}
-              <div className="relative aspect-[4/3] flex flex-col justify-between items-center py-10">
-                <motion.div
-                  animate={{ y: [0, -5, 0] }}
-                  transition={{ duration: 4, repeat: Infinity }}
-                  className="p-6 bg-amber-600 shadow-2xl relative z-20 font-black text-white text-xs tracking-widest uppercase rounded-sm"
-                >
-                  API_SOURCE_EVENT
-                </motion.div>
-                <div className="w-full flex justify-around items-center px-4">
-                  <motion.div className="p-4 bg-slate-900 relative z-20 text-white text-[10px] sm:text-xs font-black border border-slate-800 space-y-3 w-32 shadow-xl rounded-sm">
-                    <div className="flex justify-between items-center opacity-40 uppercase tracking-widest"><span>Node_01</span> <IoFlashOutline /></div>
-                    <div className="h-1 w-full bg-amber-500/20 overflow-hidden">
-                      <motion.div animate={{ x: ["-100%", "100%"] }} transition={{ duration: 2, repeat: Infinity }} className="h-full w-1/2 bg-amber-500" />
-                    </div>
-                    <p className="text-amber-500">FORMAT_DATA</p>
-                  </motion.div>
-                  <motion.div className="p-4 bg-slate-100 relative z-20 text-slate-400 text-[10px] sm:text-xs font-black border border-slate-200 space-y-3 w-32 shadow-sm rounded-sm">
-                    <div className="flex justify-between items-center opacity-40 uppercase tracking-widest"><span>Node_02</span> <IoSettingsOutline /></div>
-                    <div className="h-1 w-full bg-slate-200"></div>
-                    <p>SYNC_LOGIC</p>
-                  </motion.div>
-                </div>
-                <motion.div
-                  animate={{ scale: [1, 1.05, 1] }}
-                  transition={{ duration: 5, repeat: Infinity }}
-                  className="p-6 bg-indigo-600 shadow-2xl relative z-20 font-black text-white text-[10px] sm:text-xs flex gap-3 items-center tracking-widest uppercase rounded-sm"
-                >
-                  <IoCloudDoneOutline className="text-xl" /> CRM_DESTINATION
-                </motion.div>
-                <svg className="absolute inset-0 w-full h-full -z-10" viewBox="0 0 100 100" preserveAspectRatio="none">
-                  <motion.path
-                    initial={{ pathLength: 0 }}
-                    whileInView={{ pathLength: 1 }}
-                    d="M 50 15 L 20 50 L 50 85"
-                    stroke="rgba(245,158,11,0.2)"
-                    strokeWidth="1"
-                    fill="none"
-                  />
-                  <motion.path
-                    initial={{ pathLength: 0 }}
-                    whileInView={{ pathLength: 1 }}
-                    d="M 50 15 L 80 50 L 50 85"
-                    stroke="rgba(99,102,241,0.2)"
-                    strokeWidth="1"
-                    fill="none"
-                  />
-                </svg>
-              </div>
-              <div className="absolute top-4 left-4 font-mono text-[10px] sm:text-xs text-slate-300 uppercase tracking-widest bg-white pr-4">
-                SYNC_ACTIVE::V6.8
-              </div>
             </motion.div>
           </div>
         </div>
 
-        {/* PILLARS SECTION */}
-        <div className="mb-12 lg:mb-20">
-          <div className="flex flex-col justify-between items-start mb-16 lg:mb-24 gap-6 lg:gap-4 border-l-4 border-amber-600 pl-6 sm:pl-8 mx-4 sm:mx-0 rounded-lg">
-            <div className="max-w-xl">
-              <h2 className="text-xs font-black text-amber-600 uppercase tracking-widest sm:tracking-[0.4em] mb-4">Automation Logic</h2>
-              <p className="text-3xl sm:text-4xl md:text-5xl font-black text-slate-900 leading-tight tracking-tighter">
-                The architecture of <br className="block sm:hidden" /><span className="text-slate-400 italic font-serif font-light tracking-normal">frictionless growth.</span>
-              </p>
-            </div>
-          </div>
-
-          {/* Full-bleed Mobile Carousel */}
-          <div className="overflow-x-auto snap-x snap-mandatory hide-scrollbar pb-8 lg:pb-0 lg:overflow-visible lg:snap-none">
-            <div className="flex lg:grid lg:grid-cols-3 gap-6 lg:gap-4 min-w-max lg:min-w-0 w-max lg:w-auto">
-              {(data.sections.pillars || []).map((item, i) => (
-                <motion.div
-                  key={i}
-                  initial={{ opacity: 0, y: 30 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: i * 0.1 }}
-                  className="group cursor-default snap-center w-[85vw] max-w-[320px] lg:w-auto lg:max-w-none whitespace-normal"
-                >
-                  <div className="bg-white lg:-[3rem] p-8 sm:p-10 lg:p-6 h-full border border-slate-100 shadow-xl shadow-slate-200/50 hover:shadow-2xl transition-all group-hover:-translate-y-2 relative overflow-hidden rounded-lg">
-                    <div className={`w-12 h-12 sm:w-14 sm:h-14 rounded-lg bg-gradient-to-br ${item.color || 'from-amber-500 to-orange-600'} text-white flex items-center justify-center text-2xl sm:text-3xl mb-4 sm:mb-10 shadow-lg`}>
-                      {getIcon(item.icon)}
-                    </div>
-                    <h3 className="text-xl sm:text-2xl font-black text-slate-900 mb-4 sm:mb-3 tracking-tighter uppercase leading-none">
-                      {item.title}
-                    </h3>
-                    <p className="text-slate-500 leading-relaxed font-light text-sm sm:text-lg">
-                      {item.desc}
+        {/* ── Key Highlights Strip ── */}
+        {metricsData.length > 0 && (
+          <div className="border-b border-slate-100 bg-slate-50/80">
+            <div className="container-custom py-3.5">
+              <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 text-center divide-x divide-slate-200/60">
+                {metricsData.map((item, idx) => (
+                  <div key={idx} className="px-2">
+                    <p className="text-xl sm:text-2xl font-black text-slate-900 leading-[1.1]">
+                      {item.value || item.t}
                     </p>
-                  </div>
-                </motion.div>
-              ))}
-            </div>
-          </div>
-        </div>
-
-        {/* LOGIC ENGINE SECTION */}
-        <div className="mb-12 lg:mb-20">
-          <div className="grid lg:grid-cols-2 gap-5 lg:gap-8 items-center bg-white lg:-[4rem] p-5 sm:p-5 lg:p-8 border border-slate-100 shadow-xl lg:shadow-2xl shadow-slate-200/50 relative overflow-hidden rounded-lg">
-            <div className="absolute top-0 right-0 w-full sm:w-1/3 h-1/3 sm:h-full bg-amber-50/20 sm:-skew-x-[20deg] origin-top sm:translate-x-1/2"></div>
-
-            <div className="relative z-10 space-y-4 sm:space-y-6">
-              <div className="w-12 h-12 sm:w-16 sm:h-16 bg-amber-50 flex items-center justify-center text-2xl sm:text-3xl text-amber-600 border border-amber-100 rounded-lg">
-                <IoLayersOutline />
-              </div>
-              <h2 className="text-4xl sm:text-5xl lg:text-6xl font-black text-slate-900 leading-[1] sm:leading-[0.9] tracking-tighter sm:tracking-normal">Visual <br className="hidden sm:block" /><span className="text-amber-600">Logic Hub.</span></h2>
-              <p className="text-slate-500 text-lg sm:text-xl font-light leading-relaxed">We connect your software ecosystem through complex, resilient nodes. Every time an event triggers in one app, your entire business reacts instantly.</p>
-
-              <div className="grid grid-cols-2 gap-px bg-slate-50 border border-slate-100 sm: overflow-hidden mt-4 sm:mt-5 rounded-lg">
-                {(data.sections.integrations || []).map((item, idx) => (
-                  <div key={idx} className="p-3 sm:p-5 hover:bg-white transition-colors group rounded-md">
-                    <h4 className="text-[10px] sm:text-xs font-black text-amber-600 uppercase tracking-widest mb-2">{item.t}</h4>
-                    <p className="text-[10px] sm:text-xs text-slate-400 font-bold">{item.d}</p>
+                    <p className="text-[10px] sm:text-xs font-bold uppercase tracking-widest text-slate-400 mt-1">
+                      {item.label || item.d}
+                    </p>
                   </div>
                 ))}
               </div>
             </div>
+          </div>
+        )}
 
-            <motion.div
-              animate={{ y: [0, -10, 0] }}
-              transition={{ duration: 7, repeat: Infinity }}
-              className="relative bg-slate-900 lg:-[3rem] p-8 sm:p-12 border border-slate-800 shadow-2xl space-y-4 sm:space-y-5 overflow-hidden rounded-lg"
-            >
-              <div className="absolute top-0 right-0 p-4 font-mono text-[8px] sm:text-[10px] text-amber-400 bg-white/5 opacity-50 tracking-widest sm:tracking-[0.4em]">PROCESS_SYNC::ACTIVE</div>
+        {/* ── Capability Pillars (Automation DNA) ── */}
+        {pillarsData.length > 0 && (
+          <div className="container-custom py-10 sm:py-14">
+            <div className="text-center max-w-xl mx-auto mb-8">
+              <h2 className="text-[11px] font-black text-slate-400 uppercase tracking-widest mb-1.5 leading-[1.4]">
+                Automation DNA
+              </h2>
+              <p className="text-xl sm:text-2xl font-black text-slate-900 leading-[1.2]">
+                Pillars of Workflow Intelligence
+              </p>
+            </div>
 
-              <div className="space-y-4 sm:space-y-6 pt-6 sm:pt-0">
-                <div className="flex items-center gap-3 sm:gap-4 bg-white/5 p-3 sm:p-4 sm: border border-white/5 rounded-lg">
-                  <div className="w-8 h-8 sm:w-10 sm:h-10 sm: bg-amber-500/20 border border-amber-500/30 flex items-center justify-center text-amber-500 shrink-0 rounded-lg"><IoPulseOutline /></div>
-                  <div className="flex-1 space-y-1.5 min-w-0">
-                    <div className="h-1 sm:h-1.5 w-full bg-white/10"></div>
-                    <div className="h-1 sm:h-1.5 w-1/2 bg-white/10"></div>
+            <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
+              {pillarsData.map((pillar, i) => (
+                <div
+                  key={i}
+                  className="bg-white border border-slate-200/80 hover:border-[#FF2C6D]/40 hover:shadow-lg transition-all rounded-xl p-6 relative flex flex-col group overflow-hidden"
+                >
+                  <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-[#FF2C6D] to-[#10B981] opacity-0 group-hover:opacity-100 transition-opacity" />
+
+                  <div className="w-11 h-11 rounded-lg bg-slate-50 border border-slate-100 text-slate-800 flex items-center justify-center text-xl mb-4 group-hover:bg-[#FF2C6D]/10 group-hover:text-[#FF2C6D] transition-colors shrink-0">
+                    {getIcon(pillar.icon) || <IoFlashOutline />}
+                  </div>
+
+                  <h3 className="text-base font-bold text-slate-900 mb-2 leading-snug">
+                    {pillar.title}
+                  </h3>
+                  <p className="text-slate-500 text-sm leading-[1.6] flex-1 mb-4">
+                    {pillar.desc}
+                  </p>
+
+                  <div className="pt-3 border-t border-slate-100 flex items-center gap-1.5 text-xs text-slate-600 font-medium">
+                    <IoCheckmarkCircleOutline className="text-[#10B981] shrink-0 text-sm" />
+                    <span>Real-Time Webhook Pipeline</span>
                   </div>
                 </div>
-              </div>
-
-              <div className="pt-8 sm:pt-10 border-t border-white/5">
-                <p className="text-[10px] sm:text-xs font-mono text-amber-500 font-bold tracking-tighter">DATA_PROPAGATION::99.9% SUCCESS</p>
-                <p className="text-[10px] sm:text-xs font-mono text-slate-500 uppercase tracking-widest mt-2">Active Workflows: 24</p>
-              </div>
-            </motion.div>
-          </div>
-        </div>
-
-        {/* CTA */}
-        <div className="text-center py-10 lg:py-16 border-t border-slate-200 pb-12 lg:pb-16">
-          <IoFlashOutline className="text-6xl lg:text-7xl text-amber-600 mb-4 lg:mb-6 mx-auto opacity-20" />
-          <h3 className="text-4xl sm:text-5xl lg:text-6xl font-black text-slate-900 mb-5 lg:mb-6 leading-tight tracking-tighter sm:tracking-normal">
-            Focus on your strategy. <br className="hidden sm:block" />
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-amber-600 to-indigo-600 font-serif italic font-medium block sm:inline mt-2 sm:mt-0">Automate the Grind.</span>
-          </h3>
-          <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center">
-            {/* Sticky Mobile CTA */}
-            <div className="fixed bottom-0 left-0 w-full px-4 pt-4 pb-[max(1rem,env(safe-area-inset-bottom))] bg-slate-50/90 backdrop-blur-md border-t border-slate-200 z-50 lg:relative lg:border-none lg:bg-transparent lg:p-0 lg:w-auto">
-              <button className="w-full lg:w-[280px] px-8 py-4 sm:py-6 bg-amber-600 text-white font-black hover:bg-amber-700 transition-all shadow-xl sm:shadow-2xl shadow-amber-600/40 uppercase tracking-wider sm:tracking-widest text-xs sm:text-sm flex items-center justify-center min-h-[44px] rounded-md">
-                Request Audit
-              </button>
+              ))}
             </div>
-            <Link
-              href="/services/automation/details"
-              className="hidden lg:flex w-full sm:w-[280px] px-6 py-3 sm:py-4 bg-slate-900 text-white font-black hover:bg-slate-800 transition-all uppercase tracking-wider sm:tracking-widest text-xs sm:text-sm items-center justify-center text-center min-h-[44px] rounded-md"
-            >
-              Technical Hub
-            </Link>
+          </div>
+        )}
+
+        {/* ── Integration Ecosystem Grid ── */}
+        {integrationsData.length > 0 && (
+          <div className="border-t border-b border-slate-100 bg-slate-50/60 py-10">
+            <div className="container-custom max-w-4xl">
+              <div className="text-center max-w-xl mx-auto mb-8">
+                <h2 className="text-[11px] font-black text-slate-400 uppercase tracking-widest mb-1.5 leading-[1.4]">
+                  Ecosystem Bridge
+                </h2>
+                <p className="text-xl sm:text-2xl font-black text-slate-900 leading-[1.2]">
+                  Deterministic Sync Across Your Software Suite
+                </p>
+              </div>
+
+              <div className="grid sm:grid-cols-2 gap-4">
+                {integrationsData.map((item, idx) => (
+                  <div
+                    key={idx}
+                    className="p-5 bg-white border border-slate-200/80 rounded-xl hover:border-[#10B981]/40 transition-colors"
+                  >
+                    <h4 className="text-xs font-black text-[#10B981] uppercase tracking-widest mb-1">
+                      {item.t}
+                    </h4>
+                    <p className="text-xs text-slate-500 leading-relaxed">{item.d}</p>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* ── Compact CTA Banner ── */}
+        <div className="container-custom py-10">
+          <div className="bg-slate-900 rounded-2xl p-6 sm:p-8 text-center text-white relative overflow-hidden max-w-4xl mx-auto shadow-xl">
+            <div className="relative z-10 max-w-xl mx-auto flex flex-col items-center gap-3">
+              <p className="text-[10px] font-black tracking-widest text-[#FF2C6D] uppercase">
+                Zero-Friction Business Ops
+              </p>
+              <h2 className="text-xl sm:text-2xl font-black leading-tight text-white">
+                Stop Doing Manually What Can Be Automated Permanently.
+              </h2>
+              <p className="text-xs sm:text-sm text-slate-400 leading-relaxed max-w-md">
+                Schedule a free workflow audit. We will map your existing processes and identify the highest-ROI automation opportunities.
+              </p>
+              <div className="flex flex-wrap items-center justify-center gap-3 pt-2">
+                <button
+                  onClick={() => setShowModal(true)}
+                  className="px-6 py-2.5 bg-[#FF2C6D] hover:bg-[#e0285f] text-white font-bold text-xs uppercase tracking-wider rounded-lg transition-colors min-h-[42px] shadow-sm"
+                >
+                  Schedule Workflow Audit
+                </button>
+                <a
+                  href={`https://wa.me/${process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || "8801722550012"}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-1.5 px-4 py-2.5 bg-white/10 hover:bg-white/15 text-white font-bold text-xs uppercase tracking-wider rounded-lg transition-colors min-h-[42px]"
+                >
+                  <IoLogoWhatsapp className="text-emerald-400 text-sm" />
+                  Chat on WhatsApp
+                </a>
+              </div>
+            </div>
           </div>
         </div>
       </div>
+
+      {/* ── Consultation Modal ── */}
+      <AnimatePresence>
+        {showModal && (
+          <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              onClick={() => setShowModal(false)}
+              className="absolute inset-0 bg-slate-900/60 backdrop-blur-sm"
+            />
+            <motion.div
+              initial={{ opacity: 0, scale: 0.95 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0, scale: 0.95 }}
+              className="relative z-10 bg-white rounded-2xl shadow-2xl p-6 sm:p-8 max-w-md w-full border border-slate-100"
+            >
+              <button
+                onClick={() => setShowModal(false)}
+                className="absolute top-4 right-4 text-slate-400 hover:text-slate-600 p-1"
+                aria-label="Close"
+              >
+                <IoCloseOutline className="text-2xl" />
+              </button>
+
+              <div className="mb-5">
+                <div className="inline-flex items-center gap-1.5 px-2.5 py-1 bg-pink-50 text-[#FF2C6D] rounded text-[10px] font-black uppercase tracking-wider mb-2">
+                  <IoSparklesOutline /> Process Automation
+                </div>
+                <h3 className="text-lg font-black text-slate-900">
+                  Initialize Automation Consultation
+                </h3>
+                <p className="text-xs text-slate-500 mt-1">
+                  Connect with our workflow integration architects to streamline operations.
+                </p>
+              </div>
+
+              <form
+                onSubmit={(e) => {
+                  e.preventDefault();
+                  alert("Thank you! Our automation engineers will review your workflows and reply shortly.");
+                  setShowModal(false);
+                }}
+                className="space-y-3 text-xs"
+              >
+                <div>
+                  <label className="block font-bold text-slate-700 mb-1">Your Name</label>
+                  <input
+                    type="text"
+                    required
+                    placeholder="Enter your name"
+                    className="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus:border-[#FF2C6D] text-slate-900"
+                  />
+                </div>
+                <div>
+                  <label className="block font-bold text-slate-700 mb-1">Business Email</label>
+                  <input
+                    type="email"
+                    required
+                    placeholder="name@company.com"
+                    className="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus:border-[#FF2C6D] text-slate-900"
+                  />
+                </div>
+                <div>
+                  <label className="block font-bold text-slate-700 mb-1">Tools to Connect</label>
+                  <input
+                    type="text"
+                    placeholder="E.g. HubSpot, Google Sheets, WhatsApp, Slack, Stripe..."
+                    className="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus:border-[#FF2C6D] text-slate-900"
+                  />
+                </div>
+                <div>
+                  <label className="block font-bold text-slate-700 mb-1">Process Description</label>
+                  <textarea
+                    rows={3}
+                    placeholder="Describe the repetitive manual task you want automated..."
+                    className="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus:border-[#FF2C6D] text-slate-900 resize-none"
+                  />
+                </div>
+                <button
+                  type="submit"
+                  className="w-full py-2.5 bg-[#FF2C6D] hover:bg-[#e0285f] text-white font-bold uppercase tracking-wider text-xs rounded-lg transition-colors mt-2"
+                >
+                  Submit Workflow Inquiry
+                </button>
+              </form>
+            </motion.div>
+          </div>
+        )}
+      </AnimatePresence>
     </section>
   );
 }

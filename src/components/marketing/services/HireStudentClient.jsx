@@ -1,236 +1,303 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
 import {
   IoPeopleOutline,
-  IoRocketOutline,
-  IoGitBranchOutline,
-  IoSparklesOutline
+  IoCheckmarkCircleOutline,
+  IoArrowForwardOutline,
+  IoCloseOutline,
+  IoLogoWhatsapp,
+  IoSparklesOutline,
+  IoSchoolOutline,
 } from "react-icons/io5";
 import { getIcon } from "@/lib/icons";
 
-export default function HireStudentClient({ data }) {
-  if (!data) return null;
+export default function HireStudentClient({ data, content }) {
+  const [showModal, setShowModal] = useState(false);
+
+  const rawData = data || content?.landing || {};
+  if (!rawData || Object.keys(rawData).length === 0) return null;
+
+  const hero = rawData.hero || {};
+  const sections = rawData.sections || {};
+  const cta = rawData.cta || {};
+  const pillarsData = sections.pillars || [];
+  const metricsData = sections.metrics || sections.integrations || [];
 
   return (
-    <section className="min-h-screen bg-slate-50 text-slate-900 selection:bg-amber-600 selection:text-white overflow-hidden relative font-sans">
-      {/* INDUSTRIAL BACKGROUND DECOR */}
-      <div className="absolute top-0 opacity-20 pointer-events-none -z-10 w-full h-full">
-        <div className="absolute top-0 left-1/4 w-[1px] h-full bg-slate-200"></div>
-        <div className="absolute top-0 right-1/4 w-[1px] h-full bg-slate-200"></div>
-        <div className="absolute top-1/2 left-0 w-full h-[1px] bg-slate-200"></div>
-        <div className="absolute top-[10%] left-[-100px] w-[500px] h-[500px] bg-amber-50 blur-[140px]"></div>
-      </div>
+    <section className="min-h-screen bg-white flex flex-col relative selection:bg-brand-pink selection:text-white font-sans">
+      {/* Background Dot Texture */}
+      <div className="fixed inset-0 bg-[radial-gradient(#0F172A08_1px,transparent_1px)] [background-size:22px_22px] pointer-events-none z-0" />
 
-      <div className="container-custom py-10 relative z-10">
-        {/* HIRE STUDENT HERO */}
-        <div className="flex flex-col lg:flex-row items-center gap-4 lg:gap-5 mb-12 lg:mb-20 pt-8 lg:pt-0">
-          <div className="flex-1 text-left w-full">
+      <div className="relative z-10 flex flex-col flex-1">
+        {/* ── Minimized Hero ── */}
+        <div className="border-b border-slate-100 bg-white/70 backdrop-blur-sm">
+          <div className="container-custom pt-10 sm:pt-14 pb-8 flex flex-col items-center text-center gap-3 max-w-3xl mx-auto">
             <motion.div
-              initial={{ opacity: 0, x: -20 }}
-              animate={{ opacity: 1, x: 0 }}
-              className="inline-flex items-center gap-2 px-4 sm:px-5 py-2 bg-amber-50 border border-amber-100 text-amber-700 text-[10px] sm:text-xs font-black tracking-wider sm:tracking-[0.4em] uppercase mb-4 sm:mb-5 rounded-md"
+              initial={{ opacity: 0, y: -8 }}
+              animate={{ opacity: 1, y: 0 }}
+              className="inline-flex items-center gap-1.5 px-3 py-1 bg-[#FF2C6D]/8 border border-[#FF2C6D]/25 text-[#FF2C6D] text-[10px] font-black uppercase tracking-widest rounded-full leading-[1.4]"
             >
-              <IoSparklesOutline className="text-sm" /> {data.hero.badge}
+              <span className="h-1.5 w-1.5 bg-[#FF2C6D] rounded-full shrink-0 animate-pulse" />
+              {hero.badge || "Vetted Academic Talent Pool"}
             </motion.div>
 
             <motion.h1
-              initial={{ opacity: 0, y: 30 }}
+              initial={{ opacity: 0, y: 12 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, ease: "circOut" }}
-              className="text-4xl sm:text-5xl lg:text-6xl font-black text-slate-900 leading-[1.1] mb-4 sm:mb-6 tracking-tighter"
+              transition={{ delay: 0.08 }}
+              className="text-2xl sm:text-3xl md:text-4xl font-black text-slate-900 leading-[1.2]"
             >
-              {data.hero.title?.split(' ')[0]} <br className="hidden sm:block" />
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-600 via-violet-500 to-emerald-500 animate-gradient-x block sm:inline mt-2 sm:mt-0">{data.hero.title?.split(' ').slice(1).join(' ')}</span>
+              Hire Verified & <span className="text-[#FF2C6D]">Student Talent</span>
             </motion.h1>
 
             <motion.p
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ delay: 0.4 }}
-              className="text-slate-600 text-lg sm:text-xl font-light leading-relaxed max-w-2xl mb-6 sm:mb-8"
+              initial={{ opacity: 0, y: 12 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.15 }}
+              className="text-slate-500 text-sm md:text-base leading-relaxed max-w-3xl font-normal"
             >
-              {data.hero.description}
+              {hero.description}
             </motion.p>
 
-            <div className="flex flex-col sm:flex-row gap-3 sm:gap-4">
-              <button className="w-full sm:w-[280px] px-8 py-4 sm:py-6 bg-amber-600 text-white font-black hover:bg-amber-700 transition-all shadow-xl sm:shadow-2xl shadow-amber-600/20 uppercase tracking-wider sm:tracking-widest text-xs sm:text-sm flex items-center justify-center min-h-[44px] rounded-md">
-                {data.cta.title}
+            <motion.div
+              initial={{ opacity: 0, y: 12 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.22 }}
+              className="flex flex-wrap items-center justify-center gap-3 pt-2"
+            >
+              <button
+                onClick={() => setShowModal(true)}
+                className="px-6 py-2.5 bg-[#FF2C6D] text-white font-bold hover:bg-[#e0285f] transition-colors shadow-sm uppercase tracking-wider text-xs rounded-lg min-h-[42px]"
+              >
+                {cta.title || "Initialize Talent Audit"}
               </button>
               <Link
-                href="/services/hire-student/details"
-                className="w-full sm:w-[280px] px-6 py-3 sm:py-4 bg-white border border-slate-200 text-slate-900 font-black hover:bg-slate-50 transition-all uppercase tracking-wider sm:tracking-widest text-xs sm:text-sm flex items-center justify-center text-center min-h-[44px] rounded-md"
+                href="/en/services/hire-student/details"
+                className="inline-flex items-center gap-1 text-xs font-bold uppercase tracking-wider text-[#10B981] hover:text-[#FF2C6D] transition-colors py-2 px-3"
               >
-                Vetting Specifications
+                Technical Details <IoArrowForwardOutline />
               </Link>
-            </div>
-          </div>
-
-          <div className="flex-1 relative hidden lg:block">
-            {/* Student Constellation visual */}
-            <motion.div
-              initial={{ opacity: 0, scale: 0.9, rotate: 3 }}
-              animate={{ opacity: 1, scale: 1, rotate: 0 }}
-              transition={{ duration: 1 }}
-              className="relative p-12 bg-white -[4rem] border border-slate-100 shadow-2xl overflow-hidden rounded-md"
-            >
-              <div className="relative aspect-square bg-slate-900 -[3rem] p-10 flex flex-col justify-between overflow-hidden shadow-2xl rounded-lg">
-                <div className="flex justify-between items-center text-white/30 font-mono text-[10px] tracking-[0.2em] sm:tracking-[0.4em]">
-                  <span>TALENTHUB_v4.2</span>
-                  <span>VETTED_READY</span>
-                </div>
-
-                {/* Dynamic Skill Constellation */}
-                <div className="relative flex-1 flex items-center justify-center">
-                  <motion.div animate={{ rotate: 360 }} transition={{ duration: 40, repeat: Infinity, ease: "linear" }} className="absolute inset-0 border border-white/5 border-dashed" />
-
-                  <div className="relative z-10 grid grid-cols-2 gap-4">
-                    {[
-                      { t: "React_Lead", s: "98%" },
-                      { t: "UI_Dev", s: "95%" },
-                      { t: "SEO_Arch", s: "92%" },
-                      { t: "Logo_Eng", s: "96%" }
-                    ].map((card, idx) => (
-                      <div key={idx} className="p-4 bg-white/5 border border-white/10 flex flex-col justify-between h-24 w-32 backdrop-blur-sm rounded-lg">
-                        <p className="text-[9px] font-black text-white/40 uppercase tracking-widest">{card.t}</p>
-                        <div className="flex items-center justify-between">
-                          <div className="w-6 h-6 bg-amber-500/20 flex items-center justify-center text-amber-500 text-[10px] font-black">SY</div>
-                          <span className="text-xs font-bold text-white">{card.s}</span>
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-
-                <div className="flex justify-between items-center text-amber-500 font-mono text-[10px] tracking-widest">
-                  <p>ACCESS::DIRECT_BRIDGE</p>
-                  <p>QA::MENTOR_OVERHAUL</p>
-                </div>
-              </div>
-
-              <div className="absolute bottom-6 right-6 p-4 bg-amber-600 shadow-xl text-white font-black text-xs uppercase tracking-widest rounded-lg">
-                Active Vetting
-              </div>
             </motion.div>
           </div>
         </div>
 
-        {/* PILLARS SECTION */}
-        <div className="mb-12 lg:mb-20">
-          <div className="flex flex-col md:flex-row justify-between items-end mb-16 lg:mb-24 gap-4 border-l-4 border-amber-600 pl-6 sm:pl-8 rounded-lg">
-            <div className="max-w-xl">
-              <h2 className="text-xs font-black text-amber-600 uppercase tracking-widest sm:tracking-[0.4em] mb-4">Talent Classifications</h2>
-              <p className="text-3xl sm:text-4xl md:text-5xl font-black text-slate-900 leading-tight tracking-tighter">
-                Access a global net of <br className="hidden sm:block" /><span className="text-slate-400 italic font-serif font-light">verified student talent.</span>
-              </p>
-            </div>
-          </div>
-
-          {/* Full-bleed Mobile Carousel */}
-          <div className="overflow-x-auto snap-x snap-mandatory hide-scrollbar pb-8 lg:pb-0 lg:overflow-visible lg:snap-none">
-            <div className="flex lg:grid lg:grid-cols-3 gap-6 lg:gap-4 min-w-max lg:min-w-0 w-max lg:w-auto">
-              {(data.sections.pillars || []).map((item, i) => (
-                <motion.div
-                  key={i}
-                  initial={{ opacity: 0, y: 30 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: i * 0.1 }}
-                  className="group cursor-default snap-center w-[85vw] max-w-[320px] lg:w-auto lg:max-w-none"
-                >
-                  <div className="bg-white lg:-[3rem] p-8 lg:p-6 h-full border border-slate-100 shadow-xl shadow-slate-200/50 hover:shadow-2xl transition-all lg:group-hover:-translate-y-2 relative overflow-hidden flex flex-col whitespace-normal rounded-lg">
-                    <div className={`w-14 h-14 rounded-lg bg-gradient-to-br ${item.color || 'from-amber-500 to-orange-600'} text-white flex items-center justify-center text-3xl mb-4 lg:mb-10 shadow-lg shrink-0`}>
-                      {getIcon(item.icon)}
-                    </div>
-                    <h3 className="text-xl sm:text-2xl font-black text-slate-900 mb-4 lg:mb-3 tracking-tighter uppercase leading-none">
-                      {item.title}
-                    </h3>
-                    <p className="text-slate-500 leading-relaxed font-light text-base lg:text-lg">
-                      {item.desc}
+        {/* ── Key Highlights Strip ── */}
+        {metricsData.length > 0 && (
+          <div className="border-b border-slate-100 bg-slate-50/80">
+            <div className="container-custom py-3.5">
+              <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 text-center divide-x divide-slate-200/60">
+                {metricsData.map((item, idx) => (
+                  <div key={idx} className="px-2">
+                    <p className="text-xl sm:text-2xl font-black text-slate-900 leading-[1.1]">
+                      {item.t || item.value}
                     </p>
-                  </div>
-                </motion.div>
-              ))}
-            </div>
-          </div>
-        </div>
-
-        {/* QUALITY MESH SECTION */}
-        <div className="mb-10 lg:mb-20">
-          <div className="grid lg:grid-cols-2 gap-5 lg:gap-8 items-center bg-white lg:-[4rem] p-5 sm:p-5 lg:p-8 border border-slate-100 shadow-xl lg:shadow-2xl shadow-slate-200/50 relative overflow-hidden rounded-lg">
-            <div className="absolute top-0 right-0 w-1/3 h-full bg-amber-50/20 -skew-x-[20deg] origin-top translate-x-1/2"></div>
-
-            <div className="relative z-10 space-y-4 sm:space-y-6">
-              <div className="w-16 h-16 bg-amber-50 flex items-center justify-center text-3xl text-amber-600 border border-teal-100">
-                <IoGitBranchOutline />
-              </div>
-              <h2 className="text-4xl sm:text-5xl lg:text-6xl font-black text-slate-900 leading-[1.1] sm:leading-[0.9] tracking-tighter sm:tracking-normal">The Quality <br className="hidden sm:block" /><span className="text-amber-600 block sm:inline mt-2 sm:mt-0">Mentor Mesh.</span></h2>
-              <p className="text-slate-500 text-lg sm:text-xl font-light leading-relaxed">Hiring a student doesn't mean compromising. Every project is supervised by our senior Mentors through a proprietary review system ensureing enterprise standards.</p>
-
-              <div className="grid grid-cols-2 gap-6 pt-8 sm:pt-10 border-t border-slate-100">
-                {(data.sections.metrics || []).map((item, idx) => (
-                  <div key={idx} className="space-y-2">
-                    <h4 className="text-[10px] sm:text-xs font-black text-amber-600 uppercase tracking-widest">{item.t}</h4>
-                    <p className="text-xs sm:text-sm text-slate-400 font-bold leading-tight">{item.d}</p>
+                    <p className="text-[10px] sm:text-xs font-bold uppercase tracking-widest text-slate-400 mt-1">
+                      {item.d || item.label}
+                    </p>
                   </div>
                 ))}
               </div>
             </div>
+          </div>
+        )}
 
-            <motion.div
-              animate={{ y: [0, 10, 0] }}
-              transition={{ duration: 9, repeat: Infinity }}
-              className="relative bg-slate-900 lg:-[3rem] p-5 lg:p-8 border border-slate-800 shadow-2xl space-y-4 lg:space-y-5 overflow-hidden rounded-lg"
-            >
-              <div className="absolute top-0 right-0 p-4 font-mono text-[7px] sm:text-[9px] text-amber-400 bg-white/5 opacity-50 tracking-[0.2em] sm:tracking-[0.4em]">BRIDGE_ACTIVE::TALENT_SYNC</div>
+        {/* ── Capability Pillars (Talent DNA) ── */}
+        {pillarsData.length > 0 && (
+          <div className="container-custom py-10 sm:py-14">
+            <div className="text-center max-w-xl mx-auto mb-8">
+              <h2 className="text-[11px] font-black text-slate-400 uppercase tracking-widest mb-1.5 leading-[1.4]">
+                Talent DNA
+              </h2>
+              <p className="text-xl sm:text-2xl font-black text-slate-900 leading-[1.2]">
+                Pillars of Verified Student Talent
+              </p>
+            </div>
 
-              <div className="flex flex-col sm:flex-row items-center sm:items-stretch gap-6 p-6 sm:p-8 bg-white/5 border border-white/10 rounded-lg">
-                <div className="w-16 h-16 bg-white/10 border-2 border-amber-500 p-1 flex items-center justify-center shrink-0 rounded-lg">
-                  <div className="w-full h-full bg-amber-500 flex items-center justify-center text-white"><IoPeopleOutline /></div>
-                </div>
-                <div className="flex-1 space-y-2 w-full">
-                  <div className="h-2 w-full bg-white/10"></div>
-                  <div className="h-2 w-1/2 bg-white/5"></div>
-                  <div className="flex gap-2 pt-2">
-                    <div className="w-3 h-3 bg-amber-500" />
-                    <div className="w-3 h-3 bg-blue-500" />
-                    <div className="w-3 h-3 bg-emerald-500" />
+            <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
+              {pillarsData.map((pillar, i) => (
+                <div
+                  key={i}
+                  className="bg-white border border-slate-200/80 hover:border-[#FF2C6D]/40 hover:shadow-lg transition-all rounded-xl p-6 relative flex flex-col group overflow-hidden"
+                >
+                  <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-[#FF2C6D] to-[#10B981] opacity-0 group-hover:opacity-100 transition-opacity" />
+
+                  <div className="w-11 h-11 rounded-lg bg-slate-50 border border-slate-100 text-slate-800 flex items-center justify-center text-xl mb-4 group-hover:bg-[#FF2C6D]/10 group-hover:text-[#FF2C6D] transition-colors shrink-0">
+                    {getIcon(pillar.icon) || <IoSchoolOutline />}
+                  </div>
+
+                  <h3 className="text-base font-bold text-slate-900 mb-2 leading-snug">
+                    {pillar.title}
+                  </h3>
+                  <p className="text-slate-500 text-sm leading-[1.6] flex-1 mb-4">
+                    {pillar.desc}
+                  </p>
+
+                  <div className="pt-3 border-t border-slate-100 flex items-center gap-1.5 text-xs text-slate-600 font-medium">
+                    <IoCheckmarkCircleOutline className="text-[#10B981] shrink-0 text-sm" />
+                    <span>Mentor-Supervised Production</span>
                   </div>
                 </div>
+              ))}
+            </div>
+          </div>
+        )}
+
+        {/* ── Quality Mesh Highlights ── */}
+        <div className="border-t border-b border-slate-100 bg-slate-50/60 py-10">
+          <div className="container-custom max-w-4xl">
+            <div className="text-center max-w-xl mx-auto mb-8">
+              <h2 className="text-[11px] font-black text-slate-400 uppercase tracking-widest mb-1.5 leading-[1.4]">
+                Quality Mesh Protocol
+              </h2>
+              <p className="text-xl sm:text-2xl font-black text-slate-900 leading-[1.2]">
+                Enterprise Standards Guaranteed by Senior Mentors
+              </p>
+            </div>
+
+            <div className="grid sm:grid-cols-2 gap-4">
+              <div className="p-5 bg-white border border-slate-200/80 rounded-xl">
+                <div className="flex items-center gap-2 mb-2">
+                  <IoCheckmarkCircleOutline className="text-[#10B981] text-lg" />
+                  <h4 className="text-sm font-bold text-slate-900">Direct Code Audits</h4>
+                </div>
+                <p className="text-xs text-slate-500 leading-relaxed">
+                  Every commit and asset is reviewed by a designated industry mentor before reaching client review.
+                </p>
               </div>
 
-              <div className="p-6 sm:p-8 bg-white/5 border border-white/5 text-center sm:text-left rounded-lg">
-                <p className="text-[10px] sm:text-xs font-mono text-amber-500 font-bold tracking-tighter uppercase mb-2">Mentor Consensus: PASSED</p>
-                <p className="text-[10px] sm:text-xs font-mono text-slate-500 uppercase leading-none">Output Integrity: 100% Verified</p>
+              <div className="p-5 bg-white border border-slate-200/80 rounded-xl">
+                <div className="flex items-center gap-2 mb-2">
+                  <IoCheckmarkCircleOutline className="text-[#10B981] text-lg" />
+                  <h4 className="text-sm font-bold text-slate-900">Zero Risk Sourcing</h4>
+                </div>
+                <p className="text-xs text-slate-500 leading-relaxed">
+                  Flexible project terms with backed guarantees. If milestones aren&apos;t achieved, leadership steps in directly.
+                </p>
               </div>
-            </motion.div>
+            </div>
           </div>
         </div>
 
-        {/* CTA */}
-        <div className="text-center py-10 lg:py-16 border-t border-slate-200 pb-12 lg:pb-16">
-          <IoRocketOutline className="text-6xl lg:text-7xl text-amber-600 mb-4 lg:mb-6 mx-auto opacity-20" />
-          <h3 className="text-4xl sm:text-5xl lg:text-6xl font-black text-slate-900 mb-5 lg:mb-6 leading-tight tracking-tighter sm:tracking-normal">
-            The support they need. <br className="hidden sm:block" />
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-amber-600 to-indigo-600 font-serif italic font-medium block sm:inline mt-2 sm:mt-0">The Quality You Require.</span>
-          </h3>
-          <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center">
-            {/* Sticky Mobile CTA */}
-            <div className="fixed bottom-0 left-0 w-full px-4 pt-4 pb-[max(1rem,env(safe-area-inset-bottom))] bg-slate-50/90 backdrop-blur-md border-t border-slate-200 z-50 lg:relative lg:border-none lg:bg-transparent lg:p-0 lg:w-auto">
-              <button className="w-full lg:w-[280px] px-8 py-4 sm:py-6 bg-amber-600 text-white font-black hover:bg-amber-700 transition-all shadow-xl sm:shadow-2xl shadow-amber-600/40 uppercase tracking-wider sm:tracking-widest text-xs sm:text-sm flex items-center justify-center min-h-[44px] rounded-md">
-                {data.cta.title}
-              </button>
+        {/* ── Compact CTA Banner ── */}
+        <div className="container-custom py-10">
+          <div className="bg-slate-900 rounded-2xl p-6 sm:p-8 text-center text-white relative overflow-hidden max-w-4xl mx-auto shadow-xl">
+            <div className="relative z-10 max-w-xl mx-auto flex flex-col items-center gap-3">
+              <p className="text-[10px] font-black tracking-widest text-[#FF2C6D] uppercase">
+                Vetted Academic Network
+              </p>
+              <h2 className="text-xl sm:text-2xl font-black leading-tight text-white">
+                Access Mentor-Supervised Student Talent Today.
+              </h2>
+              <p className="text-xs sm:text-sm text-slate-400 leading-relaxed max-w-md">
+                {cta.subtitle || "Connect with our talent sourcing team. We match you with vetted, mentor-supervised student professionals within 48 hours."}
+              </p>
+              <div className="flex flex-wrap items-center justify-center gap-3 pt-2">
+                <button
+                  onClick={() => setShowModal(true)}
+                  className="px-6 py-2.5 bg-[#FF2C6D] hover:bg-[#e0285f] text-white font-bold text-xs uppercase tracking-wider rounded-lg transition-colors min-h-[42px] shadow-sm"
+                >
+                  Schedule Talent Call
+                </button>
+                <a
+                  href={`https://wa.me/${process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || "8801722550012"}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-1.5 px-4 py-2.5 bg-white/10 hover:bg-white/15 text-white font-bold text-xs uppercase tracking-wider rounded-lg transition-colors min-h-[42px]"
+                >
+                  <IoLogoWhatsapp className="text-emerald-400 text-sm" />
+                  Chat on WhatsApp
+                </a>
+              </div>
             </div>
-            <Link
-              href="/services/hire-student/details"
-              className="hidden lg:flex w-full sm:w-[280px] px-6 py-3 sm:py-4 bg-slate-900 text-white font-black hover:bg-slate-800 transition-all uppercase tracking-wider sm:tracking-widest text-xs sm:text-sm items-center justify-center text-center min-h-[44px] rounded-md"
-            >
-              Vetting Specifications
-            </Link>
           </div>
         </div>
       </div>
+
+      {/* ── Consultation Modal ── */}
+      <AnimatePresence>
+        {showModal && (
+          <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              onClick={() => setShowModal(false)}
+              className="absolute inset-0 bg-slate-900/60 backdrop-blur-sm"
+            />
+            <motion.div
+              initial={{ opacity: 0, scale: 0.95 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0, scale: 1 }}
+              className="relative z-10 bg-white rounded-2xl shadow-2xl p-6 sm:p-8 max-w-md w-full border border-slate-100"
+            >
+              <button
+                onClick={() => setShowModal(false)}
+                className="absolute top-4 right-4 text-slate-400 hover:text-slate-600 p-1"
+                aria-label="Close"
+              >
+                <IoCloseOutline className="text-2xl" />
+              </button>
+
+              <div className="mb-5">
+                <div className="inline-flex items-center gap-1.5 px-2.5 py-1 bg-pink-50 text-[#FF2C6D] rounded text-[10px] font-black uppercase tracking-wider mb-2">
+                  <IoSparklesOutline /> Student Placement
+                </div>
+                <h3 className="text-lg font-black text-slate-900">
+                  Initialize Talent Consultation
+                </h3>
+                <p className="text-xs text-slate-500 mt-1">
+                  Tell us your tech stack or project requirements. We will match you with vetted candidates.
+                </p>
+              </div>
+
+              <form
+                onSubmit={(e) => {
+                  e.preventDefault();
+                  alert("Thank you! Our academic talent placement lead will reach out shortly.");
+                  setShowModal(false);
+                }}
+                className="space-y-3 text-xs"
+              >
+                <div>
+                  <label className="block font-bold text-slate-700 mb-1">Company / Team Name</label>
+                  <input
+                    type="text"
+                    required
+                    placeholder="Enter company or team name"
+                    className="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus:border-[#FF2C6D] text-slate-900"
+                  />
+                </div>
+                <div>
+                  <label className="block font-bold text-slate-700 mb-1">Work Email</label>
+                  <input
+                    type="email"
+                    required
+                    placeholder="name@company.com"
+                    className="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus:border-[#FF2C6D] text-slate-900"
+                  />
+                </div>
+                <div>
+                  <label className="block font-bold text-slate-700 mb-1">Required Skills / Roles</label>
+                  <textarea
+                    rows={3}
+                    placeholder="E.g., Frontend React intern, UI/UX junior designer..."
+                    className="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus:border-[#FF2C6D] text-slate-900 resize-none"
+                  />
+                </div>
+                <button
+                  type="submit"
+                  className="w-full py-2.5 bg-[#FF2C6D] hover:bg-[#e0285f] text-white font-bold uppercase tracking-wider text-xs rounded-lg transition-colors mt-2"
+                >
+                  Submit Talent Request
+                </button>
+              </form>
+            </motion.div>
+          </div>
+        )}
+      </AnimatePresence>
     </section>
   );
 }

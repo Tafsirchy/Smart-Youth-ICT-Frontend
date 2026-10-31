@@ -4,307 +4,459 @@ import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
 import {
-   IoServerOutline,
-   IoSearchOutline,
-   IoCheckmarkCircleOutline,
-   IoCloseCircleOutline,
-   IoSparklesOutline
+  IoServerOutline,
+  IoSearchOutline,
+  IoCheckmarkCircleOutline,
+  IoCloseCircleOutline,
+  IoArrowForwardOutline,
+  IoCloseOutline,
+  IoLogoWhatsapp,
+  IoSparklesOutline,
 } from "react-icons/io5";
 import { getIcon } from "@/lib/icons";
 
-export default function HostingClient({ data }) {
-   const [isAnnual, setIsAnnual] = useState(true);
-   const [domainQuery, setDomainQuery] = useState("");
-   const [isSearching, setIsSearching] = useState(false);
-   const [searchResult, setSearchResult] = useState(null);
+export default function HostingClient({ data, content }) {
+  const [isAnnual, setIsAnnual] = useState(true);
+  const [domainQuery, setDomainQuery] = useState("");
+  const [isSearching, setIsSearching] = useState(false);
+  const [searchResult, setSearchResult] = useState(null);
+  const [showModal, setShowModal] = useState(false);
 
-   if (!data) return null;
+  const rawData = data || content?.landing || {};
+  if (!rawData || Object.keys(rawData).length === 0) return null;
 
-   const handleSearch = (e) => {
-      e.preventDefault();
-      if (!domainQuery) return;
-      setIsSearching(true);
-      setTimeout(() => {
-         const isAvailable = Math.random() > 0.3;
-         setSearchResult({
-            domain: domainQuery.includes(".") ? domainQuery : `${domainQuery}.com`,
-            available: isAvailable,
-            price: isAvailable ? "$12.99/yr" : null
-         });
-         setIsSearching(false);
-      }, 1200);
-   };
+  const handleSearch = (e) => {
+    e.preventDefault();
+    if (!domainQuery) return;
+    setIsSearching(true);
+    setTimeout(() => {
+      const isAvailable = Math.random() > 0.3;
+      setSearchResult({
+        domain: domainQuery.includes(".") ? domainQuery : `${domainQuery}.com`,
+        available: isAvailable,
+        price: isAvailable ? "$12.99/yr" : null,
+      });
+      setIsSearching(false);
+    }, 1000);
+  };
 
-   return (
-      <section className="min-h-screen bg-slate-50 text-slate-900 selection:bg-blue-600 selection:text-white overflow-hidden relative font-sans">
-         {/* INDUSTRIAL BACKGROUND DECOR */}
-         <div className="absolute top-0 opacity-20 pointer-events-none -z-10 w-full h-full">
-            <div className="absolute top-0 left-1/4 w-[1px] h-full bg-slate-200"></div>
-            <div className="absolute top-0 right-1/4 w-[1px] h-full bg-slate-200"></div>
-            <div className="absolute top-1/2 left-0 w-full h-[1px] bg-slate-200"></div>
-            <div className="absolute top-[15%] right-[-100px] w-[500px] h-[500px] bg-blue-50 blur-[140px]"></div>
-         </div>
+  const hero = rawData.hero || {};
+  const sections = rawData.sections || {};
+  const cta = rawData.cta || {};
+  const pillarsData = sections.pillars || [];
+  const metricsData = sections.metrics || [];
+  const plansData = sections.plans || [];
 
-         <div className="container-custom py-10 relative z-10">
-            {/* HOSTING HERO */}
-            <div className="flex flex-col lg:flex-row items-center gap-4 lg:gap-5 mb-12 lg:mb-20 pt-8 lg:pt-0">
-               <div className="flex-1 text-left w-full">
-                  <motion.div
-                     initial={{ opacity: 0, x: -20 }}
-                     animate={{ opacity: 1, x: 0 }}
-                     className="inline-flex items-center gap-2 px-4 sm:px-5 py-2 bg-blue-50 border border-blue-100 text-blue-700 text-[10px] sm:text-xs font-black tracking-wider sm:tracking-[0.4em] uppercase mb-4 sm:mb-5 rounded-md"
-                  >
-                     <IoSparklesOutline className="text-sm" /> {data.hero.badge}
-                  </motion.div>
+  return (
+    <section className="min-h-screen bg-white flex flex-col relative selection:bg-brand-pink selection:text-white font-sans">
+      {/* Background Dot Texture */}
+      <div className="fixed inset-0 bg-[radial-gradient(#0F172A08_1px,transparent_1px)] [background-size:22px_22px] pointer-events-none z-0" />
 
-                  <motion.h1
-                     initial={{ opacity: 0, y: 30 }}
-                     animate={{ opacity: 1, y: 0 }}
-                     transition={{ duration: 0.8, ease: "circOut" }}
-                     className="text-4xl sm:text-5xl lg:text-6xl font-black text-slate-900 leading-[1.1] mb-4 sm:mb-6 tracking-tighter"
-                  >
-                     {data.hero.title?.split(' ')[0]} <br className="hidden sm:block" />
-                     <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-600 via-violet-500 to-emerald-500 animate-gradient-x block sm:inline mt-2 sm:mt-0">{data.hero.title?.split(' ').slice(1).join(' ')}</span>
-                  </motion.h1>
+      <div className="relative z-10 flex flex-col flex-1">
+        {/* ── Minimized Hero ── */}
+        <div className="border-b border-slate-100 bg-white/70 backdrop-blur-sm">
+          <div className="container-custom pt-10 sm:pt-14 pb-8 flex flex-col items-center text-center gap-3 max-w-3xl mx-auto">
+            <motion.div
+              initial={{ opacity: 0, y: -8 }}
+              animate={{ opacity: 1, y: 0 }}
+              className="inline-flex items-center gap-1.5 px-3 py-1 bg-[#FF2C6D]/8 border border-[#FF2C6D]/25 text-[#FF2C6D] text-[10px] font-black uppercase tracking-widest rounded-full leading-[1.4]"
+            >
+              <span className="h-1.5 w-1.5 bg-[#FF2C6D] rounded-full shrink-0 animate-pulse" />
+              {hero.badge || "High-Availability Cloud Network"}
+            </motion.div>
 
-                  <motion.p
-                     initial={{ opacity: 0 }}
-                     animate={{ opacity: 1 }}
-                     transition={{ delay: 0.4 }}
-                     className="text-slate-600 text-lg sm:text-xl font-light leading-relaxed max-w-2xl mb-6 sm:mb-8"
-                  >
-                     {data.hero.description}
-                  </motion.p>
+            <motion.h1
+              initial={{ opacity: 0, y: 12 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.08 }}
+              className="text-2xl sm:text-3xl md:text-4xl font-black text-slate-900 leading-[1.2]"
+            >
+              Web Hosting & <span className="text-[#FF2C6D]">Domain Infrastructure</span>
+            </motion.h1>
 
-                  <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 mb-8 lg:mb-0">
-                     <button className="w-full sm:w-[280px] px-6 py-3 sm:py-4 bg-blue-600 text-white font-black hover:bg-blue-700 transition-all shadow-xl sm:shadow-2xl shadow-blue-600/20 uppercase tracking-wider sm:tracking-widest text-xs sm:text-sm flex items-center justify-center min-h-[44px] rounded-md">
-                        {data.cta?.title || "Initialize Plan"}
-                     </button>
-                     <Link
-                        href="/services/hosting/details"
-                        className="w-full sm:w-[280px] px-6 py-3 sm:py-4 bg-white border border-slate-200 text-slate-900 font-black hover:bg-slate-50 transition-all uppercase tracking-wider sm:tracking-widest text-xs sm:text-sm flex items-center justify-center text-center min-h-[44px] rounded-md"
-                     >
-                        Technical Specifications
-                     </Link>
+            <motion.p
+              initial={{ opacity: 0, y: 12 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.15 }}
+              className="text-slate-500 text-sm md:text-base leading-relaxed max-w-3xl font-normal"
+            >
+              {hero.description}
+            </motion.p>
+
+            <motion.div
+              initial={{ opacity: 0, y: 12 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.22 }}
+              className="flex flex-wrap items-center justify-center gap-3 pt-2"
+            >
+              <button
+                onClick={() => setShowModal(true)}
+                className="px-6 py-2.5 bg-[#FF2C6D] text-white font-bold hover:bg-[#e0285f] transition-colors shadow-sm uppercase tracking-wider text-xs rounded-lg min-h-[42px]"
+              >
+                {cta.title || "Initialize Hosting Plan"}
+              </button>
+              <Link
+                href="/en/services/hosting/details"
+                className="inline-flex items-center gap-1 text-xs font-bold uppercase tracking-wider text-[#10B981] hover:text-[#FF2C6D] transition-colors py-2 px-3"
+              >
+                Technical Details <IoArrowForwardOutline />
+              </Link>
+            </motion.div>
+          </div>
+        </div>
+
+        {/* ── Key Highlights Strip ── */}
+        {metricsData.length > 0 && (
+          <div className="border-b border-slate-100 bg-slate-50/80">
+            <div className="container-custom py-3.5">
+              <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 text-center divide-x divide-slate-200/60">
+                {metricsData.map((item, idx) => (
+                  <div key={idx} className="px-2">
+                    <p className="text-xl sm:text-2xl font-black text-slate-900 leading-[1.1]">
+                      {item.t || item.value}
+                    </p>
+                    <p className="text-[10px] sm:text-xs font-bold uppercase tracking-widest text-slate-400 mt-1">
+                      {item.d || item.label}
+                    </p>
                   </div>
-               </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        )}
 
-               <div className="flex-1 relative hidden lg:block">
-                  <motion.div
-                     initial={{ opacity: 0, scale: 0.9 }}
-                     animate={{ opacity: 1, scale: 1 }}
-                     className="relative p-12 bg-white -[4rem] border border-slate-100 shadow-2xl overflow-hidden rounded-md"
-                  >
-                     <div className="absolute inset-0 opacity-5 pointer-events-none" style={{ backgroundImage: "linear-gradient(#3b82f6 1px, transparent 1px), linear-gradient(90deg, #3b82f6 1px, transparent 1px)", backgroundSize: "40px 40px" }}></div>
-                     <div className="relative aspect-square bg-slate-900 -[3rem] p-10 flex flex-col justify-between overflow-hidden shadow-2xl rounded-lg">
-                        <div className="flex justify-between items-center text-white/30 font-mono text-[10px] sm:text-xs tracking-[0.2em] sm:tracking-[0.4em]">
-                           <span>CORE_SERVER_v6.0</span>
-                           <span>99.9%_UPTIME</span>
-                        </div>
-                        <div className="space-y-4">
-                           {[1, 2, 3, 4].map(i => (
-                              <div key={i} className="h-12 bg-white/5 border border-white/5 flex items-center px-4 gap-4 relative overflow-hidden group rounded-lg">
-                                 <div className="w-2 h-2 bg-blue-500 shadow-[0_0_10px_#3b82f6] rounded-lg"></div>
-                                 <div className="flex-1 h-1 bg-white/10">
-                                    <motion.div animate={{ opacity: [0.3, 1, 0.3] }} transition={{ duration: 2, delay: i * 0.3, repeat: Infinity }} className="h-full w-2/3 bg-blue-500/50" />
-                                 </div>
-                                 <div className="flex gap-1">
-                                    {[1, 2, 3].map(j => (
-                                       <div key={j} className="w-1 h-3 bg-white/10"></div>
-                                    ))}
-                                 </div>
-                                 <motion.div initial={{ x: "-100%" }} whileHover={{ x: "100%" }} transition={{ duration: 1 }} className="absolute inset-0 bg-white/5 skew-x-12" />
-                              </div>
-                           ))}
-                        </div>
-                        <div className="flex justify-between items-center text-blue-400 font-mono text-[10px] sm:text-xs tracking-widest">
-                           <p>NVMe::GEN4_SPEED</p>
-                           <p>ENCRYPTION::AES_256</p>
-                        </div>
-                     </div>
-                  </motion.div>
-               </div>
+        {/* ── Functional Domain Search ── */}
+        <div className="container-custom py-10 sm:py-12">
+          <div className="max-w-2xl mx-auto bg-slate-50/70 border border-slate-200/80 rounded-2xl p-6 sm:p-8">
+            <div className="text-center mb-5">
+              <h2 className="text-[11px] font-black text-slate-400 uppercase tracking-widest mb-1">
+                Domain Lookup
+              </h2>
+              <p className="text-xl font-black text-slate-900">Search & Reserve Your Domain</p>
             </div>
 
-            {/* DOMAIN SEARCH SECTION */}
-            <div className="mb-12 lg:mb-20">
-               <div className="max-w-4xl mx-auto bg-white border border-slate-100 p-8 sm:p-12 lg:p-20 lg:-[4rem] shadow-xl lg:shadow-2xl shadow-slate-200/50 relative overflow-hidden rounded-lg">
-                  <div className="absolute top-0 right-0 w-20 h-20 sm:w-32 sm:h-32 bg-blue-50 opacity-50"></div>
-                  <h2 className="text-3xl sm:text-4xl font-black text-slate-900 mb-6 tracking-tighter">Claim Your <br className="block sm:hidden" /><span className="text-blue-600">Digital Node.</span></h2>
-                  <form onSubmit={handleSearch} className="relative flex flex-col sm:flex-row gap-4 p-2 bg-slate-50 border border-slate-100 sm:-[2rem] overflow-hidden focus-within:border-blue-500 transition-colors">
-                     <div className="flex-1 flex items-center px-4 sm:px-6 gap-3 sm:gap-4 py-4 sm:py-0 min-h-[56px]">
-                        <IoSearchOutline className="text-blue-500 text-2xl shrink-0" />
-                        <input
-                           type="text"
-                           placeholder="Find your perfect domain (e.g. syict.com)"
-                           className="bg-transparent border-none outline-none text-slate-900 w-full font-bold placeholder:text-slate-400 min-w-0 rounded-md"
-                           value={domainQuery}
-                           onChange={(e) => setDomainQuery(e.target.value)}
-                        />
-                     </div>
-                     <button
-                        disabled={isSearching}
-                        className="bg-blue-600 text-white font-black px-8 sm:px-12 py-4 sm:py-5 w-full sm:w-auto hover:bg-blue-700 transition-colors flex items-center justify-center gap-2 uppercase tracking-wider sm:tracking-widest text-xs sm:text-sm min-h-[56px] rounded-md"
-                     >
-                        {isSearching ? <div className="w-5 h-5 border-2 border-white/30 border-t-white animate-spin"></div> : "Search Registry"}
-                     </button>
-                  </form>
+            <form onSubmit={handleSearch} className="flex flex-col sm:flex-row gap-2">
+              <div className="flex-1 flex items-center px-4 py-2.5 bg-white border border-slate-200 rounded-lg focus-within:border-[#FF2C6D] transition-colors">
+                <IoSearchOutline className="text-slate-400 text-lg mr-2 shrink-0" />
+                <input
+                  type="text"
+                  placeholder="e.g. yourbusiness.com"
+                  className="bg-transparent border-none outline-none text-slate-900 w-full text-sm font-medium placeholder:text-slate-400"
+                  value={domainQuery}
+                  onChange={(e) => setDomainQuery(e.target.value)}
+                />
+              </div>
+              <button
+                type="submit"
+                disabled={isSearching}
+                className="bg-[#FF2C6D] hover:bg-[#e0285f] text-white font-bold px-6 py-2.5 rounded-lg text-xs uppercase tracking-wider transition-colors shrink-0 min-h-[42px]"
+              >
+                {isSearching ? "Checking..." : "Search"}
+              </button>
+            </form>
 
-                  <AnimatePresence>
-                     {searchResult && (
-                        <motion.div
-                           initial={{ opacity: 0, y: 10 }}
-                           animate={{ opacity: 1, y: 0 }}
-                           exit={{ opacity: 0 }}
-                           className={`mt-6 sm:mt-8 p-6 sm:p-8 rounded-lg border flex flex-col sm:flex-row sm:items-center justify-between gap-6 ${searchResult.available ? 'bg-emerald-50 border-emerald-100 text-emerald-900' : 'bg-rose-50 border-rose-100 text-rose-900'}`}
-                        >
-                           <div className="flex items-center gap-4 sm:gap-6">
-                              {searchResult.available ? <IoCheckmarkCircleOutline className="text-emerald-500 text-3xl sm:text-4xl shrink-0" /> : <IoCloseCircleOutline className="text-rose-500 text-3xl sm:text-4xl shrink-0" />}
-                              <div className="text-left min-w-0">
-                                 <p className="font-black text-xl sm:text-2xl tracking-tighter truncate">{searchResult.domain}</p>
-                                 <p className="text-[10px] sm:text-xs font-bold uppercase tracking-widest opacity-60">
-                                    {searchResult.available ? 'Ready for registration' : 'Already registered'}
-                                 </p>
-                              </div>
-                           </div>
-                           {searchResult.available && (
-                              <div className="flex sm:flex-col lg:flex-row items-center gap-4 sm:gap-6 w-full sm:w-auto">
-                                 <p className="font-black text-xl w-full sm:w-auto text-left sm:text-right">{searchResult.price}</p>
-                                 <button className="bg-emerald-600 text-white font-black px-6 sm:px-8 py-3 text-xs sm:text-sm uppercase tracking-widest w-full sm:w-auto min-h-[44px] rounded-md">Reserve Node</button>
-                              </div>
-                           )}
-                        </motion.div>
-                     )}
-                  </AnimatePresence>
-               </div>
+            <AnimatePresence>
+              {searchResult && (
+                <motion.div
+                  initial={{ opacity: 0, y: 8 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0 }}
+                  className={`mt-4 p-4 rounded-xl border flex flex-col sm:flex-row sm:items-center justify-between gap-3 ${
+                    searchResult.available
+                      ? "bg-emerald-50 border-emerald-200 text-emerald-900"
+                      : "bg-rose-50 border-rose-200 text-rose-900"
+                  }`}
+                >
+                  <div className="flex items-center gap-3">
+                    {searchResult.available ? (
+                      <IoCheckmarkCircleOutline className="text-[#10B981] text-2xl shrink-0" />
+                    ) : (
+                      <IoCloseCircleOutline className="text-rose-500 text-2xl shrink-0" />
+                    )}
+                    <div>
+                      <p className="font-bold text-sm">{searchResult.domain}</p>
+                      <p className="text-[11px] opacity-75">
+                        {searchResult.available ? "Available for Registration" : "Already Registered"}
+                      </p>
+                    </div>
+                  </div>
+                  {searchResult.available && (
+                    <div className="flex items-center gap-3">
+                      <span className="font-black text-sm">{searchResult.price}</span>
+                      <button
+                        onClick={() => setShowModal(true)}
+                        className="bg-[#10B981] text-white font-bold px-4 py-1.5 text-xs rounded-lg uppercase tracking-wider hover:bg-emerald-600 transition-colors"
+                      >
+                        Reserve
+                      </button>
+                    </div>
+                  )}
+                </motion.div>
+              )}
+            </AnimatePresence>
+          </div>
+        </div>
+
+        {/* ── Capability Pillars (Infrastructure DNA) ── */}
+        {pillarsData.length > 0 && (
+          <div className="container-custom py-10 sm:py-14 border-t border-slate-100">
+            <div className="text-center max-w-xl mx-auto mb-8">
+              <h2 className="text-[11px] font-black text-slate-400 uppercase tracking-widest mb-1.5 leading-[1.4]">
+                Infrastructure DNA
+              </h2>
+              <p className="text-xl sm:text-2xl font-black text-slate-900 leading-[1.2]">
+                Pillars of Enterprise Hosting
+              </p>
             </div>
 
-            {/* SLA METRICS SECTION */}
-            {data.sections.metrics && data.sections.metrics.length > 0 && (
-               <div className="mb-12 lg:mb-20 max-w-7xl mx-auto">
-                  <div className="flex items-center gap-6 mb-12 lg:mb-16">
-                     <h2 className="text-xl sm:text-2xl lg:text-3xl font-black text-slate-900 tracking-tighter uppercase leading-none">SLA Metrics Matrix</h2>
-                     <div className="h-[1px] flex-1 bg-slate-200"></div>
-                  </div>
-                  <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-px bg-slate-200 border border-slate-200 lg:-[3rem] overflow-hidden shadow-xl lg:shadow-2xl rounded-lg">
-                     {data.sections.metrics.map((item, idx) => (
-                        <div key={idx} className="bg-white p-6 sm:p-8 lg:p-10 hover:bg-blue-50 transition-colors group rounded-md">
-                           <h4 className="text-[10px] sm:text-xs font-black text-blue-600 uppercase tracking-widest mb-2 sm:mb-3">{item.t}</h4>
-                           <p className="text-xs sm:text-sm text-slate-500 font-medium leading-relaxed">{item.d}</p>
-                        </div>
-                     ))}
-                  </div>
-               </div>
-            )}
+            <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
+              {pillarsData.map((pillar, i) => (
+                <div
+                  key={i}
+                  className="bg-white border border-slate-200/80 hover:border-[#FF2C6D]/40 hover:shadow-lg transition-all rounded-xl p-6 relative flex flex-col group overflow-hidden"
+                >
+                  <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-[#FF2C6D] to-[#10B981] opacity-0 group-hover:opacity-100 transition-opacity" />
 
-            {/* PRICING TABLE */}
-            <div className="mb-12 lg:mb-20">
-               <div className="flex flex-col items-center mb-16 lg:mb-24">
-                  <h2 className="text-xs font-black text-blue-600 uppercase tracking-widest sm:tracking-[0.4em] mb-4">Infrastructure Tiers</h2>
-                  <div className="flex flex-col sm:flex-row items-center gap-2 sm:gap-4 p-1 bg-white border border-slate-100 sm: shadow-lg w-full sm:w-auto">
-                     <button
-                        onClick={() => setIsAnnual(true)}
-                        className={`w-full sm:w-auto px-6 sm:px-8 py-4 rounded-lg sm:rounded-full text-xs sm:text-sm font-black uppercase tracking-widest transition-all min-h-[44px] ${isAnnual ? 'bg-blue-600 text-white shadow-xl' : 'text-slate-400'}`}
-                     >
-                        Annual Saving <span className="ml-2 bg-emerald-500 text-black px-2 py-0.5 text-[10px] rounded-md">-20%</span>
-                     </button>
-                     <button
-                        onClick={() => setIsAnnual(false)}
-                        className={`w-full sm:w-auto px-6 sm:px-8 py-4 rounded-lg sm:rounded-full text-xs sm:text-sm font-black uppercase tracking-widest transition-all min-h-[44px] ${!isAnnual ? 'bg-blue-600 text-white shadow-xl' : 'text-slate-400'}`}
-                     >
-                        Monthly
-                     </button>
+                  <div className="w-11 h-11 rounded-lg bg-slate-50 border border-slate-100 text-slate-800 flex items-center justify-center text-xl mb-4 group-hover:bg-[#FF2C6D]/10 group-hover:text-[#FF2C6D] transition-colors shrink-0">
+                    {getIcon(pillar.icon) || <IoServerOutline />}
                   </div>
-               </div>
 
-               {/* Full-bleed Mobile Carousel */}
-               <div className="overflow-x-auto snap-x snap-mandatory hide-scrollbar pb-8 lg:pb-0 lg:overflow-visible lg:snap-none">
-                  <div className="flex lg:grid lg:grid-cols-3 gap-6 lg:gap-4 min-w-max lg:min-w-0 w-max lg:w-auto max-w-7xl mx-auto">
-                     {(data.sections.plans || []).map((plan, i) => (
-                        <motion.div
-                           key={plan.name}
-                           initial={{ opacity: 0, y: 30 }}
-                           whileInView={{ opacity: 1, y: 0 }}
-                           viewport={{ once: true }}
-                           transition={{ delay: i * 0.1 }}
-                           className={`bg-white border ${plan.popular ? 'border-blue-500 border-2' : 'border-slate-100'} p-8 sm:p-10 lg:p-12 rounded-lg lg:rounded-lg flex flex-col transition-all hover:translate-y-0 lg:hover:-translate-y-4 shadow-xl shadow-slate-200/50 relative group snap-center w-[85vw] max-w-[320px] lg:w-auto lg:max-w-none whitespace-normal`}
-                        >
-                           {plan.popular && (
-                              <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-blue-600 text-white px-6 sm:px-8 py-2 text-[10px] sm:text-xs font-black uppercase tracking-widest sm:tracking-[0.4em] shadow-2xl whitespace-nowrap rounded-lg">
-                                 🔥 Preferred
-                              </div>
-                           )}
-                           <h3 className="text-2xl sm:text-3xl font-black text-slate-900 mb-4">{plan.name}</h3>
-                           <p className="text-slate-400 text-xs sm:text-sm mb-8 sm:mb-10 leading-relaxed font-bold">{plan.desc}</p>
-                           <div className="mb-8 sm:mb-12 border-b border-slate-100 pb-8 sm:pb-10">
-                              <p className="text-5xl sm:text-6xl font-black text-slate-900 leading-none tracking-tighter">
-                                 <span className="text-xl sm:text-2xl align-top mr-1 text-blue-600">$</span>
-                                 {isAnnual ? (plan.annualPrice / 12).toFixed(2) : plan.monthlyPrice}
-                                 <span className="text-base sm:text-lg text-slate-300"> /mo</span>
-                              </p>
-                              <p className="text-[10px] sm:text-xs text-slate-300 font-black uppercase tracking-widest mt-4">Billed {isAnnual ? `$${plan.annualPrice} / Annual` : 'Monthly Cycle'}</p>
-                           </div>
+                  <h3 className="text-base font-bold text-slate-900 mb-2 leading-snug">
+                    {pillar.title}
+                  </h3>
+                  <p className="text-slate-500 text-sm leading-[1.6] flex-1 mb-4">
+                    {pillar.desc}
+                  </p>
 
-                           <ul className="flex-1 space-y-4 sm:space-y-5 mb-8 sm:mb-12">
-                              {plan.features?.map(f => (
-                                 <li key={f} className="flex items-center gap-3 sm:gap-4 text-slate-600 text-xs sm:text-sm font-bold">
-                                    <IoCheckmarkCircleOutline className="text-blue-500 text-lg sm:text-xl shrink-0" /> <span className="leading-tight">{f}</span>
-                                 </li>
-                              ))}
-                           </ul>
-                           <button className={`w-full py-4 sm:py-6 rounded-lg font-black text-xs sm:text-sm uppercase tracking-wider sm:tracking-widest transition-all min-h-[44px] ${plan.popular ? 'bg-blue-600 text-white shadow-2xl shadow-blue-600/30' : 'bg-slate-900 text-white hover:bg-slate-800'}`}>
-                              Initialize Cloud Instance
-                           </button>
-                        </motion.div>
-                     ))}
+                  <div className="pt-3 border-t border-slate-100 flex items-center gap-1.5 text-xs text-slate-600 font-medium">
+                    <IoCheckmarkCircleOutline className="text-[#10B981] shrink-0 text-sm" />
+                    <span>NVMe PCIe Gen4 High-IOPS</span>
                   </div>
-               </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
+
+        {/* ── Pricing Table ── */}
+        {plansData.length > 0 && (
+          <div className="container-custom py-12 sm:py-16 border-t border-slate-100 bg-slate-50/40">
+            <div className="text-center max-w-xl mx-auto mb-10">
+              <h2 className="text-[11px] font-black text-slate-400 uppercase tracking-widest mb-1.5 leading-[1.4]">
+                Infrastructure Tiers
+              </h2>
+              <p className="text-xl sm:text-2xl font-black text-slate-900 leading-[1.2] mb-5">
+                Transparent Scalable Cloud Hosting
+              </p>
+
+              <div className="inline-flex items-center gap-1 p-1 bg-slate-200/60 rounded-lg">
+                <button
+                  onClick={() => setIsAnnual(true)}
+                  className={`px-4 py-1.5 rounded-md text-xs font-bold transition-all ${
+                    isAnnual ? "bg-white text-slate-900 shadow-sm" : "text-slate-500 hover:text-slate-800"
+                  }`}
+                >
+                  Annual (Save 20%)
+                </button>
+                <button
+                  onClick={() => setIsAnnual(false)}
+                  className={`px-4 py-1.5 rounded-md text-xs font-bold transition-all ${
+                    !isAnnual ? "bg-white text-slate-900 shadow-sm" : "text-slate-500 hover:text-slate-800"
+                  }`}
+                >
+                  Monthly
+                </button>
+              </div>
             </div>
 
-            {/* PILLARS SECTION */}
-            <div className="max-w-6xl mx-auto py-20 lg:py-32 border-t border-slate-100 mt-20 lg:mt-12">
-               <div className="text-center mb-16 lg:mb-24">
-                  <h2 className="text-xs font-black text-blue-600 uppercase tracking-widest sm:tracking-[0.4em] mb-4">Core Principles</h2>
-                  <h3 className="text-3xl sm:text-4xl md:text-5xl font-black text-slate-900 tracking-tighter">Industrial <br className="block sm:hidden" /><span className="text-blue-600">Infrastructure.</span></h3>
-               </div>
-               
-               {/* Full-bleed Mobile Carousel */}
-               <div className="overflow-x-auto snap-x snap-mandatory hide-scrollbar pb-8 lg:pb-0 lg:overflow-visible lg:snap-none">
-                  <div className="flex lg:grid lg:grid-cols-3 gap-6 lg:gap-5 min-w-max lg:min-w-0 w-max lg:w-auto">
-                     {(data.sections.pillars || []).map((p, i) => (
-                        <motion.div key={i} className="text-center group snap-center w-[85vw] max-w-[320px] lg:w-auto lg:max-w-none whitespace-normal bg-white lg:bg-transparent p-8 lg:p-0 border border-slate-100 lg:border-none shadow-xl lg:shadow-none rounded-lg">
-                           <div className="w-16 h-16 sm:w-20 sm:h-20 bg-blue-50 text-blue-600 sm:-[2rem] flex items-center justify-center text-3xl sm:text-4xl mx-auto mb-6 sm:mb-10 lg:group-hover:scale-110 transition-transform shadow-lg sm:shadow-xl shadow-blue-600/10 shrink-0 rounded-lg">{getIcon(p.icon)}</div>
-                           <h4 className="text-slate-900 font-black text-xl sm:text-2xl mb-3 sm:mb-4 tracking-tight">{p.title}</h4>
-                           <p className="text-slate-500 font-light leading-relaxed text-sm sm:text-lg">{p.desc}</p>
-                        </motion.div>
-                     ))}
-                  </div>
-               </div>
-            </div>
+            <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 max-w-5xl mx-auto">
+              {plansData.map((plan, i) => (
+                <div
+                  key={plan.name || i}
+                  className={`rounded-2xl p-6 sm:p-7 border flex flex-col justify-between relative transition-all ${
+                    plan.popular
+                      ? "bg-slate-900 border-[#FF2C6D] text-white shadow-xl shadow-pink-500/10 ring-1 ring-[#FF2C6D]"
+                      : "bg-white border-slate-200 text-slate-900 shadow-sm"
+                  }`}
+                >
+                  {plan.popular && (
+                    <div className="absolute -top-3 left-1/2 -translate-x-1/2">
+                      <span className="bg-[#FF2C6D] text-white text-[10px] font-black uppercase tracking-widest px-3 py-1 rounded-full shadow-md">
+                        Recommended
+                      </span>
+                    </div>
+                  )}
 
-            {/* CTA */}
-            <div className="text-center py-10 lg:py-16 border-t border-slate-200 pb-12 lg:pb-16">
-               <IoServerOutline className="text-6xl lg:text-7xl text-blue-600 mb-4 lg:mb-6 mx-auto opacity-20" />
-               <h3 className="text-4xl sm:text-5xl lg:text-6xl font-black text-slate-900 mb-5 lg:mb-6 leading-tight tracking-tighter sm:tracking-normal">
-                  Scale your digital footprint. <br className="hidden sm:block" />
-                  <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-indigo-600 font-serif italic font-medium block sm:inline mt-2 sm:mt-0">Command the Infrastructure.</span>
-               </h3>
-               <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center">
-                  {/* Sticky Mobile CTA */}
-                  <div className="fixed bottom-0 left-0 w-full px-4 pt-4 pb-[max(1rem,env(safe-area-inset-bottom))] bg-slate-50/90 backdrop-blur-md border-t border-slate-200 z-50 lg:relative lg:border-none lg:bg-transparent lg:p-0 lg:w-auto">
-                     <button className="w-full lg:w-[280px] px-6 py-3 sm:py-4 bg-blue-600 text-white font-black hover:bg-blue-700 transition-all shadow-xl sm:shadow-2xl shadow-blue-600/40 uppercase tracking-wider sm:tracking-widest text-xs sm:text-sm flex items-center justify-center min-h-[44px] rounded-md">
-                        {data.cta?.title || "Initialize Plan"}
-                     </button>
+                  <div>
+                    <div className="mb-4">
+                      <h3 className={`text-base font-black ${plan.popular ? "text-white" : "text-slate-900"}`}>
+                        {plan.name}
+                      </h3>
+                      <p className={`text-xs mt-1 ${plan.popular ? "text-slate-400" : "text-slate-500"}`}>
+                        {plan.desc}
+                      </p>
+                    </div>
+
+                    <div className="mb-5 pb-5 border-b border-slate-200/20">
+                      <div className="flex items-baseline gap-1.5">
+                        <span className="text-3xl font-black leading-none">
+                          ${isAnnual ? (plan.annualPrice / 12).toFixed(2) : plan.monthlyPrice}
+                        </span>
+                        <span className={`text-xs ${plan.popular ? "text-slate-400" : "text-slate-500"}`}>
+                          / mo
+                        </span>
+                      </div>
+                      <p className={`text-[11px] font-bold uppercase tracking-wider mt-1.5 ${plan.popular ? "text-[#FF2C6D]" : "text-slate-400"}`}>
+                        Billed {isAnnual ? `$${plan.annualPrice}/yr` : "monthly"}
+                      </p>
+                    </div>
+
+                    <ul className="space-y-2.5 mb-6">
+                      {(plan.features || []).map((f, fi) => (
+                        <li key={fi} className="flex items-start gap-2 text-xs leading-relaxed">
+                          <IoCheckmarkCircleOutline className="text-[#10B981] shrink-0 mt-0.5 text-sm" />
+                          <span className={plan.popular ? "text-slate-300" : "text-slate-600"}>
+                            {f}
+                          </span>
+                        </li>
+                      ))}
+                    </ul>
                   </div>
-                  <Link
-                     href="/services/hosting/details"
-                     className="hidden lg:flex w-full sm:w-[280px] px-6 py-3 sm:py-4 bg-slate-900 text-white font-black hover:bg-slate-800 transition-all uppercase tracking-wider sm:tracking-widest text-xs sm:text-sm items-center justify-center text-center min-h-[44px] rounded-md"
+
+                  <button
+                    onClick={() => setShowModal(true)}
+                    className={`w-full py-2.5 text-xs font-bold uppercase tracking-wider rounded-lg transition-colors min-h-[42px] ${
+                      plan.popular
+                        ? "bg-[#FF2C6D] text-white hover:bg-[#e0285f] shadow-md shadow-pink-500/20"
+                        : "bg-slate-900 text-white hover:bg-slate-800"
+                    }`}
                   >
-                     Technical Hub
-                  </Link>
-               </div>
+                    Select Plan
+                  </button>
+                </div>
+              ))}
             </div>
-         </div>
-      </section>
-   );
+          </div>
+        )}
+
+        {/* ── Compact CTA Banner ── */}
+        <div className="container-custom py-10">
+          <div className="bg-slate-900 rounded-2xl p-6 sm:p-8 text-center text-white relative overflow-hidden max-w-4xl mx-auto shadow-xl">
+            <div className="relative z-10 max-w-xl mx-auto flex flex-col items-center gap-3">
+              <p className="text-[10px] font-black tracking-widest text-[#FF2C6D] uppercase">
+                Enterprise Infrastructure
+              </p>
+              <h2 className="text-xl sm:text-2xl font-black leading-tight text-white">
+                Launch Your Digital Infrastructure on Unbreakable Foundations.
+              </h2>
+              <p className="text-xs sm:text-sm text-slate-400 leading-relaxed max-w-md">
+                Schedule a hosting consultation. We will recommend the optimal stack for your traffic, compliance, and performance requirements.
+              </p>
+              <div className="flex flex-wrap items-center justify-center gap-3 pt-2">
+                <button
+                  onClick={() => setShowModal(true)}
+                  className="px-6 py-2.5 bg-[#FF2C6D] hover:bg-[#e0285f] text-white font-bold text-xs uppercase tracking-wider rounded-lg transition-colors min-h-[42px] shadow-sm"
+                >
+                  Schedule Consultation
+                </button>
+                <a
+                  href={`https://wa.me/${process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || "8801722550012"}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-1.5 px-4 py-2.5 bg-white/10 hover:bg-white/15 text-white font-bold text-xs uppercase tracking-wider rounded-lg transition-colors min-h-[42px]"
+                >
+                  <IoLogoWhatsapp className="text-emerald-400 text-sm" />
+                  Chat on WhatsApp
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* ── Consultation Modal ── */}
+      <AnimatePresence>
+        {showModal && (
+          <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              onClick={() => setShowModal(false)}
+              className="absolute inset-0 bg-slate-900/60 backdrop-blur-sm"
+            />
+            <motion.div
+              initial={{ opacity: 0, scale: 0.95 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0, scale: 0.95 }}
+              className="relative z-10 bg-white rounded-2xl shadow-2xl p-6 sm:p-8 max-w-md w-full border border-slate-100"
+            >
+              <button
+                onClick={() => setShowModal(false)}
+                className="absolute top-4 right-4 text-slate-400 hover:text-slate-600 p-1"
+                aria-label="Close"
+              >
+                <IoCloseOutline className="text-2xl" />
+              </button>
+
+              <div className="mb-5">
+                <div className="inline-flex items-center gap-1.5 px-2.5 py-1 bg-pink-50 text-[#FF2C6D] rounded text-[10px] font-black uppercase tracking-wider mb-2">
+                  <IoSparklesOutline /> Cloud Provisioning
+                </div>
+                <h3 className="text-lg font-black text-slate-900">
+                  Initialize Hosting Consultation
+                </h3>
+                <p className="text-xs text-slate-500 mt-1">
+                  Tell us about your traffic, storage needs, and preferred cloud platform.
+                </p>
+              </div>
+
+              <form
+                onSubmit={(e) => {
+                  e.preventDefault();
+                  alert("Thank you! Our infrastructure team will connect with you shortly.");
+                  setShowModal(false);
+                }}
+                className="space-y-3 text-xs"
+              >
+                <div>
+                  <label className="block font-bold text-slate-700 mb-1">Your Name</label>
+                  <input
+                    type="text"
+                    required
+                    placeholder="Enter your name"
+                    className="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus:border-[#FF2C6D] text-slate-900"
+                  />
+                </div>
+                <div>
+                  <label className="block font-bold text-slate-700 mb-1">Work Email</label>
+                  <input
+                    type="email"
+                    required
+                    placeholder="name@company.com"
+                    className="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus:border-[#FF2C6D] text-slate-900"
+                  />
+                </div>
+                <div>
+                  <label className="block font-bold text-slate-700 mb-1">Expected Monthly Visitors</label>
+                  <select className="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus:border-[#FF2C6D] text-slate-900">
+                    <option>&lt; 10,000 visits</option>
+                    <option>10,000 - 100,000 visits</option>
+                    <option>100,000 - 1,000,000 visits</option>
+                    <option>Enterprise (1M+ visits / high compute)</option>
+                  </select>
+                </div>
+                <button
+                  type="submit"
+                  className="w-full py-2.5 bg-[#FF2C6D] hover:bg-[#e0285f] text-white font-bold uppercase tracking-wider text-xs rounded-lg transition-colors mt-2"
+                >
+                  Submit Provisioning Request
+                </button>
+              </form>
+            </motion.div>
+          </div>
+        )}
+      </AnimatePresence>
+    </section>
+  );
 }

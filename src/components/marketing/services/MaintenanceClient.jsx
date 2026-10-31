@@ -1,264 +1,310 @@
 "use client";
 
+import { useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import Link from "next/link";
 import {
   IoShieldCheckmarkOutline,
+  IoCheckmarkCircleOutline,
+  IoArrowForwardOutline,
+  IoCloseOutline,
+  IoLogoWhatsapp,
+  IoSparklesOutline,
   IoConstructOutline,
-  IoTimerOutline,
   IoSpeedometerOutline,
   IoPulseOutline,
-  IoReloadOutline,
-  IoFlashOutline,
-  IoSparklesOutline
 } from "react-icons/io5";
-import { motion } from "framer-motion";
-import Link from "next/link";
 import { getIcon } from "@/lib/icons";
 
-export default function MaintenanceClient({ content }) {
-  const data = content?.landing || {
-    hero: {
-      badge: "Zero-Downtime Infrastructure Guarantee",
-      title: "System Guard",
-      description: "Never worry about crashes or security vulnerabilities again. We architect high-vibration maintenance protocols that ensure your platform remains elite, secure, and globally performant."
-    },
-    sections: {
-      pillars: [
-        { title: "Security & Core", desc: "The structural essentials. Weekly off-site backups, core engine updates, and 24/7 malware monitoring to keep your node live.", icon: "ShieldCheckmark", color: "from-teal-600 to-emerald-700" },
-        { title: "Standard Ops", desc: "Active performance tuning. Includes plugin/theme synchronization, broken link logic, and monthly speed optimization audits.", icon: "Construct", color: "from-slate-700 to-slate-900" },
-        { title: "Full Dedicated", desc: "Your own development engineers on retainer. Includes unlimited small content changes and dedicated custom feature support.", icon: "Pulse", color: "from-blue-600 to-indigo-700" }
-      ],
-      integrations: [
-        { t: "99.9% Uptime", d: "Zero-latency monitoring" },
-        { t: "Malware Decryption", d: "Deep heuristic scanning" },
-        { t: "Version Sync", d: "Atomic core updates" },
-        { t: "Speed Calibration", d: "LCP/CLS Optimization" }
-      ]
-    },
-    cta: { title: "Initialize Ops Audit" }
+export default function MaintenanceClient({ content, data: propData }) {
+  const [showModal, setShowModal] = useState(false);
+
+  const rawData = propData || content?.landing || {};
+  const hero = rawData.hero || {
+    badge: "Zero-Downtime Infrastructure Guarantee",
+    title: "Website Maintenance & System Guard",
+    description:
+      "We don't just fix bugs; we maintain momentum. Our proactive maintenance cycles ensure your software stays secure, fast, and ahead of the competition.",
   };
+  const sections = rawData.sections || {};
+  const cta = rawData.cta || {
+    badge: "Continuous Uptime & Protection",
+    title: "Your Platform Never Gets Sick. We Keep It That Way.",
+    subtitle:
+      "Schedule a free systems audit. We will inspect your uptime, security posture, plugin stack, and performance metrics.",
+  };
+  const pillarsData = sections.pillars || [
+    {
+      title: "Security & Core Guard",
+      desc: "The structural essentials. Weekly off-site backups, core engine updates, and 24/7 malware monitoring to keep your node live.",
+      icon: "ShieldCheckmark",
+      color: "from-teal-600 to-emerald-700",
+    },
+    {
+      title: "Standard Ops Tuning",
+      desc: "Active performance tuning. Includes plugin/theme synchronization, broken link logic, and monthly speed optimization audits.",
+      icon: "Construct",
+      color: "from-slate-700 to-slate-900",
+    },
+    {
+      title: "Dedicated Retainer SLA",
+      desc: "Your own development engineers on retainer. Includes unlimited small content changes and dedicated custom feature support.",
+      icon: "Pulse",
+      color: "from-blue-600 to-indigo-700",
+    },
+  ];
+  const metricsData = sections.metrics || sections.integrations || [
+    { t: "99.9% UPTIME", d: "Zero-latency health monitoring", value: "99.9%", label: "Uptime Guaranteed" },
+    { t: "ZERO VULNERABILITIES", d: "Continuous CVE heuristic scanning", value: "0", label: "Active Vulnerabilities" },
+    { t: "ATOMIC UPDATES", d: "Staged sandbox testing before push", value: "100%", label: "Sandbox Tested" },
+    { t: "< 1h HOTFIX SLA", d: "Rapid response emergency engineer", value: "< 1h", label: "Incident Response" },
+  ];
 
   return (
-    <section className="min-h-screen bg-slate-50 text-slate-900 selection:bg-teal-600 selection:text-white overflow-hidden relative font-sans">
-      {/* INDUSTRIAL BACKGROUND DECOR */}
-      <div className="absolute top-0 opacity-20 pointer-events-none -z-10 w-full h-full">
-        <div className="absolute top-0 left-1/4 w-[1px] h-full bg-slate-200"></div>
-        <div className="absolute top-0 right-1/4 w-[1px] h-full bg-slate-200"></div>
-        <div className="absolute top-1/2 left-0 w-full h-[1px] bg-slate-200"></div>
-        <div className="absolute top-[20%] left-[-100px] w-[500px] h-[500px] bg-teal-50 blur-[140px]"></div>
-      </div>
+    <section className="min-h-screen bg-white flex flex-col relative selection:bg-brand-pink selection:text-white font-sans">
+      {/* Background Dot Texture */}
+      <div className="fixed inset-0 bg-[radial-gradient(#0F172A08_1px,transparent_1px)] [background-size:22px_22px] pointer-events-none z-0" />
 
-      <div className="container-custom py-10 relative z-10">
-        {/* MAINTENANCE HERO */}
-        <div className="flex flex-col lg:flex-row items-center gap-4 lg:gap-5 mb-12 lg:mb-20 pt-8 lg:pt-0">
-          <div className="flex-1 text-left w-full">
+      <div className="relative z-10 flex flex-col flex-1">
+        {/* ── Minimized Hero ── */}
+        <div className="border-b border-slate-100 bg-white/70 backdrop-blur-sm">
+          <div className="container-custom pt-10 sm:pt-14 pb-8 flex flex-col items-center text-center gap-3 max-w-3xl mx-auto">
             <motion.div
-              initial={{ opacity: 0, x: -20 }}
-              animate={{ opacity: 1, x: 0 }}
-              className="inline-flex items-center gap-2 px-4 sm:px-5 py-2 bg-teal-50 border border-teal-100 text-teal-700 text-[10px] sm:text-xs font-black tracking-wider sm:tracking-[0.4em] uppercase mb-4 sm:mb-5 rounded-md"
+              initial={{ opacity: 0, y: -8 }}
+              animate={{ opacity: 1, y: 0 }}
+              className="inline-flex items-center gap-1.5 px-3 py-1 bg-[#FF2C6D]/8 border border-[#FF2C6D]/25 text-[#FF2C6D] text-[10px] font-black uppercase tracking-widest rounded-full leading-[1.4]"
             >
-              <IoSparklesOutline className="text-sm" /> {data.hero.badge}
+              <span className="h-1.5 w-1.5 bg-[#FF2C6D] rounded-full shrink-0 animate-pulse" />
+              {hero.badge || "Zero-Downtime Infrastructure Guarantee"}
             </motion.div>
 
             <motion.h1
-              initial={{ opacity: 0, y: 30 }}
+              initial={{ opacity: 0, y: 12 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, ease: "circOut" }}
-              className="text-4xl sm:text-5xl lg:text-6xl font-black text-slate-900 leading-[1.1] mb-4 sm:mb-6 tracking-tighter"
+              transition={{ delay: 0.08 }}
+              className="text-2xl sm:text-3xl md:text-4xl font-black text-slate-900 leading-[1.2]"
             >
-              {data.hero.title?.split(' ')[0]} <br className="hidden sm:block" />
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-600 via-violet-500 to-emerald-500 animate-gradient-x block sm:inline mt-2 sm:mt-0">{data.hero.title?.split(' ').slice(1).join(' ')}</span>
+              Website Maintenance & <span className="text-[#FF2C6D]">System Guard</span>
             </motion.h1>
 
             <motion.p
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ delay: 0.4 }}
-              className="text-slate-600 text-lg sm:text-xl font-light leading-relaxed max-w-2xl mb-6 sm:mb-8"
+              initial={{ opacity: 0, y: 12 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.15 }}
+              className="text-slate-500 text-sm md:text-base leading-relaxed max-w-3xl font-normal"
             >
-              {data.hero.description}
+              {hero.description}
             </motion.p>
 
-            <div className="flex flex-col sm:flex-row gap-3 sm:gap-4">
-              <button className="w-full sm:w-[280px] px-8 py-4 sm:py-6 bg-teal-600 text-white font-black hover:bg-teal-700 transition-all shadow-xl sm:shadow-2xl shadow-teal-600/20 uppercase tracking-wider sm:tracking-widest text-xs sm:text-sm flex items-center justify-center min-h-[44px] rounded-md">
-                {data.cta.title}
+            <motion.div
+              initial={{ opacity: 0, y: 12 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.22 }}
+              className="flex flex-wrap items-center justify-center gap-3 pt-2"
+            >
+              <button
+                onClick={() => setShowModal(true)}
+                className="px-6 py-2.5 bg-[#FF2C6D] text-white font-bold hover:bg-[#e0285f] transition-colors shadow-sm uppercase tracking-wider text-xs rounded-lg min-h-[42px]"
+              >
+                {cta.title || "Initialize Ops Audit"}
               </button>
               <Link
-                href="/services/maintenance/details"
-                className="w-full sm:w-[280px] px-6 py-3 sm:py-4 bg-white border border-slate-200 text-slate-900 font-black hover:bg-slate-50 transition-all uppercase tracking-wider sm:tracking-widest text-xs sm:text-sm flex items-center justify-center text-center min-h-[44px] rounded-md"
+                href="/en/services/maintenance/details"
+                className="inline-flex items-center gap-1 text-xs font-bold uppercase tracking-wider text-[#10B981] hover:text-[#FF2C6D] transition-colors py-2 px-3"
               >
-                Technical Specifications
+                Technical Details <IoArrowForwardOutline />
               </Link>
-            </div>
-          </div>
-
-          <div className="flex-1 relative hidden lg:block">
-            {/* Guardian Console Visual */}
-            <motion.div
-              initial={{ opacity: 0, scale: 0.9, rotate: -3 }}
-              animate={{ opacity: 1, scale: 1, rotate: 0 }}
-              transition={{ duration: 1 }}
-              className="relative p-12 bg-white -[4rem] border border-slate-100 shadow-2xl overflow-hidden group rounded-md"
-            >
-              <div className="relative aspect-square flex items-center justify-center">
-                <div className="absolute inset-x-0 h-[1px] bg-slate-100"></div>
-                <div className="absolute inset-y-0 w-[1px] bg-slate-100"></div>
-
-                {/* Pulsing Radar UI */}
-                <div className="relative z-10 w-64 h-64 border border-teal-100 flex items-center justify-center">
-                  <motion.div
-                    animate={{ scale: [1, 1.5, 1], opacity: [0.1, 0, 0.1] }}
-                    transition={{ duration: 3, repeat: Infinity }}
-                    className="absolute inset-0 bg-teal-100"
-                  ></motion.div>
-
-                  <div className="w-48 h-48 bg-slate-900 -[3rem] shadow-2xl flex flex-col items-center justify-center group-hover:scale-110 transition-transform relative z-20 rounded-lg">
-                    <IoShieldCheckmarkOutline className="text-6xl text-teal-400 mb-4" />
-                    <div className="flex flex-col items-center gap-1">
-                      <span className="text-[10px] sm:text-xs font-black text-white/40 uppercase tracking-widest">System Health</span>
-                      <span className="text-xs sm:text-sm font-bold text-teal-400">OPTIMIZED</span>
-                    </div>
-                  </div>
-                </div>
-
-                {/* Floating Status Nodes */}
-                {[
-                  { icon: <IoTimerOutline />, pos: "top-10 left-10", label: "UPTIME::99.9%" },
-                  { icon: <IoSpeedometerOutline />, pos: "bottom-10 right-10", label: "SCORE::100/100" },
-                  { icon: <IoReloadOutline />, pos: "top-14 right-14", label: "BACKUP::SYNCED" }
-                ].map((node, i) => (
-                  <motion.div
-                    key={i}
-                    animate={{ y: [0, -10, 0] }}
-                    transition={{ duration: 5, delay: i * 0.7, repeat: Infinity }}
-                    className={`absolute ${node.pos} p-6 bg-white rounded-lg border border-slate-100 shadow-xl flex flex-col items-center gap-2 z-30`}
-                  >
-                    <div className="text-teal-600 text-2xl">{node.icon}</div>
-                    <span className="text-[9px] sm:text-[10px] font-black text-slate-400 uppercase tracking-widest">{node.label}</span>
-                  </motion.div>
-                ))}
-              </div>
             </motion.div>
           </div>
         </div>
 
-        {/* PILLARS SECTION */}
-        <div className="mb-12 lg:mb-20">
-          <div className="flex flex-col md:flex-row justify-between items-end mb-16 lg:mb-24 gap-4 border-l-4 border-teal-600 pl-6 sm:pl-8">
-            <div className="max-w-xl">
-              <h2 className="text-xs font-black text-teal-600 uppercase tracking-widest sm:tracking-[0.4em] mb-4">Operational Tiers</h2>
-              <p className="text-3xl sm:text-4xl md:text-5xl font-black text-slate-900 leading-tight tracking-tighter">
-                The lifecycle of <br className="hidden sm:block" /><span className="text-slate-400 italic font-serif font-light">peak performance.</span>
-              </p>
-            </div>
-          </div>
-
-          {/* Full-bleed Mobile Carousel */}
-          <div className="overflow-x-auto snap-x snap-mandatory hide-scrollbar pb-8 lg:pb-0 lg:overflow-visible lg:snap-none">
-            <div className="flex lg:grid lg:grid-cols-3 gap-6 lg:gap-4 min-w-max lg:min-w-0 w-max lg:w-auto">
-              {(data.sections.pillars || []).map((item, i) => (
-                <motion.div
-                  key={i}
-                  initial={{ opacity: 0, y: 30 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: i * 0.1 }}
-                  className="group cursor-default snap-center w-[85vw] max-w-[320px] lg:w-auto lg:max-w-none"
-                >
-                  <div className="bg-white lg:-[3rem] p-8 lg:p-6 h-full border border-slate-100 shadow-xl shadow-slate-200/50 hover:shadow-2xl transition-all lg:group-hover:-translate-y-2 relative overflow-hidden flex flex-col whitespace-normal rounded-lg">
-                    <div className={`w-14 h-14 rounded-lg bg-gradient-to-br ${item.color || 'from-teal-600 to-emerald-700'} text-white flex items-center justify-center text-3xl mb-4 lg:mb-10 shadow-lg shrink-0`}>
-                      {getIcon(item.icon)}
-                    </div>
-                    <h3 className="text-xl sm:text-2xl font-black text-slate-900 mb-4 lg:mb-3 tracking-tighter uppercase leading-none">
-                      {item.title}
-                    </h3>
-                    <p className="text-slate-500 leading-relaxed font-light text-base lg:text-lg">
-                      {item.desc}
+        {/* ── Key Highlights Strip ── */}
+        {metricsData.length > 0 && (
+          <div className="border-b border-slate-100 bg-slate-50/80">
+            <div className="container-custom py-3.5">
+              <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 text-center divide-x divide-slate-200/60">
+                {metricsData.map((item, idx) => (
+                  <div key={idx} className="px-2">
+                    <p className="text-xl sm:text-2xl font-black text-slate-900 leading-[1.1]">
+                      {item.t || item.value}
+                    </p>
+                    <p className="text-[10px] sm:text-xs font-bold uppercase tracking-widest text-slate-400 mt-1">
+                      {item.d || item.label}
                     </p>
                   </div>
-                </motion.div>
+                ))}
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* ── Capability Pillars (Ops DNA) ── */}
+        {pillarsData.length > 0 && (
+          <div className="container-custom py-10 sm:py-14">
+            <div className="text-center max-w-xl mx-auto mb-8">
+              <h2 className="text-[11px] font-black text-slate-400 uppercase tracking-widest mb-1.5 leading-[1.4]">
+                Ops DNA
+              </h2>
+              <p className="text-xl sm:text-2xl font-black text-slate-900 leading-[1.2]">
+                Pillars of Zero-Downtime Operations
+              </p>
+            </div>
+
+            <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
+              {pillarsData.map((pillar, i) => (
+                <div
+                  key={i}
+                  className="bg-white border border-slate-200/80 hover:border-[#FF2C6D]/40 hover:shadow-lg transition-all rounded-xl p-6 relative flex flex-col group overflow-hidden"
+                >
+                  <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-[#FF2C6D] to-[#10B981] opacity-0 group-hover:opacity-100 transition-opacity" />
+
+                  <div className="w-11 h-11 rounded-lg bg-slate-50 border border-slate-100 text-slate-800 flex items-center justify-center text-xl mb-4 group-hover:bg-[#FF2C6D]/10 group-hover:text-[#FF2C6D] transition-colors shrink-0">
+                    {getIcon(pillar.icon) || <IoShieldCheckmarkOutline />}
+                  </div>
+
+                  <h3 className="text-base font-bold text-slate-900 mb-2 leading-snug">
+                    {pillar.title}
+                  </h3>
+                  <p className="text-slate-500 text-sm leading-[1.6] flex-1 mb-4">
+                    {pillar.desc}
+                  </p>
+
+                  <div className="pt-3 border-t border-slate-100 flex items-center gap-1.5 text-xs text-slate-600 font-medium">
+                    <IoCheckmarkCircleOutline className="text-[#10B981] shrink-0 text-sm" />
+                    <span>Active Automated SLA</span>
+                  </div>
+                </div>
               ))}
             </div>
           </div>
-        </div>
+        )}
 
-        {/* HEALTH DASHBOARD SECTION */}
-        <div className="mb-10 lg:mb-20">
-          <div className="grid lg:grid-cols-2 gap-5 lg:gap-8 items-center bg-white lg:-[4rem] p-5 sm:p-5 lg:p-8 border border-slate-100 shadow-xl lg:shadow-2xl shadow-slate-200/50 relative overflow-hidden rounded-lg">
-            <div className="absolute top-0 right-0 w-1/3 h-full bg-teal-50/20 -skew-x-[20deg] origin-top translate-x-1/2"></div>
-
-            <div className="relative z-10 space-y-4 sm:space-y-6">
-              <div className="w-16 h-16 bg-teal-50 flex items-center justify-center text-3xl text-teal-600 border border-teal-100">
-                <IoSpeedometerOutline />
-              </div>
-              <h2 className="text-4xl sm:text-5xl lg:text-6xl font-black text-slate-900 leading-[1.1] sm:leading-[0.9] tracking-tighter sm:tracking-normal">Live <br className="hidden sm:block" /><span className="text-teal-600 block sm:inline mt-2 sm:mt-0">Health Hub.</span></h2>
-              <p className="text-slate-500 text-lg sm:text-xl font-light leading-relaxed">Gain absolute structural transparency. Every client receives a manifest showing real-time uptime, security scans, and V8 engine performance metrics.</p>
-
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-px bg-slate-50 border border-slate-100 overflow-hidden mt-4 sm:mt-5 shadow-sm rounded-lg">
-                {(data.sections.metrics || []).map((item, idx) => (
-                  <div key={idx} className="p-3 sm:p-5 hover:bg-white transition-colors group rounded-md">
-                    <h4 className="text-[10px] sm:text-xs font-black text-teal-600 uppercase tracking-widest mb-2">{item.t}</h4>
-                    <p className="text-[10px] sm:text-xs text-slate-400 font-bold leading-tight">{item.d}</p>
-                  </div>
-                ))}
+        {/* ── Compact CTA Banner ── */}
+        <div className="container-custom py-10">
+          <div className="bg-slate-900 rounded-2xl p-6 sm:p-8 text-center text-white relative overflow-hidden max-w-4xl mx-auto shadow-xl">
+            <div className="relative z-10 max-w-xl mx-auto flex flex-col items-center gap-3">
+              <p className="text-[10px] font-black tracking-widest text-[#FF2C6D] uppercase">
+                Continuous Uptime & Protection
+              </p>
+              <h2 className="text-xl sm:text-2xl font-black leading-tight text-white">
+                Your Platform Never Gets Sick. We Keep It That Way.
+              </h2>
+              <p className="text-xs sm:text-sm text-slate-400 leading-relaxed max-w-md">
+                Schedule a free systems audit. We will inspect your uptime, security posture, plugin stack, and performance metrics.
+              </p>
+              <div className="flex flex-wrap items-center justify-center gap-3 pt-2">
+                <button
+                  onClick={() => setShowModal(true)}
+                  className="px-6 py-2.5 bg-[#FF2C6D] hover:bg-[#e0285f] text-white font-bold text-xs uppercase tracking-wider rounded-lg transition-colors min-h-[42px] shadow-sm"
+                >
+                  Schedule System Audit
+                </button>
+                <a
+                  href={`https://wa.me/${process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || "8801722550012"}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-1.5 px-4 py-2.5 bg-white/10 hover:bg-white/15 text-white font-bold text-xs uppercase tracking-wider rounded-lg transition-colors min-h-[42px]"
+                >
+                  <IoLogoWhatsapp className="text-emerald-400 text-sm" />
+                  Chat on WhatsApp
+                </a>
               </div>
             </div>
-
-            <motion.div
-              animate={{ y: [0, 10, 0] }}
-              transition={{ duration: 8, repeat: Infinity }}
-              className="relative bg-slate-900 lg:-[3rem] p-5 lg:p-8 border border-slate-800 shadow-2xl space-y-4 lg:space-y-5 overflow-hidden rounded-lg"
-            >
-              <div className="absolute top-0 right-0 p-4 font-mono text-[7px] sm:text-[9px] text-teal-400 bg-white/5 opacity-50 tracking-[0.2em] sm:tracking-[0.4em]">SCAN_ACTIVE::Vulnerabilities_0</div>
-
-              <div className="grid grid-cols-2 gap-4">
-                <div className="p-6 bg-white/5 border border-white/10 text-center rounded-lg">
-                  <IoTimerOutline className="text-teal-500 text-3xl mx-auto mb-2" />
-                  <p className="text-xl sm:text-2xl font-black text-white">99.9%</p>
-                  <p className="text-[8px] sm:text-[10px] font-black text-slate-500 uppercase tracking-widest mt-1">Uptime</p>
-                </div>
-                <div className="p-6 bg-white/5 border border-white/10 text-center rounded-lg">
-                  <IoSpeedometerOutline className="text-emerald-500 text-3xl mx-auto mb-2" />
-                  <p className="text-xl sm:text-2xl font-black text-white">100/100</p>
-                  <p className="text-[8px] sm:text-[10px] font-black text-slate-500 uppercase tracking-widest mt-1">PageSpeed</p>
-                </div>
-              </div>
-
-              <div className="pt-6 border-t border-white/5">
-                <div className="flex justify-between items-center mb-4">
-                  <p className="text-[10px] sm:text-xs font-black text-white/40 uppercase tracking-widest">Backup Stability</p>
-                  <p className="text-[10px] sm:text-xs text-teal-500 font-bold">100%</p>
-                </div>
-                <div className="h-1.5 bg-white/5 overflow-hidden">
-                  <motion.div initial={{ width: 0 }} whileInView={{ width: "100%" }} transition={{ duration: 1 }} className="bg-teal-500 h-full" />
-                </div>
-              </div>
-            </motion.div>
-          </div>
-        </div>
-
-        {/* CTA */}
-        <div className="text-center py-10 lg:py-16 border-t border-slate-200 pb-12 lg:pb-16">
-          <IoFlashOutline className="text-6xl lg:text-7xl text-teal-600 mb-4 lg:mb-6 mx-auto opacity-20" />
-          <h3 className="text-4xl sm:text-5xl lg:text-6xl font-black text-slate-900 mb-5 lg:mb-6 leading-tight tracking-tighter sm:tracking-normal">
-            Your website doesn't get sick. <br className="hidden sm:block" />
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-teal-600 to-slate-900 font-serif italic font-medium block sm:inline mt-2 sm:mt-0">Engineer Resilience.</span>
-          </h3>
-          <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center">
-            {/* Sticky Mobile CTA */}
-            <div className="fixed bottom-0 left-0 w-full px-4 pt-4 pb-[max(1rem,env(safe-area-inset-bottom))] bg-slate-50/90 backdrop-blur-md border-t border-slate-200 z-50 lg:relative lg:border-none lg:bg-transparent lg:p-0 lg:w-auto">
-              <button className="w-full lg:w-[280px] px-8 py-4 sm:py-6 bg-teal-600 text-white font-black hover:bg-teal-700 transition-all shadow-xl sm:shadow-2xl shadow-teal-600/40 uppercase tracking-wider sm:tracking-widest text-xs sm:text-sm flex items-center justify-center min-h-[44px] rounded-md">
-                {data.cta.title}
-              </button>
-            </div>
-            <Link
-              href="/services/maintenance/details"
-              className="hidden lg:flex w-full sm:w-[280px] px-6 py-3 sm:py-4 bg-slate-900 text-white font-black hover:bg-slate-800 transition-all uppercase tracking-wider sm:tracking-widest text-xs sm:text-sm items-center justify-center text-center min-h-[44px] rounded-md"
-            >
-              Technical Hub
-            </Link>
           </div>
         </div>
       </div>
+
+      {/* ── Consultation Modal ── */}
+      <AnimatePresence>
+        {showModal && (
+          <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              onClick={() => setShowModal(false)}
+              className="absolute inset-0 bg-slate-900/60 backdrop-blur-sm"
+            />
+            <motion.div
+              initial={{ opacity: 0, scale: 0.95 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0, scale: 0.95 }}
+              className="relative z-10 bg-white rounded-2xl shadow-2xl p-6 sm:p-8 max-w-md w-full border border-slate-100"
+            >
+              <button
+                onClick={() => setShowModal(false)}
+                className="absolute top-4 right-4 text-slate-400 hover:text-slate-600 p-1"
+                aria-label="Close"
+              >
+                <IoCloseOutline className="text-2xl" />
+              </button>
+
+              <div className="mb-5">
+                <div className="inline-flex items-center gap-1.5 px-2.5 py-1 bg-pink-50 text-[#FF2C6D] rounded text-[10px] font-black uppercase tracking-wider mb-2">
+                  <IoSparklesOutline /> System Audit
+                </div>
+                <h3 className="text-lg font-black text-slate-900">
+                  Initialize Maintenance Consultation
+                </h3>
+                <p className="text-xs text-slate-500 mt-1">
+                  Connect with our DevOps and web engineering team to audit your current platform.
+                </p>
+              </div>
+
+              <form
+                onSubmit={(e) => {
+                  e.preventDefault();
+                  alert("Thank you! Our maintenance team will contact you shortly.");
+                  setShowModal(false);
+                }}
+                className="space-y-3 text-xs"
+              >
+                <div>
+                  <label className="block font-bold text-slate-700 mb-1">Your Name</label>
+                  <input
+                    type="text"
+                    required
+                    placeholder="Enter your name"
+                    className="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus:border-[#FF2C6D] text-slate-900"
+                  />
+                </div>
+                <div>
+                  <label className="block font-bold text-slate-700 mb-1">Website URL</label>
+                  <input
+                    type="url"
+                    required
+                    placeholder="https://example.com"
+                    className="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus:border-[#FF2C6D] text-slate-900"
+                  />
+                </div>
+                <div>
+                  <label className="block font-bold text-slate-700 mb-1">Work Email</label>
+                  <input
+                    type="email"
+                    required
+                    placeholder="name@company.com"
+                    className="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus:border-[#FF2C6D] text-slate-900"
+                  />
+                </div>
+                <div>
+                  <label className="block font-bold text-slate-700 mb-1">Current Stack / Issues</label>
+                  <textarea
+                    rows={3}
+                    placeholder="WordPress, Next.js, Laravel, downtime alerts, slow speeds..."
+                    className="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus:border-[#FF2C6D] text-slate-900 resize-none"
+                  />
+                </div>
+                <button
+                  type="submit"
+                  className="w-full py-2.5 bg-[#FF2C6D] hover:bg-[#e0285f] text-white font-bold uppercase tracking-wider text-xs rounded-lg transition-colors mt-2"
+                >
+                  Submit Ops Request
+                </button>
+              </form>
+            </motion.div>
+          </div>
+        )}
+      </AnimatePresence>
     </section>
   );
 }
