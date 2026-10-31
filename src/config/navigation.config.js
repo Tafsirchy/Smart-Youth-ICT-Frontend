@@ -95,8 +95,8 @@ export const NAVIGATION_CONFIG = {
     { href: '/super/cms/services/job-placements',    Icon: HiBriefcase,     label: 'Job Placement Support', category: 'Learning & Career' },
     
     // Web & Software
-    { href: '/super/cms/services/portfolio-websites', Icon: HiCollection,   label: 'Portfolio Websites', category: 'Web & Software' },
-    { href: '/super/cms/services/business-websites',  Icon: HiBriefcase,    label: 'Business Websites', category: 'Web & Software' },
+    { href: '/super/cms/services/portfolio-websites', Icon: HiCollection,   label: 'Portfolio', category: 'Web & Software' },
+    { href: '/super/cms/services/business-websites',  Icon: HiBriefcase,    label: 'Business', category: 'Web & Software' },
     { href: '/super/cms/services/ecommerce',          Icon: HiCreditCard,   label: 'E-commerce', category: 'Web & Software' },
     { href: '/super/cms/services/custom-apps',        Icon: HiLightningBolt, label: 'Custom Apps', category: 'Web & Software' },
     { href: '/super/cms/services/erp-crm',            Icon: HiChartBar,     label: 'ERP / CRM / POS', category: 'Web & Software' },

@@ -151,15 +151,15 @@ export const serviceColumns = [
  iconTheme: "bg-blue-100 text-blue-600",
  icon: "💻",
  items: [
- { label: "Portfolio Websites", href: "/services/portfolio-websites" },
+ { label: "Portfolio", href: "/services/portfolio-websites" },
  {
- label: "Business Websites",
+ label: "Business",
  href: "/services/business-websites",
  badge: "⭐ Popular ",
  },
- { label: "E-commerce Development", href: "/services/ecommerce" },
- { label: "Custom Web Applications", href: "/services/custom-apps" },
- { label: "ERP / CRM / POS Systems", href: "/services/erp-crm" },
+ { label: "E-commerce", href: "/services/ecommerce" },
+ { label: "Custom Web", href: "/services/custom-apps" },
+ { label: "ERP / CRM / POS", href: "/services/erp-crm" },
  ],
  price: "", // Removed for compact version
  },
@@ -458,17 +458,17 @@ export default function Navbar() {
  <motion.div
  whileHover={{ scale: 1.05 }}
  transition={{ type: "spring", stiffness: 400, damping: 15 }}
+ className="flex items-center"
  >
  <Image
  src="/images/logo.png"
  alt="Smart Youth ICT Logo"
- width={240}
- height={60}
+ width={220}
+ height={149}
  priority={true}
  fetchPriority="high"
- className="h-16 w-auto object-contain rounded-md"
+ className="h-14 sm:h-16 md:h-[68px] w-auto object-contain py-1"
  onError={(e) => { e.target.srcset = ''; e.target.src = '/images/placeholder.png'; }}
-
  decoding="async" />
  </motion.div>
  </Link>

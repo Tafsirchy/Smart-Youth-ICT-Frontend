@@ -36,7 +36,7 @@ export default function MaintenanceGuard({ children }) {
     let isMounted = true;
     const fetchMaintenanceStatus = async () => {
       try {
-        const res = await api.get('/cms/settings/public');
+        const res = await api.get('/cms/settings/public', { timeout: 8000 });
         if (isMounted && res.data?.success && res.data.data) {
           setMaintenanceMode(Boolean(res.data.data.maintenanceMode));
         }

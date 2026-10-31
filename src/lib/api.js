@@ -116,27 +116,35 @@ api.interceptors.request.use(async (config) => {
 api.interceptors.response.use(
   (response) => response,
   (error) => {
+    // If request was canceled, quietly reject without logging
+    if (axios.isCancel(error) || error?.code === "ERR_CANCELED") {
+      return Promise.reject(error);
+    }
+
     const status = error?.response?.status;
-    const message = error?.response?.data?.message || "Something went wrong.";
+    const message =
+      error?.response?.data?.message || error?.message || "Something went wrong.";
 
     if (status === 403) {
       toast.error("Access Denied: You don't have permission for this action.");
     } else if (status === 401) {
       clearSessionCache();
-      // If we get a 401, the session is likely invalid.
-      // We don't want to alert on public login pages though.
       const isLoginPage =
         typeof window !== "undefined" &&
         window.location.pathname.includes("/login");
       if (!isLoginPage) {
         toast.error("Session expired. Please sign in again.");
-        // signOut({ callbackUrl: '/login' }); // Uncomment to force logout on all 401s
       }
     } else if (status >= 500) {
       toast.error("Server error. Please try again later.");
+      console.error("[API Error]", message, status);
+    } else if (status) {
+      console.warn("[API Warning]", message, status);
+    } else {
+      // Network drop, server restarting, or offline — warn instead of error to avoid Next.js dev popup
+      console.warn("[API Network Notice]", message);
     }
 
-    console.error("[API Error]", message, status);
     return Promise.reject(error);
   },
 );
