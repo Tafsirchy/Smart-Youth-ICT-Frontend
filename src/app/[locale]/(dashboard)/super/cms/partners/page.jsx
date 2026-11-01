@@ -140,7 +140,7 @@ export default function PartnersPage() {
               transition={{ delay: index * 0.03 }}
               className="bg-white p-3 sm:p-3.5 border border-slate-100 flex flex-col items-center gap-2 group relative hover:shadow-2xl hover:shadow-indigo-500/10 hover:border-indigo-500/20 transition-all rounded-md"
             >
-              <div className="w-full aspect-video bg-slate-50 flex items-center justify-center p-2.5 grayscale group-hover:grayscale-0 transition-all duration-500 group-hover:bg-indigo-50/30 rounded relative overflow-hidden">
+              <div className="w-full aspect-video bg-slate-50 flex items-center justify-center p-2.5 transition-all duration-500 group-hover:bg-indigo-50/30 rounded relative overflow-hidden">
                 {partner.logo ? (
                   <div className="relative w-full h-full z-10">
                     <Image
