@@ -39,7 +39,7 @@ export default function ContactPage() {
   };
 
   return (
-    <div className="min-h-screen pb-20 md:pb-0 flex flex-col bg-slate-50 font-sans pt-20 sm:pt-24">
+    <div className="min-h-screen pb-20 md:pb-0 flex flex-col bg-slate-50 font-sans pt-14 sm:pt-18">
 
       {/* Content */}
       <div className="container-custom py-8 md:py-10 relative z-10">
