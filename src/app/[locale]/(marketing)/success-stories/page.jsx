@@ -15,6 +15,24 @@ const STATS = [
   { number: '200+', label: 'Hiring Partners' },
 ];
 
+function getStoryThumbnail(story) {
+  if (story?.videoThumbnail && story.videoThumbnail.trim()) {
+    return story.videoThumbnail;
+  }
+  if (story?.videoUrl) {
+    const ytMatch = story.videoUrl.match(
+      /(?:youtube\.com\/(?:[^\/]+\/.+\/|(?:v|e(?:mbed)?|shorts)\/|.*[?&]v=)|youtu\.be\/)([^"&?\/\s]{11})/i
+    );
+    if (ytMatch && ytMatch[1]) {
+      return `https://img.youtube.com/vi/${ytMatch[1]}/hqdefault.jpg`;
+    }
+  }
+  if (story?.studentAvatar && story.studentAvatar.trim()) {
+    return story.studentAvatar;
+  }
+  return "/images/placeholder.png";
+}
+
 export default function SuccessStoriesPage() {
   const [stories, setStories] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -126,14 +144,13 @@ export default function SuccessStoriesPage() {
                   className="relative overflow-hidden w-[260px] md:w-[340px] aspect-[4/5] bg-slate-200 cursor-pointer shadow-md hover:shadow-xl hover:-translate-y-1.5 shrink-0 group/card text-left focus:outline-none transition-all duration-300 border border-white rounded-xl"
                 >
                   <Image
-                    src={story.videoThumbnail || story.studentAvatar || "/images/placeholder.png"}
+                    src={getStoryThumbnail(story)}
                     alt={story.studentName || "Student"}
                     fill
                     sizes="340px"
                     loading="lazy"
                     decoding="async"
                     unoptimized={true}
-                    onError={(e) => { e.currentTarget.style.display = 'none'; }}
                     className="object-cover group-hover/card:scale-105 transition-transform duration-700 bg-slate-200 rounded-xl"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent rounded-xl" />

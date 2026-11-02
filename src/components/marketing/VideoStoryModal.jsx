@@ -92,7 +92,7 @@ export default function VideoStoryModal({ story, onClose }) {
  <div className="flex items-center gap-3 min-w-0 pr-4">
  <div className="relative w-10 h-10 sm:w-11 sm:h-11 overflow-hidden ring-2 ring-pink-500/40 shrink-0 bg-slate-800">
  <Image
- src={story.studentAvatar || story.videoThumbnail || '/images/placeholder.png'}
+ src={story.videoThumbnail || (story.videoUrl && story.videoUrl.indexOf('youtu') !== -1 ? 'https://img.youtube.com/vi/' + story.videoUrl.split('v=')[1]?.split('&')[0] + '/hqdefault.jpg' : '') || story.studentAvatar || '/images/placeholder.png'}
  alt={story.studentName || 'Student'}
  fill
  sizes="48px"
