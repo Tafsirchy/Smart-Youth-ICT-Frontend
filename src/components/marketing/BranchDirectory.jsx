@@ -132,11 +132,16 @@ export default function BranchDirectory({ locale = 'en', initialDivision = 'All'
   } = useQuery({
     queryKey: ['public-branches-directory'],
     queryFn: async () => {
-      const res = await axios.get(`${getApiBaseUrl()}/branches/public/all`);
+      const res = await axios.get(`${getApiBaseUrl()}/branches/public/all`, {
+        headers: {
+          'Cache-Control': 'no-cache',
+          Pragma: 'no-cache',
+        },
+      });
       return res.data?.data || [];
     },
     staleTime: 0,           // ✅ always refetch on mount — ensures dashboard edits show immediately
-    gcTime: 5 * 60 * 1000, // keep in memory 5 min for fast back-navigation
+    gcTime: 60 * 1000,     // 1 min memory cache
     refetchOnWindowFocus: true, // ✅ refetch when user switches back to this tab
   });
 

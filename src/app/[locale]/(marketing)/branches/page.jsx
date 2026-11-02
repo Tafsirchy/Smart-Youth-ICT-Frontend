@@ -7,6 +7,9 @@ import {
   IoShieldCheckmarkOutline,
 } from 'react-icons/io5';
 
+export const dynamic = 'force-dynamic';
+export const revalidate = 0;
+
 export const metadata = {
   title: 'Our Campuses & Learning Labs | Smart Youth ICT',
   description:
