@@ -220,12 +220,10 @@ export default function InstructorsPage() {
                             e.target.style.opacity = '0';
                           }
                         }}
-                        className="object-cover w-full h-full grayscale group-hover:grayscale-0 group-hover:scale-105 transition-all duration-500 z-10 relative"
+                        className="object-cover w-full h-full group-hover:scale-105 transition-transform duration-500 z-10 relative"
                       />
                     ) : null}
                     <UserIcon className="w-10 h-10 sm:w-12 sm:h-12 text-slate-300 absolute z-0" />
-
-                    <div className="absolute inset-0 bg-gradient-to-t from-slate-900/60 via-slate-900/0 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-20 pointer-events-none" />
                   </div>
 
                   <div className="flex-1 flex flex-col">

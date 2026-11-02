@@ -108,17 +108,15 @@ export default function AdvisoryBoardPage() {
                           e.target.style.opacity = '0';
                         }
                       }}
-                      className="object-cover w-full h-full grayscale group-hover:grayscale-0 group-hover:scale-105 transition-all duration-500 z-10 relative"
+                      className="object-cover w-full h-full group-hover:scale-105 transition-transform duration-500 z-10 relative"
                     />
                   ) : null}
-                  <div className="w-full h-full flex flex-col items-center justify-center bg-gradient-to-br from-slate-900 via-slate-800 to-slate-950 text-white absolute inset-0 z-0 select-none">
-                    <div className="w-12 h-12 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center mb-1.5 shadow-inner group-hover:border-brand-pink/40 group-hover:bg-brand-pink/10 transition-all">
-                      <span className="text-xl font-black text-brand-pink">{advisor.name ? advisor.name.charAt(0) : "A"}</span>
+                  <div className="w-full h-full flex flex-col items-center justify-center bg-slate-100 absolute inset-0 z-0 select-none">
+                    <div className="w-12 h-12 rounded-xl bg-slate-200 border border-slate-300 flex items-center justify-center mb-1.5 group-hover:border-brand-pink/40 group-hover:bg-brand-pink/10 transition-all">
+                      <span className="text-xl font-black text-slate-500">{advisor.name ? advisor.name.charAt(0) : "A"}</span>
                     </div>
                     <span className="text-[9px] font-black tracking-[0.2em] text-slate-400 uppercase font-mono">Advisory</span>
                   </div>
-
-                  <div className="absolute inset-0 bg-gradient-to-t from-slate-900/60 via-slate-900/0 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-20 pointer-events-none" />
                 </div>
 
                 <div className="flex-1 flex flex-col">
@@ -192,8 +190,8 @@ export default function AdvisoryBoardPage() {
                         className="object-cover object-top z-10 relative"
                       />
                     ) : null}
-                    <div className="w-full h-full flex flex-col items-center justify-center bg-gradient-to-br from-slate-900 via-slate-800 to-slate-950 text-white absolute inset-0 z-0 select-none">
-                      <span className="text-3xl font-black text-brand-pink">{selectedMember.name ? selectedMember.name.charAt(0) : "A"}</span>
+                    <div className="w-full h-full flex flex-col items-center justify-center bg-slate-100 absolute inset-0 z-0 select-none">
+                      <span className="text-3xl font-black text-slate-400">{selectedMember.name ? selectedMember.name.charAt(0) : "A"}</span>
                       <span className="text-[9px] font-black tracking-[0.2em] text-slate-400 uppercase font-mono mt-1">Advisory</span>
                     </div>
                   </div>
