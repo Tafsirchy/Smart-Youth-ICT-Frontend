@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { motion } from "framer-motion";
 import Link from "next/link";
@@ -33,7 +33,7 @@ export default function CareerTracksDetailsClient({ data }) {
             </div>
          </div>
 
-         <div className="container-custom pt-10 lg:pt-16">
+         <div className="container-custom pt-12 sm:pt-18">
             <div className="max-w-5xl mb-16">
                <motion.div
                   initial={{ opacity: 0 }}

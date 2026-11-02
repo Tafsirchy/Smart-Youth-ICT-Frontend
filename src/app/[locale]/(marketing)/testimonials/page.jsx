@@ -25,99 +25,119 @@ export default function TestimonialsPage() {
   }, []);
 
   return (
-    <section className="min-h-screen bg-slate-50 py-24 flex flex-col font-sans relative overflow-hidden">
-      {/* Background Blobs */}
-      <div className="absolute top-10 left-1/4 w-96 h-96 bg-brand-pink/10 blur-[150px] pointer-events-none hidden"></div>
+    <section className="min-h-screen bg-slate-50 pt-12 sm:pt-18 pb-12 md:pb-16 flex flex-col font-sans relative overflow-hidden">
+      <div className="container-custom relative z-10 w-full">
+        {/* Compact Header */}
+        <div className="max-w-4xl mb-8 md:mb-10">
+          <div className="flex items-center justify-between flex-wrap gap-2 mb-2.5">
+            <motion.div
+              initial={{ opacity: 0, x: -16 }}
+              animate={{ opacity: 1, x: 0 }}
+              className="flex items-center gap-2.5"
+            >
+              <div className="w-8 h-[2px] bg-brand-pink" />
+              <p className="text-[10px] font-black uppercase tracking-[0.25em] text-slate-400 leading-[1.4]">
+                Social Proof
+              </p>
+            </motion.div>
 
-      <div className="container-custom relative z-10">
-        <div className="text-center max-w-3xl mx-auto mb-24">
-          <motion.div
-            initial={{ opacity: 0, scale: 0.8 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.5, type: "spring" }}
-            className="inline-flex items-center justify-center gap-2 px-4 py-2 border border-amber-200 bg-amber-50 text-xs font-extrabold uppercase tracking-widest text-amber-600 mb-8 shadow-sm rounded-md"
-          >
-            <div className="flex gap-1 text-amber-500">
-              {[...Array(5)].map((_, i) => (
-                <IoStar key={i} size={14} />
-              ))}
-            </div>
-            <span>4.9/5 Average Rating</span>
-          </motion.div>
-          
-          <h1 className="text-4xl sm:text-6xl md:text-7xl font-extrabold text-slate-900 leading-[1.1] mb-8 tracking-tight">
-            Client <br />
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-brand-pink to-brand-green">Testimonials.</span>
-          </h1>
-          
-          <motion.p
-            initial={{ opacity: 0, y: 20 }}
+            <motion.div
+              initial={{ opacity: 0, scale: 0.9 }}
+              animate={{ opacity: 1, scale: 1 }}
+              className="inline-flex items-center gap-1.5 px-2.5 py-1 bg-amber-50 border border-amber-200/80 rounded-lg text-amber-700 text-[10px] font-extrabold uppercase tracking-wider"
+            >
+              <div className="flex gap-0.5 text-amber-500">
+                {[...Array(5)].map((_, i) => (
+                  <IoStar key={i} size={11} />
+                ))}
+              </div>
+              <span>4.9 / 5 Rating</span>
+            </motion.div>
+          </div>
+
+          <motion.h1
+            initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.2 }}
-            className="text-slate-600 text-lg md:text-xl leading-relaxed font-medium"
+            transition={{ delay: 0.08 }}
+            className="text-2xl sm:text-3xl md:text-4xl font-black text-slate-900 leading-[1.2] mb-2 tracking-tight"
           >
-            Thousands of students have fundamentally changed their careers, launched businesses, and achieved financial independence with SYICT. Here is what they have to say.
+            Client <span className="text-brand-pink">Testimonials</span>
+          </motion.h1>
+
+          <motion.p
+            initial={{ opacity: 0, y: 16 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.16 }}
+            className="text-slate-600 text-sm md:text-base leading-[1.6] max-w-2xl border-l-2 border-brand-pink pl-4"
+          >
+            Thousands of students have transformed their careers, launched businesses,
+            <br className="hidden sm:inline" />
+            and unlocked financial independence with SYICT. Here is their honest feedback.
           </motion.p>
         </div>
 
+        {/* Testimonials Masonry */}
         {loading ? (
-          <div className="flex justify-center items-center py-24">
-            <div className="w-12 h-12 border-4 border-slate-200 border-t-brand-pink animate-spin"></div>
+          <div className="flex justify-center items-center py-16">
+            <div className="w-10 h-10 border-4 border-slate-200 border-t-brand-pink animate-spin rounded-full" />
           </div>
         ) : (
-          <div className="columns-1 md:columns-2 lg:columns-3 gap-8 space-y-8 max-w-7xl mx-auto">
+          <div className="columns-1 md:columns-2 lg:columns-3 gap-4 space-y-4 max-w-7xl mx-auto">
             {testimonials.map((review, i) => {
               const writerName = review.isManual ? review.manualName : (review.user?.name || "Member");
               const writerAvatar = (review.isManual ? review.manualAvatar : review.user?.avatar) || "/images/placeholder.png";
-              const writerCourse = review.isManual ? review.manualCourse : (review.course?.title?.en || review.course?.title || "Project Excellence");
+              const writerCourse = review.isManual ? review.manualCourse : (review.course?.title?.en || review.course?.title || "Course Graduate");
 
               return (
                 <motion.div
                   key={review._id || i}
-                  initial={{ opacity: 0, y: 30 }}
+                  initial={{ opacity: 0, y: 16 }}
                   whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true, margin: "-50px" }}
-                  transition={{ delay: (i % 3) * 0.1 }}
-                  className="break-inside-avoid bg-white p-8 md:p-10 border border-slate-100 shadow-sm hover:shadow-xl hover:-translate-y-2 transition-all duration-300 group flex flex-col relative rounded-lg"
+                  viewport={{ once: true, margin: "-30px" }}
+                  transition={{ delay: (i % 3) * 0.06, duration: 0.35 }}
+                  className="break-inside-avoid bg-white p-5 sm:p-6 border border-slate-200/90 shadow-xs hover:shadow-md hover:border-brand-pink/30 transition-all duration-300 group flex flex-col relative rounded-2xl"
                 >
-                  <div className="absolute top-0 right-0 p-8 opacity-5 group-hover:opacity-10 transition-opacity text-brand-pink">
-                    <svg width="40" height="40" viewBox="0 0 24 24" fill="currentColor">
-                      <path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z" />
-                    </svg>
+                  <div className="flex items-center justify-between mb-3 relative z-10">
+                    <div className="flex gap-0.5 text-amber-400">
+                      {[...Array(5)].map((_, starIdx) => (
+                        <IoStar
+                          key={starIdx}
+                          size={13}
+                          className={starIdx < review.rating ? "fill-current" : "text-slate-200"}
+                        />
+                      ))}
+                    </div>
+                    <span className="text-[10px] font-black tracking-widest text-slate-300 uppercase font-mono">
+                      Verified
+                    </span>
                   </div>
 
-                  <div className="flex gap-1 text-amber-400 mb-8 relative z-10">
-                    {[...Array(5)].map((_, i) => (
-                      <IoStar key={i} size={16} className={`${i < review.rating ? 'fill-current' : 'text-slate-200'}`} />
-                    ))}
-                  </div>
-
-                  <p className="text-slate-700 font-medium leading-relaxed text-lg mb-12 relative z-10 flex-1">
+                  <p className="text-slate-700 text-xs sm:text-sm font-normal leading-[1.6] mb-4 relative z-10 flex-1">
                     "{review.text}"
                   </p>
 
-                  <div className="flex items-center gap-4 relative z-10 border-t border-slate-100 pt-8 mt-auto">
-                    <div className="w-14 h-14 bg-slate-100 border-2 border-white shadow-sm overflow-hidden shrink-0 rounded-lg relative flex items-center justify-center">
+                  <div className="flex items-center gap-3 relative z-10 border-t border-slate-100 pt-3 mt-auto">
+                    <div className="w-10 h-10 bg-slate-100 border border-slate-200 overflow-hidden shrink-0 rounded-xl relative flex items-center justify-center">
                       {writerAvatar ? (
                         <Image
                           src={writerAvatar}
                           alt={writerName}
-                          width={56}
-                          height={56}
+                          width={40}
+                          height={40}
                           loading="lazy"
                           decoding="async"
                           unoptimized={true}
                           onError={(e) => { e.currentTarget.style.display = 'none'; }}
-                          className="w-full h-full object-cover rounded-md z-10 relative"
+                          className="w-full h-full object-cover rounded-xl z-10 relative"
                         />
                       ) : null}
-                      <div className="w-full h-full flex items-center justify-center bg-indigo-50 text-indigo-600 font-bold text-base absolute inset-0 z-0">
+                      <div className="w-full h-full flex items-center justify-center bg-indigo-50 text-indigo-600 font-black text-xs absolute inset-0 z-0">
                         {writerName ? writerName.charAt(0) : "U"}
                       </div>
                     </div>
                     <div className="min-w-0">
-                      <h4 className="font-extrabold text-slate-900 truncate">{writerName}</h4>
-                      <p className="text-brand-green text-[10px] font-extrabold uppercase tracking-widest truncate mt-1">
+                      <h4 className="font-black text-slate-900 text-xs sm:text-sm truncate leading-[1.3]">{writerName}</h4>
+                      <p className="text-brand-pink text-[9px] font-extrabold uppercase tracking-wider truncate mt-0.5 leading-[1.2]">
                         {writerCourse}
                       </p>
                     </div>
@@ -130,14 +150,17 @@ export default function TestimonialsPage() {
       </div>
 
       {/* Mobile Sticky CTA */}
-      <div className="fixed bottom-0 left-0 w-full p-4 bg-white/90 backdrop-blur-md border-t border-slate-200 z-50 md:hidden flex items-center justify-between shadow-[0_-10px_40px_rgba(0,0,0,0.05)]">
+      <div className="fixed bottom-0 left-0 w-full p-3 bg-white/90 backdrop-blur-md border-t border-slate-200 z-50 md:hidden flex items-center justify-between shadow-[0_-8px_24px_rgba(0,0,0,0.06)] pb-[max(0.75rem,env(safe-area-inset-bottom))]">
         <div>
-          <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Next Step</p>
-          <p className="text-slate-900 font-bold text-sm">Join the Program</p>
+          <p className="text-[9px] font-black text-slate-400 uppercase tracking-widest leading-none mb-1">Feedback</p>
+          <p className="text-slate-900 font-black text-xs leading-none">Rated 4.9 by Alumni</p>
         </div>
-        <button className="px-6 py-3 bg-brand-pink text-white font-bold text-[10px] uppercase tracking-widest shadow-lg shadow-brand-pink/30 rounded-md">
-          Apply Now
-        </button>
+        <a
+          href="/courses"
+          className="px-5 py-2.5 min-h-[40px] bg-brand-pink text-white font-extrabold text-[10px] uppercase tracking-wider rounded-lg flex items-center justify-center active:scale-95"
+        >
+          Join Now
+        </a>
       </div>
     </section>
   );

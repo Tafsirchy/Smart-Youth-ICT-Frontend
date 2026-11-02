@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import React, { useState, useEffect, useRef, useMemo } from "react";
 import { useQuery } from '@tanstack/react-query';
@@ -16,12 +16,12 @@ import {
 } from "react-icons/io5";
 
 const CATEGORIES = [
- { id: "all", label: "🌐 All Courses" },
- { id: "web-dev", label: "💻 Web Dev" },
- { id: "graphic-design", label: "🎨 Design" },
- { id: "smm", label: "📣 Marketing" },
- { id: "ai", label: "🤖 AI & Tools" },
- { id: "other", label: "🧩 Other" },
+ { id: "all", label: "ðŸŒ All Courses" },
+ { id: "web-dev", label: "ðŸ’» Web Dev" },
+ { id: "graphic-design", label: "ðŸŽ¨ Design" },
+ { id: "smm", label: "ðŸ“£ Marketing" },
+ { id: "ai", label: "ðŸ¤– AI & Tools" },
+ { id: "other", label: "ðŸ§© Other" },
 ];
 
 const stagger = { animate: { transition: { staggerChildren: 0.07 } } };
@@ -120,7 +120,7 @@ export default function CoursesPage() {
  className="min-h-screen pb-24 md:pb-0 flex flex-col"
  style={{ background: "var(--color-background)" }}
  >
- {/* ── Hero Banner ───────────────────────────────── */}
+ {/* â”€â”€ Hero Banner â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */}
  {heroConfig?.mode === 'image_only' && heroConfig?.imageUrl ? (
  <section className="relative w-full overflow-hidden flex items-center justify-center bg-slate-950">
  <img
@@ -131,7 +131,7 @@ export default function CoursesPage() {
  </section>
  ) : (
  <section
- className="relative w-full overflow-hidden py-14 sm:py-24 text-center px-4"
+ className="relative w-full overflow-hidden pt-12 sm:pt-18 pb-10 sm:pb-14 text-center px-4"
  style={{
  background: heroConfig?.imageUrl 
  ? (heroConfig?.imageFit === 'contain'
@@ -174,7 +174,7 @@ export default function CoursesPage() {
  transition={{ duration: 0.5 }}
  >
  <span className="inline-block mb-3 px-4 py-1.5 text-[10px] sm:text-xs font-bold uppercase tracking-wider text-indigo-200 bg-white/10 border border-white/10 backdrop-blur-md rounded-md">
- 🎓{" "}
+ ðŸŽ“{" "}
  {filteredCourses.length > 0
  ? `${filteredCourses.length} Courses Available`
  : "Courses"}
@@ -196,7 +196,7 @@ export default function CoursesPage() {
  />
  <input
  type="text"
- placeholder="Search courses…"
+ placeholder="Search coursesâ€¦"
  className="w-full pl-12 pr-12 py-3.5 sm:py-4 bg-white/15 backdrop-blur-md border border-white/20 text-white placeholder-indigo-200 focus:outline-none focus:ring-2 focus:ring-indigo-400 focus:bg-white/20 transition-all text-base min-h-[48px] rounded-md"
  value={inputVal}
  onChange={handleSearchChange}
@@ -214,7 +214,7 @@ export default function CoursesPage() {
     </section>
  )}
 
- {/* ── Category Filter Bar ─────────────────────── */}
+ {/* â”€â”€ Category Filter Bar â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */}
  {/* Sticky offset top-[72px] matching the height of the sticky global Navbar, slides up on scroll down */}
  <section className={`sticky z-20 bg-[var(--color-surface)] border-b border-neutral-200 shadow-sm py-2.5 sm:py-3 transition-all duration-300 ${
  filtersHidden ? "top-[-100px]" : "top-[72px]"
@@ -260,7 +260,7 @@ export default function CoursesPage() {
  </div>
  </section>
 
- {/* ── Course Grid ──────────────────────────────── */}
+ {/* â”€â”€ Course Grid â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */}
  <div className="container-custom px-4 sm:px-6 py-10 sm:py-16">
  {loading ? (
  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-6">

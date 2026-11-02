@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useState } from "react";
 import {
@@ -19,7 +19,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
 import { getIcon } from "@/lib/icons";
 
-/* ─── Deliverables Icon Map ──────────────────────────────────────────────── */
+/* â”€â”€â”€ Deliverables Icon Map â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
 const DELIVERABLE_ICONS = [
   IoDiamondOutline,
   IoEyeOutline,
@@ -52,9 +52,9 @@ export default function BrandingClient({ content }) {
       <div className="fixed inset-0 bg-[radial-gradient(#0F172A08_1px,transparent_1px)] [background-size:22px_22px] pointer-events-none z-0" />
 
       <div className="relative z-10 flex flex-col flex-1">
-        {/* ── Minimized Hero ── */}
+        {/* â”€â”€ Minimized Hero â”€â”€ */}
         <div className="border-b border-slate-100 bg-white/70 backdrop-blur-sm">
-          <div className="container-custom pt-10 sm:pt-14 pb-8 flex flex-col items-center text-center gap-3 max-w-3xl mx-auto">
+          <div className="container-custom pt-12 sm:pt-18 pb-8 flex flex-col items-center text-center gap-3 max-w-3xl mx-auto">
             <motion.div
               initial={{ opacity: 0, y: -8 }}
               animate={{ opacity: 1, y: 0 }}
@@ -106,7 +106,7 @@ export default function BrandingClient({ content }) {
           </div>
         </div>
 
-        {/* ── Key Highlights Strip ── */}
+        {/* â”€â”€ Key Highlights Strip â”€â”€ */}
         {metricsData.length > 0 && (
           <div className="border-b border-slate-100 bg-slate-50/80">
             <div className="container-custom py-3.5">
@@ -126,7 +126,7 @@ export default function BrandingClient({ content }) {
           </div>
         )}
 
-        {/* ── Capability Pillars (Design DNA) ── */}
+        {/* â”€â”€ Capability Pillars (Design DNA) â”€â”€ */}
         {pillarsData.length > 0 && (
           <div className="container-custom py-10 sm:py-14">
             <div className="text-center max-w-xl mx-auto mb-8">
@@ -173,7 +173,7 @@ export default function BrandingClient({ content }) {
           </div>
         )}
 
-        {/* ── Deliverables ── */}
+        {/* â”€â”€ Deliverables â”€â”€ */}
         {deliverablesData.length > 0 && (
           <div className="border-t border-b border-slate-100 bg-slate-50/60 py-10">
             <div className="container-custom">
@@ -220,7 +220,7 @@ export default function BrandingClient({ content }) {
           </div>
         )}
 
-        {/* ── Pricing ── */}
+        {/* â”€â”€ Pricing â”€â”€ */}
         {pricingData.length > 0 && (
           <div className="container-custom py-10 sm:py-14">
             <div className="text-center max-w-xl mx-auto mb-8">
@@ -292,7 +292,7 @@ export default function BrandingClient({ content }) {
           </div>
         )}
 
-        {/* ── FAQs ── */}
+        {/* â”€â”€ FAQs â”€â”€ */}
         {faqsData.length > 0 && (
           <div className="border-t border-slate-100 bg-slate-50/60 py-10">
             <div className="container-custom max-w-3xl">
@@ -345,7 +345,7 @@ export default function BrandingClient({ content }) {
           </div>
         )}
 
-        {/* ── Compact CTA ── */}
+        {/* â”€â”€ Compact CTA â”€â”€ */}
         <div className="container-custom py-10 sm:py-14">
           <div className="bg-slate-900 rounded-2xl p-8 sm:p-10 text-center text-white relative overflow-hidden max-w-4xl mx-auto shadow-xl">
             <h3 className="text-2xl sm:text-3xl font-black mb-3 text-white">
@@ -374,7 +374,7 @@ export default function BrandingClient({ content }) {
         </div>
       </div>
 
-      {/* ── Consultation Modal ── */}
+      {/* â”€â”€ Consultation Modal â”€â”€ */}
       <AnimatePresence>
         {showModal && (
           <motion.div
@@ -396,7 +396,7 @@ export default function BrandingClient({ content }) {
                     Discovery Session
                   </h3>
                   <p className="text-xs text-slate-500">
-                    Free consultation · 30 min · No commitment
+                    Free consultation Â· 30 min Â· No commitment
                   </p>
                 </div>
                 <button

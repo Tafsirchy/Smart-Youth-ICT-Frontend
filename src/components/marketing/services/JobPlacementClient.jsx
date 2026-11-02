@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { motion } from "framer-motion";
 import Image from "next/image";
@@ -20,9 +20,9 @@ export default function JobPlacementClient({ data, content }) {
 
       <div className="relative z-10 flex flex-col flex-1">
 
-        {/* ── Hero ── */}
+        {/* â”€â”€ Hero â”€â”€ */}
         <div className="border-b border-slate-100">
-          <div className="container-custom pt-10 sm:pt-12 pb-7 flex flex-col items-center text-center gap-2.5 max-w-2xl mx-auto">
+          <div className="container-custom pt-12 sm:pt-18 pb-7 flex flex-col items-center text-center gap-2.5 max-w-2xl mx-auto">
 
             <motion.div
               initial={{ opacity: 0, y: -8 }}
@@ -73,7 +73,7 @@ export default function JobPlacementClient({ data, content }) {
           </div>
         </div>
 
-        {/* ── Stats Bar ── */}
+        {/* â”€â”€ Stats Bar â”€â”€ */}
         {(data?.stats?.partners || data?.stats?.rate) && (
           <div className="border-b border-slate-100 bg-slate-50">
             <div className="container-custom py-4">
@@ -103,7 +103,7 @@ export default function JobPlacementClient({ data, content }) {
           </div>
         )}
 
-        {/* ── Placement Track Classifications ── */}
+        {/* â”€â”€ Placement Track Classifications â”€â”€ */}
         <div className="container-custom py-6">
           {data?.placements?.length > 0 ? (
             <>
@@ -162,7 +162,7 @@ export default function JobPlacementClient({ data, content }) {
           )}
         </div>
 
-        {/* ── Recruitment Lifecycle ── */}
+        {/* â”€â”€ Recruitment Lifecycle â”€â”€ */}
         {data?.lifecycle?.length > 0 && (
           <div className="border-t border-slate-100 bg-slate-50">
             <div className="container-custom py-6 max-w-3xl mx-auto">
@@ -205,7 +205,7 @@ export default function JobPlacementClient({ data, content }) {
           </div>
         )}
 
-        {/* ── Career Launch Labs ── */}
+        {/* â”€â”€ Career Launch Labs â”€â”€ */}
         <div className="container-custom py-6">
           <motion.div
             initial={{ opacity: 0, y: 16 }}
@@ -231,7 +231,7 @@ export default function JobPlacementClient({ data, content }) {
                 </div>
 
                 <p className="text-slate-500 text-sm leading-[1.6]">
-                  We don't just refer — we prepare. Our physically simulated interview labs provide you with the exact pressure-test you need before facing real hiring boards.
+                  We don't just refer â€” we prepare. Our physically simulated interview labs provide you with the exact pressure-test you need before facing real hiring boards.
                 </p>
 
                 <div className="grid grid-cols-2 gap-3 pt-1 border-t border-slate-100">
@@ -260,7 +260,7 @@ export default function JobPlacementClient({ data, content }) {
                 </button>
               </div>
 
-              {/* Image — desktop only */}
+              {/* Image â€” desktop only */}
               <div className="hidden lg:block relative w-[320px] shrink-0">
                 <div className="absolute top-0 left-0 w-px h-full bg-slate-100" />
                 <Image

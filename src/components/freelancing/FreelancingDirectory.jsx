@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import React, { useState, useMemo } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -120,7 +120,7 @@ export default function FreelancingDirectory() {
  return (
  <div className="bg-neutral-50 min-h-screen pb-24 md:pb-0 flex flex-col">
  {/* Hero Section */}
- <section className="bg-neutral-900 py-12 md:py-20 text-center px-4 sm:px-6 lg:px-8 relative overflow-hidden rounded-md">
+ <section className="bg-neutral-900 pt-12 sm:pt-18 pb-10 md:pb-14 text-center px-4 sm:px-6 lg:px-8 relative overflow-hidden rounded-md">
  {/* Decorative grid pattern */}
  <div className="absolute inset-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:24px_24px] pointer-events-none opacity-20"></div>
  <div className="relative z-10 max-w-4xl mx-auto">
@@ -164,7 +164,7 @@ export default function FreelancingDirectory() {
  </section>
 
  {/* Projects Grid Section */}
- <section id="projects" className="py-12 md:py-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
+ <section id="projects" className="pt-12 sm:pt-18 pb-10 md:pb-14 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
  <div className="mb-10 flex flex-col md:flex-row md:items-center justify-between gap-6">
  <div>
  <h2 className="text-2xl sm:text-3xl font-bold text-neutral-900 mb-2">Active Opportunities</h2>

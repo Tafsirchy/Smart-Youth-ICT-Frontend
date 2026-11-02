@@ -1,4 +1,4 @@
-/** @type {import('tailwindcss').Config} */
+﻿/** @type {import('tailwindcss').Config} */
 
 const theme = require('./src/lib/theme');
 
@@ -11,31 +11,34 @@ module.exports = {
 
   theme: {
     extend: {
-      // ─── Brand Colors ──────────────────────────────────────────────
+      spacing: {
+        18: '4.5rem',
+      },
+      // â”€â”€â”€ Brand Colors â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
       colors: {
         brand: {
-          pink:       theme.colors.brand.pink,       // #FF2C6D — Primary CTA
-          pinkLight:  theme.colors.brand.pinkLight,  // #FF6A95 — Hover state
-          green:      theme.colors.brand.green,      // #10B981 — Secondary brand
-          greenLight: theme.colors.brand.greenLight, // #34D399 — Success / badge
-          accent:     theme.colors.brand.accent,     // #22D3EE — Accent cyan
+          pink:       theme.colors.brand.pink,       // #FF2C6D â€” Primary CTA
+          pinkLight:  theme.colors.brand.pinkLight,  // #FF6A95 â€” Hover state
+          green:      theme.colors.brand.green,      // #10B981 â€” Secondary brand
+          greenLight: theme.colors.brand.greenLight, // #34D399 â€” Success / badge
+          accent:     theme.colors.brand.accent,     // #22D3EE â€” Accent cyan
         },
-        dark:              theme.colors.dark,              // #0F172A — Navbar / sidebar
-        background:        theme.colors.background,        // #F8FAFC — Page bg
-        surface:           theme.colors.surface,           // #FFFFFF — Cards / panels
-        border:            theme.colors.border,            // #E2E8F0 — Dividers / inputs
-        textPrimary:       theme.colors.textPrimary,       // #0F172A — Headings
-        textSecondary:     theme.colors.textSecondary,     // #64748B — Descriptions
+        dark:              theme.colors.dark,              // #0F172A â€” Navbar / sidebar
+        background:        theme.colors.background,        // #F8FAFC â€” Page bg
+        surface:           theme.colors.surface,           // #FFFFFF â€” Cards / panels
+        border:            theme.colors.border,            // #E2E8F0 â€” Dividers / inputs
+        textPrimary:       theme.colors.textPrimary,       // #0F172A â€” Headings
+        textSecondary:     theme.colors.textSecondary,     // #64748B â€” Descriptions
       },
 
-      // ─── Brand Gradients (use via arbitrary-value classes) ─────────
+      // â”€â”€â”€ Brand Gradients (use via arbitrary-value classes) â”€â”€â”€â”€â”€â”€â”€â”€â”€
       backgroundImage: {
         'gradient-hero': 'linear-gradient(135deg, #FF2C6D 0%, #10B981 100%)',
         'gradient-cta':  'linear-gradient(135deg, #FF2C6D 0%, #22D3EE 100%)',
         'gradient-btn':  'linear-gradient(135deg, #FF6A95 0%, #10B981 100%)',
       },
 
-      // ─── Typography ────────────────────────────────────────────────
+      // â”€â”€â”€ Typography â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
       fontFamily: {
         display: ['var(--font-outfit)', 'var(--font-display)', 'system-ui', 'sans-serif'],
         sans:    ['var(--font-inter)', 'var(--font-sans)', 'system-ui', 'sans-serif'],
@@ -56,20 +59,20 @@ module.exports = {
         '5xl':        ['var(--text-5xl)',        { lineHeight: '1.1' }],
       },
 
-      // ─── Shadows ───────────────────────────────────────────────────
+      // â”€â”€â”€ Shadows â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
       boxShadow: {
         card:  '0 2px 16px 0 rgba(0,0,0,0.07)',
         hover: '0 8px 32px 0 rgba(255,44,109,0.18)',
         focus: '0 0 0 3px rgba(255,44,109,0.25)',
       },
 
-      // ─── Border Radius ─────────────────────────────────────────────
+      // â”€â”€â”€ Border Radius â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
       borderRadius: {
         xl2: '1rem',
         xl3: '1.5rem',
       },
 
-      // ─── Transitions ───────────────────────────────────────────────
+      // â”€â”€â”€ Transitions â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
       transitionTimingFunction: {
         smooth: 'cubic-bezier(0.4, 0, 0.2, 1)',
       },

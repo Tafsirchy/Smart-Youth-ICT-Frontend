@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { motion } from "framer-motion";
 import Link from "next/link";
@@ -17,9 +17,9 @@ export default function CertificationsClient({ programs, content }) {
 
       <div className="relative z-10 flex flex-col flex-1">
 
-        {/* ── Hero ── */}
+        {/* â”€â”€ Hero â”€â”€ */}
         <div className="border-b border-slate-100">
-          <div className="container-custom pt-10 sm:pt-14 pb-8 flex flex-col items-center text-center gap-3 max-w-2xl mx-auto">
+          <div className="container-custom pt-12 sm:pt-18 pb-8 flex flex-col items-center text-center gap-3 max-w-2xl mx-auto">
 
             <motion.div
               initial={{ opacity: 0, y: -8 }}
@@ -71,7 +71,7 @@ export default function CertificationsClient({ programs, content }) {
           </div>
         </div>
 
-        {/* ── Program Cards ── */}
+        {/* â”€â”€ Program Cards â”€â”€ */}
         <div className="container-custom py-6">
           <div className="flex overflow-x-auto snap-x snap-mandatory gap-3 pb-1 md:grid md:grid-cols-2 lg:grid-cols-3 md:gap-3 scrollbar-hide -mx-[var(--gutter)] px-[var(--gutter)]">
             {programs?.length > 0 ? (
@@ -135,7 +135,7 @@ export default function CertificationsClient({ programs, content }) {
           </div>
         </div>
 
-        {/* ── Verification CTA Strip ── */}
+        {/* â”€â”€ Verification CTA Strip â”€â”€ */}
         <div className="container-custom pb-6">
           <div className="rounded-xl border border-slate-200 bg-slate-50 p-5 relative overflow-hidden">
             <div className="absolute top-0 right-0 w-64 h-64 bg-brand-green/6 blur-[60px] -translate-y-1/2 translate-x-1/2 pointer-events-none" />

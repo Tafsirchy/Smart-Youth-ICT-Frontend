@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { motion } from "framer-motion";
 import Link from "next/link";
@@ -18,7 +18,7 @@ const DEFAULT_PORTFOLIO_DATA = {
     title: "Portfolio Websites",
     subtitle: "Websites",
     description:
-      "We don't build generic templates; we engineer digital pedestals. Your craft is extraordinary—it deserves a bespoke online showcase that amplifies authority, wins high-ticket retainers, and loads in milliseconds.",
+      "We don't build generic templates; we engineer digital pedestals. Your craft is extraordinaryâ€”it deserves a bespoke online showcase that amplifies authority, wins high-ticket retainers, and loads in milliseconds.",
     mainImage:
       "https://images.unsplash.com/photo-1541462608143-67571c6738dd?w=1000&h=1200&fit=crop",
   },
@@ -156,9 +156,9 @@ export default function PortfolioWebsitesClient({ data }) {
       <div className="fixed inset-0 bg-[radial-gradient(#0F172A08_1px,transparent_1px)] [background-size:22px_22px] pointer-events-none z-0" />
 
       <div className="relative z-10 flex flex-col flex-1">
-        {/* ── Hero ── */}
+        {/* â”€â”€ Hero â”€â”€ */}
         <div className="border-b border-slate-100 bg-white/70 backdrop-blur-sm">
-          <div className="container-custom pt-10 sm:pt-14 pb-8 flex flex-col items-center text-center gap-3 max-w-3xl mx-auto">
+          <div className="container-custom pt-12 sm:pt-18 pb-8 flex flex-col items-center text-center gap-3 max-w-3xl mx-auto">
             <motion.div
               initial={{ opacity: 0, y: -8 }}
               animate={{ opacity: 1, y: 0 }}
@@ -230,7 +230,7 @@ export default function PortfolioWebsitesClient({ data }) {
           </div>
         </div>
 
-        {/* ── Key Highlights Strip ── */}
+        {/* â”€â”€ Key Highlights Strip â”€â”€ */}
         <div className="border-b border-slate-100 bg-slate-50/80">
           <div className="container-custom py-3.5">
             <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 text-center divide-x divide-slate-200/60">
@@ -270,7 +270,7 @@ export default function PortfolioWebsitesClient({ data }) {
           </div>
         </div>
 
-        {/* ── Design Philosophies ── */}
+        {/* â”€â”€ Design Philosophies â”€â”€ */}
         <div className="container-custom py-10">
           <div className="text-center max-w-xl mx-auto mb-8">
             <h2 className="text-[11px] font-black text-slate-400 uppercase tracking-widest mb-1.5 leading-[1.4]">
@@ -308,7 +308,7 @@ export default function PortfolioWebsitesClient({ data }) {
           </div>
         </div>
 
-        {/* ── 5-Phase Production Process ── */}
+        {/* â”€â”€ 5-Phase Production Process â”€â”€ */}
         <div className="border-t border-b border-slate-100 bg-slate-50/60 py-10">
           <div className="container-custom">
             <div className="text-center max-w-xl mx-auto mb-8">
@@ -341,7 +341,7 @@ export default function PortfolioWebsitesClient({ data }) {
           </div>
         </div>
 
-        {/* ── Investment Packages ── */}
+        {/* â”€â”€ Investment Packages â”€â”€ */}
         <div className="container-custom py-10">
           <div className="text-center max-w-xl mx-auto mb-8">
             <h2 className="text-[11px] font-black text-slate-400 uppercase tracking-widest mb-1.5 leading-[1.4]">
@@ -410,7 +410,7 @@ export default function PortfolioWebsitesClient({ data }) {
           </div>
         </div>
 
-        {/* ── Immersive Conversion CTA ── */}
+        {/* â”€â”€ Immersive Conversion CTA â”€â”€ */}
         <div className="container-custom pb-12 pt-4">
           <div className="bg-slate-900 text-white rounded-2xl p-8 sm:p-12 text-center relative overflow-hidden">
             <div className="relative z-10 max-w-2xl mx-auto flex flex-col items-center gap-3">
@@ -444,7 +444,7 @@ export default function PortfolioWebsitesClient({ data }) {
         </div>
       </div>
 
-      {/* ── Mobile Sticky CTA ── */}
+      {/* â”€â”€ Mobile Sticky CTA â”€â”€ */}
       <div className="sticky bottom-0 left-0 w-full p-3.5 bg-white/95 backdrop-blur-md border-t border-slate-200 z-50 md:hidden flex items-center justify-between shadow-[0_-8px_30px_rgba(0,0,0,0.06)] pb-[max(0.875rem,env(safe-area-inset-bottom))] mt-auto">
         <div className="flex flex-col gap-0.5">
           <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest leading-[1.3]">

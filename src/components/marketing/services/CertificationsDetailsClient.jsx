@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { motion } from "framer-motion";
 import Link from "next/link";
@@ -34,7 +34,7 @@ export default function CertificationsDetailsClient({ data }) {
             </div>
          </div>
 
-         <div className="container-custom pt-8">
+         <div className="container-custom pt-12 sm:pt-18">
             {/* TECH HEADER */}
             <div className="max-w-5xl mb-8">
                <motion.div

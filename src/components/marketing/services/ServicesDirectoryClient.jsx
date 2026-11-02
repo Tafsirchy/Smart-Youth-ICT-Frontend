@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { motion } from "framer-motion";
 import Link from "next/link";
@@ -55,7 +55,7 @@ export default function ServicesDirectoryClient() {
          <div className="absolute top-0 right-1/3 w-[1px] h-full bg-slate-300"></div>
       </div>
 
-      <div className="container-custom pt-4 lg:pt-8">
+      <div className="container-custom pt-12 sm:pt-18">
         {/* HEADER */}
         <div className="max-w-4xl mb-12 px-4 md:px-0">
           <motion.div

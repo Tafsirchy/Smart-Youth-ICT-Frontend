@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { motion } from "framer-motion";
 import Link from "next/link";
@@ -26,7 +26,7 @@ export default function SeoDetailsClient({ data }) {
         </div>
       </div>
 
-      <div className="container-custom pt-6 md:pt-10 pb-[max(3rem,env(safe-area-inset-bottom))] md:pb-0">
+      <div className="container-custom pt-12 sm:pt-18 pb-[max(3rem,env(safe-area-inset-bottom))] md:pb-0">
         <div className="max-w-5xl mb-12 md:mb-16 relative">
           <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="flex items-center gap-3 md:gap-4 text-indigo-600 mb-4 md:mb-6">
             <div className="w-12 h-[1px] bg-indigo-600"></div>

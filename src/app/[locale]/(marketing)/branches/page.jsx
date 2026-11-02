@@ -1,4 +1,4 @@
-import React, { Suspense } from 'react';
+﻿import React, { Suspense } from 'react';
 import BranchDirectory from '@/components/marketing/BranchDirectory';
 import {
   IoBusinessOutline,
@@ -22,8 +22,8 @@ export default async function BranchesPage({ params, searchParams }) {
   const initialDivision = resolvedSearchParams?.division || 'All';
 
   return (
-    <div className="min-h-screen bg-slate-50/60 dark:bg-slate-950 pt-20 sm:pt-24 pb-8 font-sans selection:bg-blue-500/20">
-      {/* ── Hero Section ── */}
+    <div className="min-h-screen bg-slate-50/60 dark:bg-slate-950 pt-12 sm:pt-18 pb-8 font-sans selection:bg-blue-500/20">
+      {/* â”€â”€ Hero Section â”€â”€ */}
       <section className="relative overflow-hidden pt-4 pb-5">
         <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-7xl h-48 bg-gradient-to-b from-blue-500/5 via-indigo-500/5 to-transparent blur-3xl pointer-events-none -z-10" />
 
@@ -31,11 +31,11 @@ export default async function BranchesPage({ params, searchParams }) {
           {/* Eyebrow Badge */}
           <div className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-blue-50 dark:bg-blue-950/50 border border-blue-200/80 dark:border-blue-900/60 text-blue-700 dark:text-blue-300 text-xs font-bold uppercase tracking-wider shadow-xs">
             <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
-            <span>Nationwide Presence • 13 Advanced Learning Centers</span>
+            <span>Nationwide Presence â€¢ 13 Advanced Learning Centers</span>
           </div>
 
           {/* Main Hero Headline */}
-          <h1 className="text-3xl sm:text-4xl lg:text-5xl font-black text-slate-900 dark:text-white tracking-tight leading-[1.15] max-w-4xl mx-auto">
+          <h1 className="text-2xl sm:text-3xl md:text-4xl font-black text-slate-900 dark:text-white tracking-tight leading-[1.2] max-w-4xl mx-auto">
             State-of-the-Art Campuses{' '}
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 via-indigo-600 to-[#FF2C6D]">
               Across Bangladesh
@@ -93,7 +93,7 @@ export default async function BranchesPage({ params, searchParams }) {
         </div>
       </section>
 
-      {/* ── Interactive Campuses Directory & Map ── */}
+      {/* â”€â”€ Interactive Campuses Directory & Map â”€â”€ */}
       <Suspense
         fallback={
           <div className="container-custom py-16 text-center">

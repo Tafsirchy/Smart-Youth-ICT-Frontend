@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { motion } from "framer-motion";
 import Image from "next/image";
@@ -73,7 +73,7 @@ export default function PartnershipMembershipPage() {
  }, []);
 
  return (
- <section className="min-h-screen pb-20 md:pb-0 bg-slate-50 py-10 md:py-14 overflow-hidden relative flex flex-col">
+ <section className="min-h-screen pb-20 md:pb-0 bg-slate-50 pt-12 sm:pt-18 pb-10 md:pb-14 overflow-hidden relative flex flex-col">
  <div className="absolute inset-0 bg-[linear-gradient(to_right,#slate-200_1px,transparent_1px),linear-gradient(to_bottom,#slate-200_1px,transparent_1px)] bg-[size:24px_24px] opacity-[0.03]"></div>
 
  <div className="container-custom relative z-10">
@@ -89,7 +89,7 @@ export default function PartnershipMembershipPage() {
  initial={{ opacity: 0, y: 20 }}
  animate={{ opacity: 1, y: 0 }}
  transition={{ delay: 0.1 }}
- className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-black text-slate-900 leading-tight mb-3 md:mb-4 tracking-tight"
+ className="text-2xl sm:text-3xl md:text-4xl font-black text-slate-900 leading-[1.2] mb-3 md:mb-4 tracking-tight"
  >
  Partnership &amp;{" "}
  <span className="text-transparent bg-clip-text bg-gradient-to-r from-brand-pink to-rose-500">
@@ -100,10 +100,10 @@ export default function PartnershipMembershipPage() {
  initial={{ opacity: 0, y: 20 }}
  animate={{ opacity: 1, y: 0 }}
  transition={{ delay: 0.2 }}
- className="text-slate-600 text-lg md:text-xl leading-relaxed max-w-2xl mx-auto"
- >
- The organisations Smart Youth ICT partners with and the professional
- bodies and networks we proudly hold membership in.
+ className="text-slate-600 text-base md:text-lg leading-relaxed max-w-4xl mx-auto"
+        >
+          The organisations Smart Youth ICT partners with and the<br className="hidden sm:inline" />{" "}
+          <span className="sm:whitespace-nowrap">professional bodies and networks we proudly hold membership in.</span>
  </motion.p>
  </div>
 

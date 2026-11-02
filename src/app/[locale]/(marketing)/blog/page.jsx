@@ -1,4 +1,4 @@
-import Link from "next/link";
+﻿import Link from "next/link";
 import Image from "next/image";
 import {
   IoSearchOutline,
@@ -14,11 +14,11 @@ export const revalidate = 3600;
 export async function generateMetadata({ params }) {
   const { locale } = await params;
   return {
-    title: "Blog — Smart Youth ICT",
+    title: "Blog â€” Smart Youth ICT",
     description:
       "IT tips, freelancing guides and career advice from Bangladesh's leading IT training platform.",
     openGraph: {
-      title: "Blog — Smart Youth ICT",
+      title: "Blog â€” Smart Youth ICT",
       url: `${process.env.NEXT_PUBLIC_APP_URL}/${locale}/blog`,
     },
   };
@@ -130,8 +130,8 @@ export default async function BlogPage({ params, searchParams }) {
 
   return (
     <div className="min-h-screen pb-16 md:pb-20 flex flex-col bg-slate-50 font-sans">
-      {/* ── Hero ── */}
-      <div className="relative pt-20 sm:pt-24 pb-8 md:pb-10 px-4 text-center bg-white border-b border-slate-100">
+      {/* â”€â”€ Hero â”€â”€ */}
+      <div className="relative pt-12 sm:pt-18 pb-8 md:pb-10 px-4 text-center bg-white border-b border-slate-100">
         <div className="relative z-10 max-w-3xl mx-auto">
           <div className="flex items-center justify-center gap-3 mb-3 md:mb-4">
             <div className="w-6 h-[1px] bg-slate-300"></div>
@@ -145,7 +145,7 @@ export default async function BlogPage({ params, searchParams }) {
             <span className="font-semibold">Resources.</span>
           </h1>
           <p className="text-slate-500 text-sm sm:text-base leading-[1.6] max-w-2xl mx-auto font-light mb-6 md:mb-8">
-            IT career tips, freelancing guides & industry insights — straight
+            IT career tips, freelancing guides & industry insights â€” straight
             from our instructors to help you grow.
           </p>
 
@@ -159,14 +159,14 @@ export default async function BlogPage({ params, searchParams }) {
               type="search"
               name="q"
               defaultValue={q}
-              placeholder="Search articles…"
+              placeholder="Search articlesâ€¦"
               className="w-full pl-11 pr-4 py-2.5 bg-slate-50 border border-slate-100 text-slate-900 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-slate-200 focus:bg-white transition-all text-sm font-light shadow-sm rounded-md leading-[1.4]"
             />
           </form>
         </div>
       </div>
 
-      {/* ── Sticky Tag Pills ── */}
+      {/* â”€â”€ Sticky Tag Pills â”€â”€ */}
       {tags.length > 0 && (
         <div className="sticky top-0 z-20 bg-white/80 backdrop-blur-md border-b border-slate-100 shadow-xs">
           <div className="container-lg mx-auto px-4 py-2.5 flex gap-2 overflow-x-auto scrollbar-hide">
@@ -189,7 +189,7 @@ export default async function BlogPage({ params, searchParams }) {
         </div>
       )}
 
-      {/* ── Post Grid ── */}
+      {/* â”€â”€ Post Grid â”€â”€ */}
       <div className="container-lg mx-auto px-4 py-8 md:py-10">
         {posts.length > 0 ? (
           <div className="space-y-8 md:space-y-10">
@@ -279,7 +279,7 @@ export default async function BlogPage({ params, searchParams }) {
               No articles yet
             </h3>
             <p className="text-slate-500 text-sm font-light leading-[1.6]">
-              Check back soon — our instructors are writing for you, or try searching for something else.
+              Check back soon â€” our instructors are writing for you, or try searching for something else.
             </p>
           </div>
         )}

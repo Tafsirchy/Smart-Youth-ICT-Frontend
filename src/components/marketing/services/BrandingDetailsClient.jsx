@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { motion } from "framer-motion";
 import Link from "next/link";
@@ -43,7 +43,7 @@ export default function BrandingDetailsClient({ data }) {
         </div>
       </div>
 
-      <div className="container-custom pt-8 md:pt-12 pb-[max(3rem,env(safe-area-inset-bottom))] md:pb-0">
+      <div className="container-custom pt-12 sm:pt-18 pb-[max(3rem,env(safe-area-inset-bottom))] md:pb-0">
         {/* TECH HEADER */}
         <div className="max-w-4xl mb-12 md:mb-16">
           <motion.div
@@ -123,7 +123,7 @@ export default function BrandingDetailsClient({ data }) {
                     Symmetry Ratio Audit
                   </p>
                   <p className="text-xs font-mono font-bold text-white tracking-tight">
-                    GOLDEN_RATIO::φ_1.61803
+                    GOLDEN_RATIO::Ï†_1.61803
                   </p>
                 </div>
               </div>

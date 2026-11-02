@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useState, useMemo, useEffect, useCallback } from "react";
 import Link from "next/link";
@@ -99,8 +99,8 @@ export default function CertificationsPageClient({
 
   return (
     <div className="min-h-screen bg-white text-slate-900 font-sans selection:bg-pink-500 selection:text-white">
-      {/* ── Hero Section: Certified Courses Showcase ── */}
-      <section className="pt-20 sm:pt-24 pb-8 sm:pb-10 overflow-hidden relative border-b border-slate-200/80 bg-white">
+      {/* â”€â”€ Hero Section: Certified Courses Showcase â”€â”€ */}
+      <section className="pt-12 sm:pt-18 pb-8 sm:pb-10 overflow-hidden relative border-b border-slate-200/80 bg-white">
         <div className="absolute inset-0 bg-[radial-gradient(#e2e8f0_1px,transparent_1px)] [background-size:20px_20px] opacity-70 pointer-events-none" />
 
         <div className="container-custom relative z-10">
@@ -190,7 +190,7 @@ export default function CertificationsPageClient({
                               {item.title}
                             </h4>
                             <p className="text-[10px] text-slate-500 truncate leading-none mt-0.5">
-                              {item.courseName || item.category} • {item.duration || "Professional Certification"}
+                              {item.courseName || item.category} â€¢ {item.duration || "Professional Certification"}
                             </p>
                           </div>
                         </div>
@@ -281,7 +281,7 @@ export default function CertificationsPageClient({
                               key={sIdx}
                               className="px-1.5 py-0.5 bg-white border border-slate-200 text-slate-700 font-semibold text-[9px] rounded leading-none"
                             >
-                              ✓ {skill}
+                              âœ“ {skill}
                             </span>
                           ))}
                         </div>
@@ -326,7 +326,7 @@ export default function CertificationsPageClient({
         </div>
       </section>
 
-      {/* ── Section 2: Complete Catalog of Certified Courses & Credentials ── */}
+      {/* â”€â”€ Section 2: Complete Catalog of Certified Courses & Credentials â”€â”€ */}
       <section className="py-10 md:py-12 bg-slate-50/70 border-b border-slate-200/80">
         <div className="container-custom max-w-7xl mx-auto space-y-5">
           {/* Section Heading & Category Filter Bar */}
@@ -442,7 +442,7 @@ export default function CertificationsPageClient({
                               key={sIdx}
                               className="px-1.5 py-0.5 bg-slate-50 text-slate-700 font-semibold text-[9px] rounded border border-slate-200/60 leading-none"
                             >
-                              ✓ {s}
+                              âœ“ {s}
                             </span>
                           ))}
                         </div>
@@ -498,7 +498,7 @@ export default function CertificationsPageClient({
         </div>
       </section>
 
-      {/* ── Section 3: Credential Verification & Quality Assurance Strip ── */}
+      {/* â”€â”€ Section 3: Credential Verification & Quality Assurance Strip â”€â”€ */}
       <section className="py-8 bg-white">
         <div className="container-custom max-w-7xl mx-auto">
           <div className="bg-slate-50 border border-slate-200 rounded-xl p-4 sm:p-5 flex flex-col md:flex-row items-center justify-between gap-4 shadow-xs">
@@ -528,7 +528,7 @@ export default function CertificationsPageClient({
         </div>
       </section>
 
-      {/* ── Lightbox Modal for Certificate Inspection ── */}
+      {/* â”€â”€ Lightbox Modal for Certificate Inspection â”€â”€ */}
       <AnimatePresence>
         {lightboxCert && (
           <div
@@ -549,7 +549,7 @@ export default function CertificationsPageClient({
                     {lightboxCert.title}
                   </h3>
                   <p className="text-[11px] text-slate-500 truncate leading-none">
-                    Track: {lightboxCert.courseName || lightboxCert.title} • Credential ID: {lightboxCert.credentialId}
+                    Track: {lightboxCert.courseName || lightboxCert.title} â€¢ Credential ID: {lightboxCert.credentialId}
                   </p>
                 </div>
               </div>
@@ -582,7 +582,7 @@ export default function CertificationsPageClient({
               className="bg-white rounded-xl px-3.5 py-2 flex items-center justify-between text-xs text-slate-600 border border-slate-200 shadow-xs leading-[1.4]"
             >
               <span className="text-slate-500 font-medium text-[11px]">
-                Use Arrow Keys to navigate between certificates • ESC to close
+                Use Arrow Keys to navigate between certificates â€¢ ESC to close
               </span>
 
               <div className="flex items-center gap-2">

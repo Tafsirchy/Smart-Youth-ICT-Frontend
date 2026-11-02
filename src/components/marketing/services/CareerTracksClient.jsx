@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { motion } from "framer-motion";
 import Link from "next/link";
@@ -10,8 +10,8 @@ export default function CareerTracksClient({ tracks = [], content = {} }) {
       {/* subtle grid texture */}
       <div className="absolute inset-0 bg-[linear-gradient(to_right,#0F172A06_1px,transparent_1px),linear-gradient(to_bottom,#0F172A06_1px,transparent_1px)] bg-[size:40px_40px] pointer-events-none" />
 
-      {/* ── Hero ── */}
-      <div className="relative pt-10 sm:pt-12 pb-6 px-4 border-b border-slate-100">
+      {/* â”€â”€ Hero â”€â”€ */}
+      <div className="relative pt-12 sm:pt-18 pb-6 px-4 border-b border-slate-100">
         <div className="container-custom relative z-10 flex flex-col items-center text-center">
           <div className="max-w-3xl w-full flex flex-col items-center gap-2.5">
             <motion.div
@@ -60,7 +60,7 @@ export default function CareerTracksClient({ tracks = [], content = {} }) {
         </div>
       </div>
 
-      {/* ── Tracks ── */}
+      {/* â”€â”€ Tracks â”€â”€ */}
       <div className="container-custom py-6 md:py-8">
         <div className="flex flex-col gap-4">
           {tracks.length > 0 ? (
@@ -76,7 +76,7 @@ export default function CareerTracksClient({ tracks = [], content = {} }) {
                 <div className={`absolute top-0 left-0 w-full h-1 bg-gradient-to-r ${track.color} opacity-90 rounded-t-xl`} />
 
                 <div className="grid lg:grid-cols-12 gap-4 pt-1">
-                  {/* Left — info */}
+                  {/* Left â€” info */}
                   <div className="lg:col-span-5 flex flex-col gap-3">
                     <h2 className="text-xl sm:text-2xl font-black text-slate-900 leading-[1.2]">{track.title}</h2>
                     <p className="text-sm text-slate-500 leading-[1.6] font-light">{track.description}</p>
@@ -101,7 +101,7 @@ export default function CareerTracksClient({ tracks = [], content = {} }) {
                     </button>
                   </div>
 
-                  {/* Right — phases */}
+                  {/* Right â€” phases */}
                   <div className="lg:col-span-7 bg-slate-50 border border-slate-100 rounded-lg p-4 relative">
                     <div className="space-y-3 relative z-10">
                       {[

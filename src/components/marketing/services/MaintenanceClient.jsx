@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
@@ -66,9 +66,9 @@ export default function MaintenanceClient({ content, data: propData }) {
       <div className="fixed inset-0 bg-[radial-gradient(#0F172A08_1px,transparent_1px)] [background-size:22px_22px] pointer-events-none z-0" />
 
       <div className="relative z-10 flex flex-col flex-1">
-        {/* ── Minimized Hero ── */}
+        {/* â”€â”€ Minimized Hero â”€â”€ */}
         <div className="border-b border-slate-100 bg-white/70 backdrop-blur-sm">
-          <div className="container-custom pt-10 sm:pt-14 pb-8 flex flex-col items-center text-center gap-3 max-w-3xl mx-auto">
+          <div className="container-custom pt-12 sm:pt-18 pb-8 flex flex-col items-center text-center gap-3 max-w-3xl mx-auto">
             <motion.div
               initial={{ opacity: 0, y: -8 }}
               animate={{ opacity: 1, y: 0 }}
@@ -118,7 +118,7 @@ export default function MaintenanceClient({ content, data: propData }) {
           </div>
         </div>
 
-        {/* ── Key Highlights Strip ── */}
+        {/* â”€â”€ Key Highlights Strip â”€â”€ */}
         {metricsData.length > 0 && (
           <div className="border-b border-slate-100 bg-slate-50/80">
             <div className="container-custom py-3.5">
@@ -138,7 +138,7 @@ export default function MaintenanceClient({ content, data: propData }) {
           </div>
         )}
 
-        {/* ── Capability Pillars (Ops DNA) ── */}
+        {/* â”€â”€ Capability Pillars (Ops DNA) â”€â”€ */}
         {pillarsData.length > 0 && (
           <div className="container-custom py-10 sm:py-14">
             <div className="text-center max-w-xl mx-auto mb-8">
@@ -179,7 +179,7 @@ export default function MaintenanceClient({ content, data: propData }) {
           </div>
         )}
 
-        {/* ── Compact CTA Banner ── */}
+        {/* â”€â”€ Compact CTA Banner â”€â”€ */}
         <div className="container-custom py-10">
           <div className="bg-slate-900 rounded-2xl p-6 sm:p-8 text-center text-white relative overflow-hidden max-w-4xl mx-auto shadow-xl">
             <div className="relative z-10 max-w-xl mx-auto flex flex-col items-center gap-3">
@@ -214,7 +214,7 @@ export default function MaintenanceClient({ content, data: propData }) {
         </div>
       </div>
 
-      {/* ── Consultation Modal ── */}
+      {/* â”€â”€ Consultation Modal â”€â”€ */}
       <AnimatePresence>
         {showModal && (
           <div className="fixed inset-0 z-50 flex items-center justify-center p-4">

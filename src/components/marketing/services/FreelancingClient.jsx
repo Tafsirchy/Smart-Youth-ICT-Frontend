@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { motion } from "framer-motion";
 import Link from "next/link";
@@ -19,9 +19,9 @@ export default function FreelancingClient({ data, content }) {
 
       <div className="relative z-10 flex flex-col flex-1">
 
-        {/* ── Hero ── */}
+        {/* â”€â”€ Hero â”€â”€ */}
         <div className="border-b border-slate-100">
-          <div className="container-custom pt-10 sm:pt-12 pb-7 flex flex-col items-center text-center gap-2.5 max-w-2xl mx-auto">
+          <div className="container-custom pt-12 sm:pt-18 pb-7 flex flex-col items-center text-center gap-2.5 max-w-2xl mx-auto">
 
             <motion.div
               initial={{ opacity: 0, y: -8 }}
@@ -72,7 +72,7 @@ export default function FreelancingClient({ data, content }) {
           </div>
         </div>
 
-        {/* ── Marketplace Strategy Hubs ── */}
+        {/* â”€â”€ Marketplace Strategy Hubs â”€â”€ */}
         <div className="container-custom py-6">
           {data?.classifications?.length > 0 ? (
             <>
@@ -132,7 +132,7 @@ export default function FreelancingClient({ data, content }) {
           )}
         </div>
 
-        {/* ── Mastery Roadmap ── */}
+        {/* â”€â”€ Mastery Roadmap â”€â”€ */}
         {data?.phases?.length > 0 && (
           <div className="border-t border-slate-100 bg-slate-50">
             <div className="container-custom py-6 max-w-3xl mx-auto">
@@ -169,7 +169,7 @@ export default function FreelancingClient({ data, content }) {
           </div>
         )}
 
-        {/* ── Global Access CTA Banner ── */}
+        {/* â”€â”€ Global Access CTA Banner â”€â”€ */}
         <div className="container-custom py-6">
           <motion.div
             initial={{ opacity: 0, y: 20 }}

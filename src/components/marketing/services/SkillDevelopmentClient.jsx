@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { motion } from "framer-motion";
 import Link from "next/link";
@@ -83,7 +83,7 @@ export default function SkillDevelopmentClient({ locale, courses, pageContent })
   return (
     <section className="min-h-screen bg-slate-50 overflow-hidden relative flex flex-col">
       {/* Hero Section */}
-      <div className="relative pt-12 sm:pt-14 md:pt-16 pb-6 px-4">
+      <div className="relative pt-12 sm:pt-18 pb-6 px-4">
         <div className="hidden md:block absolute top-0 right-0 w-[600px] h-[600px] bg-indigo-200/50 blur-[120px] opacity-60 -translate-y-1/2 translate-x-1/3 pointer-events-none"></div>
         <div className="hidden md:block absolute bottom-0 left-0 w-[400px] h-[400px] bg-pink-200/40 blur-[100px] pointer-events-none"></div>
 

@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { motion } from "framer-motion";
 import Link from "next/link";
@@ -31,7 +31,7 @@ export default function CustomAppsDetailsClient({ data }) {
             </div>
          </div>
 
-         <div className="container-custom pt-6 md:pt-10 pb-[max(3rem,env(safe-area-inset-bottom))] md:pb-0">
+         <div className="container-custom pt-12 sm:pt-18 pb-[max(3rem,env(safe-area-inset-bottom))] md:pb-0">
             {/* TECH HEADER */}
             <div className="max-w-5xl mb-12 md:mb-16">
                <motion.div
