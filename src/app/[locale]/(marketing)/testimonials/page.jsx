@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion";
 import Image from "next/image";
+import Link from "next/link";
 import { IoStar } from "react-icons/io5";
 import { useEffect, useState } from "react";
 import api from "@/lib/api";
@@ -155,12 +156,12 @@ export default function TestimonialsPage() {
           <p className="text-[9px] font-black text-slate-400 uppercase tracking-widest leading-none mb-1">Feedback</p>
           <p className="text-slate-900 font-black text-xs leading-none">Rated 4.9 by Alumni</p>
         </div>
-        <a
+        <Link
           href="/courses"
-          className="px-5 py-2.5 min-h-[40px] bg-brand-pink text-white font-extrabold text-[10px] uppercase tracking-wider rounded-lg flex items-center justify-center active:scale-95"
+          className="px-5 py-2.5 min-h-[40px] bg-brand-pink text-white font-extrabold text-[10px] uppercase tracking-wider rounded-lg flex items-center justify-center active:scale-95 leading-none"
         >
           Join Now
-        </a>
+        </Link>
       </div>
     </section>
   );
