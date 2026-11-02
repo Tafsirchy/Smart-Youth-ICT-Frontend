@@ -1,4 +1,4 @@
-﻿import Link from "next/link";
+import Link from "next/link";
 import Image from "next/image";
 import {
   IoSearchOutline,
@@ -14,11 +14,11 @@ export const revalidate = 3600;
 export async function generateMetadata({ params }) {
   const { locale } = await params;
   return {
-    title: "Blog â€” Smart Youth ICT",
+    title: "Blog — Smart Youth ICT",
     description:
       "IT tips, freelancing guides and career advice from Bangladesh's leading IT training platform.",
     openGraph: {
-      title: "Blog â€” Smart Youth ICT",
+      title: "Blog — Smart Youth ICT",
       url: `${process.env.NEXT_PUBLIC_APP_URL}/${locale}/blog`,
     },
   };
@@ -60,33 +60,33 @@ function BlogCard({ post, locale, priority = false }) {
 
   return (
     <Link href={`/${locale}/blog/${post.slug}`} className="group block">
-      <div className="card h-full flex flex-col overflow-hidden border border-slate-100 bg-white hover:shadow-[0_8px_30px_rgb(0,0,0,0.04)] hover:border-slate-200 transition-all duration-500 hover:-translate-y-1 rounded-lg">
+      <div className="card h-full flex flex-col overflow-hidden border border-slate-200/90 bg-white hover:shadow-md hover:border-brand-pink/40 transition-all duration-300 rounded-2xl">
         {/* Thumbnail */}
-        <div className="relative h-48 sm:h-52 bg-slate-50 overflow-hidden">
+        <div className="relative h-44 sm:h-48 bg-slate-100 overflow-hidden">
           {post.thumbnail ? (
             <Image
               src={post.thumbnail}
               alt={title}
               fill
-              sizes="350px"
+              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 380px"
               priority={priority}
               loading={priority ? undefined : "lazy"}
               decoding={priority ? undefined : "async"}
-              className="object-cover group-hover:scale-105 transition-transform duration-700 bg-[#f0f0f0] rounded-md"
+              className="object-cover group-hover:scale-105 transition-transform duration-500 bg-slate-100"
             />
           ) : (
             <div className="w-full h-full flex items-center justify-center">
-              <IoBookOutline size={40} className="text-slate-300" />
+              <IoBookOutline size={36} className="text-slate-300" />
             </div>
           )}
         </div>
         <div className="p-4 sm:p-5 flex flex-col flex-1">
-          <div className="flex items-center gap-2 mb-2.5">
-            <span className="text-[10px] font-medium uppercase tracking-widest px-2.5 py-0.5 bg-slate-100 text-slate-600 rounded leading-[1.4]">
+          <div className="flex items-center gap-2 mb-2">
+            <span className="text-[9px] font-black uppercase tracking-[0.18em] px-2 py-0.5 bg-brand-pink/10 text-brand-pink rounded-md leading-[1.3]">
               {tag}
             </span>
-            <span className="flex items-center gap-1 text-xs text-slate-400 ml-auto font-light leading-[1.4]">
-              <IoCalendarOutline size={13} />
+            <span className="flex items-center gap-1 text-[11px] text-slate-400 ml-auto font-medium leading-[1.4]">
+              <IoCalendarOutline size={12} />
               {post.createdAt
                 ? new Date(post.createdAt).toLocaleDateString("en-BD", {
                     day: "numeric",
@@ -96,16 +96,16 @@ function BlogCard({ post, locale, priority = false }) {
                 : ""}
             </span>
           </div>
-          <h2 className="font-medium text-slate-900 line-clamp-2 text-base sm:text-lg leading-[1.4] mb-2 flex-1 group-hover:text-slate-600 transition-colors tracking-tight">
+          <h2 className="font-black text-slate-900 line-clamp-2 text-base leading-[1.3] mb-1.5 flex-1 group-hover:text-brand-pink transition-colors tracking-tight">
             {title}
           </h2>
-          <p className="text-xs sm:text-sm text-slate-500 leading-[1.6] font-light line-clamp-2 mb-4">
+          <p className="text-xs text-slate-600 leading-[1.6] font-normal line-clamp-2 mb-3">
             {excerpt}
           </p>
-          <span className="text-[11px] font-medium uppercase tracking-widest text-slate-900 flex items-center gap-1 group-hover:text-slate-600 transition-colors leading-[1.4]">
+          <span className="text-[10px] font-black uppercase tracking-widest text-slate-900 flex items-center gap-1 group-hover:text-brand-pink transition-colors leading-[1.4] mt-auto pt-2 border-t border-slate-100">
             Read More{" "}
             <IoArrowForwardOutline
-              size={13}
+              size={12}
               className="group-hover:translate-x-1 transition-transform"
             />
           </span>
@@ -129,50 +129,55 @@ export default async function BlogPage({ params, searchParams }) {
   const totalPages = Math.ceil(total / 9);
 
   return (
-    <div className="min-h-screen pb-16 md:pb-20 flex flex-col bg-slate-50 font-sans">
-      {/* â”€â”€ Hero â”€â”€ */}
-      <div className="relative pt-12 sm:pt-18 pb-8 md:pb-10 px-4 text-center bg-white border-b border-slate-100">
-        <div className="relative z-10 max-w-3xl mx-auto">
-          <div className="flex items-center justify-center gap-3 mb-3 md:mb-4">
-            <div className="w-6 h-[1px] bg-slate-300"></div>
-            <span className="text-xs font-medium uppercase tracking-[0.2em] text-slate-500 leading-[1.4]">
-              Free Guides & Tips
-            </span>
-            <div className="w-6 h-[1px] bg-slate-300"></div>
+    <div className="min-h-screen pb-12 md:pb-16 flex flex-col bg-slate-50 font-sans">
+      {/* ── Compact Header Aligned with Navbar ── */}
+      <section className="pt-12 sm:pt-18 pb-6 bg-white border-b border-slate-100">
+        <div className="container-custom">
+          <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-4">
+            <div className="max-w-2xl">
+              <div className="flex items-center gap-2.5 mb-2.5">
+                <div className="w-8 h-[2px] bg-brand-pink" />
+                <p className="text-[10px] font-black uppercase tracking-[0.25em] text-slate-400 leading-[1.4]">
+                  Free Guides & Tips
+                </p>
+              </div>
+
+              <h1 className="text-2xl sm:text-3xl md:text-4xl font-black text-slate-900 leading-[1.2] mb-2 tracking-tight">
+                Blog & <span className="text-brand-pink">Resources</span>
+              </h1>
+
+              <p className="text-slate-600 text-sm md:text-base leading-[1.6] border-l-2 border-brand-pink pl-4 font-normal">
+                IT career tips, freelancing guides & industry insights —
+                <br className="hidden sm:inline" />
+                straight from our instructors to help you grow.
+              </p>
+            </div>
+
+            {/* Search Form - Aligned on right side of container */}
+            <form method="GET" className="relative w-full md:w-80 lg:w-96 group shrink-0">
+              <IoSearchOutline
+                size={18}
+                className="absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400 group-focus-within:text-brand-pink transition-colors"
+              />
+              <input
+                type="search"
+                name="q"
+                defaultValue={q}
+                placeholder="Search articles…"
+                className="w-full pl-10 pr-4 py-2.5 bg-slate-50 border border-slate-200/90 text-slate-900 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-brand-pink/20 focus:border-brand-pink focus:bg-white transition-all text-xs sm:text-sm font-normal shadow-xs rounded-xl leading-[1.4]"
+              />
+            </form>
           </div>
-          <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-light text-slate-900 leading-[1.1] tracking-tight mb-3 md:mb-4">
-            Blog &{" "}
-            <span className="font-semibold">Resources.</span>
-          </h1>
-          <p className="text-slate-500 text-sm sm:text-base leading-[1.6] max-w-2xl mx-auto font-light mb-6 md:mb-8">
-            IT career tips, freelancing guides & industry insights â€” straight
-            from our instructors to help you grow.
-          </p>
-
-          {/* Search */}
-          <form method="GET" className="relative max-w-md mx-auto group">
-            <IoSearchOutline
-              size={18}
-              className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 group-focus-within:text-slate-900 transition-colors"
-            />
-            <input
-              type="search"
-              name="q"
-              defaultValue={q}
-              placeholder="Search articlesâ€¦"
-              className="w-full pl-11 pr-4 py-2.5 bg-slate-50 border border-slate-100 text-slate-900 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-slate-200 focus:bg-white transition-all text-sm font-light shadow-sm rounded-md leading-[1.4]"
-            />
-          </form>
         </div>
-      </div>
+      </section>
 
-      {/* â”€â”€ Sticky Tag Pills â”€â”€ */}
+      {/* ── Sticky Tag Pills ── */}
       {tags.length > 0 && (
-        <div className="sticky top-0 z-20 bg-white/80 backdrop-blur-md border-b border-slate-100 shadow-xs">
-          <div className="container-lg mx-auto px-4 py-2.5 flex gap-2 overflow-x-auto scrollbar-hide">
+        <div className="sticky top-0 z-20 bg-white/90 backdrop-blur-md border-b border-slate-100 shadow-xs">
+          <div className="container-custom py-2 flex gap-2 overflow-x-auto scrollbar-hide">
             <Link
               href={`/${locale}/blog`}
-              className={`shrink-0 px-4 py-1.5 text-xs sm:text-sm min-h-[36px] flex items-center font-medium transition-all active:scale-95 leading-[1.4] rounded-md ${!tag ? "bg-slate-900 text-white shadow-xs" : "bg-white text-slate-600 border border-slate-200 hover:border-slate-300 hover:bg-slate-50"}`}
+              className={`shrink-0 px-3.5 py-1 text-xs min-h-[32px] flex items-center font-bold transition-all active:scale-95 leading-[1.4] rounded-lg ${!tag ? "bg-slate-900 text-white shadow-xs" : "bg-white text-slate-600 border border-slate-200/80 hover:border-slate-300 hover:bg-slate-50"}`}
             >
               All Posts
             </Link>
@@ -180,7 +185,7 @@ export default async function BlogPage({ params, searchParams }) {
               <Link
                 key={t}
                 href={`/${locale}/blog?tag=${encodeURIComponent(t)}`}
-                className={`shrink-0 px-4 py-1.5 text-xs sm:text-sm min-h-[36px] flex items-center font-medium transition-all active:scale-95 leading-[1.4] rounded-md ${tag === t ? "bg-slate-900 text-white shadow-xs" : "bg-white text-slate-600 border border-slate-200 hover:border-slate-300 hover:bg-slate-50"}`}
+                className={`shrink-0 px-3.5 py-1 text-xs min-h-[32px] flex items-center font-bold transition-all active:scale-95 leading-[1.4] rounded-lg ${tag === t ? "bg-slate-900 text-white shadow-xs" : "bg-white text-slate-600 border border-slate-200/80 hover:border-slate-300 hover:bg-slate-50"}`}
               >
                 {t}
               </Link>
@@ -189,27 +194,27 @@ export default async function BlogPage({ params, searchParams }) {
         </div>
       )}
 
-      {/* â”€â”€ Post Grid â”€â”€ */}
-      <div className="container-lg mx-auto px-4 py-8 md:py-10">
+      {/* ── Post Grid Aligned with Navbar ── */}
+      <div className="container-custom py-6 md:py-8">
         {posts.length > 0 ? (
-          <div className="space-y-8 md:space-y-10">
+          <div className="space-y-6 md:space-y-8">
             {/* Featured Post (Only on page 1 with no search/tag) */}
             {page === 1 && !tag && !q && posts.length >= 1 ? (
               <Link
                 href={`/${locale}/blog/${posts[0].slug}`}
                 className="group block"
               >
-                <div className="flex flex-col md:flex-row bg-white overflow-hidden shadow-xs border border-slate-100 hover:shadow-[0_12px_40px_rgb(0,0,0,0.04)] hover:border-slate-200 transition-all duration-500 rounded-lg">
-                  <div className="md:w-3/5 h-60 md:h-[360px] relative overflow-hidden bg-slate-50">
+                <div className="flex flex-col md:flex-row bg-white overflow-hidden shadow-xs border border-slate-200/90 hover:shadow-md hover:border-brand-pink/40 transition-all duration-300 rounded-2xl">
+                  <div className="md:w-3/5 h-56 md:h-[340px] relative overflow-hidden bg-slate-100">
                     {posts[0].thumbnail ? (
                       <Image
                         src={posts[0].thumbnail}
                         alt={posts[0].title}
                         fill
-                        sizes="800px"
+                        sizes="(max-width: 768px) 100vw, 800px"
                         priority={true}
                         fetchPriority="high"
-                        className="object-cover group-hover:scale-105 transition-transform duration-700 rounded-md"
+                        className="object-cover group-hover:scale-105 transition-transform duration-500"
                         decoding="async"
                       />
                     ) : (
@@ -218,41 +223,41 @@ export default async function BlogPage({ params, searchParams }) {
                       </div>
                     )}
                   </div>
-                  <div className="md:w-2/5 p-5 md:p-8 flex flex-col justify-center">
-                    <span className="inline-block px-2.5 py-0.5 text-[10px] font-medium uppercase tracking-widest text-slate-600 bg-slate-100 self-start mb-3 border border-slate-200 rounded leading-[1.4]">
+                  <div className="md:w-2/5 p-5 md:p-7 flex flex-col justify-center">
+                    <span className="inline-block px-2.5 py-0.5 text-[9px] font-black uppercase tracking-[0.18em] text-brand-pink bg-brand-pink/10 self-start mb-3 border border-brand-pink/20 rounded-md leading-[1.3]">
                       Featured Article
                     </span>
-                    <h2 className="text-xl md:text-2xl lg:text-3xl font-medium text-slate-900 leading-[1.3] mb-3 group-hover:text-slate-600 transition-colors tracking-tight">
+                    <h2 className="text-xl md:text-2xl font-black text-slate-900 leading-[1.25] mb-2.5 group-hover:text-brand-pink transition-colors tracking-tight">
                       {posts[0].title?.en || posts[0].title}
                     </h2>
-                    <p className="text-slate-500 font-light text-xs sm:text-sm leading-[1.6] mb-5 line-clamp-3">
+                    <p className="text-slate-600 font-normal text-xs sm:text-sm leading-[1.6] mb-4 line-clamp-3">
                       {posts[0].excerpt}
                     </p>
-                    <div className="flex items-center gap-3 mt-auto border-t border-slate-100 pt-3.5">
+                    <div className="flex items-center gap-3 mt-auto border-t border-slate-100 pt-3">
                       {posts[0].author?.avatar ? (
                         <Image
                           src={posts[0].author.avatar}
                           alt="Author"
-                          width={40}
-                          height={40}
+                          width={36}
+                          height={36}
                           loading="lazy"
                           decoding="async"
-                          className="w-10 h-10 object-cover border border-slate-200 rounded-md"
+                          className="w-9 h-9 object-cover border border-slate-200 rounded-xl"
                         />
                       ) : (
-                        <div className="w-10 h-10 bg-slate-100 border border-slate-200 flex items-center justify-center text-slate-500 font-medium text-xs rounded-md">
+                        <div className="w-9 h-9 bg-slate-100 border border-slate-200 flex items-center justify-center text-slate-500 font-bold text-xs rounded-xl">
                           SY
                         </div>
                       )}
                       <div>
-                        <p className="font-medium text-sm text-slate-900 leading-[1.4]">
+                        <p className="font-bold text-xs text-slate-900 leading-[1.3]">
                           {posts[0].author?.name || "SYICT Team"}
                         </p>
-                        <p className="text-[11px] text-slate-400 font-light flex items-center gap-1 mt-0.5 leading-[1.4]">
-                          <IoCalendarOutline size={12} />{" "}
+                        <p className="text-[10px] text-slate-400 font-medium flex items-center gap-1 mt-0.5 leading-[1.3]">
+                          <IoCalendarOutline size={11} />{" "}
                           {new Date(posts[0].createdAt).toLocaleDateString("en-BD", {
                             day: "numeric",
-                            month: "long",
+                            month: "short",
                             year: "numeric",
                           })}
                         </p>
@@ -264,22 +269,22 @@ export default async function BlogPage({ params, searchParams }) {
             ) : null}
 
             {/* Standard Grid */}
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-5">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
               {posts.slice(page === 1 && !tag && !q ? 1 : 0).map((post, index) => (
                 <BlogCard key={post._id} post={post} locale={locale} priority={index <= 2} />
               ))}
             </div>
           </div>
         ) : (
-          <div className="flex flex-col items-center justify-center py-16 md:py-20 text-center max-w-lg mx-auto">
-            <div className="w-16 h-16 bg-slate-100 flex items-center justify-center mb-4 border border-slate-200 shadow-xs rounded-lg">
-              <IoBookOutline size={32} className="text-slate-400" />
+          <div className="flex flex-col items-center justify-center py-12 md:py-16 text-center max-w-md mx-auto">
+            <div className="w-14 h-14 bg-slate-100 flex items-center justify-center mb-3 border border-slate-200 shadow-xs rounded-2xl">
+              <IoBookOutline size={28} className="text-slate-400" />
             </div>
-            <h3 className="text-xl font-medium text-slate-900 mb-2 tracking-tight leading-[1.4]">
-              No articles yet
+            <h3 className="text-lg font-black text-slate-900 mb-1 tracking-tight leading-[1.3]">
+              No articles found
             </h3>
-            <p className="text-slate-500 text-sm font-light leading-[1.6]">
-              Check back soon â€” our instructors are writing for you, or try searching for something else.
+            <p className="text-slate-500 text-xs sm:text-sm font-normal leading-[1.6]">
+              Check back soon — our instructors are writing for you, or try searching for something else.
             </p>
           </div>
         )}
@@ -291,7 +296,7 @@ export default async function BlogPage({ params, searchParams }) {
               <Link
                 key={p}
                 href={`/${locale}/blog?page=${p}${tag ? `&tag=${tag}` : ""}${q ? `&q=${q}` : ""}`}
-                className={`w-9 h-9 min-w-[36px] min-h-[36px] flex items-center justify-center text-xs sm:text-sm font-medium transition-all active:scale-95 rounded-md leading-[1.4] ${page === p
+                className={`w-8 h-8 min-w-[32px] min-h-[32px] flex items-center justify-center text-xs font-bold transition-all active:scale-95 rounded-lg leading-[1.4] ${page === p
                   ? "bg-slate-900 text-white shadow-xs"
                   : "bg-white text-slate-600 border border-slate-200 hover:border-slate-300 hover:bg-slate-50"
                 }`}
@@ -304,14 +309,14 @@ export default async function BlogPage({ params, searchParams }) {
       </div>
 
       {/* Mobile Sticky CTA */}
-      <div className="fixed bottom-0 left-0 w-full p-3 bg-white/90 backdrop-blur-md border-t border-slate-100 z-50 md:hidden flex items-center justify-between pb-[max(0.75rem,env(safe-area-inset-bottom))]">
+      <div className="fixed bottom-0 left-0 w-full p-3 bg-white/90 backdrop-blur-md border-t border-slate-100 z-50 md:hidden flex items-center justify-between shadow-[0_-8px_24px_rgba(0,0,0,0.06)] pb-[max(0.75rem,env(safe-area-inset-bottom))]">
         <div>
-          <p className="text-[10px] font-medium text-slate-400 uppercase tracking-widest mb-0.5 leading-[1.4]">Next Step</p>
-          <p className="text-slate-900 font-medium text-sm leading-[1.4]">Join the Program</p>
+          <p className="text-[9px] font-black text-slate-400 uppercase tracking-widest mb-0.5 leading-[1.3]">Next Step</p>
+          <p className="text-slate-900 font-black text-xs leading-[1.3]">Join the Program</p>
         </div>
-        <button className="px-5 py-2.5 min-h-[38px] bg-slate-900 text-white font-medium text-[11px] uppercase tracking-wider transition-transform active:scale-95 rounded-md leading-[1.4]">
+        <Link href="/courses" className="px-5 py-2 min-h-[36px] bg-slate-900 text-white font-extrabold text-[10px] uppercase tracking-wider transition-transform active:scale-95 rounded-lg leading-none flex items-center justify-center">
           Apply Now
-        </button>
+        </Link>
       </div>
     </div>
   );
