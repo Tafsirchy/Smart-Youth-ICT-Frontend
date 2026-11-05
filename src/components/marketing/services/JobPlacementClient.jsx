@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import { motion } from "framer-motion";
 import Image from "next/image";
@@ -231,7 +231,7 @@ export default function JobPlacementClient({ data, content }) {
                 </div>
 
                 <p className="text-slate-500 text-sm leading-[1.6]">
-                  We don't just refer â€” we prepare. Our physically simulated interview labs provide you with the exact pressure-test you need before facing real hiring boards.
+                  We don't just refer — we prepare. Our physically simulated interview labs provide you with the exact pressure-test you need before facing real hiring boards.
                 </p>
 
                 <div className="grid grid-cols-2 gap-3 pt-1 border-t border-slate-100">
@@ -260,7 +260,7 @@ export default function JobPlacementClient({ data, content }) {
                 </button>
               </div>
 
-              {/* Image â€” desktop only */}
+              {/* Image — desktop only */}
               <div className="hidden lg:block relative w-[320px] shrink-0">
                 <div className="absolute top-0 left-0 w-px h-full bg-slate-100" />
                 <Image

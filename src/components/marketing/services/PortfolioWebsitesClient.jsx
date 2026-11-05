@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import { motion } from "framer-motion";
 import Link from "next/link";
@@ -18,7 +18,7 @@ const DEFAULT_PORTFOLIO_DATA = {
     title: "Portfolio Websites",
     subtitle: "Websites",
     description:
-      "We don't build generic templates; we engineer digital pedestals. Your craft is extraordinaryâ€”it deserves a bespoke online showcase that amplifies authority, wins high-ticket retainers, and loads in milliseconds.",
+      "We don't build generic templates; we engineer digital pedestals. Your craft is extraordinary—it deserves a bespoke online showcase that amplifies authority, wins high-ticket retainers, and loads in milliseconds.",
     mainImage:
       "https://images.unsplash.com/photo-1541462608143-67571c6738dd?w=1000&h=1200&fit=crop",
   },

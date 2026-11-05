@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import { useState, useMemo, useEffect, useCallback } from "react";
 import Link from "next/link";
@@ -190,7 +190,7 @@ export default function CertificationsPageClient({
                               {item.title}
                             </h4>
                             <p className="text-[10px] text-slate-500 truncate leading-none mt-0.5">
-                              {item.courseName || item.category} â€¢ {item.duration || "Professional Certification"}
+                              {item.courseName || item.category} • {item.duration || "Professional Certification"}
                             </p>
                           </div>
                         </div>
@@ -549,7 +549,7 @@ export default function CertificationsPageClient({
                     {lightboxCert.title}
                   </h3>
                   <p className="text-[11px] text-slate-500 truncate leading-none">
-                    Track: {lightboxCert.courseName || lightboxCert.title} â€¢ Credential ID: {lightboxCert.credentialId}
+                    Track: {lightboxCert.courseName || lightboxCert.title} • Credential ID: {lightboxCert.credentialId}
                   </p>
                 </div>
               </div>
@@ -582,7 +582,7 @@ export default function CertificationsPageClient({
               className="bg-white rounded-xl px-3.5 py-2 flex items-center justify-between text-xs text-slate-600 border border-slate-200 shadow-xs leading-[1.4]"
             >
               <span className="text-slate-500 font-medium text-[11px]">
-                Use Arrow Keys to navigate between certificates â€¢ ESC to close
+                Use Arrow Keys to navigate between certificates • ESC to close
               </span>
 
               <div className="flex items-center gap-2">

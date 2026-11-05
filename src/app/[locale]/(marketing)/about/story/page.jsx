@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import { motion } from "framer-motion";
 import {
@@ -173,7 +173,7 @@ export default function StoryPage() {
                             <span className="text-[10px] font-black uppercase tracking-wider text-slate-400">
                               {item.phase}
                             </span>
-                            <span className="text-slate-300">â€¢</span>
+                            <span className="text-slate-300">•</span>
                             <span className="text-[11px] font-bold text-slate-700">
                               {item.tagline}
                             </span>

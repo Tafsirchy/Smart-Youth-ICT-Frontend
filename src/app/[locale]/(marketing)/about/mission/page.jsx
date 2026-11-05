@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
@@ -176,7 +176,7 @@ export default function MissionVisionPage() {
                           <span className="text-[10px] font-black uppercase tracking-wider text-brand-green">
                             Engine 01
                           </span>
-                          <span className="text-slate-300">â€¢</span>
+                          <span className="text-slate-300">•</span>
                           <span className="text-[11px] font-bold text-slate-500">
                             Present Reality
                           </span>
@@ -258,7 +258,7 @@ export default function MissionVisionPage() {
                           <span className="text-[10px] font-black uppercase tracking-wider text-brand-pink">
                             Horizon 02
                           </span>
-                          <span className="text-slate-300">â€¢</span>
+                          <span className="text-slate-300">•</span>
                           <span className="text-[11px] font-bold text-slate-500">
                             Future Destination
                           </span>

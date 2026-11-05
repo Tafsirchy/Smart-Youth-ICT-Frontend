@@ -1,4 +1,4 @@
-﻿'use client';
+'use client';
 
 import { useState, useEffect, useTransition, Suspense } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -29,10 +29,10 @@ const TIME_SLOTS = [
 ];
 
 const PERKS = [
-  { icon: 'ðŸŽ¯', title: '1-to-1 Career Roadmap', desc: 'Direct session with senior mentors tailored to your background.' },
-  { icon: 'ðŸ’»', title: 'Physical Lab & Campus Tour', desc: 'Experience high-spec lab PCs, high-speed fiber internet, and facilities.' },
-  { icon: 'ðŸŽ', title: 'Scholarship Eligibility Assessment', desc: 'Up to 50% waiver check based on test or academic background.' },
-  { icon: 'ðŸš€', title: 'Freelancing & Job Placement Advice', desc: 'Learn marketplace demand, batch schedules, and internship opportunities.' },
+  { icon: '🎯', title: '1-to-1 Career Roadmap', desc: 'Direct session with senior mentors tailored to your background.' },
+  { icon: '💻', title: 'Physical Lab & Campus Tour', desc: 'Experience high-spec lab PCs, high-speed fiber internet, and facilities.' },
+  { icon: '🎁', title: 'Scholarship Eligibility Assessment', desc: 'Up to 50% waiver check based on test or academic background.' },
+  { icon: '🚀', title: 'Freelancing & Job Placement Advice', desc: 'Learn marketplace demand, batch schedules, and internship opportunities.' },
 ];
 
 function BookCounselingContent() {
@@ -101,7 +101,7 @@ function BookCounselingContent() {
   return (
     <div className="min-h-screen bg-neutral-50 dark:bg-neutral-950 pt-12 sm:pt-18 pb-12 sm:pb-16">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* â”€â”€ Hero Section â”€â”€ */}
+        {/* ── Hero Section ── */}
         <div className="text-center max-w-2xl mx-auto mb-12">
           <motion.div
             initial={{ opacity: 0, y: -10 }}
@@ -129,7 +129,7 @@ function BookCounselingContent() {
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
-          {/* â”€â”€ Left Column: Benefits & Branch Info â”€â”€ */}
+          {/* ── Left Column: Benefits & Branch Info ── */}
           <div className="lg:col-span-5 space-y-6">
             <div className="bg-white dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-800 rounded-2xl p-6 shadow-sm">
               <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-4 flex items-center gap-2">
@@ -175,7 +175,7 @@ function BookCounselingContent() {
             )}
           </div>
 
-          {/* â”€â”€ Right Column: Booking Form or Success State â”€â”€ */}
+          {/* ── Right Column: Booking Form or Success State ── */}
           <div className="lg:col-span-7">
             <div className="bg-white dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-800 rounded-2xl p-6 sm:p-8 shadow-sm">
               <AnimatePresence mode="wait">
@@ -191,7 +191,7 @@ function BookCounselingContent() {
                       <IoCheckmarkCircle size={38} />
                     </div>
                     <h3 className="text-2xl font-bold text-gray-900 dark:text-white">
-                      Appointment Confirmed! ðŸŽ‰
+                      Appointment Confirmed! 🎉
                     </h3>
                     <p className="text-sm text-gray-600 dark:text-gray-400 max-w-md mx-auto">
                       Thank you <span className="font-semibold text-gray-900 dark:text-white">{bookedSession.fullName}</span>. We have scheduled your 1-on-1 counseling appointment.
@@ -314,7 +314,7 @@ function BookCounselingContent() {
                       >
                         {branches.map((b) => (
                           <option key={b._id} value={b._id}>
-                            {b.name} ({b.code}) â€” {b.city || 'Dhaka'}
+                            {b.name} ({b.code}) — {b.city || 'Dhaka'}
                           </option>
                         ))}
                       </select>

@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import { motion } from "framer-motion";
 import {
@@ -142,7 +142,7 @@ export default function HowItWorksPage() {
                           <span className="text-[10px] font-black uppercase tracking-wider text-slate-400">
                             {step.phase}
                           </span>
-                          <span className="text-slate-300">â€¢</span>
+                          <span className="text-slate-300">•</span>
                           <h2 className="text-base sm:text-lg font-black text-slate-900 tracking-tight leading-tight">
                             {step.title}
                           </h2>

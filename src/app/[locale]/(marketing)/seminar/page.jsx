@@ -1,4 +1,4 @@
-﻿'use client';
+'use client';
 
 import { useState, useEffect, useMemo } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -16,10 +16,10 @@ import {
 } from 'react-icons/io5';
 
 const DEFAULT_SEMINARS = [
-  { id: 'web', title: 'ðŸ’» Web Development â€” Free Career Seminar' },
-  { id: 'smm', title: 'ðŸ“£ Digital Marketing â€” Free Career Seminar' },
-  { id: 'design', title: 'ðŸŽ¨ Graphic Design â€” Free Career Seminar' },
-  { id: 'ai', title: 'ðŸ¤– AI & Freelancing â€” Free Career Seminar' },
+  { id: 'web', title: '💻 Web Development — Free Career Seminar' },
+  { id: 'smm', title: '📣 Digital Marketing — Free Career Seminar' },
+  { id: 'design', title: '🎨 Graphic Design — Free Career Seminar' },
+  { id: 'ai', title: '🤖 AI & Freelancing — Free Career Seminar' },
 ];
 
 const SOURCES = [
@@ -33,10 +33,10 @@ const SOURCES = [
 ];
 
 const BENEFITS = [
-  { icon: 'ðŸŽ¯', text: 'Live guidance & 1:1 Q&A with industry leads' },
-  { icon: 'ðŸ†', text: 'Verified Certificate of participation' },
-  { icon: 'ðŸ’¼', text: 'Real marketplace freelance income roadmaps' },
-  { icon: 'ðŸ†“', text: '100% free of charge â€” no hidden fees' },
+  { icon: '🎯', text: 'Live guidance & 1:1 Q&A with industry leads' },
+  { icon: '🏆', text: 'Verified Certificate of participation' },
+  { icon: '💼', text: 'Real marketplace freelance income roadmaps' },
+  { icon: '🆓', text: '100% free of charge — no hidden fees' },
 ];
 
 export default function SeminarPage() {
@@ -135,7 +135,7 @@ export default function SeminarPage() {
 
   return (
     <div className="min-h-screen flex flex-col bg-slate-50 font-sans">
-      {/* â”€â”€ Hero â”€â”€ */}
+      {/* ── Hero ── */}
       <section className="relative pt-12 sm:pt-18 pb-6 px-4 text-center bg-white border-b border-slate-100">
         <div className="relative z-10 max-w-4xl mx-auto">
           <div className="flex items-center justify-center gap-2 mb-2.5">
@@ -154,7 +154,7 @@ export default function SeminarPage() {
           </h1>
 
           <p className="text-slate-500 text-base sm:text-lg md:text-xl leading-[1.6] max-w-4xl mx-auto font-light mb-4">
-            <span className="block">Arranged directly across all our regional campus branches and online â€”</span>
+            <span className="block">Arranged directly across all our regional campus branches and online —</span>
             <span className="block">discover how to launch your IT career in just 2 hours.</span>
           </p>
 
@@ -176,13 +176,13 @@ export default function SeminarPage() {
         </div>
       </section>
 
-      {/* â”€â”€ Content â”€â”€ */}
+      {/* ── Content ── */}
       <div className="container-lg mx-auto px-4 py-6 md:py-8">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-5 lg:gap-6 items-start max-w-6xl mx-auto">
-          {/* Left â€” Benefits */}
+          {/* Left — Benefits */}
           <div>
             <h2 className="text-2xl md:text-3xl font-bold text-slate-900 mb-3 leading-[1.2]">
-              What You&apos;ll Get from this Session ðŸŽ
+              What You&apos;ll Get from this Session 🎁
             </h2>
 
             <div className="space-y-2 mb-4">
@@ -204,7 +204,7 @@ export default function SeminarPage() {
             {/* Social proof */}
             <div className="bg-slate-900 p-4 sm:p-5 text-white rounded-3xl shadow-xl space-y-1.5">
               <p className="font-bold text-2xl text-white flex items-center gap-2 leading-[1.3]">
-                <span>ðŸš€ Join 5,000+ Students</span>
+                <span>🚀 Join 5,000+ Students</span>
               </p>
               <p className="text-slate-400 font-normal leading-[1.6] text-sm">
                 Students across Bogura, Chattogram, Khulna, Mirpur, Cumilla, and beyond kickstart their tech journey through our branch seminars.
@@ -212,7 +212,7 @@ export default function SeminarPage() {
             </div>
           </div>
 
-          {/* Right â€” Registration Form */}
+          {/* Right — Registration Form */}
           <motion.div
             initial={{ opacity: 0, y: 24 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -231,7 +231,7 @@ export default function SeminarPage() {
                   <div className="w-14 h-14 mx-auto bg-emerald-50 border border-emerald-100 flex items-center justify-center rounded-full text-emerald-600">
                     <IoCheckmarkCircle size={40} />
                   </div>
-                  <h3 className="text-3xl font-extrabold text-slate-900 leading-[1.2]">You&apos;re Registered! ðŸŽ‰</h3>
+                  <h3 className="text-3xl font-extrabold text-slate-900 leading-[1.2]">You&apos;re Registered! 🎉</h3>
                   <p className="text-slate-600 max-w-sm mx-auto leading-[1.6] text-sm">
                     Thank you! Your seat has been reserved. Our branch campus coordinator will contact you with details and timing.
                   </p>
@@ -251,13 +251,13 @@ export default function SeminarPage() {
                     }}
                     className="inline-flex items-center gap-2 text-xs font-bold text-cyan-700 hover:underline pt-1.5 leading-[1.4]"
                   >
-                    Register another attendee â†’
+                    Register another attendee →
                   </button>
                 </motion.div>
               ) : (
                 <motion.div key="form" initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
                   <div className="mb-3">
-                    <h3 className="text-2xl font-extrabold text-slate-900 leading-[1.2]">Reserve Your Free Seat ðŸ‘‡</h3>
+                    <h3 className="text-2xl font-extrabold text-slate-900 leading-[1.2]">Reserve Your Free Seat 👇</h3>
                     <p className="text-slate-500 text-sm mt-0.5 leading-[1.4]">Takes less than 60 seconds. 100% free entry.</p>
                   </div>
 
@@ -274,10 +274,10 @@ export default function SeminarPage() {
                           onChange={handleBranchChange}
                           className="w-full py-2.5 px-3 bg-slate-50 border border-slate-200 rounded-xl text-sm font-medium focus:outline-none focus:border-cyan-600 focus:bg-white transition leading-[1.4]"
                         >
-                          <option value="all">ðŸŒ All Campuses / Online Sessions</option>
+                          <option value="all">🌐 All Campuses / Online Sessions</option>
                           {branches.map((b) => (
                             <option key={b._id} value={b._id}>
-                              ðŸ¢ {b.name} ({b.code || b.city})
+                              🏢 {b.name} ({b.code || b.city})
                             </option>
                           ))}
                         </select>
@@ -296,11 +296,11 @@ export default function SeminarPage() {
                         onChange={handleSeminarSelect}
                         className="w-full py-2.5 px-3 bg-slate-50 border border-slate-200 rounded-xl text-sm font-semibold focus:outline-none focus:border-cyan-600 focus:bg-white transition leading-[1.4]"
                       >
-                        <option value="">â€” Select an upcoming seminar â€”</option>
+                        <option value="">— Select an upcoming seminar —</option>
                         {availableSeminars.map((s) => (
                           <option key={s._id || s.id} value={s._id || s.title || s.label}>
                             {s.title || s.label}{' '}
-                            {s.date ? `(${s.date}${s.venue ? ` â€¢ ${s.venue}` : ''})` : ''}
+                            {s.date ? `(${s.date}${s.venue ? ` • ${s.venue}` : ''})` : ''}
                           </option>
                         ))}
                       </select>
@@ -364,7 +364,7 @@ export default function SeminarPage() {
                         value={form.source}
                         onChange={handleChange}
                       >
-                        <option value="">â€” Select source â€”</option>
+                        <option value="">— Select source —</option>
                         {SOURCES.map((s) => (
                           <option key={s} value={s}>
                             {s}
@@ -385,7 +385,7 @@ export default function SeminarPage() {
                             <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
                             <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8z" />
                           </svg>
-                          <span>Reserving Seatâ€¦</span>
+                          <span>Reserving Seat…</span>
                         </>
                       ) : (
                         <>

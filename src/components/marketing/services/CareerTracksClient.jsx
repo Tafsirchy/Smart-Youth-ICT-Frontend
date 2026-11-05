@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import { motion } from "framer-motion";
 import Link from "next/link";
@@ -76,7 +76,7 @@ export default function CareerTracksClient({ tracks = [], content = {} }) {
                 <div className={`absolute top-0 left-0 w-full h-1 bg-gradient-to-r ${track.color} opacity-90 rounded-t-xl`} />
 
                 <div className="grid lg:grid-cols-12 gap-4 pt-1">
-                  {/* Left â€” info */}
+                  {/* Left — info */}
                   <div className="lg:col-span-5 flex flex-col gap-3">
                     <h2 className="text-xl sm:text-2xl font-black text-slate-900 leading-[1.2]">{track.title}</h2>
                     <p className="text-sm text-slate-500 leading-[1.6] font-light">{track.description}</p>
@@ -101,7 +101,7 @@ export default function CareerTracksClient({ tracks = [], content = {} }) {
                     </button>
                   </div>
 
-                  {/* Right â€” phases */}
+                  {/* Right — phases */}
                   <div className="lg:col-span-7 bg-slate-50 border border-slate-100 rounded-lg p-4 relative">
                     <div className="space-y-3 relative z-10">
                       {[
