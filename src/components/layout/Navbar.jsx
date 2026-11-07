@@ -205,15 +205,74 @@ export const serviceColumns = [
  },
 ];
 
+export const BANGLADESH_DIVISIONS = [
+  {
+    division: 'Barisal',
+    name: 'Barisal Division (Barishal)',
+    shortName: 'Barisal (Barishal)',
+    aliases: ['Barisal', 'Barishal'],
+    desc: 'Upcoming Regional Hub & Campus',
+  },
+  {
+    division: 'Chittagong',
+    name: 'Chittagong Division (Chattogram)',
+    shortName: 'Chittagong (Chattogram)',
+    aliases: ['Chittagong', 'Chattogram'],
+    desc: 'Agrabad, Chattagram & Cumilla Hubs',
+  },
+  {
+    division: 'Dhaka',
+    name: 'Dhaka Division',
+    shortName: 'Dhaka',
+    aliases: ['Dhaka'],
+    desc: 'Corporate HQ, Mirpur, Gazipur Campuses',
+  },
+  {
+    division: 'Khulna',
+    name: 'Khulna Division',
+    shortName: 'Khulna',
+    aliases: ['Khulna'],
+    desc: 'Jashore & Khulna Regional Hubs',
+  },
+  {
+    division: 'Mymensingh',
+    name: 'Mymensingh Division',
+    shortName: 'Mymensingh',
+    aliases: ['Mymensingh'],
+    desc: 'Fulbaria, Netrakona, Sherpur Campuses',
+  },
+  {
+    division: 'Rajshahi',
+    name: 'Rajshahi Division',
+    shortName: 'Rajshahi',
+    aliases: ['Rajshahi'],
+    desc: 'Bogura City Campus & Academic Hub',
+  },
+  {
+    division: 'Rangpur',
+    name: 'Rangpur Division',
+    shortName: 'Rangpur',
+    aliases: ['Rangpur'],
+    desc: 'Rangpur Metropolitan & Regional Hubs',
+  },
+  {
+    division: 'Sylhet',
+    name: 'Sylhet Division',
+    shortName: 'Sylhet',
+    aliases: ['Sylhet'],
+    desc: 'Upcoming Regional Hub & Campus',
+  },
+];
+
 export const BRANCH_DIVISIONS = [
-  { name: 'All Divisions', division: 'All', count: 13, desc: 'View all 13 nationwide campuses' },
-  { name: 'Dhaka', division: 'Dhaka', count: 3, desc: 'Corporate HQ, Mirpur, Gazipur' },
-  { name: 'Rajshahi', division: 'Rajshahi', count: 1, desc: 'Bogura City Campus' },
-  { name: 'Chittagong', division: 'Chittagong', count: 1, desc: 'Agrabad, Chattagram' },
-  { name: 'Other', division: 'Other', count: 1, desc: 'Kutubpur, Cumilla Campus' },
-  { name: 'Khulna', division: 'Khulna', count: 1, desc: 'Jashore / Khulna Hub' },
-  { name: 'Mymensingh', division: 'Mymensingh', count: 3, desc: 'Fulbaria, Netrakona, Sherpur' },
-  { name: 'Rangpur', division: 'Rangpur', count: 3, desc: 'Rangpur Metropolitan & Hubs' },
+  { name: 'All Divisions', division: 'All', count: 14, desc: 'View all 14 nationwide campuses' },
+  ...BANGLADESH_DIVISIONS.map((d) => ({
+    name: d.name,
+    shortName: d.shortName,
+    division: d.division,
+    count: d.division === 'Dhaka' ? 4 : d.division === 'Chittagong' ? 2 : d.division === 'Mymensingh' ? 3 : d.division === 'Rangpur' ? 3 : d.division === 'Rajshahi' ? 1 : d.division === 'Khulna' ? 1 : 0,
+    desc: d.desc,
+  })),
 ];
 
 const navLinks = [
@@ -258,41 +317,39 @@ export default function Navbar() {
   });
 
   const branchDivisions = useMemo(() => {
-    if (!publicBranches || publicBranches.length === 0) {
-      return BRANCH_DIVISIONS;
-    }
+    const totalCount = publicBranches.length || 14;
     const counts = {};
-    const divisionSubtitles = {
-      Dhaka: 'Corporate HQ, Mirpur, Gazipur',
-      Rajshahi: 'Bogura City Campus',
-      Chittagong: 'Agrabad, Chattagram',
-      Chattogram: 'Agrabad, Chattagram',
-      Khulna: 'Jashore / Khulna Hub',
-      Mymensingh: 'Fulbaria, Netrakona, Sherpur',
-      Rangpur: 'Rangpur Metropolitan & Hubs',
-      Barisal: 'Barisal Regional Hub',
-      Sylhet: 'Sylhet Regional Hub',
-      Other: 'Kutubpur, Cumilla Campus',
-    };
 
     publicBranches.forEach((b) => {
-      const div = b.division || 'Other';
-      counts[div] = (counts[div] || 0) + 1;
+      const rawDiv = (b.division || '').trim();
+      const matched = BANGLADESH_DIVISIONS.find((d) =>
+        d.aliases.some((a) => a.toLowerCase() === rawDiv.toLowerCase())
+      );
+      const key = matched ? matched.division : rawDiv;
+      if (key) {
+        counts[key] = (counts[key] || 0) + 1;
+      }
     });
 
     return [
       {
         name: 'All Divisions',
         division: 'All',
-        count: publicBranches.length,
-        desc: `View all ${publicBranches.length} nationwide campuses`,
+        count: totalCount,
+        desc: `View all ${totalCount} nationwide campuses`,
       },
-      ...Object.entries(counts).map(([div, count]) => ({
-        name: div,
-        division: div,
-        count,
-        desc: divisionSubtitles[div] || `${count} campus${count > 1 ? 'es' : ''} in ${div}`,
-      })),
+      ...BANGLADESH_DIVISIONS.map((d) => {
+        const count = publicBranches.length
+          ? (counts[d.division] || 0)
+          : (d.division === 'Dhaka' ? 4 : d.division === 'Chittagong' ? 2 : d.division === 'Mymensingh' ? 3 : d.division === 'Rangpur' ? 3 : d.division === 'Rajshahi' ? 1 : d.division === 'Khulna' ? 1 : 0);
+        return {
+          name: d.name,
+          shortName: d.shortName,
+          division: d.division,
+          count,
+          desc: count > 0 ? d.desc : 'Upcoming Regional Hub',
+        };
+      }),
     ];
   }, [publicBranches]);
 
@@ -547,7 +604,7 @@ export default function Navbar() {
                       <p className="text-slate-900 text-xs font-black uppercase tracking-wider">
                         Campuses by Division
                       </p>
-                      <p className="text-[10px] text-slate-400">{(publicBranches && publicBranches.length) ? publicBranches.length : 13} physical hubs across Bangladesh</p>
+                      <p className="text-[10px] text-slate-400">8 Administrative Divisions • {(publicBranches && publicBranches.length) ? publicBranches.length : 14} physical hubs</p>
                     </div>
                   </div>
                   <Link
@@ -555,39 +612,46 @@ export default function Navbar() {
                     onClick={() => setActiveDropdown(null)}
                     className="text-xs font-bold text-blue-600 hover:text-blue-700"
                   >
-                    All Campuses ({(publicBranches && publicBranches.length) ? publicBranches.length : 13}) →
+                    All Campuses ({(publicBranches && publicBranches.length) ? publicBranches.length : 14}) →
                   </Link>
                 </div>
 
                 {/* Division Grid */}
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-1.5 p-3 !bg-white">
-                  {branchDivisions.map((div) => {
-                    const isAll = div.division === 'All';
-                    const href = isAll ? '/branches' : `/branches?division=${encodeURIComponent(div.division)}`;
-                    return (
-                      <Link
-                        key={div.division}
-                        href={href}
-                        onClick={() => setActiveDropdown(null)}
-                        className="flex items-center justify-between p-2.5 hover:bg-slate-50 transition-colors group/div"
-                      >
-                        <div className="min-w-0 pr-2">
-                          <div className="flex items-center gap-2">
-                            <span className="text-xs font-bold text-slate-800 group-hover/div:text-blue-600 transition-colors">
-                              {div.name}
-                            </span>
-                            <span className="px-1.5 py-0.5 bg-blue-50 text-blue-700 text-[10px] font-extrabold">
-                              {div.count}
-                            </span>
+                  {branchDivisions
+                    .filter((div) => div.division !== 'All')
+                    .map((div) => {
+                      const href = `/branches?division=${encodeURIComponent(div.division)}`;
+                      return (
+                        <Link
+                          key={div.division}
+                          href={href}
+                          onClick={() => setActiveDropdown(null)}
+                          className="flex items-center justify-between p-2.5 hover:bg-slate-50 transition-colors group/div rounded-lg border border-transparent hover:border-slate-100"
+                        >
+                          <div className="min-w-0 pr-2">
+                            <div className="flex items-center gap-2">
+                              <span className="text-xs font-bold text-slate-800 group-hover/div:text-blue-600 transition-colors">
+                                {div.name}
+                              </span>
+                              <span
+                                className={`px-1.5 py-0.5 text-[10px] font-extrabold rounded ${
+                                  div.count > 0
+                                    ? "bg-blue-50 text-blue-700"
+                                    : "bg-slate-100 text-slate-400 font-semibold"
+                                }`}
+                              >
+                                {div.count > 0 ? div.count : 'Soon'}
+                              </span>
+                            </div>
+                            <p className="text-[10px] text-slate-400 truncate mt-0.5">{div.desc}</p>
                           </div>
-                          <p className="text-[10px] text-slate-400 truncate mt-0.5">{div.desc}</p>
-                        </div>
-                        <span className="text-slate-300 group-hover/div:text-blue-600 group-hover/div:translate-x-0.5 transition-all text-xs">
-                          →
-                        </span>
-                      </Link>
-                    );
-                  })}
+                          <span className="text-slate-300 group-hover/div:text-blue-600 group-hover/div:translate-x-0.5 transition-all text-xs">
+                            →
+                          </span>
+                        </Link>
+                      );
+                    })}
                 </div>
 
                 {/* Bottom Banner */}

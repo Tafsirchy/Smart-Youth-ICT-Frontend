@@ -23,7 +23,7 @@ export default async function BranchesPage({ params, searchParams }) {
 
   return (
     <div className="min-h-screen bg-slate-50/60 dark:bg-slate-950 pt-12 sm:pt-18 pb-8 font-sans selection:bg-blue-500/20">
-      {/* â”€â”€ Hero Section â”€â”€ */}
+      {/* ── Hero Section ── */}
       <section className="relative overflow-hidden pt-4 pb-5">
         <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-7xl h-48 bg-gradient-to-b from-blue-500/5 via-indigo-500/5 to-transparent blur-3xl pointer-events-none -z-10" />
 
@@ -31,7 +31,7 @@ export default async function BranchesPage({ params, searchParams }) {
           {/* Eyebrow Badge */}
           <div className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-blue-50 dark:bg-blue-950/50 border border-blue-200/80 dark:border-blue-900/60 text-blue-700 dark:text-blue-300 text-xs font-bold uppercase tracking-wider shadow-xs">
             <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
-            <span>Nationwide Presence • 13 Advanced Learning Centers</span>
+            <span>Nationwide Presence • 14 Advanced Learning Centers</span>
           </div>
 
           {/* Main Hero Headline */}
@@ -55,8 +55,8 @@ export default async function BranchesPage({ params, searchParams }) {
                 <IoBusinessOutline size={16} />
               </div>
               <div className="min-w-0">
-                <p className="text-xs font-bold text-slate-900 dark:text-white truncate">13 Campuses</p>
-                <p className="text-[10px] text-slate-500 truncate">7 Major Divisions</p>
+                <p className="text-xs font-bold text-slate-900 dark:text-white truncate">14 Campuses</p>
+                <p className="text-[10px] text-slate-500 truncate">8 Administrative Divisions</p>
               </div>
             </div>
 
@@ -93,7 +93,7 @@ export default async function BranchesPage({ params, searchParams }) {
         </div>
       </section>
 
-      {/* â”€â”€ Interactive Campuses Directory & Map â”€â”€ */}
+      {/* ── Interactive Campuses Directory & Map ── */}
       <Suspense
         fallback={
           <div className="container-custom py-16 text-center">

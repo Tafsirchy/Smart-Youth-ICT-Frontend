@@ -39,15 +39,14 @@ const defaultHours = [
 ];
 
 const DIVISIONS = [
-    "Dhaka",
-    "Chittagong",
-    "Rajshahi",
-    "Khulna",
-    "Barisal",
-    "Sylhet",
-    "Rangpur",
-    "Mymensingh",
-    "Other",
+    { value: "Barisal", label: "Barisal Division (Barishal)" },
+    { value: "Chittagong", label: "Chittagong Division (Chattogram)" },
+    { value: "Dhaka", label: "Dhaka Division" },
+    { value: "Khulna", label: "Khulna Division" },
+    { value: "Mymensingh", label: "Mymensingh Division" },
+    { value: "Rajshahi", label: "Rajshahi Division" },
+    { value: "Rangpur", label: "Rangpur Division" },
+    { value: "Sylhet", label: "Sylhet Division" },
 ];
 
 const SUGGESTED_FACILITIES = [
@@ -470,8 +469,8 @@ export default function BranchFormModal({
                                                     className="w-full bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 p-3 font-bold text-sm text-slate-800 dark:text-white outline-none focus:ring-2 focus:ring-pink-500/20"
                                                 >
                                                     {DIVISIONS.map((div) => (
-                                                        <option key={div} value={div}>
-                                                            {div}
+                                                        <option key={div.value} value={div.value}>
+                                                            {div.label}
                                                         </option>
                                                     ))}
                                                 </select>

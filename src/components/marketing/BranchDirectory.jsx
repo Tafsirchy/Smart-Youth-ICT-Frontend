@@ -33,6 +33,18 @@ import {
   IoSparklesOutline,
 } from 'react-icons/io5';
 
+export const BANGLADESH_DIVISIONS = [
+  { key: 'All', label: 'All Divisions' },
+  { key: 'Barisal', label: 'Barisal (Barishal)', aliases: ['Barisal', 'Barishal'] },
+  { key: 'Chittagong', label: 'Chittagong (Chattogram)', aliases: ['Chittagong', 'Chattogram'] },
+  { key: 'Dhaka', label: 'Dhaka', aliases: ['Dhaka'] },
+  { key: 'Khulna', label: 'Khulna', aliases: ['Khulna'] },
+  { key: 'Mymensingh', label: 'Mymensingh', aliases: ['Mymensingh'] },
+  { key: 'Rajshahi', label: 'Rajshahi', aliases: ['Rajshahi'] },
+  { key: 'Rangpur', label: 'Rangpur', aliases: ['Rangpur'] },
+  { key: 'Sylhet', label: 'Sylhet', aliases: ['Sylhet'] },
+];
+
 // Curated high-resolution campus and IT lab photos by division
 export const DIVISION_CAMPUS_FALLBACKS = {
   Dhaka: 'https://images.unsplash.com/photo-1531482615713-2afd69097998?auto=format&fit=crop&w=1000&q=80',
@@ -41,6 +53,7 @@ export const DIVISION_CAMPUS_FALLBACKS = {
   Rajshahi: 'https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=1000&q=80',
   Khulna: 'https://images.unsplash.com/photo-1519452635265-7b1fbfd1e4e0?auto=format&fit=crop&w=1000&q=80',
   Barisal: 'https://images.unsplash.com/photo-1498243691581-b145c3f54a5a?auto=format&fit=crop&w=1000&q=80',
+  Barishal: 'https://images.unsplash.com/photo-1498243691581-b145c3f54a5a?auto=format&fit=crop&w=1000&q=80',
   Sylhet: 'https://images.unsplash.com/photo-1509062522246-3755977927d7?auto=format&fit=crop&w=1000&q=80',
   Rangpur: 'https://images.unsplash.com/photo-1523240795612-9a054b0db644?auto=format&fit=crop&w=1000&q=80',
   Mymensingh: 'https://images.unsplash.com/photo-1509062522246-3755977927d7?auto=format&fit=crop&w=1000&q=80',
@@ -267,15 +280,25 @@ export default function BranchDirectory({ locale = 'en', initialDivision = 'All'
 
   const divisionCounts = useMemo(() => {
     const counts = { All: branches.length };
+    BANGLADESH_DIVISIONS.forEach((d) => {
+      if (d.key !== 'All') counts[d.key] = 0;
+    });
+
     branches.forEach((b) => {
-      if (b.division) {
-        counts[b.division] = (counts[b.division] || 0) + 1;
+      const rawDiv = (b.division || '').trim();
+      const matched = BANGLADESH_DIVISIONS.find((d) =>
+        d.aliases && d.aliases.some((a) => a.toLowerCase() === rawDiv.toLowerCase())
+      );
+      if (matched) {
+        counts[matched.key] = (counts[matched.key] || 0) + 1;
+      } else if (rawDiv) {
+        counts[rawDiv] = (counts[rawDiv] || 0) + 1;
       }
     });
     return counts;
   }, [branches]);
 
-  const divisions = useMemo(() => Object.keys(divisionCounts), [divisionCounts]);
+  const divisions = useMemo(() => BANGLADESH_DIVISIONS.map((d) => d.key), []);
 
   const filteredBranches = useMemo(() => {
     let list = branches.map((b) => {
@@ -288,7 +311,17 @@ export default function BranchDirectory({ locale = 'en', initialDivision = 'All'
     });
 
     if (selectedDivision !== 'All') {
-      list = list.filter((b) => b.division === selectedDivision);
+      const matchedDiv = BANGLADESH_DIVISIONS.find((d) =>
+        d.key.toLowerCase() === selectedDivision.toLowerCase() ||
+        (d.aliases && d.aliases.some((a) => a.toLowerCase() === selectedDivision.toLowerCase()))
+      );
+      list = list.filter((b) => {
+        const branchDiv = (b.division || '').trim().toLowerCase();
+        if (matchedDiv && matchedDiv.aliases) {
+          return matchedDiv.aliases.some((a) => a.toLowerCase() === branchDiv);
+        }
+        return branchDiv === selectedDivision.toLowerCase();
+      });
     }
 
     if (deferredSearch.trim()) {
@@ -489,21 +522,23 @@ export default function BranchDirectory({ locale = 'en', initialDivision = 'All'
         {/* Division Filter Pills */}
         <div className="pt-2 border-t border-slate-100 dark:border-slate-800/80 flex items-center justify-between gap-2">
           <div className="flex items-center gap-1.5 overflow-x-auto pb-0.5 no-scrollbar flex-1">
-            {divisions.map((div) => {
-              const count = divisionCounts[div] || 0;
-              const isSelected = selectedDivision === div;
+            {BANGLADESH_DIVISIONS.map((d) => {
+              const count = divisionCounts[d.key] || 0;
+              const isSelected =
+                selectedDivision.toLowerCase() === d.key.toLowerCase() ||
+                (d.aliases && d.aliases.some((a) => a.toLowerCase() === selectedDivision.toLowerCase()));
               return (
                 <button
-                  key={div}
+                  key={d.key}
                   type="button"
-                  onClick={() => handleDivisionChange(div)}
+                  onClick={() => handleDivisionChange(d.key)}
                   className={`px-3 py-1.5 text-xs font-medium whitespace-nowrap rounded-lg border transition-all ${
                     isSelected
                       ? 'bg-slate-900 text-white border-slate-900 dark:bg-white dark:text-slate-900 dark:border-white shadow-sm'
                       : 'bg-slate-50 dark:bg-slate-800/60 text-slate-600 dark:text-slate-400 border-slate-200 dark:border-slate-700 hover:border-slate-300'
                   }`}
                 >
-                  <span>{div}</span>
+                  <span>{d.label}</span>
                   <span className={`ml-1.5 text-[10px] ${isSelected ? 'opacity-90' : 'text-slate-400'}`}>
                     ({count})
                   </span>
@@ -567,10 +602,14 @@ export default function BranchDirectory({ locale = 'en', initialDivision = 'All'
                   <IoLocationOutline size={30} />
                 </div>
                 <h3 className="text-base font-bold text-slate-900 dark:text-white mb-1">
-                  No campuses match your criteria
+                  {selectedDivision !== 'All'
+                    ? `Our ${selectedDivision} Campus is Coming Soon!`
+                    : 'No campuses match your criteria'}
                 </h3>
-                <p className="text-xs text-slate-500 max-w-sm mx-auto mb-4">
-                  Try adjusting your search keywords, division filter, or clearing the &ldquo;Open Today&rdquo; filter.
+                <p className="text-xs text-slate-500 max-w-md mx-auto mb-4 leading-relaxed">
+                  {selectedDivision !== 'All'
+                    ? `Smart Youth ICT is actively preparing to launch full physical labs and mentorship in ${selectedDivision} Division. In the meantime, you can enroll in our online live cohorts or visit our nearby regional centers.`
+                    : 'Try adjusting your search keywords, division filter, or clearing the “Open Today” filter.'}
                 </p>
                 <button
                   type="button"

@@ -187,26 +187,36 @@ export default function MobileMenu({ links, session, branchDivisions, onClose })
    All Campuses →
   </Link>
   </li>
-  {divisionsList.map((d) => {
-  const href = d.division === 'All' ? '/branches' : `/branches?division=${d.division}`;
-  const isItemActive = d.division === 'All'
-   ? cleanPath === '/branches' && !pathname.includes('division')
-   : pathname.includes(`division=${d.division}`);
-  return (
-   <li key={d.division}>
-   <Link
-    href={href}
-    onClick={onClose}
-    className={`flex items-center justify-between min-h-[40px] px-3 py-1.5 text-sm transition-colors ${
-    isItemActive ? "text-brand-green font-semibold bg-brand-green/5" : "text-slate-600 hover:text-brand-green hover:bg-brand-green/5"
-    }`}
-   >
-    <span>{d.division === 'All' ? 'All Divisions' : d.division}</span>
-    <span className="text-[10px] text-slate-400 font-semibold">{d.count}</span>
-   </Link>
-   </li>
-  );
-  })}
+  {divisionsList
+                .filter((d) => d.division !== 'All')
+                .map((d) => {
+                  const href = `/branches?division=${d.division}`;
+                  const isItemActive = pathname.includes(`division=${d.division}`);
+                  return (
+                    <li key={d.division}>
+                      <Link
+                        href={href}
+                        onClick={onClose}
+                        className={`flex items-center justify-between min-h-[40px] px-3 py-1.5 text-sm transition-colors ${
+                          isItemActive
+                            ? "text-brand-green font-semibold bg-brand-green/5"
+                            : "text-slate-600 hover:text-brand-green hover:bg-brand-green/5"
+                        }`}
+                      >
+                        <span>{d.name || d.division}</span>
+                        <span
+                          className={`text-[10px] font-semibold px-1.5 py-0.5 rounded ${
+                            d.count > 0
+                              ? "bg-slate-100 text-slate-600"
+                              : "text-amber-700 bg-amber-50"
+                          }`}
+                        >
+                          {d.count > 0 ? d.count : 'Soon'}
+                        </span>
+                      </Link>
+                    </li>
+                  );
+                })}
  </MobileAccordion>
 
  </ul>
