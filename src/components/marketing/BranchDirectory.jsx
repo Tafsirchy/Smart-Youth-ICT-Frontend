@@ -137,28 +137,62 @@ const DEFAULT_FACILITIES = [
 ];
 
 export default function BranchDirectory({ locale = 'en', initialDivision = 'All' }) {
-  // TanStack Query for caching public branches
+  // TanStack Query for caching public branches with local fallback & stale-while-revalidate
   const {
     data: rawBranches = [],
     isLoading: loading,
     isError,
+    refetch,
   } = useQuery({
     queryKey: ['public-branches-directory'],
     queryFn: async () => {
-      const res = await axios.get(`${getApiBaseUrl()}/branches/public/all`, {
-        headers: {
-          'Cache-Control': 'no-cache',
-          Pragma: 'no-cache',
-        },
-      });
-      return res.data?.data || [];
+      try {
+        const res = await axios.get(`${getApiBaseUrl()}/branches/public/all`);
+        const list = res.data?.data || [];
+        if (list.length > 0 && typeof window !== 'undefined') {
+          try {
+            localStorage.setItem('syict_cached_branches', JSON.stringify(list));
+          } catch (_) {}
+        }
+        return list;
+      } catch (err) {
+        // Fallback to locally cached campuses during temporary backend cold-starts or network blips
+        if (typeof window !== 'undefined') {
+          try {
+            const cached = localStorage.getItem('syict_cached_branches');
+            if (cached) {
+              const parsed = JSON.parse(cached);
+              if (Array.isArray(parsed) && parsed.length > 0) {
+                return parsed;
+              }
+            }
+          } catch (_) {}
+        }
+        throw err;
+      }
     },
-    staleTime: 0,           // ✅ always refetch on mount — ensures dashboard edits show immediately
-    gcTime: 60 * 1000,     // 1 min memory cache
-    refetchOnWindowFocus: true, // ✅ refetch when user switches back to this tab
+    initialData: () => {
+      if (typeof window !== 'undefined') {
+        try {
+          const cached = localStorage.getItem('syict_cached_branches');
+          if (cached) {
+            const parsed = JSON.parse(cached);
+            if (Array.isArray(parsed) && parsed.length > 0) return parsed;
+          }
+        } catch (_) {}
+      }
+      return undefined;
+    },
+    staleTime: 5 * 60 * 1000,    // 5 min cache buffer
+    gcTime: 30 * 60 * 1000,      // 30 min memory garbage collection
+    refetchOnWindowFocus: false, // Prevents sudden unmounting/flashing when switching browser tabs
+    refetchOnReconnect: true,
+    retry: 2,
   });
 
-  const error = isError ? 'Unable to load campuses at this moment. Please refresh.' : null;
+  const error = isError && (!rawBranches || rawBranches.length === 0)
+    ? 'Unable to load campuses at this moment. Please refresh.'
+    : null;
 
   // Ensure all branches have valid coordinates for the map
   const branches = useMemo(() => {
@@ -387,7 +421,7 @@ export default function BranchDirectory({ locale = 'en', initialDivision = 'All'
     }
   };
 
-  if (loading) {
+  if (loading && branches.length === 0) {
     return (
       <div className="flex flex-col justify-center items-center py-28 gap-4">
         <div className="w-10 h-10 border-3 border-blue-600 border-t-transparent animate-spin rounded-full"></div>
@@ -396,7 +430,7 @@ export default function BranchDirectory({ locale = 'en', initialDivision = 'All'
     );
   }
 
-  if (error) {
+  if (error && branches.length === 0) {
     return (
       <div className="text-center py-20 px-4 max-w-md mx-auto">
         <div className="w-12 h-12 bg-rose-50 text-rose-500 rounded-2xl flex items-center justify-center mx-auto mb-3">
@@ -404,8 +438,8 @@ export default function BranchDirectory({ locale = 'en', initialDivision = 'All'
         </div>
         <p className="text-slate-700 font-semibold mb-2">{error}</p>
         <button
-          onClick={() => window.location.reload()}
-          className="px-4 py-2 bg-slate-900 text-white rounded-xl text-xs font-bold uppercase tracking-wider"
+          onClick={() => refetch()}
+          className="px-4 py-2 bg-slate-900 text-white rounded-xl text-xs font-bold uppercase tracking-wider hover:bg-slate-800 transition-colors"
         >
           Retry
         </button>
