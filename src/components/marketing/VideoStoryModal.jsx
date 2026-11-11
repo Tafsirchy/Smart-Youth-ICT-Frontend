@@ -25,7 +25,7 @@ function getEmbedUrl(url) {
  /(?:youtube\.com\/(?:[^\/]+\/.+\/|(?:v|e(?:mbed)?|shorts)\/|.*[?&]v=)|youtu\.be\/)([^"&?\/\s]{11})/i
  );
  if (ytMatch && ytMatch[1]) {
- return `https://www.youtube-nocookie.com/embed/${ytMatch[1]}?autoplay=1&rel=0&modestbranding=1&playsinline=1`;
+ return `https://www.youtube.com/embed/${ytMatch[1]}?autoplay=1&rel=0&modestbranding=1&playsinline=1&enablejsapi=1`;
  }
 
  // Vimeo match: vimeo.com/123456789
@@ -36,12 +36,30 @@ function getEmbedUrl(url) {
  return `https://player.vimeo.com/video/${vimeoMatch[3]}?autoplay=1`;
  }
 
+ // Direct video files should use the <video> tag rather than <iframe>
+ if (/\.(mp4|webm|ogg)(\?|$)/i.test(trimmed)) {
+ return null;
+ }
+
  // Direct embed format
  if (trimmed.includes('/embed/')) {
  return trimmed.includes('?') ? `${trimmed}&autoplay=1` : `${trimmed}?autoplay=1`;
  }
 
  return trimmed;
+}
+
+function getThumbnailUrl(story) {
+ if (story?.videoThumbnail) return story.videoThumbnail;
+ if (story?.videoUrl) {
+ const match = story.videoUrl.match(
+ /(?:youtube\.com\/(?:[^\/]+\/.+\/|(?:v|e(?:mbed)?|shorts)\/|.*[?&]v=)|youtu\.be\/)([^"&?\/\s]{11})/i
+ );
+ if (match && match[1]) {
+ return `https://img.youtube.com/vi/${match[1]}/hqdefault.jpg`;
+ }
+ }
+ return story?.studentAvatar || '/images/placeholder.png';
 }
 
 export default function VideoStoryModal({ story, onClose }) {
@@ -92,7 +110,7 @@ export default function VideoStoryModal({ story, onClose }) {
  <div className="flex items-center gap-3 min-w-0 pr-4">
  <div className="relative w-10 h-10 sm:w-11 sm:h-11 overflow-hidden ring-2 ring-pink-500/40 shrink-0 bg-slate-800">
  <Image
- src={story.videoThumbnail || (story.videoUrl && story.videoUrl.indexOf('youtu') !== -1 ? 'https://img.youtube.com/vi/' + story.videoUrl.split('v=')[1]?.split('&')[0] + '/hqdefault.jpg' : '') || story.studentAvatar || '/images/placeholder.png'}
+ src={getThumbnailUrl(story)}
  alt={story.studentName || 'Student'}
  fill
  sizes="48px"
@@ -136,6 +154,7 @@ export default function VideoStoryModal({ story, onClose }) {
  title={`${story.studentName || 'Student'} Success Story`}
  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
  allowFullScreen
+ referrerPolicy="strict-origin-when-cross-origin"
  className="w-full h-full border-0"
  />
  ) : isDirectVideo ? (
