@@ -18,6 +18,9 @@ export const BRANCH_TYPE_FILTERS = {
 export const branchSearchFields = [
     (branch) => branch?.name,
     (branch) => branch?.code,
+    (branch) => branch?.sponsorId,
+    (branch) => branch?.address?.district,
+    (branch) => branch?.address?.thana,
     (branch) => branch?.address?.city,
     (branch) => branch?.division,
 ];
@@ -25,9 +28,15 @@ export const branchSearchFields = [
 export const branchColumns = [
     { key: 'name', label: 'Name', csv: 'text' },
     { key: 'code', label: 'Code', csv: 'text' },
+    { key: 'sponsorId', label: 'Sponsor ID', csv: 'text' },
     { key: 'type', label: 'Type', csv: 'text' },
     { key: 'division', label: 'Division', csv: 'text' },
-    { key: 'city', label: 'City', accessor: (branch) => branch?.address?.city, csv: 'text' },
+    { key: 'district', label: 'District', accessor: (branch) => branch?.address?.district || branch?.address?.city, csv: 'text' },
+    { key: 'thana', label: 'Thana/Upazila', accessor: (branch) => branch?.address?.thana, csv: 'text' },
+    { key: 'postalCode', label: 'Postal Code', accessor: (branch) => branch?.address?.postalCode, csv: 'text' },
+    { key: 'seatCapacity', label: 'Seat Capacity', accessor: (branch) => branch?.seatCapacity || 0, csv: 'raw' },
+    { key: 'areaSqFt', label: 'Area (Sq Ft)', accessor: (branch) => branch?.areaSqFt || 0, csv: 'raw' },
+    { key: 'totalEmployees', label: 'Total Employees', accessor: (branch) => branch?.totalEmployees || 0, csv: 'raw' },
     { key: 'email', label: 'Email', accessor: (branch) => branch?.contact?.email, csv: 'text' },
     { key: 'phone', label: 'Phone', accessor: (branch) => branch?.contact?.phones?.[0], csv: 'text' },
     {

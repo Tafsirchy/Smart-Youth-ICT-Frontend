@@ -12,6 +12,7 @@ import {
   IoNavigateOutline,
   IoCloseOutline,
   IoVideocamOutline,
+  IoInformationCircleOutline,
 } from 'react-icons/io5';
 import { getBranchThumbnail, DIVISION_CAMPUS_FALLBACKS } from './BranchDirectory';
 
@@ -109,6 +110,7 @@ export default function BranchMap({
   selectedBranchId,
   hoveredBranchId,
   onSelectBranch,
+  onViewDetail,
   onVirtualTour,
   onScheduleVisit,
   getStatus,
@@ -274,6 +276,15 @@ export default function BranchMap({
             >
               <IoCalendarOutline size={14} />
               <span>Book Visit</span>
+            </button>
+
+            <button
+              type="button"
+              onClick={() => onViewDetail && onViewDetail(selectedBranch)}
+              className="py-2 px-3 bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs uppercase tracking-wider rounded-xl transition-colors flex items-center justify-center gap-1.5 active:scale-95 shadow-sm"
+            >
+              <IoInformationCircleOutline size={15} />
+              <span>Detail</span>
             </button>
 
             <button

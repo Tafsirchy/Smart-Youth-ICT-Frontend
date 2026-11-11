@@ -438,6 +438,7 @@ export default function AllBranchesPage() {
                                                     </div>
                                                     <span className="text-[10px] font-medium text-slate-400 block leading-tight">
                                                         {branch.code}
+                                                        {branch.sponsorId ? ` • ID: ${branch.sponsorId}` : ""}
                                                     </span>
                                                 </div>
                                             </div>
@@ -450,11 +451,14 @@ export default function AllBranchesPage() {
                                                     {branch.division || "Dhaka"}
                                                 </span>
                                                 <p className="text-[11px] font-medium text-slate-700 dark:text-slate-300 truncate max-w-[140px] pt-0.2 leading-tight">
-                                                    {branch.address?.area || branch.address?.street || "—"}
+                                                    {branch.address?.area || branch.address?.thana || branch.address?.street || "—"}
                                                 </p>
                                                 <p className="text-[10px] text-slate-400 flex items-center gap-0.5 leading-none">
                                                     <HiOutlineMapPin size={11} className="shrink-0" />
-                                                    <span className="truncate">{branch.address?.city || "Bangladesh"}</span>
+                                                    <span className="truncate">
+                                                        {branch.address?.district || branch.address?.city || "Bangladesh"}
+                                                        {branch.address?.postalCode ? ` (${branch.address.postalCode})` : ""}
+                                                    </span>
                                                 </p>
                                             </div>
                                         </td>
@@ -508,6 +512,15 @@ export default function AllBranchesPage() {
                                                     </div>
                                                 </button>
                                             </div>
+                                            {(branch.seatCapacity > 0 || branch.areaSqFt > 0 || branch.totalEmployees > 0) && (
+                                                <div className="text-[9px] text-slate-400 font-semibold mt-1 leading-none">
+                                                    {branch.seatCapacity > 0 ? `${branch.seatCapacity} seats` : ""}
+                                                    {branch.seatCapacity > 0 && branch.areaSqFt > 0 ? " • " : ""}
+                                                    {branch.areaSqFt > 0 ? `${branch.areaSqFt} sqft` : ""}
+                                                    {(branch.seatCapacity > 0 || branch.areaSqFt > 0) && branch.totalEmployees > 0 ? " • " : ""}
+                                                    {branch.totalEmployees > 0 ? `${branch.totalEmployees} staff` : ""}
+                                                </div>
+                                            )}
                                         </td>
 
                                         {/* Status with 1-Click Toggle */}

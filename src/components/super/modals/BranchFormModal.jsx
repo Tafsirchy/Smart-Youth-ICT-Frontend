@@ -70,6 +70,11 @@ export const initialFormState = {
     type: "local",
     division: "Dhaka",
     establishedDate: "",
+    sponsorId: "",
+    bio: "",
+    seatCapacity: "",
+    areaSqFt: "",
+    totalEmployees: "",
     logo: "",
     coverImage: "",
     gallery: [],
@@ -81,7 +86,18 @@ export const initialFormState = {
     ],
     notice: { title: "", text: "", isActive: false },
     website: "",
-    address: { street: "", area: "", city: "", country: "Bangladesh" },
+    address: {
+        houseNo: "",
+        roadNo: "",
+        area: "",
+        thana: "",
+        district: "",
+        division: "Dhaka",
+        postalCode: "",
+        street: "",
+        city: "",
+        country: "Bangladesh",
+    },
     location: { lat: "", long: "", googleMapsUrl: "" },
     contact: { email: "", phones: [""] },
     whatsapp: "",
@@ -123,13 +139,29 @@ export default function BranchFormModal({
                 type: editingBranch.type || "local",
                 division: editingBranch.division || "Dhaka",
                 establishedDate: editingBranch.establishedDate ? editingBranch.establishedDate.split("T")[0] : "",
+                sponsorId: editingBranch.sponsorId || "",
+                bio: editingBranch.bio || "",
+                seatCapacity: editingBranch.seatCapacity ?? "",
+                areaSqFt: editingBranch.areaSqFt ?? "",
+                totalEmployees: editingBranch.totalEmployees ?? "",
                 logo: editingBranch.logo || "",
                 coverImage: editingBranch.coverImage || "",
                 gallery: Array.isArray(editingBranch.gallery) ? editingBranch.gallery : [],
                 facilities: Array.isArray(editingBranch.facilities) ? editingBranch.facilities : [],
                 notice: editingBranch.notice || { title: "", text: "", isActive: false },
                 website: editingBranch.website || "",
-                address: editingBranch.address || { street: "", area: "", city: "", country: "Bangladesh" },
+                address: {
+                    houseNo: editingBranch.address?.houseNo || "",
+                    roadNo: editingBranch.address?.roadNo || "",
+                    area: editingBranch.address?.area || "",
+                    thana: editingBranch.address?.thana || "",
+                    district: editingBranch.address?.district || editingBranch.address?.city || "",
+                    division: editingBranch.address?.division || editingBranch.division || "Dhaka",
+                    postalCode: editingBranch.address?.postalCode || "",
+                    street: editingBranch.address?.street || "",
+                    city: editingBranch.address?.city || "",
+                    country: editingBranch.address?.country || "Bangladesh",
+                },
                 location: {
                     lat,
                     long,
@@ -298,7 +330,26 @@ export default function BranchFormModal({
                 return;
             }
 
-            const payload = { ...formData, code: requestedCode };
+            const streetFallback = [
+                formData.address?.houseNo ? `House ${formData.address.houseNo}` : "",
+                formData.address?.roadNo ? `Road ${formData.address.roadNo}` : "",
+            ]
+                .filter(Boolean)
+                .join(", ");
+
+            const payload = {
+                ...formData,
+                code: requestedCode,
+                seatCapacity: Number(formData.seatCapacity) || 0,
+                areaSqFt: Number(formData.areaSqFt) || 0,
+                totalEmployees: Number(formData.totalEmployees) || 0,
+                address: {
+                    ...formData.address,
+                    division: formData.address?.division || formData.division || "Dhaka",
+                    city: formData.address?.district || formData.address?.city || "",
+                    street: streetFallback || formData.address?.street || "",
+                },
+            };
             const hasCoordinates =
                 formData.location?.lat !== "" &&
                 formData.location?.lat !== null &&
@@ -362,8 +413,8 @@ export default function BranchFormModal({
                         {/* Modal 4 Tabs */}
                         <div className="px-6 py-3 flex items-center gap-2 border-b border-slate-100 dark:border-slate-800 overflow-x-auto no-scrollbar bg-slate-50/30 dark:bg-slate-800/20">
                             {[
-                                { id: "identity", label: "Identity & Media", icon: HiOutlineGlobeAlt },
-                                { id: "presence", label: "Geospatial & Map", icon: HiOutlineMapPin },
+                                { id: "identity", label: "Identity & Bio", icon: HiOutlineGlobeAlt },
+                                { id: "presence", label: "Address & Capacity", icon: HiOutlineMapPin },
                                 { id: "channels", label: "Contact & Leads", icon: HiOutlineEnvelope },
                                 { id: "operations", label: "Weekly Schedule", icon: HiOutlineClock },
                             ].map((t) => (
@@ -489,6 +540,74 @@ export default function BranchFormModal({
                                                     className="w-full bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 p-3 font-bold text-sm text-slate-800 dark:text-white outline-none focus:ring-2 focus:ring-pink-500/20"
                                                 />
                                             </div>
+                                        </div>
+
+                                        {/* Sponsor ID & Branch Capacity / Metrics */}
+                                        <div className="grid grid-cols-1 sm:grid-cols-4 gap-4">
+                                            <div className="space-y-1">
+                                                <label className="text-[10px] font-black text-slate-400 uppercase tracking-wider">
+                                                    Branch Sponsor ID
+                                                </label>
+                                                <input
+                                                    value={formData.sponsorId}
+                                                    onChange={(e) => setFormData({ ...formData, sponsorId: e.target.value })}
+                                                    placeholder="e.g. SPN-SYICT-04"
+                                                    className="w-full bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 p-3 font-bold text-sm text-slate-800 dark:text-white outline-none focus:ring-2 focus:ring-pink-500/20"
+                                                />
+                                            </div>
+                                            <div className="space-y-1">
+                                                <label className="text-[10px] font-black text-slate-400 uppercase tracking-wider">
+                                                    Seat Capacity
+                                                </label>
+                                                <input
+                                                    type="number"
+                                                    min="0"
+                                                    value={formData.seatCapacity}
+                                                    onChange={(e) => setFormData({ ...formData, seatCapacity: e.target.value })}
+                                                    placeholder="e.g. 120"
+                                                    className="w-full bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 p-3 font-bold text-sm text-slate-800 dark:text-white outline-none focus:ring-2 focus:ring-pink-500/20"
+                                                />
+                                            </div>
+                                            <div className="space-y-1">
+                                                <label className="text-[10px] font-black text-slate-400 uppercase tracking-wider">
+                                                    Area Size (Sq Ft)
+                                                </label>
+                                                <input
+                                                    type="number"
+                                                    min="0"
+                                                    value={formData.areaSqFt}
+                                                    onChange={(e) => setFormData({ ...formData, areaSqFt: e.target.value })}
+                                                    placeholder="e.g. 3500"
+                                                    className="w-full bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 p-3 font-bold text-sm text-slate-800 dark:text-white outline-none focus:ring-2 focus:ring-pink-500/20"
+                                                />
+                                            </div>
+                                            <div className="space-y-1">
+                                                <label className="text-[10px] font-black text-slate-400 uppercase tracking-wider">
+                                                    Total Employee
+                                                </label>
+                                                <input
+                                                    type="number"
+                                                    min="0"
+                                                    value={formData.totalEmployees}
+                                                    onChange={(e) => setFormData({ ...formData, totalEmployees: e.target.value })}
+                                                    placeholder="e.g. 18"
+                                                    className="w-full bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 p-3 font-bold text-sm text-slate-800 dark:text-white outline-none focus:ring-2 focus:ring-pink-500/20"
+                                                />
+                                            </div>
+                                        </div>
+
+                                        {/* Branch Details / Bio */}
+                                        <div className="space-y-1">
+                                            <label className="text-[10px] font-black text-slate-400 uppercase tracking-wider">
+                                                Branch Details / Bio
+                                            </label>
+                                            <textarea
+                                                rows={3}
+                                                value={formData.bio}
+                                                onChange={(e) => setFormData({ ...formData, bio: e.target.value })}
+                                                placeholder="Describe this branch campus, lab setup, mentorship environment, landmark highlights, and specialized facilities..."
+                                                className="w-full bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 p-3 font-medium text-sm text-slate-800 dark:text-white outline-none focus:ring-2 focus:ring-pink-500/20 resize-y"
+                                            />
                                         </div>
 
                                         {/* Media: Logo & Cover Image */}
@@ -700,55 +819,130 @@ export default function BranchFormModal({
                                     </motion.div>
                                 )}
 
-                                {/* ── TAB 2: GEOSPATIAL & MAP ── */}
+                                {/* ── TAB 2: ADDRESS, CAPACITY & MAP ── */}
                                 {activeTab === "presence" && (
                                     <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="space-y-4">
-                                        <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
-                                            <div className="space-y-1 sm:col-span-2">
-                                                <label className="text-[10px] font-black text-slate-400 uppercase tracking-wider">
-                                                    Street Address
-                                                </label>
-                                                <input
-                                                    value={formData.address.street}
-                                                    onChange={(e) => updateNestedField("address", "street", e.target.value)}
-                                                    placeholder="e.g. Holding 14/B, Main Road"
-                                                    className="w-full bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 p-3 font-bold text-xs text-slate-800 dark:text-white outline-none focus:ring-2 focus:ring-blue-500/20"
-                                                />
+                                        <div className="p-4 bg-slate-50/70 dark:bg-slate-800/40 border border-slate-200 dark:border-slate-700/80 rounded-xl space-y-3">
+                                            <span className="text-xs font-black uppercase tracking-wider text-slate-700 dark:text-slate-300 block">
+                                                Structured Campus Address
+                                            </span>
+                                            <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                                                <div className="space-y-1">
+                                                    <label className="text-[10px] font-black text-slate-400 uppercase tracking-wider">
+                                                        House No. / Holding
+                                                    </label>
+                                                    <input
+                                                        value={formData.address.houseNo || ""}
+                                                        onChange={(e) => updateNestedField("address", "houseNo", e.target.value)}
+                                                        placeholder="e.g. House 14/B (Level 4)"
+                                                        className="w-full bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 p-2.5 font-bold text-xs text-slate-800 dark:text-white outline-none focus:ring-2 focus:ring-blue-500/20"
+                                                    />
+                                                </div>
+                                                <div className="space-y-1">
+                                                    <label className="text-[10px] font-black text-slate-400 uppercase tracking-wider">
+                                                        Road No. / Street
+                                                    </label>
+                                                    <input
+                                                        value={formData.address.roadNo || ""}
+                                                        onChange={(e) => updateNestedField("address", "roadNo", e.target.value)}
+                                                        placeholder="e.g. Road 07, Main Avenue"
+                                                        className="w-full bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 p-2.5 font-bold text-xs text-slate-800 dark:text-white outline-none focus:ring-2 focus:ring-blue-500/20"
+                                                    />
+                                                </div>
+                                                <div className="space-y-1">
+                                                    <label className="text-[10px] font-black text-slate-400 uppercase tracking-wider">
+                                                        Area / Locality
+                                                    </label>
+                                                    <input
+                                                        value={formData.address.area || ""}
+                                                        onChange={(e) => updateNestedField("address", "area", e.target.value)}
+                                                        placeholder="e.g. Dhanmondi / Modern More"
+                                                        className="w-full bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 p-2.5 font-bold text-xs text-slate-800 dark:text-white outline-none focus:ring-2 focus:ring-blue-500/20"
+                                                    />
+                                                </div>
                                             </div>
-                                            <div className="space-y-1">
-                                                <label className="text-[10px] font-black text-slate-400 uppercase tracking-wider">
-                                                    Area / Sector
-                                                </label>
-                                                <input
-                                                    value={formData.address.area}
-                                                    onChange={(e) => updateNestedField("address", "area", e.target.value)}
-                                                    placeholder="e.g. Modern More"
-                                                    className="w-full bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 p-3 font-bold text-xs text-slate-800 dark:text-white outline-none focus:ring-2 focus:ring-blue-500/20"
-                                                />
-                                            </div>
-                                        </div>
 
-                                        <div className="grid grid-cols-2 gap-3">
-                                            <div className="space-y-1">
-                                                <label className="text-[10px] font-black text-slate-400 uppercase tracking-wider">
-                                                    City / District
-                                                </label>
-                                                <input
-                                                    value={formData.address.city}
-                                                    onChange={(e) => updateNestedField("address", "city", e.target.value)}
-                                                    placeholder="e.g. Rangpur"
-                                                    className="w-full bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 p-3 font-bold text-xs text-slate-800 dark:text-white outline-none focus:ring-2 focus:ring-blue-500/20"
-                                                />
+                                            <div className="grid grid-cols-1 sm:grid-cols-4 gap-3">
+                                                <div className="space-y-1">
+                                                    <label className="text-[10px] font-black text-slate-400 uppercase tracking-wider">
+                                                        Thana / Upazila
+                                                    </label>
+                                                    <input
+                                                        value={formData.address.thana || ""}
+                                                        onChange={(e) => updateNestedField("address", "thana", e.target.value)}
+                                                        placeholder="e.g. Uttara East"
+                                                        className="w-full bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 p-2.5 font-bold text-xs text-slate-800 dark:text-white outline-none focus:ring-2 focus:ring-blue-500/20"
+                                                    />
+                                                </div>
+                                                <div className="space-y-1">
+                                                    <label className="text-[10px] font-black text-slate-400 uppercase tracking-wider">
+                                                        District
+                                                    </label>
+                                                    <input
+                                                        value={formData.address.district || ""}
+                                                        onChange={(e) => updateNestedField("address", "district", e.target.value)}
+                                                        placeholder="e.g. Dhaka"
+                                                        className="w-full bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 p-2.5 font-bold text-xs text-slate-800 dark:text-white outline-none focus:ring-2 focus:ring-blue-500/20"
+                                                    />
+                                                </div>
+                                                <div className="space-y-1">
+                                                    <label className="text-[10px] font-black text-slate-400 uppercase tracking-wider">
+                                                        Division
+                                                    </label>
+                                                    <select
+                                                        value={formData.address.division || formData.division || "Dhaka"}
+                                                        onChange={(e) => {
+                                                            const nextDiv = e.target.value;
+                                                            setFormData((prev) => ({
+                                                                ...prev,
+                                                                division: nextDiv,
+                                                                address: { ...prev.address, division: nextDiv },
+                                                            }));
+                                                        }}
+                                                        className="w-full bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 p-2.5 font-bold text-xs text-slate-800 dark:text-white outline-none focus:ring-2 focus:ring-blue-500/20"
+                                                    >
+                                                        {DIVISIONS.map((div) => (
+                                                            <option key={div.value} value={div.value}>
+                                                                {div.label}
+                                                            </option>
+                                                        ))}
+                                                    </select>
+                                                </div>
+                                                <div className="space-y-1">
+                                                    <label className="text-[10px] font-black text-slate-400 uppercase tracking-wider">
+                                                        Postal Code
+                                                    </label>
+                                                    <input
+                                                        value={formData.address.postalCode || ""}
+                                                        onChange={(e) => updateNestedField("address", "postalCode", e.target.value)}
+                                                        placeholder="e.g. 1230"
+                                                        className="w-full bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 p-2.5 font-bold text-xs text-slate-800 dark:text-white outline-none focus:ring-2 focus:ring-blue-500/20"
+                                                    />
+                                                </div>
                                             </div>
-                                            <div className="space-y-1">
-                                                <label className="text-[10px] font-black text-slate-400 uppercase tracking-wider">
-                                                    Country
-                                                </label>
-                                                <input
-                                                    value={formData.address.country}
-                                                    onChange={(e) => updateNestedField("address", "country", e.target.value)}
-                                                    className="w-full bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 p-3 font-bold text-xs text-slate-800 dark:text-white outline-none"
-                                                />
+
+                                            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                                                <div className="space-y-1">
+                                                    <label className="text-[10px] font-black text-slate-400 uppercase tracking-wider">
+                                                        Street Summary (Optional Display Line)
+                                                    </label>
+                                                    <input
+                                                        value={formData.address.street || ""}
+                                                        onChange={(e) => updateNestedField("address", "street", e.target.value)}
+                                                        placeholder="Auto-filled from House/Road if left blank"
+                                                        className="w-full bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 p-2.5 font-bold text-xs text-slate-800 dark:text-white outline-none focus:ring-2 focus:ring-blue-500/20"
+                                                    />
+                                                </div>
+                                                <div className="space-y-1">
+                                                    <label className="text-[10px] font-black text-slate-400 uppercase tracking-wider">
+                                                        Country
+                                                    </label>
+                                                    <input
+                                                        value={formData.address.country || "Bangladesh"}
+                                                        onChange={(e) => updateNestedField("address", "country", e.target.value)}
+                                                        className="w-full bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 p-2.5 font-bold text-xs text-slate-800 dark:text-white outline-none"
+                                                    />
+                                                </div>
                                             </div>
                                         </div>
 

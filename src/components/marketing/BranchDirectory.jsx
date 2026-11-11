@@ -9,6 +9,7 @@ import { getApiBaseUrl } from '@/lib/api-base';
 import CampusVisitModal from '@/components/marketing/CampusVisitModal';
 import VirtualTourModal from '@/components/marketing/VirtualTourModal';
 import CampusGalleryLightbox from '@/components/marketing/CampusGalleryLightbox';
+import BranchDetailModal from '@/components/marketing/BranchDetailModal';
 import {
   IoLocationOutline,
   IoCallOutline,
@@ -31,6 +32,7 @@ import {
   IoSchoolOutline,
   IoCheckmarkCircleOutline,
   IoSparklesOutline,
+  IoInformationCircleOutline,
 } from 'react-icons/io5';
 
 export const BANGLADESH_DIVISIONS = [
@@ -259,6 +261,7 @@ export default function BranchDirectory({ locale = 'en', initialDivision = 'All'
   const [coursesLoading, setCoursesLoading] = useState({});
 
   // Modals
+  const [detailBranch, setDetailBranch] = useState(null);
   const [virtualTourBranch, setVirtualTourBranch] = useState(null);
   const [visitBranch, setVisitBranch] = useState(null);
   const [lightboxState, setLightboxState] = useState({
@@ -364,8 +367,14 @@ export default function BranchDirectory({ locale = 'en', initialDivision = 'All'
         (b) =>
           b.name?.toLowerCase().includes(q) ||
           b.code?.toLowerCase().includes(q) ||
-          b.address?.city?.toLowerCase().includes(q) ||
+          b.sponsorId?.toLowerCase().includes(q) ||
+          b.address?.houseNo?.toLowerCase().includes(q) ||
+          b.address?.roadNo?.toLowerCase().includes(q) ||
           b.address?.area?.toLowerCase().includes(q) ||
+          b.address?.thana?.toLowerCase().includes(q) ||
+          b.address?.district?.toLowerCase().includes(q) ||
+          b.address?.postalCode?.toLowerCase().includes(q) ||
+          b.address?.city?.toLowerCase().includes(q) ||
           b.address?.street?.toLowerCase().includes(q) ||
           b.division?.toLowerCase().includes(q)
       );
@@ -614,6 +623,7 @@ export default function BranchDirectory({ locale = 'en', initialDivision = 'All'
               selectedBranchId={selectedBranchId}
               hoveredBranchId={hoveredBranchId}
               onSelectBranch={handleSelectBranch}
+              onViewDetail={(branch) => setDetailBranch(branch)}
               onVirtualTour={(branch) => setVirtualTourBranch(branch)}
               onScheduleVisit={(branch) => setVisitBranch(branch)}
               getStatus={getBranchStatus}
@@ -667,10 +677,14 @@ export default function BranchDirectory({ locale = 'en', initialDivision = 'All'
                 const isHQ = branch.type === 'head_office';
 
                 const fullAddress = [
-                  branch.address?.street,
+                  branch.address?.houseNo ? `House ${branch.address.houseNo}` : '',
+                  branch.address?.roadNo ? `Road ${branch.address.roadNo}` : '',
+                  !branch.address?.houseNo && !branch.address?.roadNo ? branch.address?.street : '',
                   branch.address?.area,
-                  branch.address?.city,
+                  branch.address?.thana,
+                  branch.address?.district || branch.address?.city,
                   branch.division,
+                  branch.address?.postalCode,
                 ]
                   .filter(Boolean)
                   .join(', ');
@@ -848,16 +862,32 @@ export default function BranchDirectory({ locale = 'en', initialDivision = 'All'
                     </div>
 
                     {/* Bottom Action Suite */}
-                    <div className="px-3 py-2 bg-slate-50/80 dark:bg-slate-800/40 border-t border-slate-100 dark:border-slate-800 flex items-center justify-between gap-2">
-                      <div className="flex items-center gap-2">
+                    <div className="px-3 py-2 bg-slate-50/80 dark:bg-slate-800/40 border-t border-slate-100 dark:border-slate-800 flex items-center justify-between gap-2 flex-wrap">
+                      <div className="flex items-center gap-1.5 flex-wrap">
                         {/* Primary: Schedule Free Visit */}
                         <button
                           type="button"
-                          onClick={() => setVisitBranch(branch)}
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            setVisitBranch(branch);
+                          }}
                           className="px-3 py-1.5 bg-slate-900 hover:bg-blue-600 text-white text-xs font-bold uppercase tracking-wider rounded-xl transition-all shadow-sm inline-flex items-center gap-1.5 active:scale-95"
                         >
                           <IoCalendarOutline size={13} />
                           <span>Book Visit</span>
+                        </button>
+
+                        {/* Branch Details Modal Trigger */}
+                        <button
+                          type="button"
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            setDetailBranch(branch);
+                          }}
+                          className="px-3 py-1.5 bg-blue-50 hover:bg-blue-600 text-blue-700 hover:text-white dark:bg-blue-950/40 dark:hover:bg-blue-600 dark:text-blue-300 dark:hover:text-white text-xs font-bold uppercase tracking-wider rounded-xl border border-blue-200/80 dark:border-blue-800/80 transition-all shadow-xs inline-flex items-center gap-1.5 active:scale-95"
+                        >
+                          <IoInformationCircleOutline size={14} />
+                          <span>Detail</span>
                         </button>
 
                         {/* Google Maps External Directions */}
@@ -866,6 +896,7 @@ export default function BranchDirectory({ locale = 'en', initialDivision = 'All'
                             href={branch.location.googleMapsUrl}
                             target="_blank"
                             rel="noopener noreferrer"
+                            onClick={(e) => e.stopPropagation()}
                             className="p-2 bg-white dark:bg-slate-800 hover:bg-slate-100 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-200 rounded-xl border border-slate-200 dark:border-slate-700 transition-colors"
                             title="Get Directions on Google Maps"
                           >
@@ -877,7 +908,10 @@ export default function BranchDirectory({ locale = 'en', initialDivision = 'All'
                       {/* Toggle Courses Accordion */}
                       <button
                         type="button"
-                        onClick={() => toggleBranchCourses(branch._id)}
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          toggleBranchCourses(branch._id);
+                        }}
                         className="px-2.5 py-1.5 text-xs font-bold text-slate-600 dark:text-slate-400 hover:text-blue-600 dark:hover:text-blue-400 inline-flex items-center gap-1 transition-colors"
                       >
                         <IoSchoolOutline size={14} className="text-blue-600" />
@@ -964,6 +998,23 @@ export default function BranchDirectory({ locale = 'en', initialDivision = 'All'
       </div>
 
       {/* ── Modals ── */}
+      {detailBranch && (
+        <BranchDetailModal
+          branch={detailBranch}
+          status={getBranchStatus(detailBranch)}
+          thumbnailUrl={getBranchThumbnail(detailBranch)}
+          onClose={() => setDetailBranch(null)}
+          onScheduleVisit={(b) => {
+            setDetailBranch(null);
+            setVisitBranch(b);
+          }}
+          onVirtualTour={(b) => {
+            setDetailBranch(null);
+            setVirtualTourBranch(b);
+          }}
+        />
+      )}
+
       {virtualTourBranch && (
         <VirtualTourModal
           branch={virtualTourBranch}
