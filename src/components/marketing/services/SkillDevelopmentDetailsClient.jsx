@@ -1,6 +1,5 @@
 ﻿"use client";
 
-import { motion } from "framer-motion";
 import Link from "next/link";
 import {
    IoArrowBackOutline,
@@ -23,86 +22,83 @@ export default function SkillDevelopmentDetailsClient({ data }) {
    const roi = sections.roi || [];
 
    return (
-      <section className="min-h-screen bg-slate-50 text-slate-900 selection:bg-blue-600 selection:text-white pb-20">
+      <section className="min-h-screen bg-slate-50 text-slate-900 selection:bg-blue-600 selection:text-white pb-8 md:pb-12">
          {/* PERSISTENT BREADCRUMB */}
-         <div className="border-b border-slate-200 bg-white/80 backdrop-blur-md sticky top-0 z-50">
-            <div className="container-custom py-3 flex items-center justify-between">
-               <Link href="/services/skill-development" className="flex items-center gap-2 text-[10px] font-black uppercase tracking-widest text-slate-400 hover:text-blue-600 transition-colors leading-[1.4]">
+         <div className="border-b border-slate-200 bg-white/90 sticky top-0 z-50">
+            <div className="container-custom py-2 flex items-center justify-between gap-3">
+               <Link href="/services/skill-development" className="flex items-center gap-1.5 text-[11px] font-bold uppercase tracking-wider text-slate-500 hover:text-blue-600 transition-colors leading-[1.4]">
                   <IoArrowBackOutline className="text-sm" /> Product Architecture
                </Link>
-               <div className="text-[10px] font-black uppercase tracking-widest text-blue-600 leading-[1.4]">EDU_SPEC_v6.8</div>
+               <div className="text-[11px] font-bold uppercase tracking-wider text-blue-600 leading-[1.4]">EDU_SPEC_v6.8</div>
             </div>
          </div>
 
-         <div className="container-custom pt-12 sm:pt-18">
-            {/* TECH HEADER */}
-            <div className="max-w-5xl mb-16">
-               <motion.div
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  className="flex items-center gap-3 text-blue-600 mb-6"
-               >
-                  <div className="w-8 h-[1px] bg-blue-600"></div>
-                  <span className="text-[10px] font-black uppercase tracking-widest leading-[1.4]">{hero.badge}</span>
-               </motion.div>
-               <h1 className="text-3xl md:text-5xl font-black text-slate-900 leading-[1.1] mb-6">
-                  {hero.title?.split(' ')[0]} <br />
-                  <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 via-indigo-500 to-violet-500 animate-gradient-x">{hero.title?.split(' ').slice(1).join(' ')}</span>
+         <div className="container-custom pt-4 sm:pt-6">
+            {/* COMPACT TECH HEADER */}
+            <div className="max-w-4xl mb-5 pb-4 border-b border-slate-200">
+               <div className="text-[11px] font-bold uppercase tracking-wider text-blue-600 leading-[1.4] mb-1.5">
+                  {hero.badge}
+               </div>
+               <h1 className="text-xl sm:text-2xl font-black text-slate-900 leading-[1.3] mb-2">
+                  {hero.title?.split(' ')[0]}{" "}
+                  <span className="text-blue-600">{hero.title?.split(' ').slice(1).join(' ')}</span>
                </h1>
-               <p className="text-slate-600 text-base md:text-lg font-light leading-[1.6] max-w-2xl italic">
-                  "{hero.desc}"
+               <p className="text-slate-600 text-sm sm:text-base font-normal leading-[1.6] max-w-3xl">
+                  &ldquo;{hero.desc}&rdquo;
                </p>
             </div>
 
             {/* 6-PHASE PEDAGOGY GRID */}
-            <div className="mb-24">
-               <div className="flex items-center gap-4 lg:gap-6 mb-10 lg:mb-12">
-                  <h2 className="text-2xl lg:text-3xl font-black text-slate-900 uppercase leading-[1.1]">The Learning Lifecycle</h2>
+            <div className="mb-6">
+               <div className="flex items-center gap-3 mb-3">
+                  <h2 className="text-lg sm:text-xl font-black text-slate-900 uppercase leading-[1.3]">The Learning Lifecycle</h2>
                   <div className="h-[1px] flex-1 bg-slate-200"></div>
                </div>
 
-               <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-px bg-slate-200 border border-slate-200 -[2rem] overflow-hidden shadow-xl rounded-lg">
+               <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-2.5">
                   {phases.map((item, i) => (
-                     <div key={i} className="bg-white p-6 lg:p-8 hover:bg-slate-50 transition-colors group flex flex-col gap-2 lg:gap-3 rounded-md">
-                        <div className="text-blue-600 font-mono text-[10px] mb-2 flex items-center gap-2 uppercase tracking-widest leading-[1.4]">
-                           <span className="w-2 h-2 bg-blue-600 shrink-0"></span>
+                     <div key={i} className="bg-white p-3.5 sm:p-4 border border-slate-200 hover:border-blue-200 transition-colors group flex flex-col gap-1 rounded-lg">
+                        <div className="text-blue-600 font-mono text-xs mb-0.5 flex items-center gap-1.5 uppercase leading-[1.4]">
+                           <span className="w-1.5 h-1.5 bg-blue-600 rounded-xs shrink-0"></span>
                            {item.step} // SKILL_ACQUISITION_SYNC
                         </div>
-                        <h3 className="text-lg lg:text-xl font-black text-slate-900 group-hover:text-blue-600 transition-colors uppercase leading-[1.1]">{item.stage}</h3>
-                        <p className="text-slate-500 text-sm font-light leading-[1.6]">{item.action}</p>
+                        <h3 className="text-base font-bold text-slate-900 group-hover:text-blue-600 transition-colors uppercase leading-[1.4]">{item.stage}</h3>
+                        <p className="text-slate-600 text-sm leading-[1.6]">{item.action}</p>
                      </div>
                   ))}
                </div>
             </div>
 
             {/* CURRICULUM INTEGRITY SECTION */}
-            <div className="grid lg:grid-cols-2 gap-5 lg:gap-6 items-start mb-24">
-               <div className="lg:sticky lg:top-24 flex flex-col gap-6 lg:gap-4">
-                  <div className="w-12 h-12 bg-blue-50 flex items-center justify-center text-2xl text-blue-600 border border-blue-100">
-                     <IoBookOutline />
+            <div className="grid lg:grid-cols-2 gap-3 lg:gap-4 items-start mb-6">
+               <div className="bg-white p-4 border border-slate-200 rounded-lg">
+                  <div className="flex items-center gap-2.5 mb-2">
+                     <div className="w-8 h-8 bg-blue-50 flex items-center justify-center text-lg text-blue-600 border border-blue-100 rounded-md shrink-0">
+                        <IoBookOutline />
+                     </div>
+                     <h2 className="text-lg sm:text-xl font-black text-slate-900 leading-[1.3]">Curriculum Persistence <span className="text-blue-600">Logic.</span></h2>
                   </div>
-                  <h2 className="text-3xl lg:text-5xl font-black text-slate-900 leading-[1.1]">Curriculum <br /> Persistence <span className="text-blue-600">Logic.</span></h2>
-                  <p className="text-slate-500 text-base lg:text-lg font-light leading-[1.6]">Every module is stress-tested against current industry requirements, ensuring that you're learning exactly what high-value companies are hiring for today.</p>
+                  <p className="text-slate-600 text-sm leading-[1.6] mb-3">Every module is stress-tested against current industry requirements, ensuring that you&apos;re learning exactly what high-value companies are hiring for today.</p>
 
-                  <div className="p-4 lg:p-6 bg-slate-900 border border-slate-800 shadow-xl flex items-center justify-between group cursor-default rounded-lg">
-                     <div className="flex gap-3 items-center">
-                        <div className="w-10 h-10 bg-blue-500 flex items-center justify-center text-white shadow-lg shrink-0 rounded-lg"><IoCodeWorkingOutline className="text-xl" /></div>
-                        <div className="flex flex-col gap-1">
-                           <p className="text-[10px] font-black text-white/40 uppercase tracking-widest leading-[1.4]">Pedagogical Audit</p>
+                  <div className="p-3 bg-slate-900 border border-slate-800 flex items-center justify-between rounded-lg">
+                     <div className="flex gap-2.5 items-center">
+                        <div className="w-8 h-8 bg-blue-500 flex items-center justify-center text-white shrink-0 rounded-md"><IoCodeWorkingOutline className="text-base" /></div>
+                        <div>
+                           <p className="text-[10px] font-bold text-white/50 uppercase tracking-wider leading-[1.4]">Pedagogical Audit</p>
                            <p className="text-xs font-bold text-white leading-[1.4]">VETTING_STATUS::100%_CLEARED</p>
                         </div>
                      </div>
-                     <IoSyncOutline className="text-blue-500 text-xl animate-spin-slow" />
+                     <IoSyncOutline className="text-blue-500 text-base" />
                   </div>
                </div>
 
-               <div className="flex flex-col gap-4 lg:gap-6">
+               <div className="space-y-2.5">
                   {roi.map((spec, idx) => (
-                     <div key={idx} className="bg-white -[2rem] p-6 lg:p-8 border border-slate-200 shadow-sm hover:shadow-lg transition-all flex flex-col gap-4 lg:gap-6 rounded-lg">
-                        <h4 className="text-[10px] font-black text-blue-600 uppercase tracking-widest leading-[1.4]">{spec.group} Framework</h4>
-                        <div className="grid grid-cols-1 gap-3">
+                     <div key={idx} className="bg-white p-3.5 sm:p-4 border border-slate-200 rounded-lg">
+                        <h4 className="text-[11px] font-bold text-blue-600 uppercase tracking-wider mb-2 leading-[1.4]">{spec.group} Framework</h4>
+                        <div className="grid grid-cols-1 gap-1.5">
                            {spec.items?.map(item => (
-                              <div key={item} className="flex items-center gap-2 text-xs md:text-sm font-bold text-slate-600 leading-[1.4]">
+                              <div key={item} className="flex items-center gap-2 text-xs sm:text-sm font-semibold text-slate-700 leading-[1.4]">
                                  <IoCheckmarkCircleOutline className="text-blue-600 text-base shrink-0" /> {item}
                               </div>
                            ))}
@@ -113,65 +109,53 @@ export default function SkillDevelopmentDetailsClient({ data }) {
             </div>
 
             {/* MENTOR MESH SECTION */}
-            <div className="bg-white -[2rem] lg:-[3rem] p-6 lg:p-12 border border-slate-100 shadow-xl shadow-slate-200/50 relative overflow-hidden mb-24 rounded-lg">
-               <div className="absolute top-0 right-0 w-1/3 h-full bg-slate-50/50 border-l border-slate-100 skew-x-12 translate-x-12 hidden lg:block rounded-lg"></div>
-               <div className="grid lg:grid-cols-2 gap-5 lg:gap-6 relative z-10">
-                  <div className="flex flex-col gap-6 lg:gap-4">
-                     <div className="text-blue-600 flex items-center gap-3">
-                        <div className="w-8 h-[2px] bg-blue-600"></div>
-                        <span className="text-[10px] font-black uppercase tracking-widest leading-[1.4]">Expert Validation Mesh</span>
+            <div className="bg-white p-4 sm:p-5 border border-slate-200 shadow-sm mb-6 rounded-lg">
+               <div className="grid lg:grid-cols-2 gap-3 lg:gap-4 items-start">
+                  <div>
+                     <div className="text-[11px] font-bold uppercase tracking-wider text-blue-600 leading-[1.4] mb-1">
+                        Expert Validation Mesh
                      </div>
-                     <h2 className="text-3xl lg:text-5xl font-black text-slate-900 leading-[1.1]">Absolute <br /><span className="text-blue-600">Instruction.</span></h2>
-                     <p className="text-slate-500 text-base lg:text-lg font-light leading-[1.6] italic">"We don't just provide content; we provide persistent oversight. Your code and projects are reviewed by our senior board to ensure adherence to global standards."</p>
+                     <h2 className="text-lg sm:text-xl font-black text-slate-900 mb-1.5 leading-[1.3]">Absolute <span className="text-blue-600">Instruction.</span></h2>
+                     <p className="text-slate-600 text-sm leading-[1.6] mb-3">&ldquo;We don&apos;t just provide content; we provide persistent oversight. Your code and projects are reviewed by our senior board to ensure adherence to global standards.&rdquo;</p>
 
-                     <div className="flex flex-col gap-3 lg:gap-4">
+                     <div className="space-y-2">
                         {[
                            { i: <IoSchoolOutline />, t: "Senior Mentors", d: "Instruction by industry veterans with 8+ years of production experience." },
                            { i: <IoRibbonOutline />, t: "Blockchain Credentials", d: "Immutable verification of your technical mastery on the secure ledger." },
                            { i: <IoLayersOutline />, t: "Atomic Curriculum", d: "Isolated, focused learning modules designed for maximum retention." }
                         ].map((feat, i) => (
-                           <div key={i} className="flex gap-3 p-4 bg-slate-50 border border-slate-100 rounded-lg">
-                              <div className="text-xl text-blue-600 shrink-0">{feat.i}</div>
-                              <div className="flex flex-col gap-1">
-                                 <h5 className="text-[10px] font-black text-slate-900 uppercase tracking-widest leading-[1.4]">{feat.t}</h5>
-                                 <p className="text-xs text-slate-500 font-bold leading-[1.6]">{feat.d}</p>
+                           <div key={i} className="flex gap-2.5 p-2.5 bg-slate-50 border border-slate-100 items-start rounded-md">
+                              <div className="text-base text-blue-600 shrink-0 mt-0.5">{feat.i}</div>
+                              <div>
+                                 <h5 className="text-xs font-bold text-slate-900 uppercase tracking-wider leading-[1.4] mb-0.5">{feat.t}</h5>
+                                 <p className="text-xs text-slate-500 font-medium leading-[1.4]">{feat.d}</p>
                               </div>
                            </div>
                         ))}
                      </div>
                   </div>
 
-                  <div className="relative">
-                     <div className="bg-slate-900 -[2rem] p-6 lg:p-8 border border-slate-800 shadow-xl aspect-[3/4] flex flex-col justify-between group overflow-hidden rounded-lg">
-                        <div className="absolute inset-0 bg-gradient-to-br from-blue-500/10 to-transparent pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity"></div>
-                        <div className="flex flex-col gap-6 lg:gap-4 relative z-10">
-                           <div className="flex justify-between items-center text-white/30 font-mono text-[8px] uppercase tracking-widest leading-[1.4]">
-                              <span>SYS_PEDAGOGY_400</span>
-                              <span>EDU_BLUEPRINT</span>
-                           </div>
+                  <div className="bg-slate-900 p-4 border border-slate-800 rounded-lg space-y-3">
+                     <div className="flex justify-between items-center text-white/40 font-mono text-[10px] uppercase tracking-wider leading-[1.4]">
+                        <span>SYS_PEDAGOGY_400</span>
+                        <span>EDU_BLUEPRINT</span>
+                     </div>
 
-                           <div className="flex flex-col gap-3 lg:gap-4">
-                              <div className="h-[1px] w-full bg-white/10"></div>
-                              <div className="flex items-center gap-3">
-                                 <div className="w-10 h-10 bg-white/5 border border-white/10 flex items-center justify-center text-blue-400 font-black text-xs shrink-0 rounded-lg"><IoTerminalOutline /></div>
-                                 <div className="flex-1 flex flex-col gap-2">
-                                    <div className="h-1 bg-white/10 w-full"></div>
-                                    <div className="h-1 bg-white/5 w-1/3"></div>
-                                 </div>
-                              </div>
-                           </div>
-
-                           <div className="p-4 bg-white/5 border border-white/5 flex flex-col gap-2 rounded-lg">
-                              <p className="text-[8px] font-mono text-emerald-400 tracking-widest uppercase leading-[1.4]">LEARNING_SYNC::STABLE</p>
-                              <p className="text-[8px] font-mono text-slate-500 leading-[1.6]">MEMBER_SCORE: 100/100<br />VETTING_ID: EDU_7291<br />STATUS: VERIFIED</p>
-                           </div>
+                     <div className="p-3 bg-white/5 border border-white/10 rounded-md flex items-start gap-2.5">
+                        <div className="w-8 h-8 bg-white/5 border border-white/10 flex items-center justify-center text-blue-400 text-sm shrink-0 rounded-md">
+                           <IoTerminalOutline />
                         </div>
+                        <div>
+                           <p className="text-[10px] font-mono text-emerald-400 mb-1 uppercase tracking-wider leading-[1.4]">LEARNING_SYNC::STABLE</p>
+                           <p className="text-xs font-mono text-slate-300 leading-[1.5]">MEMBER_SCORE: 100/100 | VETTING_ID: EDU_7291 | STATUS: VERIFIED</p>
+                        </div>
+                     </div>
 
-                        <div className="bg-white/5 border border-white/10 p-6 relative overflow-hidden group/m hover:bg-white/10 transition-all flex flex-col gap-2 mt-4 lg:mt-0 rounded-lg">
-                           <IoPulseOutline className="text-3xl text-blue-600/30 group-hover/m:rotate-12 transition-transform shadow-[0_0_20px_rgba(37,99,235,0.2)]" />
-                           <p className="text-[9px] font-black text-white/50 uppercase tracking-widest leading-[1.4]">Protocol: PEDAGOGY_QA_CLEAR</p>
+                     <div className="bg-white/5 border border-white/10 p-3 rounded-md flex items-center gap-2.5">
+                        <IoPulseOutline className="text-xl text-blue-500 shrink-0" />
+                        <div>
+                           <p className="text-[10px] font-bold text-white/50 uppercase tracking-wider leading-[1.4]">Protocol: PEDAGOGY_QA_CLEAR</p>
                            <p className="text-xs font-bold text-white leading-[1.4]">Skill base ready for deployment.</p>
-                           <div className="absolute bottom-0 left-0 w-full h-[1px] bg-blue-500/50"></div>
                         </div>
                      </div>
                   </div>
@@ -179,16 +163,15 @@ export default function SkillDevelopmentDetailsClient({ data }) {
             </div>
 
             {/* CTA */}
-            <div className="text-center py-16 lg:py-24 border-t border-slate-200 flex flex-col items-center gap-6 lg:gap-4">
-               <IoPulseOutline className="text-5xl lg:text-6xl text-blue-600 opacity-20" />
-               <h3 className="text-3xl lg:text-5xl font-black text-slate-900 leading-[1.1]">Ready to activate your <br /><span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-indigo-600 font-serif italic font-medium">Knowledge Sovereignty?</span></h3>
-               <div className="flex flex-col sm:flex-row gap-4 w-full sm:w-auto">
-                  <button className="w-full sm:w-[280px] min-h-[48px] px-6 py-4 bg-blue-600 text-white font-black hover:bg-blue-700 transition-all shadow-lg shadow-blue-600/40 uppercase tracking-widest text-[10px] flex items-center justify-center leading-[1.4] rounded-md">
+            <div className="text-center py-5 border-t border-slate-200">
+               <h3 className="text-lg sm:text-xl font-black text-slate-900 mb-3 leading-[1.3]">Ready to activate your <span className="text-blue-600">Knowledge Sovereignty?</span></h3>
+               <div className="flex flex-col sm:flex-row gap-2.5 justify-center">
+                  <button className="w-full sm:w-[220px] min-h-[42px] px-4 py-2.5 bg-blue-600 text-white font-bold hover:bg-blue-700 transition-colors shadow-sm uppercase tracking-wider text-xs flex items-center justify-center leading-[1.4] rounded-md">
                      {cta.title}
                   </button>
                   <Link
                      href="/freelancing"
-                     className="w-full sm:w-[280px] min-h-[48px] px-6 py-4 bg-slate-900 text-white font-black hover:bg-slate-800 transition-all uppercase tracking-widest text-[10px] flex items-center justify-center text-center leading-[1.4] rounded-md"
+                     className="w-full sm:w-[220px] min-h-[42px] px-4 py-2.5 bg-slate-900 text-white font-bold hover:bg-slate-800 transition-colors uppercase tracking-wider text-xs flex items-center justify-center text-center leading-[1.4] rounded-md"
                   >
                      Hire Student Talent
                   </Link>
