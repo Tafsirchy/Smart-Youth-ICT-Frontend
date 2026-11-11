@@ -101,11 +101,12 @@ export default function VirtualTourModal({ branch, onClose, onScheduleVisit }) {
   };
 
   return (
-    <div className="fixed inset-0 z-[1200] flex items-center justify-center p-3 sm:p-4 bg-black/70 backdrop-blur-sm animate-in fade-in duration-150">
+    <div className="fixed inset-0 z-[1200] flex items-center justify-center p-3 sm:p-4 bg-slate-950/80 animate-in fade-in duration-150">
       <motion.div
-        initial={{ opacity: 0, scale: 0.97 }}
-        animate={{ opacity: 1, scale: 1 }}
-        exit={{ opacity: 0, scale: 0.97 }}
+        initial={{ opacity: 0, y: 12 }}
+        animate={{ opacity: 1, y: 0 }}
+        exit={{ opacity: 0, y: 12 }}
+        transition={{ duration: 0.16, ease: 'easeOut' }}
         className="relative w-full max-w-3xl bg-white dark:bg-neutral-900 rounded-2xl shadow-2xl overflow-hidden border border-neutral-200 dark:border-neutral-800 flex flex-col max-h-[85vh]"
       >
         {/* Compact Top Header */}
@@ -197,7 +198,10 @@ export default function VirtualTourModal({ branch, onClose, onScheduleVisit }) {
         </div>
 
         {/* Scrollable Content (Compact) */}
-        <div className="p-4 sm:p-5 overflow-y-auto flex-1 space-y-3.5">
+        <div
+          className="p-4 sm:p-5 overflow-y-auto overscroll-y-contain min-h-0 flex-1 will-change-scroll [transform:translateZ(0)] space-y-3.5"
+          style={{ scrollBehavior: 'auto', WebkitOverflowScrolling: 'touch' }}
+        >
           {/* TAB 1: Gallery */}
           {activeTab === 'gallery' && (
             <div className="space-y-3">

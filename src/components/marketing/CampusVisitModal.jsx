@@ -99,12 +99,14 @@ export default function CampusVisitModal({ branch, onClose }) {
   };
 
   return (
-    <div className="fixed inset-0 z-[1100] flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm animate-in fade-in duration-200">
+    <div className="fixed inset-0 z-[1100] flex items-center justify-center p-4 bg-slate-950/75 animate-in fade-in duration-150">
       <motion.div
-        initial={{ opacity: 0, scale: 0.96 }}
-        animate={{ opacity: 1, scale: 1 }}
-        exit={{ opacity: 0, scale: 0.96 }}
-        className="relative w-full max-w-md bg-white dark:bg-neutral-900 rounded-2xl shadow-xl overflow-hidden border border-neutral-200 dark:border-neutral-800"
+        initial={{ opacity: 0, y: 12 }}
+        animate={{ opacity: 1, y: 0 }}
+        exit={{ opacity: 0, y: 12 }}
+        transition={{ duration: 0.16, ease: 'easeOut' }}
+        className="relative w-full max-w-md bg-white dark:bg-neutral-900 rounded-2xl shadow-xl overflow-hidden border border-neutral-200 dark:border-neutral-800 max-h-[90vh] overflow-y-auto overscroll-y-contain"
+        style={{ scrollBehavior: 'auto', WebkitOverflowScrolling: 'touch' }}
       >
         {/* Header */}
         <div className="p-5 border-b border-neutral-100 dark:border-neutral-800 flex items-center justify-between">

@@ -83,48 +83,63 @@ export default function BranchDetailModal({
   return (
     <Portal>
       <div
-        className="fixed inset-0 z-[1250] flex items-center justify-center p-3 sm:p-5 bg-slate-950/75 backdrop-blur-sm animate-in fade-in duration-150"
+        className="fixed inset-0 z-[1250] flex items-center justify-center p-3 sm:p-5 bg-slate-950/80"
         onClick={onClose}
       >
         <motion.div
-          initial={{ opacity: 0, scale: 0.96, y: 16 }}
-          animate={{ opacity: 1, scale: 1, y: 0 }}
-          exit={{ opacity: 0, scale: 0.96, y: 16 }}
-          transition={{ duration: 0.2, ease: 'easeOut' }}
+          initial={{ opacity: 0, y: 12 }}
+          animate={{ opacity: 1, y: 0 }}
+          exit={{ opacity: 0, y: 12 }}
+          transition={{ duration: 0.16, ease: 'easeOut' }}
           onClick={(e) => e.stopPropagation()}
           className="relative w-full max-w-3xl bg-white dark:bg-slate-900 rounded-2xl shadow-2xl overflow-hidden border border-slate-200 dark:border-slate-800 flex flex-col max-h-[90vh]"
         >
-          {/* Hero Header Image */}
-          <div className="relative h-44 sm:h-52 w-full bg-slate-900 shrink-0 overflow-hidden">
-            <img
-              src={thumbnailUrl || branch.coverImage || DIVISION_FALLBACK_THUMB}
-              alt={branch.name}
-              className="w-full h-full object-cover"
-              onError={(e) => {
-                e.currentTarget.onerror = null;
-                e.currentTarget.src = DIVISION_FALLBACK_THUMB;
-              }}
-            />
-            <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/50 to-slate-950/30" />
+          {/* Floating Always-Accessible Close Button */}
+          <button
+            type="button"
+            onClick={onClose}
+            aria-label="Close Branch Details"
+            className="absolute top-3.5 right-3.5 z-30 w-9 h-9 rounded-xl bg-slate-950/85 hover:bg-slate-900 text-white border border-white/20 flex items-center justify-center transition-colors shadow-lg"
+          >
+            <IoCloseOutline size={20} />
+          </button>
 
-            {/* Top Bar Controls */}
-            <div className="absolute top-3.5 inset-x-4 flex items-center justify-between gap-2 z-10">
-              <div className="flex items-center gap-2 flex-wrap">
+          {/* GPU-Accelerated Single Scrollable Body (Hero + Content) */}
+          <div
+            className="flex-1 min-h-0 overflow-y-auto overscroll-y-contain will-change-scroll [transform:translateZ(0)] custom-scrollbar"
+            style={{ scrollBehavior: 'auto', WebkitOverflowScrolling: 'touch' }}
+          >
+            {/* Hero Header Image */}
+            <div className="relative h-44 sm:h-52 w-full bg-slate-900 overflow-hidden">
+              <img
+                src={thumbnailUrl || branch.coverImage || DIVISION_FALLBACK_THUMB}
+                alt={branch.name}
+                decoding="async"
+                className="w-full h-full object-cover"
+                onError={(e) => {
+                  e.currentTarget.onerror = null;
+                  e.currentTarget.src = DIVISION_FALLBACK_THUMB;
+                }}
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/50 to-slate-950/30" />
+
+              {/* Top Bar Badges */}
+              <div className="absolute top-3.5 left-4 right-14 flex items-center gap-2 flex-wrap z-10">
                 <span
-                  className={`px-2.5 py-1 text-[10px] font-black uppercase tracking-wider rounded-lg backdrop-blur-md shadow-sm ${
+                  className={`px-2.5 py-1 text-[10px] font-black uppercase tracking-wider rounded-lg shadow-sm ${
                     isHQ
                       ? 'bg-rose-600 text-white'
-                      : 'bg-slate-900/85 text-white border border-white/15'
+                      : 'bg-slate-900/90 text-white border border-white/15'
                   }`}
                 >
                   {isHQ ? 'Corporate Headquarters' : branch.code || 'Campus Hub'}
                 </span>
 
                 {status && (
-                  <span className="px-2.5 py-1 bg-slate-950/80 backdrop-blur-md text-white text-[10px] font-semibold rounded-lg border border-white/15 flex items-center gap-1.5">
+                  <span className="px-2.5 py-1 bg-slate-950/90 text-white text-[10px] font-semibold rounded-lg border border-white/15 flex items-center gap-1.5">
                     <span
                       className={`w-2 h-2 rounded-full ${
-                        status.isOpen ? 'bg-emerald-400 animate-pulse' : 'bg-slate-400'
+                        status.isOpen ? 'bg-emerald-400' : 'bg-slate-400'
                       }`}
                     />
                     <span>{status.label}</span>
@@ -132,52 +147,42 @@ export default function BranchDetailModal({
                 )}
               </div>
 
-              <button
-                type="button"
-                onClick={onClose}
-                aria-label="Close Branch Details"
-                className="w-9 h-9 rounded-xl bg-slate-950/70 hover:bg-slate-900 text-white backdrop-blur-md border border-white/15 flex items-center justify-center transition-colors"
-              >
-                <IoCloseOutline size={20} />
-              </button>
-            </div>
-
-            {/* Bottom Hero Identity */}
-            <div className="absolute bottom-4 inset-x-4 sm:inset-x-6 flex items-end justify-between gap-3 z-10">
-              <div className="flex items-center gap-3 min-w-0">
-                {branch.logo && (
-                  <div className="w-12 h-12 rounded-xl bg-white p-1 shadow-lg shrink-0 overflow-hidden hidden sm:block">
-                    <img
-                      src={branch.logo}
-                      alt={`${branch.name} logo`}
-                      className="w-full h-full object-contain"
-                    />
-                  </div>
-                )}
-                <div className="min-w-0">
-                  <div className="flex items-center gap-2 flex-wrap">
-                    <h2 className="text-lg sm:text-2xl font-black text-white leading-tight truncate">
-                      {branch.name}
-                    </h2>
-                    {branch.division && (
-                      <span className="px-2 py-0.5 bg-blue-500/25 border border-blue-400/30 text-blue-100 text-[10px] font-bold uppercase tracking-wider rounded-md">
-                        {branch.division} Division
+              {/* Bottom Hero Identity */}
+              <div className="absolute bottom-4 inset-x-4 sm:inset-x-6 flex items-end justify-between gap-3 z-10">
+                <div className="flex items-center gap-3 min-w-0">
+                  {branch.logo && (
+                    <div className="w-12 h-12 rounded-xl bg-white p-1 shadow-lg shrink-0 overflow-hidden hidden sm:block">
+                      <img
+                        src={branch.logo}
+                        alt={`${branch.name} logo`}
+                        className="w-full h-full object-contain"
+                      />
+                    </div>
+                  )}
+                  <div className="min-w-0">
+                    <div className="flex items-center gap-2 flex-wrap">
+                      <h2 className="text-lg sm:text-2xl font-black text-white leading-tight truncate">
+                        {branch.name}
+                      </h2>
+                      {branch.division && (
+                        <span className="px-2 py-0.5 bg-blue-600/85 border border-blue-400/40 text-white text-[10px] font-bold uppercase tracking-wider rounded-md">
+                          {branch.division} Division
+                        </span>
+                      )}
+                    </div>
+                    <p className="text-xs sm:text-sm text-slate-200 flex items-center gap-1.5 mt-1 truncate">
+                      <IoLocationOutline size={14} className="text-blue-400 shrink-0" />
+                      <span className="truncate">
+                        {fullFormattedAddress || 'Bangladesh Campus'}
                       </span>
-                    )}
+                    </p>
                   </div>
-                  <p className="text-xs sm:text-sm text-slate-200 flex items-center gap-1.5 mt-1 truncate">
-                    <IoLocationOutline size={14} className="text-blue-400 shrink-0" />
-                    <span className="truncate">
-                      {fullFormattedAddress || 'Bangladesh Campus'}
-                    </span>
-                  </p>
                 </div>
               </div>
             </div>
-          </div>
 
-          {/* Scrollable Body */}
-          <div className="flex-1 overflow-y-auto p-4 sm:p-6 space-y-5 custom-scrollbar">
+            {/* Inner Details Content */}
+            <div className="p-4 sm:p-6 space-y-5">
             {/* Key Infrastructure Stats */}
             <div className="grid grid-cols-2 sm:grid-cols-4 gap-2.5">
               <div className="p-3 rounded-xl bg-blue-50/70 dark:bg-blue-950/30 border border-blue-100 dark:border-blue-900/40">
@@ -379,6 +384,7 @@ export default function BranchDetailModal({
                   <p className="text-xs text-slate-500">Saturday – Thursday: 09:00 AM – 06:00 PM</p>
                 )}
               </div>
+            </div>
             </div>
           </div>
 

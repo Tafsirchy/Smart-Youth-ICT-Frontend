@@ -385,15 +385,16 @@ export default function BranchFormModal({
     return (
         <Portal>
             <AnimatePresence>
-                <div className="fixed inset-0 z-[9999] flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm">
+                <div className="fixed inset-0 z-[9999] flex items-center justify-center p-4 bg-slate-950/80">
                     <motion.div
-                        initial={{ scale: 0.95, opacity: 0, y: 20 }}
-                        animate={{ scale: 1, opacity: 1, y: 0 }}
-                        exit={{ scale: 0.95, opacity: 0, y: 20 }}
+                        initial={{ opacity: 0, y: 14 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        exit={{ opacity: 0, y: 14 }}
+                        transition={{ duration: 0.16, ease: "easeOut" }}
                         className="bg-white dark:bg-slate-900 w-full max-w-4xl shadow-2xl overflow-hidden flex flex-col max-h-[90vh] border border-slate-100 dark:border-slate-800 rounded-2xl"
                     >
                         {/* Modal Header */}
-                        <div className="p-6 pb-4 border-b border-slate-100 dark:border-slate-800 flex justify-between items-start bg-slate-50/50 dark:bg-slate-800/50">
+                        <div className="p-6 pb-4 border-b border-slate-100 dark:border-slate-800 flex justify-between items-start bg-slate-50/50 dark:bg-slate-800/50 shrink-0">
                             <div>
                                 <h2 className="text-2xl font-black text-slate-900 dark:text-white tracking-tight">
                                     {editingBranch ? `Refine Campus: ${editingBranch.name}` : "Onboard New Campus"}
@@ -411,7 +412,7 @@ export default function BranchFormModal({
                         </div>
 
                         {/* Modal 4 Tabs */}
-                        <div className="px-6 py-3 flex items-center gap-2 border-b border-slate-100 dark:border-slate-800 overflow-x-auto no-scrollbar bg-slate-50/30 dark:bg-slate-800/20">
+                        <div className="px-6 py-3 flex items-center gap-2 border-b border-slate-100 dark:border-slate-800 overflow-x-auto no-scrollbar bg-slate-50/30 dark:bg-slate-800/20 shrink-0">
                             {[
                                 { id: "identity", label: "Identity & Bio", icon: HiOutlineGlobeAlt },
                                 { id: "presence", label: "Address & Capacity", icon: HiOutlineMapPin },
@@ -435,7 +436,10 @@ export default function BranchFormModal({
                         </div>
 
                         {/* Modal Body */}
-                        <div className="flex-1 overflow-y-auto p-6 space-y-6 custom-scrollbar">
+                        <div
+                            className="flex-1 min-h-0 overflow-y-auto overscroll-y-contain will-change-scroll [transform:translateZ(0)] p-6 space-y-6 custom-scrollbar"
+                            style={{ scrollBehavior: "auto", WebkitOverflowScrolling: "touch" }}
+                        >
                             <form id="branch-manage-form" onSubmit={handleOnboardOrUpdate}>
                                 {/* ── TAB 1: IDENTITY & MEDIA ── */}
                                 {activeTab === "identity" && (
