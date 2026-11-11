@@ -97,7 +97,7 @@ export default function ContactPage() {
 
             {/* Social */}
             <div className="flex gap-3">
-              <a href="https://facebook.com" target="_blank" rel="noreferrer" className="flex-1 flex items-center justify-center gap-2 px-4 py-3 bg-blue-600 text-white font-extrabold text-xs hover:bg-blue-700 transition-colors shadow-md active:scale-95 rounded-md">
+              <a href={process.env.NEXT_PUBLIC_FACEBOOK_PAGE_URL || "https://www.facebook.com/profile.php?id=100064678913065"} target="_blank" rel="noreferrer" className="flex-1 flex items-center justify-center gap-2 px-4 py-3 bg-blue-600 text-white font-extrabold text-xs hover:bg-blue-700 transition-colors shadow-md active:scale-95 rounded-md">
                 <FaFacebook size={16} /> Facebook
               </a>
               <a href="https://youtube.com" target="_blank" rel="noreferrer" className="flex-1 flex items-center justify-center gap-2 px-4 py-3 bg-red-600 text-white font-extrabold text-xs hover:bg-red-700 transition-colors shadow-md active:scale-95 rounded-md">

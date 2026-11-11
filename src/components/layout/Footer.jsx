@@ -45,7 +45,7 @@ const NAV = {
 };
 
 const SOCIALS = [
-  { href: process.env.NEXT_PUBLIC_FACEBOOK_PAGE_URL || "https://facebook.com", Icon: FaFacebook, label: "Facebook" },
+  { href: process.env.NEXT_PUBLIC_FACEBOOK_PAGE_URL || "https://www.facebook.com/profile.php?id=100064678913065", Icon: FaFacebook, label: "Facebook" },
   { href: "https://youtube.com", Icon: FaYoutube, label: "YouTube" },
   { href: `https://wa.me/${process.env.NEXT_PUBLIC_WHATSAPP_NUMBER}`, Icon: FaWhatsapp, label: "WhatsApp" },
   { href: "https://linkedin.com", Icon: FaLinkedin, label: "LinkedIn" },
