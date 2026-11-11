@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import { useState } from "react";
 import { IoArrowForwardOutline, IoCloseOutline, IoLogoWhatsapp, IoSparklesOutline } from "react-icons/io5";
