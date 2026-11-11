@@ -380,14 +380,14 @@ export default function UiUxClient({ content }) {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/70 backdrop-blur-sm"
+            className="fixed inset-0 z-[1100] flex items-center justify-center p-4 bg-slate-900/70 backdrop-blur-sm overflow-y-auto"
             onClick={(e) => e.target === e.currentTarget && setShowModal(false)}
           >
             <motion.div
               initial={{ y: 40, opacity: 0 }}
               animate={{ y: 0, opacity: 1 }}
               exit={{ y: 40, opacity: 0 }}
-              className="bg-white rounded-2xl p-6 sm:p-8 w-full max-w-md shadow-2xl"
+              className="bg-white rounded-2xl p-6 sm:p-8 w-full max-w-md shadow-2xl max-h-[90vh] overflow-y-auto my-auto"
             >
               <div className="flex items-center justify-between mb-5">
                 <div>

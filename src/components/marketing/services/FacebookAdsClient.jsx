@@ -401,7 +401,7 @@ export default function FacebookAdsClient({ content }) {
       {/* â”€â”€ Consultation Modal â”€â”€ */}
       <AnimatePresence>
         {showModal && (
-          <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
+          <div className="fixed inset-0 z-[1100] flex items-center justify-center p-4 overflow-y-auto">
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
@@ -413,7 +413,7 @@ export default function FacebookAdsClient({ content }) {
               initial={{ opacity: 0, scale: 0.95 }}
               animate={{ opacity: 1, scale: 1 }}
               exit={{ opacity: 0, scale: 0.95 }}
-              className="relative z-10 bg-white rounded-2xl shadow-2xl p-6 sm:p-8 max-w-md w-full border border-slate-100"
+              className="relative z-10 bg-white rounded-2xl shadow-2xl p-6 sm:p-8 max-w-md w-full border border-slate-100 max-h-[90vh] overflow-y-auto my-auto"
             >
               <button
                 onClick={() => setShowModal(false)}
