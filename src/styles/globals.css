@@ -1018,9 +1018,49 @@ div:has(> [data-toaster]) {
   .animate-syict-marquee-left,
   .animate-syict-marquee-right,
   .animate-syict-marquee-left-alt,
-  .animate-syict-marquee-right-alt {
+  .animate-syict-marquee-right-alt,
+  .animate-syict-orbit,
+  .animate-syict-counter-spin {
     animation: none;
   }
+}
+
+/* ─────────────────────────────────────────────────────────────────
+ * Hero Slide 3 — Circular Orbit Animation (Clockwise)
+ * ──────────────────────────────────────────────────────────────── */
+@keyframes syict-orbit-clockwise {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes syict-card-counter-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(-360deg);
+  }
+}
+
+.animate-syict-orbit {
+  animation: syict-orbit-clockwise 32s linear infinite;
+  transform-origin: center center;
+  will-change: transform;
+}
+
+.animate-syict-counter-spin {
+  animation: syict-card-counter-spin 32s linear infinite;
+  transform-origin: center center;
+  will-change: transform;
+}
+
+.orbit-group:hover .animate-syict-orbit,
+.orbit-group:hover .animate-syict-counter-spin {
+  animation-play-state: paused;
 }
 
 
