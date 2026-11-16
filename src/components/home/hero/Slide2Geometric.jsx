@@ -5,10 +5,70 @@ import { motion } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
 
-/**
- * Slide 2 (13+ Ready-Made ERP & Commercial Software)
- * Foundation setup for enterprise ERP suite showcase.
- */
+// ─── 6 Floating IT Solution Cards mapped to the Provided Reference Graphic ───
+const FLOATING_CARDS = [
+  {
+    id: "software",
+    title: "Custom Software",
+    alt: "Custom Software",
+    src: "/images/slider2/Software.png",
+    style: { left: "74%", top: "3%", width: "15%" },
+    floatAnim: { y: [0, -5, 0], rotate: [0, 1, 0] },
+    duration: 4.2,
+    delay: 0.1,
+  },
+  {
+    id: "web",
+    title: "Web Portals",
+    alt: "Web Portals",
+    src: "/images/slider2/Web.png",
+    style: { left: "82%", top: "28%", width: "14%" },
+    floatAnim: { y: [0, 5, 0], rotate: [0, -1, 0] },
+    duration: 4.8,
+    delay: 0.3,
+  },
+  {
+    id: "enterprise",
+    title: "Enterprise Solutions",
+    alt: "Enterprise Solutions",
+    src: "/images/slider2/Enterprise.png",
+    style: { left: "84%", top: "48%", width: "16%" },
+    floatAnim: { y: [0, -4, 0], rotate: [0, 1, 0] },
+    duration: 4.5,
+    delay: 0.5,
+  },
+  {
+    id: "app",
+    title: "Mobile Apps",
+    alt: "Mobile Apps",
+    src: "/images/slider2/App.png",
+    style: { left: "35%", top: "11%", width: "15%" },
+    floatAnim: { y: [0, -5, 0], rotate: [0, -1, 0] },
+    duration: 4.4,
+    delay: 0.2,
+  },
+  {
+    id: "cloud",
+    title: "Cloud & DevOps",
+    alt: "Cloud & DevOps",
+    src: "/images/slider2/Cloud.png",
+    style: { left: "26%", top: "34%", width: "14%" },
+    floatAnim: { y: [0, 5, 0], rotate: [0, 1, 0] },
+    duration: 5.0,
+    delay: 0.4,
+  },
+  {
+    id: "cyber",
+    title: "Cybersecurity",
+    alt: "Cybersecurity",
+    src: "/images/slider2/Cyber.png",
+    style: { left: "22%", top: "52%", width: "16%" },
+    floatAnim: { y: [0, -4, 0], rotate: [0, -1, 0] },
+    duration: 4.6,
+    delay: 0.6,
+  },
+];
+
 export default function Slide2Geometric({ slide, mounted }) {
   return (
     <>
@@ -79,6 +139,45 @@ export default function Slide2Geometric({ slide, mounted }) {
                 priority
                 className="w-full h-full object-contain pointer-events-none drop-shadow-2xl"
               />
+
+              {FLOATING_CARDS.map((card) => (
+                <motion.div
+                  key={card.id}
+                  initial={mounted ? { opacity: 0, scale: 0.6 } : false}
+                  animate={{
+                    opacity: 1,
+                    scale: 1,
+                    y: card.floatAnim.y,
+                    rotate: card.floatAnim.rotate,
+                  }}
+                  transition={{
+                    opacity: { duration: 0.5, delay: card.delay },
+                    y: {
+                      duration: card.duration,
+                      repeat: Infinity,
+                      ease: "easeInOut",
+                    },
+                  }}
+                  className="absolute z-20 cursor-pointer"
+                  style={{
+                    left: card.style.left,
+                    top: card.style.top,
+                    width: card.style.width,
+                  }}
+                >
+                  <Link
+                    href="/services"
+                    className="block relative w-full aspect-[480/380]"
+                  >
+                    <Image
+                      src={card.src}
+                      alt={card.alt}
+                      fill
+                      className="object-contain select-none pointer-events-none"
+                    />
+                  </Link>
+                </motion.div>
+              ))}
             </div>
           </motion.div>
         </div>
