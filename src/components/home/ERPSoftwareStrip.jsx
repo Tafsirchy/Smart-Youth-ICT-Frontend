@@ -251,7 +251,6 @@ function getBrandName(item) {
  */
 function StaggeredERPItem({ item, index }) {
   const iconTheme = getIconTheme(item.badgeColor);
-  const sysCode = item.sysCode || `SYS://ERP-${String(index + 1).padStart(2, "0")}`;
   const brandName = getBrandName(item);
   const features = Array.isArray(item.features) && item.features.length > 0
     ? item.features
@@ -264,18 +263,13 @@ function StaggeredERPItem({ item, index }) {
         {/* Top Header */}
         <div>
           <div className="flex items-center justify-between gap-2 mb-2">
-            <div className="flex items-center gap-2.5">
+            <div className="flex items-center gap-2.5 min-w-0">
               <div className={`w-9 h-9 rounded-xl border flex items-center justify-center shrink-0 transition-all duration-300 ${iconTheme}`}>
                 {getERPIcon(item.title)}
               </div>
-              <div className="min-w-0">
-                <span className="text-[10px] font-mono font-bold text-emerald-600 block leading-none mb-1">
-                  {sysCode}
-                </span>
-                <h3 className="text-sm font-extrabold text-slate-900 group-hover/card:text-emerald-600 transition-colors leading-tight truncate">
-                  {item.title}
-                </h3>
-              </div>
+              <h3 className="text-sm font-extrabold text-slate-900 group-hover/card:text-emerald-600 transition-colors leading-tight truncate">
+                {item.title}
+              </h3>
             </div>
 
             <span className="flex items-center gap-1.5 px-2 py-0.5 rounded-full bg-slate-100 border border-slate-200 text-[10px] font-bold text-slate-600 shrink-0">
@@ -317,39 +311,16 @@ function StaggeredERPItem({ item, index }) {
         </div>
       </div>
 
-      {/* ── LOGO & BLUEPRINT GRID BLOCK (H: 210px - Restful Negative Space) ── */}
+      {/* ── CLEAN LOGO BLOCK (H: 210px - Minimalist Restful Space) ── */}
       <div className="relative flex h-[210px] w-full items-center justify-center p-6 overflow-hidden">
-        {/* Subtle Architectural Blueprint Background Grid Pattern */}
-        <div
-          className="absolute inset-0 isolate pointer-events-none opacity-25"
-          style={{
-            backgroundImage: `
-              linear-gradient(to right, #003D46 1px, transparent 1px),
-              linear-gradient(to bottom, #003D46 1px, transparent 1px)
-            `,
-            backgroundSize: "28px 28px",
-            backgroundPosition: "center center",
-            maskImage: "radial-gradient(ellipse at center, rgba(0, 0, 0, 1) 25%, transparent 75%)",
-            WebkitMaskImage: "radial-gradient(ellipse at center, rgba(0, 0, 0, 1) 25%, transparent 75%)",
-          }}
-        />
-
-        {/* Muted Logo Watermark like kanba / amara / hexa */}
-        <div className="relative z-10 flex flex-col items-center justify-center text-center px-4 group">
-          <div className="flex items-center gap-2.5 mb-1.5 text-slate-400">
-            <div className="w-9 h-9 rounded-xl border border-slate-300/80 bg-white/80 backdrop-blur-xs flex items-center justify-center text-slate-600 shadow-2xs">
-              {getERPIcon(item.title)}
-            </div>
-            <span className="text-xl sm:text-2xl font-black uppercase tracking-tight text-slate-700 font-mono">
-              {brandName}
-            </span>
+        {/* Seamless Clean Logo Wordmark like kanba / amara / hexa */}
+        <div className="relative z-10 flex items-center justify-center gap-3 text-center px-4 group select-none">
+          <div className="text-2xl sm:text-3xl text-slate-400 group-hover:text-emerald-600 transition-colors shrink-0">
+            {getERPIcon(item.title)}
           </div>
-
-          <div className="flex items-center gap-2 text-[10px] font-mono font-bold tracking-widest text-slate-400 uppercase">
-            <span>{sysCode}</span>
-            <span>•</span>
-            <span className="text-emerald-600">ENTERPRISE</span>
-          </div>
+          <span className="text-xl sm:text-2xl font-black uppercase tracking-tight text-slate-700 font-mono">
+            {brandName}
+          </span>
         </div>
       </div>
     </div>
