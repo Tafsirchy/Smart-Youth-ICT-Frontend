@@ -1,9 +1,7 @@
 "use client";
 
-import React from "react";
-import { useQuery } from "@tanstack/react-query";
+import React, { useState, useEffect } from "react";
 import api from "@/lib/api";
-import { queryKeys } from "@/lib/queryKeys";
 import {
   SiPython,
   SiJavascript,
@@ -171,18 +169,24 @@ function TechCard({ item }) {
 }
 
 export default function TechStackStrip() {
-  const { data: techItems } = useQuery({
-    queryKey: queryKeys.homeTechStacks(),
-    queryFn: async () => {
-      try {
-        const res = await api.get("/cms/home-tech");
-        return res.data?.data && res.data.data.length > 0 ? res.data.data : DEFAULT_TECH;
-      } catch (err) {
-        return DEFAULT_TECH;
-      }
-    },
-    staleTime: 5 * 60 * 1000,
-  });
+  const [techItems, setTechItems] = useState(DEFAULT_TECH);
+
+  useEffect(() => {
+    let isMounted = true;
+    api
+      .get("/cms/home-tech")
+      .then((res) => {
+        if (isMounted && res.data?.data && res.data.data.length > 0) {
+          setTechItems(res.data.data);
+        }
+      })
+      .catch(() => {
+        // Fallback silently kept
+      });
+    return () => {
+      isMounted = false;
+    };
+  }, []);
 
   const list = techItems && techItems.length > 0 ? techItems : DEFAULT_TECH;
   

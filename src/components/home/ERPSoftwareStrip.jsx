@@ -1,10 +1,8 @@
 "use client";
 
-import React from "react";
+import React, { useState, useEffect } from "react";
 import Link from "next/link";
-import { useQuery } from "@tanstack/react-query";
 import api from "@/lib/api";
-import { queryKeys } from "@/lib/queryKeys";
 import { Marquee } from "@/components/ui/marquee";
 import {
   IoReceiptOutline,
@@ -359,18 +357,24 @@ function StaggeredERPItem({ item, index }) {
 }
 
 export default function ERPSoftwareStrip() {
-  const { data: erpItems } = useQuery({
-    queryKey: queryKeys.homeERPs(),
-    queryFn: async () => {
-      try {
-        const res = await api.get("/cms/home-erp");
-        return res.data?.data && res.data.data.length > 0 ? res.data.data : DEFAULT_ERPS;
-      } catch (err) {
-        return DEFAULT_ERPS;
-      }
-    },
-    staleTime: 5 * 60 * 1000,
-  });
+  const [erpItems, setErpItems] = useState(DEFAULT_ERPS);
+
+  useEffect(() => {
+    let isMounted = true;
+    api
+      .get("/cms/home-erp")
+      .then((res) => {
+        if (isMounted && res.data?.data && res.data.data.length > 0) {
+          setErpItems(res.data.data);
+        }
+      })
+      .catch(() => {
+        // Fallback silently kept
+      });
+    return () => {
+      isMounted = false;
+    };
+  }, []);
 
   const list = erpItems && erpItems.length > 0 ? erpItems : DEFAULT_ERPS;
 
