@@ -151,7 +151,6 @@ export const serviceColumns = [
  iconTheme: "bg-blue-100 text-blue-600",
  icon: "💻",
  items: [
- { label: "Portfolio", href: "/services/portfolio-websites" },
  {
  label: "Business",
  href: "/services/business-websites",
