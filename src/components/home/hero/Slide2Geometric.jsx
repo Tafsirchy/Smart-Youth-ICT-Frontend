@@ -132,13 +132,40 @@ export default function Slide2Geometric({ slide, mounted }) {
             className="relative w-full max-w-[560px] xl:max-w-[620px] 2xl:max-w-[660px] flex items-center justify-center"
           >
             <div className="relative w-full aspect-[1024/682] select-none">
-              <Image
-                src="/images/slider2/Smiling Workspace Cutout with Laptop and Plant.png"
-                alt="Ready-Made Software Workspace"
-                fill
-                priority
-                className="w-full h-full object-contain pointer-events-none drop-shadow-2xl"
-              />
+              {/* Ambient Background Radial Glow behind person and workspace */}
+              <div className="absolute inset-0 m-auto w-[420px] h-[420px] rounded-full bg-emerald-300/20 blur-3xl pointer-events-none -z-10" />
+
+              {/* Animated Developer Workspace (Person + Laptop + Desk + Plant) */}
+              <motion.div
+                initial={mounted ? { opacity: 0, y: 25, scale: 0.97 } : false}
+                animate={{
+                  opacity: 1,
+                  y: [0, -7, 0],
+                  scale: [1, 1.018, 1],
+                }}
+                transition={{
+                  opacity: { duration: 0.6, delay: 0.2 },
+                  y: {
+                    duration: 5.5,
+                    repeat: Infinity,
+                    ease: "easeInOut",
+                  },
+                  scale: {
+                    duration: 5.5,
+                    repeat: Infinity,
+                    ease: "easeInOut",
+                  },
+                }}
+                className="relative w-full h-full"
+              >
+                <Image
+                  src="/images/slider2/Smiling Workspace Cutout with Laptop and Plant.png"
+                  alt="Ready-Made Software Workspace"
+                  fill
+                  priority
+                  className="w-full h-full object-contain pointer-events-none drop-shadow-[0_20px_35px_rgba(0,0,0,0.28)]"
+                />
+              </motion.div>
 
               {FLOATING_CARDS.map((card) => (
                 <motion.div
