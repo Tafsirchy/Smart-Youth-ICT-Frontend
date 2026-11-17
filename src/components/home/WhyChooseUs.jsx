@@ -27,8 +27,8 @@ const reasons = [
  },
  {
  Icon: HiCurrencyBangladeshi,
- title: "Earn While You Study",
- desc: "Pay your course fee from your own earnings on real freelance projects.",
+ title: "Production Engineering",
+ desc: "Work on live enterprise systems, production codebases, and commercial software.",
  color: "var(--color-brand-green-light)",
  },
  {

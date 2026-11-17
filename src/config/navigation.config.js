@@ -88,13 +88,6 @@ export const NAVIGATION_CONFIG = {
   ],
 
   services_cms: [
-    // Learning & Career
-    { href: '/super/cms/services/skill-development', Icon: HiLightningBolt, label: 'Skill Development', category: 'Learning & Career' },
-    { href: '/super/cms/services/career-tracks',     Icon: HiChartBar,      label: 'Career Tracks', category: 'Learning & Career' },
-    { href: '/super/cms/services/certifications',    Icon: HiBadgeCheck,    label: 'Certification Programs', category: 'Learning & Career' },
-    { href: '/super/cms/services/freelancing',       Icon: HiGlobeAlt,      label: 'Freelancing Training', category: 'Learning & Career' },
-    { href: '/super/cms/services/job-placements',    Icon: HiBriefcase,     label: 'Job Placement Support', category: 'Learning & Career' },
-    
     // Web & Software
     { href: '/super/cms/services/business-websites',  Icon: HiBriefcase,    label: 'Business', category: 'Web & Software' },
     { href: '/super/cms/services/ecommerce',          Icon: HiCreditCard,   label: 'E-commerce', category: 'Web & Software' },

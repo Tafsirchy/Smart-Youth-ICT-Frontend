@@ -58,18 +58,6 @@ const serviceCategories = [
       { name: "Performance Ads", path: "facebook-ads", tech: "ROAS Optimization" },
       { name: "SEO Optimization", path: "seo", tech: "Semantic Entity" }
     ]
-  },
-  {
-    category: "Industrial Academy & Tracks",
-    desc: "Real-world engineering apprenticeships, live projects, and career placement.",
-    icon: <IoSchoolOutline />,
-    services: [
-      { name: "Skill Development Tracks", path: "skill-development", tech: "Project-Based" },
-      { name: "Career Specializations", path: "career-tracks", tech: "Web / AI / Cloud" },
-      { name: "Global Certifications", path: "certifications", tech: "Verified QR" },
-      { name: "Industrial Freelance Prep", path: "freelancing", tech: "Marketplace Prep" },
-      { name: "Direct Job Placement", path: "job-placement", tech: "Corporate Network" }
-    ]
   }
 ];
 

@@ -120,32 +120,6 @@ export const aboutColumns = [
 /* ─── SERVICES MEGA MENU ─────────────────────────────────────────── */
 export const serviceColumns = [
  {
- id: "learn",
- heading: "Learning & Career",
- iconTheme: "bg-pink-100 text-pink-600",
- icon: "🎓",
- items: [
- {
- label: "Free Career Seminar",
- href: "/seminar",
- badge: "🆓 Free",
- },
- {
- label: "Skill Development Programs",
- href: "/services/skill-development",
- badge: "🔥 Popular ",
- },
- {
- label: "Career Tracks (Web, AI, SMM)",
- href: "/services/career-tracks",
- },
- { label: "Certification Programs", href: "/services/certifications" },
- { label: "Freelancing Training", href: "/services/freelancing" },
- { label: "Job Placement Support", href: "/services/job-placement" },
- ],
- price: "", // Removed for compact version
- },
- {
  id: "web",
  heading: "Web & Software",
  iconTheme: "bg-blue-100 text-blue-600",
