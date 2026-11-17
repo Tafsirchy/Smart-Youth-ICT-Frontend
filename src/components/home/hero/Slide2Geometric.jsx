@@ -5,16 +5,16 @@ import { motion } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
 
-// ─── 6 Floating IT Solution Cards mapped to the Provided Reference Graphic ───
+// ─── 6 Floating IT Solution Cards (Balanced & Symmetrical Spacing) ───────────
 const FLOATING_CARDS = [
   {
     id: "software",
     title: "Custom Software",
     alt: "Custom Software",
     src: "/images/slider2/Software.png",
-    style: { left: "74%", top: "3%", width: "15%" },
-    floatAnim: { y: [0, -5, 0], rotate: [0, 1, 0] },
-    duration: 4.2,
+    style: { left: "75.5%", top: "8.5%", width: "15%" },
+    floatAnim: { y: [0, -4, 0], rotate: [0, 0.6, 0] },
+    duration: 4.6,
     delay: 0.1,
   },
   {
@@ -22,50 +22,50 @@ const FLOATING_CARDS = [
     title: "Web Portals",
     alt: "Web Portals",
     src: "/images/slider2/Web.png",
-    style: { left: "82%", top: "28%", width: "14%" },
-    floatAnim: { y: [0, 5, 0], rotate: [0, -1, 0] },
+    style: { left: "82.8%", top: "29.5%", width: "14.2%" },
+    floatAnim: { y: [0, -4, 0], rotate: [0, -0.6, 0] },
     duration: 4.8,
-    delay: 0.3,
+    delay: 0.25,
   },
   {
     id: "enterprise",
     title: "Enterprise Solutions",
     alt: "Enterprise Solutions",
     src: "/images/slider2/Enterprise.png",
-    style: { left: "84%", top: "48%", width: "16%" },
-    floatAnim: { y: [0, -4, 0], rotate: [0, 1, 0] },
-    duration: 4.5,
-    delay: 0.5,
+    style: { left: "84.5%", top: "50.5%", width: "16%" },
+    floatAnim: { y: [0, -4, 0], rotate: [0, 0.6, 0] },
+    duration: 4.7,
+    delay: 0.4,
   },
   {
     id: "app",
     title: "Mobile Apps",
     alt: "Mobile Apps",
     src: "/images/slider2/App.png",
-    style: { left: "35%", top: "11%", width: "15%" },
-    floatAnim: { y: [0, -5, 0], rotate: [0, -1, 0] },
-    duration: 4.4,
-    delay: 0.2,
+    style: { left: "34.8%", top: "15.5%", width: "14.8%" },
+    floatAnim: { y: [0, -4, 0], rotate: [0, -0.6, 0] },
+    duration: 4.6,
+    delay: 0.15,
   },
   {
     id: "cloud",
     title: "Cloud & DevOps",
     alt: "Cloud & DevOps",
     src: "/images/slider2/Cloud.png",
-    style: { left: "26%", top: "34%", width: "14%" },
-    floatAnim: { y: [0, 5, 0], rotate: [0, 1, 0] },
-    duration: 5.0,
-    delay: 0.4,
+    style: { left: "26.2%", top: "34.5%", width: "14.2%" },
+    floatAnim: { y: [0, -4, 0], rotate: [0, 0.6, 0] },
+    duration: 4.8,
+    delay: 0.3,
   },
   {
     id: "cyber",
     title: "Cybersecurity",
     alt: "Cybersecurity",
     src: "/images/slider2/Cyber.png",
-    style: { left: "22%", top: "52%", width: "16%" },
-    floatAnim: { y: [0, -4, 0], rotate: [0, -1, 0] },
-    duration: 4.6,
-    delay: 0.6,
+    style: { left: "21.5%", top: "53.5%", width: "15.5%" },
+    floatAnim: { y: [0, -4, 0], rotate: [0, -0.6, 0] },
+    duration: 4.7,
+    delay: 0.45,
   },
 ];
 
@@ -158,7 +158,12 @@ export default function Slide2Geometric({ slide, mounted }) {
                       ease: "easeInOut",
                     },
                   }}
-                  className="absolute z-20 cursor-pointer"
+                  whileHover={{
+                    scale: 1.1,
+                    zIndex: 40,
+                    transition: { duration: 0.2 },
+                  }}
+                  className="absolute z-20 cursor-pointer drop-shadow-[0_8px_16px_rgba(0,0,0,0.22)]"
                   style={{
                     left: card.style.left,
                     top: card.style.top,
