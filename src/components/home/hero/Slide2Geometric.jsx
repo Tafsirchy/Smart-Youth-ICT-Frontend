@@ -13,8 +13,8 @@ const FLOATING_CARDS = [
     alt: "Custom Software",
     src: "/images/slider2/Software.png",
     style: { left: "75.5%", top: "8.5%", width: "15%" },
-    floatAnim: { y: [0, -4, 0], rotate: [0, 0.6, 0] },
-    duration: 4.6,
+    floatAnim: { y: [0, -5, 0], scale: [1, 1.09, 1], rotate: [0, 0.6, 0] },
+    duration: 3.4,
     delay: 0.1,
   },
   {
@@ -23,9 +23,9 @@ const FLOATING_CARDS = [
     alt: "Web Portals",
     src: "/images/slider2/Web.png",
     style: { left: "82.8%", top: "29.5%", width: "14.2%" },
-    floatAnim: { y: [0, -4, 0], rotate: [0, -0.6, 0] },
-    duration: 4.8,
-    delay: 0.25,
+    floatAnim: { y: [0, -5, 0], scale: [1, 1.09, 1], rotate: [0, -0.6, 0] },
+    duration: 3.6,
+    delay: 0.35,
   },
   {
     id: "enterprise",
@@ -33,9 +33,9 @@ const FLOATING_CARDS = [
     alt: "Enterprise Solutions",
     src: "/images/slider2/Enterprise.png",
     style: { left: "84.5%", top: "50.5%", width: "16%" },
-    floatAnim: { y: [0, -4, 0], rotate: [0, 0.6, 0] },
-    duration: 4.7,
-    delay: 0.4,
+    floatAnim: { y: [0, -5, 0], scale: [1, 1.09, 1], rotate: [0, 0.6, 0] },
+    duration: 3.5,
+    delay: 0.6,
   },
   {
     id: "app",
@@ -43,9 +43,9 @@ const FLOATING_CARDS = [
     alt: "Mobile Apps",
     src: "/images/slider2/App.png",
     style: { left: "34.8%", top: "15.5%", width: "14.8%" },
-    floatAnim: { y: [0, -4, 0], rotate: [0, -0.6, 0] },
-    duration: 4.6,
-    delay: 0.15,
+    floatAnim: { y: [0, -5, 0], scale: [1, 1.09, 1], rotate: [0, -0.6, 0] },
+    duration: 3.4,
+    delay: 0.2,
   },
   {
     id: "cloud",
@@ -53,9 +53,9 @@ const FLOATING_CARDS = [
     alt: "Cloud & DevOps",
     src: "/images/slider2/Cloud.png",
     style: { left: "26.2%", top: "34.5%", width: "14.2%" },
-    floatAnim: { y: [0, -4, 0], rotate: [0, 0.6, 0] },
-    duration: 4.8,
-    delay: 0.3,
+    floatAnim: { y: [0, -5, 0], scale: [1, 1.09, 1], rotate: [0, 0.6, 0] },
+    duration: 3.6,
+    delay: 0.45,
   },
   {
     id: "cyber",
@@ -63,9 +63,9 @@ const FLOATING_CARDS = [
     alt: "Cybersecurity",
     src: "/images/slider2/Cyber.png",
     style: { left: "21.5%", top: "53.5%", width: "15.5%" },
-    floatAnim: { y: [0, -4, 0], rotate: [0, -0.6, 0] },
-    duration: 4.7,
-    delay: 0.45,
+    floatAnim: { y: [0, -5, 0], scale: [1, 1.09, 1], rotate: [0, -0.6, 0] },
+    duration: 3.5,
+    delay: 0.7,
   },
 ];
 
@@ -146,20 +146,27 @@ export default function Slide2Geometric({ slide, mounted }) {
                   initial={mounted ? { opacity: 0, scale: 0.6 } : false}
                   animate={{
                     opacity: 1,
-                    scale: 1,
+                    scale: card.floatAnim.scale,
                     y: card.floatAnim.y,
                     rotate: card.floatAnim.rotate,
                   }}
                   transition={{
                     opacity: { duration: 0.5, delay: card.delay },
+                    scale: {
+                      duration: card.duration,
+                      repeat: Infinity,
+                      ease: "easeInOut",
+                      delay: card.delay,
+                    },
                     y: {
                       duration: card.duration,
                       repeat: Infinity,
                       ease: "easeInOut",
+                      delay: card.delay,
                     },
                   }}
                   whileHover={{
-                    scale: 1.1,
+                    scale: 1.15,
                     zIndex: 40,
                     transition: { duration: 0.2 },
                   }}
