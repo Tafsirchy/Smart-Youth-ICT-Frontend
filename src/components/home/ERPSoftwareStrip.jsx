@@ -258,52 +258,49 @@ function StaggeredERPItem({ item, index }) {
 
   return (
     <div className="flex w-[340px] sm:w-[380px] shrink-0 flex-col odd:flex-col-reverse select-none">
-      {/* ── CARD MODULE (H: 210px) ── */}
-      <div className="m-2 sm:m-2.5 h-[210px] rounded-2xl border border-slate-200/90 bg-white p-5 shadow-xs transition-all duration-300 hover:border-emerald-500 hover:shadow-xl hover:shadow-emerald-500/10 group/card relative z-10 flex flex-col justify-between">
-        {/* Top Header */}
-        <div>
-          <div className="flex items-center justify-between gap-2 mb-2">
-            <div className="flex items-center gap-2.5 min-w-0">
-              <div className={`w-9 h-9 rounded-xl border flex items-center justify-center shrink-0 transition-all duration-300 ${iconTheme}`}>
-                {getERPIcon(item.title)}
-              </div>
-              <h3 className="text-sm font-extrabold text-slate-900 group-hover/card:text-emerald-600 transition-colors leading-tight truncate">
-                {item.title}
-              </h3>
+      {/* ── CARD MODULE (H: 210px - Centered Content) ── */}
+      <div className="m-2 sm:m-2.5 h-[210px] rounded-2xl border border-slate-200/90 bg-white p-5 shadow-xs transition-all duration-300 hover:border-emerald-500 hover:shadow-xl hover:shadow-emerald-500/10 group/card relative z-10 flex flex-col justify-between items-center text-center">
+        {/* Top Header & Info */}
+        <div className="w-full flex flex-col items-center">
+          {/* Centered Icon with subtle pulse status badge */}
+          <div className="relative mb-2">
+            <div className={`w-10 h-10 rounded-xl border flex items-center justify-center transition-all duration-300 ${iconTheme}`}>
+              {getERPIcon(item.title)}
             </div>
-
-            <span className="flex items-center gap-1.5 px-2 py-0.5 rounded-full bg-slate-100 border border-slate-200 text-[10px] font-bold text-slate-600 shrink-0">
-              <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
-              <span>Ready</span>
+            <span className="absolute -top-1 -right-1 flex h-2.5 w-2.5">
+              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
+              <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-emerald-500 ring-2 ring-white" />
             </span>
           </div>
 
-          {/* Category Pill */}
-          <div className="mb-2.5">
+          {/* Centered Title */}
+          <h3 className="text-sm font-extrabold text-slate-900 group-hover/card:text-emerald-600 transition-colors leading-tight truncate max-w-full px-2">
+            {item.title}
+          </h3>
+
+          {/* Centered Category Pill */}
+          <div className="mt-1.5 mb-2">
             <span className="inline-block px-2.5 py-0.5 rounded-md bg-slate-50 border border-slate-200/70 text-[11px] font-bold text-slate-600">
               {item.category || "Enterprise Suite"}
             </span>
           </div>
 
-          {/* Bullet Points */}
-          <div className="space-y-1">
+          {/* Centered Bullet Points */}
+          <div className="w-full space-y-1">
             {features.slice(0, 2).map((feat, fIdx) => (
-              <div key={fIdx} className="flex items-center gap-1.5 text-xs text-slate-600 font-medium">
+              <div key={fIdx} className="flex items-center justify-center gap-1.5 text-xs text-slate-600 font-medium">
                 <IoCheckmarkCircle className="text-emerald-500 shrink-0" size={13} />
-                <span className="truncate">{feat}</span>
+                <span className="truncate max-w-[260px]">{feat}</span>
               </div>
             ))}
           </div>
         </div>
 
-        {/* Bottom CTA */}
-        <div className="flex items-center justify-between pt-2.5 border-t border-slate-100">
-          <span className="text-[10px] font-black uppercase tracking-wider text-slate-400">
-            {item.tag || "Production Ready"}
-          </span>
+        {/* Centered Bottom CTA */}
+        <div className="w-full flex items-center justify-center pt-2.5 border-t border-slate-100">
           <Link
             href={item.demoUrl || "/contact?service=erp"}
-            className="inline-flex items-center gap-1 text-xs font-bold text-emerald-600 hover:text-emerald-700 hover:underline transition-all"
+            className="inline-flex items-center gap-1.5 text-xs font-bold text-emerald-600 hover:text-emerald-700 hover:underline transition-all"
           >
             <span>Live Demo</span>
             <IoArrowForwardOutline size={12} className="group-hover/card:translate-x-1 transition-transform" />
@@ -376,7 +373,7 @@ export default function ERPSoftwareStrip() {
 
       {/* Staggered Alternating Marquee Wrapper */}
       <div className="relative border-y border-slate-200/90 bg-slate-50/50 py-0 overflow-hidden">
-        <Marquee className="py-0 [--duration:60s] [--gap:0px]" pauseOnHover repeat={4}>
+        <Marquee className="py-0 [--duration:100s] [--gap:0px]" pauseOnHover repeat={4}>
           {list.map((item, idx) => (
             <StaggeredERPItem
               key={`staggered-erp-${item._id || item.title}-${idx}`}
