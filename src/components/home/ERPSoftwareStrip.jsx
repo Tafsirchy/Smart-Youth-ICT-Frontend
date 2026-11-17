@@ -5,6 +5,7 @@ import Link from "next/link";
 import { useQuery } from "@tanstack/react-query";
 import api from "@/lib/api";
 import { queryKeys } from "@/lib/queryKeys";
+import { Marquee } from "@/components/ui/marquee";
 import {
   IoReceiptOutline,
   IoPeopleOutline,
@@ -24,21 +25,164 @@ import {
   IoCheckmarkCircle
 } from "react-icons/io5";
 
-// Production fallback in case of fresh DB or offline state
+// 13 Production Ready Fallbacks
 const DEFAULT_ERPS = [
-  { _id: "def-1", title: "POS System", category: "Retail & Billing", description: "Barcode scanning, thermal receipts & multi-counter checkout.", tag: "High Velocity", badgeColor: "emerald", order: 1 },
-  { _id: "def-2", title: "CRM System", category: "Sales & Pipeline", description: "Lead tracking, sales pipelines & customer 360 view.", tag: "Conversion", badgeColor: "blue", order: 2 },
-  { _id: "def-3", title: "HR-Payroll & Accounts", category: "Workforce & Ledger", description: "Biometric sync, tax deduction, payroll slips & ledger.", tag: "Enterprise", badgeColor: "indigo", order: 3 },
-  { _id: "def-4", title: "Stock Inventory & POS", category: "Warehouse & Supply", description: "Multi-branch stock sync, low-stock triggers & batch control.", tag: "Multi-Store", badgeColor: "teal", order: 4 },
-  { _id: "def-5", title: "Billing & Invoicing", category: "Fiscal Operations", description: "Multi-currency invoicing, auto receipts & tax reports.", tag: "Automated", badgeColor: "emerald", order: 5 },
-  { _id: "def-6", title: "Order Management", category: "E-Commerce Logistics", description: "Omnichannel order fulfillment & courier tracking API.", tag: "Fulfillment", badgeColor: "amber", order: 6 },
-  { _id: "def-7", title: "Doctor Appointment", category: "Healthcare & Chamber", description: "Chamber booking, e-prescriptions & patient history.", tag: "Medical Suite", badgeColor: "cyan", order: 7 },
-  { _id: "def-8", title: "CRM & Projects", category: "Agency Operations", description: "Kanban sprint boards, milestones & client portal.", tag: "Agile Ready", badgeColor: "violet", order: 8 },
-  { _id: "def-9", title: "Token & Queue", category: "Customer Routing", description: "Counter TV displays, multi-service ticketing & SMS queue.", tag: "Smart Queue", badgeColor: "rose", order: 9 },
-  { _id: "def-10", title: "Restaurant & Food", category: "Hospitality & Dine", description: "Kitchen Display (KDS), table QR & recipe costing.", tag: "Food & Bar", badgeColor: "orange", order: 10 },
-  { _id: "def-11", title: "NGO Management", category: "Non-Profit & Grants", description: "Donor tracking, microcredit grants & field compliance.", tag: "Social Impact", badgeColor: "emerald", order: 11 },
-  { _id: "def-12", title: "Co-operative Loan", category: "Microfinance", description: "Savings ledger, installment calculator & penalty rules.", tag: "Banking Grade", badgeColor: "blue", order: 12 },
-  { _id: "def-13", title: "Clinic & Hospital", category: "Hospital ERP", description: "IPD/OPD admissions, lab diagnostic tests & bed billing.", tag: "Complete ERP", badgeColor: "red", order: 13 },
+  {
+    _id: "erp-1",
+    sysCode: "SYS://POS-01",
+    brandName: "VENTURE POS",
+    title: "POS System",
+    category: "Retail & Counter Billing",
+    features: ["Barcode Scanning & Billing", "Thermal Receipt Printing", "Cash Drawer & Multi-Register"],
+    badgeColor: "emerald",
+    tag: "High Velocity",
+    demoUrl: "/contact?service=erp-pos",
+    order: 1
+  },
+  {
+    _id: "erp-2",
+    sysCode: "SYS://CRM-02",
+    brandName: "NEXUS CRM",
+    title: "CRM System",
+    category: "Sales & Client Pipeline",
+    features: ["Lead Pipeline Tracking", "Omnichannel 360 Client View", "Automated Follow-up Tasks"],
+    badgeColor: "blue",
+    tag: "Conversion",
+    demoUrl: "/contact?service=erp-crm",
+    order: 2
+  },
+  {
+    _id: "erp-3",
+    sysCode: "SYS://HR-03",
+    brandName: "TALENT HR",
+    title: "HR-Payroll & Accounts",
+    category: "Workforce & Financial Ledger",
+    features: ["Biometric Attendance Sync", "Auto Tax & PF Deduction", "Double-Entry Corporate Ledger"],
+    badgeColor: "indigo",
+    tag: "Enterprise",
+    demoUrl: "/contact?service=erp-hr",
+    order: 3
+  },
+  {
+    _id: "erp-4",
+    sysCode: "SYS://INV-04",
+    brandName: "OMNI STOCK",
+    title: "Stock Inventory & POS",
+    category: "Warehouse & Supply Chain",
+    features: ["Multi-Branch Warehouse Sync", "Low-Stock Reorder Triggers", "Batch & Expiry Date Audit"],
+    badgeColor: "teal",
+    tag: "Multi-Store",
+    demoUrl: "/contact?service=erp-inventory",
+    order: 4
+  },
+  {
+    _id: "erp-5",
+    sysCode: "SYS://BIL-05",
+    brandName: "LEDGER FLOW",
+    title: "Billing & Invoicing",
+    category: "Fiscal Operations & SaaS",
+    features: ["Multi-Currency Client Invoicing", "Auto Recurring Subscriptions", "Government VAT & Tax Reports"],
+    badgeColor: "emerald",
+    tag: "Automated",
+    demoUrl: "/contact?service=erp-billing",
+    order: 5
+  },
+  {
+    _id: "erp-6",
+    sysCode: "SYS://ORD-06",
+    brandName: "DISPATCH PRO",
+    title: "Order Management",
+    category: "E-Commerce Fulfillment",
+    features: ["Omnichannel Order Dispatch", "Courier API Webhook Tracking", "Live Delivery Status Updates"],
+    badgeColor: "amber",
+    tag: "Fulfillment",
+    demoUrl: "/contact?service=erp-order",
+    order: 6
+  },
+  {
+    _id: "erp-7",
+    sysCode: "SYS://DOC-07",
+    brandName: "MEDICORE",
+    title: "Doctor Appointment",
+    category: "Healthcare & Chamber",
+    features: ["Doctor Chamber Schedules", "Real-Time Patient Slot Booking", "Digital Prescription Pad"],
+    badgeColor: "cyan",
+    tag: "Medical Suite",
+    demoUrl: "/contact?service=erp-doctor",
+    order: 7
+  },
+  {
+    _id: "erp-8",
+    sysCode: "SYS://PRJ-08",
+    brandName: "AGILE SPRINT",
+    title: "CRM & Project Management",
+    category: "Agency Operations",
+    features: ["Kanban Sprint Task Boards", "Client Milestone Access Portal", "Staff Billable Timesheets"],
+    badgeColor: "violet",
+    tag: "Agile Ready",
+    demoUrl: "/contact?service=erp-pm",
+    order: 8
+  },
+  {
+    _id: "erp-9",
+    sysCode: "SYS://QUE-09",
+    brandName: "QUEUE FLOW",
+    title: "Token & Queue Management",
+    category: "Smart Footfall Routing",
+    features: ["Counter TV Display Calling", "Multi-Department Ticketing", "SMS Instant Token Alerts"],
+    badgeColor: "rose",
+    tag: "Smart Queue",
+    demoUrl: "/contact?service=erp-queue",
+    order: 9
+  },
+  {
+    _id: "erp-10",
+    sysCode: "SYS://RES-10",
+    brandName: "CHEF MATRIX",
+    title: "Restaurant & Food",
+    category: "Hospitality & Dine-in",
+    features: ["Kitchen Display System (KDS)", "Table QR Digital Ordering", "Raw Recipe Costing & POS"],
+    badgeColor: "orange",
+    tag: "Food & Bar",
+    demoUrl: "/contact?service=erp-restaurant",
+    order: 10
+  },
+  {
+    _id: "erp-11",
+    sysCode: "SYS://NGO-11",
+    brandName: "HOPE IMPACT",
+    title: "NGO Management System",
+    category: "Non-Profit & Grants",
+    features: ["Donor Relationship Tracking", "Microcredit Grant Disbursal", "Field Beneficiary Audits"],
+    badgeColor: "emerald",
+    tag: "Social Impact",
+    demoUrl: "/contact?service=erp-ngo",
+    order: 11
+  },
+  {
+    _id: "erp-12",
+    sysCode: "SYS://LOA-12",
+    brandName: "CREDIT SYNC",
+    title: "Co-operative Loan ERP",
+    category: "Microfinance & Credit",
+    features: ["Member Savings Ledger", "Installment Amortization Table", "Automated Penalty Calculation"],
+    badgeColor: "blue",
+    tag: "Banking Grade",
+    demoUrl: "/contact?service=erp-loan",
+    order: 12
+  },
+  {
+    _id: "erp-13",
+    sysCode: "SYS://HOS-13",
+    brandName: "CARE HOSPITAL",
+    title: "Clinic & Hospital ERP",
+    category: "Hospital Operations",
+    features: ["OPD / IPD Patient Admissions", "Pathology Lab Diagnostics", "Bed & Ward Occupancy Tracker"],
+    badgeColor: "red",
+    tag: "Complete ERP",
+    demoUrl: "/contact?service=erp-hospital",
+    order: 13
+  }
 ];
 
 function getERPIcon(title) {
@@ -59,64 +203,156 @@ function getERPIcon(title) {
   return <IoCubeOutline size={20} />;
 }
 
-function getBadgeTheme(color) {
+function getIconTheme(color) {
   switch (color) {
     case "blue":
-      return "bg-blue-50 text-blue-700 border-blue-200/80 group-hover:border-blue-400";
+      return "bg-blue-50 text-blue-600 border-blue-200 group-hover/card:bg-blue-600 group-hover/card:text-white";
     case "indigo":
-      return "bg-indigo-50 text-indigo-700 border-indigo-200/80 group-hover:border-indigo-400";
+      return "bg-indigo-50 text-indigo-600 border-indigo-200 group-hover/card:bg-indigo-600 group-hover/card:text-white";
     case "teal":
-      return "bg-teal-50 text-teal-700 border-teal-200/80 group-hover:border-teal-400";
+      return "bg-teal-50 text-teal-600 border-teal-200 group-hover/card:bg-teal-600 group-hover/card:text-white";
     case "amber":
     case "orange":
-      return "bg-amber-50 text-amber-800 border-amber-200/80 group-hover:border-amber-400";
+      return "bg-amber-50 text-amber-700 border-amber-200 group-hover/card:bg-amber-600 group-hover/card:text-white";
     case "rose":
     case "red":
-      return "bg-rose-50 text-rose-700 border-rose-200/80 group-hover:border-rose-400";
+      return "bg-rose-50 text-rose-600 border-rose-200 group-hover/card:bg-rose-600 group-hover/card:text-white";
     case "violet":
-      return "bg-purple-50 text-purple-700 border-purple-200/80 group-hover:border-purple-400";
+      return "bg-purple-50 text-purple-600 border-purple-200 group-hover/card:bg-purple-600 group-hover/card:text-white";
     default:
-      return "bg-emerald-50 text-emerald-700 border-emerald-200/80 group-hover:border-emerald-400";
+      return "bg-emerald-50 text-emerald-600 border-emerald-200 group-hover/card:bg-emerald-600 group-hover/card:text-white";
   }
 }
 
-function ERPCard({ item }) {
-  const theme = getBadgeTheme(item.badgeColor);
+function getBrandName(item) {
+  if (item.brandName) return item.brandName;
+  const t = (item.title || "").toUpperCase();
+  if (t.includes("POS")) return "VENTURE POS";
+  if (t.includes("CRM")) return "NEXUS CRM";
+  if (t.includes("HR")) return "TALENT HR";
+  if (t.includes("STOCK") || t.includes("INVENTORY")) return "OMNI STOCK";
+  if (t.includes("BILLING")) return "LEDGER FLOW";
+  if (t.includes("ORDER")) return "DISPATCH PRO";
+  if (t.includes("DOCTOR")) return "MEDICORE";
+  if (t.includes("PROJECT")) return "AGILE SPRINT";
+  if (t.includes("TOKEN") || t.includes("QUEUE")) return "QUEUE FLOW";
+  if (t.includes("RESTAURANT")) return "CHEF MATRIX";
+  if (t.includes("NGO")) return "HOPE IMPACT";
+  if (t.includes("LOAN")) return "CREDIT SYNC";
+  if (t.includes("HOSPITAL")) return "CARE HOSPITAL";
+  return t;
+}
+
+/**
+ * ─── STAGGERED COLUMN ITEM ──────────────────────────────────────────────
+ * Mimics testimonials-13.tsx:
+ * Column 1: Card Top (210px) / Blueprint Logo Bottom (210px)
+ * Column 2: Blueprint Logo Top (210px) / Card Bottom (210px)
+ * Total height per column: exact 420px.
+ * Result: Calming checkerboard mosaic with visual negative space and zero stress!
+ */
+function StaggeredERPItem({ item, index }) {
+  const iconTheme = getIconTheme(item.badgeColor);
+  const sysCode = item.sysCode || `SYS://ERP-${String(index + 1).padStart(2, "0")}`;
+  const brandName = getBrandName(item);
+  const features = Array.isArray(item.features) && item.features.length > 0
+    ? item.features
+    : item.description ? [item.description] : ["Dedicated Cloud Hosting", "Role-Based Security"];
+
   return (
-    <div className="group relative flex min-w-[270px] max-w-[290px] shrink-0 flex-col justify-between border border-slate-200/80 bg-white p-4 shadow-sm backdrop-blur-sm transition-all duration-300 hover:border-emerald-400 hover:shadow-md hover:-translate-y-0.5 rounded-xl">
-      <div>
-        <div className="flex items-center justify-between gap-2 mb-2.5">
-          <div className={`flex h-9 w-9 shrink-0 items-center justify-center border rounded-lg transition-colors ${theme}`}>
-            {getERPIcon(item.title)}
+    <div className="flex w-[340px] sm:w-[380px] shrink-0 flex-col odd:flex-col-reverse select-none">
+      {/* ── CARD MODULE (H: 210px) ── */}
+      <div className="m-2 sm:m-2.5 h-[210px] rounded-2xl border border-slate-200/90 bg-white p-5 shadow-xs transition-all duration-300 hover:border-emerald-500 hover:shadow-xl hover:shadow-emerald-500/10 group/card relative z-10 flex flex-col justify-between">
+        {/* Top Header */}
+        <div>
+          <div className="flex items-center justify-between gap-2 mb-2">
+            <div className="flex items-center gap-2.5">
+              <div className={`w-9 h-9 rounded-xl border flex items-center justify-center shrink-0 transition-all duration-300 ${iconTheme}`}>
+                {getERPIcon(item.title)}
+              </div>
+              <div className="min-w-0">
+                <span className="text-[10px] font-mono font-bold text-emerald-600 block leading-none mb-1">
+                  {sysCode}
+                </span>
+                <h3 className="text-sm font-extrabold text-slate-900 group-hover/card:text-emerald-600 transition-colors leading-tight truncate">
+                  {item.title}
+                </h3>
+              </div>
+            </div>
+
+            <span className="flex items-center gap-1.5 px-2 py-0.5 rounded-full bg-slate-100 border border-slate-200 text-[10px] font-bold text-slate-600 shrink-0">
+              <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
+              <span>Ready</span>
+            </span>
           </div>
-          <span className="inline-flex items-center gap-1 px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider bg-slate-100 text-slate-600 rounded-md">
-            <IoCheckmarkCircle className="text-emerald-500" size={11} />
-            {item.tag || "Ready Software"}
-          </span>
+
+          {/* Category Pill */}
+          <div className="mb-2.5">
+            <span className="inline-block px-2.5 py-0.5 rounded-md bg-slate-50 border border-slate-200/70 text-[11px] font-bold text-slate-600">
+              {item.category || "Enterprise Suite"}
+            </span>
+          </div>
+
+          {/* Bullet Points */}
+          <div className="space-y-1">
+            {features.slice(0, 2).map((feat, fIdx) => (
+              <div key={fIdx} className="flex items-center gap-1.5 text-xs text-slate-600 font-medium">
+                <IoCheckmarkCircle className="text-emerald-500 shrink-0" size={13} />
+                <span className="truncate">{feat}</span>
+              </div>
+            ))}
+          </div>
         </div>
 
-        <h3 className="text-sm font-extrabold text-slate-900 group-hover:text-emerald-600 transition-colors leading-snug">
-          {item.title}
-        </h3>
-        <p className="text-[11px] font-semibold text-slate-400 uppercase tracking-wider mb-2 leading-tight">
-          {item.category || "Enterprise Suite"}
-        </p>
-        <p className="text-xs text-slate-600 line-clamp-2 leading-relaxed">
-          {item.description}
-        </p>
+        {/* Bottom CTA */}
+        <div className="flex items-center justify-between pt-2.5 border-t border-slate-100">
+          <span className="text-[10px] font-black uppercase tracking-wider text-slate-400">
+            {item.tag || "Production Ready"}
+          </span>
+          <Link
+            href={item.demoUrl || "/contact?service=erp"}
+            className="inline-flex items-center gap-1 text-xs font-bold text-emerald-600 hover:text-emerald-700 hover:underline transition-all"
+          >
+            <span>Live Demo</span>
+            <IoArrowForwardOutline size={12} className="group-hover/card:translate-x-1 transition-transform" />
+          </Link>
+        </div>
       </div>
 
-      <div className="mt-3.5 pt-3 border-t border-slate-100 flex items-center justify-between">
-        <span className="text-[10px] font-bold uppercase tracking-widest text-emerald-600">
-          Live Production Ready
-        </span>
-        <Link
-          href={item.demoUrl || "/contact?service=erp"}
-          className="inline-flex items-center gap-1 text-xs font-bold text-slate-700 hover:text-emerald-600 transition-colors"
-        >
-          <span>Demo</span>
-          <IoArrowForwardOutline size={12} className="group-hover:translate-x-0.5 transition-transform" />
-        </Link>
+      {/* ── LOGO & BLUEPRINT GRID BLOCK (H: 210px - Restful Negative Space) ── */}
+      <div className="relative flex h-[210px] w-full items-center justify-center p-6 overflow-hidden">
+        {/* Subtle Architectural Blueprint Background Grid Pattern */}
+        <div
+          className="absolute inset-0 isolate pointer-events-none opacity-25"
+          style={{
+            backgroundImage: `
+              linear-gradient(to right, #003D46 1px, transparent 1px),
+              linear-gradient(to bottom, #003D46 1px, transparent 1px)
+            `,
+            backgroundSize: "28px 28px",
+            backgroundPosition: "center center",
+            maskImage: "radial-gradient(ellipse at center, rgba(0, 0, 0, 1) 25%, transparent 75%)",
+            WebkitMaskImage: "radial-gradient(ellipse at center, rgba(0, 0, 0, 1) 25%, transparent 75%)",
+          }}
+        />
+
+        {/* Muted Logo Watermark like kanba / amara / hexa */}
+        <div className="relative z-10 flex flex-col items-center justify-center text-center px-4 group">
+          <div className="flex items-center gap-2.5 mb-1.5 text-slate-400">
+            <div className="w-9 h-9 rounded-xl border border-slate-300/80 bg-white/80 backdrop-blur-xs flex items-center justify-center text-slate-600 shadow-2xs">
+              {getERPIcon(item.title)}
+            </div>
+            <span className="text-xl sm:text-2xl font-black uppercase tracking-tight text-slate-700 font-mono">
+              {brandName}
+            </span>
+          </div>
+
+          <div className="flex items-center gap-2 text-[10px] font-mono font-bold tracking-widest text-slate-400 uppercase">
+            <span>{sysCode}</span>
+            <span>•</span>
+            <span className="text-emerald-600">ENTERPRISE</span>
+          </div>
+        </div>
       </div>
     </div>
   );
@@ -137,56 +373,48 @@ export default function ERPSoftwareStrip() {
   });
 
   const list = erpItems && erpItems.length > 0 ? erpItems : DEFAULT_ERPS;
-  // Duplicate for smooth infinite CSS loop
-  const duplicated = [...list, ...list];
 
   return (
-    <section className="relative w-full overflow-hidden bg-gradient-to-b from-[#F8FAFC] via-white to-[#F8FAFC] py-10 sm:py-12 border-b border-slate-200/80 font-sans">
-      <div className="container-custom px-4 sm:px-6 md:px-12 mb-6 sm:mb-8 text-center">
-        <div className="inline-flex items-center gap-2 px-3 py-1 bg-emerald-50 border border-emerald-200 text-emerald-700 text-xs font-black uppercase tracking-widest rounded-full mb-3 shadow-xs">
-          <IoRocketOutline className="animate-bounce" size={14} />
+    <section className="relative w-full overflow-hidden bg-gradient-to-b from-[#FAFDFB] via-white to-[#F8FAFC] py-14 sm:py-16 border-b border-slate-200/80 font-sans">
+      {/* Ambient background glow */}
+      <div className="absolute top-1/2 left-1/4 -translate-y-1/2 w-96 h-96 bg-emerald-500/5 rounded-full blur-3xl pointer-events-none" />
+      <div className="absolute top-1/2 right-1/4 -translate-y-1/2 w-96 h-96 bg-teal-500/5 rounded-full blur-3xl pointer-events-none" />
+
+      {/* Header */}
+      <div className="container-custom px-4 sm:px-6 md:px-12 mb-10 text-center relative z-10">
+        <div className="inline-flex items-center gap-2 px-3.5 py-1 bg-emerald-50 border border-emerald-200 text-emerald-800 text-xs font-black uppercase tracking-widest rounded-full mb-3 shadow-xs">
+          <IoRocketOutline className="text-emerald-600" size={14} />
           <span>13+ Ready-to-Deploy Enterprise Solutions</span>
         </div>
-        
-        <h2 className="text-2xl sm:text-4xl md:text-5xl font-black text-slate-900 leading-[1.15] tracking-tight mb-2">
-          Enterprise ERP &amp; Business Software{" "}
+
+        <h2 className="text-2xl sm:text-4xl md:text-5xl font-black text-slate-900 leading-[1.15] tracking-tight mb-3">
+          Enterprise ERP &amp; Management{" "}
           <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-600 via-teal-600 to-emerald-500">
-            Suite
+            Software Suite
           </span>
         </h2>
-        
+
         <p className="text-xs sm:text-sm text-slate-600 max-w-2xl mx-auto font-normal leading-relaxed">
-          From multi-branch POS and Hospital Management to Microcredit NGO systems — production-ready software suites deployed with instant setup and custom licensing.
+          From multi-counter retail POS to 500-bed hospital clinical ERPs — production-ready software suites engineered for high-volume transactions and seamless digital operations.
         </p>
       </div>
 
-      {/* Marquee Wrapper */}
-      <div className="relative overflow-hidden py-2 group">
-        <div className="marquee-erp flex w-max gap-4 px-4 motion-gpu group-hover:[animation-play-state:paused]">
-          {duplicated.map((item, idx) => (
-            <ERPCard key={`erp-${item._id || item.title}-${idx}`} item={item} />
+      {/* Staggered Alternating Marquee Wrapper */}
+      <div className="relative border-y border-slate-200/90 bg-slate-50/50 py-0 overflow-hidden">
+        <Marquee className="py-0 [--duration:60s] [--gap:0px]" pauseOnHover repeat={4}>
+          {list.map((item, idx) => (
+            <StaggeredERPItem
+              key={`staggered-erp-${item._id || item.title}-${idx}`}
+              item={item}
+              index={idx}
+            />
           ))}
-        </div>
+        </Marquee>
 
-        {/* Gradient edge masks */}
-        <div className="pointer-events-none absolute inset-y-0 left-0 w-12 sm:w-20 bg-gradient-to-r from-white to-transparent z-10" />
-        <div className="pointer-events-none absolute inset-y-0 right-0 w-12 sm:w-20 bg-gradient-to-l from-white to-transparent z-10" />
+        {/* Smooth Edge Fade Masks */}
+        <div className="pointer-events-none absolute inset-y-0 left-0 w-16 sm:w-32 bg-gradient-to-r from-[#FAFDFB] to-transparent z-20" />
+        <div className="pointer-events-none absolute inset-y-0 right-0 w-16 sm:w-32 bg-gradient-to-l from-[#FAFDFB] to-transparent z-20" />
       </div>
-
-      <style jsx>{`
-        .marquee-erp {
-          animation: marquee-erp 36s linear infinite;
-          will-change: transform;
-        }
-        @keyframes marquee-erp {
-          0% {
-            transform: translate3d(0%, 0, 0);
-          }
-          100% {
-            transform: translate3d(-50%, 0, 0);
-          }
-        }
-      `}</style>
     </section>
   );
 }
