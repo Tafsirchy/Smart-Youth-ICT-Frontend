@@ -8,195 +8,131 @@ import {
   IoPeopleOutline,
   IoIdCardOutline,
   IoCubeOutline,
-  IoCardOutline,
-  IoCartOutline,
   IoPulseOutline,
-  IoBriefcaseOutline,
-  IoTimeOutline,
-  IoRestaurantOutline,
-  IoHeartOutline,
   IoShieldCheckmarkOutline,
   IoMedkitOutline,
   IoRocketOutline,
   IoArrowForwardOutline,
-  IoCheckmarkCircle
+  IoCheckmarkCircle,
+  IoSchoolOutline,
+  IoWifiOutline,
+  IoCalendarOutline
 } from "react-icons/io5";
 
-// 13 Production Ready Fallbacks
+// 9 Official Ready-to-Deploy Enterprise Software Suites
 const DEFAULT_ERPS = [
   {
     _id: "erp-1",
-    sysCode: "SYS://POS-01",
-    brandName: "VENTURE POS",
-    title: "POS System",
-    category: "Retail & Counter Billing",
-    features: ["Barcode Scanning & Billing", "Thermal Receipt Printing", "Cash Drawer & Multi-Register"],
-    badgeColor: "emerald",
-    tag: "High Velocity",
-    demoUrl: "/contact?service=erp-pos",
+    brandName: "SMART HR",
+    title: "Smart HR",
+    category: "Attendance, HR, Payroll & Accounts",
+    features: ["Biometric Attendance Sync", "Auto Salary & Tax Deduction", "Sprint Project Task Boards"],
+    badgeColor: "indigo",
+    tag: "Workforce ERP",
+    demoUrl: "/contact?service=smart-hr",
     order: 1
   },
   {
     _id: "erp-2",
-    sysCode: "SYS://CRM-02",
-    brandName: "NEXUS CRM",
-    title: "CRM System",
-    category: "Sales & Client Pipeline",
-    features: ["Lead Pipeline Tracking", "Omnichannel 360 Client View", "Automated Follow-up Tasks"],
-    badgeColor: "blue",
-    tag: "Conversion",
-    demoUrl: "/contact?service=erp-crm",
+    brandName: "SMART POS",
+    title: "Smart POS",
+    category: "POS, Stock, HRM & Accounts",
+    features: ["Multi-Register Barcode Billing", "Multi-Branch Stock Sync", "Integrated Accounts & HRM"],
+    badgeColor: "emerald",
+    tag: "Retail & Multi-Store",
+    demoUrl: "/contact?service=smart-pos",
     order: 2
   },
   {
     _id: "erp-3",
-    sysCode: "SYS://HR-03",
-    brandName: "TALENT HR",
-    title: "HR-Payroll & Accounts",
-    category: "Workforce & Financial Ledger",
-    features: ["Biometric Attendance Sync", "Auto Tax & PF Deduction", "Double-Entry Corporate Ledger"],
-    badgeColor: "indigo",
-    tag: "Enterprise",
-    demoUrl: "/contact?service=erp-hr",
+    brandName: "SMART EIMS",
+    title: "Smart EIMS (ERP)",
+    category: "School, College & Institute Management",
+    features: ["Student Admission & Fee Collection", "Automated Exams & Marksheets", "Parent SMS & Routine Portal"],
+    badgeColor: "blue",
+    tag: "Education ERP",
+    demoUrl: "/contact?service=smart-eims",
     order: 3
   },
   {
     _id: "erp-4",
-    sysCode: "SYS://INV-04",
-    brandName: "OMNI STOCK",
-    title: "Stock Inventory & POS",
-    category: "Warehouse & Supply Chain",
-    features: ["Multi-Branch Warehouse Sync", "Low-Stock Reorder Triggers", "Batch & Expiry Date Audit"],
+    brandName: "SMART PHARMACY",
+    title: "Smart Pharmacy",
+    category: "Medical & Medicine Store System",
+    features: ["Drug Batch & Expiry Tracking", "Wholesale & Counter Billing", "Generic Group Medicine Search"],
     badgeColor: "teal",
-    tag: "Multi-Store",
-    demoUrl: "/contact?service=erp-inventory",
+    tag: "Pharma Suite",
+    demoUrl: "/contact?service=smart-pharmacy",
     order: 4
   },
   {
     _id: "erp-5",
-    sysCode: "SYS://BIL-05",
-    brandName: "LEDGER FLOW",
-    title: "Billing & Invoicing",
-    category: "Fiscal Operations & SaaS",
-    features: ["Multi-Currency Client Invoicing", "Auto Recurring Subscriptions", "Government VAT & Tax Reports"],
-    badgeColor: "emerald",
-    tag: "Automated",
-    demoUrl: "/contact?service=erp-billing",
+    brandName: "SMART HSM",
+    title: "Smart HSM",
+    category: "Hospital & Diagnostic Care (ERP)",
+    features: ["IPD / OPD Patient Admissions", "Pathology Lab Test Reporting", "Bed, Ward & Doctor Duty Desk"],
+    badgeColor: "red",
+    tag: "Hospital ERP",
+    demoUrl: "/contact?service=smart-hsm",
     order: 5
   },
   {
     _id: "erp-6",
-    sysCode: "SYS://ORD-06",
-    brandName: "DISPATCH PRO",
-    title: "Order Management",
-    category: "E-Commerce Fulfillment",
-    features: ["Omnichannel Order Dispatch", "Courier API Webhook Tracking", "Live Delivery Status Updates"],
-    badgeColor: "amber",
-    tag: "Fulfillment",
-    demoUrl: "/contact?service=erp-order",
+    brandName: "SMART RX",
+    title: "Multi-Doctor Appointment & eRx",
+    category: "Telehealth & Chamber Suite + Website",
+    features: ["Real-time Slot Booking Portal", "Digital e-Prescription Engine", "Doctor Profile Frontend Website"],
+    badgeColor: "cyan",
+    tag: "Chamber & Telehealth",
+    demoUrl: "/contact?service=smart-doctor",
     order: 6
   },
   {
     _id: "erp-7",
-    sysCode: "SYS://DOC-07",
-    brandName: "MEDICORE",
-    title: "Doctor Appointment",
-    category: "Healthcare & Chamber",
-    features: ["Doctor Chamber Schedules", "Real-Time Patient Slot Booking", "Digital Prescription Pad"],
-    badgeColor: "cyan",
-    tag: "Medical Suite",
-    demoUrl: "/contact?service=erp-doctor",
+    brandName: "SMART FIN",
+    title: "Smart FIN",
+    category: "Co-operative, NGO & Loan Management",
+    features: ["Member Savings & Deposit Book", "Installment Amortization Tables", "Automated Penalty & Dividends"],
+    badgeColor: "violet",
+    tag: "Microfinance",
+    demoUrl: "/contact?service=smart-fin",
     order: 7
   },
   {
     _id: "erp-8",
-    sysCode: "SYS://PRJ-08",
-    brandName: "AGILE SPRINT",
-    title: "CRM & Project Management",
-    category: "Agency Operations",
-    features: ["Kanban Sprint Task Boards", "Client Milestone Access Portal", "Staff Billable Timesheets"],
-    badgeColor: "violet",
-    tag: "Agile Ready",
-    demoUrl: "/contact?service=erp-pm",
+    brandName: "SMART ISP",
+    title: "Smart ISP Management",
+    category: "Real-time Mikrotik & PPPoE Auto Sync",
+    features: ["Real-Time Mikrotik Router Sync", "PPPoE Auto-Disconnect on Expiry", "SMS Billing Alerts & Resellers"],
+    badgeColor: "amber",
+    tag: "Mikrotik ISP",
+    demoUrl: "/contact?service=smart-isp",
     order: 8
   },
   {
     _id: "erp-9",
-    sysCode: "SYS://QUE-09",
-    brandName: "QUEUE FLOW",
-    title: "Token & Queue Management",
-    category: "Smart Footfall Routing",
-    features: ["Counter TV Display Calling", "Multi-Department Ticketing", "SMS Instant Token Alerts"],
-    badgeColor: "rose",
-    tag: "Smart Queue",
-    demoUrl: "/contact?service=erp-queue",
-    order: 9
-  },
-  {
-    _id: "erp-10",
-    sysCode: "SYS://RES-10",
-    brandName: "CHEF MATRIX",
-    title: "Restaurant & Food",
-    category: "Hospitality & Dine-in",
-    features: ["Kitchen Display System (KDS)", "Table QR Digital Ordering", "Raw Recipe Costing & POS"],
-    badgeColor: "orange",
-    tag: "Food & Bar",
-    demoUrl: "/contact?service=erp-restaurant",
-    order: 10
-  },
-  {
-    _id: "erp-11",
-    sysCode: "SYS://NGO-11",
-    brandName: "HOPE IMPACT",
-    title: "NGO Management System",
-    category: "Non-Profit & Grants",
-    features: ["Donor Relationship Tracking", "Microcredit Grant Disbursal", "Field Beneficiary Audits"],
+    brandName: "SMART SCM",
+    title: "Supply Chain ERP",
+    category: "Supply Chain & Multi-Warehouse ERP",
+    features: ["Vendor Purchase Orders & RFQ", "Multi-Warehouse Stock Routing", "Demand Forecast & Fleet Logistics"],
     badgeColor: "emerald",
-    tag: "Social Impact",
-    demoUrl: "/contact?service=erp-ngo",
-    order: 11
-  },
-  {
-    _id: "erp-12",
-    sysCode: "SYS://LOA-12",
-    brandName: "CREDIT SYNC",
-    title: "Co-operative Loan ERP",
-    category: "Microfinance & Credit",
-    features: ["Member Savings Ledger", "Installment Amortization Table", "Automated Penalty Calculation"],
-    badgeColor: "blue",
-    tag: "Banking Grade",
-    demoUrl: "/contact?service=erp-loan",
-    order: 12
-  },
-  {
-    _id: "erp-13",
-    sysCode: "SYS://HOS-13",
-    brandName: "CARE HOSPITAL",
-    title: "Clinic & Hospital ERP",
-    category: "Hospital Operations",
-    features: ["OPD / IPD Patient Admissions", "Pathology Lab Diagnostics", "Bed & Ward Occupancy Tracker"],
-    badgeColor: "red",
-    tag: "Complete ERP",
-    demoUrl: "/contact?service=erp-hospital",
-    order: 13
+    tag: "Enterprise SCM",
+    demoUrl: "/contact?service=smart-scm",
+    order: 9
   }
 ];
 
 function getERPIcon(title) {
   const t = (title || "").toLowerCase();
-  if (t.includes("pos")) return <IoReceiptOutline size={20} />;
-  if (t.includes("hr") || t.includes("payroll")) return <IoIdCardOutline size={20} />;
-  if (t.includes("inventory") || t.includes("stock")) return <IoCubeOutline size={20} />;
-  if (t.includes("crm")) return <IoPeopleOutline size={20} />;
-  if (t.includes("billing") || t.includes("invoice")) return <IoCardOutline size={20} />;
-  if (t.includes("order")) return <IoCartOutline size={20} />;
-  if (t.includes("doctor") || t.includes("appointment")) return <IoPulseOutline size={20} />;
-  if (t.includes("project")) return <IoBriefcaseOutline size={20} />;
-  if (t.includes("token") || t.includes("queue")) return <IoTimeOutline size={20} />;
-  if (t.includes("restaurant") || t.includes("food")) return <IoRestaurantOutline size={20} />;
-  if (t.includes("ngo")) return <IoHeartOutline size={20} />;
-  if (t.includes("loan") || t.includes("co-op")) return <IoShieldCheckmarkOutline size={20} />;
-  if (t.includes("hospital") || t.includes("clinic")) return <IoMedkitOutline size={20} />;
+  if (t.includes("hr") || t.includes("payroll")) return <IoPeopleOutline size={20} />;
+  if (t.includes("pos") || t.includes("inventory")) return <IoReceiptOutline size={20} />;
+  if (t.includes("eims") || t.includes("school") || t.includes("institute") || t.includes("college")) return <IoSchoolOutline size={20} />;
+  if (t.includes("pharmacy") || t.includes("medicine")) return <IoMedkitOutline size={20} />;
+  if (t.includes("hsm") || t.includes("hospital") || t.includes("clinic")) return <IoPulseOutline size={20} />;
+  if (t.includes("doctor") || t.includes("appointment") || t.includes("prescription") || t.includes("rx")) return <IoCalendarOutline size={20} />;
+  if (t.includes("fin") || t.includes("loan") || t.includes("co-op") || t.includes("ngo")) return <IoShieldCheckmarkOutline size={20} />;
+  if (t.includes("isp") || t.includes("mikrotik") || t.includes("pppoe")) return <IoWifiOutline size={20} />;
+  if (t.includes("supply") || t.includes("scm") || t.includes("chain")) return <IoCubeOutline size={20} />;
   return <IoCubeOutline size={20} />;
 }
 
@@ -224,27 +160,23 @@ function getIconTheme(color) {
 function getBrandName(item) {
   if (item.brandName) return item.brandName;
   const t = (item.title || "").toUpperCase();
-  if (t.includes("POS")) return "VENTURE POS";
-  if (t.includes("CRM")) return "NEXUS CRM";
-  if (t.includes("HR")) return "TALENT HR";
-  if (t.includes("STOCK") || t.includes("INVENTORY")) return "OMNI STOCK";
-  if (t.includes("BILLING")) return "LEDGER FLOW";
-  if (t.includes("ORDER")) return "DISPATCH PRO";
-  if (t.includes("DOCTOR")) return "MEDICORE";
-  if (t.includes("PROJECT")) return "AGILE SPRINT";
-  if (t.includes("TOKEN") || t.includes("QUEUE")) return "QUEUE FLOW";
-  if (t.includes("RESTAURANT")) return "CHEF MATRIX";
-  if (t.includes("NGO")) return "HOPE IMPACT";
-  if (t.includes("LOAN")) return "CREDIT SYNC";
-  if (t.includes("HOSPITAL")) return "CARE HOSPITAL";
+  if (t.includes("HR")) return "SMART HR";
+  if (t.includes("POS")) return "SMART POS";
+  if (t.includes("EIMS") || t.includes("SCHOOL")) return "SMART EIMS";
+  if (t.includes("PHARMACY")) return "SMART PHARMACY";
+  if (t.includes("HSM") || t.includes("HOSPITAL")) return "SMART HSM";
+  if (t.includes("DOCTOR") || t.includes("PRESCRIPTION")) return "SMART RX";
+  if (t.includes("FIN") || t.includes("LOAN")) return "SMART FIN";
+  if (t.includes("ISP") || t.includes("MIKROTIK")) return "SMART ISP";
+  if (t.includes("SUPPLY") || t.includes("SCM")) return "SMART SCM";
   return t;
 }
 
 /**
  * ─── STAGGERED COLUMN ITEM ──────────────────────────────────────────────
  * Mimics testimonials-13.tsx:
- * Column 1: Card Top (210px) / Blueprint Logo Bottom (210px)
- * Column 2: Blueprint Logo Top (210px) / Card Bottom (210px)
+ * Column 1: Card Top (210px) / Logo Bottom (210px)
+ * Column 2: Logo Top (210px) / Card Bottom (210px)
  * Total height per column: exact 420px.
  * Result: Calming checkerboard mosaic with visual negative space and zero stress!
  */
@@ -361,7 +293,7 @@ export default function ERPSoftwareStrip() {
       <div className="container-custom px-4 sm:px-6 md:px-12 mb-10 text-center relative z-10">
         <div className="inline-flex items-center gap-2 px-3.5 py-1 bg-emerald-50 border border-emerald-200 text-emerald-800 text-xs font-black uppercase tracking-widest rounded-full mb-3 shadow-xs">
           <IoRocketOutline className="text-emerald-600" size={14} />
-          <span>13+ Ready-to-Deploy Enterprise Solutions</span>
+          <span>9+ Production-Ready Software Systems</span>
         </div>
 
         <h2 className="text-2xl sm:text-4xl md:text-5xl font-black text-slate-900 leading-[1.15] tracking-tight mb-3">
@@ -372,7 +304,7 @@ export default function ERPSoftwareStrip() {
         </h2>
 
         <p className="text-xs sm:text-sm text-slate-600 max-w-2xl mx-auto font-normal leading-relaxed">
-          From multi-counter retail POS to 500-bed hospital clinical ERPs — production-ready software suites engineered for high-volume transactions and seamless digital operations.
+          From multi-counter retail POS and School EIMS to Mikrotik ISP billing and 500-bed Hospital HSM — production-ready software suites engineered for high-volume transactions and seamless digital operations.
         </p>
       </div>
 
@@ -403,7 +335,7 @@ export default function ERPSoftwareStrip() {
           }
         }
         .marquee-continuous {
-          animation: marqueeScrollERP 140s linear infinite;
+          animation: marqueeScrollERP 120s linear infinite;
           will-change: transform;
         }
       `}</style>
