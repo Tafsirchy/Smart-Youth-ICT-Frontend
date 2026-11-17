@@ -16,7 +16,7 @@ import {
   IoCheckmarkCircle,
   IoSchoolOutline,
   IoWifiOutline,
-  IoCalendarOutline
+  IoCalendarOutline,
 } from "react-icons/io5";
 
 // 9 Official Ready-to-Deploy Enterprise Software Suites
@@ -26,113 +26,173 @@ const DEFAULT_ERPS = [
     brandName: "SMART HR",
     title: "Smart HR",
     category: "Attendance, HR, Payroll & Accounts",
-    features: ["Biometric Attendance Sync", "Auto Salary & Tax Deduction", "Sprint Project Task Boards"],
+    features: [
+      "Biometric Attendance Sync",
+      "Auto Salary & Tax Deduction",
+      "Sprint Project Task Boards",
+    ],
     badgeColor: "indigo",
     tag: "Workforce ERP",
     demoUrl: "/contact?service=smart-hr",
-    order: 1
+    order: 1,
   },
   {
     _id: "erp-2",
     brandName: "SMART POS",
     title: "Smart POS",
     category: "POS, Stock, HRM & Accounts",
-    features: ["Multi-Register Barcode Billing", "Multi-Branch Stock Sync", "Integrated Accounts & HRM"],
+    features: [
+      "Multi-Register Barcode Billing",
+      "Multi-Branch Stock Sync",
+      "Integrated Accounts & HRM",
+    ],
     badgeColor: "emerald",
     tag: "Retail & Multi-Store",
     demoUrl: "/contact?service=smart-pos",
-    order: 2
+    order: 2,
   },
   {
     _id: "erp-3",
     brandName: "SMART EIMS",
     title: "Smart EIMS (ERP)",
     category: "School, College & Institute Management",
-    features: ["Student Admission & Fee Collection", "Automated Exams & Marksheets", "Parent SMS & Routine Portal"],
+    features: [
+      "Student Admission & Fee Collection",
+      "Automated Exams & Marksheets",
+      "Parent SMS & Routine Portal",
+    ],
     badgeColor: "blue",
     tag: "Education ERP",
     demoUrl: "/contact?service=smart-eims",
-    order: 3
+    order: 3,
   },
   {
     _id: "erp-4",
     brandName: "SMART PHARMACY",
     title: "Smart Pharmacy",
     category: "Medical & Medicine Store System",
-    features: ["Drug Batch & Expiry Tracking", "Wholesale & Counter Billing", "Generic Group Medicine Search"],
+    features: [
+      "Drug Batch & Expiry Tracking",
+      "Wholesale & Counter Billing",
+      "Generic Group Medicine Search",
+    ],
     badgeColor: "teal",
     tag: "Pharma Suite",
     demoUrl: "/contact?service=smart-pharmacy",
-    order: 4
+    order: 4,
   },
   {
     _id: "erp-5",
     brandName: "SMART HSM",
     title: "Smart HSM",
     category: "Hospital & Diagnostic Care (ERP)",
-    features: ["IPD / OPD Patient Admissions", "Pathology Lab Test Reporting", "Bed, Ward & Doctor Duty Desk"],
+    features: [
+      "IPD / OPD Patient Admissions",
+      "Pathology Lab Test Reporting",
+      "Bed, Ward & Doctor Duty Desk",
+    ],
     badgeColor: "red",
     tag: "Hospital ERP",
     demoUrl: "/contact?service=smart-hsm",
-    order: 5
+    order: 5,
   },
   {
     _id: "erp-6",
     brandName: "SMART RX",
     title: "Multi-Doctor Appointment & eRx",
     category: "Telehealth & Chamber Suite + Website",
-    features: ["Real-time Slot Booking Portal", "Digital e-Prescription Engine", "Doctor Profile Frontend Website"],
+    features: [
+      "Real-time Slot Booking Portal",
+      "Digital e-Prescription Engine",
+      "Doctor Profile Frontend Website",
+    ],
     badgeColor: "cyan",
     tag: "Chamber & Telehealth",
     demoUrl: "/contact?service=smart-doctor",
-    order: 6
+    order: 6,
   },
   {
     _id: "erp-7",
     brandName: "SMART FIN",
     title: "Smart FIN",
     category: "Co-operative, NGO & Loan Management",
-    features: ["Member Savings & Deposit Book", "Installment Amortization Tables", "Automated Penalty & Dividends"],
+    features: [
+      "Member Savings & Deposit Book",
+      "Installment Amortization Tables",
+      "Automated Penalty & Dividends",
+    ],
     badgeColor: "violet",
     tag: "Microfinance",
     demoUrl: "/contact?service=smart-fin",
-    order: 7
+    order: 7,
   },
   {
     _id: "erp-8",
     brandName: "SMART ISP",
     title: "Smart ISP Management",
     category: "Real-time Mikrotik & PPPoE Auto Sync",
-    features: ["Real-Time Mikrotik Router Sync", "PPPoE Auto-Disconnect on Expiry", "SMS Billing Alerts & Resellers"],
+    features: [
+      "Real-Time Mikrotik Router Sync",
+      "PPPoE Auto-Disconnect on Expiry",
+      "SMS Billing Alerts & Resellers",
+    ],
     badgeColor: "amber",
     tag: "Mikrotik ISP",
     demoUrl: "/contact?service=smart-isp",
-    order: 8
+    order: 8,
   },
   {
     _id: "erp-9",
     brandName: "SMART SCM",
     title: "Supply Chain ERP",
     category: "Supply Chain & Multi-Warehouse ERP",
-    features: ["Vendor Purchase Orders & RFQ", "Multi-Warehouse Stock Routing", "Demand Forecast & Fleet Logistics"],
+    features: [
+      "Vendor Purchase Orders & RFQ",
+      "Multi-Warehouse Stock Routing",
+      "Demand Forecast & Fleet Logistics",
+    ],
     badgeColor: "emerald",
     tag: "Enterprise SCM",
     demoUrl: "/contact?service=smart-scm",
-    order: 9
-  }
+    order: 9,
+  },
 ];
 
 function getERPIcon(title) {
   const t = (title || "").toLowerCase();
-  if (t.includes("hr") || t.includes("payroll")) return <IoPeopleOutline size={20} />;
-  if (t.includes("pos") || t.includes("inventory")) return <IoReceiptOutline size={20} />;
-  if (t.includes("eims") || t.includes("school") || t.includes("institute") || t.includes("college")) return <IoSchoolOutline size={20} />;
-  if (t.includes("pharmacy") || t.includes("medicine")) return <IoMedkitOutline size={20} />;
-  if (t.includes("hsm") || t.includes("hospital") || t.includes("clinic")) return <IoPulseOutline size={20} />;
-  if (t.includes("doctor") || t.includes("appointment") || t.includes("prescription") || t.includes("rx")) return <IoCalendarOutline size={20} />;
-  if (t.includes("fin") || t.includes("loan") || t.includes("co-op") || t.includes("ngo")) return <IoShieldCheckmarkOutline size={20} />;
-  if (t.includes("isp") || t.includes("mikrotik") || t.includes("pppoe")) return <IoWifiOutline size={20} />;
-  if (t.includes("supply") || t.includes("scm") || t.includes("chain")) return <IoCubeOutline size={20} />;
+  if (t.includes("hr") || t.includes("payroll"))
+    return <IoPeopleOutline size={20} />;
+  if (t.includes("pos") || t.includes("inventory"))
+    return <IoReceiptOutline size={20} />;
+  if (
+    t.includes("eims") ||
+    t.includes("school") ||
+    t.includes("institute") ||
+    t.includes("college")
+  )
+    return <IoSchoolOutline size={20} />;
+  if (t.includes("pharmacy") || t.includes("medicine"))
+    return <IoMedkitOutline size={20} />;
+  if (t.includes("hsm") || t.includes("hospital") || t.includes("clinic"))
+    return <IoPulseOutline size={20} />;
+  if (
+    t.includes("doctor") ||
+    t.includes("appointment") ||
+    t.includes("prescription") ||
+    t.includes("rx")
+  )
+    return <IoCalendarOutline size={20} />;
+  if (
+    t.includes("fin") ||
+    t.includes("loan") ||
+    t.includes("co-op") ||
+    t.includes("ngo")
+  )
+    return <IoShieldCheckmarkOutline size={20} />;
+  if (t.includes("isp") || t.includes("mikrotik") || t.includes("pppoe"))
+    return <IoWifiOutline size={20} />;
+  if (t.includes("supply") || t.includes("scm") || t.includes("chain"))
+    return <IoCubeOutline size={20} />;
   return <IoCubeOutline size={20} />;
 }
 
@@ -183,19 +243,26 @@ function getBrandName(item) {
 function StaggeredERPItem({ item, isFlipped }) {
   const iconTheme = getIconTheme(item.badgeColor);
   const brandName = getBrandName(item);
-  const features = Array.isArray(item.features) && item.features.length > 0
-    ? item.features
-    : item.description ? [item.description] : ["Dedicated Cloud Hosting", "Role-Based Security"];
+  const features =
+    Array.isArray(item.features) && item.features.length > 0
+      ? item.features
+      : item.description
+        ? [item.description]
+        : ["Dedicated Cloud Hosting", "Role-Based Security"];
 
   return (
-    <div className={`flex w-[340px] sm:w-[380px] shrink-0 ${isFlipped ? "flex-col-reverse" : "flex-col"} select-none`}>
+    <div
+      className={`flex w-[340px] sm:w-[380px] shrink-0 ${isFlipped ? "flex-col-reverse" : "flex-col"} select-none`}
+    >
       {/* ── CARD MODULE (H: 225px sm:230px - Centered Content + 3D Pop on Hover) ── */}
       <div className="m-2 sm:m-2.5 h-[225px] sm:h-[230px] rounded-2xl border border-slate-200/90 bg-white p-5 shadow-xs transition-all duration-300 ease-out hover:scale-[1.06] hover:-translate-y-2 hover:shadow-2xl hover:shadow-emerald-500/25 hover:border-emerald-500 hover:z-30 group/card relative z-10 flex flex-col justify-between items-center text-center cursor-pointer">
         {/* Top Header & Info */}
         <div className="w-full flex flex-col items-center">
           {/* Centered Icon with subtle pulse status badge */}
           <div className="relative mb-2">
-            <div className={`w-11 h-11 rounded-xl border flex items-center justify-center transition-all duration-300 ${iconTheme}`}>
+            <div
+              className={`w-11 h-11 rounded-xl border flex items-center justify-center transition-all duration-300 ${iconTheme}`}
+            >
               {getERPIcon(item.title)}
             </div>
             <span className="absolute -top-1 -right-1 flex h-2.5 w-2.5">
@@ -219,8 +286,14 @@ function StaggeredERPItem({ item, isFlipped }) {
           {/* Centered Bullet Points - Larger Text Size */}
           <div className="w-full space-y-1.5">
             {features.slice(0, 2).map((feat, fIdx) => (
-              <div key={fIdx} className="flex items-center justify-center gap-1.5 text-xs sm:text-[13px] text-slate-700 font-semibold leading-tight">
-                <IoCheckmarkCircle className="text-emerald-500 shrink-0" size={14} />
+              <div
+                key={fIdx}
+                className="flex items-center justify-center gap-1.5 text-xs sm:text-[13px] text-slate-700 font-semibold leading-tight"
+              >
+                <IoCheckmarkCircle
+                  className="text-emerald-500 shrink-0"
+                  size={14}
+                />
                 <span className="truncate max-w-[270px]">{feat}</span>
               </div>
             ))}
@@ -234,7 +307,10 @@ function StaggeredERPItem({ item, isFlipped }) {
             className="inline-flex items-center gap-1.5 text-xs sm:text-sm font-black text-emerald-600 hover:text-emerald-700 hover:underline transition-all"
           >
             <span>Live Demo</span>
-            <IoArrowForwardOutline size={14} className="group-hover/card:translate-x-1.5 transition-transform" />
+            <IoArrowForwardOutline
+              size={14}
+              className="group-hover/card:translate-x-1.5 transition-transform"
+            />
           </Link>
         </div>
       </div>
@@ -279,7 +355,10 @@ export default function ERPSoftwareStrip() {
 
   // Build an even-length balanced cycle so A-B-A-B alternating rhythm never has adjacent duplicates
   const cycleLength = list.length % 2 === 0 ? list.length : list.length * 2;
-  const singleCycle = Array.from({ length: cycleLength }, (_, i) => list[i % list.length]);
+  const singleCycle = Array.from(
+    { length: cycleLength },
+    (_, i) => list[i % list.length],
+  );
   // Duplicate for mathematically seamless 0% -> -50% infinite continuous ticker (no restart jump)
   const combinedList = [...singleCycle, ...singleCycle];
 
@@ -297,14 +376,16 @@ export default function ERPSoftwareStrip() {
         </div>
 
         <h2 className="text-2xl sm:text-4xl md:text-5xl font-black text-slate-900 leading-[1.15] tracking-tight mb-3">
-          Enterprise ERP &amp; Management
+          Enterprise ERP &amp; Management <br />
           <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-600 via-teal-600 to-emerald-500">
             Software Suite
           </span>
         </h2>
 
         <p className="text-xs sm:text-sm text-slate-600 max-w-2xl mx-auto font-normal leading-relaxed">
-          From multi-counter retail POS and School EIMS to Mikrotik ISP billing and 500-bed Hospital HSM — production-ready software suites engineered for high-volume transactions and seamless digital operations.
+          From multi-counter retail POS and School EIMS to Mikrotik ISP billing
+          and Hospital HSM — production-ready software suites engineered for
+          high-volume transactions and seamless operations.
         </p>
       </div>
 

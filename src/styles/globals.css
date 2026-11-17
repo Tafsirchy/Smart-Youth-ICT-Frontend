@@ -31,6 +31,14 @@
   --color-text-primary:      #0F172A;  /* Headings & body text         */
   --color-text-secondary:    #64748B;  /* Descriptions & captions      */
 
+  /* Toolchain & Surface Tokens */
+  --muted:                   #66645f;
+  --text:                    #171716;
+  --surface:                 #ffffff;
+  --surface-2:               #e9e8e3;
+  --focus-ring:              #1d1d1f;
+  --bg:                      #f4f3ef;
+
   /* — Gradients ─────────────────────────────────── */
   --gradient-hero: linear-gradient(135deg, #FF2C6D 0%, #10B981 100%);
   --gradient-cta:  linear-gradient(135deg, #FF2C6D 0%, #22D3EE 100%);
