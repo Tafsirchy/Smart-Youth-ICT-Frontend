@@ -175,9 +175,9 @@ function getBrandName(item) {
 /**
  * ─── STAGGERED COLUMN ITEM ──────────────────────────────────────────────
  * Mimics testimonials-13.tsx:
- * Column 1: Card Top (210px) / Logo Bottom (210px)
- * Column 2: Logo Top (210px) / Card Bottom (210px)
- * Total height per column: exact 420px.
+ * Column 1: Card Top (225px) / Logo Bottom (225px)
+ * Column 2: Logo Top (225px) / Card Bottom (225px)
+ * Total height per column: exact 450px.
  * Result: Calming checkerboard mosaic with visual negative space and zero stress!
  */
 function StaggeredERPItem({ item, isFlipped }) {
@@ -189,13 +189,13 @@ function StaggeredERPItem({ item, isFlipped }) {
 
   return (
     <div className={`flex w-[340px] sm:w-[380px] shrink-0 ${isFlipped ? "flex-col-reverse" : "flex-col"} select-none`}>
-      {/* ── CARD MODULE (H: 210px - Centered Content) ── */}
-      <div className="m-2 sm:m-2.5 h-[210px] rounded-2xl border border-slate-200/90 bg-white p-5 shadow-xs transition-all duration-300 hover:border-emerald-500 hover:shadow-xl hover:shadow-emerald-500/10 group/card relative z-10 flex flex-col justify-between items-center text-center">
+      {/* ── CARD MODULE (H: 225px sm:230px - Centered Content + 3D Pop on Hover) ── */}
+      <div className="m-2 sm:m-2.5 h-[225px] sm:h-[230px] rounded-2xl border border-slate-200/90 bg-white p-5 shadow-xs transition-all duration-300 ease-out hover:scale-[1.06] hover:-translate-y-2 hover:shadow-2xl hover:shadow-emerald-500/25 hover:border-emerald-500 hover:z-30 group/card relative z-10 flex flex-col justify-between items-center text-center cursor-pointer">
         {/* Top Header & Info */}
         <div className="w-full flex flex-col items-center">
           {/* Centered Icon with subtle pulse status badge */}
           <div className="relative mb-2">
-            <div className={`w-10 h-10 rounded-xl border flex items-center justify-center transition-all duration-300 ${iconTheme}`}>
+            <div className={`w-11 h-11 rounded-xl border flex items-center justify-center transition-all duration-300 ${iconTheme}`}>
               {getERPIcon(item.title)}
             </div>
             <span className="absolute -top-1 -right-1 flex h-2.5 w-2.5">
@@ -204,45 +204,45 @@ function StaggeredERPItem({ item, isFlipped }) {
             </span>
           </div>
 
-          {/* Centered Title */}
-          <h3 className="text-sm font-extrabold text-slate-900 group-hover/card:text-emerald-600 transition-colors leading-tight truncate max-w-full px-2">
+          {/* Centered Title - Larger Text Size */}
+          <h3 className="text-base sm:text-[17px] font-black text-slate-900 group-hover/card:text-emerald-600 transition-colors leading-snug truncate max-w-full px-1">
             {item.title}
           </h3>
 
-          {/* Centered Category Pill */}
-          <div className="mt-1.5 mb-2">
-            <span className="inline-block px-2.5 py-0.5 rounded-md bg-slate-50 border border-slate-200/70 text-[11px] font-bold text-slate-600">
+          {/* Centered Category Pill - Larger Text Size */}
+          <div className="mt-1.5 mb-2.5">
+            <span className="inline-block px-3 py-1 rounded-md bg-slate-100/90 border border-slate-200/80 text-xs sm:text-[12.5px] font-bold text-slate-700 tracking-wide">
               {item.category || "Enterprise Suite"}
             </span>
           </div>
 
-          {/* Centered Bullet Points */}
-          <div className="w-full space-y-1">
+          {/* Centered Bullet Points - Larger Text Size */}
+          <div className="w-full space-y-1.5">
             {features.slice(0, 2).map((feat, fIdx) => (
-              <div key={fIdx} className="flex items-center justify-center gap-1.5 text-xs text-slate-600 font-medium">
-                <IoCheckmarkCircle className="text-emerald-500 shrink-0" size={13} />
-                <span className="truncate max-w-[260px]">{feat}</span>
+              <div key={fIdx} className="flex items-center justify-center gap-1.5 text-xs sm:text-[13px] text-slate-700 font-semibold leading-tight">
+                <IoCheckmarkCircle className="text-emerald-500 shrink-0" size={14} />
+                <span className="truncate max-w-[270px]">{feat}</span>
               </div>
             ))}
           </div>
         </div>
 
-        {/* Centered Bottom CTA */}
+        {/* Centered Bottom CTA - Larger Text Size */}
         <div className="w-full flex items-center justify-center pt-2.5 border-t border-slate-100">
           <Link
             href={item.demoUrl || "/contact?service=erp"}
-            className="inline-flex items-center gap-1.5 text-xs font-bold text-emerald-600 hover:text-emerald-700 hover:underline transition-all"
+            className="inline-flex items-center gap-1.5 text-xs sm:text-sm font-black text-emerald-600 hover:text-emerald-700 hover:underline transition-all"
           >
             <span>Live Demo</span>
-            <IoArrowForwardOutline size={12} className="group-hover/card:translate-x-1 transition-transform" />
+            <IoArrowForwardOutline size={14} className="group-hover/card:translate-x-1.5 transition-transform" />
           </Link>
         </div>
       </div>
 
-      {/* ── CLEAN LOGO BLOCK (H: 210px - Minimalist Restful Space) ── */}
-      <div className="relative flex h-[210px] w-full items-center justify-center p-6 overflow-hidden">
-        {/* Seamless Clean Logo Wordmark like kanba / amara / hexa */}
-        <div className="relative z-10 flex items-center justify-center gap-3 text-center px-4 group select-none">
+      {/* ── CLEAN LOGO BLOCK (H: 225px sm:230px - Gentle Zoom In-Out Animation) ── */}
+      <div className="relative flex h-[225px] sm:h-[230px] w-full items-center justify-center p-6 overflow-hidden">
+        {/* Seamless Clean Logo Wordmark with zoom in/out pulse animation */}
+        <div className="logo-zoom-pulse relative z-10 flex items-center justify-center gap-3 text-center px-4 group select-none">
           <div className="text-2xl sm:text-3xl text-slate-400 group-hover:text-emerald-600 transition-colors shrink-0">
             {getERPIcon(item.title)}
           </div>
@@ -297,7 +297,7 @@ export default function ERPSoftwareStrip() {
         </div>
 
         <h2 className="text-2xl sm:text-4xl md:text-5xl font-black text-slate-900 leading-[1.15] tracking-tight mb-3">
-          Enterprise ERP &amp; Management{" "}
+          Enterprise ERP &amp; Management
           <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-600 via-teal-600 to-emerald-500">
             Software Suite
           </span>
@@ -308,8 +308,8 @@ export default function ERPSoftwareStrip() {
         </p>
       </div>
 
-      {/* 100% Continuous Infinite Marquee Wrapper (No Restart / Zero Glitch) */}
-      <div className="relative border-y border-slate-200/90 bg-slate-50/50 py-0 overflow-hidden group">
+      {/* 100% Continuous Infinite Marquee Wrapper (No Restart / Zero Glitch + 3D Card Pop Room) */}
+      <div className="relative border-y border-slate-200/90 bg-slate-50/50 py-5 sm:py-7 overflow-hidden group">
         <div className="marquee-continuous flex w-max motion-gpu group-hover:[animation-play-state:paused]">
           {combinedList.map((item, idx) => (
             <StaggeredERPItem
@@ -337,6 +337,21 @@ export default function ERPSoftwareStrip() {
         .marquee-continuous {
           animation: marqueeScrollERP 120s linear infinite;
           will-change: transform;
+        }
+
+        @keyframes logoZoomPulse {
+          0%, 100% {
+            transform: scale(0.92);
+            opacity: 0.85;
+          }
+          50% {
+            transform: scale(1.08);
+            opacity: 1;
+          }
+        }
+        .logo-zoom-pulse {
+          animation: logoZoomPulse 3.5s ease-in-out infinite;
+          will-change: transform, opacity;
         }
       `}</style>
     </section>
