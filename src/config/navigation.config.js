@@ -75,6 +75,7 @@ export const NAVIGATION_CONFIG = {
   ],
 
   about_cms: [
+    { href: '/super/cms/homepage-showcases', Icon: HiSparkles,     label: 'Homepage Showcases' },
     { href: '/super/cms/courses-hero',    Icon: HiCollection,   label: 'Courses Hero' },
     { href: '/super/cms/team',            Icon: HiUsers,        label: 'Core Management' },
     { href: '/super/cms/advisory',        Icon: HiUserGroup,    label: 'Advisory Board' },

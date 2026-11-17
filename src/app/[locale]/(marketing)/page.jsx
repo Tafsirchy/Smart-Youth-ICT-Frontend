@@ -1,4 +1,6 @@
 import HeroSlider from "@/components/home/HeroSlider";
+import ERPSoftwareStrip from "@/components/home/ERPSoftwareStrip";
+import TechStackStrip from "@/components/home/TechStackStrip";
 import TrustedBrandsStrip from "@/components/home/TrustedBrandsStrip";
 import UpcomingSeminarStrip from "@/components/home/UpcomingSeminarStrip";
 import WhyChooseUs from "@/components/home/WhyChooseUs";
@@ -19,6 +21,8 @@ export default function HomePage() {
   return (
     <>
       <HeroSlider />
+      <ERPSoftwareStrip />
+      <TechStackStrip />
       <TrustedBrandsStrip />
       <UpcomingSeminarStrip />
       <WhyChooseUs />

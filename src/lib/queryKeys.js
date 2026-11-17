@@ -40,6 +40,12 @@ export const queryKeys = {
     permissionsCatalog: () => ['permissions-catalog'],
     users: (params) => ['users', params],
     payments: (params) => ['payments', params],
+
+    // Homepage Showcases
+    homeERPs: () => ['home-erps'],
+    adminHomeERPs: () => ['admin-home-erps'],
+    homeTechStacks: () => ['home-tech-stacks'],
+    adminHomeTechStacks: () => ['admin-home-tech-stacks'],
 };
 
 /** The same factory, named for the super admin screens. */
