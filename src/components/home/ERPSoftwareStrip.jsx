@@ -3,7 +3,6 @@
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import api from "@/lib/api";
-import { Marquee } from "@/components/ui/marquee";
 import {
   IoReceiptOutline,
   IoPeopleOutline,
@@ -249,7 +248,7 @@ function getBrandName(item) {
  * Total height per column: exact 420px.
  * Result: Calming checkerboard mosaic with visual negative space and zero stress!
  */
-function StaggeredERPItem({ item, index }) {
+function StaggeredERPItem({ item, isFlipped }) {
   const iconTheme = getIconTheme(item.badgeColor);
   const brandName = getBrandName(item);
   const features = Array.isArray(item.features) && item.features.length > 0
@@ -257,7 +256,7 @@ function StaggeredERPItem({ item, index }) {
     : item.description ? [item.description] : ["Dedicated Cloud Hosting", "Role-Based Security"];
 
   return (
-    <div className="flex w-[340px] sm:w-[380px] shrink-0 flex-col odd:flex-col-reverse select-none">
+    <div className={`flex w-[340px] sm:w-[380px] shrink-0 ${isFlipped ? "flex-col-reverse" : "flex-col"} select-none`}>
       {/* ── CARD MODULE (H: 210px - Centered Content) ── */}
       <div className="m-2 sm:m-2.5 h-[210px] rounded-2xl border border-slate-200/90 bg-white p-5 shadow-xs transition-all duration-300 hover:border-emerald-500 hover:shadow-xl hover:shadow-emerald-500/10 group/card relative z-10 flex flex-col justify-between items-center text-center">
         {/* Top Header & Info */}
@@ -346,6 +345,12 @@ export default function ERPSoftwareStrip() {
 
   const list = erpItems && erpItems.length > 0 ? erpItems : DEFAULT_ERPS;
 
+  // Build an even-length balanced cycle so A-B-A-B alternating rhythm never has adjacent duplicates
+  const cycleLength = list.length % 2 === 0 ? list.length : list.length * 2;
+  const singleCycle = Array.from({ length: cycleLength }, (_, i) => list[i % list.length]);
+  // Duplicate for mathematically seamless 0% -> -50% infinite continuous ticker (no restart jump)
+  const combinedList = [...singleCycle, ...singleCycle];
+
   return (
     <section className="relative w-full overflow-hidden bg-gradient-to-b from-[#FAFDFB] via-white to-[#F8FAFC] py-14 sm:py-16 border-b border-slate-200/80 font-sans">
       {/* Ambient background glow */}
@@ -371,22 +376,37 @@ export default function ERPSoftwareStrip() {
         </p>
       </div>
 
-      {/* Staggered Alternating Marquee Wrapper */}
-      <div className="relative border-y border-slate-200/90 bg-slate-50/50 py-0 overflow-hidden">
-        <Marquee className="py-0 [--duration:100s] [--gap:0px]" pauseOnHover repeat={4}>
-          {list.map((item, idx) => (
+      {/* 100% Continuous Infinite Marquee Wrapper (No Restart / Zero Glitch) */}
+      <div className="relative border-y border-slate-200/90 bg-slate-50/50 py-0 overflow-hidden group">
+        <div className="marquee-continuous flex w-max motion-gpu group-hover:[animation-play-state:paused]">
+          {combinedList.map((item, idx) => (
             <StaggeredERPItem
               key={`staggered-erp-${item._id || item.title}-${idx}`}
               item={item}
-              index={idx}
+              isFlipped={idx % 2 !== 0}
             />
           ))}
-        </Marquee>
+        </div>
 
         {/* Smooth Edge Fade Masks */}
         <div className="pointer-events-none absolute inset-y-0 left-0 w-16 sm:w-32 bg-gradient-to-r from-[#FAFDFB] to-transparent z-20" />
         <div className="pointer-events-none absolute inset-y-0 right-0 w-16 sm:w-32 bg-gradient-to-l from-[#FAFDFB] to-transparent z-20" />
       </div>
+
+      <style>{`
+        @keyframes marqueeScrollERP {
+          0% {
+            transform: translate3d(0, 0, 0);
+          }
+          100% {
+            transform: translate3d(-50%, 0, 0);
+          }
+        }
+        .marquee-continuous {
+          animation: marqueeScrollERP 140s linear infinite;
+          will-change: transform;
+        }
+      `}</style>
     </section>
   );
 }
