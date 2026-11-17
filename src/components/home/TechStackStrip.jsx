@@ -11,14 +11,12 @@ import {
   SiPhp,
   SiGo,
   SiRust,
-  SiOpenjdk,
   SiCplusplus,
-  SiCsharp,
   SiKotlin,
   SiSwift,
   SiDart,
   SiHtml5,
-  SiCss3,
+  SiCss,
   SiTailwindcss,
   SiSass,
   SiReact,
@@ -35,10 +33,11 @@ import {
   SiRedis,
   SiDocker,
   SiKubernetes,
-  SiAmazonwebservices,
   SiCloudflare,
   SiLinux
 } from "react-icons/si";
+import { TbBrandCSharp } from "react-icons/tb";
+import { FaAws, FaJava } from "react-icons/fa6";
 import { IoCodeWorkingOutline, IoSparkles } from "react-icons/io5";
 
 // Production fallback in case DB is fresh
@@ -94,14 +93,14 @@ function getTechIcon(name) {
     case "php": return <SiPhp />;
     case "go": case "golang": return <SiGo />;
     case "rust": return <SiRust />;
-    case "java": return <SiOpenjdk />;
+    case "java": return <FaJava />;
     case "cplusplus": case "cpp": case "c": return <SiCplusplus />;
-    case "csharp": case "cs": return <SiCsharp />;
+    case "csharp": case "cs": return <TbBrandCSharp />;
     case "kotlin": return <SiKotlin />;
     case "swift": return <SiSwift />;
     case "dart": return <SiDart />;
     case "html5": case "html": return <SiHtml5 />;
-    case "css3": case "css": return <SiCss3 />;
+    case "css3": case "css": return <SiCss />;
     case "tailwindcss": case "tailwind": return <SiTailwindcss />;
     case "sass": case "scss": return <SiSass />;
     case "react": case "reactjs": case "reactnative": return <SiReact />;
@@ -118,7 +117,7 @@ function getTechIcon(name) {
     case "redis": return <SiRedis />;
     case "docker": return <SiDocker />;
     case "kubernetes": case "k8s": return <SiKubernetes />;
-    case "aws": case "amazon": return <SiAmazonwebservices />;
+    case "aws": case "amazon": return <FaAws />;
     case "cloudflare": return <SiCloudflare />;
     case "linux": return <SiLinux />;
     default: return <IoCodeWorkingOutline />;
