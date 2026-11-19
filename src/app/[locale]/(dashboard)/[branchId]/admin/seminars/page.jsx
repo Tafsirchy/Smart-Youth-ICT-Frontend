@@ -28,6 +28,7 @@ import { HiOutlineAcademicCap as Cap } from 'react-icons/hi';
 import { usePermissionGuard } from '@/hooks/usePermissionGuard';
 import AccessDenied from '@/components/ui/AccessDenied';
 import Portal from '@/components/ui/Portal';
+import ImageUpload from '@/components/ui/ImageUpload';
 
 const ATTENDANCE_COLORS = {
   registered: 'bg-blue-100 text-blue-700 border-blue-200',
@@ -80,6 +81,8 @@ export default function AdminSeminarsPage() {
     speakerName: '',
     speakerDesignation: '',
     speakerOrg: 'Smart Youth ICT',
+    speakerAvatar: '',
+    banner: '',
     maxSeats: 50,
     topics: '',
     status: 'upcoming',
@@ -133,6 +136,8 @@ export default function AdminSeminarsPage() {
       speakerName: '',
       speakerDesignation: '',
       speakerOrg: 'Smart Youth ICT',
+      speakerAvatar: '',
+      banner: '',
       maxSeats: 50,
       topics: '',
       status: 'upcoming',
@@ -154,6 +159,8 @@ export default function AdminSeminarsPage() {
       speakerName: seminar.speaker?.name || '',
       speakerDesignation: seminar.speaker?.designation || '',
       speakerOrg: seminar.speaker?.organization || 'Smart Youth ICT',
+      speakerAvatar: seminar.speaker?.avatar || '',
+      banner: seminar.banner || '',
       maxSeats: seminar.maxSeats || 50,
       topics: Array.isArray(seminar.topics) ? seminar.topics.join(', ') : '',
       status: seminar.status || 'upcoming',
@@ -182,7 +189,9 @@ export default function AdminSeminarsPage() {
         name: formData.speakerName,
         designation: formData.speakerDesignation,
         organization: formData.speakerOrg,
+        avatar: formData.speakerAvatar,
       },
+      banner: formData.banner,
       maxSeats: Number(formData.maxSeats) || 50,
       topics: formData.topics ? formData.topics.split(',').map((t) => t.trim()) : [],
       status: formData.status,
@@ -900,6 +909,36 @@ export default function AdminSeminarsPage() {
                       />
                     </div>
                   </div>
+
+                  {/* Speaker Avatar ImageUpload */}
+                  <div>
+                    <label className="block text-[11px] font-semibold text-slate-600 mb-1">
+                      Speaker Avatar Image
+                    </label>
+                    <ImageUpload
+                      value={formData.speakerAvatar}
+                      onChange={(url) => setFormData({ ...formData, speakerAvatar: url })}
+                      uploadEndpoint="/seminars/upload-image"
+                      shape="circle"
+                      size="sm"
+                      helpText="Recommended: 400x400 square portrait"
+                    />
+                  </div>
+                </div>
+
+                {/* Seminar Cover Banner ImageUpload */}
+                <div>
+                  <label className="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-1">
+                    Seminar Cover Banner Image
+                  </label>
+                  <ImageUpload
+                    value={formData.banner}
+                    onChange={(url) => setFormData({ ...formData, banner: url })}
+                    uploadEndpoint="/seminars/upload-image"
+                    shape="rect"
+                    size="md"
+                    helpText="Recommended: 1200x630 banner image"
+                  />
                 </div>
 
                 {/* Max Seats & Status */}
