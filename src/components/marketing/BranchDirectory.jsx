@@ -138,10 +138,14 @@ const DEFAULT_FACILITIES = [
   { label: 'Mentor Desk', icon: IoPeopleOutline },
 ];
 
-export default function BranchDirectory({ locale = 'en', initialDivision = 'All' }) {
+export default function BranchDirectory({
+  locale = 'en',
+  initialDivision = 'All',
+  initialBranches = [],
+}) {
   // TanStack Query for caching public branches with local fallback & stale-while-revalidate
   const {
-    data: rawBranches = [],
+    data: rawBranches = initialBranches,
     isLoading: loading,
     isError,
     refetch,
@@ -173,18 +177,7 @@ export default function BranchDirectory({ locale = 'en', initialDivision = 'All'
         throw err;
       }
     },
-    initialData: () => {
-      if (typeof window !== 'undefined') {
-        try {
-          const cached = localStorage.getItem('syict_cached_branches');
-          if (cached) {
-            const parsed = JSON.parse(cached);
-            if (Array.isArray(parsed) && parsed.length > 0) return parsed;
-          }
-        } catch (_) {}
-      }
-      return undefined;
-    },
+    initialData: initialBranches?.length > 0 ? initialBranches : undefined,
     staleTime: 5 * 60 * 1000,    // 5 min cache buffer
     gcTime: 30 * 60 * 1000,      // 30 min memory garbage collection
     refetchOnWindowFocus: false, // Prevents sudden unmounting/flashing when switching browser tabs
@@ -745,13 +738,16 @@ export default function BranchDirectory({ locale = 'en', initialDivision = 'All'
                           </span>
 
                           {/* Live Status Badge */}
-                          <span className="px-2.5 py-1 bg-slate-950/80 backdrop-blur-md text-white text-[10px] font-semibold rounded-lg border border-white/10 flex items-center gap-1.5 shadow-sm">
+                          <span
+                            suppressHydrationWarning
+                            className="px-2.5 py-1 bg-slate-950/80 backdrop-blur-md text-white text-[10px] font-semibold rounded-lg border border-white/10 flex items-center gap-1.5 shadow-sm"
+                          >
                             <span
                               className={`w-2 h-2 rounded-full ${
                                 status.isOpen ? 'bg-emerald-400 animate-pulse' : 'bg-slate-400'
                               }`}
                             />
-                            <span>{status.label}</span>
+                            <span suppressHydrationWarning>{status.label}</span>
                           </span>
                         </div>
 
@@ -761,7 +757,7 @@ export default function BranchDirectory({ locale = 'en', initialDivision = 'All'
                             <span className="text-[10px] font-bold uppercase tracking-widest text-slate-300 block">
                               {branch.division || 'Bangladesh'}
                             </span>
-                            <span className="text-xs text-white/90 font-medium">
+                            <span suppressHydrationWarning className="text-xs text-white/90 font-medium">
                               {status.detail}
                             </span>
                           </div>
