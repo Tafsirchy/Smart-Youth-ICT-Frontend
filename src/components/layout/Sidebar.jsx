@@ -332,6 +332,15 @@ export default function Sidebar({ initialRole, initialUser, isOpen, onClose }) {
             </div>
 
             <NavDropdown
+              title="Homepage CMS"
+              Icon={HiHome}
+              items={NAVIGATION_CONFIG.home_cms || []}
+              badgeColor="text-emerald-400 bg-emerald-500/10"
+              iconColor="text-emerald-400"
+              idPrefix="home-cms"
+            />
+
+            <NavDropdown
               title="About Us CMS"
               Icon={HiCollection}
               items={NAVIGATION_CONFIG.about_cms}
