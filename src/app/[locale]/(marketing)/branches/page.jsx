@@ -1,5 +1,6 @@
 import React, { Suspense } from 'react';
 import BranchDirectory from '@/components/marketing/BranchDirectory';
+import { getApiBaseUrl } from '@/lib/api-base';
 import {
   IoBusinessOutline,
   IoDesktopOutline,
@@ -16,10 +17,24 @@ export const metadata = {
     'Find a Smart Youth ICT campus near you across Bangladesh. Explore state-of-the-art computer labs, offline cohorts, 1-on-1 mentorship, and high-speed fiber infrastructure.',
 };
 
+async function getInitialBranches() {
+  try {
+    const res = await fetch(`${getApiBaseUrl()}/branches/public/all`, {
+      cache: 'no-store',
+    });
+    if (!res.ok) return [];
+    const json = await res.json();
+    return json?.data || [];
+  } catch {
+    return [];
+  }
+}
+
 export default async function BranchesPage({ params, searchParams }) {
   const { locale } = await params;
   const resolvedSearchParams = await searchParams;
   const initialDivision = resolvedSearchParams?.division || 'All';
+  const initialBranches = await getInitialBranches();
 
   return (
     <div className="min-h-screen bg-slate-50/60 dark:bg-slate-950 pt-12 sm:pt-18 pb-8 font-sans selection:bg-blue-500/20">
@@ -104,7 +119,11 @@ export default async function BranchesPage({ params, searchParams }) {
           </div>
         }
       >
-        <BranchDirectory locale={locale} initialDivision={initialDivision} />
+        <BranchDirectory
+          locale={locale}
+          initialDivision={initialDivision}
+          initialBranches={initialBranches}
+        />
       </Suspense>
     </div>
   );
