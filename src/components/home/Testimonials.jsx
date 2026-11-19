@@ -69,10 +69,10 @@ export default function Testimonials() {
         {/* Header Section */}
         <div className="container-custom mb-6 sm:mb-8 md:mb-16">
           <motion.div
-            initial={{ opacity: 0, y: 15 }}
+            initial={{ opacity: 0, y: 36 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
+            viewport={{ once: true, amount: 0.25 }}
+            transition={{ duration: 0.65, ease: [0.16, 1, 0.3, 1] }}
             className="text-center mb-8 max-w-3xl mx-auto"
           >
             <span className="inline-block px-4 py-1.5 bg-pink-100 text-pink-600 text-xs font-bold tracking-wider uppercase mb-4 rounded-md">
@@ -92,9 +92,16 @@ export default function Testimonials() {
           </motion.div>
         </div>
 
-        {/* Scrolling Row 1: Text Reviews (Left to Right) — Seamless 2-group infinite loop */}
-        {textReviews.length > 0 && (
-          <div className="mb-8 relative overflow-hidden" style={{ isolation: "isolate" }}>
+        {/* Reviews Wall Motion Wrapper */}
+        <motion.div
+          initial={{ opacity: 0, y: 35, scale: 0.98 }}
+          whileInView={{ opacity: 1, y: 0, scale: 1 }}
+          viewport={{ once: true, amount: 0.15 }}
+          transition={{ duration: 0.7, delay: 0.12, ease: [0.16, 1, 0.3, 1] }}
+        >
+          {/* Scrolling Row 1: Text Reviews (Left to Right) — Seamless 2-group infinite loop */}
+          {textReviews.length > 0 && (
+            <div className="mb-8 relative overflow-hidden" style={{ isolation: "isolate" }}>
             {/* Outer track: flex row that holds exactly 2 identical groups */}
             <div
               className="scroll-container animate-scroll-right"
@@ -223,6 +230,7 @@ export default function Testimonials() {
             <div className="absolute inset-y-0 right-0 w-24 bg-gradient-to-l from-white to-transparent pointer-events-none z-20" />
           </div>
         )}
+        </motion.div>
       </div>
 
       {/* Stats Summary Section */}
@@ -236,10 +244,10 @@ export default function Testimonials() {
           ].map((stat, i) => (
             <motion.div
               key={i}
-              initial={{ opacity: 0, y: 10 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: i * 0.1 }}
+              initial={{ opacity: 0, y: 28, scale: 0.95 }}
+              whileInView={{ opacity: 1, y: 0, scale: 1 }}
+              viewport={{ once: true, amount: 0.25 }}
+              transition={{ delay: i * 0.1, duration: 0.55, ease: [0.16, 1, 0.3, 1] }}
               className="text-center"
             >
               <div

@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
+import { motion } from "framer-motion";
 import api from "@/lib/api";
 import {
   IoReceiptOutline,
@@ -369,11 +370,16 @@ export default function ERPSoftwareStrip() {
       <div className="absolute top-1/2 right-1/4 -translate-y-1/2 w-80 h-80 bg-teal-500/5 rounded-full blur-3xl pointer-events-none" />
 
       {/* Header */}
-      <div className="container-custom px-4 sm:px-6 md:px-8 mb-6 text-center relative z-10">
-        <div className="inline-flex items-center gap-1.5 px-3 py-0.5 bg-emerald-50 border border-emerald-200 text-emerald-800 text-xs font-black uppercase tracking-widest rounded-full mb-2 shadow-xs">
-          <IoRocketOutline className="text-emerald-600" size={13} />
-          <span>9+ Production-Ready Software Systems</span>
-        </div>
+      <motion.div
+        initial={{ opacity: 0, y: 36 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, amount: 0.25 }}
+        transition={{ duration: 0.65, ease: [0.16, 1, 0.3, 1] }}
+        className="container-custom mb-6 text-center relative z-10"
+      >
+        <p className="text-[10px] sm:text-xs font-black uppercase tracking-[0.22em] text-emerald-600 mb-2">
+          9+ Production-Ready Software Systems
+        </p>
 
         <h2 className="text-2xl sm:text-3xl md:text-4xl font-black text-slate-900 leading-[1.15] tracking-tight mb-2">
           Enterprise ERP &amp; Management <br />
@@ -385,10 +391,16 @@ export default function ERPSoftwareStrip() {
         <p className="text-sm sm:text-lg text-slate-600 max-w-3xl mx-auto font-normal leading-[1.6]">
           Scalable, industry-specific software suites powering high-volume transactions and seamless operations across retail, education, healthcare, and ISPs.
         </p>
-      </div>
+      </motion.div>
 
       {/* 100% Continuous Infinite Marquee Wrapper (Always Running / No Pause on Hover) */}
-      <div className="relative border-y border-slate-200/90 bg-slate-50/50 py-3 sm:py-4 overflow-hidden">
+      <motion.div
+        initial={{ opacity: 0, y: 32, scale: 0.98 }}
+        whileInView={{ opacity: 1, y: 0, scale: 1 }}
+        viewport={{ once: true, amount: 0.2 }}
+        transition={{ duration: 0.7, delay: 0.12, ease: [0.16, 1, 0.3, 1] }}
+        className="relative border-y border-slate-200/90 bg-slate-50/50 py-3 sm:py-4 overflow-hidden"
+      >
         <div className="marquee-continuous flex w-max motion-gpu">
           {combinedList.map((item, idx) => (
             <StaggeredERPItem
@@ -402,7 +414,7 @@ export default function ERPSoftwareStrip() {
         {/* Smooth Edge Fade Masks */}
         <div className="pointer-events-none absolute inset-y-0 left-0 w-12 sm:w-24 bg-gradient-to-r from-[#FAFDFB] to-transparent z-20" />
         <div className="pointer-events-none absolute inset-y-0 right-0 w-12 sm:w-24 bg-gradient-to-l from-[#FAFDFB] to-transparent z-20" />
-      </div>
+      </motion.div>
 
       <style>{`
         @keyframes marqueeScrollERP {

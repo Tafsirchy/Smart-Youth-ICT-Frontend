@@ -47,7 +47,7 @@ export default function Navbar() {
   const router = useRouter();
   const [mobileOpen, setMobileOpen] = useState(false);
   const [hidden, setHidden] = useState(false);
-  const { scrollY } = useScroll();
+  const { scrollY, scrollYProgress } = useScroll();
 
   // Queries: Global Announcement & Branches
   const { data: globalMessage } = useQuery({
@@ -60,8 +60,8 @@ export default function Navbar() {
         return null;
       }
     },
-    staleTime: 0,
-    refetchOnWindowFocus: true,
+    staleTime: 5 * 60 * 1000,
+    refetchOnWindowFocus: false,
   });
 
   const { data: publicBranches = [] } = useQuery({
@@ -488,6 +488,12 @@ export default function Navbar() {
           </motion.div>
         )}
       </AnimatePresence>
+
+      {/* ── 8. Sleek Global Scroll Progress Bar ── */}
+      <motion.div
+        className="absolute bottom-0 left-0 right-0 h-[2px] bg-gradient-to-r from-emerald-500 via-teal-500 to-cyan-500 origin-left z-50 pointer-events-none"
+        style={{ scaleX: scrollYProgress }}
+      />
     </motion.header>
   );
 }

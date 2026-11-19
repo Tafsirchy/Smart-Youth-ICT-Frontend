@@ -216,9 +216,9 @@ function StepCard({ step, index, isActive, onHover, onClick, inView }) {
 
   return (
     <motion.div
-      initial={{ opacity: 0, y: step.yShift > 0 ? 40 : -40 }}
-      animate={inView ? { opacity: 1, y: 0 } : {}}
-      transition={{ duration: 0.55, delay: index * 0.13, ease: [0.22, 1, 0.36, 1] }}
+      initial={{ opacity: 0, y: step.yShift > 0 ? 45 : -45, scale: 0.94 }}
+      animate={inView ? { opacity: 1, y: 0, scale: 1 } : {}}
+      transition={{ duration: 0.65, delay: index * 0.12, ease: [0.16, 1, 0.3, 1] }}
       onHoverStart={() => onHover(index)}
       onHoverEnd={() => onHover(null)}
       className="shrink-0 w-[172px] xl:w-[195px] 2xl:w-[215px]"
@@ -607,7 +607,7 @@ export default function ERPImplementationProcess() {
   const locale = useLocale();
   const sectionRef = useRef(null);
   const stageRef = useRef(null);
-  const inView = useInView(sectionRef, { once: true, margin: "-80px" });
+  const inView = useInView(sectionRef, { once: true, amount: 0.2 });
   const [hoveredIndex, setHoveredIndex] = useState(null);
   const [selectedStep, setSelectedStep] = useState(null);
 
@@ -621,15 +621,14 @@ export default function ERPImplementationProcess() {
 
         {/* ── SECTION HEADER ── */}
         <motion.div
-          initial={{ opacity: 0, y: 18 }}
+          initial={{ opacity: 0, y: 32 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.55 }}
+          transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
           className="text-center mb-6 sm:mb-10 max-w-3xl mx-auto"
         >
-          <div className="inline-flex items-center gap-1.5 px-3 py-0.5 bg-emerald-50 border border-emerald-200 text-emerald-800 text-xs font-black uppercase tracking-widest rounded-full mb-2 shadow-xs">
-            <IoCodeSlashOutline className="text-emerald-600" size={12} />
-            <span>End-to-End ERP Delivery</span>
-          </div>
+          <p className="text-[10px] sm:text-xs font-black uppercase tracking-[0.22em] text-emerald-600 mb-2">
+            End-to-End ERP Delivery
+          </p>
 
           <h2 className="text-2xl sm:text-3xl md:text-4xl font-black text-slate-900 leading-[1.15] tracking-tight mb-2">
             How We Implement{" "}

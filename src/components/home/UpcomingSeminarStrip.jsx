@@ -2,6 +2,7 @@
 
 import React, { useEffect, useState, useMemo } from "react";
 import Link from "next/link";
+import { motion } from "framer-motion";
 import {
   IoCalendarOutline,
   IoTimeOutline,
@@ -97,7 +98,13 @@ export default function UpcomingSeminarStrip() {
 
       <div className="container-custom relative z-10">
         {/* ── VIP TICKET PASS CONTAINER ── */}
-        <div className="relative bg-white rounded-2xl sm:rounded-3xl border border-slate-200/90 shadow-xl shadow-slate-200/60 overflow-hidden flex flex-col lg:flex-row items-stretch">
+        <motion.div
+          initial={{ opacity: 0, y: 38, scale: 0.97 }}
+          whileInView={{ opacity: 1, y: 0, scale: 1 }}
+          viewport={{ once: true, amount: 0.2 }}
+          transition={{ duration: 0.65, ease: [0.16, 1, 0.3, 1] }}
+          className="relative bg-white rounded-2xl sm:rounded-3xl border border-slate-200/90 shadow-xl shadow-slate-200/60 overflow-hidden flex flex-col lg:flex-row items-stretch"
+        >
           
           {/* Top Decorative Color Accent Bar */}
           <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-emerald-500 via-teal-500 to-cyan-500 z-20" />
@@ -295,7 +302,7 @@ export default function UpcomingSeminarStrip() {
               Instant Digital Pass • No Payment Needed
             </p>
           </div>
-        </div>
+        </motion.div>
       </div>
     </section>
   );

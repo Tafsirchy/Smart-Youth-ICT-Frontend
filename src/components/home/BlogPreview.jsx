@@ -42,9 +42,10 @@ export default function BlogPreview() {
 
  {/* Section Header */}
  <motion.div
- initial={{ opacity: 0, y: 16 }}
+ initial={{ opacity: 0, y: 36 }}
  whileInView={{ opacity: 1, y: 0 }}
- viewport={{ once: true }}
+ viewport={{ once: true, amount: 0.25 }}
+ transition={{ duration: 0.65, ease: [0.16, 1, 0.3, 1] }}
  className="mb-8 md:mb-16 text-left"
  >
  <div className="inline-flex items-center gap-2 px-3 py-1 bg-slate-900/5 border border-slate-900/10 mb-4 rounded-lg">
@@ -58,7 +59,13 @@ export default function BlogPreview() {
  </motion.div>
 
  {/* Master-Detail Container */}
- <div className="flex flex-col lg:flex-row border-2 sm:border border-slate-200 rounded-lg md:-[3.5rem] overflow-hidden shadow-md sm:shadow-md lg:shadow-md min-h-0 lg:min-h-[700px]">
+ <motion.div
+ initial={{ opacity: 0, y: 40, scale: 0.985 }}
+ whileInView={{ opacity: 1, y: 0, scale: 1 }}
+ viewport={{ once: true, amount: 0.15 }}
+ transition={{ duration: 0.7, delay: 0.12, ease: [0.16, 1, 0.3, 1] }}
+ className="flex flex-col lg:flex-row border-2 sm:border border-slate-200 rounded-lg md:-[3.5rem] overflow-hidden shadow-md sm:shadow-md lg:shadow-md min-h-0 lg:min-h-[700px]"
+ >
 
  {/* 1. Navigation / Master List */}
  {/* On Mobile: Rendered as a swipeable tab bar. On Desktop: Rendered as a vertical sidebar */}
@@ -182,7 +189,7 @@ export default function BlogPreview() {
  </motion.div>
  </AnimatePresence>
  </div>
- </div>
+ </motion.div>
 
  {/* Fallback navigation for Mobile */}
  <div className="mt-8 text-center md:hidden">

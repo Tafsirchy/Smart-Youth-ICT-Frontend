@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
+import { motion } from "framer-motion";
 import api from "@/lib/api";
 import ToolchainMarquee from "@/components/ui/toolchain-marquee";
 import {
@@ -475,11 +476,16 @@ export default function TechStackStrip() {
 
   return (
     <section className="relative w-full overflow-hidden bg-white py-12 sm:py-16 border-b border-slate-200/80 font-sans">
-      <div className="container-custom px-4 sm:px-6 md:px-12 mb-8 text-center">
-        <div className="inline-flex items-center gap-2 px-3.5 py-1 bg-emerald-50 border border-emerald-200 text-emerald-800 text-xs font-black uppercase tracking-widest rounded-full mb-3 shadow-xs">
-          <IoSparkles className="text-emerald-600" size={13} />
-          <span>Full Toolchain &amp; Engineering Arsenal</span>
-        </div>
+      <motion.div
+        initial={{ opacity: 0, y: 36 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, amount: 0.25 }}
+        transition={{ duration: 0.65, ease: [0.16, 1, 0.3, 1] }}
+        className="container-custom mb-8 text-center"
+      >
+        <p className="text-[10px] sm:text-xs font-black uppercase tracking-[0.22em] text-emerald-600 mb-2">
+          Full Toolchain &amp; Engineering Arsenal
+        </p>
 
         <h2 className="text-2xl sm:text-3xl md:text-4xl font-black text-slate-900 leading-[1.15] tracking-tight mb-3">
           Technologies Our Engineers &amp; <br />
@@ -489,21 +495,27 @@ export default function TechStackStrip() {
         </h2>
 
         <p className="text-sm sm:text-lg text-slate-600 max-w-3xl mx-auto font-normal leading-[1.6]">
-          Not basic tutorials or generic coaching — our engineers and students
-          engineer commercial-grade software using industry-standard languages,
-          modern frameworks, and cloud infrastructure.
+          Beyond basic tutorials. Our engineers and students build
+          commercial-grade software using modern frameworks and cloud
+          infrastructure.
         </p>
-      </div>
+      </motion.div>
 
       {/* Multi-Row Toolchain Marquee with Play/Pause Control */}
-      <div className="relative py-2 px-2 sm:px-4">
+      <motion.div
+        initial={{ opacity: 0, y: 32, scale: 0.98 }}
+        whileInView={{ opacity: 1, y: 0, scale: 1 }}
+        viewport={{ once: true, amount: 0.2 }}
+        transition={{ duration: 0.7, delay: 0.12, ease: [0.16, 1, 0.3, 1] }}
+        className="relative py-2 px-2 sm:px-4"
+      >
         <ToolchainMarquee
           stacks={stacks}
           rows={stacks.length}
           duration={28}
           showControl={true}
         />
-      </div>
+      </motion.div>
     </section>
   );
 }

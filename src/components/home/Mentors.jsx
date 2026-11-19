@@ -104,10 +104,10 @@ export default function Mentors() {
                 <div className="flex flex-col lg:flex-row items-start lg:items-end justify-between gap-4 sm:gap-6 lg:gap-8 mb-8 sm:mb-12 lg:mb-16">
                     <motion.div
                         className="max-w-2xl"
-                        initial={{ opacity: 0, y: 20 }}
+                        initial={{ opacity: 0, y: 36 }}
                         whileInView={{ opacity: 1, y: 0 }}
-                        viewport={{ once: true }}
-                        transition={{ duration: 0.6 }}
+                        viewport={{ once: true, amount: 0.25 }}
+                        transition={{ duration: 0.65, ease: [0.16, 1, 0.3, 1] }}
                     >
                         <span className="inline-block text-brand-pink text-[10px] sm:text-xs font-black uppercase tracking-[0.3em] mb-2 sm:mb-3">
                             Expert Mentors
@@ -119,10 +119,10 @@ export default function Mentors() {
 
                     <motion.p
                         className="text-slate-500 text-sm sm:text-base lg:text-lg font-medium max-w-full lg:max-w-md lg:text-right leading-relaxed"
-                        initial={{ opacity: 0, y: 20 }}
+                        initial={{ opacity: 0, y: 30 }}
                         whileInView={{ opacity: 1, y: 0 }}
-                        viewport={{ once: true }}
-                        transition={{ duration: 0.6, delay: 0.1 }}
+                        viewport={{ once: true, amount: 0.25 }}
+                        transition={{ duration: 0.65, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
                     >
                         Direct guidance from top-tier professionals who have built, scaled, and transformed industry standards globally.
                     </motion.p>
@@ -138,10 +138,10 @@ export default function Mentors() {
                         mentors.map((mentor, index) => (
                             <motion.div
                                 key={mentor._id || index}
-                                initial={{ opacity: 0, y: 30 }}
-                                whileInView={{ opacity: 1, y: 0 }}
-                                viewport={{ once: true }}
-                                transition={{ delay: index * 0.1, duration: 0.7, ease: [0.21, 0.47, 0.32, 0.98] }}
+                                initial={{ opacity: 0, y: 40, scale: 0.96 }}
+                                whileInView={{ opacity: 1, y: 0, scale: 1 }}
+                                viewport={{ once: true, amount: 0.15 }}
+                                transition={{ delay: index * 0.12, duration: 0.65, ease: [0.16, 1, 0.3, 1] }}
                                 className="h-full"
                             >
                                 <PortraitMentorCard mentor={mentor} onOpenProfile={() => setSelectedMentor(mentor)} />

@@ -1,12 +1,12 @@
 import HeroSlider from "@/components/home/HeroSlider";
-import ERPSoftwareStrip from "@/components/home/ERPSoftwareStrip";
-import TechStackStrip from "@/components/home/TechStackStrip";
 import TrustedBrandsStrip from "@/components/home/TrustedBrandsStrip";
-import UpcomingSeminarStrip from "@/components/home/UpcomingSeminarStrip";
+import ERPSoftwareStrip from "@/components/home/ERPSoftwareStrip";
+import ERPImplementationProcess from "@/components/home/ERPImplementationProcess";
+import TechStackStrip from "@/components/home/TechStackStrip";
 import WhyChooseUs from "@/components/home/WhyChooseUs";
 import PopularCourses from "@/components/home/PopularCourses";
+import UpcomingSeminarStrip from "@/components/home/UpcomingSeminarStrip";
 import CampusNetworkSection from "@/components/home/CampusNetworkSection";
-import ERPImplementationProcess from "@/components/home/ERPImplementationProcess";
 import Mentors from "@/components/home/Mentors";
 import Testimonials from "@/components/home/Testimonials";
 import BlogPreview from "@/components/home/BlogPreview";
@@ -21,18 +21,43 @@ export const metadata = {
 export default function HomePage() {
   return (
     <>
+      {/* ── 1. Attention & Core Hook ── */}
       <HeroSlider />
-      <ERPSoftwareStrip />
-      <TechStackStrip />
+
+      {/* ── 2. Immediate Social Proof & Authority ── */}
       <TrustedBrandsStrip />
-      <UpcomingSeminarStrip />
-      <WhyChooseUs />
-      <PopularCourses />
-      <CampusNetworkSection />
+
+      {/* ── 3. Ready Enterprise Software Suites ── */}
+      <ERPSoftwareStrip />
+
+      {/* ── 4. Enterprise Delivery & Implementation Lifecycle ── */}
       <ERPImplementationProcess />
+
+      {/* ── 5. The Engineering Arsenal & Bridge (Agency ↔ Academy) ── */}
+      <TechStackStrip />
+
+      {/* ── 6. Institutional Credibility & Value Proposition ── */}
+      <WhyChooseUs />
+
+      {/* ── 7. Core Training Tracks & Courses ── */}
+      <PopularCourses />
+
+      {/* ── 8. Zero-Risk Lead Magnet & Free Career Seminar ── */}
+      <UpcomingSeminarStrip />
+
+      {/* ── 9. Nationwide Footprint & 14+ Regional Campuses ── */}
+      <CampusNetworkSection />
+
+      {/* ── 10. Industry Faculty & Senior Architects ── */}
       <Mentors />
+
+      {/* ── 11. Student Placement & Social Validation ── */}
       <Testimonials />
+
+      {/* ── 12. Tech Insights & Thought Leadership ── */}
       <BlogPreview />
+
+      {/* ── 13. Real-Time Counseling Desk ── */}
       <MessengerChat />
     </>
   );

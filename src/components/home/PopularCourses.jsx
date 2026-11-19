@@ -435,11 +435,16 @@ export default function PopularCourses() {
 
       <div className="container-custom relative z-10">
         {/* ── SECTION HEADER (Standardized Section Heading Size) ── */}
-        <div className="text-center mb-6 sm:mb-8 max-w-3xl mx-auto">
-          <div className="inline-flex items-center gap-1.5 px-3 py-0.5 bg-emerald-50 border border-emerald-200 text-emerald-800 text-xs font-black uppercase tracking-widest rounded-full mb-2 shadow-xs">
-            <IoSparklesOutline className="text-emerald-600" size={13} />
-            <span>Industrial Career Programs</span>
-          </div>
+        <motion.div
+          initial={{ opacity: 0, y: 32 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.2 }}
+          transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+          className="text-center mb-6 sm:mb-8 max-w-3xl mx-auto"
+        >
+          <p className="text-[10px] sm:text-xs font-black uppercase tracking-[0.22em] text-emerald-600 mb-2">
+            Industrial Career Programs
+          </p>
 
           <h2 className="text-2xl sm:text-3xl md:text-4xl font-black text-slate-900 leading-[1.15] tracking-tight mb-2">
             Our Core <br className="hidden sm:block" />
@@ -453,11 +458,15 @@ export default function PopularCourses() {
             Cyber Security — production-grade curriculums to launch high-growth
             careers.
           </p>
-        </div>
+        </motion.div>
 
         {/* ── 3D PERSPECTIVE 5-CARD SHOWCASE STAGE ── */}
-        <div
+        <motion.div
           ref={stageRef}
+          initial={{ opacity: 0, y: 40, scale: 0.97 }}
+          whileInView={{ opacity: 1, y: 0, scale: 1 }}
+          viewport={{ once: true, amount: 0.15 }}
+          transition={{ duration: 0.65, delay: 0.12, ease: [0.16, 1, 0.3, 1] }}
           onMouseEnter={() => setIsHovered(true)}
           onMouseLeave={() => setIsHovered(false)}
           className="relative w-full mx-auto flex items-center justify-center [perspective:1400px] select-none"
@@ -688,7 +697,7 @@ export default function PopularCourses() {
               );
             })}
           </motion.div>
-        </div>
+        </motion.div>
 
         {/* ── PAGINATION DOTS & COUNTER ── */}
         <div className="mt-5 sm:mt-6 flex flex-col items-center justify-center gap-2.5">

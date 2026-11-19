@@ -450,12 +450,17 @@ export default function CampusNetworkSection() {
     >
       <div className="container-custom relative z-10">
         {/* ── SECTION HEADER & DIVISION FILTERS ── */}
-        <div className="flex flex-col items-center text-center mb-6 sm:mb-8 max-w-3xl mx-auto">
-          {/* Section Badge */}
-          <div className="inline-flex items-center gap-1.5 px-3 py-0.5 bg-emerald-50 border border-emerald-200 text-emerald-800 text-xs font-black uppercase tracking-widest rounded-full mb-2 shadow-xs">
-            <IoSparklesOutline className="text-emerald-600" size={13} />
-            <span>Nationwide Physical Presence</span>
-          </div>
+        <motion.div
+          initial={{ opacity: 0, y: 32 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.2 }}
+          transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+          className="flex flex-col items-center text-center mb-6 sm:mb-8 max-w-3xl mx-auto"
+        >
+          {/* Section Eyebrow */}
+          <p className="text-[10px] sm:text-xs font-black uppercase tracking-[0.22em] text-emerald-600 mb-2">
+            Nationwide Physical Presence
+          </p>
 
           {/* Punchy Clean Headline */}
           <h2 className="text-2xl sm:text-3xl md:text-4xl font-black text-slate-900 tracking-tight leading-[1.15] mb-2">
@@ -469,10 +474,16 @@ export default function CampusNetworkSection() {
           <p className="text-sm sm:text-lg text-slate-600 leading-relaxed font-normal max-w-3xl my-4 mx-auto">
             Experience our air-conditioned PC labs, dual-monitor workstation suites, dedicated gigabit fiber, and full-time senior lab mentors.
           </p>
-        </div>
+        </motion.div>
 
         {/* ── 3D CURVED ARC CAROUSEL STAGE (Soft Subtle Edge Blend) ── */}
-        <div className="relative w-full overflow-hidden">
+        <motion.div
+          initial={{ opacity: 0, y: 40, scale: 0.98 }}
+          whileInView={{ opacity: 1, y: 0, scale: 1 }}
+          viewport={{ once: true, amount: 0.15 }}
+          transition={{ duration: 0.65, delay: 0.12, ease: [0.16, 1, 0.3, 1] }}
+          className="relative w-full overflow-hidden"
+        >
           {/* Subtle Left Gradient Edge Blend (Gentle feather into white) */}
           <div className="absolute left-0 top-0 bottom-0 w-8 sm:w-12 md:w-16 bg-gradient-to-r from-white via-white/80 to-transparent pointer-events-none z-30" />
 
@@ -616,7 +627,7 @@ export default function CampusNetworkSection() {
             );
           })}
         </div>
-      </div>
+      </motion.div>
 
         {/* ── CENTER NAVIGATION CONTROLS (Directly Matching Uploaded Image) ── */}
         <div className="flex items-center justify-center gap-3 mt-1 sm:mt-2">
