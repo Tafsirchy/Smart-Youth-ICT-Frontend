@@ -474,15 +474,27 @@ a {
     display: none;
   }
 
-  /* Infinite Scroll Animations */
+  /* Infinite Scroll Animations — GPU-composited (no main-thread jank) */
   @keyframes scroll-left {
-    from { transform: translateX(0); }
-    to { transform: translateX(-50%); }
+    from { transform: translate3d(0, 0, 0); }
+    to   { transform: translate3d(-50%, 0, 0); }
   }
 
   @keyframes scroll-right {
-    from { transform: translateX(-50%); }
-    to { transform: translateX(0); }
+    from { transform: translate3d(-50%, 0, 0); }
+    to   { transform: translate3d(0, 0, 0); }
+  }
+
+  .scroll-container {
+    display: flex;
+    width: max-content;
+    /* Force GPU layer — prevents pixel-snapping jitter */
+    will-change: transform;
+    transform: translate3d(0, 0, 0);
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+    /* Crisp sub-pixel rendering */
+    -webkit-font-smoothing: subpixel-antialiased;
   }
 
   .animate-scroll-left {
@@ -491,16 +503,6 @@ a {
 
   .animate-scroll-right {
     animation: scroll-right var(--scroll-duration, 40s) linear infinite;
-  }
-
-  .scroll-container {
-    display: flex;
-    width: max-content;
-  }
-
-  .animate-scroll-left:hover,
-  .animate-scroll-right:hover {
-    animation-play-state: paused;
   }
 
   /* Animated Gradient Text */
