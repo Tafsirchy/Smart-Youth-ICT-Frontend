@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { HiChevronDown } from "react-icons/hi";
@@ -46,10 +46,21 @@ function MobileAccordion({ label, children, isActiveAccordion }) {
 
 export default function MobileMenu({ links, session, branchDivisions, onClose }) {
   const divisionsList = branchDivisions && branchDivisions.length > 0 ? branchDivisions : BRANCH_DIVISIONS;
- const pathname = usePathname();
- const cleanPath = pathname.replace(/^\/[a-z]{2}(-[A-Z]{2})?(?=\/|$)/, "") || "/";
- const isActive = (href) =>
- cleanPath === href || (href !== "/" && cleanPath.startsWith(href));
+  const pathname = usePathname();
+  const [currentDivision, setCurrentDivision] = useState("");
+
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      const params = new URLSearchParams(window.location.search);
+      setCurrentDivision(params.get("division") || "");
+    }
+  }, [pathname]);
+
+  const cleanPath = pathname.replace(/^\/[a-z]{2}(-[A-Z]{2})?(?=\/|$)/, "") || "/";
+  const isActive = (href) =>
+    cleanPath === href || (href !== "/" && cleanPath.startsWith(href));
+  const isBranchesRoute = cleanPath.startsWith("/branches");
+  const isAllCampusesActive = isBranchesRoute && !currentDivision;
 
  // Filter out the flat service/about links (those are in the accordions below)
  // Also filter out success-stories and contact to prevent duplicates since they reside in the About accordion
@@ -176,48 +187,61 @@ export default function MobileMenu({ links, session, branchDivisions, onClose })
  ))}
  </MobileAccordion>
 
- {/* Branches accordion */}
- <MobileAccordion label="Branches" isActiveAccordion={isActive("/branches")}>
-  <li>
-  <Link
-   href="/branches"
-   onClick={onClose}
-   className="flex items-center min-h-[44px] px-3 py-1.5 text-xs font-black text-brand-pink uppercase tracking-widest"
-  >
-   All Campuses →
-  </Link>
-  </li>
-  {divisionsList
-                .filter((d) => d.division !== 'All')
-                .map((d) => {
-                  const href = `/branches?division=${d.division}`;
-                  const isItemActive = pathname.includes(`division=${d.division}`);
-                  return (
-                    <li key={d.division}>
-                      <Link
-                        href={href}
-                        onClick={onClose}
-                        className={`flex items-center justify-between min-h-[40px] px-3 py-1.5 text-sm transition-colors ${
-                          isItemActive
-                            ? "text-brand-green font-semibold bg-brand-green/5"
-                            : "text-slate-600 hover:text-brand-green hover:bg-brand-green/5"
-                        }`}
-                      >
-                        <span>{d.name || d.division}</span>
-                        <span
-                          className={`text-[10px] font-semibold px-1.5 py-0.5 rounded ${
-                            d.count > 0
-                              ? "bg-slate-100 text-slate-600"
-                              : "text-amber-700 bg-amber-50"
-                          }`}
-                        >
-                          {d.count > 0 ? d.count : 'Soon'}
-                        </span>
-                      </Link>
-                    </li>
-                  );
-                })}
- </MobileAccordion>
+  {/* Branches accordion */}
+  <MobileAccordion label="Branches" isActiveAccordion={isActive("/branches")}>
+   <li>
+   <Link
+    href="/branches"
+    onClick={onClose}
+    className={`flex items-center justify-between min-h-[44px] px-3 py-1.5 text-xs font-black uppercase tracking-wider rounded-lg transition-colors ${
+      isAllCampusesActive
+        ? "text-blue-700 bg-blue-50 font-black border-l-2 border-blue-600 pl-4"
+        : "text-brand-pink hover:bg-slate-50"
+    }`}
+   >
+    <span>All Campuses →</span>
+   </Link>
+   </li>
+   {divisionsList
+                 .filter((d) => d.division !== 'All')
+                 .map((d) => {
+                   const href = `/branches?division=${encodeURIComponent(d.division)}`;
+                   const isItemActive =
+                     isBranchesRoute &&
+                     currentDivision.trim().toLowerCase() === d.division.trim().toLowerCase();
+                   return (
+                     <li key={d.division}>
+                       <Link
+                         href={href}
+                         onClick={onClose}
+                         className={`flex items-center justify-between min-h-[40px] px-3 py-1.5 text-sm rounded-lg transition-colors ${
+                           isItemActive
+                             ? "text-blue-700 font-bold bg-blue-50/90 border-l-2 border-blue-600 pl-4"
+                             : "text-slate-600 hover:text-brand-green hover:bg-brand-green/5"
+                         }`}
+                       >
+                         <span className="flex items-center gap-2">
+                           {isItemActive && (
+                             <span className="w-1.5 h-1.5 rounded-full bg-blue-600 shrink-0 animate-pulse" />
+                           )}
+                           <span>{d.name || d.division}</span>
+                         </span>
+                         <span
+                           className={`text-[10px] font-semibold px-1.5 py-0.5 rounded ${
+                             isItemActive
+                               ? "bg-blue-600 text-white font-bold"
+                               : d.count > 0
+                                 ? "bg-slate-100 text-slate-600"
+                                 : "text-amber-700 bg-amber-50"
+                           }`}
+                         >
+                           {d.count > 0 ? d.count : 'Soon'}
+                         </span>
+                       </Link>
+                     </li>
+                   );
+                 })}
+  </MobileAccordion>
 
  </ul>
 
