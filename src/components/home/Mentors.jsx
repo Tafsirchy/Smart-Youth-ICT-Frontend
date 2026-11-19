@@ -22,7 +22,7 @@ const PortraitMentorCard = ({ mentor, onOpenProfile }) => {
                         fill
                         sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
                         loading="lazy"
-                        className="object-cover transition-transform duration-700 group-hover:scale-105 filter grayscale group-hover:grayscale-0 rounded-md"
+                        className="object-cover transition-transform duration-700 group-hover:scale-105 rounded-md"
                         onError={(e) => { e.target.srcset = ''; e.target.src = '/images/placeholder.png'; }}
                     />
                     {mentor.badge && (
@@ -112,7 +112,7 @@ export default function Mentors() {
                         <span className="inline-block text-brand-pink text-[10px] sm:text-xs font-black uppercase tracking-[0.3em] mb-2 sm:mb-3">
                             Expert Mentors
                         </span>
-                        <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-black text-slate-900 leading-[1.1] tracking-tighter">
+                        <h2 className="text-2xl sm:text-3xl md:text-4xl font-black text-slate-900 leading-[1.15] tracking-tight">
                             Learn from the <br className="hidden sm:block" /> Best in Industry.
                         </h2>
                     </motion.div>
