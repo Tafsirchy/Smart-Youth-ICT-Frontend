@@ -5,7 +5,7 @@ import {
   HiGlobeAlt, HiBriefcase, HiLightningBolt, HiSparkles,
   HiChatAlt2, HiPuzzle, HiServer, HiShieldCheck, HiUserAdd,
   HiDesktopComputer, HiReceiptTax, HiCalendar, HiIdentification,
-  HiTag, HiSpeakerphone, HiArchive
+  HiTag, HiSpeakerphone, HiArchive, HiViewGrid, HiCode
 } from 'react-icons/hi';
 
 /**
@@ -74,8 +74,17 @@ export const NAVIGATION_CONFIG = {
     { href: '/notifications',     Icon: HiBell,         label: 'Notifications Hub' },
   ],
 
+  home_cms: [
+    { href: '/super/cms/homepage-showcases', Icon: HiSparkles, label: 'Showcases Hub' },
+    { href: '/super/cms/homepage-showcases/erp', Icon: HiViewGrid, label: 'ERP Software Suite' },
+    { href: '/super/cms/homepage-showcases/tech-stack', Icon: HiCode, label: 'Languages & Tech' },
+    { href: '/super/cms/homepage-showcases/brands', Icon: HiBadgeCheck, label: 'Trusted Brands' },
+    { href: '/super/cms/homepage-showcases/seminar', Icon: HiAcademicCap, label: 'Seminar Strip' },
+    { href: '/super/cms/testimonials', Icon: HiAnnotation, label: 'Testimonials' },
+    { href: '/super/cms/mentors', Icon: HiUsers, label: 'Featured Mentors' },
+  ],
+
   about_cms: [
-    { href: '/super/cms/homepage-showcases', Icon: HiSparkles,     label: 'Homepage Showcases' },
     { href: '/super/cms/courses-hero',    Icon: HiCollection,   label: 'Courses Hero' },
     { href: '/super/cms/team',            Icon: HiUsers,        label: 'Core Management' },
     { href: '/super/cms/advisory',        Icon: HiUserGroup,    label: 'Advisory Board' },
