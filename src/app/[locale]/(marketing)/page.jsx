@@ -5,7 +5,8 @@ import TrustedBrandsStrip from "@/components/home/TrustedBrandsStrip";
 import UpcomingSeminarStrip from "@/components/home/UpcomingSeminarStrip";
 import WhyChooseUs from "@/components/home/WhyChooseUs";
 import PopularCourses from "@/components/home/PopularCourses";
-import HowItWorks from "@/components/home/HowItWorks";
+import CampusNetworkSection from "@/components/home/CampusNetworkSection";
+import ERPImplementationProcess from "@/components/home/ERPImplementationProcess";
 import Mentors from "@/components/home/Mentors";
 import Testimonials from "@/components/home/Testimonials";
 import BlogPreview from "@/components/home/BlogPreview";
@@ -27,7 +28,8 @@ export default function HomePage() {
       <UpcomingSeminarStrip />
       <WhyChooseUs />
       <PopularCourses />
-      <HowItWorks />
+      <CampusNetworkSection />
+      <ERPImplementationProcess />
       <Mentors />
       <Testimonials />
       <BlogPreview />
